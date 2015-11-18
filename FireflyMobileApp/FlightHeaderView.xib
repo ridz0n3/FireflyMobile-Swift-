@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Lmc-R2-biq" customClass="ChangeFlightHeaderView" customModule="FireflyMobileApp">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nrt-9N-FnR">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MXU-29-jTR">
+                            <rect key="frame" x="180" y="8" width="240" height="24"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GOING FLIGHT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jOg-Eh-3d7">
+                                    <rect key="frame" x="60" y="1" width="172" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="172" id="K3n-9K-CuR"/>
+                                        <constraint firstAttribute="height" constant="21" id="WCp-rM-vtd"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DEU-aE-ycP" customClass="M13Checkbox">
+                                    <rect key="frame" x="28" y="0.0" width="24" height="24"/>
+                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="24" id="6VK-3f-1SA"/>
+                                        <constraint firstAttribute="width" constant="24" id="gLd-xP-hPd"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstItem="DEU-aE-ycP" firstAttribute="top" secondItem="MXU-29-jTR" secondAttribute="top" id="09S-hN-IKO"/>
+                                <constraint firstItem="DEU-aE-ycP" firstAttribute="leading" secondItem="MXU-29-jTR" secondAttribute="leading" constant="28" id="5BN-WA-a5o"/>
+                                <constraint firstAttribute="bottom" secondItem="jOg-Eh-3d7" secondAttribute="bottom" constant="2" id="BLs-bI-2X1"/>
+                                <constraint firstItem="jOg-Eh-3d7" firstAttribute="leading" secondItem="DEU-aE-ycP" secondAttribute="trailing" constant="8" id="WT4-ex-M4B"/>
+                                <constraint firstAttribute="height" constant="24" id="cXS-CN-6Sm"/>
+                                <constraint firstItem="jOg-Eh-3d7" firstAttribute="top" secondItem="MXU-29-jTR" secondAttribute="top" constant="1" id="foj-oL-g6I"/>
+                                <constraint firstAttribute="width" constant="240" id="ox6-1K-z4J"/>
+                                <constraint firstAttribute="trailing" secondItem="jOg-Eh-3d7" secondAttribute="trailing" constant="8" id="pXA-C1-5Qh"/>
+                                <constraint firstAttribute="bottom" secondItem="DEU-aE-ycP" secondAttribute="bottom" id="zei-g9-eSr"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="MXU-29-jTR" firstAttribute="top" secondItem="Nrt-9N-FnR" secondAttribute="top" constant="8" id="7pd-ew-mJx"/>
+                        <constraint firstItem="MXU-29-jTR" firstAttribute="centerX" secondItem="Nrt-9N-FnR" secondAttribute="centerX" id="W2L-oc-VXJ"/>
+                        <constraint firstAttribute="height" constant="40" id="pfp-Ia-bLf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Nrt-9N-FnR" firstAttribute="top" secondItem="Lmc-R2-biq" secondAttribute="top" id="45O-C3-8gZ"/>
+                <constraint firstAttribute="trailing" secondItem="Nrt-9N-FnR" secondAttribute="trailing" id="QXu-If-T1W"/>
+                <constraint firstItem="Nrt-9N-FnR" firstAttribute="centerX" secondItem="Lmc-R2-biq" secondAttribute="centerX" id="V2C-4j-583"/>
+                <constraint firstItem="Nrt-9N-FnR" firstAttribute="leading" secondItem="Lmc-R2-biq" secondAttribute="leading" id="a9S-iN-whK"/>
+            </constraints>
+            <connections>
+                <outlet property="wayLbl" destination="jOg-Eh-3d7" id="tk7-YL-Qjh"/>
+            </connections>
+        </view>
+    </objects>
+</document>
