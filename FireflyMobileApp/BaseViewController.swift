@@ -8,9 +8,10 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, MBProgressHUDDelegate {
 
     @IBOutlet weak var borderView: UIView!
+    var HUD : MBProgressHUD = MBProgressHUD()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +78,16 @@ class BaseViewController: UIViewController {
     
     func backButtonPressed(sender: UIBarButtonItem){
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func showHud(){
+        HUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        HUD.mode = MBProgressHUDMode.Indeterminate
+        HUD.labelText = "Loading"
+    }
+    
+    func hideHud(){
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
     }
     /*
     // MARK: - Navigation

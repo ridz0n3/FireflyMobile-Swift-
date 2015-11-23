@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        load()
         UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         UINavigationBar.appearance().translucent = false
         // Override point for customization after application launch.
@@ -37,6 +38,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
 
         return true
+    }
+    
+    func load(){
+        
+        let request = WSDLNetworkManager()
+        let parameters:[String:AnyObject] = [
+            "signature": "",
+            "username": "",
+            "password": "",
+            "sdkVersion": "",
+            "version": "",
+            "deviceId": "",
+            "brand": "",
+            "model": "",
+            "dataVersion": "",
+        ]
+        
+        request.sharedClient().createRequestWithService("Loading", withParams: parameters) { (result) -> Void in
+            let title = result["dataTitle"] as! NSArray
+            let flight = result["dataMarket"] as! NSArray
+            let country = result["dataCountry"] as! NSArray
+            
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            defaults.setObject(title, forKey: "title")
+            defaults.setObject(flight, forKey: "flight")
+            defaults.setObject(country, forKey: "country")
+            
+            defaults.synchronize()
+        }
+        
     }
 
     func applicationWillResignActive(application: UIApplication) {

@@ -10,8 +10,10 @@ import UIKit
 
 var isValidate: Bool = false
 
-class BaseXLFormViewController: XLFormViewController {
+class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
 
+    var HUD : MBProgressHUD = MBProgressHUD()
+    
     internal struct Tags {
         static let ValidationUsername = "Username"
         static let ValidationPassword = "Password"
@@ -29,6 +31,11 @@ class BaseXLFormViewController: XLFormViewController {
         static let ValidationMobileHome = "Mobile/Home"
         static let ValidationAlternate = "Alternate"
         static let ValidationFax = "Fax"
+        static let ValidationEmail = "Email"
+        static let Button1 = "firstLvl"
+        static let Button2 = "secondLvl"
+        static let Button3 = "thirdLvl"
+        static let hide1 = "hide1"
     }
 
     
@@ -134,6 +141,16 @@ class BaseXLFormViewController: XLFormViewController {
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         animation.additive = true
         cell.layer.addAnimation(animation, forKey: "shake")
+    }
+    
+    func showHud(){
+        HUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        HUD.mode = MBProgressHUDMode.Indeterminate
+        HUD.labelText = "Loading"
+    }
+    
+    func hideHud(){
+        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
     }
     /*
     // MARK: - Navigation

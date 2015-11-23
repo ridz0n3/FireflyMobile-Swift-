@@ -11,5 +11,7 @@
 
 #import "MFSideMenu.h"
 #import "XLForm.h"
+#import "MBProgressHUD.h"
+
 
 #endif /* ObjC_Header_h */

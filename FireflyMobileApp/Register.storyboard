@@ -39,6 +39,21 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FbI-Fr-Oor">
                                                 <rect key="frame" x="8" y="109" width="584" height="555"/>
                                                 <subviews>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07S-1f-fAp">
+                                                        <rect key="frame" x="21" y="499" width="542" height="36"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="542" id="mWY-Ro-tRP"/>
+                                                            <constraint firstAttribute="height" constant="36" id="nzg-LY-274"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                        <state key="normal" title="Continue" backgroundImage="loginBtn">
+                                                            <color key="titleColor" red="0.99215692280000001" green="0.99607849120000003" blue="0.99607849120000003" alpha="1" colorSpace="deviceRGB"/>
+                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="continueButtonPressed:" destination="B0v-sj-baw" eventType="touchUpInside" id="7bR-6P-nhb"/>
+                                                        </connections>
+                                                    </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KKq-yH-piR">
                                                         <rect key="frame" x="8" y="8" width="568" height="40"/>
                                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -59,28 +74,13 @@
                                                         </constraints>
                                                         <sections/>
                                                     </tableView>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="registerLvl1" translatesAutoresizingMaskIntoConstraints="NO" id="YTt-mL-xUD">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YTt-mL-xUD">
                                                         <rect key="frame" x="8" y="51" width="568" height="35"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="35" id="fbQ-WV-lN5"/>
                                                             <constraint firstAttribute="width" constant="568" id="heB-8K-pyj"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="07S-1f-fAp">
-                                                        <rect key="frame" x="21" y="499" width="542" height="36"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="542" id="mWY-Ro-tRP"/>
-                                                            <constraint firstAttribute="height" constant="36" id="nzg-LY-274"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" title="Continue" backgroundImage="loginBtn">
-                                                            <color key="titleColor" red="0.99215692280000001" green="0.99607849120000003" blue="0.99607849120000003" alpha="1" colorSpace="deviceRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="continueButtonPressed:" destination="B0v-sj-baw" eventType="touchUpInside" id="7bR-6P-nhb"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
@@ -136,6 +136,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="07S-1f-fAp" id="oYW-1a-xVx"/>
+                        <outlet property="lvlHeaderImg" destination="YTt-mL-xUD" id="W0Y-OP-3NL"/>
+                        <outlet property="personalView" destination="FbI-Fr-Oor" id="QH7-PZ-bmM"/>
                         <outlet property="tableView" destination="3so-Rd-QUx" id="XCX-pt-VJv"/>
                     </connections>
                 </viewController>
@@ -424,7 +427,6 @@
     <resources>
         <image name="loginBtn" width="371" height="57"/>
         <image name="logo" width="600" height="240"/>
-        <image name="registerLvl1" width="683" height="59"/>
         <image name="registerLvl2" width="683" height="59"/>
         <image name="registerLvl3" width="683" height="59"/>
         <image name="tempHeader" width="750" height="194"/>

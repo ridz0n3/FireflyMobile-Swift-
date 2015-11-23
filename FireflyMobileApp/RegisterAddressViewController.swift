@@ -61,13 +61,17 @@ class RegisterAddressViewController: BaseXLFormViewController {
         
         // Country
         row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Country")
-        row.selectorOptions = [XLFormOptionsObject(value: 0, displayText: "Option 1"),
-        XLFormOptionsObject(value: 1, displayText:"Option 2"),
-        XLFormOptionsObject(value: 2, displayText:"Option 3"),
-        XLFormOptionsObject(value: 3, displayText:"Option 4"),
-        XLFormOptionsObject(value: 4, displayText:"Option 5")
-        ]
-        row.value = XLFormOptionsObject(value: 0, displayText:"Option 1")
+        
+        var tempArray:[AnyObject] = [AnyObject]()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let countryArray = defaults.objectForKey("country") as! NSMutableArray
+        
+        for country in countryArray{
+            tempArray.append(XLFormOptionsObject(value: country["countrycode"], displayText: country["countryname"] as! String))
+        }
+        
+        row.selectorOptions = tempArray
+        row.value = tempArray[0]
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.required = true
         section.addFormRow(row)
