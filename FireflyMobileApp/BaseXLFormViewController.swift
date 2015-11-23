@@ -15,7 +15,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     var HUD : MBProgressHUD = MBProgressHUD()
     
     internal struct Tags {
-        static let ValidationUsername = "Username"
+        static let ValidationUsername = "Email"
         static let ValidationPassword = "Password"
         static let ValidationConfirmPassword = "Confirm Password"
         static let ValidationTitle = "Title"
@@ -120,12 +120,23 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
                 let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
                 
                 let msg = String(format: "%@ %@", validationStatus.rowDescriptor!.tag!, validationStatus.msg)
-                let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                 
-                cell.textField?.attributedPlaceholder = textFieldAttrib
-                
+                if validationStatus.msg == " can't be empty"{
+                    
+                    let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                    cell.textField?.attributedPlaceholder = textFieldAttrib
+                    
+                }else{
+                    
+                    cell.backgroundColor = .orangeColor()
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        cell.backgroundColor = .whiteColor()
+                    })
+                    
+                    self.showToastMessage(validationStatus.msg)
+                    
+                }
                 self.animateCell(cell)
-                
             }
         }else{
             isValidate = true
@@ -152,6 +163,16 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     func hideHud(){
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
     }
+    
+    func showToastMessage(message:String){
+        HUD = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
+        HUD.yOffset = -280
+        HUD.mode = MBProgressHUDMode.Text
+        HUD.detailsLabelText = message
+        HUD.removeFromSuperViewOnHide = true
+        HUD.hide(true, afterDelay: 3)
+    }
+    
     /*
     // MARK: - Navigation
 

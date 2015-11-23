@@ -59,12 +59,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let title = result["dataTitle"] as! NSArray
             let flight = result["dataMarket"] as! NSArray
             let country = result["dataCountry"] as! NSArray
+            let state = result["dataState"] as! NSArray
             
             let defaults = NSUserDefaults.standardUserDefaults()
             
             defaults.setObject(title, forKey: "title")
             defaults.setObject(flight, forKey: "flight")
             defaults.setObject(country, forKey: "country")
+            defaults.setObject(state, forKey: "state")
             
             defaults.synchronize()
         }

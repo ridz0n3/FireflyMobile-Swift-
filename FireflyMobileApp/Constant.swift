@@ -8,8 +8,16 @@
 
 import UIKit
 
-let kBaseURL = "http://fyapidev.me-tech.com.my/"
+let kBaseURL = "http://fyapidev.me-tech.com.my/api/"
 
 class Constant: NSObject {
     
+}
+
+func emptyIfNull(foo : String) -> String{
+    if foo.isEmpty{
+        return ""
+    }else{
+        return foo
+    }
 }

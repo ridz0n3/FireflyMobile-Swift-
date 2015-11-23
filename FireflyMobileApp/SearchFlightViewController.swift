@@ -80,6 +80,10 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
 
         
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print(indexPath.row)
+    }
 
     func btnClick(sender : UIButton){
         

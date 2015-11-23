@@ -41,11 +41,11 @@ class CustomSearchFlightTableViewCell: UITableViewCell {
         }else if plus.tag == 4 {
             var count: Int? = Int(self.childrenCount.text!)
             count = count! + 1
-            self.adultCount.text = String(format: "%i", count!)
+            self.childrenCount.text = String(format: "%i", count!)
         }else if plus.tag == 6 {
             var count: Int? = Int(self.infantCount.text!)
             count = count! + 1
-            self.adultCount.text = String(format: "%i", count!)
+            self.infantCount.text = String(format: "%i", count!)
         }
 
     }
