@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import XLForm
+import MBProgressHUD
 var isValidate: Bool = false
 
 class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {

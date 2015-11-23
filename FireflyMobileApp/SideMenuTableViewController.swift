@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MFSideMenu
 
 class SideMenuTableViewController: UITableViewController {
 

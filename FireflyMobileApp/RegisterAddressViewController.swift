@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import XLForm
 class RegisterAddressViewController: BaseXLFormViewController {
 
     override func viewDidLoad() {

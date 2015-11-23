@@ -140,7 +140,6 @@
 		7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassViewController.swift; sourceTree = "<group>"; };
 		7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
-		7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjC-Header.h"; sourceTree = "<group>"; };
 		7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseXLFormViewController.swift; sourceTree = "<group>"; };
 		7E7E45C11BFC4A30002EB3E0 /* RegisterAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterAddressViewController.swift; sourceTree = "<group>"; };
 		7E7E45C31BFC5439002EB3E0 /* RegisterContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterContactViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +150,7 @@
 		7EBCD6A51BFAC9FB0043F28C /* ChooseSeatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseSeatViewController.swift; sourceTree = "<group>"; };
 		7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomChooseSeatTableViewCell.swift; sourceTree = "<group>"; };
 		86B59F03D2AABF55D7291F46 /* Pods-FireflyMobileApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.release.xcconfig"; sourceTree = "<group>"; };
+		96F0BB641C03044B0029F943 /* ObjC-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ObjC-Header.h"; sourceTree = "<group>"; };
 		FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireflyMobileApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -291,9 +291,9 @@
 		7E1F78231BF9BE8C00F55C46 /* Support File */ = {
 			isa = PBXGroup;
 			children = (
+				96F0BB641C03044B0029F943 /* ObjC-Header.h */,
 				7E1F77E81BF96E6C00F55C46 /* Info.plist */,
 				7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */,
-				7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */,
 				7E290E841BFEB3D8004E50F3 /* Constant.swift */,
 			);
 			name = "Support File";
@@ -778,7 +778,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/me-techmacprouser2/iOSProject/FireflyMobileSwift/FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -793,7 +793,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/me-techmacprouser2/iOSProject/FireflyMobileSwift/FireflyMobileApp/ObjC-Header.h";
 			};
 			name = Release;
 		};

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MBProgressHUD
 class BaseViewController: UIViewController, MBProgressHUDDelegate {
 
     @IBOutlet weak var borderView: UIView!
