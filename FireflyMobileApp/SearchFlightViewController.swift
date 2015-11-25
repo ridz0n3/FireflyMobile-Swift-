@@ -243,7 +243,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 let parameters:[String:AnyObject] = [
                     "type" : type,
                     "departure_station" : location[departureSelected]["location_code"]!,
-                    "arrival_station": travel[arrivalSelected]["travellocation_code"]!,
+                    "arrival_station": travel[arrivalSelected]["travel_location_code"]!,
                     "departure_date": departureDateLbl,
                     "return_date": arrivalDateLbl,
                     "adult": cell2.adultCount.text!,

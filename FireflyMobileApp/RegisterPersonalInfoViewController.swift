@@ -343,11 +343,16 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                     showHud()
                     manager.sharedClient().createRequestWithService("Register", withParams: parameters, completion: { (result) -> Void in
                         self.hideHud()
-                        self.showToastMessage(result["status"] as! String)
                         
-                        let storyBoard = UIStoryboard(name: "Login", bundle: nil)
-                        let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
-                        self.navigationController!.pushViewController(loginVC, animated: true)
+                        if result["status"] as! String == "success"{
+                            self.showToastMessage(result["status"] as! String)
+                            
+                            let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+                            let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
+                            self.navigationController!.pushViewController(loginVC, animated: true)
+                        }else{
+                            self.showToastMessage(result["status"] as! String)
+                        }
                         
                     })
                 }
