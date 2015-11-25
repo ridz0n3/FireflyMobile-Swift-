@@ -57,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ]
         
         request.sharedClient().createRequestWithService("Loading", withParams: parameters) { (result) -> Void in
+            if result.isKindOfClass(NSDictionary){
             let title = result["dataTitle"] as! NSArray
             let flight = result["dataMarket"] as! NSArray
             let country = result["dataCountry"] as! NSArray
@@ -68,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             defaults.setObject(country, forKey: "country")
             
             defaults.synchronize()
+            }
         }
         
     }

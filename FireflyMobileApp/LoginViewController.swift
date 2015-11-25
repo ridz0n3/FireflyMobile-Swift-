@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import XLForm
+
 class LoginViewController: BaseXLFormViewController {
 
     override func viewDidLoad() {
@@ -73,19 +74,44 @@ class LoginViewController: BaseXLFormViewController {
         validateForm()
         
         if isValidate{
-            let parameters:[String:AnyObject] = [
-                "username": self.formValues()["Email"]!,
-                "password": self.formValues()["Password"]!,
-            ]
+            //let parameters:[String:AnyObject] = [
+              //  "username": self.formValues()["Email"]!,
+               // "password": self.formValues()["Password"]!,
+           // ]
             
-            let test = WSDLNetworkManager()
+            let username: String = self.formValues()["Email"]! as! String
+            let password: String = self.formValues()["Password"]! as! String
             showHud()
-            test.sharedClient().createRequestWithService("Login", withParams: parameters, completion: { (result) -> Void in
+            
+            FireFlyProvider.request(.Login(username, password), completion: { (data, statusCode, response, error) -> () in
+                var success = error == nil
+                self.hideHud()
+                if let data = data {
+                    do {
+                        let json: AnyObject? = try NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers)
+                        if let json = json as? NSArray {
+                            // Presumably, you'd parse the JSON into a model object. This is just a demo, so we'll keep it as-is.
+                            print(json)
+                        } else if let json = json as? NSDictionary{
+                            print(json)
+                        }
+                    } catch {
+                        success = false
+                    }
+                }
+                
+            })
+          /*  FireFlyProvider.request(.Login("test", "test"), completion: { (data, statusCode, response, error) -> () in
+                var success = error == nil
+                self.hideHud()
+                print(result)
+            })*/
+            /*test.sharedClient().createRequestWithService("Login", withParams: parameters, completion: { (result) -> Void in
                 
                 self.hideHud()
                 print(result)
                 
-            })
+            })*/
             
         }
         

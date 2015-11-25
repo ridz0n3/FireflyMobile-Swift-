@@ -4,6 +4,11 @@ PODS:
   - M13Checkbox (1.1.2)
   - MBProgressHUD (0.9.1)
   - MFSideMenu (0.5.5)
+  - Moya (4.5.0):
+    - Moya/Core (= 4.5.0)
+  - Moya/Core (4.5.0):
+    - Alamofire (~> 3.0)
+  - SwiftyJSON (2.3.1)
   - TPKeyboardAvoiding (1.2.10)
   - XLForm (3.0.2)
 
@@ -13,6 +18,8 @@ DEPENDENCIES:
   - M13Checkbox (~> 1.1)
   - MBProgressHUD (~> 0.9)
   - MFSideMenu (~> 0.5)
+  - Moya (~> 4.5)
+  - SwiftyJSON (~> 2.3)
   - TPKeyboardAvoiding (~> 1.2.3)
   - XLForm (~> 3.0)
 
@@ -22,6 +29,8 @@ SPEC CHECKSUMS:
   M13Checkbox: 0c0bb08dcd144c4ea33f883b68270f3f56908ea2
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MFSideMenu: 268122e6894f2747fc3a2b48578100b232506c60
+  Moya: 82813e5bf27564535cd9cdf4e9db61fd220f7f8e
+  SwiftyJSON: 592b53bee5ef3dd9b3bebc6b9cb7ee35426ae8c3
   TPKeyboardAvoiding: 614ebec846ec28b83d548769297fa5fb56468904
   XLForm: 7817ce29f3f259186e837bb7309ac7e5b7e9b883
 

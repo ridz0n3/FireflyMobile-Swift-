@@ -24,7 +24,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Moya.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-FireflyMobileApp.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -47,7 +57,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1504F88442C000B3DE3A5AF9CDF37288</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>26ED6909685FDC5EF3C40AAD79E798D6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>432ECC54282C84882B482CCB4CF227FC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8C4E1350E2A3FC82E8CF578053BF99BD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8F6A589EBC9549FCF94C23903C63330E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,22 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DDD8EFDCA8142D6AE907B75B6E75D31C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E3267FBC5C30F87C79F733D04314B8AE</key>
+		<key>CD41A356F9B8D843DBC19050AA8462F2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FD2D15CD95E0DFAEAA0D0BF0DBE6F22A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
