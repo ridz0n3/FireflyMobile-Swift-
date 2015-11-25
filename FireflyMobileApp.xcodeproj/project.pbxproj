@@ -462,6 +462,7 @@
 				TargetAttributes = {
 					7E1F77D81BF96E6C00F55C46 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 6S847MQDY3;
 					};
 					7E1F77EC1BF96E6C00F55C46 = {
 						CreatedOnToolsVersion = 7.1;
@@ -766,11 +767,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
+				PROVISIONING_PROFILE = "c6469f8c-5656-4bb3-9da5-5f998d7908fc";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -781,11 +784,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
+				PROVISIONING_PROFILE = "c6469f8c-5656-4bb3-9da5-5f998d7908fc";
+				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
 			};
 			name = Release;
 		};

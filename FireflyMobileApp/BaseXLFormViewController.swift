@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import MBProgressHUD
+import XLForm
 
 var isValidate: Bool = false
 
@@ -130,7 +132,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
                     
                     cell.backgroundColor = .orangeColor()
                     UIView.animateWithDuration(0.3, animations: { () -> Void in
-                        cell.backgroundColor = .whiteColor()
+                        cell.backgroundColor = UIColor(patternImage: UIImage(named: "txtField")!)
                     })
                     
                     self.showToastMessage(validationStatus.msg)
@@ -166,11 +168,19 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     
     func showToastMessage(message:String){
         HUD = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
-        HUD.yOffset = -280
+        HUD.yOffset = 0
         HUD.mode = MBProgressHUDMode.Text
         HUD.detailsLabelText = message
         HUD.removeFromSuperViewOnHide = true
         HUD.hide(true, afterDelay: 3)
+    }
+    
+    func formatDate(date:NSDate) -> String{
+        
+        let formater = NSDateFormatter()
+        formater.dateFormat = "yyyy-MM-dd"
+        return formater.stringFromDate(date)
+        
     }
     
     /*

@@ -13,6 +13,7 @@ class CustomHomeMenuTableViewCell: UITableViewCell {
     @IBOutlet weak var menuIcon: UIImageView!
     @IBOutlet weak var menuLbl: UILabel!
     @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var banner: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

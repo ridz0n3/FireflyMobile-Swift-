@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MFSideMenu
 
 class SideMenuTableViewController: UITableViewController {
 
@@ -113,9 +114,8 @@ class SideMenuTableViewController: UITableViewController {
             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
         }
 
-        
-        //self.menuContainerViewController.setMenuState(, completion: nil)
     }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

@@ -9,9 +9,9 @@
 #ifndef ObjC_Header_h
 #define ObjC_Header_h
 
-#import "MFSideMenu.h"
-#import "XLForm.h"
-#import "MBProgressHUD.h"
+#import <MFSideMenu/MFSideMenu.h>
+//#import <XLForm/XLForm.h>
+#import <MBProgressHUD/MBProgressHUD.h>
 
 
 #endif /* ObjC_Header_h */

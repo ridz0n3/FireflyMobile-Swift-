@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import XLForm
 
 class LoginViewController: BaseXLFormViewController {
 
@@ -51,6 +52,7 @@ class LoginViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
+        row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         
         // Password
@@ -78,12 +80,21 @@ class LoginViewController: BaseXLFormViewController {
                 "password": self.formValues()["Password"]!,
             ]
             
-            let test = WSDLNetworkManager()
+            let manager = WSDLNetworkManager()
             showHud()
-            test.sharedClient().createRequestWithService("Login", withParams: parameters, completion: { (result) -> Void in
-                
+            
+            manager.sharedClient().createRequestWithService("Login", withParams: parameters, completion: { (result) -> Void in
                 self.hideHud()
-                print(result)
+                
+                if result["status"] as! String == "success"{
+                    self.showToastMessage(result["status"] as! String)
+                    
+                    let storyBoard = UIStoryboard(name: "Home", bundle: nil)
+                    let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+                    self.navigationController!.pushViewController(homeVC, animated: true)
+                }else{
+                    self.showToastMessage(result["message"] as! String)
+                }
                 
             })
             

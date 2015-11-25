@@ -11,7 +11,7 @@ import UIKit
 class CustomFlightDetailTableViewCell: UITableViewCell {
 
     @IBOutlet weak var flightNumber: UILabel!
-    @IBOutlet weak var priceLbl: UIImageView!
+    @IBOutlet weak var priceLbl: UILabel!
     @IBOutlet weak var arrivalTimeLbl: UILabel!
     @IBOutlet weak var arrivalAirportLbl: UILabel!
     @IBOutlet weak var flightIcon: UIImageView!

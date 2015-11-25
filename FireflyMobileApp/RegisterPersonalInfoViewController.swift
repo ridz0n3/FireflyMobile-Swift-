@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import XLForm
 
 class RegisterPersonalInfoViewController: BaseXLFormViewController {
 
@@ -95,10 +96,8 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         var defaults = NSUserDefaults.standardUserDefaults()
         let titleArray = defaults.objectForKey("title") as! NSMutableArray
         
-        tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
-        
         for title in titleArray{
-            tempArray.append(XLFormOptionsObject(value: title["titlecode"], displayText: title["titlename"] as! String))
+            tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
         }
         
         row.selectorOptions = tempArray
@@ -165,7 +164,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         let countryArray = defaults.objectForKey("country") as! NSMutableArray
         
         for country in countryArray{
-            tempArray.append(XLFormOptionsObject(value: country["countrycode"], displayText: country["countryname"] as! String))
+            tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
         }
         
         row.selectorOptions = tempArray
@@ -210,7 +209,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         // Mobile Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeNumber, title:"")
+        row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypePhone, title:"")
         row.cellConfigAtConfigure["textField.placeholder"] = "*Mobile / Home"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
@@ -218,14 +217,14 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         // Alternate
-        row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeNumber, title:"")
+        row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypePhone, title:"")
         row.cellConfigAtConfigure["textField.placeholder"] = "Alternate"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         section.addFormRow(row)
         
         // Fax
-        row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeNumber, title:"")
+        row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypePhone, title:"")
         row.cellConfigAtConfigure["textField.placeholder"] = "Fax"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
@@ -259,7 +258,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             let state = defaults.objectForKey("state") as! NSMutableArray
             
             for stateData in state{
-                if stateData["countrycode"] as! String == (form.formRowWithTag(Tags.ValidationCountry)?.value as! XLFormOptionObject).formValue() as! String{
+                if stateData["country_code"] as! String == (form.formRowWithTag(Tags.ValidationCountry)?.value as! XLFormOptionObject).formValue() as! String{
                     stateArr.append(stateData as! NSDictionary)
                 }
             }
@@ -271,7 +270,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             var tempArray:[AnyObject] = [AnyObject]()
             
             for data in stateArr{
-                tempArray.append(XLFormOptionsObject(value: data["statecode"], displayText: data["statename"] as! String))
+                tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
             }
             
             row.selectorOptions = tempArray
@@ -289,78 +288,71 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         validateForm()
         
-        if (form.formRowWithTag(Tags.ValidationPassword)?.value)! as! String != (form.formRowWithTag(Tags.ValidationConfirmPassword)?.value)! as! String{
+        if isValidate {
             
-            let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
-            let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
-            
-            cell.backgroundColor = .orangeColor()
-            UIView.animateWithDuration(0.3, animations: { () -> Void in
-                cell.backgroundColor = .whiteColor()
-            })
-            
-            animateCell(cell)
-            showToastMessage("Confirm password is incorrect")
-        }else if isValidate {
-            if button.tag == 1{
-                self.lvlHeaderImg.image = UIImage(named: "registerLvl2")
-                form.formRowWithTag(Tags.Button1)?.value = "hide"
-                form.formRowWithTag(Tags.Button2)?.value = "notHide"
-                form.formRowWithTag(Tags.Button3)?.value = "hide"
-                self.continueBtn.tag = 2
-            }else if button.tag == 2{
-                self.lvlHeaderImg.image = UIImage(named: "registerLvl3")
-                form.formRowWithTag(Tags.Button1)?.value = "hide"
-                form.formRowWithTag(Tags.Button2)?.value = "hide"
-                form.formRowWithTag(Tags.Button3)?.value = "notHide"
-                self.continueBtn.tag = 3
-            }else{
+            if (form.formRowWithTag(Tags.ValidationPassword)?.value)! as! String != (form.formRowWithTag(Tags.ValidationConfirmPassword)?.value)! as! String{
                 
-                var parameters:[String:AnyObject] = [String:AnyObject]()
+                let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
+                let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
                 
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationUsername)?.value)!, forKey: "username")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationPassword)?.value)!, forKey: "password")
-                parameters.updateValue(((form.formRowWithTag(Tags.ValidationTitle)?.value)! as! XLFormOptionsObject).valueData(), forKey: "title")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationFirstName)?.value)!, forKey: "first_name")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationLastName)?.value)!, forKey: "last_name")
-                parameters.updateValue(formatDate((form.formRowWithTag(Tags.ValidationDate)?.value)! as! NSDate), forKey: "dob")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationAddressLine1)?.value)!, forKey: "address_1")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationAddressLine2)?.value)!, forKey: "address_2")
-                parameters.updateValue("", forKey: "address_3")
-                parameters.updateValue(((form.formRowWithTag(Tags.ValidationCountry)?.value)! as! XLFormOptionsObject).valueData(), forKey: "country")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationTownCity)?.value)!, forKey: "city")
-                parameters.updateValue(((form.formRowWithTag(Tags.ValidationState)?.value)! as! XLFormOptionsObject).valueData(), forKey: "state")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationPostcode)?.value)!, forKey: "postcode")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationMobileHome)?.value)!, forKey: "mobile_phone")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationAlternate)?.value)!, forKey: "alternate_phone")
-                parameters.updateValue((form.formRowWithTag(Tags.ValidationFax)?.value)!, forKey: "fax")
-                parameters.updateValue("", forKey: "signature")
-                
-                print(parameters)
-                let manager = WSDLNetworkManager()
-                
-                showHud()
-                manager.sharedClient().createRequestWithService("Register", withParams: parameters, completion: { (result) -> Void in
-                    self.hideHud()
-                    print(result)
+                cell.backgroundColor = .orangeColor()
+                UIView.animateWithDuration(0.3, animations: { () -> Void in
+                    cell.backgroundColor = UIColor(patternImage: UIImage(named: "txtField")!)
                 })
                 
-                //print(parameters)
+                animateCell(cell)
+                showToastMessage("Confirm password is incorrect")
+            }else {
+                if button.tag == 1{
+                    self.lvlHeaderImg.image = UIImage(named: "registerLvl2")
+                    form.formRowWithTag(Tags.Button1)?.value = "hide"
+                    form.formRowWithTag(Tags.Button2)?.value = "notHide"
+                    form.formRowWithTag(Tags.Button3)?.value = "hide"
+                    self.continueBtn.tag = 2
+                }else if button.tag == 2{
+                    self.lvlHeaderImg.image = UIImage(named: "registerLvl3")
+                    form.formRowWithTag(Tags.Button1)?.value = "hide"
+                    form.formRowWithTag(Tags.Button2)?.value = "hide"
+                    form.formRowWithTag(Tags.Button3)?.value = "notHide"
+                    self.continueBtn.tag = 3
+                }else{
+                    
+                    var parameters:[String:AnyObject] = [String:AnyObject]()
+                    
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationUsername)?.value)!, forKey: "username")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationPassword)?.value)!, forKey: "password")
+                    
+                    parameters.updateValue(((form.formRowWithTag(Tags.ValidationTitle)?.value)! as! XLFormOptionsObject).valueData(), forKey: "title")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationFirstName)?.value)!, forKey: "first_name")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationLastName)?.value)!, forKey: "last_name")
+                    parameters.updateValue(formatDate((form.formRowWithTag(Tags.ValidationDate)?.value)! as! NSDate), forKey: "dob")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationAddressLine1)?.value)!, forKey: "address_1")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationAddressLine2)?.value)!, forKey: "address_2")
+                    parameters.updateValue("", forKey: "address_3")
+                    parameters.updateValue(((form.formRowWithTag(Tags.ValidationCountry)?.value)! as! XLFormOptionsObject).valueData(), forKey: "country")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationTownCity)?.value)!, forKey: "city")
+                    parameters.updateValue(((form.formRowWithTag(Tags.ValidationState)?.value)! as! XLFormOptionsObject).valueData(), forKey: "state")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationPostcode)?.value)!, forKey: "postcode")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationMobileHome)?.value)!, forKey: "mobile_phone")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationAlternate)?.value)!, forKey: "alternate_phone")
+                    parameters.updateValue((form.formRowWithTag(Tags.ValidationFax)?.value)!, forKey: "fax")
+                    parameters.updateValue("", forKey: "signature")
+                    
+                    let manager = WSDLNetworkManager()
+                    
+                    showHud()
+                    manager.sharedClient().createRequestWithService("Register", withParams: parameters, completion: { (result) -> Void in
+                        self.hideHud()
+                        self.showToastMessage(result["status"] as! String)
+                        
+                        let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+                        let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
+                        self.navigationController!.pushViewController(loginVC, animated: true)
+                        
+                    })
+                }
             }
         }
-        
-        //validateForm()
-        
-        /*if isValidate {
-            
-            
-            
-            let storyBoard = UIStoryboard(name: "Register", bundle: nil)
-            
-            let registerAddressVC = storyBoard.instantiateViewControllerWithIdentifier("RegisterAddressVC") as! RegisterAddressViewController
-            
-            self.navigationController!.pushViewController(registerAddressVC, animated: true)
-        }*/
         
     }
     
@@ -385,23 +377,5 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         }
         
     }
-
-    func formatDate(date:NSDate) -> String{
-        
-        let formater = NSDateFormatter()
-        formater.dateFormat = "yyyy-MM-dd"
-        return formater.stringFromDate(date)
-        
-    }
-    //func createSessionedRequestWithService:(NSString*)serviceName withParams:(NSArray*)params  andBeanName:(NSString*)beanName withReturn:(NSString*)returnString withCompletionHandler:(void (^)(id, id, NSError *))handler {
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

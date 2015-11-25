@@ -8,14 +8,13 @@
 
 import UIKit
 
-class CustomSearchFlightTableViewCell: UITableViewCell {
+class CustomSearchFlightTableViewCell: UITableViewCell, UITextFieldDelegate {
 
     @IBOutlet weak var iconImg: UIImageView!
     @IBOutlet weak var airportLbl: UILabel!
     @IBOutlet weak var lineStyle: UIImageView!
     
     @IBOutlet weak var adultCount: UILabel!
-    @IBOutlet weak var childrenCount: UILabel!
     @IBOutlet weak var infantCount: UILabel!
     
     
@@ -38,10 +37,6 @@ class CustomSearchFlightTableViewCell: UITableViewCell {
             count = count! + 1
             self.adultCount.text = String(format: "%i", count!)
             
-        }else if plus.tag == 4 {
-            var count: Int? = Int(self.childrenCount.text!)
-            count = count! + 1
-            self.childrenCount.text = String(format: "%i", count!)
         }else if plus.tag == 6 {
             var count: Int? = Int(self.infantCount.text!)
             count = count! + 1
@@ -60,12 +55,6 @@ class CustomSearchFlightTableViewCell: UITableViewCell {
             }
             self.adultCount.text = String(format : "%i",count!)
             
-        }else if (minus.tag == 3) {
-            var count: Int? = Int(self.childrenCount.text!)
-            if count != 0 {
-                count = count! - 1;
-            }
-            self.childrenCount.text = String(format : "%i",count!)
         }else if (minus.tag == 5) {
             var count: Int? = Int(self.infantCount.text!)
             if count != 0 {

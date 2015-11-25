@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import MFSideMenu
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let baseView = BaseViewController()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -42,6 +43,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func load(){
         
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var existDataVersion = String()
+        if (defaults.objectForKey("dataVersion") != nil){
+            existDataVersion = defaults.objectForKey("dataVersion") as! String
+        }else{
+            existDataVersion = ""
+        }
+        
         let request = WSDLNetworkManager()
         let parameters:[String:AnyObject] = [
             "signature": "",
@@ -52,25 +61,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "deviceId": "",
             "brand": "",
             "model": "",
-            "dataVersion": "",
+            "dataVersion": existDataVersion,
         ]
         
         request.sharedClient().createRequestWithService("Loading", withParams: parameters) { (result) -> Void in
-            let title = result["dataTitle"] as! NSArray
-            let flight = result["dataMarket"] as! NSArray
-            let country = result["dataCountry"] as! NSArray
-            let state = result["dataState"] as! NSArray
             
-            let defaults = NSUserDefaults.standardUserDefaults()
+            var title = NSArray()
+            var flight = NSArray()
+            var country = NSArray()
+            var state = NSArray()
+            var banner = String()
             
-            defaults.setObject(title, forKey: "title")
-            defaults.setObject(flight, forKey: "flight")
-            defaults.setObject(country, forKey: "country")
-            defaults.setObject(state, forKey: "state")
-            
-            defaults.synchronize()
+
+            if result["status"] as! String  == "success"{
+                
+                let defaults = NSUserDefaults.standardUserDefaults()
+                
+                if (defaults.objectForKey("dataVersion") != nil){
+                    existDataVersion = defaults.objectForKey("dataVersion") as! String
+                }else{
+                    existDataVersion = "0"
+                }
+                
+                let dataVersion = result["data_version"] as! String
+                
+                if existDataVersion != dataVersion{
+                    
+                    title = result["data_title"] as! NSArray
+                    flight = result["data_market"] as! NSArray
+                    country = result["data_country"] as! NSArray
+                    state = result["data_state"] as! NSArray
+                    
+                    defaults.setObject(dataVersion, forKey: "dataVersion")
+                    defaults.setObject(title, forKey: "title")
+                    defaults.setObject(flight, forKey: "flight")
+                    defaults.setObject(country, forKey: "country")
+                    defaults.setObject(state, forKey: "state")
+                    
+                }
+                
+                if result["banner_promo"] as! String == ""{
+                    banner = result["banner_default"] as! String
+                }else{
+                    banner = result["banner_promo"] as! String
+                }
+                
+                defaults.setObject(banner, forKey: "banner")
+                defaults.synchronize()
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("reloadHome", object: nil)
+            }else{
+                
+                print(String(format: "%@ \n%@", result["status"] as! String, result["message"] as! String))
+               //self.baseView.showToastMessage(String(format: "%@ \n%@", result["status"] as! String, result["message"] as! String))
+                
+            }
         }
-        
+
     }
 
     func applicationWillResignActive(application: UIApplication) {
