@@ -11,6 +11,7 @@ import UIKit
 class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var homeMenuTableView: UITableView!
+    
     var menuTitle:[String] = ["","BOOK FLIGHT", "MANAGE FLIGHT", "MOBILE CHECK-IN", "BOARDING PASS",""]
     
     override func viewDidLoad() {
@@ -62,7 +63,11 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             if (defaults.objectForKey("banner") != nil){
                 let url = NSURL(string: defaults.objectForKey("banner") as! String)!
                 let data = NSData(contentsOfURL: url)
-                cell.banner.image = UIImage(data: data!)
+                
+                if (data != nil){
+                    cell.banner.image = UIImage(data: data!)
+                }
+                
             }
             
             return cell
