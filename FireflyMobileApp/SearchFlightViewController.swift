@@ -25,17 +25,21 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     var type : Int = 1
     var validate : Bool = false
     
-    @IBOutlet weak var returnButton: UIButton!
-    @IBOutlet weak var oneWayButton: UIButton!
     @IBOutlet weak var searchFlightTableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let header = NSBundle.mainBundle().loadNibNamed("HeaderView", owner: self, options: nil)[0] as! HeaderView
+        header.lvlImg.image = UIImage(named: "book_flight1")
+        
+        self.searchFlightTableView.tableHeaderView = header
+        
         setupLeftButton()
         getDepartureAirport()
-        returnButton.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
-        oneWayButton.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
+        //returnButton.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
+        //oneWayButton.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
         
         // Do any additional setup after loading the view.
     }
@@ -50,14 +54,16 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
        
-        if indexPath.row == 4 {
-            return 125
-        }else if indexPath.row == 3 && hideRow {
+        if indexPath.row == 0{
+            return 30
+        }else if indexPath.row == 5 {
+            return 104
+        }else if indexPath.row == 4 && hideRow {
             return 0.0
         }else{
             return 50
@@ -67,27 +73,35 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.row == 4 {
+        if indexPath.row == 0{
+            
+            let cell = self.searchFlightTableView.dequeueReusableCellWithIdentifier("ButtonCell", forIndexPath: indexPath) as! CustomSearchFlightTableViewCell
+            
+            cell.returnBtn.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
+            cell.oneWayBtn.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
+            
+            return cell
+        }else if indexPath.row == 5 {
             let cell = self.searchFlightTableView.dequeueReusableCellWithIdentifier("passengerCell", forIndexPath: indexPath) as! CustomSearchFlightTableViewCell
-            return cell;
+            return cell
             
         }else{
             let cell = self.searchFlightTableView.dequeueReusableCellWithIdentifier("airportCell", forIndexPath: indexPath) as! CustomSearchFlightTableViewCell
             
-            if indexPath.row == 0 {
+            if indexPath.row == 1 {
                 
                 cell.iconImg.image = UIImage(named: "departure_icon")
                 cell.airportLbl.text = departure
                 cell.airportLbl.tag = indexPath.row
                 
-            }else if indexPath.row == 1{
+            }else if indexPath.row == 2{
                 
                 cell.iconImg.image = UIImage(named: "arrival_icon")
                 cell.airportLbl.text = arrival
                 cell.airportLbl.tag = indexPath.row
                 cell.lineStyle.image = UIImage(named: "lines")
                 
-            }else if indexPath.row == 2{
+            }else if indexPath.row == 3{
                 
                 cell.iconImg.image = UIImage(named: "date_icon")
                 cell.airportLbl.text = departureDateLbl
@@ -110,12 +124,12 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
 
         let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexPath) as! CustomSearchFlightTableViewCell
         
-        if indexPath.row == 0{
+        if indexPath.row == 1{
             let sender = cell.airportLbl as UILabel
             let picker = ActionSheetStringPicker(title: "", rows: pickerRow, initialSelection: departureSelected, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: sender)
             picker.showActionSheetPicker()
             
-        }else if indexPath.row == 1{
+        }else if indexPath.row == 2{
             
             if pickerTravel.count != 0{
                 let sender = cell.airportLbl as UILabel
@@ -124,7 +138,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 
             }
             
-        }else if indexPath.row == 2{
+        }else if indexPath.row == 3{
             
             let sender = cell.airportLbl as UILabel
             
@@ -132,7 +146,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             datePicker.minimumDate = NSDate()
             datePicker.showActionSheetPicker()
             
-        }else if indexPath.row == 3{
+        }else if indexPath.row == 4{
             
             let sender = cell.airportLbl as UILabel
             
@@ -148,7 +162,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
         let textLbl = element as! UILabel
         
-        if textLbl.tag == 2{
+        if textLbl.tag == 3{
             departureDate = date
             
             departureDateLbl = formatDate(date)
@@ -177,7 +191,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
         let txtLbl = element as! UILabel
         
-        if txtLbl.tag == 0{
+        if txtLbl.tag == 1{
             departureSelected = index.integerValue
             departure = (location[departureSelected]["location"] as? String)!
             txtLbl.text = departure
@@ -200,25 +214,28 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
         let btnPress: UIButton = sender as UIButton
         
+        let indexCell = NSIndexPath.init(forItem: 0, inSection: 0)
+        let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+        
         if btnPress.tag == 1 {
             
             type = 1
-            self.returnButton.userInteractionEnabled = false
-            self.oneWayButton.userInteractionEnabled = true
+            cell.returnBtn.userInteractionEnabled = false
+            cell.oneWayBtn.userInteractionEnabled = true
             
-            self.returnButton.backgroundColor = UIColor.whiteColor()
-            self.oneWayButton.backgroundColor = UIColor.lightGrayColor()
+            cell.returnBtn.backgroundColor = UIColor.whiteColor()
+            cell.oneWayBtn.backgroundColor = UIColor.lightGrayColor()
             arrivalDateLbl = "RETURN DATE"
             self.searchFlightTableView.reloadData()
             hideRow = false;
         }else{
             
             type = 0
-            self.returnButton.userInteractionEnabled = true
-            self.oneWayButton.userInteractionEnabled = false
+            cell.returnBtn.userInteractionEnabled = true
+            cell.oneWayBtn.userInteractionEnabled = false
             
-            self.returnButton.backgroundColor = UIColor.lightGrayColor()
-            self.oneWayButton.backgroundColor = UIColor.whiteColor()
+            cell.returnBtn.backgroundColor = UIColor.lightGrayColor()
+            cell.oneWayBtn.backgroundColor = UIColor.whiteColor()
             arrivalDateLbl = "RETURN DATE"
             self.searchFlightTableView.reloadData()
             hideRow = true;
@@ -231,7 +248,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     
     @IBAction func continueButtonPressed(sender: AnyObject) {
         
-        let indexCell = NSIndexPath.init(forItem: 4, inSection: 0)
+        let indexCell = NSIndexPath.init(forItem: 5, inSection: 0)
         let cell2 = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
         searchFlightValidation()
         if validate == true{
@@ -274,33 +291,33 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     }
     
     func searchFlightValidation(){
-        let indexCell = NSIndexPath.init(forItem: 4, inSection: 0)
+        let indexCell = NSIndexPath.init(forItem: 5, inSection: 0)
         let cell2 = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
         
         var count = Int()
         if arrival == "ARRIVAL AIRPORT"{
-            let indexCell = NSIndexPath.init(forItem: 1, inSection: 0)
-            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
-            animateCell(cell)
-            count++
-        }
-        
-        if departure == "DEPARTURE AIRPORT"{
-            let indexCell = NSIndexPath.init(forItem: 0, inSection: 0)
-            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
-            animateCell(cell)
-            count++
-        }
-        
-        if departureDateLbl == "DEPARTURE DATE"{
             let indexCell = NSIndexPath.init(forItem: 2, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
             count++
         }
         
-        if arrivalDateLbl == "RETURN DATE" && type == 1{
+        if departure == "DEPARTURE AIRPORT"{
+            let indexCell = NSIndexPath.init(forItem: 1, inSection: 0)
+            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+            animateCell(cell)
+            count++
+        }
+        
+        if departureDateLbl == "DEPARTURE DATE"{
             let indexCell = NSIndexPath.init(forItem: 3, inSection: 0)
+            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+            animateCell(cell)
+            count++
+        }
+        
+        if arrivalDateLbl == "RETURN DATE" && type == 1{
+            let indexCell = NSIndexPath.init(forItem: 4, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
             count++

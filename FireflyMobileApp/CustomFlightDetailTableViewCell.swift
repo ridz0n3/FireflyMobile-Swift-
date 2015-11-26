@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import M13Checkbox
 
 class CustomFlightDetailTableViewCell: UITableViewCell {
 
@@ -17,6 +18,7 @@ class CustomFlightDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var flightIcon: UIImageView!
     @IBOutlet weak var departureTimeLbl: UILabel!
     @IBOutlet weak var departureAirportLbl: UILabel!
+    @IBOutlet weak var checkFlight: M13Checkbox!
 
     override func awakeFromNib() {
         super.awakeFromNib()

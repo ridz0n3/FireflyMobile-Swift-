@@ -17,6 +17,8 @@ class CustomSearchFlightTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var adultCount: UILabel!
     @IBOutlet weak var infantCount: UILabel!
     
+    @IBOutlet weak var returnBtn: UIButton!
+    @IBOutlet weak var oneWayBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

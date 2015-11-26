@@ -56,6 +56,8 @@
 		7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */; };
 		7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */; };
 		7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */; };
+		7EA1A6781C06E3C600A9927C /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EA1A6771C06E3C600A9927C /* HeaderView.xib */; };
+		7EA1A67A1C06E47700A9927C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA1A6791C06E47700A9927C /* HeaderView.swift */; };
 		7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB5B2AF1BFC68D00066D311 /* SectionView.xib */; };
 		7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5B2B11BFC68EE0066D311 /* SectionView.swift */; };
 		7EBCD6A21BFAC2960043F28C /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A11BFAC2960043F28C /* PersonalDetailViewController.swift */; };
@@ -140,6 +142,8 @@
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjC-Header.h"; sourceTree = "<group>"; };
 		7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseXLFormViewController.swift; sourceTree = "<group>"; };
+		7EA1A6771C06E3C600A9927C /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		7EA1A6791C06E47700A9927C /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		7EB5B2AF1BFC68D00066D311 /* SectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionView.xib; sourceTree = "<group>"; };
 		7EB5B2B11BFC68EE0066D311 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		7EBCD6A11BFAC2960043F28C /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
@@ -317,6 +321,8 @@
 				7EBCD6A11BFAC2960043F28C /* PersonalDetailViewController.swift */,
 				7EBCD6A51BFAC9FB0043F28C /* ChooseSeatViewController.swift */,
 				7E6930F31BFAD79B004F1719 /* PaymentViewController.swift */,
+				7EA1A6771C06E3C600A9927C /* HeaderView.xib */,
+				7EA1A6791C06E47700A9927C /* HeaderView.swift */,
 			);
 			name = "Book Flight";
 			sourceTree = "<group>";
@@ -505,6 +511,7 @@
 				7E1F77E41BF96E6C00F55C46 /* Assets.xcassets in Resources */,
 				7E1F78311BF9D6A900F55C46 /* BookFlight.storyboard in Resources */,
 				7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */,
+				7EA1A6781C06E3C600A9927C /* HeaderView.xib in Resources */,
 				7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */,
 				7E1F781E1BF9B6AD00F55C46 /* Login.storyboard in Resources */,
 				7E1F780E1BF979B300F55C46 /* Home.storyboard in Resources */,
@@ -600,6 +607,7 @@
 				7E1F78181BF9AC3800F55C46 /* BaseViewController.swift in Sources */,
 				7E69310D1BFB195D004F1719 /* SendItineraryViewController.swift in Sources */,
 				7E6930F41BFAD79B004F1719 /* PaymentViewController.swift in Sources */,
+				7EA1A67A1C06E47700A9927C /* HeaderView.swift in Sources */,
 				7E1F78351BF9D81100F55C46 /* CustomSearchFlightTableViewCell.swift in Sources */,
 				7E69311D1BFB2F38004F1719 /* BoardingPassViewController.swift in Sources */,
 				7E1F78111BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift in Sources */,
