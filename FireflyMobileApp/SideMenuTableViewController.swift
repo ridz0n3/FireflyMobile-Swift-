@@ -11,11 +11,14 @@ import MFSideMenu
 
 class SideMenuTableViewController: UITableViewController {
 
-    var menuSections:[String] = ["Home", "Login", "Register", "About", "FAQ", "Logout"]
+    @IBOutlet var sideMenuTableView: UITableView!
+    var menuSections:[String] = ["Home", "Update Information", "Login", "Register", "About", "FAQ", "Logout"]
+    var hideRow : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshSideMenu:", name: "reloadSideMenu", object: nil)
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -33,6 +36,14 @@ class SideMenuTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (indexPath.row == 1 && hideRow == true) || (indexPath.row == 2 && hideRow == true) || (indexPath.row == 3 && hideRow == true){
+            return 0.0
+        }else {
+            return 44
+        }
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -56,6 +67,7 @@ class SideMenuTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
         return 50
     }
     
@@ -68,9 +80,18 @@ class SideMenuTableViewController: UITableViewController {
         label.textColor = UIColor.whiteColor()
         label.backgroundColor = UIColor.clearColor()
         
-        let string = "FIREFLY" as String
         
-        label.text = string
+        
+        if hideRow == true{
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+            let greetMsg = String(format: "Hi, %@", userInfo["first_name"] as! String)
+            
+            label.text = greetMsg
+        }else{
+            label.text = "FIREFLY"
+        }
+        
         view.addSubview(label)
         view.backgroundColor = UIColor.darkGrayColor()
         
@@ -91,19 +112,25 @@ class SideMenuTableViewController: UITableViewController {
             
         }else if (indexPath.row == 1) {
             
+            let storyboard = UIStoryboard(name: "UpdateInformation", bundle: nil)
+            let updateVC = storyboard.instantiateViewControllerWithIdentifier("UpdateInfoVC")
+            controllers.append(updateVC)
+            
+        }else if (indexPath.row == 2) {
+            
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
             let loginVC = storyboard.instantiateViewControllerWithIdentifier("LoginVC")
             controllers.append(loginVC)
             
-        }else if (indexPath.row == 2) {
+        }else if (indexPath.row == 3) {
             
             let storyboard = UIStoryboard(name: "Register", bundle: nil)
             let registerVC = storyboard.instantiateViewControllerWithIdentifier("RegisterVC")
             controllers.append(registerVC)
             
-        }else if (indexPath.row == 3) {
-            
         }else if (indexPath.row == 4) {
+            
+        }else if (indexPath.row == 5) {
             
         }else{
             
@@ -114,6 +141,11 @@ class SideMenuTableViewController: UITableViewController {
             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
         }
 
+    }
+    
+    func refreshSideMenu(notif:NSNotificationCenter){
+        hideRow = true
+        self.sideMenuTableView.reloadData()
     }
     
     /*

@@ -11,14 +11,13 @@ import XLForm
 
 class RegisterPersonalInfoViewController: BaseXLFormViewController {
 
-    @IBOutlet weak var lvlHeaderImg: UIImageView!
     @IBOutlet weak var personalView: UIView!
     @IBOutlet weak var continueBtn: UIButton!
+    @IBOutlet weak var continueView: UIView!
     
-    var test = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.lvlHeaderImg.image = UIImage(named: "registerLvl1")
+        //self.lvlHeaderImg.image = UIImage(named: "registerLvl1")
         setupLeftButton()
         // Do any additional setup after loading the view.
     }
@@ -44,19 +43,13 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         var section : XLFormSectionDescriptor
         var row : XLFormRowDescriptor
         
-        
         form = XLFormDescriptor(title: "")
         
         // Basic Information - Section
         section = XLFormSectionDescriptor()
         section = XLFormSectionDescriptor.formSectionWithTitle("Basic Information")
-        section.hidden = "$\(Tags.Button1).value contains 'hide'"
+        //section.hidden = "$\(Tags.Button1).value contains 'hide'"
         form.addFormSection(section)
-        
-        
-        row = XLFormRowDescriptor(tag: Tags.Button1, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.hidden = true
-        section.addFormRow(row)
         
         // username
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeText, title:"")
@@ -86,7 +79,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         section = XLFormSectionDescriptor()
         section.title = "Personal Information"
-        section.hidden = "$\(Tags.Button1).value contains 'hide'"
+        //section.hidden = "$\(Tags.Button1).value contains 'hide'"
         form.addFormSection(section)
         
         // Title
@@ -123,9 +116,20 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         section.addFormRow(row)
     
         // Date
+        
+        let currentDate: NSDate = NSDate()
+        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        calendar.timeZone = NSTimeZone(name: "UTC")!
+        
+        let components: NSDateComponents = NSDateComponents()
+        components.calendar = calendar
+        
+        components.year = -18
+        let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+        
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeDate, title:"*Date of Birth")
         row.value = NSDate()
-        
+        row.cellConfigAtConfigure["maximumDate"] = minDate
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "dot_date")!)
         row.required = true
         section.addFormRow(row)
@@ -133,13 +137,9 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // Basic Information - Section
         section = XLFormSectionDescriptor()
         section.title = "Address Information"
-        section.hidden = "$\(Tags.Button2).value contains 'hide'"
+        //section.hidden = "$\(Tags.Button2).value contains 'hide'"
         form.addFormSection(section)
         
-        row = XLFormRowDescriptor(tag: Tags.Button2, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.hidden = true
-        row.value = "hide"
-        section.addFormRow(row)
         
         // Address Line 1
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeText, title:"")
@@ -200,13 +200,8 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // Contact Information - Section
         section = XLFormSectionDescriptor()
         section.title = "Contact Information"
-        section.hidden = "$\(Tags.Button3).value contains 'hide'"
+        //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
-        
-        row = XLFormRowDescriptor(tag: Tags.Button3, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.hidden = true
-        row.value = "hide"
-        section.addFormRow(row)
         
         // Mobile Number
         row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypePhone, title:"")
@@ -283,59 +278,52 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     }
 
     @IBAction func continueButtonPressed(sender: AnyObject) {
-        
-        let button = sender as! UIButton
-        
+
         validateForm()
         
         if isValidate {
             
             if (form.formRowWithTag(Tags.ValidationPassword)?.value)! as! String != (form.formRowWithTag(Tags.ValidationConfirmPassword)?.value)! as! String{
                 
-                let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
-                let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
+                //let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
+                //let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
+                
+                /*let cell = self.tableView.cellForRowAtIndexPath(self.form .indexPathOfFormRow(self.form.formRowWithTag(Tags.ValidationConfirmPassword)!)!) as! XLFormTextFieldCell
+                
+                
                 
                 cell.backgroundColor = .orangeColor()
                 UIView.animateWithDuration(0.3, animations: { () -> Void in
                     cell.backgroundColor = UIColor(patternImage: UIImage(named: "txtField")!)
                 })
                 
-                animateCell(cell)
+                animateCell(cell)*/
                 showToastMessage("Confirm password is incorrect")
             }else {
-                if button.tag == 1{
-                    self.lvlHeaderImg.image = UIImage(named: "registerLvl2")
-                    form.formRowWithTag(Tags.Button1)?.value = "hide"
-                    form.formRowWithTag(Tags.Button2)?.value = "notHide"
-                    form.formRowWithTag(Tags.Button3)?.value = "hide"
-                    self.continueBtn.tag = 2
-                }else if button.tag == 2{
-                    self.lvlHeaderImg.image = UIImage(named: "registerLvl3")
-                    form.formRowWithTag(Tags.Button1)?.value = "hide"
-                    form.formRowWithTag(Tags.Button2)?.value = "hide"
-                    form.formRowWithTag(Tags.Button3)?.value = "notHide"
-                    self.continueBtn.tag = 3
-                }else{
-                    
                     var parameters:[String:AnyObject] = [String:AnyObject]()
                     
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationUsername)?.value)!, forKey: "username")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationPassword)?.value)!, forKey: "password")
+                    parameters.updateValue(formValues()[Tags.ValidationUsername]!, forKey: "username")
+                    parameters.updateValue(formValues()[Tags.ValidationPassword]!, forKey: "password")
                     
-                    parameters.updateValue(((form.formRowWithTag(Tags.ValidationTitle)?.value)! as! XLFormOptionsObject).valueData(), forKey: "title")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationFirstName)?.value)!, forKey: "first_name")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationLastName)?.value)!, forKey: "last_name")
-                    parameters.updateValue(formatDate((form.formRowWithTag(Tags.ValidationDate)?.value)! as! NSDate), forKey: "dob")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationAddressLine1)?.value)!, forKey: "address_1")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationAddressLine2)?.value)!, forKey: "address_2")
+                    parameters.updateValue((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData(), forKey: "title")
+                    parameters.updateValue(formValues()[Tags.ValidationFirstName]!, forKey: "first_name")
+                    parameters.updateValue(formValues()[Tags.ValidationLastName]!, forKey: "last_name")
+                    parameters.updateValue(formatDate(formValues()[Tags.ValidationDate]! as! NSDate), forKey: "dob")
+                    parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!, forKey: "address_1")
+                
+                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!, forKey: "address_2")
+                
                     parameters.updateValue("", forKey: "address_3")
-                    parameters.updateValue(((form.formRowWithTag(Tags.ValidationCountry)?.value)! as! XLFormOptionsObject).valueData(), forKey: "country")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationTownCity)?.value)!, forKey: "city")
-                    parameters.updateValue(((form.formRowWithTag(Tags.ValidationState)?.value)! as! XLFormOptionsObject).valueData(), forKey: "state")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationPostcode)?.value)!, forKey: "postcode")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationMobileHome)?.value)!, forKey: "mobile_phone")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationAlternate)?.value)!, forKey: "alternate_phone")
-                    parameters.updateValue((form.formRowWithTag(Tags.ValidationFax)?.value)!, forKey: "fax")
+                    parameters.updateValue((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData(), forKey: "country")
+                    parameters.updateValue(formValues()[Tags.ValidationTownCity]!, forKey: "city")
+                    parameters.updateValue((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData(), forKey: "state")
+                    parameters.updateValue(formValues()[Tags.ValidationPostcode]!, forKey: "postcode")
+                    parameters.updateValue(formValues()[Tags.ValidationMobileHome]!, forKey: "mobile_phone")
+
+                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate])!, forKey: "alternate_phone")
+                
+                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
+                
                     parameters.updateValue("", forKey: "signature")
                     
                     let manager = WSDLNetworkManager()
@@ -356,31 +344,8 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                         
                     })
                 }
-            }
+        }else{
+            self.showToastMessage("Please Fill All Field")
         }
-        
     }
-    
-    override func backButtonPressed(sender: UIBarButtonItem) {
-        
-        if self.continueBtn.tag == 3{
-            self.lvlHeaderImg.image = UIImage(named: "registerLvl2")
-            form.formRowWithTag(Tags.Button1)?.value = "hide"
-            form.formRowWithTag(Tags.Button2)?.value = "notHide"
-            form.formRowWithTag(Tags.Button3)?.value = "hide"
-            self.continueBtn.tag = 2
-            tableView.reloadData()
-        }else if self.continueBtn.tag == 2{
-            self.lvlHeaderImg.image = UIImage(named: "registerLvl1")
-            form.formRowWithTag(Tags.Button1)?.value = "notHide"
-            form.formRowWithTag(Tags.Button2)?.value = "hide"
-            form.formRowWithTag(Tags.Button3)?.value = "hide"
-            self.continueBtn.tag = 1
-            tableView.reloadData()
-        }else if self.continueBtn.tag == 1{
-            self.navigationController?.popViewControllerAnimated(true)
-        }
-        
-    }
-
 }

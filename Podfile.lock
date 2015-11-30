@@ -1,31 +1,37 @@
 PODS:
   - ActionSheetPicker-3.0 (2.0.3)
   - Alamofire (3.1.3)
-  - EstimoteSDK (3.8.0)
+  - CryptoSwift (0.1.1)
+  - EstimoteSDK (3.8.1)
   - M13Checkbox (1.1.2)
   - MBProgressHUD (0.9.1)
   - MFSideMenu (0.5.5)
-  - TPKeyboardAvoiding (1.2.10)
+  - SwiftValidator (3.0.1)
+  - TPKeyboardAvoiding (1.2.11)
   - XLForm (3.0.2)
 
 DEPENDENCIES:
   - ActionSheetPicker-3.0
   - Alamofire (~> 3.0)
+  - CryptoSwift
   - EstimoteSDK (~> 3.7)
   - M13Checkbox (~> 1.1)
   - MBProgressHUD (~> 0.9)
   - MFSideMenu (~> 0.5)
+  - SwiftValidator (= 3.0.1)
   - TPKeyboardAvoiding (~> 1.2.3)
   - XLForm (~> 3.0)
 
 SPEC CHECKSUMS:
   ActionSheetPicker-3.0: 11f2053085d3088dc1ef9d38a9f11c18b528dd9e
   Alamofire: 9f93b56389e48def9220dd57d1f44b1927229a5a
-  EstimoteSDK: 660effc9b3e26f0c90cc7e36fdf802e4c9afe359
+  CryptoSwift: c11640d3d66107efc8333e4131a5173f072b1d61
+  EstimoteSDK: 34a31f7ad07bfeb58015f7decd01e1c20cbe8c45
   M13Checkbox: 0c0bb08dcd144c4ea33f883b68270f3f56908ea2
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MFSideMenu: 268122e6894f2747fc3a2b48578100b232506c60
-  TPKeyboardAvoiding: 614ebec846ec28b83d548769297fa5fb56468904
+  SwiftValidator: c59223144754045d7691febdc3b3ecc2e73b609c
+  TPKeyboardAvoiding: e5ce146b313de063957bfa75a13f1e9b0ff18ab7
   XLForm: 7817ce29f3f259186e837bb7309ac7e5b7e9b883
 
 COCOAPODS: 0.39.0

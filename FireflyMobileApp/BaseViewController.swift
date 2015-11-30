@@ -8,8 +8,33 @@
 
 import UIKit
 import MBProgressHUD
+import SwiftValidator
 
-class BaseViewController: UIViewController, MBProgressHUDDelegate {
+extension UIViewController: UITextFieldDelegate{
+    func addToolBar(textField: UITextField){
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.Default
+        toolBar.translucent = true
+        toolBar.tintColor = UIColor.blueColor()
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "donePressed")
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelPressed")
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.userInteractionEnabled = true
+        toolBar.sizeToFit()
+        
+        textField.delegate = self
+        textField.inputAccessoryView = toolBar
+    }
+    func donePressed(){
+        view.endEditing(true)
+    }
+    func cancelPressed(){
+        view.endEditing(true) // or do something
+    }
+}
+
+class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDelegate {
 
     @IBOutlet weak var borderView: UIView!
     var HUD : MBProgressHUD = MBProgressHUD()
@@ -17,10 +42,26 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate {
     var travel = [NSDictionary]()
     var pickerRow = [String]()
     var pickerTravel = [String]()
+    let validator = Validator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        validator.styleTransformers(success:{ (validationRule) -> Void in
+            print("here")
+            // clear error label
+            validationRule.errorLabel?.hidden = true
+            validationRule.errorLabel?.text = ""
+            validationRule.textField.layer.borderColor = UIColor.greenColor().CGColor
+            validationRule.textField.layer.borderWidth = 0.5
+            
+            }, error:{ (validationError) -> Void in
+                print("error")
+                validationError.errorLabel?.hidden = false
+                validationError.errorLabel?.text = validationError.errorMessage
+                validationError.textField.layer.borderColor = UIColor.redColor().CGColor
+                validationError.textField.layer.borderWidth = 1.0
+        })
         //self.borderView.layer.borderColor = UIColor.grayColor().CGColor
         //self.borderView.layer.borderWidth = 1
         
@@ -163,6 +204,21 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate {
         formater.dateFormat = "yyyy-MM-dd"
         return formater.stringFromDate(date)
         
+    }
+    
+    // MARK: ValidationDelegate Methods
+    
+    func validationSuccessful() {
+        print("Validation Success!")
+        let alert = UIAlertController(title: "Success", message: "You are validated!", preferredStyle: UIAlertControllerStyle.Alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alert.addAction(defaultAction)
+        self.presentViewController(alert, animated: true, completion: nil)
+        
+    }
+    
+    func validationFailed(errors:[UITextField:ValidationError]) {
+        print("Validation FAILED!")
     }
 
     /*

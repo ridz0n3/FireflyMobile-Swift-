@@ -31,7 +31,6 @@
 		7E20F9111BFA0A760020AB0C /* FlightHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */; };
 		7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E290E841BFEB3D8004E50F3 /* Constant.swift */; };
 		7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */; };
-		7E55ADC81BFD841E002FAA84 /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55ADC71BFD841E002FAA84 /* ForgotPasswordView.swift */; };
 		7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */; };
 		7E6930F41BFAD79B004F1719 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6930F31BFAD79B004F1719 /* PaymentViewController.swift */; };
 		7E6930F61BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6930F51BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift */; };
@@ -60,6 +59,9 @@
 		7EA1A67A1C06E47700A9927C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA1A6791C06E47700A9927C /* HeaderView.swift */; };
 		7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB5B2AF1BFC68D00066D311 /* SectionView.xib */; };
 		7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5B2B11BFC68EE0066D311 /* SectionView.swift */; };
+		7EB6F0441C07EB47004A8F24 /* PasswordExpiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6F0431C07EB47004A8F24 /* PasswordExpiredViewController.swift */; };
+		7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */; };
+		7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */; };
 		7EBCD6A21BFAC2960043F28C /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A11BFAC2960043F28C /* PersonalDetailViewController.swift */; };
 		7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */; };
 		7EBCD6A61BFAC9FB0043F28C /* ChooseSeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A51BFAC9FB0043F28C /* ChooseSeatViewController.swift */; };
@@ -116,7 +118,6 @@
 		7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightHeaderView.swift; sourceTree = "<group>"; };
 		7E290E841BFEB3D8004E50F3 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordView.xib; sourceTree = "<group>"; };
-		7E55ADC71BFD841E002FAA84 /* ForgotPasswordView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDLNetworkManager.swift; sourceTree = "<group>"; };
 		7E6930F31BFAD79B004F1719 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		7E6930F51BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPaymentTableViewCell.swift; sourceTree = "<group>"; };
@@ -146,6 +147,9 @@
 		7EA1A6791C06E47700A9927C /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		7EB5B2AF1BFC68D00066D311 /* SectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionView.xib; sourceTree = "<group>"; };
 		7EB5B2B11BFC68EE0066D311 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
+		7EB6F0431C07EB47004A8F24 /* PasswordExpiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordExpiredViewController.swift; sourceTree = "<group>"; };
+		7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UpdateInformation.storyboard; sourceTree = "<group>"; };
+		7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateInformationViewController.swift; sourceTree = "<group>"; };
 		7EBCD6A11BFAC2960043F28C /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
 		7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7EBCD6A51BFAC9FB0043F28C /* ChooseSeatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseSeatViewController.swift; sourceTree = "<group>"; };
@@ -205,6 +209,7 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				7EB829E11C0AC23200E83320 /* Profile */,
 				7E55ADC91BFDC6B2002FAA84 /* Helper */,
 				7E69311E1BFB31EA004F1719 /* SideMenu */,
 				7E6931191BFB2DD6004F1719 /* Boarding Pass */,
@@ -272,9 +277,9 @@
 			isa = PBXGroup;
 			children = (
 				7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */,
-				7E55ADC71BFD841E002FAA84 /* ForgotPasswordView.swift */,
 				7E1F781D1BF9B6AD00F55C46 /* Login.storyboard */,
 				7E1F78191BF9B60700F55C46 /* LoginViewController.swift */,
+				7EB6F0431C07EB47004A8F24 /* PasswordExpiredViewController.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -378,6 +383,15 @@
 				7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */,
 			);
 			name = SideMenu;
+			sourceTree = "<group>";
+		};
+		7EB829E11C0AC23200E83320 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */,
+				7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		96C7660040AB98CB0FD039B9 /* Frameworks */ = {
@@ -517,6 +531,7 @@
 				7E1F780E1BF979B300F55C46 /* Home.storyboard in Resources */,
 				7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */,
 				7E1F78281BF9C50400F55C46 /* Register.storyboard in Resources */,
+				7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */,
 				7E6930FD1BFAFEE6004F1719 /* ManageFlight.storyboard in Resources */,
 				7E6931121BFB1F2C004F1719 /* MobileCheckIn.storyboard in Resources */,
 				7E69311B1BFB2F0E004F1719 /* BoardingPass.storyboard in Resources */,
@@ -598,9 +613,11 @@
 				7E1F781A1BF9B60800F55C46 /* LoginViewController.swift in Sources */,
 				7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */,
 				7E6931031BFB08AA004F1719 /* ChangeContactDetailViewController.swift in Sources */,
+				7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */,
 				7E20F9111BFA0A760020AB0C /* FlightHeaderView.swift in Sources */,
 				7E6931181BFB2659004F1719 /* CheckInTermViewController.swift in Sources */,
 				7EBCD6A21BFAC2960043F28C /* PersonalDetailViewController.swift in Sources */,
+				7EB6F0441C07EB47004A8F24 /* PasswordExpiredViewController.swift in Sources */,
 				7E6931161BFB22C6004F1719 /* CheckInDetailViewController.swift in Sources */,
 				7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */,
 				7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */,
@@ -627,7 +644,6 @@
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
 				7E6930FB1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift in Sources */,
 				7E1F782A1BF9CD2800F55C46 /* RegisterPersonalInfoViewController.swift in Sources */,
-				7E55ADC81BFD841E002FAA84 /* ForgotPasswordView.swift in Sources */,
 				7E6931071BFB10FA004F1719 /* ChangeFlightViewController.swift in Sources */,
 				7E1F780C1BF9799900F55C46 /* HomeViewController.swift in Sources */,
 				7E6930FF1BFB014A004F1719 /* ManageFlightMenuViewController.swift in Sources */,

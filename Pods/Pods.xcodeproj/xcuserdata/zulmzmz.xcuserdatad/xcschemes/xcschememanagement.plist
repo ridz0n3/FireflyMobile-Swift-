@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CryptoSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>M13Checkbox.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -30,6 +35,11 @@
 			<false/>
 		</dict>
 		<key>Pods-FireflyMobileApp.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>SwiftValidator.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -52,22 +62,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3F229160CFE05B60B4A2EFBF679B3F23</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>432ECC54282C84882B482CCB4CF227FC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4E64382A67C81FB4129020D76C38532C</key>
+		<key>52A910D43AA2865827331B0063E7B8B6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>619E82D633CFAEAC98CE87EDE711B6E7</key>
+		<key>6A7E6A2003B87F007A4EFCC6BBFFE3FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>64BECD8C67AE81EF6C63FF7D984D38F3</key>
+		<key>952FE1EB61CA49FEC151B1763B93E741</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -83,6 +98,11 @@
 			<true/>
 		</dict>
 		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EFA63340A87C8D7E87F73BF7BC519123</key>
 		<dict>
 			<key>primary</key>
 			<true/>

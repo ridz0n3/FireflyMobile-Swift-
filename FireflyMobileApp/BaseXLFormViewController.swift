@@ -9,12 +9,14 @@
 import UIKit
 import MBProgressHUD
 import XLForm
+import SwiftValidator
 
 var isValidate: Bool = false
 
-class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
-
+class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, ValidationDelegate {
+    
     var HUD : MBProgressHUD = MBProgressHUD()
+    let validator = Validator()
     
     internal struct Tags {
         static let ValidationUsername = "Email"
@@ -45,6 +47,15 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        validator.styleTransformers(success:{ (validationRule) -> Void in
+            
+            }, error:{ (validationError) -> Void in
+                
+                validationError.textField.layer.borderColor = UIColor.redColor().CGColor
+                validationError.textField.layer.borderWidth = 1.0
+                
+                self.showToastMessage(validationError.errorMessage)
+        })
         // Do any additional setup after loading the view.
     }
 
@@ -107,7 +118,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     }
     
     func validateForm() {
-        let array = formValidationErrors()
+       /* let array = formValidationErrors()
         
         if array.count != 0{
             
@@ -142,7 +153,24 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
             }
         }else{
             isValidate = true
+        }*/
+        
+        let array = formValidationErrors()
+        
+        if array.count != 0{
+            
+            isValidate = false
+            for errorItem in array {
+                let error = errorItem as! NSError
+                let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
+                if let rowDescriptor = validationStatus.rowDescriptor, let indexPath = form.indexPathOfFormRow(rowDescriptor), let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                    self.animateCell(cell)
+                }
+            }
+        }else{
+            isValidate = true
         }
+
     }
 
     func animateCell(cell: UITableViewCell) {
@@ -180,6 +208,17 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
         let formater = NSDateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
         return formater.stringFromDate(date)
+        
+    }
+    
+    // MARK: ValidationDelegate Methods
+    
+    func validationSuccessful() {
+        
+        
+    }
+    func validationFailed(errors:[UITextField:ValidationError]) {
+        //print(errors)
         
     }
     

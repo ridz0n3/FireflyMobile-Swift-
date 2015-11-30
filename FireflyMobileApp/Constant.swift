@@ -14,10 +14,18 @@ class Constant: NSObject {
     
 }
 
-func emptyIfNull(foo : String) -> String{
-    if foo.isEmpty{
+func nullIfEmpty(value : AnyObject?) -> AnyObject? {
+    if value is NSNull {
         return ""
-    }else{
-        return foo
+    } else {
+        return value
+    }
+}
+
+func nilIfEmpty(value : AnyObject?) -> AnyObject? {
+    if value == nil {
+        return ""
+    } else {
+        return value
     }
 }

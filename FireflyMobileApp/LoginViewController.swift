@@ -9,9 +9,34 @@
 import UIKit
 import Alamofire
 import XLForm
+import CryptoSwift
+import SwiftValidator
+
+
+extension String {
+    func aesEncrypt(key: String, iv: String) throws -> String{
+        let data = self.dataUsingEncoding(NSUTF8StringEncoding)
+        let enc = try AES(key: key, iv: iv, blockMode:.CBC).encrypt(data!.arrayOfBytes(), padding: PKCS7())
+        let encData = NSData(bytes: enc, length: Int(enc.count))
+        let base64String: String = encData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0));
+        let result = String(base64String)
+        return result
+    }
+    func aesDecrypt(key: String, iv: String) throws -> String {
+        let data = NSData(base64EncodedString: self, options: NSDataBase64DecodingOptions(rawValue: 0))
+        let dec = try AES(key: key, iv: iv, blockMode:.CBC).decrypt(data!.arrayOfBytes(), padding: PKCS7())
+        let decData = NSData(bytes: dec, length: Int(dec.count))
+        let result = NSString(data: decData, encoding: NSUTF8StringEncoding)
+        return String(result!)
+    }
+}
 
 class LoginViewController: BaseXLFormViewController {
 
+    @IBOutlet var forgotPasswordView: UIView!
+    @IBOutlet weak var emailTxtField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
@@ -74,7 +99,30 @@ class LoginViewController: BaseXLFormViewController {
         
         validateForm()
         
+        // Encrypt string and get Base64 representation of result
+        //let base64: String = try! "my secret string".encrypt(AES(key: "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7", iv: "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7"))
+        
+        /*let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
+        //let iv = "0123456789012345"// lenght == 16
+        let iv = "nesOl4MxZTfaEKqfch4kdQ==" // random
+        if  {
+            if let encrypted = aes.encrypt([1,2], padding: PKCS7())
+            {
+                let data = NSData.withBytes(encrypted)
+            }
+        }
+        let s = "1234567aB@"
+        let enc = try! s.aesEncrypt(key, iv: iv)
+        let dec = try! enc.aesDecrypt(key, iv: iv)
+        print(s) //string to encrypt
+        //print("iv:\(iv2)")
+        print("enc:\(enc)") //2r0+KirTTegQfF4wI8rws0LuV8h82rHyyYz7xBpXIpM=
+        print("dec:\(dec)") //string to encrypt
+        print("\(s == dec)") //true*/
+
+        
         if isValidate{
+            
             let parameters:[String:AnyObject] = [
                 "username": self.formValues()["Email"]!,
                 "password": self.formValues()["Password"]!,
@@ -89,34 +137,46 @@ class LoginViewController: BaseXLFormViewController {
                 if result["status"] as! String == "success"{
                     self.showToastMessage(result["status"] as! String)
                     
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject(result["user_info"], forKey: "userInfo")
+                    defaults.synchronize()
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
+                    
                     let storyBoard = UIStoryboard(name: "Home", bundle: nil)
                     let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                     self.navigationController!.pushViewController(homeVC, animated: true)
+                }else if result["status"] as! String == "change_password"{
+                    
                 }else{
                     self.showToastMessage(result["message"] as! String)
                 }
                 
             })
             
+        }else{
+            showToastMessage("Please Fill All Field")
         }
         
     }
     
     @IBAction func forgotPasswordButtonPressed(sender: AnyObject) {
         
-        let forgotPassword = NSBundle.mainBundle().loadNibNamed("ForgotPasswordView", owner: self, options: nil)[0] as! ForgotPasswordView
+
+        forgotPasswordView = NSBundle.mainBundle().loadNibNamed("ForgotPasswordView", owner: self, options: nil)[0] as! UIView
         
-        forgotPassword.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
-        forgotPassword.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.25)
+        forgotPasswordView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
+        forgotPasswordView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.25)
         
-        forgotPassword.closedButton.addTarget(self, action: "closeView:", forControlEvents: .TouchUpInside)
+        validator.registerField(emailTxtField, rules: [RequiredRule(), EmailRule()])
+        addToolBar(self.emailTxtField)
         
         let applicationLoadViewIn = CATransition()
         applicationLoadViewIn.type = kCATransitionFade
         applicationLoadViewIn.duration = 2.0
         applicationLoadViewIn.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        forgotPassword.layer.addAnimation(applicationLoadViewIn, forKey: kCATransitionReveal)
-        self.view.addSubview(forgotPassword)
+        forgotPasswordView.layer.addAnimation(applicationLoadViewIn, forKey: kCATransitionReveal)
+        self.view.addSubview(forgotPasswordView)
         
     }
     
@@ -128,8 +188,39 @@ class LoginViewController: BaseXLFormViewController {
         
     }
 
-    func closeView(sender : UIButton){
-        sender.superview?.removeFromSuperview()
+    @IBAction func sendDetail(sender: AnyObject) {
+        validator.validate(self)
+    }
+    
+    @IBAction func closeButtonPressed(sender: AnyObject) {
+        sender.superview?!.removeFromSuperview()
+    }
+    
+    
+    override func validationSuccessful() {
+       // print(self.emailTxtField.text)
+        
+        let parameters:[String:AnyObject] = [
+            "username": self.emailTxtField.text!,
+            "signature": "",
+        ]
+        
+        let manager = WSDLNetworkManager()
+        showHud()
+        
+        manager.sharedClient().createRequestWithService("ForgotPassword", withParams: parameters, completion: { (result) -> Void in
+            self.hideHud()
+            
+            if result["status"] as! String == "success"{
+                self.showToastMessage(result["message"] as! String)
+                self.forgotPasswordView.removeFromSuperview()
+            }else{
+                self.showToastMessage(result["userInfo"] as! String)
+            }
+            
+        })
+
+        
     }
     /*
     // MARK: - Navigation

@@ -76,6 +76,9 @@
                             <outlet property="delegate" destination="OjG-jc-uv6" id="7AJ-cZ-eFk"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="sideMenuTableView" destination="jj9-Sw-1gL" id="Ode-jn-Egq"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sWl-tS-05C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
