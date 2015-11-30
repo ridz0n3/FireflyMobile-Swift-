@@ -794,9 +794,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.pushNotification";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c6469f8c-5656-4bb3-9da5-5f998d7908fc";
+				PROVISIONING_PROFILE = "174d7c68-7c63-4d6a-9def-b4562cc416bc";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -811,9 +811,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.pushNotification";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c6469f8c-5656-4bb3-9da5-5f998d7908fc";
+				PROVISIONING_PROFILE = "174d7c68-7c63-4d6a-9def-b4562cc416bc";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
 			};
 			name = Release;

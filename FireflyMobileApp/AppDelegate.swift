@@ -20,6 +20,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         load()
         
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        
+        let settings = UIUserNotificationSettings(forTypes: .Alert , categories: nil) //(forTypes: .Alert, .Badge, .Sound , categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        
         UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         UINavigationBar.appearance().translucent = false
         // Override point for customization after application launch.
@@ -126,6 +131,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
 
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("Got token data! \(deviceToken)")
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Couldn't register: \(error)")
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

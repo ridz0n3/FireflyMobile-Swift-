@@ -256,6 +256,9 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             if Int(cell2.infantCount.text!)! > Int(cell2.adultCount.text!)!{
                 animateCell(cell2)
                 showToastMessage("Number of infant must lower or equal with adult.")
+            }else if Int(cell2.adultCount.text!)! + Int(cell2.infantCount.text!)! > 9 {
+                animateCell(cell2)
+                showToastMessage("Passenger must not exceed 9 people")
             }else{
                 let parameters:[String:AnyObject] = [
                     "type" : type,

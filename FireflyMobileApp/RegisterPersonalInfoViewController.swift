@@ -8,12 +8,13 @@
 
 import UIKit
 import XLForm
+import M13Checkbox
 
 class RegisterPersonalInfoViewController: BaseXLFormViewController {
 
-    @IBOutlet weak var personalView: UIView!
-    @IBOutlet weak var continueBtn: UIButton!
     @IBOutlet weak var continueView: UIView!
+    @IBOutlet weak var termCheckBox: M13Checkbox!
+    @IBOutlet weak var promotionCheckBox: M13Checkbox!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -229,14 +230,14 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 40
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionView = NSBundle.mainBundle().loadNibNamed("SectionView", owner: self, options: nil)[0] as! SectionView
         
-        sectionView.frame = CGRectMake(0, 0,self.view.frame.size.width, 50)
-        sectionView.backgroundColor = UIColor(patternImage: UIImage(named: "lines")!)
+        //sectionView.frame = CGRectMake(0, 0,self.view.frame.size.width, 50)
+        sectionView.backgroundColor = UIColor(patternImage: UIImage(named: "lineSection")!)
         
         let index = UInt(section)
         
@@ -280,7 +281,8 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     @IBAction func continueButtonPressed(sender: AnyObject) {
 
         validateForm()
-        
+    
+        //promotionCheckBox.checkState.
         if isValidate {
             
             if (form.formRowWithTag(Tags.ValidationPassword)?.value)! as! String != (form.formRowWithTag(Tags.ValidationConfirmPassword)?.value)! as! String{
@@ -299,7 +301,9 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 
                 animateCell(cell)*/
                 showToastMessage("Confirm password is incorrect")
-            }else {
+            }else if termCheckBox.checkState.rawValue == 0{
+                showToastMessage("Please check term and condition checkbox")
+            }else{
                     var parameters:[String:AnyObject] = [String:AnyObject]()
                     
                     parameters.updateValue(formValues()[Tags.ValidationUsername]!, forKey: "username")
@@ -339,7 +343,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                             let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
                             self.navigationController!.pushViewController(loginVC, animated: true)
                         }else{
-                            self.showToastMessage(result["status"] as! String)
+                            self.showToastMessage(result["message"] as! String)
                         }
                         
                     })

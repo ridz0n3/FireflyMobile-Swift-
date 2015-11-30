@@ -9,27 +9,7 @@
 import UIKit
 import Alamofire
 import XLForm
-import CryptoSwift
 import SwiftValidator
-
-
-extension String {
-    func aesEncrypt(key: String, iv: String) throws -> String{
-        let data = self.dataUsingEncoding(NSUTF8StringEncoding)
-        let enc = try AES(key: key, iv: iv, blockMode:.CBC).encrypt(data!.arrayOfBytes(), padding: PKCS7())
-        let encData = NSData(bytes: enc, length: Int(enc.count))
-        let base64String: String = encData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0));
-        let result = String(base64String)
-        return result
-    }
-    func aesDecrypt(key: String, iv: String) throws -> String {
-        let data = NSData(base64EncodedString: self, options: NSDataBase64DecodingOptions(rawValue: 0))
-        let dec = try AES(key: key, iv: iv, blockMode:.CBC).decrypt(data!.arrayOfBytes(), padding: PKCS7())
-        let decData = NSData(bytes: dec, length: Int(dec.count))
-        let result = NSString(data: decData, encoding: NSUTF8StringEncoding)
-        return String(result!)
-    }
-}
 
 class LoginViewController: BaseXLFormViewController {
 
@@ -99,27 +79,33 @@ class LoginViewController: BaseXLFormViewController {
         
         validateForm()
         
-        // Encrypt string and get Base64 representation of result
-        //let base64: String = try! "my secret string".encrypt(AES(key: "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7", iv: "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7"))
-        
-        /*let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
-        //let iv = "0123456789012345"// lenght == 16
-        let iv = "nesOl4MxZTfaEKqfch4kdQ==" // random
-        if  {
-            if let encrypted = aes.encrypt([1,2], padding: PKCS7())
-            {
-                let data = NSData.withBytes(encrypted)
-            }
-        }
-        let s = "1234567aB@"
+        let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
+        let iv = "owNLfnLjPvwbQH3h"// lenght == 16
+        let s = "Abc987330"
         let enc = try! s.aesEncrypt(key, iv: iv)
         let dec = try! enc.aesDecrypt(key, iv: iv)
         print(s) //string to encrypt
         //print("iv:\(iv2)")
         print("enc:\(enc)") //2r0+KirTTegQfF4wI8rws0LuV8h82rHyyYz7xBpXIpM=
         print("dec:\(dec)") //string to encrypt
-        print("\(s == dec)") //true*/
-
+        print("\(s == dec)") //true
+        /*
+        let parameters:[String:AnyObject] = [
+            "data": enc,
+        ]
+        
+        let manager = WSDLNetworkManager()
+        
+        manager.sharedClient().createRequestWithService("Test", withParams: parameters) { (result) -> Void in
+            print(result)
+            
+            let s = "Abc987330"
+            let enc = try! s.aesEncrypt(key, iv: iv)
+            let dec = try! enc.aesDecrypt(key, iv: iv)
+            
+            print("\(result["result_decrypt_from_mobile"] as! String == dec)")
+            
+        }*/
         
         if isValidate{
             
@@ -155,7 +141,7 @@ class LoginViewController: BaseXLFormViewController {
             })
             
         }else{
-            showToastMessage("Please Fill All Field")
+           // showToastMessage("Please Fill All Field")
         }
         
     }

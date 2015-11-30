@@ -39,7 +39,7 @@ class SideMenuTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (indexPath.row == 1 && hideRow == true) || (indexPath.row == 2 && hideRow == true) || (indexPath.row == 3 && hideRow == true){
+        if (indexPath.row == 1 && hideRow == false) || (indexPath.row == 6 && hideRow == false) || (indexPath.row == 2 && hideRow == true) || (indexPath.row == 3 && hideRow == true){
             return 0.0
         }else {
             return 44
@@ -133,7 +133,12 @@ class SideMenuTableViewController: UITableViewController {
         }else if (indexPath.row == 5) {
             
         }else{
-            
+            hideRow = false
+            self.sideMenuTableView.reloadData()
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject("", forKey: "userInfo")
+            defaults.synchronize()
+            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
         }
         
         if (controllers.count != 0){

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -155,9 +155,9 @@
                                                     <mask key="constraints">
                                                         <exclude reference="AKD-i1-i7J"/>
                                                         <exclude reference="JxG-ph-Zgi"/>
+                                                        <exclude reference="qq9-hP-Rif"/>
                                                         <exclude reference="xrh-eV-SuI"/>
                                                         <exclude reference="yb2-Nv-PbC"/>
-                                                        <exclude reference="qq9-hP-Rif"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -197,8 +197,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="ywa-b8-yrD"/>
                                 <exclude reference="Qad-3h-Qoe"/>
+                                <exclude reference="ywa-b8-yrD"/>
                             </mask>
                         </variation>
                     </view>
@@ -534,9 +534,9 @@
                                                     <mask key="constraints">
                                                         <exclude reference="BN7-LL-oOd"/>
                                                         <exclude reference="iZz-5b-XZr"/>
-                                                        <exclude reference="dfN-75-OUd"/>
                                                         <exclude reference="PFz-py-GBI"/>
                                                         <exclude reference="PcJ-On-hrw"/>
+                                                        <exclude reference="dfN-75-OUd"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -576,8 +576,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="eTI-KU-Xv3"/>
                                 <exclude reference="Abh-OQ-h91"/>
+                                <exclude reference="eTI-KU-Xv3"/>
                             </mask>
                         </variation>
                     </view>
@@ -732,11 +732,11 @@
                                                 </constraints>
                                                 <variation key="default">
                                                     <mask key="constraints">
-                                                        <exclude reference="qim-ot-ooz"/>
                                                         <exclude reference="GO1-XN-jso"/>
-                                                        <exclude reference="yz0-Xs-YQk"/>
-                                                        <exclude reference="ZZp-td-SUI"/>
+                                                        <exclude reference="qim-ot-ooz"/>
                                                         <exclude reference="LvT-zS-UOj"/>
+                                                        <exclude reference="ZZp-td-SUI"/>
+                                                        <exclude reference="yz0-Xs-YQk"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -776,8 +776,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="MCc-RR-sL3"/>
                                 <exclude reference="AW0-hA-GG8"/>
+                                <exclude reference="MCc-RR-sL3"/>
                             </mask>
                         </variation>
                     </view>
