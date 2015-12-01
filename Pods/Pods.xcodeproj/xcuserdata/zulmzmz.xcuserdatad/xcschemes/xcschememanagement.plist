@@ -4,7 +4,17 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ActionSheetPicker-3.0.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Alamofire.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>CryptoSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -29,6 +39,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SwiftValidator.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>TPKeyboardAvoiding.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,7 +62,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>3F229160CFE05B60B4A2EFBF679B3F23</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>432ECC54282C84882B482CCB4CF227FC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>52A910D43AA2865827331B0063E7B8B6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6A7E6A2003B87F007A4EFCC6BBFFE3FA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>952FE1EB61CA49FEC151B1763B93E741</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +92,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DDD8EFDCA8142D6AE907B75B6E75D31C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E3267FBC5C30F87C79F733D04314B8AE</key>
+		<key>CE0A701D8A271EFE0065667D13272921</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -72,7 +102,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FD2D15CD95E0DFAEAA0D0BF0DBE6F22A</key>
+		<key>EFA63340A87C8D7E87F73BF7BC519123</key>
 		<dict>
 			<key>primary</key>
 			<true/>

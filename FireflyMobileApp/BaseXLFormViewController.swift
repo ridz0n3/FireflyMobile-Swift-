@@ -7,16 +7,19 @@
 //
 
 import UIKit
-import XLForm
 import MBProgressHUD
+import XLForm
+import SwiftValidator
+
 var isValidate: Bool = false
 
-class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
-
+class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, ValidationDelegate {
+    
     var HUD : MBProgressHUD = MBProgressHUD()
+    let validator = Validator()
     
     internal struct Tags {
-        static let ValidationUsername = "Username"
+        static let ValidationUsername = "Email"
         static let ValidationPassword = "Password"
         static let ValidationConfirmPassword = "Confirm Password"
         static let ValidationTitle = "Title"
@@ -44,6 +47,15 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        validator.styleTransformers(success:{ (validationRule) -> Void in
+            
+            }, error:{ (validationError) -> Void in
+                
+                validationError.textField.layer.borderColor = UIColor.redColor().CGColor
+                validationError.textField.layer.borderWidth = 1.0
+                
+                self.showToastMessage(validationError.errorMessage)
+        })
         // Do any additional setup after loading the view.
     }
 
@@ -106,7 +118,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     }
     
     func validateForm() {
-        let array = formValidationErrors()
+       /* let array = formValidationErrors()
         
         if array.count != 0{
             
@@ -121,16 +133,45 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
                 let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
                 
                 let msg = String(format: "%@ %@", validationStatus.rowDescriptor!.tag!, validationStatus.msg)
-                let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                 
-                cell.textField?.attributedPlaceholder = textFieldAttrib
-                
+                if validationStatus.msg == " can't be empty"{
+                    
+                    let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                    cell.textField?.attributedPlaceholder = textFieldAttrib
+                    
+                }else{
+                    
+                    cell.backgroundColor = .orangeColor()
+                    UIView.animateWithDuration(0.3, animations: { () -> Void in
+                        cell.backgroundColor = UIColor(patternImage: UIImage(named: "txtField")!)
+                    })
+                    
+                    self.showToastMessage(validationStatus.msg)
+                    
+                }
                 self.animateCell(cell)
-                
+            }
+        }else{
+            isValidate = true
+        }*/
+        
+        let array = formValidationErrors()
+        
+        if array.count != 0{
+            
+            isValidate = false
+            for errorItem in array {
+                let error = errorItem as! NSError
+                let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
+                if let rowDescriptor = validationStatus.rowDescriptor, let indexPath = form.indexPathOfFormRow(rowDescriptor), let cell = tableView.cellForRowAtIndexPath(indexPath) {
+                    self.showToastMessage(validationStatus.msg)
+                    self.animateCell(cell)
+                }
             }
         }else{
             isValidate = true
         }
+
     }
 
     func animateCell(cell: UITableViewCell) {
@@ -153,6 +194,35 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     func hideHud(){
         MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
     }
+    
+    func showToastMessage(message:String){
+        HUD = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
+        HUD.yOffset = 0
+        HUD.mode = MBProgressHUDMode.Text
+        HUD.detailsLabelText = message
+        HUD.removeFromSuperViewOnHide = true
+        HUD.hide(true, afterDelay: 3)
+    }
+    
+    func formatDate(date:NSDate) -> String{
+        
+        let formater = NSDateFormatter()
+        formater.dateFormat = "yyyy-MM-dd"
+        return formater.stringFromDate(date)
+        
+    }
+    
+    // MARK: ValidationDelegate Methods
+    
+    func validationSuccessful() {
+        
+        
+    }
+    func validationFailed(errors:[UITextField:ValidationError]) {
+        //print(errors)
+        
+    }
+    
     /*
     // MARK: - Navigation
 

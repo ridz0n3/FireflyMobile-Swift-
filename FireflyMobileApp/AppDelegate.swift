@@ -8,16 +8,23 @@
 
 import UIKit
 import MFSideMenu
+import XLForm
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let baseView = BaseViewController()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         load()
+        
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        
+        let settings = UIUserNotificationSettings(forTypes: .Alert , categories: nil) //(forTypes: .Alert, .Badge, .Sound , categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        
         UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         UINavigationBar.appearance().translucent = false
         // Override point for customization after application launch.
@@ -43,6 +50,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func load(){
         
+        let defaults = NSUserDefaults.standardUserDefaults()
+        var existDataVersion = String()
+        
+        if (defaults.objectForKey("dataVersion") != nil){
+            existDataVersion = defaults.objectForKey("dataVersion") as! String
+        }else{
+            existDataVersion = ""
+        }
+        
         let request = WSDLNetworkManager()
         let parameters:[String:AnyObject] = [
             "signature": "",
@@ -53,25 +69,76 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "deviceId": "",
             "brand": "",
             "model": "",
-            "dataVersion": "",
+            "dataVersion": existDataVersion,
         ]
         
         request.sharedClient().createRequestWithService("Loading", withParams: parameters) { (result) -> Void in
-            let title = result["dataTitle"] as! NSArray
-            let flight = result["dataMarket"] as! NSArray
-            let country = result["dataCountry"] as! NSArray
             
-            let defaults = NSUserDefaults.standardUserDefaults()
-            
-            defaults.setObject(title, forKey: "title")
-            defaults.setObject(flight, forKey: "flight")
-            defaults.setObject(country, forKey: "country")
-            
-            defaults.synchronize()
+            var title = NSArray()
+            var flight = NSArray()
+            var country = NSArray()
+            var state = NSArray()
+            var banner = String()
+
+            if result["status"] != nil{
+                if result["status"] as! String  == "success"{
+                    
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    
+                    if (defaults.objectForKey("dataVersion") != nil){
+                        existDataVersion = defaults.objectForKey("dataVersion") as! String
+                    }else{
+                        existDataVersion = "0"
+                    }
+                    
+                    let dataVersion = result["data_version"] as! String
+                    
+                    if existDataVersion != dataVersion{
+                        
+                        title = result["data_title"] as! NSArray
+                        flight = result["data_market"] as! NSArray
+                        country = result["data_country"] as! NSArray
+                        state = result["data_state"] as! NSArray
+                        
+                        defaults.setObject(dataVersion, forKey: "dataVersion")
+                        defaults.setObject(title, forKey: "title")
+                        defaults.setObject(flight, forKey: "flight")
+                        defaults.setObject(country, forKey: "country")
+                        defaults.setObject(state, forKey: "state")
+                        
+                    }
+                    
+                    if result["banner_promo"] as! String == ""{
+                        banner = result["banner_default"] as! String
+                    }else{
+                        banner = result["banner_promo"] as! String
+                    }
+                    
+                    defaults.setObject(banner, forKey: "banner")
+                    defaults.synchronize()
+                    
+                    NSNotificationCenter.defaultCenter().postNotificationName("reloadHome", object: nil)
+                }else{
+                    
+                    print(String(format: "%@ \n%@", result["status"] as! String, result["message"] as! String))
+                    //self.baseView.showToastMessage(String(format: "%@ \n%@", result["status"] as! String, result["message"] as! String))
+                    
+                }
+            }else{
+                print(result.localizedDescription)
+            }
         }
-        
+
     }
 
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("Got token data! \(deviceToken)")
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Couldn't register: \(error)")
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

@@ -14,6 +14,8 @@ class FlightHeaderView: UIView {
     @IBOutlet weak var wayLbl: UILabel!
     @IBOutlet weak var dateLbl: UILabel!
     
+    @IBOutlet weak var premierBtn: UIButton!
+    @IBOutlet weak var basicBtn: UIButton!
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

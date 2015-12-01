@@ -11,6 +11,9 @@ pod 'EstimoteSDK', '~> 3.7'
 pod 'M13Checkbox', '~> 1.1'
 pod 'TPKeyboardAvoiding', '~> 1.2.3'
 pod 'Alamofire', '~> 3.0'
+pod 'ActionSheetPicker-3.0'
+pod 'CryptoSwift'
+pod 'SwiftValidator', '3.0.1' 
 end
 
 target 'FireflyMobileAppTests' do

@@ -8,8 +8,26 @@
 
 import UIKit
 
-let kBaseURL = "http://fyapidev.me-tech.com.my/"
+let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
+let iv = "owNLfnLjPvwbQH3h" // length == 16
+let kBaseURL = "http://fyapidev.me-tech.com.my/api/"
 
 class Constant: NSObject {
     
+}
+
+func nullIfEmpty(value : AnyObject?) -> AnyObject? {
+    if value is NSNull {
+        return ""
+    } else {
+        return value
+    }
+}
+
+func nilIfEmpty(value : AnyObject?) -> AnyObject? {
+    if value == nil {
+        return ""
+    } else {
+        return value
+    }
 }

@@ -11,11 +11,13 @@ import UIKit
 class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var homeMenuTableView: UITableView!
+    
     var menuTitle:[String] = ["","BOOK FLIGHT", "MANAGE FLIGHT", "MOBILE CHECK-IN", "BOARDING PASS",""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshTable:", name: "reloadHome", object: nil)
         // Do any additional setup after loading the view.
     }
 
@@ -55,7 +57,19 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.row == 0{
-            let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath) as! CustomHomeMenuTableViewCell
+            let defaults = NSUserDefaults.standardUserDefaults()
+            
+            if (defaults.objectForKey("banner") != nil){
+                let url = NSURL(string: defaults.objectForKey("banner") as! String)!
+                let data = NSData(contentsOfURL: url)
+                
+                if (data != nil){
+                    cell.banner.image = UIImage(data: data!)
+                }
+                
+            }
+            
             return cell
         }else if indexPath.row == 5{
             let cell = tableView.dequeueReusableCellWithIdentifier("SocialCell", forIndexPath: indexPath)
@@ -95,6 +109,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             let boardingPassVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassVC") as! BoardingPassViewController
             self.navigationController!.pushViewController(boardingPassVC, animated: true)
         }
+    }
+    
+    func refreshTable(sender: NSNotification){
+        self.homeMenuTableView.reloadData()
     }
     /*
     // MARK: - Navigation

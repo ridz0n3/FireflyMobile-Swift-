@@ -26,7 +26,7 @@ class WSDLNetworkManager: NSObject {
             if response.result.isSuccess == true{
                 completion(result: response.result.value!)
             }else{
-                completion(result: (response.result.error?.localizedDescription)!)
+                completion(result: response.result.error!)
             }
         }
     }

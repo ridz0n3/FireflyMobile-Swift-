@@ -84,18 +84,24 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_framework "Pods-FireflyMobileApp/ActionSheetPicker_3_0.framework"
   install_framework "Pods-FireflyMobileApp/Alamofire.framework"
+  install_framework "Pods-FireflyMobileApp/CryptoSwift.framework"
   install_framework "Pods-FireflyMobileApp/M13Checkbox.framework"
   install_framework "Pods-FireflyMobileApp/MBProgressHUD.framework"
   install_framework "Pods-FireflyMobileApp/MFSideMenu.framework"
+  install_framework "Pods-FireflyMobileApp/SwiftValidator.framework"
   install_framework "Pods-FireflyMobileApp/TPKeyboardAvoiding.framework"
   install_framework "Pods-FireflyMobileApp/XLForm.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_framework "Pods-FireflyMobileApp/ActionSheetPicker_3_0.framework"
   install_framework "Pods-FireflyMobileApp/Alamofire.framework"
+  install_framework "Pods-FireflyMobileApp/CryptoSwift.framework"
   install_framework "Pods-FireflyMobileApp/M13Checkbox.framework"
   install_framework "Pods-FireflyMobileApp/MBProgressHUD.framework"
   install_framework "Pods-FireflyMobileApp/MFSideMenu.framework"
+  install_framework "Pods-FireflyMobileApp/SwiftValidator.framework"
   install_framework "Pods-FireflyMobileApp/TPKeyboardAvoiding.framework"
   install_framework "Pods-FireflyMobileApp/XLForm.framework"
 fi

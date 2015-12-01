@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -12,10 +12,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBr-zx-auT">
-                    <rect key="frame" x="8" y="14" width="584" height="21"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="21" id="VBF-kO-amS"/>
-                    </constraints>
+                    <rect key="frame" x="8" y="0.0" width="584" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -24,9 +21,10 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="UBr-zx-auT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Ef4-05-rHu"/>
-                <constraint firstItem="UBr-zx-auT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="14" id="NcQ-bX-9RO"/>
+                <constraint firstItem="UBr-zx-auT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="FJB-WG-m2K"/>
                 <constraint firstAttribute="trailing" secondItem="UBr-zx-auT" secondAttribute="trailing" constant="8" id="TJI-GN-m20"/>
                 <constraint firstItem="UBr-zx-auT" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="q34-gl-fUi"/>
+                <constraint firstAttribute="bottom" secondItem="UBr-zx-auT" secondAttribute="bottom" id="qV3-dw-hSe"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
