@@ -1,13 +1,29 @@
 PODS:
-  - Alamofire (3.1.2)
+  - Alamofire (3.1.3)
   - EstimoteSDK (3.7.1)
   - M13Checkbox (1.1.2)
   - MBProgressHUD (0.9.1)
   - MFSideMenu (0.5.5)
-  - Moya (4.5.0):
-    - Moya/Core (= 4.5.0)
-  - Moya/Core (4.5.0):
+  - Moya/Core (4.1.0):
     - Alamofire (~> 3.0)
+  - Moya/ReactiveCocoa (4.1.0):
+    - Moya/ReactiveCore
+    - ReactiveCocoa (~> 4.0-alpha.1)
+  - Moya/ReactiveCore (4.1.0):
+    - Moya/Core
+  - Reachability (3.1.1)
+  - ReactiveCocoa (4.0.4-alpha-1):
+    - ReactiveCocoa/UI (= 4.0.4-alpha-1)
+    - Result (~> 0.6-beta.1)
+  - ReactiveCocoa/Core (4.0.4-alpha-1):
+    - ReactiveCocoa/no-arc
+    - Result (~> 0.6-beta.1)
+  - ReactiveCocoa/no-arc (4.0.4-alpha-1):
+    - Result (~> 0.6-beta.1)
+  - ReactiveCocoa/UI (4.0.4-alpha-1):
+    - ReactiveCocoa/Core
+    - Result (~> 0.6-beta.1)
+  - Result (0.6.0-beta.6)
   - SwiftyJSON (2.3.1)
   - TPKeyboardAvoiding (1.2.10)
   - XLForm (3.0.2)
@@ -18,18 +34,33 @@ DEPENDENCIES:
   - M13Checkbox (~> 1.1)
   - MBProgressHUD (~> 0.9)
   - MFSideMenu (~> 0.5)
-  - Moya (~> 4.5)
+  - Moya/ReactiveCocoa
+  - Reachability (from `https://github.com/ashfurrow/Reachability.git`, branch `frameworks`)
+  - ReactiveCocoa (= 4.0.4-alpha-1)
   - SwiftyJSON (~> 2.3)
   - TPKeyboardAvoiding (~> 1.2.3)
   - XLForm (~> 3.0)
 
+EXTERNAL SOURCES:
+  Reachability:
+    :branch: frameworks
+    :git: https://github.com/ashfurrow/Reachability.git
+
+CHECKOUT OPTIONS:
+  Reachability:
+    :commit: 6db8c29565c319f59174dd63e4b1ac5b471d133a
+    :git: https://github.com/ashfurrow/Reachability.git
+
 SPEC CHECKSUMS:
-  Alamofire: 7c16ca65f3c7e681fd925fd7f2dec7747ff96855
+  Alamofire: 9f93b56389e48def9220dd57d1f44b1927229a5a
   EstimoteSDK: 15d4cf50a4a1e41dcbb0c3cefd43207bed990d53
   M13Checkbox: 0c0bb08dcd144c4ea33f883b68270f3f56908ea2
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MFSideMenu: 268122e6894f2747fc3a2b48578100b232506c60
-  Moya: 82813e5bf27564535cd9cdf4e9db61fd220f7f8e
+  Moya: 83fe7bb268bc4cd5cb7ab00130eed4741b1683c0
+  Reachability: 2fc2badcac191cd1a15044bc7fe45aa96c499ece
+  ReactiveCocoa: 618a2fc13d4ed80e380aa6fa56547cef43c7341d
+  Result: dc390d0b58f9ec43fcd536f1ebdd130803cc6cbc
   SwiftyJSON: 592b53bee5ef3dd9b3bebc6b9cb7ee35426ae8c3
   TPKeyboardAvoiding: 614ebec846ec28b83d548769297fa5fb56468904
   XLForm: 7817ce29f3f259186e837bb7309ac7e5b7e9b883

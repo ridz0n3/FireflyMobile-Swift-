@@ -9,22 +9,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FireflyMobileApp/LoginViewController.swift"
-            timestampString = "470116181.27228"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "loginButtonPressed(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/FireFlyAPI.swift"
             timestampString = "470050799.213565"
             startingColumnNumber = "9223372036854775807"
@@ -173,42 +157,10 @@
             timestampString = "470116181.27228"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "loginButtonPressed(_:)"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FireflyMobileApp.LoginViewController.loginButtonPressed (FireflyMobileApp.LoginViewController)(Swift.AnyObject) -&gt; ()"
-                  moduleName = "FireflyMobileApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/me-techmacprouser2/iOSProject/FireflyMobileSwift/FireflyMobileApp/LoginViewController.swift"
-                  timestampString = "470047445.004275"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "2285">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FireflyMobileApp.LoginViewController.(loginButtonPressed (FireflyMobileApp.LoginViewController) -&gt; (Swift.AnyObject) -&gt; ()).(closure #1)"
-                  moduleName = "FireflyMobileApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/me-techmacprouser2/iOSProject/FireflyMobileSwift/FireflyMobileApp/LoginViewController.swift"
-                  timestampString = "470047445.004974"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "88"
-                  endingLineNumber = "88"
-                  offsetFromSymbolStart = "222">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -217,13 +169,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FireflyMobileApp/LoginViewController.swift"
-            timestampString = "470116181.27228"
+            filePath = "FireflyMobileApp/FireFlyAPI.swift"
+            timestampString = "470204877.489294"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
-            landmarkName = "loginButtonPressed(_:)"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "FireFlyProvider"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/ForgotPasswordViewModel.swift"
+            timestampString = "470221754.862454"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "userForgotPasswordSignal()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

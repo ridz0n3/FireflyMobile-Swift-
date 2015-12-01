@@ -5,20 +5,28 @@
 You're a smart developer. You probably use Alamofire to abstract away access to
 NSURLSession and all those nasty details you don't really care about. But then,
 like lots of smart developers, you write ad hoc network abstraction layers. They
-are probably called "APIManager" or "NetworkModel", and they always end in tears.
+are probably called "APIManager" or "NetworkModel", and probably look something
+like this.
 
-![Moya Overview](web/diagram.png)
+![Ad hoc network layer](web/bad.png)
 
-Ad hoc network layers are common in iOS apps. They're bad for a few reasons:
+It's leaky, meaning your app touches Alamofire directly and your layer bypasses
+Alamofire to access the network directly sometimes.
 
-- Makes it hard to write new apps ("where do I begin?")
-- Makes it hard to maintain existing apps ("oh my god, this mess...")
-- Makes it hard to write unit tests ("how do I do this again?")
+This kind of ad hoc network layer is common in iOS apps. It's bad for a few reasons:
 
-So the basic idea of Moya is that we want some network abstraction layer that
-sufficiently encapsulates actually calling Alamofire directly. It should be simple
-enough that common things are easy, but comprehensive enough that complicated things
-are also easy.
+- It makes it hard to write new apps ("where do I begin?")
+- It makes it hard to maintain existing apps ("oh my god, this mess...")
+- It makes it hard to write unit tests ("how do I do this again?")
+
+So the basic idea is that we want some network abstraction layer that sufficiently
+encapsulates actually calling Alamofire directly. It should be simple enough that
+common things are easy, but comprehensive enough that complicated things are also
+easy.
+
+![Moya diagram](web/good.png)
+
+Basically:
 
 > If you use Alamofire to abstract away `NSURLSession`, why not use something
 to abstract away the nitty gritty of URLs, parameters, etc?
@@ -174,7 +182,7 @@ following:
 
 If any of that sounds cool to you, send a pull request! After a few
 contributions, we'll add you as an admin to the repo so you can merge pull
-requests and help steer the ship :ship:
+requests :tada:
 
 Please note that this project is released with a Contributor Code of Conduct. By participating in this project you agree to abide by [its terms](https://github.com/Moya/code-of-conduct).
 
