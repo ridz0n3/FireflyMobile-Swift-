@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var flightDetailTableView: UITableView!
     @IBOutlet weak var continueView: UIView!
     
-    var flightDetail = NSArray()
+    var flightDetail : Array<JSON> = []
     var planGoing:Int = 1
     var planReturn:Int = 4
     

@@ -9,6 +9,7 @@
 import UIKit
 import MFSideMenu
 import XLForm
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -74,14 +75,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         request.sharedClient().createRequestWithService("Loading", withParams: parameters) { (result) -> Void in
             
-            var title = NSArray()
-            var flight = NSArray()
-            var country = NSArray()
-            var state = NSArray()
+            var title : Array<JSON>
+            var flight : Array<JSON>
+            var country : Array<JSON>
+            var state : Array<JSON>
             var banner = String()
 
             if result["status"] != nil{
-                if result["status"] as! String  == "success"{
+                if result["status"].string  == "success"{
                     
                     let defaults = NSUserDefaults.standardUserDefaults()
                     
@@ -91,27 +92,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         existDataVersion = "0"
                     }
                     
-                    let dataVersion = result["data_version"] as! String
+                    let dataVersion = result["data_version"].string
                     
                     if existDataVersion != dataVersion{
                         
-                        title = result["data_title"] as! NSArray
-                        flight = result["data_market"] as! NSArray
-                        country = result["data_country"] as! NSArray
-                        state = result["data_state"] as! NSArray
+                        title = result["data_title"].arrayValue
+                        flight = result["data_market"].arrayValue
+                        country = result["data_country"].arrayValue
+                        state = result["data_state"].arrayValue
                         
                         defaults.setObject(dataVersion, forKey: "dataVersion")
-                        defaults.setObject(title, forKey: "title")
-                        defaults.setObject(flight, forKey: "flight")
-                        defaults.setObject(country, forKey: "country")
-                        defaults.setObject(state, forKey: "state")
+                      //  defaults.setObject(title , forKey: "title")
+                        //defaults.setObject(flight, forKey: "flight")
+                        //defaults.setObject(country, forKey: "country")
+                        //defaults.setObject(state, forKey: "state")
                         
                     }
                     
-                    if result["banner_promo"] as! String == ""{
-                        banner = result["banner_default"] as! String
+                    if result["banner_promo"].string == ""{
+                        banner = result["banner_default"].string!
                     }else{
-                        banner = result["banner_promo"] as! String
+                        banner = result["banner_promo"].string!
                     }
                     
                     defaults.setObject(banner, forKey: "banner")
@@ -120,12 +121,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadHome", object: nil)
                 }else{
                     
-                    print(String(format: "%@ \n%@", result["status"] as! String, result["message"] as! String))
+                    print(String(format: "%@ \n%@", result["status"].string!, result["message"].string!))
                     //self.baseView.showToastMessage(String(format: "%@ \n%@", result["status"] as! String, result["message"] as! String))
                     
                 }
             }else{
-                print(result.localizedDescription)
+                print(result)
             }
         }
 

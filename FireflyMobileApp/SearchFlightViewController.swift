@@ -277,11 +277,11 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 manager.sharedClient().createRequestWithService("Search", withParams: parameters, completion: { (result) -> Void in
                     self.hideHud()
                     
-                    if result["status"] as! String == "success"{
+                    if result["status"].string == "success"{
                         
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("FlightDetailVC") as! FlightDetailViewController
-                        flightDetailVC.flightDetail = result["journeys"] as! NSArray
+                        flightDetailVC.flightDetail = result["journeys"].arrayValue
                         self.navigationController!.pushViewController(flightDetailVC, animated: true)
                         
                     }

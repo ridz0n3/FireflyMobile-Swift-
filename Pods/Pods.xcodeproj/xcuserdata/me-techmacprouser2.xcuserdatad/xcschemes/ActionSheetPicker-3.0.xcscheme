@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '62E3A637E82741F822B5AF09'
-               BlueprintName = 'MFSideMenu'
+               BlueprintIdentifier = 'FEEABB8ED7E8FE7C8C32A872'
+               BlueprintName = 'ActionSheetPicker-3.0'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'MFSideMenu.framework'>
+               BuildableName = 'ActionSheetPicker_3_0.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

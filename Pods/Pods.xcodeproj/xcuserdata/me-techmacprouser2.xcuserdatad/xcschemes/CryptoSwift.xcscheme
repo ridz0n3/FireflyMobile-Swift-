@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '62E3A637E82741F822B5AF09'
-               BlueprintName = 'MFSideMenu'
+               BlueprintIdentifier = '46FA1265A549F2B41A283D91'
+               BlueprintName = 'CryptoSwift'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'MFSideMenu.framework'>
+               BuildableName = 'CryptoSwift.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

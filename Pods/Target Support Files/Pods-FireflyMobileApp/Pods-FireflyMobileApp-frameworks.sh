@@ -91,6 +91,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-FireflyMobileApp/MBProgressHUD.framework"
   install_framework "Pods-FireflyMobileApp/MFSideMenu.framework"
   install_framework "Pods-FireflyMobileApp/SwiftValidator.framework"
+  install_framework "Pods-FireflyMobileApp/SwiftyJSON.framework"
   install_framework "Pods-FireflyMobileApp/TPKeyboardAvoiding.framework"
   install_framework "Pods-FireflyMobileApp/XLForm.framework"
 fi
@@ -102,6 +103,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-FireflyMobileApp/MBProgressHUD.framework"
   install_framework "Pods-FireflyMobileApp/MFSideMenu.framework"
   install_framework "Pods-FireflyMobileApp/SwiftValidator.framework"
+  install_framework "Pods-FireflyMobileApp/SwiftyJSON.framework"
   install_framework "Pods-FireflyMobileApp/TPKeyboardAvoiding.framework"
   install_framework "Pods-FireflyMobileApp/XLForm.framework"
 fi

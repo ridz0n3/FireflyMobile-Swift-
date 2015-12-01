@@ -7,6 +7,7 @@ PODS:
   - MBProgressHUD (0.9.1)
   - MFSideMenu (0.5.5)
   - SwiftValidator (3.0.1)
+  - SwiftyJSON (2.3.1)
   - TPKeyboardAvoiding (1.2.11)
   - XLForm (3.0.2)
 
@@ -19,6 +20,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9)
   - MFSideMenu (~> 0.5)
   - SwiftValidator (= 3.0.1)
+  - SwiftyJSON (~> 2.3)
   - TPKeyboardAvoiding (~> 1.2.3)
   - XLForm (~> 3.0)
 
@@ -31,6 +33,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MFSideMenu: 268122e6894f2747fc3a2b48578100b232506c60
   SwiftValidator: c59223144754045d7691febdc3b3ecc2e73b609c
+  SwiftyJSON: 592b53bee5ef3dd9b3bebc6b9cb7ee35426ae8c3
   TPKeyboardAvoiding: e5ce146b313de063957bfa75a13f1e9b0ff18ab7
   XLForm: 7817ce29f3f259186e837bb7309ac7e5b7e9b883
 

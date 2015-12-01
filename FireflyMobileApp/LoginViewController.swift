@@ -95,11 +95,11 @@ class LoginViewController: BaseXLFormViewController {
             manager.sharedClient().createRequestWithService("Login", withParams: parameters, completion: { (result) -> Void in
                 self.hideHud()
                 
-                if result["status"] as! String == "success"{
-                    self.showToastMessage(result["status"] as! String)
+                if  result["status"].string == "success"{
+                    self.showToastMessage(result["status"].string!)
                     
                     let defaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(result["user_info"], forKey: "userInfo")
+                    defaults.setObject(result["user_info"].string, forKey: "userInfo")
                     defaults.synchronize()
                     
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
@@ -107,10 +107,10 @@ class LoginViewController: BaseXLFormViewController {
                     let storyBoard = UIStoryboard(name: "Home", bundle: nil)
                     let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                     self.navigationController!.pushViewController(homeVC, animated: true)
-                }else if result["status"] as! String == "change_password"{
+                }else if result["status"].string == "change_password"{
                     
                 }else{
-                    self.showToastMessage(result["message"] as! String)
+                    self.showToastMessage(result["message"].string!)
                 }
                 
             })
@@ -172,11 +172,11 @@ class LoginViewController: BaseXLFormViewController {
         manager.sharedClient().createRequestWithService("ForgotPassword", withParams: parameters, completion: { (result) -> Void in
             self.hideHud()
             
-            if result["status"] as! String == "success"{
-                self.showToastMessage(result["message"] as! String)
+            if result["status"].string == "success"{
+                self.showToastMessage(result["message"].string!)
                 self.forgotPasswordView.removeFromSuperview()
             }else{
-                self.showToastMessage(result["userInfo"] as! String)
+                self.showToastMessage(result["userInfo"].string!)
             }
             
         })

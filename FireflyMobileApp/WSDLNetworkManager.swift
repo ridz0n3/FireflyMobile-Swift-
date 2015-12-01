@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class WSDLNetworkManager: NSObject {
     
@@ -18,15 +19,15 @@ class WSDLNetworkManager: NSObject {
         
     }
     
-    func createRequestWithService(serviceName: String, withParams: NSDictionary, completion: (result: AnyObject) -> Void) {
+    func createRequestWithService(serviceName: String, withParams: NSDictionary, completion: (result: JSON) -> Void) {
 
         let serviceUrl = String(format: "%@%@", kBaseURL,serviceName)
         
         Alamofire.request(.POST, serviceUrl, parameters: withParams as? [String : AnyObject]).responseJSON(options: .MutableContainers) { (response) -> Void in
             if response.result.isSuccess == true{
-                completion(result: response.result.value!)
+                completion(result: JSON(response.result.value!))
             }else{
-                completion(result: response.result.error!)
+                completion(result: JSON(response.result.error!))
             }
         }
     }

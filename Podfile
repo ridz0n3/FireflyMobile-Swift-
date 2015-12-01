@@ -13,7 +13,8 @@ pod 'TPKeyboardAvoiding', '~> 1.2.3'
 pod 'Alamofire', '~> 3.0'
 pod 'ActionSheetPicker-3.0'
 pod 'CryptoSwift'
-pod 'SwiftValidator', '3.0.1' 
+pod 'SwiftValidator', '3.0.1'
+pod 'SwiftyJSON', '~> 2.3'
 end
 
 target 'FireflyMobileAppTests' do
