@@ -79,39 +79,14 @@ class LoginViewController: BaseXLFormViewController {
         
         validateForm()
         
-        let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
-        let iv = "owNLfnLjPvwbQH3h"// lenght == 16
-        let s = "Abc987330"
-        let enc = try! s.aesEncrypt(key, iv: iv)
-        let dec = try! enc.aesDecrypt(key, iv: iv)
-        print(s) //string to encrypt
-        //print("iv:\(iv2)")
-        print("enc:\(enc)") //2r0+KirTTegQfF4wI8rws0LuV8h82rHyyYz7xBpXIpM=
-        print("dec:\(dec)") //string to encrypt
-        print("\(s == dec)") //true
-        /*
-        let parameters:[String:AnyObject] = [
-            "data": enc,
-        ]
-        
-        let manager = WSDLNetworkManager()
-        
-        manager.sharedClient().createRequestWithService("Test", withParams: parameters) { (result) -> Void in
-            print(result)
-            
-            let s = "Abc987330"
-            let enc = try! s.aesEncrypt(key, iv: iv)
-            let dec = try! enc.aesDecrypt(key, iv: iv)
-            
-            print("\(result["result_decrypt_from_mobile"] as! String == dec)")
-            
-        }*/
-        
         if isValidate{
+            
+            let password = self.formValues()["Password"] as! String
+            let encPassword = try! password.aesEncrypt(key, iv: iv)
             
             let parameters:[String:AnyObject] = [
                 "username": self.formValues()["Email"]!,
-                "password": self.formValues()["Password"]!,
+                "password": encPassword,
             ]
             
             let manager = WSDLNetworkManager()
