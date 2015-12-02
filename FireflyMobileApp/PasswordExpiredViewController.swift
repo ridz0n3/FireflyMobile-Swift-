@@ -10,6 +10,7 @@ import UIKit
 
 class PasswordExpiredViewController: BaseViewController {
 
+    @IBOutlet weak var PasswordExpiredTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,6 +21,37 @@ class PasswordExpiredViewController: BaseViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if indexPath.row == 3 {
+            
+            let cell = self.PasswordExpiredTableView.dequeueReusableCellWithIdentifier("UserCell", forIndexPath: indexPath) as! CustomPasswordExpiredTableViewCell
+            
+            cell.titleLbl.text = "UserEmail:*"
+            return cell;
+            
+        }else{
+            
+            let cell = self.PasswordExpiredTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomPasswordExpiredTableViewCell
+            
+            if indexPath.row == 0 {
+                cell.titleLbl.text = "Current Password:*"
+            }else if indexPath.row == 1 {
+                cell.titleLbl.text = "New Password:*"
+            }else{
+                cell.titleLbl.text = "Confirm Password:*"
+            }
+            
+            return cell;
+        }
+        
+    }
+
     
 
     /*
