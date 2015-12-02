@@ -99,7 +99,7 @@ class LoginViewController: BaseXLFormViewController {
                     self.showToastMessage(result["status"].string!)
                     
                     let defaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(result["user_info"].string, forKey: "userInfo")
+                    defaults.setObject(result["user_info"].dictionaryObject, forKey: "userInfo")
                     defaults.synchronize()
                     
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)

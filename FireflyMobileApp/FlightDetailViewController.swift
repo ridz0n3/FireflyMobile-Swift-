@@ -8,12 +8,14 @@
 
 import UIKit
 import SwiftyJSON
+import M13Checkbox
 
 class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var flightDetailTableView: UITableView!
     @IBOutlet weak var continueView: UIView!
     
+    var selectedFlight:NSNumber? = nil
     var flightDetail : Array<JSON> = []
     var planGoing:Int = 1
     var planReturn:Int = 4
@@ -26,7 +28,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         header.lvlImg.image = UIImage(named: "book_flight2")
 
         self.flightDetailTableView.tableHeaderView = header
-        
+        selectedFlight = 0
         if flightDetail.count == 0{
             self.continueView.hidden = true
         }
@@ -96,6 +98,15 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.arrivalAirportLbl.text = String(format: "%@ Airport", flightDict!["arrival_station_name"]!.string!)
                 cell.departureTimeLbl.text = flightData!["departure_time"]!.string
                 cell.arrivalTimeLbl.text = flightData!["arrival_time"]!.string
+                cell.checkFlight.addTarget(self, action: "checkBoxTicked:", forControlEvents: .TouchUpInside)
+                cell.checkFlight.tag = indexPath.row
+                
+                if NSNumber.init(integer: indexPath.row) == selectedFlight{
+                    selectedFlight = NSNumber.init(integer: indexPath.row)
+                    cell.checkFlight.checkState = M13CheckboxStateChecked
+                }else{
+                    cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                }
                 
                 if (planGoing == 1 && indexPath.section == 0) || (planReturn == 4 && indexPath.section == 1){
                     cell.priceLbl.text = String(format: "MYR %.2f", (flightBasic!["total_fare"]?.floatValue)!)
@@ -184,6 +195,15 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
         let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PersonalDetailVC") as! PersonalDetailViewController
         self.navigationController!.pushViewController(personalDetailVC, animated: true)
+    }
+    
+    func checkBoxTicked(sender:M13Checkbox){
+        
+        if selectedFlight != nil{
+            let cell = (self.flightDetailTableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: selectedFlight!.integerValue, inSection: 0)) as! CustomFlightDetailTableViewCell).checkFlight as M13Checkbox
+            cell.toggleCheckState()
+        }
+        selectedFlight = NSNumber(integer: sender.tag)
     }
     
     /*

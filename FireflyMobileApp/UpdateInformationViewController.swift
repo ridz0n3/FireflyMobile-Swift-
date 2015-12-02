@@ -91,25 +91,35 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.value = userInfo["username"]
+        row.disabled = true
         row.required = true
         row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         
         // Password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Password"
+        row.cellConfigAtConfigure["textField.placeholder"] = "Current Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$"))
-        row.required = true
+        //row.required = true
+        section.addFormRow(row)
+        
+        // Password
+        row = XLFormRowDescriptor(tag: Tags.ValidationNewPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
+        row.cellConfigAtConfigure["textField.placeholder"] = "New Password"
+        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
+        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$"))
+        //row.required = true
         section.addFormRow(row)
         
         // Confirm Password
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Confirm Password"
+        row.cellConfigAtConfigure["textField.placeholder"] = "Confirm Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.required = true
+        //row.required = true
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor()
@@ -354,74 +364,95 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         if isValidate {
             
-            if (form.formRowWithTag(Tags.ValidationPassword)?.value)! as! String != (form.formRowWithTag(Tags.ValidationConfirmPassword)?.value)! as! String{
+            if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String != ""{
                 
-                //let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
-                //let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
-                
-                /*let cell = self.tableView.cellForRowAtIndexPath(self.form .indexPathOfFormRow(self.form.formRowWithTag(Tags.ValidationConfirmPassword)!)!) as! XLFormTextFieldCell
-                
-                
-                
-                cell.backgroundColor = .orangeColor()
-                UIView.animateWithDuration(0.3, animations: { () -> Void in
-                cell.backgroundColor = UIColor(patternImage: UIImage(named: "txtField")!)
-                })
-                
-                animateCell(cell)*/
-                showToastMessage("Confirm password is incorrect")
-            }else {
-                var parameters:[String:AnyObject] = [String:AnyObject]()
-                
-                parameters.updateValue(formValues()[Tags.ValidationUsername]!, forKey: "username")
-                parameters.updateValue(formValues()[Tags.ValidationPassword]!, forKey: "password")
-                
-                parameters.updateValue((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData(), forKey: "title")
-                parameters.updateValue(formValues()[Tags.ValidationFirstName]!, forKey: "first_name")
-                parameters.updateValue(formValues()[Tags.ValidationLastName]!, forKey: "last_name")
-                parameters.updateValue(formatDate(formValues()[Tags.ValidationDate]! as! NSDate), forKey: "dob")
-                parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!, forKey: "address_1")
-                
-                parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!, forKey: "address_2")
-                
-                parameters.updateValue("", forKey: "address_3")
-                parameters.updateValue((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData(), forKey: "country")
-                parameters.updateValue(formValues()[Tags.ValidationTownCity]!, forKey: "city")
-                parameters.updateValue((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData(), forKey: "state")
-                parameters.updateValue(formValues()[Tags.ValidationPostcode]!, forKey: "postcode")
-                parameters.updateValue(formValues()[Tags.ValidationMobileHome]!, forKey: "mobile_phone")
-                
-                parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate])!, forKey: "alternate_phone")
-                
-                parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
-                
-                parameters.updateValue("", forKey: "signature")
-                
-                /*
-                let manager = WSDLNetworkManager()
-                
-                showHud()
-                manager.sharedClient().createRequestWithService("Register", withParams: parameters, completion: { (result) -> Void in
-                    self.hideHud()
+                if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == ""{
                     
-                    if result["status"] as! String == "success"{
-                        self.showToastMessage(result["status"] as! String)
+                    showToastMessage("New password cannot be empty")
+                    
+                }else if nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String == ""{
+                    
+                    showToastMessage("Confirm password cannot be empty")
+                    
+                }else if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String{
+                    
+                    let dec = try!(userInfo["password"] as! String).aesDecrypt(key, iv: iv)
+                    
+                    if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String == dec{
                         
-                        let storyBoard = UIStoryboard(name: "Login", bundle: nil)
-                        let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
-                        self.navigationController!.pushViewController(loginVC, animated: true)
+                        sendInfo()
+                        
                     }else{
-                        self.showToastMessage(result["status"] as! String)
+                        showToastMessage("Current password is incorrect")
                     }
                     
-                })*/
+                }else{
+                    showToastMessage("Confirm password is incorrect")
+                }
+
+            }else {
+                sendInfo()
             }
         }else{
             self.showToastMessage("Please Fill All Field")
         }
     }
 
+    func sendInfo(){
+        let encOldPassword = try!(nullIfEmpty(formValues()[Tags.ValidationPassword]!) as! String).aesEncrypt(key, iv: iv)
+        let encNewPassword = try!(nullIfEmpty(formValues()[Tags.ValidationNewPassword]!) as! String).aesEncrypt(key, iv: iv)
+        
+        var parameters:[String:AnyObject] = [String:AnyObject]()
+        
+        parameters.updateValue(userInfo["username"]!, forKey: "username")
+        parameters.updateValue(encOldPassword, forKey: "password")
+        parameters.updateValue(encNewPassword, forKey: "new_password")
+        parameters.updateValue((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData(), forKey: "title")
+        parameters.updateValue(formValues()[Tags.ValidationFirstName]!, forKey: "first_name")
+        parameters.updateValue(formValues()[Tags.ValidationLastName]!, forKey: "last_name")
+        parameters.updateValue(formatDate(formValues()[Tags.ValidationDate]! as! NSDate), forKey: "dob")
+        parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!, forKey: "address_1")
+        
+        parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!, forKey: "address_2")
+        
+        parameters.updateValue("", forKey: "address_3")
+        parameters.updateValue((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData(), forKey: "country")
+        parameters.updateValue(formValues()[Tags.ValidationTownCity]!, forKey: "city")
+        parameters.updateValue((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData(), forKey: "state")
+        parameters.updateValue(formValues()[Tags.ValidationPostcode]!, forKey: "postcode")
+        parameters.updateValue(formValues()[Tags.ValidationMobileHome]!, forKey: "mobile_phone")
+        
+        parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate])!, forKey: "alternate_phone")
+        
+        parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
+        
+        parameters.updateValue(userInfo["signature"]!, forKey: "signature")
+        
+        
+        let manager = WSDLNetworkManager()
+        
+        showHud()
+        manager.sharedClient().createRequestWithService("UpdateProfile", withParams: parameters, completion: { (result) -> Void in
+            self.hideHud()
+            
+            if result["status"].string == "success"{
+                self.showToastMessage(result["status"].string!)
+                
+                let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject(result["user_info"].dictionaryObject, forKey: "userInfo")
+                defaults.synchronize()
+                
+                let storyBoard = UIStoryboard(name: "Home", bundle: nil)
+                let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+                self.navigationController!.pushViewController(homeVC, animated: true)
+            }else{
+                self.showToastMessage(result["message"].string!)
+            }
+        
+        })
 
+        
+    }
     /*
     // MARK: - Navigation
 
