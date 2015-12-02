@@ -376,7 +376,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
                     
                 }else if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String{
                     
-                    let dec = try!(userInfo["password"] as! String).aesDecrypt(key, iv: iv)
+                    let dec = try! EncryptManager.sharedInstance.aesDecrypt(userInfo["password"] as! String, key: key, iv: iv)
                     
                     if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String == dec{
                         
@@ -399,8 +399,10 @@ class UpdateInformationViewController: BaseXLFormViewController {
     }
 
     func sendInfo(){
-        let encOldPassword = try!(nullIfEmpty(formValues()[Tags.ValidationPassword]!) as! String).aesEncrypt(key, iv: iv)
-        let encNewPassword = try!(nullIfEmpty(formValues()[Tags.ValidationNewPassword]!) as! String).aesEncrypt(key, iv: iv)
+        
+        let encOldPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationPassword]!) as! String, key: key, iv: iv)
+        
+        let encNewPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationNewPassword]!) as! String, key: key, iv: iv)
         
         var parameters:[String:AnyObject] = [String:AnyObject]()
         
