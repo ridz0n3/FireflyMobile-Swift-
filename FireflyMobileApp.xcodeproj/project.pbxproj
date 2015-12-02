@@ -66,6 +66,7 @@
 		7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */; };
 		7EBCD6A61BFAC9FB0043F28C /* ChooseSeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A51BFAC9FB0043F28C /* ChooseSeatViewController.swift */; };
 		7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */; };
+		9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B0791C0EA6B8000B522F /* EncryptManager.swift */; settings = {ASSET_TAGS = (); }; };
 		D69D4B8A65CD5940FF9528D0 /* Pods_FireflyMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -155,6 +156,7 @@
 		7EBCD6A51BFAC9FB0043F28C /* ChooseSeatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseSeatViewController.swift; sourceTree = "<group>"; };
 		7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomChooseSeatTableViewCell.swift; sourceTree = "<group>"; };
 		86B59F03D2AABF55D7291F46 /* Pods-FireflyMobileApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.release.xcconfig"; sourceTree = "<group>"; };
+		9615B0791C0EA6B8000B522F /* EncryptManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptManager.swift; sourceTree = "<group>"; };
 		FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireflyMobileApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -336,6 +338,7 @@
 			isa = PBXGroup;
 			children = (
 				7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */,
+				9615B0791C0EA6B8000B522F /* EncryptManager.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -608,6 +611,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E6930F61BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift in Sources */,
+				9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */,
 				7E20F90D1BFA02E90020AB0C /* CustomFlightDetailTableViewCell.swift in Sources */,
 				7E20F90B1BFA02470020AB0C /* FlightDetailViewController.swift in Sources */,
 				7E1F781A1BF9B60800F55C46 /* LoginViewController.swift in Sources */,
@@ -797,7 +801,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c6469f8c-5656-4bb3-9da5-5f998d7908fc";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -814,7 +818,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "c6469f8c-5656-4bb3-9da5-5f998d7908fc";
-				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 			};
 			name = Release;
 		};

@@ -75,10 +75,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         request.sharedClient().createRequestWithService("Loading", withParams: parameters) { (result) -> Void in
             
-            var title : Array<JSON>
-            var flight : Array<JSON>
-            var country : Array<JSON>
-            var state : Array<JSON>
+            var title = NSArray()
+            var flight = NSArray()
+            var country = NSArray()
+            var state = NSArray()
             var banner = String()
 
             if result["status"] != nil{
@@ -96,16 +96,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     
                     if existDataVersion != dataVersion{
                         
-                        title = result["data_title"].arrayValue
-                        flight = result["data_market"].arrayValue
-                        country = result["data_country"].arrayValue
-                        state = result["data_state"].arrayValue
+                        title = result["data_title"].object as! NSArray
+                        flight = result["data_market"].object as! NSArray
+                        country = result["data_country"].object as! NSArray
+                        state = result["data_state"].object as! NSArray
                         
                         defaults.setObject(dataVersion, forKey: "dataVersion")
-                      //  defaults.setObject(title , forKey: "title")
-                        //defaults.setObject(flight, forKey: "flight")
-                        //defaults.setObject(country, forKey: "country")
-                        //defaults.setObject(state, forKey: "state")
+                        defaults.setObject(title , forKey: "title")
+                        defaults.setObject(flight, forKey: "flight")
+                        defaults.setObject(country, forKey: "country")
+                        defaults.setObject(state, forKey: "state")
                         
                     }
                     

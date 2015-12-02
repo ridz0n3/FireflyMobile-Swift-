@@ -82,8 +82,8 @@ class LoginViewController: BaseXLFormViewController {
         if isValidate{
             
             let password = self.formValues()["Password"] as! String
-            let encPassword = try! password.aesEncrypt(key, iv: iv)
-            
+            let encPassword = try! EncryptManager.sharedInstance.aesEncrypt(password, key: key, iv: iv)
+    
             let parameters:[String:AnyObject] = [
                 "username": self.formValues()["Email"]!,
                 "password": encPassword,
@@ -99,7 +99,8 @@ class LoginViewController: BaseXLFormViewController {
                     self.showToastMessage(result["status"].string!)
                     
                     let defaults = NSUserDefaults.standardUserDefaults()
-                    defaults.setObject(result["user_info"].string, forKey: "userInfo")
+                   // let userInfoTemp : NSDictionary<String, JSON> = result["user_info"].dictionary
+                    defaults.setObject(result["user_info"].object , forKey: "userInfo")
                     defaults.synchronize()
                     
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
