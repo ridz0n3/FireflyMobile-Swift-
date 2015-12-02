@@ -8,56 +8,86 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>CryptoSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>M13Checkbox.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>MFSideMenu.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>Pods-FireflyMobileApp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
 		</dict>
 		<key>SwiftValidator.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>SwiftyJSON.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>11</integer>
 		</dict>
 		<key>TPKeyboardAvoiding.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 		<key>XLForm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>113331C8344479FA212C61E3292ACD87</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>13A9D6D3068E90440F8349B791346F93</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -82,6 +112,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>94CE3BCE253F8BC54F98A3A3938EDBD2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>952FE1EB61CA49FEC151B1763B93E741</key>
 		<dict>
 			<key>primary</key>
@@ -92,7 +127,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>A423DBEE0F2985BD04736912B9E39F1B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>CE0A701D8A271EFE0065667D13272921</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D5C702EDBAAC441DA5F6E76FF70FC39F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -103,6 +148,11 @@
 			<true/>
 		</dict>
 		<key>EFA63340A87C8D7E87F73BF7BC519123</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F5EB69CDC27C35D7401A908F5D9143C4</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -54,12 +54,12 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         if flightDetail.count == 0{
             return 1
         }else{
-            let flightDict = flightDetail[section] as! NSDictionary
+            let flightDict = flightDetail[section].dictionary
             
-            if flightDict["flights"]?.count == 0{
+            if flightDict!["flights"]?.count == 0{
                 return 1
             }else{
-                return (flightDict["flights"]?.count)!
+                return (flightDict!["flights"]?.count)!
             }
         }
     }
@@ -77,34 +77,34 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
             return cell
         }else{
             
-            let flightDict = flightDetail[indexPath.section] as! NSDictionary
+            let flightDict = flightDetail[indexPath.section].dictionary
             
-            if flightDict["flights"]?.count == 0{
+            if flightDict!["flights"]?.count == 0{
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
                 return cell
             }else{
                 let cell = self.flightDetailTableView.dequeueReusableCellWithIdentifier("flightCell", forIndexPath: indexPath) as! CustomFlightDetailTableViewCell
                 
-                let flightDict = flightDetail[indexPath.section] as! NSDictionary
-                let flights = flightDict["flights"] as! NSArray
-                let flightData = flights[indexPath.row] as! NSDictionary
-                let flightBasic = flightData["basic_class"] as! NSDictionary
-                let flightFlex = flightData["flex_class"] as! NSDictionary
+                let flightDict = flightDetail[indexPath.section].dictionary
+                let flights = flightDict!["flights"]?.array
+                let flightData = flights![indexPath.row].dictionary
+                let flightBasic = flightData!["basic_class"]!.dictionary
+                let flightFlex = flightData!["flex_class"]!.dictionary
                 
-                cell.flightNumber.text = String(format: "FLIGHT NO. FY %@", flightData["flight_number"] as! String)
-                cell.departureAirportLbl.text = String(format: "%@ Airport", flightDict["departure_station_name"] as! String)
-                cell.arrivalAirportLbl.text = String(format: "%@ Airport", flightDict["arrival_station_name"] as! String)
-                cell.departureTimeLbl.text = flightData["departure_time"] as? String
-                cell.arrivalTimeLbl.text = flightData["arrival_time"] as? String
+                cell.flightNumber.text = String(format: "FLIGHT NO. FY %@", flightData!["flight_number"]!.string!)
+                cell.departureAirportLbl.text = String(format: "%@ Airport", flightDict!["departure_station_name"]!.string!)
+                cell.arrivalAirportLbl.text = String(format: "%@ Airport", flightDict!["arrival_station_name"]!.string!)
+                cell.departureTimeLbl.text = flightData!["departure_time"]!.string
+                cell.arrivalTimeLbl.text = flightData!["arrival_time"]!.string
                 
                 if (planGoing == 1 && indexPath.section == 0) || (planReturn == 4 && indexPath.section == 1){
-                    cell.priceLbl.text = String(format: "MYR %.2f", (flightBasic["total_fare"]?.floatValue)!)
+                    cell.priceLbl.text = String(format: "MYR %.2f", (flightBasic!["total_fare"]?.floatValue)!)
                 }else{
                     
-                    if flightFlex["status"] as! String == "sold out"{
+                    if flightFlex!["status"]!.string == "sold out"{
                         cell.priceLbl.text = "SOLD OUT"
                     }else{
-                        cell.priceLbl.text = String(format: "MYR %.2f", (flightFlex["total_fare"]?.floatValue)!)
+                        cell.priceLbl.text = String(format: "MYR %.2f", (flightFlex!["total_fare"]?.floatValue)!)
                     }
                     
                 }
@@ -135,7 +135,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
             
             flightHeader.frame = CGRectMake(0, 0,self.view.frame.size.width, 118)
             
-            let flightDict = flightDetail[section] as! NSDictionary
+            let flightDict = flightDetail[section].dictionary
             
             if (planGoing == 1 && section == 0) || (planReturn == 4 && section == 1){
                 flightHeader.basicBtn.backgroundColor = UIColor.whiteColor()
@@ -145,9 +145,9 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 flightHeader.premierBtn.backgroundColor = UIColor.whiteColor()
             }
             
-            flightHeader.destinationLbl.text = String(format: "%@ - %@", flightDict["departure_station_name"] as! String,flightDict["arrival_station_name"] as! String) //"PENANG - SUBANG"
-            flightHeader.wayLbl.text = String(format: "(%@)", flightDict["type"] as! String)// "(Return Flight)"
-            flightHeader.dateLbl.text = String(format: "%@", flightDict["departure_date"] as! String) //"26 JAN 2015"
+            flightHeader.destinationLbl.text = String(format: "%@ - %@", (flightDict!["departure_station_name"]?.string)!,flightDict!["arrival_station_name"]!.string!) //"PENANG - SUBANG"
+            flightHeader.wayLbl.text = String(format: "(%@)", flightDict!["type"]!.string!)// "(Return Flight)"
+            flightHeader.dateLbl.text = String(format: "%@", flightDict!["departure_date"]!.string!) //"26 JAN 2015"
             
             flightHeader.basicBtn.addTarget(self, action: "changePlan:", forControlEvents: .TouchUpInside)
             if section == 0 {
