@@ -21,6 +21,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     internal struct Tags {
         static let ValidationUsername = "Email"
         static let ValidationPassword = "Password"
+        static let ValidationNewPassword = "New Password"
         static let ValidationConfirmPassword = "Confirm Password"
         static let ValidationTitle = "Title"
         static let ValidationFirstName = "First Name"
