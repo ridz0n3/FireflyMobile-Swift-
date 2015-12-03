@@ -77,6 +77,12 @@ class LoginViewController: BaseXLFormViewController {
 
     @IBAction func loginButtonPressed(sender: AnyObject) {
         
+        // [START custom_event_swift]
+        let tracker = GAI.sharedInstance().defaultTracker
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "LoginIOS", label: nil, value: nil)
+        tracker.send(event.build() as [NSObject : AnyObject])
+        // [END custom_event_swift]
+        
         validateForm()
         
         if isValidate{
@@ -109,7 +115,9 @@ class LoginViewController: BaseXLFormViewController {
                     let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                     self.navigationController!.pushViewController(homeVC, animated: true)
                 }else if result["status"].string == "change_password"{
-                    
+                    let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+                    let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
+                    self.navigationController!.pushViewController(homeVC, animated: true)
                 }else{
                     self.showToastMessage(result["message"].string!)
                 }
@@ -124,6 +132,11 @@ class LoginViewController: BaseXLFormViewController {
     
     @IBAction func forgotPasswordButtonPressed(sender: AnyObject) {
         
+        // [START custom_event_swift]
+        let tracker = GAI.sharedInstance().defaultTracker
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "ForgotPasswordIOS", label: nil, value: nil)
+        tracker.send(event.build() as [NSObject : AnyObject])
+        // [END custom_event_swift]
 
         forgotPasswordView = NSBundle.mainBundle().loadNibNamed("ForgotPasswordView", owner: self, options: nil)[0] as! UIView
         

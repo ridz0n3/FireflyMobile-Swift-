@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6132A0031C10222800B41541 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6132A0021C10222700B41541 /* GoogleService-Info.plist */; settings = {ASSET_TAGS = (); }; };
 		615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */; };
 		7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */; };
@@ -90,6 +91,7 @@
 
 /* Begin PBXFileReference section */
 		0F9AC93C947F773EF563C73C /* Pods-FireflyMobileApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.debug.xcconfig"; sourceTree = "<group>"; };
+		6132A0021C10222700B41541 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPasswordExpiredlTableViewCell.swift; sourceTree = "<group>"; };
 		7E1F77D91BF96E6C00F55C46 /* FireflyMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireflyMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 		7E1F78231BF9BE8C00F55C46 /* Support File */ = {
 			isa = PBXGroup;
 			children = (
+				6132A0021C10222700B41541 /* GoogleService-Info.plist */,
 				7E1F77E81BF96E6C00F55C46 /* Info.plist */,
 				7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */,
 				7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */,
@@ -537,6 +540,7 @@
 				7E1F780E1BF979B300F55C46 /* Home.storyboard in Resources */,
 				7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */,
 				7E1F78281BF9C50400F55C46 /* Register.storyboard in Resources */,
+				6132A0031C10222800B41541 /* GoogleService-Info.plist in Resources */,
 				7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */,
 				7E6930FD1BFAFEE6004F1719 /* ManageFlight.storyboard in Resources */,
 				7E6931121BFB1F2C004F1719 /* MobileCheckIn.storyboard in Resources */,

@@ -70,6 +70,30 @@ Permission is granted to anyone to use this software for any purpose,including c
 Copyright 2013-2015 Estimote, Inc. All rights reserved.
 
 
+## Google
+
+Copyright 2015 Google Inc.
+
+## GoogleAnalytics
+
+Copyright 2015 Google Inc.
+
+## GoogleInterchangeUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleNetworkingUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleSymbolUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleUtilities
+
+Copyright 2015 Google Inc.
+
 ## M13Checkbox
 
  Copyright (c) 2013 Brandon McQuilkin

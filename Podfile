@@ -15,6 +15,7 @@ pod 'ActionSheetPicker-3.0'
 pod 'CryptoSwift'
 pod 'SwiftValidator', '3.0.1'
 pod 'SwiftyJSON', '~> 2.3'
+pod 'Google/Analytics'
 end
 
 target 'FireflyMobileAppTests' do

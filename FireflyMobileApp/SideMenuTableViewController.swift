@@ -17,6 +17,12 @@ class SideMenuTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // [START custom_event_swift]
+        let tracker = GAI.sharedInstance().defaultTracker
+        let event = GAIDictionaryBuilder.createEventWithCategory("Action", action: "SideMenu", label: nil, value: nil)
+        tracker.send(event.build() as [NSObject : AnyObject])
+        // [END custom_event_swift]
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshSideMenu:", name: "reloadSideMenu", object: nil)
         // Uncomment the following line to preserve selection between presentations
@@ -129,6 +135,11 @@ class SideMenuTableViewController: UITableViewController {
             controllers.append(registerVC)
             
         }else if (indexPath.row == 4) {
+            
+            let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+            let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
+            controllers.append(homeVC)
+           // self.navigationController!.pushViewController(homeVC, animated: true)
             
         }else if (indexPath.row == 5) {
             

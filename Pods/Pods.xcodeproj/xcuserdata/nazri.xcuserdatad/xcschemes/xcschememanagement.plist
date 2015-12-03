@@ -6,113 +6,113 @@
 	<dict>
 		<key>ActionSheetPicker-3.0.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>1</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>2</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>CryptoSwift.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>3</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>M13Checkbox.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>4</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>5</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>MFSideMenu.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>6</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>Pods-FireflyMobileApp.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SwiftValidator.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>8</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>9</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>TPKeyboardAvoiding.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>10</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>XLForm.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>11</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>113331C8344479FA212C61E3292ACD87</key>
+		<key>353347597941EC7EF5375F50EAAC4D68</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>13A9D6D3068E90440F8349B791346F93</key>
+		<key>5D83A6A5CE300DD70754123A90D1223D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>432ECC54282C84882B482CCB4CF227FC</key>
+		<key>64825B2E544623D2989A81512C0AD729</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>94CE3BCE253F8BC54F98A3A3938EDBD2</key>
+		<key>8568C31DB3151BD9C0C8E5F259541AE6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>952FE1EB61CA49FEC151B1763B93E741</key>
+		<key>86D9C426169CAE6BB891E5F2BF35C12B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9A923F554FE24682810ED75DC853CD39</key>
+		<key>8B293389675DBF5F15D761DE1AED5539</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A423DBEE0F2985BD04736912B9E39F1B</key>
+		<key>96E1B86F325829286D3543E1D2BFDBF7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CE0A701D8A271EFE0065667D13272921</key>
+		<key>B9A04D3C9B208813656510FDA8ADAE02</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D5C702EDBAAC441DA5F6E76FF70FC39F</key>
+		<key>DDA38DFFB826B51281CC6F9607D29D55</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
+		<key>E13D939549528BD328A9D8ECAEF89407</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F5EB69CDC27C35D7401A908F5D9143C4</key>
+		<key>EC19C6B32D8D1845093C2F36A85BF697</key>
 		<dict>
 			<key>primary</key>
 			<true/>
