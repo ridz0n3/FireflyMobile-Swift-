@@ -115,6 +115,11 @@ class PasswordExpiredViewController: BaseViewController, UITableViewDataSource, 
         for (field, error) in validator.errors {
             field.layer.borderColor = UIColor.redColor().CGColor
             field.layer.borderWidth = 1.0
+            /*if error.errorLabel!.text  = ValidationError {
+                print("This field is required")
+            }else{
+                print("Invalid pss")
+            }*/
             error.errorLabel?.text = error.errorMessage // works if you added labels
             error.errorLabel?.hidden = false
         }

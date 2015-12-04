@@ -52,11 +52,10 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
             // clear error label
             validationRule.errorLabel?.hidden = true
             validationRule.errorLabel?.text = ""
-            validationRule.textField.layer.borderColor = UIColor.greenColor().CGColor
             validationRule.textField.layer.borderWidth = 0.5
             
             }, error:{ (validationError) -> Void in
-                print("error")
+                print(validationError.errorMessage)
                 validationError.errorLabel?.hidden = false
                 validationError.errorLabel?.text = validationError.errorMessage
                 validationError.textField.layer.borderColor = UIColor.redColor().CGColor
