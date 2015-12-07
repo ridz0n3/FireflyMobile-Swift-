@@ -60,76 +60,72 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             existDataVersion = ""
         }
         
-        let request = WSDLNetworkManager()
-        let parameters:[String:AnyObject] = [
-            "signature": "",
-            "username": "",
-            "password": "",
-            "sdkVersion": "",
-            "version": "",
-            "deviceId": "",
-            "brand": "",
-            "model": "",
-            "dataVersion": existDataVersion,
-        ]
-        
-        request.sharedClient().createRequestWithService("Loading", withParams: parameters) { (result) -> Void in
-            
-            var title = NSArray()
-            var flight = NSArray()
-            var country = NSArray()
-            var state = NSArray()
-            var banner = String()
-
-            if result["status"] != nil{
-                if result["status"].string  == "success"{
+        FireFlyProvider.request(.Loading("","","","","","","","",existDataVersion)) { (result) -> () in
+            switch result {
+            case .Success(let successResult):
+                do {
                     
-                    let defaults = NSUserDefaults.standardUserDefaults()
+                    var title = NSArray()
+                    var flight = NSArray()
+                    var country = NSArray()
+                    var state = NSArray()
+                    var banner = String()
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
-                    if (defaults.objectForKey("dataVersion") != nil){
-                        existDataVersion = defaults.objectForKey("dataVersion") as! String
-                    }else{
-                        existDataVersion = "0"
+                    if json["status"] != nil{
+                        if json["status"].string  == "success"{
+                            
+                            let defaults = NSUserDefaults.standardUserDefaults()
+                            
+                            if (defaults.objectForKey("dataVersion") != nil){
+                                existDataVersion = defaults.objectForKey("dataVersion") as! String
+                            }else{
+                                existDataVersion = "0"
+                            }
+                            
+                            let dataVersion = json["data_version"].string
+                            
+                            if existDataVersion != dataVersion{
+                                
+                                title = json["data_title"].object as! NSArray
+                                flight = json["data_market"].object as! NSArray
+                                country = json["data_country"].object as! NSArray
+                                state = json["data_state"].object as! NSArray
+                                
+                                defaults.setObject(dataVersion, forKey: "dataVersion")
+                                defaults.setObject(title , forKey: "title")
+                                defaults.setObject(flight, forKey: "flight")
+                                defaults.setObject(country, forKey: "country")
+                                defaults.setObject(state, forKey: "state")
+                                
+                            }
+                            
+                            if json["banner_promo"].string == ""{
+                                banner = json["banner_default"].string!
+                            }else{
+                                banner = json["banner_promo"].string!
+                            }
+                            
+                            defaults.setObject(banner, forKey: "banner")
+                            defaults.synchronize()
+                            
+                            NSNotificationCenter.defaultCenter().postNotificationName("reloadHome", object: nil)
+                        }
+                        else{
+                            print(String(format: "%@ \n%@", json["status"].string!, json["message"].string!))
+                        }
                     }
-                    
-                    let dataVersion = result["data_version"].string
-                    
-                    if existDataVersion != dataVersion{
-                        
-                        title = result["data_title"].object as! NSArray
-                        flight = result["data_market"].object as! NSArray
-                        country = result["data_country"].object as! NSArray
-                        state = result["data_state"].object as! NSArray
-                        
-                        defaults.setObject(dataVersion, forKey: "dataVersion")
-                        defaults.setObject(title , forKey: "title")
-                        defaults.setObject(flight, forKey: "flight")
-                        defaults.setObject(country, forKey: "country")
-                        defaults.setObject(state, forKey: "state")
-                        
+                    else{
+                        print(result)
                     }
-                    
-                    if result["banner_promo"].string == ""{
-                        banner = result["banner_default"].string!
-                    }else{
-                        banner = result["banner_promo"].string!
-                    }
-                    
-                    defaults.setObject(banner, forKey: "banner")
-                    defaults.synchronize()
-                    
-                    NSNotificationCenter.defaultCenter().postNotificationName("reloadHome", object: nil)
-                }else{
-                    
-                    print(String(format: "%@ \n%@", result["status"].string!, result["message"].string!))
-                    //self.baseView.showToastMessage(String(format: "%@ \n%@", result["status"] as! String, result["message"] as! String))
+                }
+                catch {
                     
                 }
-            }else{
-                print(result)
-            }
+            case .Failure(let errorResult):
+                 print (errorResult)
         }
-
+        }
     }
 
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {

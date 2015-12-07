@@ -6,6 +6,10 @@ PODS:
   - M13Checkbox (1.1.2)
   - MBProgressHUD (0.9.1)
   - MFSideMenu (0.5.5)
+  - Moya (5.0.0):
+    - Moya/Core (= 5.0.0)
+  - Moya/Core (5.0.0):
+    - Alamofire (~> 3.0)
   - SwiftValidator (3.0.1)
   - SwiftyJSON (2.3.1)
   - TPKeyboardAvoiding (1.2.11)
@@ -19,6 +23,7 @@ DEPENDENCIES:
   - M13Checkbox (~> 1.1)
   - MBProgressHUD (~> 0.9)
   - MFSideMenu (~> 0.5)
+  - Moya (~> 5.0)
   - SwiftValidator (= 3.0.1)
   - SwiftyJSON (~> 2.3)
   - TPKeyboardAvoiding (~> 1.2.3)
@@ -32,6 +37,7 @@ SPEC CHECKSUMS:
   M13Checkbox: 0c0bb08dcd144c4ea33f883b68270f3f56908ea2
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MFSideMenu: 268122e6894f2747fc3a2b48578100b232506c60
+  Moya: 1267d2e7adcc8a3c90b9864854d491ab32f87b3e
   SwiftValidator: c59223144754045d7691febdc3b3ecc2e73b609c
   SwiftyJSON: 592b53bee5ef3dd9b3bebc6b9cb7ee35426ae8c3
   TPKeyboardAvoiding: e5ce146b313de063957bfa75a13f1e9b0ff18ab7
