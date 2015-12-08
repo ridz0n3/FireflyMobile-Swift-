@@ -116,20 +116,9 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         section.addFormRow(row)
     
         // Date
-        
-        let currentDate: NSDate = NSDate()
-        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        calendar.timeZone = NSTimeZone(name: "UTC")!
-        
-        let components: NSDateComponents = NSDateComponents()
-        components.calendar = calendar
-        
-        components.year = -18
-        let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-        
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeDate, title:"*Date of Birth")
         row.value = NSDate()
-        row.cellConfigAtConfigure["maximumDate"] = minDate
+        row.cellConfigAtConfigure["maximumDate"] = NSDate()
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.required = true
         section.addFormRow(row)
@@ -289,6 +278,17 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         //promotionCheckBox.checkState.
         if isValidate {
             
+            let currentDate: NSDate = NSDate()
+            let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            calendar.timeZone = NSTimeZone(name: "UTC")!
+            
+            let components: NSDateComponents = NSDateComponents()
+            components.calendar = calendar
+            
+            components.year = -18
+            let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            
+            
             if formValues()[Tags.ValidationPassword]! as! String != formValues()[Tags.ValidationConfirmPassword]! as! String{
             
                 let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
@@ -304,6 +304,8 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 showToastMessage("State Empty")
             }else if termCheckBox.checkState.rawValue == 0{
                 showToastMessage("Please check term and condition checkbox")
+            }else if minDate.compare(formValues()[Tags.ValidationDate] as! NSDate) == NSComparisonResult.OrderedAscending {
+                showToastMessage("User must age 18 and above to register")
             }else{
                 
                 let enc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationPassword]! as! String, key: key, iv: iv)
@@ -329,6 +331,14 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
 
                     parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate])!, forKey: "alternate_phone")
                 
+                if promotionCheckBox.checkState.rawValue == 0{
+                    parameters.updateValue("N", forKey: "newsletter")
+                }else{
+                    parameters.updateValue("Y", forKey: "newsletter")
+                }
+                
+                
+                
                     parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
                 
                     parameters.updateValue("", forKey: "signature")
@@ -336,7 +346,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                     let manager = WSDLNetworkManager()
                     
                     showHud()
-                    manager.sharedClient().createRequestWithService("Register", withParams: parameters, completion: { (result) -> Void in
+                    manager.sharedClient().createRequestWithService("register", withParams: parameters, completion: { (result) -> Void in
                         self.hideHud()
                         
                         if result["status"].string == "success"{

@@ -455,7 +455,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         let manager = WSDLNetworkManager()
         
         showHud()
-        manager.sharedClient().createRequestWithService("UpdateProfile", withParams: parameters, completion: { (result) -> Void in
+        manager.sharedClient().createRequestWithService("updateProfile", withParams: parameters, completion: { (result) -> Void in
             self.hideHud()
             
             if result["status"].string == "success"{

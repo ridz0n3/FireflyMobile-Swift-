@@ -258,7 +258,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 let manager = WSDLNetworkManager()
                 
                 showHud()
-                manager.sharedClient().createRequestWithService("Search", withParams: parameters, completion: { (result) -> Void in
+                manager.sharedClient().createRequestWithService("searchFlight", withParams: parameters, completion: { (result) -> Void in
                     self.hideHud()
                     
                     if result["status"].string == "success"{

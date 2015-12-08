@@ -37,11 +37,11 @@ extension FireFlyAPI : TargetType {
     public var path: String {
         switch self {
         case Login:
-            return "api/Login"
+            return "api/login"
         case Loading:
-            return "api/Loading"
+            return "api/loading"
         case ForgotPassword:
-            return "api/ForgotPassword"
+            return "api/forgotPassword"
         }
     }
     public var method: Moya.Method {

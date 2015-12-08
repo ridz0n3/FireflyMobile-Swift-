@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         load()
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPicker] = FloatLabeledPickerCell.self
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledDatePicker] = FloateLabeledDatePickerCell.self
+        
         
         UIApplication.sharedApplication().registerForRemoteNotifications()
         
@@ -61,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             existDataVersion = ""
         }
         
-        FireFlyProvider.request(.Loading("","","","","","","","",existDataVersion)) { (result) -> () in
+        FireFlyProvider.request(.Loading("","","","","","","Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {

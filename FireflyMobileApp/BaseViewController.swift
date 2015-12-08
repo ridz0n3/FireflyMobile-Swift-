@@ -10,29 +10,6 @@ import UIKit
 import MBProgressHUD
 import SwiftValidator
 
-extension UIViewController: UITextFieldDelegate{
-    func addToolBar(textField: UITextField){
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.Default
-        toolBar.translucent = true
-        toolBar.tintColor = UIColor.blueColor()
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: "donePressed")
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: "cancelPressed")
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
-        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        toolBar.userInteractionEnabled = true
-        toolBar.sizeToFit()
-        
-        textField.delegate = self
-        textField.inputAccessoryView = toolBar
-    }
-    func donePressed(){
-        view.endEditing(true)
-    }
-    func cancelPressed(){
-        view.endEditing(true) // or do something
-    }
-}
 
 class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDelegate {
 

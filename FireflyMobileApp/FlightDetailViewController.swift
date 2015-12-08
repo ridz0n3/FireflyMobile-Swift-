@@ -278,13 +278,13 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                     
                     let manager = WSDLNetworkManager()
                     showHud()
-                    manager.sharedClient().createRequestWithService("Select", withParams: parameters) { (result) -> Void in
+                    manager.sharedClient().createRequestWithService("selectFlight", withParams: parameters) { (result) -> Void in
                         self.hideHud()
                         
                         self.showToastMessage(result["status"].string!)
                         
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                        let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PersonalDetailVC") as! PersonalDetailViewController
+                        let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! PassengerDetailViewController
                         self.navigationController!.pushViewController(personalDetailVC, animated: true)
                         
                     }
@@ -314,13 +314,15 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 
                 let manager = WSDLNetworkManager()
                 showHud()
-                manager.sharedClient().createRequestWithService("Select", withParams: parameters) { (result) -> Void in
+                manager.sharedClient().createRequestWithService("selectFlight", withParams: parameters) { (result) -> Void in
                     self.hideHud()
                     
                     self.showToastMessage(result["status"].string!)
+                    let defaults = NSUserDefaults.standardUserDefaults()
+                    defaults.setObject(result["booking_id"].string, forKey: "booking_id")
                     
                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                    let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PersonalDetailVC") as! PersonalDetailViewController
+                    let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! PassengerDetailViewController
                     self.navigationController!.pushViewController(personalDetailVC, animated: true)
                     
                 }
