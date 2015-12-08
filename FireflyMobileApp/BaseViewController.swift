@@ -137,7 +137,14 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     }
     
     func showToastMessage(message:String){
-        HUD = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
+        
+        //if self.classForCoder
+        if self.isKindOfClass(RSDFDatePickerViewController.classForCoder()){
+            HUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        }else{
+            HUD = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
+        }
+        
         HUD.yOffset = 0
         HUD.mode = MBProgressHUDMode.Text
         HUD.detailsLabelText = message
@@ -203,6 +210,14 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         let formater = NSDateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
         return formater.stringFromDate(date)
+        
+    }
+    
+    func stringToDate(date:String) -> NSDate{
+        
+        let formater = NSDateFormatter()
+        formater.dateFormat = "yyyy-MM-dd"
+        return formater.dateFromString(date)!
         
     }
     

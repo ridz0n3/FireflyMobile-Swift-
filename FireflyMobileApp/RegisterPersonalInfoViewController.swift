@@ -12,7 +12,6 @@ import M13Checkbox
 
 class RegisterPersonalInfoViewController: BaseXLFormViewController {
 
-    @IBOutlet weak var continueView: UIView!
     @IBOutlet weak var termCheckBox: M13Checkbox!
     @IBOutlet weak var promotionCheckBox: M13Checkbox!
     
@@ -89,7 +88,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         var tempArray:[AnyObject] = [AnyObject]()
         var defaults = NSUserDefaults.standardUserDefaults()
         let titleArray = defaults.objectForKey("title") as! NSMutableArray
-        
+        tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
         for title in titleArray{
             tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
         }
@@ -131,7 +130,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeDate, title:"*Date of Birth")
         row.value = NSDate()
         row.cellConfigAtConfigure["maximumDate"] = minDate
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "dot_date")!)
+        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.required = true
         section.addFormRow(row)
         
@@ -163,7 +162,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         tempArray = [AnyObject]()
         defaults = NSUserDefaults.standardUserDefaults()
         let countryArray = defaults.objectForKey("country") as! NSMutableArray
-        
+        tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
         for country in countryArray{
             tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
         }
@@ -264,10 +263,15 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
             
             var tempArray:[AnyObject] = [AnyObject]()
-            
-            for data in stateArr{
-                tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
+            tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
+            if stateArr.count != 0{
+                for data in stateArr{
+                    tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
+                }
+            }else{
+                tempArray.append(XLFormOptionsObject(value: 0, displayText: "Other"))
             }
+            
             
             row.selectorOptions = tempArray
             row.value = tempArray[0]
@@ -285,29 +289,28 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         //promotionCheckBox.checkState.
         if isValidate {
             
-            if (form.formRowWithTag(Tags.ValidationPassword)?.value)! as! String != (form.formRowWithTag(Tags.ValidationConfirmPassword)?.value)! as! String{
+            if formValues()[Tags.ValidationPassword]! as! String != formValues()[Tags.ValidationConfirmPassword]! as! String{
+            
+                let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
+                let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
                 
-                //let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
-                //let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
-                
-                /*let cell = self.tableView.cellForRowAtIndexPath(self.form .indexPathOfFormRow(self.form.formRowWithTag(Tags.ValidationConfirmPassword)!)!) as! XLFormTextFieldCell
-                
-                
-                
-                cell.backgroundColor = .orangeColor()
-                UIView.animateWithDuration(0.3, animations: { () -> Void in
-                    cell.backgroundColor = UIColor(patternImage: UIImage(named: "txtField")!)
-                })
-                
-                animateCell(cell)*/
-                showToastMessage("Confirm password is incorrect")
+                animateCell(cell)
+                showToastMessage("Confirm password incorrect")
+            }else if ((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String == "") {
+                showToastMessage("Title Empty")
+            }else if ((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String == "") {
+                showToastMessage("Country Empty")
+            }else if ((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String == "") {
+                showToastMessage("State Empty")
             }else if termCheckBox.checkState.rawValue == 0{
                 showToastMessage("Please check term and condition checkbox")
             }else{
+                
+                let enc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationPassword]! as! String, key: key, iv: iv)
                     var parameters:[String:AnyObject] = [String:AnyObject]()
                     
                     parameters.updateValue(formValues()[Tags.ValidationUsername]!, forKey: "username")
-                    parameters.updateValue(formValues()[Tags.ValidationPassword]!, forKey: "password")
+                    parameters.updateValue(enc, forKey: "password")
                     
                     parameters.updateValue((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData(), forKey: "title")
                     parameters.updateValue(formValues()[Tags.ValidationFirstName]!, forKey: "first_name")

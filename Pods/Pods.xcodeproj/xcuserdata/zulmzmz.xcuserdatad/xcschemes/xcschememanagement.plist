@@ -8,76 +8,66 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>1</integer>
 		</dict>
 		<key>Alamofire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>2</integer>
 		</dict>
 		<key>CryptoSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>3</integer>
+		</dict>
+		<key>JVFloatLabeledTextField.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>M13Checkbox.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>4</integer>
 		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>5</integer>
 		</dict>
 		<key>MFSideMenu.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>6</integer>
 		</dict>
 		<key>Pods-FireflyMobileApp.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>7</integer>
+		</dict>
+		<key>RSDayFlow.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>SwiftValidator.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>8</integer>
 		</dict>
 		<key>SwiftyJSON.xcscheme</key>
 		<dict>
-			<key>orderHint</key>
-			<integer>11</integer>
+			<key>isShown</key>
+			<false/>
 		</dict>
 		<key>TPKeyboardAvoiding.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>9</integer>
 		</dict>
 		<key>XLForm.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
-			<key>orderHint</key>
-			<integer>10</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -87,12 +77,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>13A9D6D3068E90440F8349B791346F93</key>
+		<key>1AA18CAF358064FF94EEBB827D7F53AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3F229160CFE05B60B4A2EFBF679B3F23</key>
+		<key>21804E6274844FD2F2AAC0D5EF93203E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4054BBDC7908915ED26C933148288EB8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,17 +97,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>52A910D43AA2865827331B0063E7B8B6</key>
+		<key>6B88191568F89C3E08A7AD74CE49CA2B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6A7E6A2003B87F007A4EFCC6BBFFE3FA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>94CE3BCE253F8BC54F98A3A3938EDBD2</key>
+		<key>735882DA95E7FCCEC084FC1C5384FF8A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,7 +117,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A423DBEE0F2985BD04736912B9E39F1B</key>
+		<key>B495C0C5FEB142395206E5929A968157</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,22 +127,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D5C702EDBAAC441DA5F6E76FF70FC39F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EFA63340A87C8D7E87F73BF7BC519123</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F5EB69CDC27C35D7401A908F5D9143C4</key>
+		<key>F399B390E08BCC7D7FB0E06BAE94947F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

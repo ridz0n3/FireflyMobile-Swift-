@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <scenes>
+        <!--Date Picker View Controller-->
+        <scene sceneID="kRr-El-Jhk">
+            <objects>
+                <viewController storyboardIdentifier="DatePickerVC" id="fSc-eM-DVx" customClass="RSDFDatePickerViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="uiW-pq-b77"/>
+                        <viewControllerLayoutGuide type="bottom" id="tmv-Ng-egH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eSa-5O-2Vr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FOA-t9-Z1R">
+                                <rect key="frame" x="0.0" y="80" width="600" height="520"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Oi-4C-BxN">
+                                <rect key="frame" x="15" y="20" width="78" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="59" id="GwL-QC-DG1"/>
+                                    <constraint firstAttribute="width" constant="78" id="VyN-1R-xT4"/>
+                                </constraints>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closedButtonPressed:" destination="fSc-eM-DVx" eventType="touchUpInside" id="7OL-od-OpJ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="myj-Au-w90">
+                                <rect key="frame" x="502" y="20" width="83" height="59"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="83" id="IDn-fO-Efc"/>
+                                    <constraint firstAttribute="height" constant="59" id="yLO-qJ-gPT"/>
+                                </constraints>
+                                <state key="normal" title="Done">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneSelectedDate:" destination="fSc-eM-DVx" eventType="touchUpInside" id="K5q-TP-4uy"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="0Oi-4C-BxN" firstAttribute="leading" secondItem="eSa-5O-2Vr" secondAttribute="leading" constant="15" id="0TK-Vh-ysH"/>
+                            <constraint firstItem="FOA-t9-Z1R" firstAttribute="top" secondItem="myj-Au-w90" secondAttribute="bottom" constant="16" id="9Rr-qw-qkT"/>
+                            <constraint firstAttribute="trailing" secondItem="myj-Au-w90" secondAttribute="trailing" constant="15" id="BFM-dc-eos"/>
+                            <constraint firstAttribute="trailing" secondItem="FOA-t9-Z1R" secondAttribute="trailing" id="Mol-Ys-K0h"/>
+                            <constraint firstItem="FOA-t9-Z1R" firstAttribute="top" secondItem="uiW-pq-b77" secondAttribute="bottom" constant="60" id="PRf-P6-Rjz"/>
+                            <constraint firstItem="FOA-t9-Z1R" firstAttribute="top" secondItem="myj-Au-w90" secondAttribute="bottom" constant="1" id="Qkz-NQ-dA9"/>
+                            <constraint firstItem="FOA-t9-Z1R" firstAttribute="leading" secondItem="eSa-5O-2Vr" secondAttribute="leading" id="Rud-d9-7eT"/>
+                            <constraint firstItem="myj-Au-w90" firstAttribute="top" secondItem="uiW-pq-b77" secondAttribute="bottom" id="Who-Ns-Rbt"/>
+                            <constraint firstItem="FOA-t9-Z1R" firstAttribute="centerX" secondItem="eSa-5O-2Vr" secondAttribute="centerX" id="kCA-8m-RfU"/>
+                            <constraint firstItem="0Oi-4C-BxN" firstAttribute="top" secondItem="uiW-pq-b77" secondAttribute="bottom" id="sME-Mp-5Ed"/>
+                            <constraint firstItem="tmv-Ng-egH" firstAttribute="top" secondItem="FOA-t9-Z1R" secondAttribute="bottom" id="tDH-i7-Gsg"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="9Rr-qw-qkT"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="dateView" destination="FOA-t9-Z1R" id="s42-eT-oTK"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C4r-EG-OCT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="178" y="395"/>
+        </scene>
+    </scenes>
+</document>

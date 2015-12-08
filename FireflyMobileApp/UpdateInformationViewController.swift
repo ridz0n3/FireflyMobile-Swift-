@@ -368,11 +368,25 @@ class UpdateInformationViewController: BaseXLFormViewController {
                 
                 if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == ""{
                     
-                    showToastMessage("New password cannot be empty")
+                    let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationNewPassword)!)! as NSIndexPath
+                    let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
+                    
+                    let msg = String(format: "%@ can't be empty", Tags.ValidationNewPassword)
+                    
+                    let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                    cell.textField?.attributedPlaceholder = textFieldAttrib
+                    showToastMessage(msg)
                     
                 }else if nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String == ""{
                     
-                    showToastMessage("Confirm password cannot be empty")
+                    let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
+                    let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
+                    
+                    let msg = String(format: "%@ can't be empty", Tags.ValidationConfirmPassword)
+                    
+                    let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                    cell.textField?.attributedPlaceholder = textFieldAttrib
+                    showToastMessage(msg)
                     
                 }else if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String{
                     
@@ -399,10 +413,17 @@ class UpdateInformationViewController: BaseXLFormViewController {
     }
 
     func sendInfo(){
+        var encOldPassword = String()
+        var encNewPassword = String()
         
-        let encOldPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationPassword]!) as! String, key: key, iv: iv)
-        
-        let encNewPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationNewPassword]!) as! String, key: key, iv: iv)
+        if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String != ""{
+            encOldPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationPassword]!) as! String, key: key, iv: iv)
+            
+            encNewPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationNewPassword]!) as! String, key: key, iv: iv)
+        }else{
+            encOldPassword = ""
+            encNewPassword = ""
+        }
         
         var parameters:[String:AnyObject] = [String:AnyObject]()
         

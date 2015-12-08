@@ -155,7 +155,8 @@ class LoginViewController: BaseXLFormViewController {
     }
     
     @IBAction func closeButtonPressed(sender: AnyObject) {
-        sender.superview?!.removeFromSuperview()
+        //sender.superview?!.removeFromSuperview()
+        forgotPasswordView.hidden = true
     }
     
     

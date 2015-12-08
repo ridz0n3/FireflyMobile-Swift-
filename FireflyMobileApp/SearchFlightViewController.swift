@@ -25,22 +25,21 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     var type : Int = 1
     var validate : Bool = false
     
+    @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var searchFlightTableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let header = NSBundle.mainBundle().loadNibNamed("HeaderView", owner: self, options: nil)[0] as! HeaderView
-        header.lvlImg.image = UIImage(named: "book_flight1")
-        
-        self.searchFlightTableView.tableHeaderView = header
+        self.searchFlightTableView.tableHeaderView = headerView
         
         setupLeftButton()
         getDepartureAirport()
-        //returnButton.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
-        //oneWayButton.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "departureDate:", name: "departure", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "returnDate:", name: "return", object: nil)
+
         // Do any additional setup after loading the view.
     }
 
@@ -140,51 +139,29 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             
         }else if indexPath.row == 3{
             
-            let sender = cell.airportLbl as UILabel
+            let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
+            let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
+            gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            //gregorianVC.calendar.locale = NSLocale.currentLocale()
+            gregorianVC.view.backgroundColor = UIColor.orangeColor()
+            gregorianVC.typeDate = "departure"
+            self.presentViewController(gregorianVC, animated: true, completion: nil)
+
             
-            let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date, selectedDate: departureDate, target: self, action: "datePicked:element:", origin: sender)
-            datePicker.minimumDate = NSDate()
-            datePicker.showActionSheetPicker()
             
         }else if indexPath.row == 4{
             
-            let sender = cell.airportLbl as UILabel
-            
-            let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date, selectedDate: arrivalDate, target: self, action: "datePicked:element:", origin: sender)
-            datePicker.minimumDate = departureDate
-            datePicker.showActionSheetPicker()
+            let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
+            let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
+            gregorianVC.currentDate = arrivalDate
+            gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            //gregorianVC.calendar.locale = NSLocale.currentLocale()
+            gregorianVC.view.backgroundColor = UIColor.orangeColor()
+            gregorianVC.typeDate = "return"
+            self.presentViewController(gregorianVC, animated: true, completion: nil)
             
         }
         
-    }
-    
-    func datePicked(date:NSDate, element:AnyObject){
-        
-        let textLbl = element as! UILabel
-        
-        if textLbl.tag == 3{
-            departureDate = date
-            
-            departureDateLbl = formatDate(date)
-            
-            if arrivalDateLbl != "RETURN DATE"{
-                
-                if arrivalDate.compare(departureDate) == NSComparisonResult.OrderedAscending{
-                    arrivalDateLbl = departureDateLbl
-                    self.searchFlightTableView.reloadData()
-                }
-                
-            }
-            arrivalDate = date
-            textLbl.text = departureDateLbl
-        }else{
-            arrivalDate = date
-            
-            arrivalDateLbl = formatDate(date)
-            textLbl.text = arrivalDateLbl
-        }
-        
-
     }
     
     func objectSelected(index :NSNumber, element:AnyObject){
@@ -260,6 +237,13 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 animateCell(cell2)
                 showToastMessage("Passenger must not exceed 9 people")
             }else{
+                
+                let defaults = NSUserDefaults.standardUserDefaults()
+                defaults.setObject(cell2.adultCount.text!, forKey: "adult")
+                defaults.setObject(cell2.infantCount.text!, forKey: "infant")
+                defaults.setObject(type, forKey: "type")
+                defaults.synchronize()
+                
                 let parameters:[String:AnyObject] = [
                     "type" : type,
                     "departure_station" : location[departureSelected]["location_code"]!,
@@ -340,7 +324,31 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         }
     }
     
+    func departureDate(notif:NSNotification){
+        print(notif.userInfo!["date"])
         
+        let formater = NSDateFormatter()
+        formater.dateFormat = "yyyy-MM-dd"
+        
+        if arrivalDateLbl != "RETURN DATE"{
+            arrivalDateLbl = "RETURN DATE"
+        }
+        
+        arrivalDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
+        
+        departureDateLbl = (notif.userInfo!["date"] as? String)!
+        searchFlightTableView.reloadData()
+        
+    }
+    
+    func returnDate(notif:NSNotification){
+        print(notif.userInfo!["date"])
+        
+        arrivalDateLbl = (notif.userInfo!["date"] as? String)!
+        searchFlightTableView.reloadData()
+        
+    }
+    
     /*
     // MARK: - Navigation
 

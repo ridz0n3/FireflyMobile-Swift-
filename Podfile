@@ -15,6 +15,8 @@ pod 'ActionSheetPicker-3.0'
 pod 'CryptoSwift'
 pod 'SwiftValidator', '3.0.1'
 pod 'SwiftyJSON', '~> 2.3'
+pod 'RSDayFlow'
+pod 'JVFloatLabeledTextField', '1.0.2', :inhibit_warnings => true
 end
 
 target 'FireflyMobileAppTests' do

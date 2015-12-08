@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         load()
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
         
         UIApplication.sharedApplication().registerForRemoteNotifications()
         
@@ -60,6 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             existDataVersion = ""
         }
         
+
+        
+        
         let request = WSDLNetworkManager()
         let parameters:[String:AnyObject] = [
             "signature": "",
@@ -68,8 +72,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             "sdkVersion": "",
             "version": "",
             "deviceId": "",
-            "brand": "",
-            "model": "",
+            "brand": "Apple",
+            "model": UIDevice.currentDevice().modelName ,
             "dataVersion": existDataVersion,
         ]
         

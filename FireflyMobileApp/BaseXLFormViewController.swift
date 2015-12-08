@@ -119,7 +119,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     }
     
     func validateForm() {
-       /* let array = formValidationErrors()
+        let array = formValidationErrors()
         
         if array.count != 0{
             
@@ -154,25 +154,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
             }
         }else{
             isValidate = true
-        }*/
-        
-        let array = formValidationErrors()
-        
-        if array.count != 0{
-            
-            isValidate = false
-            for errorItem in array {
-                let error = errorItem as! NSError
-                let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
-                if let rowDescriptor = validationStatus.rowDescriptor, let indexPath = form.indexPathOfFormRow(rowDescriptor), let cell = tableView.cellForRowAtIndexPath(indexPath) {
-                    self.showToastMessage(validationStatus.msg)
-                    self.animateCell(cell)
-                }
-            }
-        }else{
-            isValidate = true
         }
-
     }
 
     func animateCell(cell: UITableViewCell) {

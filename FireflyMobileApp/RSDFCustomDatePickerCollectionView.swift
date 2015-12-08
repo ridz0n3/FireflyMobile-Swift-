@@ -1,17 +1,19 @@
 //
-//  HeaderView.swift
+//  RSDFCustomDatePickerCollectionView.swift
 //  FireflyMobileApp
 //
-//  Created by ME-Tech Mac User 1 on 11/26/15.
+//  Created by ME-Tech Mac User 1 on 12/3/15.
 //  Copyright © 2015 Me-tech. All rights reserved.
 //
 
 import UIKit
+import RSDayFlow
 
-class HeaderView: UIView {
+class RSDFCustomDatePickerCollectionView: RSDFDatePickerCollectionView {
 
-    @IBOutlet weak var header: UILabel!
-    @IBOutlet weak var lvlImg: UIImageView!
+    override func selfBackgroundColor() -> UIColor! {
+        return UIColor.clearColor()
+    }
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
+		615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */; };
 		7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */; };
 		7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */; };
 		7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1F77E01BF96E6C00F55C46 /* Main.storyboard */; };
@@ -56,18 +56,28 @@
 		7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */; };
 		7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */; };
 		7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */; };
-		7EA1A6781C06E3C600A9927C /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EA1A6771C06E3C600A9927C /* HeaderView.xib */; };
-		7EA1A67A1C06E47700A9927C /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA1A6791C06E47700A9927C /* HeaderView.swift */; };
 		7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB5B2AF1BFC68D00066D311 /* SectionView.xib */; };
 		7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5B2B11BFC68EE0066D311 /* SectionView.swift */; };
 		7EB6F0441C07EB47004A8F24 /* PasswordExpiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6F0431C07EB47004A8F24 /* PasswordExpiredViewController.swift */; };
 		7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */; };
 		7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */; };
+		7EBBFA021C1011CA00080FFA /* RSDFCustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA011C1011CA00080FFA /* RSDFCustomDatePickerView.swift */; };
+		7EBBFA041C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA031C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift */; };
+		7EBBFA061C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA051C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift */; };
+		7EBBFA091C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA081C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift */; };
+		7EBBFA0B1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA0A1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift */; };
+		7EBBFA0D1C1013B600080FFA /* RSDFCustomDatePickerDayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA0C1C1013B600080FFA /* RSDFCustomDatePickerDayCell.swift */; };
+		7EBBFA101C101BC200080FFA /* RSDFDatePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA0F1C101BC200080FFA /* RSDFDatePickerViewController.swift */; };
+		7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */; };
 		7EBCD6A21BFAC2960043F28C /* PersonalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A11BFAC2960043F28C /* PersonalDetailViewController.swift */; };
 		7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */; };
 		7EBCD6A61BFAC9FB0043F28C /* ChooseSeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A51BFAC9FB0043F28C /* ChooseSeatViewController.swift */; };
 		7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */; };
-		9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B0791C0EA6B8000B522F /* EncryptManager.swift */; settings = {ASSET_TAGS = (); }; };
+		7EC1DBCB1C15316500677D55 /* PassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCA1C15316500677D55 /* PassengerDetailViewController.swift */; };
+		7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */; };
+		7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */; };
+		7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */; };
+		9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B0791C0EA6B8000B522F /* EncryptManager.swift */; };
 		D69D4B8A65CD5940FF9528D0 /* Pods_FireflyMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -146,17 +156,27 @@
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjC-Header.h"; sourceTree = "<group>"; };
 		7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseXLFormViewController.swift; sourceTree = "<group>"; };
-		7EA1A6771C06E3C600A9927C /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
-		7EA1A6791C06E47700A9927C /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		7EB5B2AF1BFC68D00066D311 /* SectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionView.xib; sourceTree = "<group>"; };
 		7EB5B2B11BFC68EE0066D311 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		7EB6F0431C07EB47004A8F24 /* PasswordExpiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordExpiredViewController.swift; sourceTree = "<group>"; };
 		7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UpdateInformation.storyboard; sourceTree = "<group>"; };
 		7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateInformationViewController.swift; sourceTree = "<group>"; };
+		7EBBFA011C1011CA00080FFA /* RSDFCustomDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerView.swift; sourceTree = "<group>"; };
+		7EBBFA031C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerDaysOfWeekView.swift; sourceTree = "<group>"; };
+		7EBBFA051C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerCollectionView.swift; sourceTree = "<group>"; };
+		7EBBFA081C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerCollectionViewLayout.swift; sourceTree = "<group>"; };
+		7EBBFA0A1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerMonthHeader.swift; sourceTree = "<group>"; };
+		7EBBFA0C1C1013B600080FFA /* RSDFCustomDatePickerDayCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerDayCell.swift; sourceTree = "<group>"; };
+		7EBBFA0F1C101BC200080FFA /* RSDFDatePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFDatePickerViewController.swift; sourceTree = "<group>"; };
+		7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RSDFDatePicker.storyboard; sourceTree = "<group>"; };
 		7EBCD6A11BFAC2960043F28C /* PersonalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDetailViewController.swift; sourceTree = "<group>"; };
 		7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7EBCD6A51BFAC9FB0043F28C /* ChooseSeatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseSeatViewController.swift; sourceTree = "<group>"; };
 		7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomChooseSeatTableViewCell.swift; sourceTree = "<group>"; };
+		7EC1DBCA1C15316500677D55 /* PassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerDetailViewController.swift; sourceTree = "<group>"; };
+		7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassengerHeader.xib; sourceTree = "<group>"; };
+		7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerHeaderView.swift; sourceTree = "<group>"; };
+		7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledTextFieldCell.swift; sourceTree = "<group>"; };
 		86B59F03D2AABF55D7291F46 /* Pods-FireflyMobileApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.release.xcconfig"; sourceTree = "<group>"; };
 		9615B0791C0EA6B8000B522F /* EncryptManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptManager.swift; sourceTree = "<group>"; };
 		FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireflyMobileApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -213,6 +233,9 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				7EC1DBD01C158A8800677D55 /* FloatLabelTextField */,
+				7EBBFA0E1C101B7900080FFA /* DatePicker */,
+				7EBBFA001C10115200080FFA /* CustomDatePickerView */,
 				7EB829E11C0AC23200E83320 /* Profile */,
 				7E55ADC91BFDC6B2002FAA84 /* Helper */,
 				7E69311E1BFB31EA004F1719 /* SideMenu */,
@@ -331,8 +354,9 @@
 				7EBCD6A11BFAC2960043F28C /* PersonalDetailViewController.swift */,
 				7EBCD6A51BFAC9FB0043F28C /* ChooseSeatViewController.swift */,
 				7E6930F31BFAD79B004F1719 /* PaymentViewController.swift */,
-				7EA1A6771C06E3C600A9927C /* HeaderView.xib */,
-				7EA1A6791C06E47700A9927C /* HeaderView.swift */,
+				7EC1DBCA1C15316500677D55 /* PassengerDetailViewController.swift */,
+				7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */,
+				7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */,
 			);
 			name = "Book Flight";
 			sourceTree = "<group>";
@@ -398,6 +422,36 @@
 				7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		7EBBFA001C10115200080FFA /* CustomDatePickerView */ = {
+			isa = PBXGroup;
+			children = (
+				7EBBFA011C1011CA00080FFA /* RSDFCustomDatePickerView.swift */,
+				7EBBFA031C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift */,
+				7EBBFA051C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift */,
+				7EBBFA081C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift */,
+				7EBBFA0A1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift */,
+				7EBBFA0C1C1013B600080FFA /* RSDFCustomDatePickerDayCell.swift */,
+			);
+			name = CustomDatePickerView;
+			sourceTree = "<group>";
+		};
+		7EBBFA0E1C101B7900080FFA /* DatePicker */ = {
+			isa = PBXGroup;
+			children = (
+				7EBBFA0F1C101BC200080FFA /* RSDFDatePickerViewController.swift */,
+				7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */,
+			);
+			name = DatePicker;
+			sourceTree = "<group>";
+		};
+		7EC1DBD01C158A8800677D55 /* FloatLabelTextField */ = {
+			isa = PBXGroup;
+			children = (
+				7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */,
+			);
+			name = FloatLabelTextField;
 			sourceTree = "<group>";
 		};
 		96C7660040AB98CB0FD039B9 /* Frameworks */ = {
@@ -531,12 +585,13 @@
 				7E1F77E41BF96E6C00F55C46 /* Assets.xcassets in Resources */,
 				7E1F78311BF9D6A900F55C46 /* BookFlight.storyboard in Resources */,
 				7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */,
-				7EA1A6781C06E3C600A9927C /* HeaderView.xib in Resources */,
 				7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */,
 				7E1F781E1BF9B6AD00F55C46 /* Login.storyboard in Resources */,
 				7E1F780E1BF979B300F55C46 /* Home.storyboard in Resources */,
+				7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */,
 				7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */,
 				7E1F78281BF9C50400F55C46 /* Register.storyboard in Resources */,
+				7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */,
 				7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */,
 				7E6930FD1BFAFEE6004F1719 /* ManageFlight.storyboard in Resources */,
 				7E6931121BFB1F2C004F1719 /* MobileCheckIn.storyboard in Resources */,
@@ -618,11 +673,13 @@
 				7E20F90D1BFA02E90020AB0C /* CustomFlightDetailTableViewCell.swift in Sources */,
 				7E20F90B1BFA02470020AB0C /* FlightDetailViewController.swift in Sources */,
 				7E1F781A1BF9B60800F55C46 /* LoginViewController.swift in Sources */,
+				7EBBFA0B1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift in Sources */,
 				7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */,
 				7E6931031BFB08AA004F1719 /* ChangeContactDetailViewController.swift in Sources */,
 				7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */,
 				7E20F9111BFA0A760020AB0C /* FlightHeaderView.swift in Sources */,
 				7E6931181BFB2659004F1719 /* CheckInTermViewController.swift in Sources */,
+				7EBBFA041C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift in Sources */,
 				7EBCD6A21BFAC2960043F28C /* PersonalDetailViewController.swift in Sources */,
 				7EB6F0441C07EB47004A8F24 /* PasswordExpiredViewController.swift in Sources */,
 				7E6931161BFB22C6004F1719 /* CheckInDetailViewController.swift in Sources */,
@@ -631,9 +688,11 @@
 				7E1F78181BF9AC3800F55C46 /* BaseViewController.swift in Sources */,
 				7E69310D1BFB195D004F1719 /* SendItineraryViewController.swift in Sources */,
 				7E6930F41BFAD79B004F1719 /* PaymentViewController.swift in Sources */,
-				7EA1A67A1C06E47700A9927C /* HeaderView.swift in Sources */,
+				7EBBFA021C1011CA00080FFA /* RSDFCustomDatePickerView.swift in Sources */,
 				7E1F78351BF9D81100F55C46 /* CustomSearchFlightTableViewCell.swift in Sources */,
+				7EBBFA061C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift in Sources */,
 				7E69311D1BFB2F38004F1719 /* BoardingPassViewController.swift in Sources */,
+				7EBBFA091C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift in Sources */,
 				7E1F78111BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift in Sources */,
 				7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */,
 				7E69310F1BFB1BFA004F1719 /* ManageFlightViewController.swift in Sources */,
@@ -641,8 +700,11 @@
 				7E6931091BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift in Sources */,
 				7E6931141BFB1F6B004F1719 /* CheckInViewController.swift in Sources */,
 				7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */,
+				7EBBFA101C101BC200080FFA /* RSDFDatePickerViewController.swift in Sources */,
+				7EBBFA0D1C1013B600080FFA /* RSDFCustomDatePickerDayCell.swift in Sources */,
 				7E1F78331BF9D7A200F55C46 /* SearchFlightViewController.swift in Sources */,
 				7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */,
+				7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */,
 				7E6931011BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift in Sources */,
 				7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */,
 				7E6931051BFB0BD5004F1719 /* EditPassengerViewController.swift in Sources */,
@@ -650,8 +712,10 @@
 				7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */,
 				615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */,
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
+				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
 				7E6930FB1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift in Sources */,
 				7E1F782A1BF9CD2800F55C46 /* RegisterPersonalInfoViewController.swift in Sources */,
+				7EC1DBCB1C15316500677D55 /* PassengerDetailViewController.swift in Sources */,
 				7E6931071BFB10FA004F1719 /* ChangeFlightViewController.swift in Sources */,
 				7E1F780C1BF9799900F55C46 /* HomeViewController.swift in Sources */,
 				7E6930FF1BFB014A004F1719 /* ManageFlightMenuViewController.swift in Sources */,
