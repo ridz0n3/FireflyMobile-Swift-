@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import XLForm
 import SwiftValidator
-
+import SwiftyJSON
 class LoginViewController: BaseXLFormViewController {
 
     @IBOutlet var forgotPasswordView: UIView!
@@ -83,39 +83,43 @@ class LoginViewController: BaseXLFormViewController {
             
             let password = self.formValues()["Password"] as! String
             let encPassword = try! EncryptManager.sharedInstance.aesEncrypt(password, key: key, iv: iv)
-    
-            let parameters:[String:AnyObject] = [
-                "username": self.formValues()["Email"]!,
-                "password": encPassword,
-            ]
-            
-            let manager = WSDLNetworkManager()
+
+            let username: String = self.formValues()["Email"]! as! String
+
             showHud()
             
-            manager.sharedClient().createRequestWithService("Login", withParams: parameters, completion: { (result) -> Void in
-                self.hideHud()
-                
-                if  result["status"].string == "success"{
-                    self.showToastMessage(result["status"].string!)
-                    
-                    let defaults = NSUserDefaults.standardUserDefaults()
-                   // let userInfoTemp : NSDictionary<String, JSON> = result["user_info"].dictionary
-                    defaults.setObject(result["user_info"].object , forKey: "userInfo")
-                    defaults.synchronize()
-                    
-                    NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
-                    
-                    let storyBoard = UIStoryboard(name: "Home", bundle: nil)
-                    let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
-                    self.navigationController!.pushViewController(homeVC, animated: true)
-                }else if result["status"].string == "change_password"{
-                    
-                }else{
-                    self.showToastMessage(result["message"].string!)
-                }
-                
-            })
             
+            FireFlyProvider.request(.Login(username, encPassword), completion: { (result) -> () in
+                self.hideHud()
+                switch result {
+                case .Success(let successResult):
+                    do {
+                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        if  json["status"].string == "success"{
+                            self.showToastMessage(json["status"].string!)
+                            let defaults = NSUserDefaults.standardUserDefaults()
+                            
+                            // let userInfoTemp : NSDictionary<String, JSON> = result["user_info"].dictionary
+                            
+                            defaults.setObject(json["user_info"].object , forKey: "userInfo")
+                            defaults.synchronize()
+                            
+                            NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
+                            let storyBoard = UIStoryboard(name: "Home", bundle: nil)
+                            let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+                            self.navigationController!.pushViewController(homeVC, animated: true)
+                        }
+                    }
+                    catch {
+                        
+                    }
+                print (successResult.data)
+                case .Failure(let failureResult):
+                print (failureResult)
+                }
+                //var success = error == nil
+                }
+            )
         }else{
            // showToastMessage("Please Fill All Field")
         }
@@ -161,28 +165,29 @@ class LoginViewController: BaseXLFormViewController {
     
     
     override func validationSuccessful() {
-       // print(self.emailTxtField.text)
-        
-        let parameters:[String:AnyObject] = [
-            "username": self.emailTxtField.text!,
-            "signature": "",
-        ]
-        
-        let manager = WSDLNetworkManager()
-        showHud()
-        
-        manager.sharedClient().createRequestWithService("ForgotPassword", withParams: parameters, completion: { (result) -> Void in
-            self.hideHud()
+      
+        FireFlyProvider.request(.ForgotPassword(self.emailTxtField.text!, "")) { (result) -> () in
+            switch result {
+            case .Success(let successResult):
+                do{
+             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    if json["status"].string == "success"{
+                        self.showToastMessage(json["message"].string!)
+                        self.forgotPasswordView.removeFromSuperview()
+                    }else{
+                        self.showToastMessage(json["userInfo"].string!)
+                    }
+                }
+                catch{
+                    
+                }
             
-            if result["status"].string == "success"{
-                self.showToastMessage(result["message"].string!)
-                self.forgotPasswordView.removeFromSuperview()
-            }else{
-                self.showToastMessage(result["userInfo"].string!)
+            case .Failure(let failureResult):
+            print(failureResult)
+            
             }
-            
-        })
-
+        }
+    }
         
     }
     /*
@@ -195,4 +200,4 @@ class LoginViewController: BaseXLFormViewController {
     }
     */
 
-}
+

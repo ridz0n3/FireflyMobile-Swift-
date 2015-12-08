@@ -69,7 +69,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         }
         
     }
-
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.row == 0{
