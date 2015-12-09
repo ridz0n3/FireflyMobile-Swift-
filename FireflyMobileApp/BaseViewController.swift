@@ -58,7 +58,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         tools.clipsToBounds = true;
         tools.translucent = true;
         
-        let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
+        let image1 = UIImage(named: "menu")! .imageWithRenderingMode(.AlwaysOriginal)
         let image2 = UIImage(named: "back")! .imageWithRenderingMode(.AlwaysOriginal)
         
         let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: "menuTapped:")
@@ -83,7 +83,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         tools.clipsToBounds = true;
         tools.translucent = true;
         
-        let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
+        let image1 = UIImage(named: "menu")! .imageWithRenderingMode(.AlwaysOriginal)
         
         let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: "menuTapped:")
         menuButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
@@ -106,7 +106,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     func showHud(){
         HUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         HUD.mode = MBProgressHUDMode.Indeterminate
-        HUD.labelText = "Loading"
+        HUD.labelText = "loading"
     }
     
     func hideHud(){

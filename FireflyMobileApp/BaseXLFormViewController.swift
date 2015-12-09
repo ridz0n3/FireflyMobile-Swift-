@@ -73,7 +73,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         tools.clipsToBounds = true;
         tools.translucent = true;
         
-        let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
+        let image1 = UIImage(named: "menu")! .imageWithRenderingMode(.AlwaysOriginal)
         let image2 = UIImage(named: "back")! .imageWithRenderingMode(.AlwaysOriginal)
         
         let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: "menuTapped:")
@@ -98,7 +98,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         tools.clipsToBounds = true;
         tools.translucent = true;
         
-        let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
+        let image1 = UIImage(named: "menu")! .imageWithRenderingMode(.AlwaysOriginal)
         
         let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: "menuTapped:")
         menuButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)

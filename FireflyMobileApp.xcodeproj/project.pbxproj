@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		61139F581C18397800BB32D8 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61139F561C18397800BB32D8 /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
+		61139F591C18397800BB32D8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61139F571C18397800BB32D8 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
 		615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */; };
 		7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */; };
 		7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */; };
@@ -102,6 +104,8 @@
 
 /* Begin PBXFileReference section */
 		0F9AC93C947F773EF563C73C /* Pods-FireflyMobileApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.debug.xcconfig"; sourceTree = "<group>"; };
+		61139F561C18397800BB32D8 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
+		61139F571C18397800BB32D8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
 		615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPasswordExpiredlTableViewCell.swift; sourceTree = "<group>"; };
 		7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledPickerCell.swift; sourceTree = "<group>"; };
 		7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloateLabeledDatePickerCell.swift; sourceTree = "<group>"; };
@@ -192,6 +196,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D69D4B8A65CD5940FF9528D0 /* Pods_FireflyMobileApp.framework in Frameworks */,
+				61139F591C18397800BB32D8 /* Crashlytics.framework in Frameworks */,
+				61139F581C18397800BB32D8 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +334,8 @@
 		7E1F78231BF9BE8C00F55C46 /* Support File */ = {
 			isa = PBXGroup;
 			children = (
+				61139F561C18397800BB32D8 /* Fabric.framework */,
+				61139F571C18397800BB32D8 /* Crashlytics.framework */,
 				7E1F77E81BF96E6C00F55C46 /* Info.plist */,
 				7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */,
 				7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */,
@@ -490,6 +498,7 @@
 				7E1F77D71BF96E6C00F55C46 /* Resources */,
 				82750FE66341D77094B8D405 /* Embed Pods Frameworks */,
 				8ADDA6CE72629BC08B8BDAF3 /* Copy Pods Resources */,
+				61139F551C18390600BB32D8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -622,6 +631,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		61139F551C18390600BB32D8 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 6f38953bcf07d7c4f8dd57baf34092f3e0c08720 1d5e1d09b52223abe735d3a94348d92a0ee85d06c89cc8c131dd7b0856d89fa9";
+		};
 		82750FE66341D77094B8D405 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -872,6 +894,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
@@ -889,6 +915,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
