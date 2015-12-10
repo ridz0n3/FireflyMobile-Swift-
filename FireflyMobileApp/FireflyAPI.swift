@@ -23,6 +23,7 @@ public enum FireFlyAPI {
     case Login(String, String)
     case Loading(String, String, String, String, String, String, String, String, String)
     case ForgotPassword(String, String)
+    case PassengerDetail(AnyObject, AnyObject)
     
 }
 
@@ -42,11 +43,13 @@ extension FireFlyAPI : TargetType {
             return "api/loading"
         case ForgotPassword:
             return "api/forgotPassword"
+        case PassengerDetail:
+            return "api/passengerDetails"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail:
             return .POST
             
         default:
@@ -61,6 +64,8 @@ extension FireFlyAPI : TargetType {
             return ["signature" : signature, "username" : username, "password" : password, "sdkVersion": sdkVersion, "version" : version, "deviceId" : deviceId, "brand" : brand, "model" : model, "dataVersion" : dataVersion]
         case .ForgotPassword(let username, let signature):
             return ["username" : username, "signature" : signature]
+        case .PassengerDetail(let adult, let infant):
+            return ["passenger" : adult, "infant" : infant]
         default:
             return nil
         }

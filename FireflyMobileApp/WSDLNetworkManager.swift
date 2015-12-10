@@ -31,6 +31,14 @@ class WSDLNetworkManager: NSObject {
             }
         }
     }
+    
+    func test(serviceName:String, completion:(result:AnyObject) -> Void){
+        
+        Alamofire.request(.GET, serviceName, parameters: nil).responseJSON { (response) -> Void in
+            completion(result: response.result.value!)
+        }
+        
+    }
 
 
 }

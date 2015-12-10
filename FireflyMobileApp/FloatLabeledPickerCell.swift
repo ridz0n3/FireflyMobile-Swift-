@@ -97,7 +97,7 @@ class FloatLabeledPickerCell: XLFormBaseCell{
     func textFieldDidChange(textField : UITextField) {
         if self.floatLabeledTextField == textField {
             if self.floatLabeledTextField.text!.isEmpty == false {
-                self.rowDescriptor!.value = selectValue//self.floatLabeledTextField.text
+                self.rowDescriptor!.value = self.floatLabeledTextField.text //selectValue
             } else {
                 self.rowDescriptor!.value = nil
             }
@@ -105,6 +105,8 @@ class FloatLabeledPickerCell: XLFormBaseCell{
     }
     
     func retrieveData(){
+        data = [String]()
+        dataValue = [String]()
         let row = self.rowDescriptor?.selectorOptions
         for tempData in row!{
             data.append(tempData.formDisplayText())
@@ -116,11 +118,19 @@ class FloatLabeledPickerCell: XLFormBaseCell{
         
         let txtLbl = element as! UITextField
         
+        if selectValue == "P"{
+            NSNotificationCenter.defaultCenter().postNotificationName("removeExpiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+        }
+        
         selectindex = index.integerValue
         selectValue = dataValue[index.integerValue]
         
         txtLbl.text = data[index.integerValue]
         self.textFieldDidChange(txtLbl)
+        
+        if selectValue == "P"{
+            NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+        }
         
     }
 

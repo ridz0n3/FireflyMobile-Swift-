@@ -131,7 +131,7 @@ class SideMenuTableViewController: UITableViewController {
         }else if (indexPath.row == 4) {
             
             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-            let homeVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC")
+            let homeVC = storyboard.instantiateViewControllerWithIdentifier("ChooseSeatVC")
             controllers.append(homeVC)
             
         }else if (indexPath.row == 5) {

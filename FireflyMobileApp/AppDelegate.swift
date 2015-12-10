@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             existDataVersion = ""
         }
         
-        FireFlyProvider.request(.Loading("","","","","","","Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
+        FireFlyProvider.request(.Loading("","","","",UIDevice.currentDevice().systemVersion,UIDevice.currentDevice().identifierForVendor!.UUIDString,"Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
