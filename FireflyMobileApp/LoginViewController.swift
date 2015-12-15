@@ -98,9 +98,7 @@ class LoginViewController: BaseXLFormViewController {
                         if  json["status"].string == "success"{
                             self.showToastMessage(json["status"].string!)
                             let defaults = NSUserDefaults.standardUserDefaults()
-                            
-                            // let userInfoTemp : NSDictionary<String, JSON> = result["user_info"].dictionary
-                            
+                            defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                             defaults.setObject(json["user_info"].object , forKey: "userInfo")
                             defaults.synchronize()
                             
@@ -108,6 +106,8 @@ class LoginViewController: BaseXLFormViewController {
                             let storyBoard = UIStoryboard(name: "Home", bundle: nil)
                             let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                             self.navigationController!.pushViewController(homeVC, animated: true)
+                        }else{
+                            self.showToastMessage(json["message"].string!)
                         }
                     }
                     catch {

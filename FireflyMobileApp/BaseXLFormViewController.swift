@@ -43,6 +43,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         static var ValidationEnrichLoyaltyNo = "Enrich Loyalty No"
         static var ValidationTravelWith = "Traveling with"
         static var ValidationGender = "Gender"
+        static var ValidationPurpose = "Purpose"
     }
 
     
@@ -197,6 +198,14 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         
     }
     
+    func stringToDate(date:String) -> NSDate{
+        
+        let formater = NSDateFormatter()
+        formater.dateFormat = "yyyy-MM-dd"
+        return formater.dateFromString(date)!
+        
+    }
+    
     // MARK: ValidationDelegate Methods
     
     func validationSuccessful() {
@@ -206,6 +215,56 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     func validationFailed(errors:[UITextField:ValidationError]) {
         //print(errors)
         
+    }
+    
+    func getTitleCode(titleName:String, titleArr:NSArray)->String{
+        var titleCode = String()
+        for titleData in titleArr{
+            if titleData["title_name"] as! String == titleName{
+                titleCode = titleData["title_code"] as! String
+            }
+        }
+        return titleCode
+    }
+    
+    func getCountryCode(countryName:String, countryArr:NSArray)->String{
+        var countryCode = String()
+        for countryData in countryArr{
+            if countryData["country_name"] as! String == countryName{
+                countryCode = countryData["country_code"] as! String
+            }
+        }
+        return countryCode
+    }
+    
+    func getTravelDocCode(docName:String, docArr:NSArray)->String{
+        var docCode = String()
+        for docData in docArr{
+            if docData["doc_name"] as! String == docName{
+                docCode = docData["doc_code"] as! String
+            }
+        }
+        return docCode
+    }
+    
+    func getTravelWithCode(travelName:String, travelArr:NSArray)->String{
+        var travelCode = String()
+        for travelData in travelArr {
+            if travelData["passenger_name"] as! String == travelName{
+                travelCode = travelData["passenger_code"] as! String
+            }
+        }
+        return travelCode
+    }
+    
+    func getGenderCode(genderName:String, genderArr:NSArray)->String{
+        var genderCode = String()
+        for genderData in genderArr{
+            if genderData["gender_name"] as! String == genderName{
+                genderCode = genderData["gender_code"] as! String
+            }
+        }
+        return genderCode
     }
     
     /*

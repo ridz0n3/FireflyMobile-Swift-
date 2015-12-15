@@ -435,20 +435,15 @@ class UpdateInformationViewController: BaseXLFormViewController {
         parameters.updateValue(formValues()[Tags.ValidationLastName]!, forKey: "last_name")
         parameters.updateValue(formatDate(formValues()[Tags.ValidationDate]! as! NSDate), forKey: "dob")
         parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!, forKey: "address_1")
-        
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!, forKey: "address_2")
-        
         parameters.updateValue("", forKey: "address_3")
         parameters.updateValue((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData(), forKey: "country")
         parameters.updateValue(formValues()[Tags.ValidationTownCity]!, forKey: "city")
         parameters.updateValue((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData(), forKey: "state")
         parameters.updateValue(formValues()[Tags.ValidationPostcode]!, forKey: "postcode")
         parameters.updateValue(formValues()[Tags.ValidationMobileHome]!, forKey: "mobile_phone")
-        
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate])!, forKey: "alternate_phone")
-        
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
-        
         parameters.updateValue(userInfo["signature"]!, forKey: "signature")
         
         
@@ -474,7 +469,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         })
 
-        
     }
     /*
     // MARK: - Navigation

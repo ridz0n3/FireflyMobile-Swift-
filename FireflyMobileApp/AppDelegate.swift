@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         load()
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPhoneNumber] = FloatLabeledPhoneCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPicker] = FloatLabeledPickerCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledDatePicker] = FloateLabeledDatePickerCell.self
         
@@ -74,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     var country = NSArray()
                     var state = NSArray()
                     var banner = String()
+                    var signature = String()
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] != nil{
@@ -90,7 +92,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             let dataVersion = json["data_version"].string
                             
                             if existDataVersion != dataVersion{
-                                
+                            
                                 title = json["data_title"].object as! NSArray
                                 flight = json["data_market"].object as! NSArray
                                 country = json["data_country"].object as! NSArray
@@ -110,6 +112,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                 banner = json["banner_promo"].string!
                             }
                             
+                            signature = json["signature"].string!
+                            
+                            defaults.setObject(signature, forKey: "signatureLoad")
                             defaults.setObject(banner, forKey: "banner")
                             defaults.synchronize()
                             
