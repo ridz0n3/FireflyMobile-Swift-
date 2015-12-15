@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -336,9 +336,9 @@
                                                     <mask key="constraints">
                                                         <exclude reference="IpH-p3-AcA"/>
                                                         <exclude reference="rjB-nK-h9T"/>
-                                                        <exclude reference="t48-zI-DEI"/>
                                                         <exclude reference="AeM-Oh-K9r"/>
                                                         <exclude reference="eeA-E8-K2Z"/>
+                                                        <exclude reference="t48-zI-DEI"/>
                                                     </mask>
                                                 </variation>
                                             </view>
@@ -378,8 +378,8 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="fZQ-i6-tO9"/>
                                 <exclude reference="8wv-LF-KPJ"/>
+                                <exclude reference="fZQ-i6-tO9"/>
                             </mask>
                         </variation>
                     </view>
@@ -391,8 +391,98 @@
             </objects>
             <point key="canvasLocation" x="-937" y="-735"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Kuh-BV-mhs">
+            <objects>
+                <viewController id="h7k-Vi-esS" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GD4-pn-XFj"/>
+                        <viewControllerLayoutGuide type="bottom" id="3wi-Pt-3y2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MNV-wW-Spl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOARDING PASS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UuR-ev-8E6">
+                                <rect key="frame" x="14" y="28" width="568" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="568" id="4P7-QK-pMb"/>
+                                    <constraint firstAttribute="height" constant="40" id="52d-Dm-V9G"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="4P7-QK-pMb"/>
+                                    </mask>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You have no boarding pass record, Please check-in your booked flight ticket to proceed" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFl-3X-Brp">
+                                <rect key="frame" x="13" y="64" width="569" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="72" id="9Me-dV-k69"/>
+                                    <constraint firstAttribute="width" constant="569" id="RaU-eY-HNx"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c3W-98-5gF">
+                                <rect key="frame" x="13" y="150" width="542" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="FPc-h2-gD2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Continue" backgroundImage="loginBtn">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UuR-ev-8E6" firstAttribute="centerX" secondItem="c3W-98-5gF" secondAttribute="centerX" id="3jR-cm-VwA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="UuR-ev-8E6" secondAttribute="trailing" constant="-2" id="AOM-jM-EyK"/>
+                            <constraint firstAttribute="trailing" secondItem="c3W-98-5gF" secondAttribute="trailing" constant="13" id="DKI-hG-4fX"/>
+                            <constraint firstItem="UuR-ev-8E6" firstAttribute="leading" secondItem="MNV-wW-Spl" secondAttribute="leading" id="Hdg-NL-Ewp"/>
+                            <constraint firstItem="c3W-98-5gF" firstAttribute="centerX" secondItem="MNV-wW-Spl" secondAttribute="centerX" id="IXv-cI-bCe"/>
+                            <constraint firstItem="UuR-ev-8E6" firstAttribute="centerX" secondItem="MNV-wW-Spl" secondAttribute="centerX" id="NIa-v4-1aN"/>
+                            <constraint firstItem="c3W-98-5gF" firstAttribute="top" secondItem="VFl-3X-Brp" secondAttribute="bottom" constant="14" id="NbO-jr-Giz"/>
+                            <constraint firstItem="UuR-ev-8E6" firstAttribute="top" secondItem="MNV-wW-Spl" secondAttribute="top" constant="28" id="PNY-dN-bwd"/>
+                            <constraint firstItem="c3W-98-5gF" firstAttribute="leading" secondItem="MNV-wW-Spl" secondAttribute="leadingMargin" constant="-7" id="PkO-ak-xZO"/>
+                            <constraint firstItem="VFl-3X-Brp" firstAttribute="leading" secondItem="MNV-wW-Spl" secondAttribute="leading" constant="13" id="TY5-7X-OFx"/>
+                            <constraint firstItem="c3W-98-5gF" firstAttribute="leading" secondItem="MNV-wW-Spl" secondAttribute="leading" constant="13" id="Tkq-4D-0xb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="c3W-98-5gF" secondAttribute="trailing" constant="25" id="WAt-ZS-bX1"/>
+                            <constraint firstAttribute="trailing" secondItem="UuR-ev-8E6" secondAttribute="trailing" id="kBq-Y6-Z4q"/>
+                            <constraint firstItem="VFl-3X-Brp" firstAttribute="top" secondItem="UuR-ev-8E6" secondAttribute="bottom" constant="-4" id="kuz-nH-XoH"/>
+                            <constraint firstAttribute="height" constant="200" id="lnn-Pc-pAs"/>
+                            <constraint firstItem="UuR-ev-8E6" firstAttribute="leading" secondItem="MNV-wW-Spl" secondAttribute="leading" id="mxm-jC-TUz"/>
+                            <constraint firstItem="c3W-98-5gF" firstAttribute="centerX" secondItem="UuR-ev-8E6" secondAttribute="centerX" constant="-14" id="yQx-LR-VVf"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="lnn-Pc-pAs"/>
+                                <exclude reference="3jR-cm-VwA"/>
+                                <exclude reference="Hdg-NL-Ewp"/>
+                                <exclude reference="NIa-v4-1aN"/>
+                                <exclude reference="kBq-Y6-Z4q"/>
+                                <exclude reference="mxm-jC-TUz"/>
+                                <exclude reference="DKI-hG-4fX"/>
+                                <exclude reference="IXv-cI-bCe"/>
+                                <exclude reference="Tkq-4D-0xb"/>
+                            </mask>
+                        </variation>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DTD-vp-SGJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-312" y="-735"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="loginBtn" width="371" height="57"/>
         <image name="logo" width="600" height="240"/>
         <image name="tempHeader" width="750" height="194"/>
     </resources>

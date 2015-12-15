@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		61139F581C18397800BB32D8 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61139F561C18397800BB32D8 /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
 		61139F591C18397800BB32D8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61139F571C18397800BB32D8 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
+		611647921C1FFF5A007EB069 /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647911C1FFF5A007EB069 /* SideMenuNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
+		611647951C2003B4007EB069 /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647931C2003B4007EB069 /* ENSideMenuNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
+		611647961C2003B4007EB069 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647941C2003B4007EB069 /* ENSideMenu.swift */; settings = {ASSET_TAGS = (); }; };
 		615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */; };
 		7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */; };
 		7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */; };
@@ -106,6 +109,9 @@
 		0F9AC93C947F773EF563C73C /* Pods-FireflyMobileApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.debug.xcconfig"; sourceTree = "<group>"; };
 		61139F561C18397800BB32D8 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = SOURCE_ROOT; };
 		61139F571C18397800BB32D8 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = SOURCE_ROOT; };
+		611647911C1FFF5A007EB069 /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuNavigationController.swift; sourceTree = "<group>"; };
+		611647931C2003B4007EB069 /* ENSideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenuNavigationController.swift; sourceTree = "<group>"; };
+		611647941C2003B4007EB069 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
 		615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPasswordExpiredlTableViewCell.swift; sourceTree = "<group>"; };
 		7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledPickerCell.swift; sourceTree = "<group>"; };
 		7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloateLabeledDatePickerCell.swift; sourceTree = "<group>"; };
@@ -225,6 +231,8 @@
 				7E1F77F01BF96E6C00F55C46 /* FireflyMobileAppTests */,
 				7E1F77FB1BF96E6C00F55C46 /* FireflyMobileAppUITests */,
 				7E1F77DA1BF96E6C00F55C46 /* Products */,
+				611647931C2003B4007EB069 /* ENSideMenuNavigationController.swift */,
+				611647941C2003B4007EB069 /* ENSideMenu.swift */,
 				E08E914327C79DED95EBD2BC /* Pods */,
 				96C7660040AB98CB0FD039B9 /* Frameworks */,
 			);
@@ -423,6 +431,7 @@
 			isa = PBXGroup;
 			children = (
 				7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */,
+				611647911C1FFF5A007EB069 /* SideMenuNavigationController.swift */,
 			);
 			name = SideMenu;
 			sourceTree = "<group>";
@@ -720,6 +729,7 @@
 				7EBBFA061C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift in Sources */,
 				7E69311D1BFB2F38004F1719 /* BoardingPassViewController.swift in Sources */,
 				7EBBFA091C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift in Sources */,
+				611647961C2003B4007EB069 /* ENSideMenu.swift in Sources */,
 				7E1F78111BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift in Sources */,
 				7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */,
 				7E69310F1BFB1BFA004F1719 /* ManageFlightViewController.swift in Sources */,
@@ -728,6 +738,7 @@
 				7E6931141BFB1F6B004F1719 /* CheckInViewController.swift in Sources */,
 				7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */,
 				7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */,
+				611647951C2003B4007EB069 /* ENSideMenuNavigationController.swift in Sources */,
 				7EBBFA101C101BC200080FFA /* RSDFDatePickerViewController.swift in Sources */,
 				7EBBFA0D1C1013B600080FFA /* RSDFCustomDatePickerDayCell.swift in Sources */,
 				7E1F78331BF9D7A200F55C46 /* SearchFlightViewController.swift in Sources */,
@@ -742,6 +753,7 @@
 				615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */,
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
+				611647921C1FFF5A007EB069 /* SideMenuNavigationController.swift in Sources */,
 				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
 				7E6930FB1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift in Sources */,
 				7E1F782A1BF9CD2800F55C46 /* RegisterPersonalInfoViewController.swift in Sources */,
