@@ -74,53 +74,48 @@ class ChooseSeatViewController: BaseViewController, UITableViewDelegate, UITable
         return cell;
     }
     
+    var seatSelect = [AnyObject]()
+    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        //let cell = collectionView.cellForItemAtIndexPath(indexPath)
-        //let view = cell?.viewWithTag(200)
+        let cell = collectionView.cellForItemAtIndexPath(indexPath)
+        let view = cell?.viewWithTag(200)
+        let seatLbl = cell?.viewWithTag(100) as! UILabel
         
-        //var seatDict = [String : AnyObject]()
+        var seatDict = [String : AnyObject]()
+        seatDict.updateValue(seatLbl.text!, forKey: "seatNo")
         
-        //seatDict["row"] = String(format: "%i", collectionView.tag)
-        //seatDict["cols"] = indexPath
-        
-       // if (seat.count != 0) {
-           // var count = 0, ind = 0;
-           // let discardedItem = Set<String>()
-            //NSMutableIndexSet *discardedItems = [NSMutableIndexSet indexSet];
-            
-         //   for temp in seat{
-         //       print(temp)
-         //   }
-            
-           /* for(NSMutableDictionary *temp in seat){
+        if seatSelect.count != 0{
+            var count = Int()
+            var indexUnselect = Int()
+            for seatArr in seatSelect{
                 
-                if ([[temp objectForKey:@"col"] isEqual:indexPath] && [[temp objectForKey:@"row"] isEqual:[NSString stringWithFormat:@"%li",collectionView.tag]]) {
-                    [view setBackgroundColor:[UIColor clearColor]];
-                    [discardedItems addIndex:ind];
-                    count++;
+                if seatArr["seatNo"] as! String == seatDict["seatNo"] as! String{                    view!.backgroundColor = UIColor.clearColor()
+                    seatSelect.removeAtIndex(indexUnselect)
+                    count++
                 }
-                ind++;
+                indexUnselect++
             }
             
-            [seat removeObjectsAtIndexes:discardedItems];
-            
-            if(count == 0){
-                [view setBackgroundColor:[UIColor greenColor]];
-                [seat addObject:seatDict];
-            }*/
-        //}else{
-            //[view setBackgroundColor:[UIColor greenColor]];
-            //[seat addObject:seatDict];
-          //  seat.insert(seatDict, atIndex: 0)
-        //}
+            if count == 0{
+                view!.backgroundColor = UIColor.greenColor()
+                seatSelect.append(seatDict)
+            }
+        }else{
+            view!.backgroundColor = UIColor.greenColor()
+            seatSelect.append(seatDict)
+        }
         
     }
     
     @IBAction func continueButtonPressed(sender: AnyObject) {
+        
+        let seatNo = seatSelect
+        
+        print(seatNo)
         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
         let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
-        self.navigationController!.pushViewController(paymentVC, animated: true)
+        //self.navigationController!.pushViewController(paymentVC, animated: true)
     }
     /*
     // MARK: - Navigation
