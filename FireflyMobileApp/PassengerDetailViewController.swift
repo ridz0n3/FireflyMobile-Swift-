@@ -65,20 +65,21 @@ class PassengerDetailViewController: BaseXLFormViewController {
         adultCount = (defaults.objectForKey("adult")?.integerValue)!
         infantCount = (defaults.objectForKey("infant")?.integerValue)!
         
-        for var i = 0; i < adultCount; i = i + 1{
-            var j = i
-            j = j + 1
+        for adult in 1...adultCount{
             
-            let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(j)"]
+            var i = adult
+            i--
+            
+            let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(adult)"]
             adultArray.addObject(adultData)
             // Basic Information - Section
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("Adult \(j)")
+            section = XLFormSectionDescriptor.formSectionWithTitle("Adult \(adult)")
             form.addFormSection(section)
             
             // Title
             
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
             
             var tempArray:[AnyObject] = [AnyObject]()
             titleArray = defaults.objectForKey("title") as! NSMutableArray
@@ -91,22 +92,22 @@ class PassengerDetailViewController: BaseXLFormViewController {
             section.addFormRow(row)
             
             //first name
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, j), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
             row.required = true
             section.addFormRow(row)
             
             //last name
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, j), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
             row.required = true
             section.addFormRow(row)
             
             // Date
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, j), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
             row.required = true
             section.addFormRow(row)
             
             // Travel Document
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTravelDoc, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTravelDoc, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
             
             tempArray = [AnyObject]()
             for travel in travelDoc{
@@ -118,7 +119,7 @@ class PassengerDetailViewController: BaseXLFormViewController {
             section.addFormRow(row)
             
             // Country
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
             
             tempArray = [AnyObject]()
             countryArray = defaults.objectForKey("country") as! NSMutableArray
@@ -131,26 +132,25 @@ class PassengerDetailViewController: BaseXLFormViewController {
             section.addFormRow(row)
             
             // Document Number
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, j), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
             row.required = true
             section.addFormRow(row)
             
             // Enrich Loyalty No
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, j), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Enrich Loyalty No:")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Enrich Loyalty No:")
             section.addFormRow(row)
             
         }
         
-        for var i = 0; i < infantCount; i = i + 1{
-            var j = i
-            j = j + 1
+        for infant in 1...infantCount{
+            
             // Basic Information - Section
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("Infant \(j)")
+            section = XLFormSectionDescriptor.formSectionWithTitle("Infant \(infant)")
             form.addFormSection(section)
             
             // Title
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationTravelWith, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Traveling with:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationTravelWith, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Traveling with:*")
             
             var tempArray:[AnyObject] = [AnyObject]()
             for passenger in adultArray{
@@ -162,7 +162,7 @@ class PassengerDetailViewController: BaseXLFormViewController {
             section.addFormRow(row)
             
             // Gender
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationGender, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Gender:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationGender, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Gender:*")
             
             tempArray = [AnyObject]()
             for gender in genderArray{
@@ -174,23 +174,23 @@ class PassengerDetailViewController: BaseXLFormViewController {
             section.addFormRow(row)
             
             // First name
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationFirstName, j), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationFirstName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
             row.required = true
             section.addFormRow(row)
             
             // Last Name
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationLastName, j), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationLastName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
             row.required = true
             section.addFormRow(row)
             
             // Date
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDate, j), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDate, infant), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
             row.required = true
             section.addFormRow(row)
             
             
             // Travel Document
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationTravelDoc, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationTravelDoc, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
             
             tempArray = [AnyObject]()
             for travel in travelDoc{
@@ -202,7 +202,7 @@ class PassengerDetailViewController: BaseXLFormViewController {
             section.addFormRow(row)
             
             // Country
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
             
             tempArray = [AnyObject]()
             countryArray = defaults.objectForKey("country") as! NSMutableArray
@@ -215,7 +215,7 @@ class PassengerDetailViewController: BaseXLFormViewController {
             section.addFormRow(row)
             
             // Document Number
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDocumentNo, j), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDocumentNo, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
             row.required = true
             section.addFormRow(row)
         }
@@ -314,10 +314,28 @@ class PassengerDetailViewController: BaseXLFormViewController {
                 showToastMessage("Infant(s) must be within the age of 9 days - 24 months at date(s) of travel.")
             }else{
                 let params = getFormData()
-                //let d = ["passengers" : params.0, "infants" : params.1, "booking_id" : params.2, "signature" : params.3]
-                //print(d)
+                
+                let parameters = ["passengers" : params.0, "infants" : params.1, "booking_id" : params.2, "signature" : params.3]
+    
                 showHud()
-                FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
+                
+                let manager = WSDLNetworkManager()
+                
+               manager.sharedClient().createRequestWithService("passengerDetails", withParams: parameters, completion: { (result) -> Void in
+                    self.hideHud()
+                    print(result)
+                    if result["status"].string == "success"{
+                        self.showToastMessage(result["status"].string!)
+                        let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                        let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! ContactDetailViewController
+                        self.navigationController!.pushViewController(contactDetailVC, animated: true)
+                    }else{
+                        self.showToastMessage(result["message"].string!)
+                    }
+                
+                })
+                
+               /* FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
@@ -341,7 +359,7 @@ class PassengerDetailViewController: BaseXLFormViewController {
                     case .Failure(let failureResult):
                         print (failureResult)
                     }
-                })
+                })*/
             }
         }
         
