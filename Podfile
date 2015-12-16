@@ -18,6 +18,9 @@ pod 'SwiftyJSON', '~> 2.3'
 pod 'RSDayFlow'
 pod 'JVFloatLabeledTextField', '1.0.2', :inhibit_warnings => true
 pod 'Moya', '~> 5.0'
+pod 'RxSwift', '2.0.0-beta.4'
+pod 'ReactiveCocoa', '= 4.0.4-alpha-4'
+pod 'Moya/ReactiveCocoa'
 end
 
 target 'FireflyMobileAppTests' do

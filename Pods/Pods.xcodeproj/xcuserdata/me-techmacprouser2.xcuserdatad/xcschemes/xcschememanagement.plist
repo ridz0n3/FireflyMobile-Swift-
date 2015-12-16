@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>JVFloatLabeledTextField.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>M13Checkbox.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -40,6 +45,26 @@
 			<false/>
 		</dict>
 		<key>Pods-FireflyMobileApp.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RSDayFlow.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>ReactiveCocoa.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Result.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>RxSwift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -72,17 +97,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1FDA482090D1F285529049EBFC1248D8</key>
+		<key>139F5875938427AA740EF1647CF4B426</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3913F8774C57C8AEFEFC352C0B41B98F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3D6223F4FF85CBF496D1DF6DD53CD657</key>
+		<key>180DA469C6BEAEA5C071E7B895C6D5D1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,7 +112,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>770580120A009D7A82CD19CAD30666F4</key>
+		<key>530A0772B126F23BC9CE7A5C5DF4F5F9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5AE089110B8978D377031D0E07E1EEDB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>735882DA95E7FCCEC084FC1C5384FF8A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>82AA324EF97AA8343250298129A91E28</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8443511869AC7B225534774ABE6A1159</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>89ABF8AA43850AEEF5AC9AA39D3D29B2</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,7 +152,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AEBE29623B164A9CA272FD8CEFEC6E68</key>
+		<key>B4283A428FECCF14369B480A17EABF57</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C148F1A1215541CA100A7DDCA7D4AEEB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,12 +167,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
+		<key>CEED5EA587D2FA5A9DCCC3352BA60A5E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>EA8BC8B6F30628D68849C1456C7F602A</key>
+		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
 		<dict>
 			<key>primary</key>
 			<true/>
