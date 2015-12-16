@@ -23,7 +23,7 @@ public enum FireFlyAPI {
     case Login(String, String)
     case Loading(String, String, String, String, String, String, String, String, String)
     case ForgotPassword(String, String)
-    case PassengerDetail(AnyObject, AnyObject)
+    case PassengerDetail(AnyObject, AnyObject, String, String)
     
 }
 
@@ -64,8 +64,8 @@ extension FireFlyAPI : TargetType {
             return ["signature" : signature, "username" : username, "password" : password, "sdkVersion": sdkVersion, "version" : version, "deviceId" : deviceId, "brand" : brand, "model" : model, "dataVersion" : dataVersion]
         case .ForgotPassword(let username, let signature):
             return ["username" : username, "signature" : signature]
-        case .PassengerDetail(let adult, let infant):
-            return ["passenger" : adult, "infant" : infant]
+        case .PassengerDetail(let adult, let infant, let bookId, let signature):
+            return ["passengers" : adult, "infants" : infant, "booking_id" : bookId, "signature" : signature]
         default:
             return nil
         }

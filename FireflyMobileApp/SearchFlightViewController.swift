@@ -252,7 +252,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                     "return_date": arrivalDateLbl,
                     "adult": cell2.adultCount.text!,
                     "infant": cell2.infantCount.text!,
-                    "signature": "",
+                    "signature": defaults.objectForKey("signatureLoad")!,
                 ]
                 
                 let manager = WSDLNetworkManager()
@@ -263,6 +263,9 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                     
                     if result["status"].string == "success"{
                         
+                        let defaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject(result["signature"].string, forKey: "signature")
+                        defaults.synchronize()
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("FlightDetailVC") as! FlightDetailViewController
                         flightDetailVC.flightDetail = result["journeys"].arrayValue
