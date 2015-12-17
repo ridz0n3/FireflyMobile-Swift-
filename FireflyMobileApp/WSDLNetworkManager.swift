@@ -22,8 +22,8 @@ class WSDLNetworkManager: NSObject {
     func createRequestWithService(serviceName: String, withParams: NSDictionary, completion: (result: JSON) -> Void) {
 
         let serviceUrl = String(format: "%@%@", kBaseURL,serviceName)
-        
-        Alamofire.request(.POST, serviceUrl, parameters: withParams as? [String : AnyObject]).responseJSON(options: .MutableContainers) { (response) -> Void in
+    
+        Alamofire.request(.POST, serviceUrl, parameters: withParams as? [String : AnyObject], encoding: .JSON).responseJSON(options: .MutableContainers) { (response) -> Void in
             if response.result.isSuccess == true{
                 completion(result: JSON(response.result.value!))
             }else{
@@ -31,7 +31,7 @@ class WSDLNetworkManager: NSObject {
             }
         }
     }
-    
+        
     func test(serviceName:String, completion:(result:AnyObject) -> Void){
         
         Alamofire.request(.GET, serviceName, parameters: nil).responseJSON { (response) -> Void in

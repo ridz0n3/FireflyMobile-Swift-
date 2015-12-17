@@ -8,6 +8,7 @@
 
 import UIKit
 import XLForm
+import SwiftyJSON
 
 class ContactDetailViewController: BaseXLFormViewController {
     
@@ -124,9 +125,47 @@ class ContactDetailViewController: BaseXLFormViewController {
         validateForm()
         
         if isValidate{
-            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-            let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
-            self.navigationController!.pushViewController(paymentVC, animated: true)
+            
+            let purposeData = getPurpose(formValues()[Tags.ValidationPurpose]! as! String, purposeArr: purposeArray)
+            let titleData = getTitleCode(formValues()[Tags.ValidationTitle]! as! String, titleArr: titleArray)
+            let firstNameData = formValues()[Tags.ValidationFirstName]!
+            let lastNameData = formValues()[Tags.ValidationLastName]!
+            let emailData = formValues()[Tags.ValidationUsername]!
+            let countryData = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
+            let mobileData = formValues()[Tags.ValidationMobileHome]!
+            let alternateData = nilIfEmpty(formValues()[Tags.ValidationAlternate])!
+            let signatureData = defaults.objectForKey("signature")!
+            let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
+            let insurance = "0"
+            
+            FireFlyProvider.request(.ContactDetail(bookId, insurance, purposeData, titleData, firstNameData as! String, lastNameData as! String, emailData as! String, countryData, mobileData as! String, alternateData as! String, signatureData as! String), completion: { (result) -> () in
+                
+                switch result {
+                case .Success(let successResult):
+                    do {
+                        self.hideHud()
+                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        
+                        if json["status"] == "success"{
+                            self.showToastMessage(json["status"].string!)
+                            
+                            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                            let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
+                            self.navigationController!.pushViewController(paymentVC, animated: true)
+                        }else{
+                            self.showToastMessage(json["message"].string!)
+                        }
+                    }
+                    catch {
+                        
+                    }
+                    print (successResult.data)
+                case .Failure(let failureResult):
+                    print (failureResult)
+                }
+                
+            })
+            
         }else{
             showToastMessage("Please fill all fields")
         }
@@ -145,6 +184,34 @@ class ContactDetailViewController: BaseXLFormViewController {
             showToastMessage("Please fill all fields")
         }
 
+    }
+    
+    func getFormData() -> (String, String, String, String, String, String, String, String, String){
+        
+        let purposeData = getPurpose(formValues()[Tags.ValidationPurpose]! as! String, purposeArr: purposeArray)
+        let titleData = getTitleCode(formValues()[Tags.ValidationTitle]! as! String, titleArr: titleArray) 
+        let firstNameData = formValues()[Tags.ValidationFirstName]!
+        let lastNameData = formValues()[Tags.ValidationLastName]!
+        let emailData = formValues()[Tags.ValidationUsername]!
+        let countryData = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
+        let mobileData = formValues()[Tags.ValidationMobileHome]!
+        let alternateData = nilIfEmpty(formValues()[Tags.ValidationAlternate])!
+        let signatureData = defaults.objectForKey("signature")!
+        
+        return (purposeData, titleData, firstNameData as! String, lastNameData as! String, emailData as! String, countryData, mobileData as! String, alternateData as! String, signatureData as! String)
+        
+    }
+    
+    func getPurpose(purposeName:String, purposeArr:NSArray) -> String{
+        
+        var purposeCode = String()
+        for purposeData in purposeArr{
+            if purposeData["purpose_name"] as! String == purposeName{
+                purposeCode = purposeData["purpose_code"] as! String
+            }
+        }
+        return purposeCode
+        
     }
     
     override func validateForm() {

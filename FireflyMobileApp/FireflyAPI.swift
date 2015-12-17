@@ -24,6 +24,7 @@ public enum FireFlyAPI {
     case Loading(String, String, String, String, String, String, String, String, String)
     case ForgotPassword(String, String)
     case PassengerDetail(AnyObject, AnyObject, String, String)
+    case ContactDetail(String, String, String, String, String, String, String, String, String, String, String)
     
 }
 
@@ -45,17 +46,20 @@ extension FireFlyAPI : TargetType {
             return "api/forgotPassword"
         case PassengerDetail:
             return "api/passengerDetails"
+        case ContactDetail:
+            return "api/contactDetails"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail:
             return .POST
             
         default:
             return .GET
         }
     }
+    
     public var parameters: [String: AnyObject]? {
         switch self {
         case .Login(let username, let password):
@@ -66,6 +70,8 @@ extension FireFlyAPI : TargetType {
             return ["username" : username, "signature" : signature]
         case .PassengerDetail(let adult, let infant, let bookId, let signature):
             return ["passengers" : adult, "infants" : infant, "booking_id" : bookId, "signature" : signature]
+        case .ContactDetail(let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature):
+            return ["booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature]
         default:
             return nil
         }
