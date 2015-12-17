@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MFSideMenu
 import XLForm
 import SwiftyJSON
 import Fabric
@@ -41,21 +40,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().translucent = false
         // Override point for customization after application launch.
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        //let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        let container = storyboard.instantiateViewControllerWithIdentifier("MFSideMenuContainerViewController") as! MFSideMenuContainerViewController
+        /*let container = storyboard.instantiateViewControllerWithIdentifier("ENSideMenuNavigationController") as! ENSideMenuNavigationController
         
         self.window?.rootViewController = container
         
         let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("sideMenuVC") as! SideMenuTableViewController
         
         let homeStoryBoard = UIStoryboard(name: "Home", bundle: nil)
-        let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("NavigationVC") as! UINavigationController
+        let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("NavigationVC") as! UINavigationController*/
         
-        container.leftMenuViewController = sideMenuVC
-        container.centerViewController = navigationController
+       //container.leftMenuViewController = sideMenuVC
+       //container.centerViewController = navigationController
         
-        container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
+      // container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
 
         return true
     }

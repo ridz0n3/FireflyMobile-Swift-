@@ -114,7 +114,8 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     }
     
     func menuTapped(sender: UIBarButtonItem){
-        self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
+        //self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
+        toggleSideMenuView()
     }
     
     func backButtonPressed(sender: UIBarButtonItem){

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bwz-6L-7zI">
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bwz-6L-7zI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="B4i-Lk-Yb1">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -25,10 +24,10 @@
             </objects>
             <point key="canvasLocation" x="-693" y="-267"/>
         </scene>
-        <!--Side Menu Container View Controller-->
+        <!--Side Menu Navigation Controller-->
         <scene sceneID="N55-Zs-6f0">
             <objects>
-                <viewController storyboardIdentifier="MFSideMenuContainerViewController" id="Bwz-6L-7zI" customClass="MFSideMenuContainerViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MFSideMenuContainerViewController" id="Bwz-6L-7zI" customClass="ENSideMenuNavigationController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bhr-jm-yfT"/>
                         <viewControllerLayoutGuide type="bottom" id="6qE-IE-oCs"/>
@@ -85,52 +84,250 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sWl-tS-05C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1792" y="457"/>
-            <point key="canvasLocation" x="-1519" y="471"/>
-        </scene>
-        <!--Root View Controller-->
-        <scene sceneID="tZr-BP-6F7">
-            <objects>
-                <tableViewController storyboardIdentifier="SideMenuSwiftVC" id="obZ-Wg-730" customClass="SideMenuViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uFI-On-GKN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="arv-jh-bUb">
-                                <rect key="frame" x="0.0" y="92" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="arv-jh-bUb" id="bgK-GS-xfr">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="obZ-Wg-730" id="FZM-he-x8s"/>
-                            <outlet property="delegate" destination="obZ-Wg-730" id="L6b-Fh-krL"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="BcY-Hl-Aaj"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="N6E-nJ-gty" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-467" y="449"/>
         </scene>
         <!--Side Menu Navigation Controller-->
-        <scene sceneID="vha-q6-o8U">
+        <scene sceneID="lui-dm-Z5t">
             <objects>
-                <navigationController id="O9B-WZ-1Vj" customClass="SideMenuNavigationController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bZw-dR-avr">
+                <navigationController storyboardIdentifier="NavigationVC" id="B4i-Lk-Yb1" customClass="SideMenuNavigationController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="z5X-xo-1Bp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="obZ-Wg-730" kind="relationship" relationship="rootViewController" id="Shz-Is-Thv"/>
+                        <segue destination="KRh-2j-FxJ" kind="relationship" relationship="rootViewController" id="T4S-wy-Dqp"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SPC-yl-hMc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xfY-rn-6Qp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1161" y="449"/>
+            <point key="canvasLocation" x="-819" y="472"/>
+        </scene>
+        <!--SideMenu-->
+        <scene sceneID="cwv-Of-gxP">
+            <objects>
+                <viewController storyboardIdentifier="HomeVC" id="KRh-2j-FxJ" customClass="HomeViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bcl-rv-jod"/>
+                        <viewControllerLayoutGuide type="bottom" id="OhK-bF-Hjx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XxR-la-ePu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="316" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="oDv-zf-jX0">
+                                <rect key="frame" x="0.0" y="3" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HeaderCell" rowHeight="316" id="w8w-qr-pkm" customClass="CustomHomeMenuTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="316"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w8w-qr-pkm" id="5Rh-Km-N4Z">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="315"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tempHeader" translatesAutoresizingMaskIntoConstraints="NO" id="AYz-x8-K8g">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="101"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="101" id="wCo-bk-b9G"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="QD0-Iw-pV1">
+                                                    <rect key="frame" x="197" y="8" width="207" height="63"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="207" id="KcD-ZR-Pfc"/>
+                                                        <constraint firstAttribute="height" constant="63" id="n8f-ko-ltY"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FQC-pO-yDs">
+                                                    <rect key="frame" x="8" y="8" width="584" height="299"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="FQC-pO-yDs" firstAttribute="top" secondItem="5Rh-Km-N4Z" secondAttribute="top" constant="8" id="7Pk-F7-asG"/>
+                                                <constraint firstItem="QD0-Iw-pV1" firstAttribute="top" secondItem="5Rh-Km-N4Z" secondAttribute="top" constant="8" id="D2o-8N-BLY"/>
+                                                <constraint firstItem="QD0-Iw-pV1" firstAttribute="centerX" secondItem="5Rh-Km-N4Z" secondAttribute="centerX" id="GPn-5Z-Pdu"/>
+                                                <constraint firstItem="AYz-x8-K8g" firstAttribute="leading" secondItem="5Rh-Km-N4Z" secondAttribute="leading" id="Tag-Jp-A0u"/>
+                                                <constraint firstAttribute="bottom" secondItem="FQC-pO-yDs" secondAttribute="bottom" constant="8" id="ZP4-b4-nMb"/>
+                                                <constraint firstAttribute="trailing" secondItem="FQC-pO-yDs" secondAttribute="trailing" constant="8" id="ZQ6-Nq-hBK"/>
+                                                <constraint firstItem="FQC-pO-yDs" firstAttribute="centerX" secondItem="5Rh-Km-N4Z" secondAttribute="centerX" id="bmf-TR-ivC"/>
+                                                <constraint firstItem="AYz-x8-K8g" firstAttribute="centerX" secondItem="5Rh-Km-N4Z" secondAttribute="centerX" id="ccI-dm-eSr"/>
+                                                <constraint firstAttribute="trailing" secondItem="AYz-x8-K8g" secondAttribute="trailing" id="dE2-GU-lnh"/>
+                                                <constraint firstItem="AYz-x8-K8g" firstAttribute="top" secondItem="5Rh-Km-N4Z" secondAttribute="top" id="hCI-5b-q1h"/>
+                                                <constraint firstItem="FQC-pO-yDs" firstAttribute="leading" secondItem="5Rh-Km-N4Z" secondAttribute="leading" constant="8" id="uyw-5C-RIL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="banner" destination="FQC-pO-yDs" id="gUq-ub-guk"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="50" id="An6-db-RpM" customClass="CustomHomeMenuTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="408" width="600" height="50"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="An6-db-RpM" id="NSN-69-VEa">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vor-Yu-oru">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="49"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QR8-l1-x52">
+                                                            <rect key="frame" x="246" y="14" width="167" height="21"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="21" id="7fd-36-SRH"/>
+                                                                <constraint firstAttribute="width" constant="167" id="BQE-6Y-Jos"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FaqIcon" translatesAutoresizingMaskIntoConstraints="NO" id="0YL-NS-eR0">
+                                                            <rect key="frame" x="205" y="8" width="33" height="33"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="33" id="bOb-U5-47l"/>
+                                                                <constraint firstAttribute="width" constant="33" id="k9O-qf-95j"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="QR8-l1-x52" firstAttribute="leading" secondItem="0YL-NS-eR0" secondAttribute="trailing" constant="8" id="Bmu-ib-T4R"/>
+                                                        <constraint firstItem="0YL-NS-eR0" firstAttribute="top" secondItem="vor-Yu-oru" secondAttribute="top" constant="8" id="NiF-4f-RMy"/>
+                                                        <constraint firstAttribute="bottom" secondItem="0YL-NS-eR0" secondAttribute="bottom" constant="8" id="g1d-aS-KR7"/>
+                                                        <constraint firstItem="QR8-l1-x52" firstAttribute="leading" secondItem="0YL-NS-eR0" secondAttribute="trailing" constant="8" id="kxr-3d-lKk"/>
+                                                        <constraint firstItem="QR8-l1-x52" firstAttribute="top" secondItem="vor-Yu-oru" secondAttribute="top" constant="14" id="sgK-yl-zeT"/>
+                                                        <constraint firstAttribute="bottom" secondItem="QR8-l1-x52" secondAttribute="bottom" constant="14" id="sii-lH-yWa"/>
+                                                        <constraint firstItem="QR8-l1-x52" firstAttribute="centerX" secondItem="vor-Yu-oru" secondAttribute="centerX" constant="29" id="tsZ-LA-jdW"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="vor-Yu-oru" secondAttribute="bottom" id="6b2-Qz-4Ul"/>
+                                                <constraint firstItem="vor-Yu-oru" firstAttribute="leading" secondItem="NSN-69-VEa" secondAttribute="leading" id="NVQ-wa-Usr"/>
+                                                <constraint firstItem="vor-Yu-oru" firstAttribute="top" secondItem="NSN-69-VEa" secondAttribute="top" id="b57-gn-skk"/>
+                                                <constraint firstAttribute="trailing" secondItem="vor-Yu-oru" secondAttribute="trailing" id="fgv-Zc-yeI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="bgView" destination="vor-Yu-oru" id="JxU-SE-sUz"/>
+                                            <outlet property="menuIcon" destination="0YL-NS-eR0" id="dxu-N2-QB3"/>
+                                            <outlet property="menuLbl" destination="QR8-l1-x52" id="SCp-lt-q6e"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SocialCell" rowHeight="36" id="KNb-YS-ylQ" customClass="CustomHomeMenuTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="458" width="600" height="36"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KNb-YS-ylQ" id="25p-aV-f9N">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="35"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hm0-ik-s3R">
+                                                    <rect key="frame" x="257" y="8" width="86" height="20"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="twitter" translatesAutoresizingMaskIntoConstraints="NO" id="a6J-i2-hOw">
+                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="/FlyFirefly" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nRJ-p0-VAz">
+                                                            <rect key="frame" x="28" y="0.0" width="58" height="20"/>
+                                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="22i-N6-shJ"/>
+                                                        <constraint firstAttribute="width" constant="86" id="ojh-Qq-3hB"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gqH-Nw-EAC">
+                                                    <rect key="frame" x="163" y="8" width="86" height="20"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fb" translatesAutoresizingMaskIntoConstraints="NO" id="7hc-4D-DZO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="/Firefly" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zq4-UF-uMm">
+                                                            <rect key="frame" x="28" y="0.0" width="58" height="20"/>
+                                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="86" id="kZ4-xN-Acf"/>
+                                                        <constraint firstAttribute="height" constant="20" id="y1Z-Do-TyZ"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nHg-n8-9bO">
+                                                    <rect key="frame" x="351" y="8" width="109" height="20"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="instagram" translatesAutoresizingMaskIntoConstraints="NO" id="WLd-5r-huO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="/FireflyAirlines" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CdS-Cy-RmX">
+                                                            <rect key="frame" x="28" y="0.0" width="81" height="20"/>
+                                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="109" id="Ujk-0v-DrH"/>
+                                                        <constraint firstAttribute="height" constant="20" id="WTr-g7-OaL"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="nHg-n8-9bO" firstAttribute="top" secondItem="25p-aV-f9N" secondAttribute="top" constant="8" id="EEC-YF-JZB"/>
+                                                <constraint firstItem="nHg-n8-9bO" firstAttribute="leading" secondItem="hm0-ik-s3R" secondAttribute="trailing" constant="8" id="H4m-eu-EgV"/>
+                                                <constraint firstItem="hm0-ik-s3R" firstAttribute="centerX" secondItem="25p-aV-f9N" secondAttribute="centerX" id="JC7-cm-hCg"/>
+                                                <constraint firstItem="hm0-ik-s3R" firstAttribute="top" secondItem="25p-aV-f9N" secondAttribute="topMargin" id="YBa-zR-VOg"/>
+                                                <constraint firstItem="gqH-Nw-EAC" firstAttribute="top" secondItem="25p-aV-f9N" secondAttribute="top" constant="8" id="bbL-rg-KZB"/>
+                                                <constraint firstItem="hm0-ik-s3R" firstAttribute="leading" secondItem="gqH-Nw-EAC" secondAttribute="trailing" constant="8" id="nHr-mO-4Qs"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="KRh-2j-FxJ" id="kp5-PQ-yG3"/>
+                                    <outlet property="delegate" destination="KRh-2j-FxJ" id="8fM-wz-i6T"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="oDv-zf-jX0" secondAttribute="trailing" id="Ahd-Ia-y9y"/>
+                            <constraint firstItem="OhK-bF-Hjx" firstAttribute="top" secondItem="oDv-zf-jX0" secondAttribute="bottom" id="F1y-KF-Sxs"/>
+                            <constraint firstItem="oDv-zf-jX0" firstAttribute="centerX" secondItem="XxR-la-ePu" secondAttribute="centerX" id="HbU-3P-Dqs"/>
+                            <constraint firstItem="oDv-zf-jX0" firstAttribute="leading" secondItem="XxR-la-ePu" secondAttribute="leading" id="h8H-93-Caa"/>
+                            <constraint firstItem="oDv-zf-jX0" firstAttribute="top" secondItem="XxR-la-ePu" secondAttribute="top" id="m0I-9e-Rku"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="SideMenu" id="375-2Y-gjw">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="Y4v-5p-Eh0"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="homeMenuTableView" destination="oDv-zf-jX0" id="K2H-E4-SnM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vkK-HH-7CB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-173" y="472"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="FaqIcon" width="750" height="194"/>
+        <image name="fb" width="200" height="200"/>
+        <image name="instagram" width="200" height="200"/>
+        <image name="logo" width="600" height="240"/>
+        <image name="menu" width="24" height="23"/>
+        <image name="tempHeader" width="750" height="194"/>
+        <image name="twitter" width="200" height="200"/>
+    </resources>
 </document>

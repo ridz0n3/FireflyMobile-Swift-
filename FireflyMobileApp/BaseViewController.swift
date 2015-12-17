@@ -96,7 +96,8 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     }
     
     func menuTapped(sender: UIBarButtonItem){
-        self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
+        //self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
+        toggleSideMenuView()
     }
     
     func backButtonPressed(sender: UIBarButtonItem){

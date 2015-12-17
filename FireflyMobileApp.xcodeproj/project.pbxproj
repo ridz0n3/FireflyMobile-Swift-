@@ -13,6 +13,7 @@
 		611647951C2003B4007EB069 /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647931C2003B4007EB069 /* ENSideMenuNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
 		611647961C2003B4007EB069 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647941C2003B4007EB069 /* ENSideMenu.swift */; settings = {ASSET_TAGS = (); }; };
 		615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */; };
+		61A812121C2164B000CBCA25 /* SideMenuTableViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A812111C2164B000CBCA25 /* SideMenuTableViewController1.swift */; settings = {ASSET_TAGS = (); }; };
 		7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */; };
 		7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */; };
 		7E16D4521C1FA5B6002E7BDD /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */; };
@@ -115,6 +116,7 @@
 		611647931C2003B4007EB069 /* ENSideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenuNavigationController.swift; sourceTree = "<group>"; };
 		611647941C2003B4007EB069 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
 		615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPasswordExpiredlTableViewCell.swift; sourceTree = "<group>"; };
+		61A812111C2164B000CBCA25 /* SideMenuTableViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController1.swift; sourceTree = "<group>"; };
 		7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledPickerCell.swift; sourceTree = "<group>"; };
 		7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloateLabeledDatePickerCell.swift; sourceTree = "<group>"; };
 		7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 			isa = PBXGroup;
 			children = (
 				7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */,
+				61A812111C2164B000CBCA25 /* SideMenuTableViewController1.swift */,
 				611647911C1FFF5A007EB069 /* SideMenuNavigationController.swift */,
 			);
 			name = SideMenu;
@@ -711,6 +714,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61A812121C2164B000CBCA25 /* SideMenuTableViewController1.swift in Sources */,
 				7E6930F61BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift in Sources */,
 				9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */,
 				7E20F90D1BFA02E90020AB0C /* CustomFlightDetailTableViewCell.swift in Sources */,

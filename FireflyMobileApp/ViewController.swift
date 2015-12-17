@@ -14,6 +14,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+       
+        func menuTapped(sender: UIBarButtonItem){
+            //self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
+            toggleSideMenuView()
+        }
+
         
         /*let parameters = [
             "username": "zhariffadam00@me-tech.com.my",

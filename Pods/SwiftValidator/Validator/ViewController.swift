@@ -56,6 +56,7 @@ class ViewController: UIViewController , ValidationDelegate, UITextFieldDelegate
         validator.registerField(zipcodeTextField, errorLabel: zipcodeErrorLabel, rules: [RequiredRule(), ZipCodeRule()])
     }
 
+
     @IBAction func submitTapped(sender: AnyObject) {
         print("Validating...")
         validator.validate(self)
