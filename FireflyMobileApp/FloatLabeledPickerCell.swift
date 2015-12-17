@@ -120,6 +120,8 @@ class FloatLabeledPickerCell: XLFormBaseCell{
         
         if selectValue == "P"{
             NSNotificationCenter.defaultCenter().postNotificationName("removeExpiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+        }else if selectValue == "2"{
+            NSNotificationCenter.defaultCenter().postNotificationName("removeBusiness", object: nil)
         }
         
         selectindex = index.integerValue
@@ -130,6 +132,10 @@ class FloatLabeledPickerCell: XLFormBaseCell{
         
         if selectValue == "P"{
             NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+        }else if selectValue == "2"{
+            NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
+        }else if self.rowDescriptor?.tag == "Country"{
+            NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue])
         }
         
     }

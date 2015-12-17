@@ -29,6 +29,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         static var ValidationDate = "Date"
         static let ValidationAddressLine1 = "Address Line 1"
         static let ValidationAddressLine2 = "Address Line 2"
+        static let ValidationAddressLine3 = "Address Line 3"
         static var ValidationCountry = "Country"
         static let ValidationTownCity = "Town/City"
         static let ValidationState = "State"
@@ -44,6 +45,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         static var ValidationTravelWith = "Traveling with"
         static var ValidationGender = "Gender"
         static var ValidationPurpose = "Purpose"
+        static var ValidationCompanyName = "Company Name"
     }
 
     
@@ -235,6 +237,16 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
             }
         }
         return countryCode
+    }
+    
+    func getStateCode(stateName:String, stateArr:NSArray)->String{
+        var stateCode = String()
+        for stateData in stateArr{
+            if stateData["state_name"] as! String == stateName{
+                stateCode = stateData["state_code"] as! String
+            }
+        }
+        return stateCode
     }
     
     func getTravelDocCode(docName:String, docArr:NSArray)->String{

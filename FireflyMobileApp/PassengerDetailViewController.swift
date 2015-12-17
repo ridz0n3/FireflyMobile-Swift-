@@ -330,6 +330,15 @@ class PassengerDetailViewController: BaseXLFormViewController {
                     print(result)
                     if result["status"].string == "success"{
                         self.showToastMessage(result["status"].string!)
+                        
+                        if result["insurance"].object["status"] as! String == "N"{
+                            self.defaults.setObject("", forKey: "insurance_status")
+                        }else{
+                            self.defaults.setObject(result["insurance"].object, forKey: "insurance_status")
+                            self.defaults.synchronize()
+                        }
+                        
+                        
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! ContactDetailViewController
                         self.navigationController!.pushViewController(contactDetailVC, animated: true)
@@ -475,7 +484,6 @@ class PassengerDetailViewController: BaseXLFormViewController {
     }
     
     func addExpiredDate(sender:NSNotification){
-        print(sender.userInfo!["tag"])
         
         let newTag = sender.userInfo!["tag"]!.componentsSeparatedByString("(")
         

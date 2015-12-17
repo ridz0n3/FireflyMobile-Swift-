@@ -24,7 +24,7 @@ public enum FireFlyAPI {
     case Loading(String, String, String, String, String, String, String, String, String)
     case ForgotPassword(String, String)
     case PassengerDetail(AnyObject, AnyObject, String, String)
-    case ContactDetail(String, String, String, String, String, String, String, String, String, String, String)
+    case ContactDetail(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     
 }
 
@@ -70,8 +70,8 @@ extension FireFlyAPI : TargetType {
             return ["username" : username, "signature" : signature]
         case .PassengerDetail(let adult, let infant, let bookId, let signature):
             return ["passengers" : adult, "infants" : infant, "booking_id" : bookId, "signature" : signature]
-        case .ContactDetail(let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature):
-            return ["booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature]
+        case .ContactDetail(let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature, let companyName, let address1, let address2, let address3, let city, let state, let postcode):
+            return ["booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode]
         default:
             return nil
         }
