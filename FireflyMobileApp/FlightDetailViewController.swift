@@ -282,7 +282,8 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                         self.hideHud()
                         
                         self.showToastMessage(result["status"].string!)
-                        
+                        let defaults = NSUserDefaults.standardUserDefaults()
+                        defaults.setObject(result["booking_id"].int , forKey: "booking_id")
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! PassengerDetailViewController
                         self.navigationController!.pushViewController(personalDetailVC, animated: true)

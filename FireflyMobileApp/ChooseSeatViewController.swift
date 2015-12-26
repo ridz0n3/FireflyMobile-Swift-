@@ -8,13 +8,53 @@
 
 import UIKit
 
+extension ChooseSeatViewController : UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+            return CGSize(width: 60, height: collectionView.frame.height)
+    }
+    
+}
+
 class ChooseSeatViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var seatTableView: UITableView!
+    @IBOutlet weak var continueBtn: UIButton!
+    var seatSelect = [AnyObject]()
+    var seat = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let journeys = defaults.objectForKey("journey") as! NSArray
+        var newSeat = NSMutableArray()
+        var seatDict = NSMutableArray()
+        var seatData = NSMutableArray()
+        for info in journeys{
+            
+            seatData = info["seat_info"] as! NSMutableArray
+            newSeat = seatData.mutableCopy() as! NSMutableArray
+            var indDa = 0
+            while newSeat.count != 0{
+                if indDa == 3{
+                    indDa = 0
+                    seatDict.addObject(newSeat[0])
+                    seat.addObject(seatDict)
+                    newSeat.removeObjectAtIndex(0)
+                    seatDict = NSMutableArray()
+                    
+                }else{
+                    seatDict.addObject(newSeat[0])
+                    newSeat.removeObjectAtIndex(0)
+                    indDa++
+                }
+            }
+            
+        }
+        
         // Do any additional setup after loading the view.
     }
 
@@ -28,7 +68,7 @@ class ChooseSeatViewController: BaseViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return seat.count
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -37,7 +77,7 @@ class ChooseSeatViewController: BaseViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.seatTableView.dequeueReusableCellWithIdentifier("seatRowCell", forIndexPath: indexPath) as! CustomChooseSeatTableViewCell
-        cell.seatCollectionView.tag = indexPath.row + 1
+        cell.seatCollectionView.tag = indexPath.row
         cell.seatCollectionView.reloadData()
         
         return cell
@@ -49,63 +89,66 @@ class ChooseSeatViewController: BaseViewController, UITableViewDelegate, UITable
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("seatCell", forIndexPath: indexPath)
-        
+        let view = cell.viewWithTag(200)
         let titleLabel = cell.viewWithTag(100) as! UILabel
         
-        if indexPath.row == 0 {
+        let seatDetail = seat[collectionView.tag][indexPath.row] as! NSDictionary
+        titleLabel.text = seatDetail["seat_number"] as? String
+        
+        if seatDetail["status"] as! String == "available"{
+            cell.backgroundColor = UIColor.lightGrayColor()
+        }
+        
+        if seatSelect.count != 0{
+            var indexSameSeat = 0
+            for seatArr in seatSelect{
+                if seatArr["seat_number"] as! String == seatDetail["seat_number"] as! String{
+                    indexSameSeat++
+                }
+            }
             
-            titleLabel.text = String(format: "%iA", collectionView.tag)
-            
-        }else if (indexPath.row == 1) {
-            
-            titleLabel.text = String(format: "%iC", collectionView.tag)
-            cell.contentView.backgroundColor = UIColor.redColor()
-            cell.userInteractionEnabled = false
-            
-        }else if (indexPath.row == 2) {
-            
-            titleLabel.text = String(format: "%iD", collectionView.tag)
+            if indexSameSeat != 0{
+                view?.backgroundColor = UIColor.greenColor()
+            }else{
+                view?.backgroundColor = UIColor.clearColor()
+            }
             
         }else{
-            titleLabel.text = String(format: "%iF", collectionView.tag)
-            cell.contentView.backgroundColor = UIColor.lightGrayColor()
+            view?.backgroundColor = UIColor.clearColor()
         }
         
         return cell;
     }
     
-    var seatSelect = [AnyObject]()
-    
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         let cell = collectionView.cellForItemAtIndexPath(indexPath)
         let view = cell?.viewWithTag(200)
-        let seatLbl = cell?.viewWithTag(100) as! UILabel
         
-        var seatDict = [String : AnyObject]()
-        seatDict.updateValue(seatLbl.text!, forKey: "seatNo")
+        let seatDetail = seat[collectionView.tag][indexPath.row] as! NSDictionary
         
         if seatSelect.count != 0{
-            var count = Int()
-            var indexUnselect = Int()
+            var indexSeat = 0
+            var indexSameSeat = 0
             for seatArr in seatSelect{
-                
-                if seatArr["seatNo"] as! String == seatDict["seatNo"] as! String{                    view!.backgroundColor = UIColor.clearColor()
-                    seatSelect.removeAtIndex(indexUnselect)
-                    count++
+
+                if seatArr["seat_number"] as! String == seatDetail["seat_number"] as! String{
+                    seatSelect.removeAtIndex(indexSeat)
+                    indexSameSeat++
                 }
-                indexUnselect++
+                indexSeat++
             }
-            
-            if count == 0{
-                view!.backgroundColor = UIColor.greenColor()
-                seatSelect.append(seatDict)
+        
+            if indexSameSeat == 0{
+                seatSelect.append(seatDetail)
+                view?.backgroundColor = UIColor.greenColor()
+            }else{
+                view?.backgroundColor = UIColor.clearColor()
             }
         }else{
-            view!.backgroundColor = UIColor.greenColor()
-            seatSelect.append(seatDict)
+            seatSelect.append(seatDetail)
+            view?.backgroundColor = UIColor.greenColor()
         }
-        
     }
     
     @IBAction func continueButtonPressed(sender: AnyObject) {

@@ -98,91 +98,6 @@ class ContactDetailViewController: BaseXLFormViewController {
         // Do any additional setup after loading the view.
     }
     
-    func addBusiness(sender:NSNotification){
-        
-        var row : XLFormRowDescriptor
-        
-        // Company Name
-        row = XLFormRowDescriptor(tag: Tags.ValidationCompanyName, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Company Name:*")
-        row.required = true
-        self.form.addFormRow(row, afterRowTag: Tags.ValidationEmail)
-        
-        // Address 1
-        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address 1:*")
-        row.required = true
-        self.form.addFormRow(row, afterRowTag: Tags.ValidationCompanyName)
-        
-        // Address 2
-        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address 2:*")
-        row.required = true
-        self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine1)
-        
-        // Address 3
-        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address 3:*")
-        row.required = true
-        self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine2)
-        
-        // City
-        row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"City:*")
-        row.required = true
-        self.form.addFormRow(row, afterRowTag: Tags.ValidationCountry)
-        
-        // State
-        row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"State:*")
-        row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
-        row.required = true
-        self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
-        
-        // Postcode
-        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Postcode:*")
-        row.required = true
-        self.form.addFormRow(row, afterRowTag: Tags.ValidationState)
-        
-    }
-    
-    func removeBusiness(sender:NSNotification){
-        
-        self.form.removeFormRowWithTag(Tags.ValidationCompanyName)
-        self.form.removeFormRowWithTag(Tags.ValidationAddressLine1)
-        self.form.removeFormRowWithTag(Tags.ValidationAddressLine2)
-        self.form.removeFormRowWithTag(Tags.ValidationAddressLine3)
-        self.form.removeFormRowWithTag(Tags.ValidationTownCity)
-        self.form.removeFormRowWithTag(Tags.ValidationState)
-        self.form.removeFormRowWithTag(Tags.ValidationPostcode)
-        
-    }
-    
-    func selectCountry(sender:NSNotification){
-        
-        if self.formValues()[Tags.ValidationState] != nil{
-            var stateArr = [NSDictionary]()
-            for stateData in stateArray{
-                if stateData["country_code"] as! String == sender.userInfo!["countryVal"]! as! String{
-                    stateArr.append(stateData as! NSDictionary)
-                }
-            }
-            
-            self.form.removeFormRowWithTag(Tags.ValidationState)
-            var row : XLFormRowDescriptor
-            row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"State:*")
-            
-            var tempArray:[AnyObject] = [AnyObject]()
-            if stateArr.count != 0{
-                for data in stateArr{
-                    tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
-                }
-            }else{
-                tempArray.append(XLFormOptionsObject(value: 0, displayText: "Other"))
-            }
-            
-            row.selectorOptions = tempArray
-            row.required = true
-            
-            self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
-        }
-        
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -290,53 +205,61 @@ class ContactDetailViewController: BaseXLFormViewController {
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate])!  as! String
             let signatureData = defaults.objectForKey("signature")!  as! String
             let bookIdData = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
-            var insuranceData = ""
-            if agreeTerm.checkState.rawValue == 0{
-                insuranceData = "\(agreeTerm.checkState.rawValue)"
-            }else{
-                insuranceData = "\(agreeTerm.checkState.rawValue)"
-            }
             let companyNameData = nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String
             let address1Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String
             let address2Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String
             let address3Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine3])!  as! String
             let cityData = nilIfEmpty(formValues()[Tags.ValidationTownCity])!  as! String
-            let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState])! as! String, stateArr: stateArray) 
+            let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState])! as! String, stateArr: stateArray)
             let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode])!  as! String
             
+            var insuranceData = ""
             
-            FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData ), completion: { (result) -> () in
-                
-                switch result {
-                case .Success(let successResult):
-                    do {
-                        self.hideHud()
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                        
-                        if json["status"] == "success"{
-                            self.showToastMessage(json["status"].string!)
-                            
-                            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
-                            self.navigationController!.pushViewController(paymentVC, animated: true)
-                        }else{
-                            self.showToastMessage(json["message"].string!)
-                        }
-                    }
-                    catch {
-                        
-                    }
-                    print (successResult.data)
-                case .Failure(let failureResult):
-                    print (failureResult)
+            if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
+                insuranceData = "1"
+            }else{
+                if agreeTerm.checkState.rawValue == 1{
+                    insuranceData = "\(agreeTerm.checkState.rawValue)"
                 }
-                
-            })
+            }
+            
+            if insuranceData == ""{
+                showToastMessage("To proceed, you need to agree with the Insurance Declaration.")
+            }else{
+                showHud()
+                FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "N"), completion: { (result) -> () in
+                    
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            self.hideHud()
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            
+                            if json["status"] == "success"{
+                                self.showToastMessage(json["status"].string!)
+                                self.defaults.setObject(json.dictionaryObject, forKey: "itenerary")
+                                self.defaults.synchronize()
+                                let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
+                                self.navigationController!.pushViewController(paymentVC, animated: true)
+                            }else{
+                                self.showToastMessage(json["message"].string!)
+                            }
+                        }
+                        catch {
+                            
+                        }
+                        print (successResult.data)
+                    case .Failure(let failureResult):
+                        print (failureResult)
+                    }
+                    
+                })
+            }
             
         }else{
             showToastMessage("Please fill all fields")
         }
-        
         
     }
     
@@ -355,12 +278,6 @@ class ContactDetailViewController: BaseXLFormViewController {
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate])!  as! String
             let signatureData = defaults.objectForKey("signature")!  as! String
             let bookIdData = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
-            var insuranceData = ""
-            if agreeTerm.checkState.rawValue == 0{
-                insuranceData = "\(agreeTerm.checkState.rawValue)"
-            }else{
-                insuranceData = "\(agreeTerm.checkState.rawValue)"
-            }
             let companyNameData = nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String
             let address1Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String
             let address2Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String
@@ -369,68 +286,53 @@ class ContactDetailViewController: BaseXLFormViewController {
             let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState])! as! String, stateArr: stateArray)
             let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode])!  as! String
             
+            var insuranceData = ""
             
-            FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData ), completion: { (result) -> () in
-                
-                switch result {
-                case .Success(let successResult):
-                    do {
-                        self.hideHud()
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                        
-                        if json["status"] == "success"{
-                            self.showToastMessage(json["status"].string!)
-                            
-                            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("ChooseSeatVC") as! ChooseSeatViewController
-                            self.navigationController!.pushViewController(chooseSeatVC, animated: true)
-                        }else{
-                            self.showToastMessage(json["message"].string!)
-                        }
-                    }
-                    catch {
-                        
-                    }
-                    print (successResult.data)
-                case .Failure(let failureResult):
-                    print (failureResult)
+            if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
+                insuranceData = "1"
+            }else{
+                if agreeTerm.checkState.rawValue == 1{
+                    insuranceData = "\(agreeTerm.checkState.rawValue)"
                 }
-                
-            })
+            }
             
+            if insuranceData == ""{
+                showToastMessage("To proceed, you need to agree with the Insurance Declaration.")
+            }else{
+                showHud()
+                FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "Y" ), completion: { (result) -> () in
+                    
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            self.hideHud()
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            
+                            if json["status"] == "success"{
+                                self.showToastMessage(json["status"].string!)
+                                self.defaults.setObject(json["journeys"].arrayObject, forKey: "journey")
+                                self.defaults.setObject(json["passengers"].arrayObject, forKey: "passenger")
+                                self.defaults.synchronize()
+                                let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("ChooseSeatVC") as! ChooseSeatViewController
+                                self.navigationController!.pushViewController(chooseSeatVC, animated: true)
+                            }else{
+                                self.showToastMessage(json["message"].string!)
+                            }
+                        }
+                        catch {
+                            
+                        }
+                        print (successResult.data)
+                    case .Failure(let failureResult):
+                        print (failureResult)
+                    }
+                    
+                })
+            }
         }else{
             showToastMessage("Please fill all fields")
         }
-    }
-    
-    func getFormData() -> (String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String){
-        
-        let purposeData = getPurpose(formValues()[Tags.ValidationPurpose]! as! String, purposeArr: purposeArray)
-        let titleData = getTitleCode(formValues()[Tags.ValidationTitle]! as! String, titleArr: titleArray)
-        let firstNameData = formValues()[Tags.ValidationFirstName]!  as! String
-        let lastNameData = formValues()[Tags.ValidationLastName]! as! String
-        let emailData = formValues()[Tags.ValidationUsername]!  as! String
-        let countryData = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
-        let mobileData = formValues()[Tags.ValidationMobileHome]!  as! String
-        let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate])!  as! String
-        let signatureData = defaults.objectForKey("signature")!  as! String
-        let bookIdData = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
-        var insuranceData = ""
-        if agreeTerm.checkState.rawValue == 0{
-            insuranceData = "\(agreeTerm.checkState.rawValue)"
-        }else{
-            insuranceData = "\(agreeTerm.checkState.rawValue)"
-        }
-        let companyNameData = nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String
-        let address1Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String
-        let address2Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String
-        let address3Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine3])!  as! String
-        let cityData = nilIfEmpty(formValues()[Tags.ValidationTownCity])!  as! String
-        let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState])! as! String, stateArr: stateArray)
-        let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode])!  as! String
-        
-        return (bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData)
-        
     }
     
     func getPurpose(purposeName:String, purposeArr:NSArray) -> String{
@@ -499,6 +401,90 @@ class ContactDetailViewController: BaseXLFormViewController {
         }
     }
     
+    func addBusiness(sender:NSNotification){
+        
+        var row : XLFormRowDescriptor
+        
+        // Company Name
+        row = XLFormRowDescriptor(tag: Tags.ValidationCompanyName, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Company Name:*")
+        row.required = true
+        self.form.addFormRow(row, afterRowTag: Tags.ValidationEmail)
+        
+        // Address 1
+        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address 1:*")
+        row.required = true
+        self.form.addFormRow(row, afterRowTag: Tags.ValidationCompanyName)
+        
+        // Address 2
+        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address 2:*")
+        row.required = true
+        self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine1)
+        
+        // Address 3
+        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address 3:*")
+        row.required = true
+        self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine2)
+        
+        // City
+        row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"City:*")
+        row.required = true
+        self.form.addFormRow(row, afterRowTag: Tags.ValidationCountry)
+        
+        // State
+        row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"State:*")
+        row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
+        row.required = true
+        self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
+        
+        // Postcode
+        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType:XLFormRowDescriptorTypeFloatLabeledPhoneNumber, title:"Postcode:*")
+        row.required = true
+        self.form.addFormRow(row, afterRowTag: Tags.ValidationState)
+        
+    }
+    
+    func removeBusiness(sender:NSNotification){
+        
+        self.form.removeFormRowWithTag(Tags.ValidationCompanyName)
+        self.form.removeFormRowWithTag(Tags.ValidationAddressLine1)
+        self.form.removeFormRowWithTag(Tags.ValidationAddressLine2)
+        self.form.removeFormRowWithTag(Tags.ValidationAddressLine3)
+        self.form.removeFormRowWithTag(Tags.ValidationTownCity)
+        self.form.removeFormRowWithTag(Tags.ValidationState)
+        self.form.removeFormRowWithTag(Tags.ValidationPostcode)
+        
+    }
+    
+    func selectCountry(sender:NSNotification){
+        
+        if self.formValues()[Tags.ValidationState] != nil{
+            var stateArr = [NSDictionary]()
+            for stateData in stateArray{
+                if stateData["country_code"] as! String == sender.userInfo!["countryVal"]! as! String{
+                    stateArr.append(stateData as! NSDictionary)
+                }
+            }
+            
+            self.form.removeFormRowWithTag(Tags.ValidationState)
+            var row : XLFormRowDescriptor
+            row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"State:*")
+            
+            var tempArray:[AnyObject] = [AnyObject]()
+            if stateArr.count != 0{
+                for data in stateArr{
+                    tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
+                }
+            }else{
+                tempArray.append(XLFormOptionsObject(value: 0, displayText: "Other"))
+            }
+            
+            row.selectorOptions = tempArray
+            row.required = true
+            
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
+        }
+        
+    }
     
     /*
     // MARK: - Navigation
