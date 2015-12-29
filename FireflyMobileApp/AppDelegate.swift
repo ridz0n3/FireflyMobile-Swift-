@@ -69,7 +69,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }else{
             existDataVersion = ""
         }
-        
+            //apple device indentify
+            //iphone 4s
         FireFlyProvider.request(.Loading("","","","",UIDevice.currentDevice().systemVersion,UIDevice.currentDevice().identifierForVendor!.UUIDString,"Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
             switch result {
             case .Success(let successResult):

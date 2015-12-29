@@ -9,19 +9,23 @@
 import UIKit
 
 class CustomPasswordExpiredTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var titleLbl: UILabel!
-    @IBOutlet weak var txtField: UITextField!
+    
+    
+    @IBOutlet weak var userlbl: UILabel!
+    @IBOutlet weak var emailTxt: UITextField!
+    @IBOutlet weak var passwordTxt: UITextField!
+    
+    @IBOutlet weak var password: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
-
+    
 }

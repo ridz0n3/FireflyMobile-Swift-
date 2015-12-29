@@ -106,6 +106,11 @@ class LoginViewController: BaseXLFormViewController {
                             let storyBoard = UIStoryboard(name: "Home", bundle: nil)
                             let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                             self.navigationController!.pushViewController(homeVC, animated: true)
+                        }else if json["status"].string == "change_password"{
+    
+                            let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+                            let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
+                            self.navigationController!.pushViewController(homeVC, animated: true)
                         }else{
                             self.showToastMessage(json["message"].string!)
                         }

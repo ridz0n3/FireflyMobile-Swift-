@@ -25,7 +25,7 @@ public enum FireFlyAPI {
     case ForgotPassword(String, String)
     case PassengerDetail(AnyObject, AnyObject, String, String)
     case ContactDetail(String, String, String, String, String, String, String, String, String, String, String)
-    
+    case Terms()
 }
 
 
@@ -48,11 +48,13 @@ extension FireFlyAPI : TargetType {
             return "api/passengerDetails"
         case ContactDetail:
             return "api/contactDetails"
+        case Terms:
+            return "api/terms"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .Terms:
             return .POST
             
         default:

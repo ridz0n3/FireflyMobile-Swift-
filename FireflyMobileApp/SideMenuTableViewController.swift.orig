@@ -12,7 +12,7 @@ import UIKit
 class SideMenuTableViewController: UITableViewController {
 
     @IBOutlet var sideMenuTableView: UITableView!
-    var menuSections:[String] = ["Home", "Update Information", "Login", "Register", "About", "Terms", "Logout"]
+    var menuSections:[String] = ["Home", "Update Information", "Login", "Register", "About", "FAQ", "Logout"]
     var hideRow : Bool = false
     var selectedMenuItem : Int = 0
     override func viewDidLoad() {
@@ -23,7 +23,7 @@ class SideMenuTableViewController: UITableViewController {
         // Customize apperance of table view
         tableView.contentInset = UIEdgeInsetsMake(64.0, 0, 0, 0) //
         tableView.separatorStyle = .None
-        tableView.backgroundColor = UIColor.darkGrayColor()
+        tableView.backgroundColor = UIColor.clearColor()
         tableView.scrollsToTop = false
         
         // Preserve selection between presentations
@@ -56,11 +56,10 @@ class SideMenuTableViewController: UITableViewController {
         if (cell == nil) {
             cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "CELL")
             cell!.backgroundColor = UIColor.clearColor()
-            cell!.textLabel?.textColor = UIColor.whiteColor()
+            cell!.textLabel?.textColor = UIColor.darkGrayColor()
             let selectedBackgroundView = UIView(frame: CGRectMake(0, 0, cell!.frame.size.width, cell!.frame.size.height))
-            selectedBackgroundView.backgroundColor = UIColor(red: 240/255, green: 109/255, blue: 34/255, alpha: 1.0)
+            selectedBackgroundView.backgroundColor = UIColor.grayColor().colorWithAlphaComponent(0.2)
             cell!.selectedBackgroundView = selectedBackgroundView
-          
         }
         
         cell!.textLabel?.text = menuSections[indexPath.row]
@@ -75,39 +74,6 @@ class SideMenuTableViewController: UITableViewController {
             return 44
         }
     }
-    
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return 50
-    }
-    
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let view = UIView.init(frame: CGRectMake(0, 0, tableView.frame.size.width, 50))
-        let label = UILabel.init(frame:CGRectMake(15, 0, tableView.frame.size.width, 50))
-        label.font = UIFont(name: "HelveticaNeue-Light", size: 28.0)
-        label.tintColor = UIColor.whiteColor()
-        label.textColor = UIColor.whiteColor()
-        label.backgroundColor = UIColor.clearColor()
-        
-        
-        
-        if hideRow == true{
-            let defaults = NSUserDefaults.standardUserDefaults()
-            let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
-            let greetMsg = String(format: "Hi, %@", userInfo["first_name"] as! String)
-            
-            label.text = greetMsg
-        }else{
-            label.text = "FIREFLY"
-        }
-        
-        view.addSubview(label)
-        view.backgroundColor = UIColor.darkGrayColor()
-        
-        return view
-    }
-
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -137,20 +103,48 @@ class SideMenuTableViewController: UITableViewController {
             break
         case 3:
             let storyboard = UIStoryboard(name: "Register", bundle: nil)
+<<<<<<< HEAD
             destViewController = storyboard.instantiateViewControllerWithIdentifier("RegisterVC")
             break
-       /* case 4:
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            destViewController = mainStoryboard.instantiateViewControllerWithIdentifier("AboutVC")
-            break*/
-        case 5:
-            let storyboard = UIStoryboard(name: "Terms", bundle: nil)
-            destViewController = storyboard.instantiateViewControllerWithIdentifier("TermsVC")
+        /*case 4:
+            let storyboard = UIStoryboard(name: "About", bundle: nil)
+            destViewController = storyboard.instantiateViewControllerWithIdentifier("AboutVC")
             break
+        case 5:
+            let storyboard = UIStoryboard(name: "FAQ", bundle: nil)
+            destViewController = storyboard.instantiateViewControllerWithIdentifier("FAQVC")
+            break*/
         default:
             let storyboard: UIStoryboard = UIStoryboard(name: "Main",bundle: nil)
             destViewController = storyboard.instantiateViewControllerWithIdentifier("HomeVC")
             break
+=======
+            let registerVC = storyboard.instantiateViewControllerWithIdentifier("RegisterVC")
+            controllers.append(registerVC)
+            
+        }else if (indexPath.row == 4) {
+            
+            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+            let homeVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC")
+            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC")
+            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("ChooseSeatVC")
+            controllers.append(homeVC)
+            
+        }else if (indexPath.row == 5) {
+            
+        }else{
+            hideRow = false
+            self.sideMenuTableView.reloadData()
+            let defaults = NSUserDefaults.standardUserDefaults()
+            defaults.setObject("", forKey: "userInfo")
+            defaults.synchronize()
+            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
+        }
+        
+        if (controllers.count != 0){
+            navigationController.viewControllers = controllers 
+            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
+>>>>>>> 78daca289a01d6e25e61e644dfba8af646dd2dd9
         }
        sideMenuController()?.setContentViewController(destViewController)
     }

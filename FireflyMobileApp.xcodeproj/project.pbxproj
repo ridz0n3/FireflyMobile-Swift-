@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		61139F581C18397800BB32D8 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61139F561C18397800BB32D8 /* Fabric.framework */; settings = {ASSET_TAGS = (); }; };
-		61139F591C18397800BB32D8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61139F571C18397800BB32D8 /* Crashlytics.framework */; settings = {ASSET_TAGS = (); }; };
-		611647921C1FFF5A007EB069 /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647911C1FFF5A007EB069 /* SideMenuNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
-		611647951C2003B4007EB069 /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647931C2003B4007EB069 /* ENSideMenuNavigationController.swift */; settings = {ASSET_TAGS = (); }; };
-		611647961C2003B4007EB069 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647941C2003B4007EB069 /* ENSideMenu.swift */; settings = {ASSET_TAGS = (); }; };
+		61139F581C18397800BB32D8 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61139F561C18397800BB32D8 /* Fabric.framework */; };
+		61139F591C18397800BB32D8 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 61139F571C18397800BB32D8 /* Crashlytics.framework */; };
+		611647921C1FFF5A007EB069 /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647911C1FFF5A007EB069 /* SideMenuNavigationController.swift */; };
+		611647951C2003B4007EB069 /* ENSideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647931C2003B4007EB069 /* ENSideMenuNavigationController.swift */; };
+		611647961C2003B4007EB069 /* ENSideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611647941C2003B4007EB069 /* ENSideMenu.swift */; };
+		613393071C27A8CA000C3380 /* Terms.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 613393061C27A8C9000C3380 /* Terms.storyboard */; };
 		615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */; };
-		61A812121C2164B000CBCA25 /* SideMenuTableViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A812111C2164B000CBCA25 /* SideMenuTableViewController1.swift */; settings = {ASSET_TAGS = (); }; };
+		61A812121C2164B000CBCA25 /* SideMenuTableViewController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61A812111C2164B000CBCA25 /* SideMenuTableViewController1.swift */; };
+		61C359571C295AFA00FD1696 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61C359561C295AFA00FD1696 /* TermsViewController.swift */; };
 		7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */; };
 		7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */; };
 		7E16D4521C1FA5B6002E7BDD /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */; };
@@ -115,8 +117,10 @@
 		611647911C1FFF5A007EB069 /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuNavigationController.swift; sourceTree = "<group>"; };
 		611647931C2003B4007EB069 /* ENSideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenuNavigationController.swift; sourceTree = "<group>"; };
 		611647941C2003B4007EB069 /* ENSideMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ENSideMenu.swift; sourceTree = "<group>"; };
+		613393061C27A8C9000C3380 /* Terms.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Terms.storyboard; path = FireflyMobileApp/Terms.storyboard; sourceTree = "<group>"; };
 		615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPasswordExpiredlTableViewCell.swift; sourceTree = "<group>"; };
 		61A812111C2164B000CBCA25 /* SideMenuTableViewController1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController1.swift; sourceTree = "<group>"; };
+		61C359561C295AFA00FD1696 /* TermsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledPickerCell.swift; sourceTree = "<group>"; };
 		7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloateLabeledDatePickerCell.swift; sourceTree = "<group>"; };
 		7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
@@ -230,6 +234,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		613393051C2796E1000C3380 /* Terms */ = {
+			isa = PBXGroup;
+			children = (
+				613393061C27A8C9000C3380 /* Terms.storyboard */,
+				61C359561C295AFA00FD1696 /* TermsViewController.swift */,
+			);
+			name = Terms;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		7E1F77D01BF96E6C00F55C46 = {
 			isa = PBXGroup;
 			children = (
@@ -257,6 +271,7 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				613393051C2796E1000C3380 /* Terms */,
 				7EC1DBD01C158A8800677D55 /* FloatLabel */,
 				7EBBFA0E1C101B7900080FFA /* DatePicker */,
 				7EBBFA001C10115200080FFA /* CustomDatePickerView */,
@@ -620,6 +635,7 @@
 				7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */,
 				7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */,
 				7E1F781E1BF9B6AD00F55C46 /* Login.storyboard in Resources */,
+				613393071C27A8CA000C3380 /* Terms.storyboard in Resources */,
 				7E1F780E1BF979B300F55C46 /* Home.storyboard in Resources */,
 				7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */,
 				7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */,
@@ -718,6 +734,7 @@
 				7E6930F61BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift in Sources */,
 				9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */,
 				7E20F90D1BFA02E90020AB0C /* CustomFlightDetailTableViewCell.swift in Sources */,
+				61C359571C295AFA00FD1696 /* TermsViewController.swift in Sources */,
 				7E20F90B1BFA02470020AB0C /* FlightDetailViewController.swift in Sources */,
 				7E1F781A1BF9B60800F55C46 /* LoginViewController.swift in Sources */,
 				7EBBFA0B1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift in Sources */,
