@@ -80,15 +80,29 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
     // MARK : Tableview delegate
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        
+        if details.count == 2{
+            return 3
+        }else{
+            return 2
+        }
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if section == 0{
-            return passenger.count
+        if details.count == 2{
+            if section == 0 || section == 1{
+                return passenger.count
+            }else{
+                return details[0]["seat_info"]!!.count
+            }
         }else{
-            return details[0]["seat_info"]!!.count
+            if section == 0{
+                return passenger.count
+            }else{
+                return details[0]["seat_info"]!!.count
+            }
         }
         
     }
@@ -98,54 +112,96 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1{
-            return 0
+        
+        if details.count == 2{
+            if section == 2{
+                return 0
+            }else{
+                return 40
+            }
         }else{
-            return 40
+            if section == 1{
+                return 0
+            }else{
+                return 40
+            }
         }
         
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let view = NSBundle.mainBundle().loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
-        view.direction.text = "\(details[0]["departure_station"]!!) - \(details[0]["arrival_station"]!!)"
-        return view
+        if details.count == 2{
+            
+            if section == 0{
+                let view = NSBundle.mainBundle().loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
+                view.direction.text = "\(details[0]["departure_station"]!!) - \(details[0]["arrival_station"]!!)"
+                return view
+            }else{
+                let view = NSBundle.mainBundle().loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
+                view.direction.text = "\(details[1]["departure_station"]!!) - \(details[1]["arrival_station"]!!)"
+                return view
+            }
+            
+        }else{
+            
+            let view = NSBundle.mainBundle().loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
+            view.direction.text = "\(details[0]["departure_station"]!!) - \(details[0]["arrival_station"]!!)"
+            return view
+            
+        }
+        
     }
-    
+    var sectionSelect = NSIndexPath()
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         //print(indexPath.row)
-        //let cell = self.seatTableView.cellForRowAtIndexPath(indexPath) as! CustomSeatSelectionTableViewCell
         
-        //cell.rowView.backgroundColor = UIColor.yellowColor()
         
+        if details.count == 2{
+            if indexPath.section != 2{
+                let cell = self.seatTableView.cellForRowAtIndexPath(indexPath) as! CustomSeatSelectionTableViewCell
+                
+                cell.rowView.backgroundColor = UIColor.yellowColor()
+                sectionSelect = indexPath
+                self.seatTableView.reloadData()
+            }
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0{
+        if indexPath.section == 0 {
             let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
             
             let passengerDetail = passenger[indexPath.row] as! NSDictionary
             
             let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
             
-            if seatSelect.count != 0{
-                var count = 0
-                var indexPassenger = 0
-                for _ in seatSelect{
-                    if indexPath.row == indexPassenger{
-                        count++
-                    }
-                    indexPassenger++
-                }
+            if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
+                cell.rowView.backgroundColor = UIColor.yellowColor()
+            }else{
+                cell.rowView.backgroundColor = UIColor.clearColor()
+            }
+            
+            if seatDict.count != 0{
                 
-                if count != 0{
-                    cell.seatNumber.text = seatSelect[indexPath.row]["seat_number"] as? String
+                if seatDict["\(indexPath.section)"] != nil{
+                    
+                    let tempSeat = seatDict["\(indexPath.section)"] as! NSDictionary
+                    
+                    if tempSeat["\(indexPath.row)"] != nil{
+                        
+                        cell.seatNumber.text = tempSeat["\(indexPath.row)"]!["seat_number"] as? String
+                        
+                    }else{
+                        cell.seatNumber.text = ""
+                    }
+                    
                 }else{
                     cell.seatNumber.text = ""
                 }
+                
             }else{
                 cell.seatNumber.text = ""
             }
@@ -159,44 +215,114 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
             
             cell.selectPassenger.addTarget(self, action: "selectPassenger:", forControlEvents: .TouchUpInside)
             return cell
-        }else {
-            let cell = self.seatTableView.dequeueReusableCellWithIdentifier("seatRowCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
+        }else if (indexPath.section == 1 && details.count == 2){
+            let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
             
-            let seatCols = details[0]["seat_info"]!![indexPath.row] as! NSArray
+            let passengerDetail = passenger[indexPath.row] as! NSDictionary
             
-            if seatCols[0]["seat_type"] as! String == "preferred"{
-                cell.rowView.backgroundColor =  UIColor(red: 255/255, green: 255/255, blue: 0/255, alpha: 1.0)
-            }else if seatCols[0]["seat_type"] as! String == "standard"{
-                cell.rowView.backgroundColor = UIColor(red: 255/255, green: 165/255, blue: 0/255, alpha: 1.0)
+            let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
+            
+            if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
+                cell.rowView.backgroundColor = UIColor.yellowColor()
             }else{
-                cell.rowView.backgroundColor = UIColor(red: 149/255, green: 201/255, blue: 74/255, alpha: 1.0)
+                cell.rowView.backgroundColor = UIColor.clearColor()
             }
             
-            var index = 0
-            for seatDetail in seatCols{
+            if seatDict.count != 0{
                 
-                if index == 0{
-                    
-                    self.cellConfig(cell.colABtn, view: cell.colAView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColASeat:")
-                    
-                }else if index == 1{
-                    
-                    self.cellConfig(cell.colCBtn, view: cell.colCView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColCSeat:")
-                    
-                }else if index == 2{
-                    
-                    self.cellConfig(cell.colDBtn, view: cell.colDView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColDSeat:")
+                if seatDict["\(indexPath.section)"] != nil{
+                    if seatDict["\(indexPath.section)"] != nil{
+                        
+                        let tempSeat = seatDict["\(indexPath.section)"] as! NSDictionary
+                        
+                        if tempSeat["\(indexPath.row)"] != nil{
+                            
+                            cell.seatNumber.text = tempSeat["\(indexPath.row)"]!["seat_number"] as? String
+                            
+                        }else{
+                            cell.seatNumber.text = ""
+                        }
+                        
+                    }else{
+                        cell.seatNumber.text = ""
+                    }
                 }else{
-                    
-                    self.cellConfig(cell.colFBtn, view: cell.colFView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColFSeat:")
-                    
+                    cell.seatNumber.text = ""
                 }
                 
-                index++
+                
+            }else{
+                cell.seatNumber.text = ""
+            }
+            
+            cell.seatNumber.layer.cornerRadius = 10
+            cell.seatNumber.layer.borderWidth = 1
+            cell.seatNumber.layer.borderColor = UIColor.blackColor().CGColor
+            cell.passengerName.text = passengerName
+            cell.selectPassenger.tag = indexPath.row
+            cell.removeSeat.tag = indexPath.row
+            
+            cell.selectPassenger.addTarget(self, action: "selectPassenger:", forControlEvents: .TouchUpInside)
+            return cell
+        }else{
+            
+            var cell = CustomSeatSelectionTableViewCell()
+            
+            if details.count == 2{
+                cell = cellConfiguration(indexPath, selectIndex: sectionSelect.section)
+            }else{
+                cell = cellConfiguration(indexPath, selectIndex: 0)
             }
             
             return cell
         }
+    }
+    
+    func cellConfiguration(indexPath:NSIndexPath, selectIndex : Int) -> CustomSeatSelectionTableViewCell{
+        
+        let cell = self.seatTableView.dequeueReusableCellWithIdentifier("seatRowCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
+        
+        var seatCols = NSArray()
+        
+        if selectIndex != 0 || selectIndex != 1{
+            seatCols = details[0]["seat_info"]!![indexPath.row] as! NSArray
+        }else{
+            seatCols = details[selectIndex]["seat_info"]!![indexPath.row] as! NSArray
+        }
+       
+        
+        if seatCols[0]["seat_type"] as! String == "preferred"{
+            cell.rowView.backgroundColor =  UIColor(red: 255/255, green: 255/255, blue: 0/255, alpha: 1.0)
+        }else if seatCols[0]["seat_type"] as! String == "standard"{
+            cell.rowView.backgroundColor = UIColor(red: 255/255, green: 165/255, blue: 0/255, alpha: 1.0)
+        }else{
+            cell.rowView.backgroundColor = UIColor(red: 149/255, green: 201/255, blue: 74/255, alpha: 1.0)
+        }
+        
+        var index = 0
+        for seatDetail in seatCols{
+            
+            if index == 0{
+                
+                self.cellConfig(cell.colABtn, view: cell.colAView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColASeat:")
+                
+            }else if index == 1{
+                
+                self.cellConfig(cell.colCBtn, view: cell.colCView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColCSeat:")
+                
+            }else if index == 2{
+                
+                self.cellConfig(cell.colDBtn, view: cell.colDView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColDSeat:")
+            }else{
+                
+                self.cellConfig(cell.colFBtn, view: cell.colFView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColFSeat:")
+                
+            }
+            
+            index++
+        }
+
+        return cell
     }
     
     // MARK: - Helper
@@ -209,7 +335,15 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
     
     func selectColASeat(sender:UIButton){
         
-        let seatRow = details[0]["seat_info"]!![sender.tag] as! NSArray
+        var section = Int()
+        
+        if sectionSelect.section != 0 && sectionSelect.section != 1{
+            section = 0
+        }else{
+            section = sectionSelect.section
+        }
+        
+        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
         
         let seatDetail = seatRow[0] as! NSDictionary
         
@@ -219,7 +353,15 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
     
     func selectColCSeat(sender:UIButton){
         
-        let seatRow = details[0]["seat_info"]!![sender.tag] as! NSArray
+        var section = Int()
+        
+        if sectionSelect.section != 0 && sectionSelect.section != 1{
+            section = 0
+        }else{
+            section = sectionSelect.section
+        }
+        
+        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
         
         let seatDetail = seatRow[1] as! NSDictionary
         
@@ -229,7 +371,15 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
     
     func selectColDSeat(sender:UIButton){
         
-        let seatRow = details[0]["seat_info"]!![sender.tag] as! NSArray
+        var section = Int()
+        
+        if sectionSelect.section != 0 && sectionSelect.section != 1{
+            section = 0
+        }else{
+            section = sectionSelect.section
+        }
+        
+        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
         
         let seatDetail = seatRow[2] as! NSDictionary
         
@@ -239,7 +389,15 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
     
     func selectColFSeat(sender:UIButton){
         
-        let seatRow = details[0]["seat_info"]!![sender.tag] as! NSArray
+        var section = Int()
+        
+        if sectionSelect.section != 0 && sectionSelect.section != 1{
+            section = 0
+        }else{
+            section = sectionSelect.section
+        }
+        
+        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
         
         let seatDetail = seatRow[3] as! NSDictionary
         
@@ -247,39 +405,61 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
         
     }
     
+    var seatDict = [String:AnyObject]()
+    var passengers1 = [String:AnyObject]()
+    var passengers2 = [String:AnyObject]()
+    
     func seatSelect(seatDetail: NSDictionary, btn: UIButton){
         
-        if seatSelect.count != 0{
+        var sectionIndex = Int()
+        var rowIndex = Int()
+        
+        if sectionSelect.section != 0 && sectionSelect.section != 1{
+            sectionIndex = 0
+            rowIndex = 0
+        }else{
+            sectionIndex = sectionSelect.section
+            rowIndex = sectionSelect.row
+        }
+        
+        if seatDict.count != 0{
             
-            if seatSelect.count == passenger.count{
-                seatSelect.removeAtIndex(passengerIndex)
-                seatSelect.insert(seatDetail, atIndex: passengerIndex)
-                btn.userInteractionEnabled = false
-                btn.backgroundColor = UIColor.greenColor()
-            }else{
-                var indexSeat = 0
-                var indexSameSeat = 0
-                for seatArr in seatSelect{
-                    
-                    if seatArr["seat_number"] as! String == seatDetail["seat_number"] as! String{
-                        seatSelect.removeAtIndex(indexSeat)
-                        indexSameSeat++
-                    }
-                    indexSeat++
+            if seatDict["\(sectionIndex)"]?.count == passenger.count{
+                
+                if sectionIndex == 0{
+                    passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                    seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                }else{
+                    passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                    seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
                 }
                 
-                if indexSameSeat == 0{
-                    seatSelect.append(seatDetail)
-                    passengerIndex = seatSelect.count - 1
-                    btn.backgroundColor = UIColor.greenColor()
-                    btn.userInteractionEnabled = false
+                btn.userInteractionEnabled = false
+                btn.backgroundColor = UIColor.greenColor()
+                
+            }else{
+                if sectionIndex == 0{
+                    passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                    seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
                 }else{
-                    btn.backgroundColor = UIColor.clearColor()
-                    btn.userInteractionEnabled = true
+                    passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                    seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
                 }
+                
+                btn.backgroundColor = UIColor.greenColor()
+                btn.userInteractionEnabled = false
             }
+            
+            
         }else{
-            seatSelect.append(seatDetail)
+            if sectionIndex == 0{
+                passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+            }else{
+                passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+            }
+            
             btn.backgroundColor = UIColor.greenColor()
             btn.userInteractionEnabled = false
         }
@@ -296,22 +476,30 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
             btn.userInteractionEnabled = false
         }
         
-        if seatSelect.count != 0{
-            var indexSameSeat = 0
-            for seatArr in seatSelect{
-                if seatArr["seat_number"] as! String == seatDetail["seat_number"] as! String{
-                    indexSameSeat++
-                }
-            }
+        if seatDict.count != 0{
             
-            if indexSameSeat != 0{
-                btn.backgroundColor = UIColor.greenColor()
-                btn.userInteractionEnabled = false
+            if seatDict["\(sectionSelect.section)"] != nil{
+                var indexSameSeat = 0
+                let tempSeat = seatDict["\(sectionSelect.section)"] as! NSDictionary
+                
+                for var i=0; i<tempSeat.count; i=i+1{
+                    if tempSeat["\(i)"]!["seat_number"] as! String == seatDetail["seat_number"] as! String{
+                        indexSameSeat++
+                    }
+                }
+                
+                if indexSameSeat != 0{
+                    btn.backgroundColor = UIColor.greenColor()
+                    btn.userInteractionEnabled = false
+                }else{
+                    btn.backgroundColor = UIColor.clearColor()
+                    btn.userInteractionEnabled = true
+                }
+                                
             }else{
                 btn.backgroundColor = UIColor.clearColor()
                 btn.userInteractionEnabled = true
             }
-            
         }else{
             btn.backgroundColor = UIColor.clearColor()
             btn.userInteractionEnabled = true
