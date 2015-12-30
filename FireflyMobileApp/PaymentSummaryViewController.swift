@@ -12,6 +12,8 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
 
     @IBOutlet weak var paymentTableView: UITableView!
     var flightDetail = NSArray()
+    var priceDetail = NSArray()
+    var totalPrice = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +21,9 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         let defaults = NSUserDefaults.standardUserDefaults()
         let paymentDetail = defaults.objectForKey("itenerary") as! NSDictionary
         flightDetail = paymentDetail["flight_details"] as! NSArray
+        priceDetail = paymentDetail["price_details"] as! NSArray
+        totalPrice = paymentDetail["total_price"] as! String
+        
         // Do any additional setup after loading the view.
     }
 
