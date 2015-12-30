@@ -7,16 +7,17 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var seatTableView: UITableView!
     @IBOutlet weak var continueBtn: UIButton!
     var seatSelect = [AnyObject]()
+    var sectionSelect = NSIndexPath()
     
     var details = NSMutableArray()
     var passenger = NSArray()
-    var passengerIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,7 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
         let defaults = NSUserDefaults.standardUserDefaults()
         let journeys = defaults.objectForKey("journey") as! NSArray
         passenger = defaults.objectForKey("passenger") as! NSArray
-        
+        sectionSelect = NSIndexPath(forRow: 0, inSection: 0)
         var newSeat = NSMutableArray()
         var seatArray = NSMutableArray()
         var seatData = NSMutableArray()
@@ -152,23 +153,26 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
         }
         
     }
-    var sectionSelect = NSIndexPath()
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        //print(indexPath.row)
-        
         
         if details.count == 2{
             if indexPath.section != 2{
                 let cell = self.seatTableView.cellForRowAtIndexPath(indexPath) as! CustomSeatSelectionTableViewCell
-                
+                cell.rowView.backgroundColor = UIColor.yellowColor()
+                sectionSelect = indexPath
+                self.seatTableView.reloadData()
+            }
+        }else{
+            if indexPath.section != 1{
+                let cell = self.seatTableView.cellForRowAtIndexPath(indexPath) as! CustomSeatSelectionTableViewCell
                 cell.rowView.backgroundColor = UIColor.yellowColor()
                 sectionSelect = indexPath
                 self.seatTableView.reloadData()
             }
         }
     }
-    
+    var AssociatedObjectHandle: UInt8 = 0
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
@@ -210,10 +214,10 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
             cell.seatNumber.layer.borderWidth = 1
             cell.seatNumber.layer.borderColor = UIColor.blackColor().CGColor
             cell.passengerName.text = passengerName
-            cell.selectPassenger.tag = indexPath.row
-            cell.removeSeat.tag = indexPath.row
+            cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
+            cell.removeSeat.addTarget(self, action: "removeSeat:", forControlEvents: .TouchUpInside)
             
-            cell.selectPassenger.addTarget(self, action: "selectPassenger:", forControlEvents: .TouchUpInside)
+            
             return cell
         }else if (indexPath.section == 1 && details.count == 2){
             let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
@@ -259,10 +263,10 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
             cell.seatNumber.layer.borderWidth = 1
             cell.seatNumber.layer.borderColor = UIColor.blackColor().CGColor
             cell.passengerName.text = passengerName
-            cell.selectPassenger.tag = indexPath.row
             cell.removeSeat.tag = indexPath.row
+            cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
+            cell.removeSeat.addTarget(self, action: "removeSeat:", forControlEvents: .TouchUpInside)
             
-            cell.selectPassenger.addTarget(self, action: "selectPassenger:", forControlEvents: .TouchUpInside)
             return cell
         }else{
             
@@ -278,13 +282,30 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    func removeSeat(sender:UIButton){
+        let indexpathArr = sender.accessibilityHint?.componentsSeparatedByString(",")
+        let section = indexpathArr![0].componentsSeparatedByString("section:")
+        let row = indexpathArr![1].componentsSeparatedByString("row:")
+        
+        if section[1] == "0"{
+            passengers1.removeValueForKey("\(row[1])")
+            seatDict.updateValue(passengers1, forKey: "\(section[1])")
+        }else{
+            passengers2.removeValueForKey("\(row[1])")
+            seatDict.updateValue(passengers2, forKey: "\(section[1])")
+        }
+        
+        self.seatTableView.reloadData()
+        
+    }
+    
     func cellConfiguration(indexPath:NSIndexPath, selectIndex : Int) -> CustomSeatSelectionTableViewCell{
         
         let cell = self.seatTableView.dequeueReusableCellWithIdentifier("seatRowCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
         
         var seatCols = NSArray()
         
-        if selectIndex != 0 || selectIndex != 1{
+        if selectIndex != 0 && selectIndex != 1{
             seatCols = details[0]["seat_info"]!![indexPath.row] as! NSArray
         }else{
             seatCols = details[selectIndex]["seat_info"]!![indexPath.row] as! NSArray
@@ -326,85 +347,6 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     // MARK: - Helper
-    
-    func selectPassenger(sender:UIButton){
-        
-        passengerIndex = sender.tag
-        
-    }
-    
-    func selectColASeat(sender:UIButton){
-        
-        var section = Int()
-        
-        if sectionSelect.section != 0 && sectionSelect.section != 1{
-            section = 0
-        }else{
-            section = sectionSelect.section
-        }
-        
-        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
-        
-        let seatDetail = seatRow[0] as! NSDictionary
-        
-        self.seatSelect(seatDetail, btn: sender)
-        
-    }
-    
-    func selectColCSeat(sender:UIButton){
-        
-        var section = Int()
-        
-        if sectionSelect.section != 0 && sectionSelect.section != 1{
-            section = 0
-        }else{
-            section = sectionSelect.section
-        }
-        
-        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
-        
-        let seatDetail = seatRow[1] as! NSDictionary
-        
-        self.seatSelect(seatDetail, btn: sender)
-        
-    }
-    
-    func selectColDSeat(sender:UIButton){
-        
-        var section = Int()
-        
-        if sectionSelect.section != 0 && sectionSelect.section != 1{
-            section = 0
-        }else{
-            section = sectionSelect.section
-        }
-        
-        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
-        
-        let seatDetail = seatRow[2] as! NSDictionary
-        
-        self.seatSelect(seatDetail, btn: sender)
-        
-    }
-    
-    func selectColFSeat(sender:UIButton){
-        
-        var section = Int()
-        
-        if sectionSelect.section != 0 && sectionSelect.section != 1{
-            section = 0
-        }else{
-            section = sectionSelect.section
-        }
-        
-        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
-        
-        let seatDetail = seatRow[3] as! NSDictionary
-        
-        self.seatSelect(seatDetail, btn: sender)
-        
-    }
-    
     var seatDict = [String:AnyObject]()
     var passengers1 = [String:AnyObject]()
     var passengers2 = [String:AnyObject]()
@@ -510,8 +452,214 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
         btn.addTarget(self, action: action, forControlEvents: .TouchUpInside)
     }
     
+    func selectColASeat(sender:UIButton){
+        
+        var section = Int()
+        
+        if sectionSelect.section != 0 && sectionSelect.section != 1{
+            section = 0
+        }else{
+            section = sectionSelect.section
+        }
+        
+        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
+        
+        let seatDetail = seatRow[0] as! NSDictionary
+        
+        self.seatSelect(seatDetail, btn: sender)
+        
+    }
+    
+    func selectColCSeat(sender:UIButton){
+        
+        var section = Int()
+        
+        if sectionSelect.section != 0 && sectionSelect.section != 1{
+            section = 0
+        }else{
+            section = sectionSelect.section
+        }
+        
+        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
+        
+        let seatDetail = seatRow[1] as! NSDictionary
+        
+        self.seatSelect(seatDetail, btn: sender)
+        
+    }
+    
+    func selectColDSeat(sender:UIButton){
+        
+        var section = Int()
+        
+        if sectionSelect.section != 0 && sectionSelect.section != 1{
+            section = 0
+        }else{
+            section = sectionSelect.section
+        }
+        
+        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
+        
+        let seatDetail = seatRow[2] as! NSDictionary
+        
+        self.seatSelect(seatDetail, btn: sender)
+        
+    }
+    
+    func selectColFSeat(sender:UIButton){
+        
+        var section = Int()
+        
+        if sectionSelect.section != 0 && sectionSelect.section != 1{
+            section = 0
+        }else{
+            section = sectionSelect.section
+        }
+        
+        let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
+        
+        let seatDetail = seatRow[3] as! NSDictionary
+        
+        self.seatSelect(seatDetail, btn: sender)
+        
+    }
+
     @IBAction func continueBtnPressed(sender: AnyObject) {
         
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
+        let signature = defaults.objectForKey("signature") as! String
+        
+        if seatDict.count == 0 || seatDict.count != details.count{
+            self.showToastMessage("Please select seat first")
+        }else{
+            if seatDict.count == 2{
+                
+                if seatDict["0"]!.count == 0 || seatDict["1"]!.count == 0{
+                    self.showToastMessage("Please select seat first")
+                }else{
+                    
+                    let goingSeatSelection = NSMutableArray()
+                    let returnSeatSelection = NSMutableArray()
+                    for i in 0...seatDict.count-1{
+                        let newSeat = NSMutableDictionary()
+                        let newDetail = NSMutableDictionary()
+                        for j in 0...seatDict["\(i)"]!.count-1{
+                            
+                            newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["seat_number"], forKey: "seat_number")
+                            newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["compartment_designator"], forKey: "compartment_designator")
+                            
+                            newSeat.setValue(newDetail, forKeyPath: "\(j)")
+                            
+                        }
+                        
+                        if i == 0{
+                            goingSeatSelection.addObject(newSeat)
+                        }else{
+                            returnSeatSelection.addObject(newSeat)
+                        }
+                    }
+                    
+                    self.showHud()
+                    
+                    FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
+                        
+                        switch result {
+                        case .Success(let successResult):
+                            do {
+                                self.hideHud()
+                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                                
+                                if json["status"] == "success"{
+                                    self.showToastMessage(json["status"].string!)
+                                    defaults.setObject(json.dictionaryObject, forKey: "itenerary")
+                                    defaults.synchronize()
+                                    
+                                    let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                    let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
+                                    self.navigationController!.pushViewController(paymentVC, animated: true)
+                                    
+                                }else{
+                                    self.showToastMessage(json["message"].string!)
+                                }
+                            }
+                            catch {
+                                
+                            }
+                            print (successResult.data)
+                        case .Failure(let failureResult):
+                            print (failureResult)
+                        }
+                        
+                    })
+                    
+                }
+                
+            }else{
+                
+                if seatDict["0"]!.count == 0{
+                    self.showToastMessage("Please select seat first")
+                }else{
+                    
+                    let goingSeatSelection = NSMutableArray()
+                    let tempDict = NSMutableDictionary()
+                    let returnSeatSelection = NSMutableArray()
+
+                    for i in 0...seatDict.count-1{
+                        let newSeat = NSMutableDictionary()
+                        let newDetail = NSMutableDictionary()
+                        for j in 0...seatDict["\(i)"]!.count-1{
+                            
+                            newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["seat_number"], forKey: "seat_number")
+                            newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["compartment_designator"], forKey: "compartment_designator")
+                            
+                            newSeat.setValue(newDetail, forKeyPath: "\(j)")
+                            
+                        }
+                        
+                        goingSeatSelection.addObject(newSeat)
+                        
+                    }
+                    
+                    returnSeatSelection.addObject(tempDict)
+                    
+                    self.showHud()
+                    
+                    FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
+                        
+                        switch result {
+                        case .Success(let successResult):
+                            do {
+                                self.hideHud()
+                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                                
+                                if json["status"] == "success"{
+                                    self.showToastMessage(json["status"].string!)
+                                    defaults.setObject(json.dictionaryObject, forKey: "itenerary")
+                                    defaults.synchronize()
+                                    
+                                    let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                    let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
+                                    self.navigationController!.pushViewController(paymentVC, animated: true)
+                                    
+                                }else{
+                                    self.showToastMessage(json["message"].string!)
+                                }
+                            }
+                            catch {
+                                
+                            }
+                            print (successResult.data)
+                        case .Failure(let failureResult):
+                            print (failureResult)
+                        }
+                        
+                    })
+                    
+                }
+            }
+        }
     }
     /*
     // MARK: - Navigation

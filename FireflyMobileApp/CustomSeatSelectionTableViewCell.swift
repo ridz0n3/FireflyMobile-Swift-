@@ -21,7 +21,6 @@ class CustomSeatSelectionTableViewCell: UITableViewCell {
     @IBOutlet weak var colDView: UIView!
     
     @IBOutlet weak var removeSeat: UIButton!
-    @IBOutlet weak var selectPassenger: UIButton!
     @IBOutlet weak var seatNumber: UILabel!
     @IBOutlet weak var passengerName: UILabel!
     override func awakeFromNib() {

@@ -32,7 +32,13 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 137
+        
+        if flightDetail.count == 2{
+            return 137 * 2
+        }else{
+            return 137
+        }
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

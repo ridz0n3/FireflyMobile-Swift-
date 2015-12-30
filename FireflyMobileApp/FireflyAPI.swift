@@ -9,7 +9,11 @@
 import Foundation
 import Moya
 
-let FireFlyProvider = MoyaProvider<FireFlyAPI>()
+let FireFlyProvider = MoyaProvider<FireFlyAPI>(endpointClosure: {
+    (target: FireFlyAPI) -> Endpoint<FireFlyAPI> in
+    
+    return Endpoint(URL: url(target), sampleResponseClosure: {.NetworkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters, parameterEncoding: target.parameterEncoding)
+})
 
 // MARK: - Provider support
 
@@ -25,12 +29,21 @@ public enum FireFlyAPI {
     case ForgotPassword(String, String)
     case PassengerDetail(AnyObject, AnyObject, String, String)
     case ContactDetail(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
+    case SelectSeat(AnyObject, AnyObject, String, String)
     
 }
 
 
+
 extension FireFlyAPI : TargetType {
     
+    
+    public var parameterEncoding: Moya.ParameterEncoding {
+        switch self {
+        default:
+            return .JSON
+        }
+    }
     /*   var base: String { return AppSetup.sharedState.useStaging ? "https://stagingapi.artsy.net" : "https://api.artsy.net" } */
     var base: String {return "http://fyapidev.me-tech.com.my/"}
     
@@ -48,11 +61,13 @@ extension FireFlyAPI : TargetType {
             return "api/passengerDetails"
         case ContactDetail:
             return "api/contactDetails"
+        case SelectSeat:
+            return "api/seatMap"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat:
             return .POST
             
         default:
@@ -72,7 +87,9 @@ extension FireFlyAPI : TargetType {
             return ["passengers" : adult, "infants" : infant, "booking_id" : bookId, "signature" : signature]
         case .ContactDetail(let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature, let companyName, let address1, let address2, let address3, let city, let state, let postcode, let seatStatus):
             return ["booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode, "seat_selection_status" : seatStatus]
-        
+        case .SelectSeat(let goingFlight, let returnFlight, let bookId, let signature):
+            return ["going_flight" : goingFlight, "return_flight" : returnFlight, "booking_id" : bookId, "signature" : signature]
+            
         default:
             return nil
         }
@@ -86,6 +103,7 @@ public func url(route: TargetType) -> String {
     return route.baseURL.URLByAppendingPathComponent(route.path).absoluteString
 }
 
+
 let endpointClosure = { (target: FireFlyAPI, method: Moya.Method, parameters: [String: AnyObject]) -> Endpoint<FireFlyAPI> in
-    return Endpoint<FireFlyAPI>(URL: url(target),  sampleResponseClosure: {.NetworkResponse(200, target.sampleData)},method: method, parameters: parameters)
+    return Endpoint(URL: url(target), sampleResponseClosure: {.NetworkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters, parameterEncoding: target.parameterEncoding)
 }

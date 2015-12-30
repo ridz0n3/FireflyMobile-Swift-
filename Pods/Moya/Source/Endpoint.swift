@@ -45,7 +45,7 @@ public class Endpoint<Target> {
         for (key, value) in parameters {
             newParameters[key] = value
         }
-
+print("parameters"+parameters.description)
         return Endpoint(URL: URL, sampleResponseClosure: sampleResponseClosure, method: method, parameters: newParameters, parameterEncoding: parameterEncoding, httpHeaderFields: httpHeaderFields)
     }
 

@@ -220,8 +220,11 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
     
     @IBAction func continueButtonPressed(sender: AnyObject) {
         let defaults = NSUserDefaults.standardUserDefaults()
-        let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+        var userInfo = NSMutableDictionary()
         
+        if (defaults.objectForKey("userInfo") != nil){
+            userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+        }
         let date = flightDetail[0]["departure_date"].string!
         var dateArr = date.componentsSeparatedByString(" ")
         var planGo = String()
@@ -258,7 +261,13 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 }else{
                     
                     parameters.updateValue(defaults.objectForKey("type")!, forKey: "type")
-                    parameters.updateValue(userInfo["username"]!, forKey: "username")
+                    
+                    if userInfo["username"] != nil{
+                        parameters.updateValue(userInfo["username"]!, forKey: "username")
+                    }else{
+                        parameters.updateValue("", forKey: "username")
+                    }
+                    
                     parameters.updateValue(flightDetail[0]["departure_station_code"].string!, forKey: "departure_station")
                     parameters.updateValue(flightDetail[0]["arrival_station_code"].string!, forKey: "arrival_station")
                     parameters.updateValue(formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])")), forKey: "departure_date")
@@ -295,7 +304,11 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
             }else{
                 
                 parameters.updateValue(defaults.objectForKey("type")!, forKey: "type")
-                parameters.updateValue(userInfo["username"]!, forKey: "username")
+                if userInfo["username"] != nil{
+                    parameters.updateValue(userInfo["username"]!, forKey: "username")
+                }else{
+                    parameters.updateValue("", forKey: "username")
+                }
                 parameters.updateValue(flightDetail[0]["departure_station_code"].string!, forKey: "departure_station")
                 parameters.updateValue(flightDetail[0]["arrival_station_code"].string!, forKey: "arrival_station")
                 parameters.updateValue(formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])")), forKey: "departure_date")

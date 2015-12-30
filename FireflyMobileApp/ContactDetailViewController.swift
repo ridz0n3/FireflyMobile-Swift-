@@ -314,7 +314,7 @@ class ContactDetailViewController: BaseXLFormViewController {
                                 self.defaults.setObject(json["passengers"].arrayObject, forKey: "passenger")
                                 self.defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("ChooseSeatVC") as! ChooseSeatViewController
+                                let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC") as! SeatSelectionViewController
                                 self.navigationController!.pushViewController(chooseSeatVC, animated: true)
                             }else{
                                 self.showToastMessage(json["message"].string!)
