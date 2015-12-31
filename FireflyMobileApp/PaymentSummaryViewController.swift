@@ -32,41 +32,50 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         // Dispose of any resources that can be recreated.
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        
+        if section == 0{
+            return flightDetail.count
+        }else{
+            return 1
+        }
+        
+        
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        if flightDetail.count == 2{
-            return 137 * 2
-        }else{
+        if indexPath.section == 0{
             return 137
+        }else{
+            return 80
         }
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
-        
-        if flightDetail.count == 2{
+        if indexPath.section == 0{
+            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
-            cell.goingLbl.text = flightDetail[0]["type"] as? String
-            cell.goingDateLbl.text = flightDetail[0]["date"] as? String
-            cell.goingDestinationLbl.text = flightDetail[0]["station"] as? String
-            cell.goingFlightNumberLbl.text = flightDetail[0]["flight_number"] as? String
-            cell.goingTimeLbl.text = flightDetail[0]["time"] as? String
+            cell.wayLbl.text = flightDetail[indexPath.row]["type"] as? String
+            cell.dateLbl.text = flightDetail[indexPath.row]["date"] as? String
+            cell.destinationLbl.text = flightDetail[indexPath.row]["station"] as? String
+            cell.flightNumberLbl.text = flightDetail[indexPath.row]["flight_number"] as? String
+            cell.timeLbl.text = flightDetail[indexPath.row]["time"] as? String
             
-            cell.returnLbl.text = flightDetail[1]["type"] as? String
-            cell.returnDateLbl.text = flightDetail[1]["date"] as? String
-            cell.returnDestinationLbl.text = flightDetail[1]["station"] as? String
-            cell.returnFlightNumberLbl.text = flightDetail[1]["flight_number"] as? String
-            cell.returnTimeLbl.text = flightDetail[1]["time"] as? String
+            return cell
             
+        }else{
+            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("PriceDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            
+            
+            return cell
         }
-        
-        return cell
         
     }
 

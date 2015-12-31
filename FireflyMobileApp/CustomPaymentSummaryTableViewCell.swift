@@ -10,19 +10,17 @@ import UIKit
 
 class CustomPaymentSummaryTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var goingView: UIView!
-    @IBOutlet weak var goingLbl: UILabel!
-    @IBOutlet weak var goingDateLbl: UILabel!
-    @IBOutlet weak var goingDestinationLbl: UILabel!
-    @IBOutlet weak var goingFlightNumberLbl: UILabel!
-    @IBOutlet weak var goingTimeLbl: UILabel!
+    @IBOutlet weak var wayLbl: UILabel!
+    @IBOutlet weak var dateLbl: UILabel!
+    @IBOutlet weak var destinationLbl: UILabel!
+    @IBOutlet weak var flightNumberLbl: UILabel!
+    @IBOutlet weak var timeLbl: UILabel!
     
-    @IBOutlet weak var returnView: UIView!
-    @IBOutlet weak var returnLbl: UILabel!
-    @IBOutlet weak var returnDateLbl: UILabel!
-    @IBOutlet weak var returnDestinationLbl: UILabel!
-    @IBOutlet weak var returnFlightNumberLbl: UILabel!
-    @IBOutlet weak var returnTimeLbl: UILabel!
+    @IBOutlet weak var flightDestinationLbl: UIView!
+    @IBOutlet weak var guestLbl: UILabel!
+    @IBOutlet weak var taxLbl: UILabel!
+    @IBOutlet weak var guestPriceLbl: UILabel!
+    @IBOutlet weak var taxesPrice: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
