@@ -30,7 +30,8 @@ public enum FireFlyAPI {
     case PassengerDetail(AnyObject, AnyObject, String, String)
     case ContactDetail(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     case SelectSeat(AnyObject, AnyObject, String, String)
-    
+    case PaymentSelection(String)
+    case PaymentProcess(String, String, String, String, String, String, String, String, String)
 }
 
 
@@ -63,11 +64,15 @@ extension FireFlyAPI : TargetType {
             return "api/contactDetails"
         case SelectSeat:
             return "api/seatMap"
+        case PaymentSelection:
+            return "api/selectionPayment"
+        case PaymentProcess:
+            return "api/paymentProcess"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess:
             return .POST
             
         default:
@@ -89,10 +94,14 @@ extension FireFlyAPI : TargetType {
             return ["booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode, "seat_selection_status" : seatStatus]
         case .SelectSeat(let goingFlight, let returnFlight, let bookId, let signature):
             return ["going_flight" : goingFlight, "return_flight" : returnFlight, "booking_id" : bookId, "signature" : signature]
-            
+        case PaymentSelection(let signature):
+            return ["signature" : signature]
+        case PaymentProcess(let signature, let channelType, let channelCode, let cardNumber, let expirationDateMonth, let expirationDateYear, let cardHolderName, let issuingBank, let cvv):
+            return ["signature" : signature, "channelType" : channelType, "channelCode" : channelCode, "cardNumber": cardNumber, "expirationDateMonth" : expirationDateMonth, "expirationDateYear" : expirationDateYear, "cardHolderName" : cardHolderName, "issuingBank" : issuingBank, "cvv" : cvv]
         default:
             return nil
         }
+        
     }
     public var sampleData: NSData {
         return NSData.init()

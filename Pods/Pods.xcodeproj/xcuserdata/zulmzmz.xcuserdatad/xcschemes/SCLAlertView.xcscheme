@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '1ECAD7370E8B7A2A6FDA8590'
-               BlueprintName = 'ActionSheetPicker-3.0'
+               BlueprintIdentifier = 'E5EF34A56719ED8CEF368CAE'
+               BlueprintName = 'SCLAlertView'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'ActionSheetPicker_3_0.framework'>
+               BuildableName = 'SCLAlertView.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

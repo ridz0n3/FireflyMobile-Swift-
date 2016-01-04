@@ -37,7 +37,6 @@
 		7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E290E841BFEB3D8004E50F3 /* Constant.swift */; };
 		7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */; };
 		7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */; };
-		7E6930F41BFAD79B004F1719 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6930F31BFAD79B004F1719 /* PaymentViewController.swift */; };
 		7E6930F61BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6930F51BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift */; };
 		7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E6930F81BFAFE17004F1719 /* FlightHeaderView.xib */; };
 		7E6930FB1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6930FA1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift */; };
@@ -60,6 +59,7 @@
 		7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */; };
 		7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */; };
 		7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */; };
+		7E8D81681C350A4100D9A2E1 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */; };
 		7E99B8601C2A6B1400239322 /* PaymentSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */; };
 		7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */; };
 		7EA56E911C279B28002AD40C /* SeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */; };
@@ -145,7 +145,6 @@
 		7E290E841BFEB3D8004E50F3 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordView.xib; sourceTree = "<group>"; };
 		7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDLNetworkManager.swift; sourceTree = "<group>"; };
-		7E6930F31BFAD79B004F1719 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		7E6930F51BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPaymentTableViewCell.swift; sourceTree = "<group>"; };
 		7E6930F81BFAFE17004F1719 /* FlightHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlightHeaderView.xib; sourceTree = "<group>"; };
 		7E6930FA1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeFlightHeaderView.swift; sourceTree = "<group>"; };
@@ -169,6 +168,7 @@
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjC-Header.h"; sourceTree = "<group>"; };
 		7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseXLFormViewController.swift; sourceTree = "<group>"; };
+		7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSummaryViewController.swift; sourceTree = "<group>"; };
 		7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPaymentSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatSelectionViewController.swift; sourceTree = "<group>"; };
@@ -373,13 +373,13 @@
 				7E20F90A1BFA02470020AB0C /* FlightDetailViewController.swift */,
 				7EC1DBCA1C15316500677D55 /* PassengerDetailViewController.swift */,
 				7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */,
-				7E6930F31BFAD79B004F1719 /* PaymentViewController.swift */,
 				7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */,
 				7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */,
 				7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */,
 				7EB07AFD1C28F6640061D1C9 /* directionView.xib */,
 				7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */,
 				7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */,
+				7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */,
 			);
 			name = "Book Flight";
 			sourceTree = "<group>";
@@ -703,6 +703,7 @@
 				7E20F90B1BFA02470020AB0C /* FlightDetailViewController.swift in Sources */,
 				7E1F781A1BF9B60800F55C46 /* LoginViewController.swift in Sources */,
 				7EBBFA0B1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift in Sources */,
+				7E8D81681C350A4100D9A2E1 /* PaymentViewController.swift in Sources */,
 				7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */,
 				7E6931031BFB08AA004F1719 /* ChangeContactDetailViewController.swift in Sources */,
 				7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */,
@@ -715,7 +716,6 @@
 				7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */,
 				7E1F78181BF9AC3800F55C46 /* BaseViewController.swift in Sources */,
 				7E69310D1BFB195D004F1719 /* SendItineraryViewController.swift in Sources */,
-				7E6930F41BFAD79B004F1719 /* PaymentViewController.swift in Sources */,
 				7EBBFA021C1011CA00080FFA /* RSDFCustomDatePickerView.swift in Sources */,
 				7E1F78351BF9D81100F55C46 /* CustomSearchFlightTableViewCell.swift in Sources */,
 				7EBBFA061C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift in Sources */,

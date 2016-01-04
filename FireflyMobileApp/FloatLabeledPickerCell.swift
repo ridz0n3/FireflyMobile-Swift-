@@ -19,6 +19,7 @@ class FloatLabeledPickerCell: XLFormBaseCell{
     var dataValue = [String]()
     var selectindex = Int()
     var selectValue = String()
+    var expireDate = NSArray()
     
     static let kFontSize : CGFloat = 14.0
     
@@ -71,15 +72,55 @@ class FloatLabeledPickerCell: XLFormBaseCell{
         return 46
     }
     
+    func getExpiredData(){
+    
+        let formater = NSDateFormatter()
+        formater.dateFormat = "yyyy"
+        let currentYear = formater.stringFromDate(NSDate())
+        var yearInc = Int(currentYear)
+        
+        let year = NSMutableArray()
+        for _ in 0...10{
+            
+            year.addObject("\(yearInc!)")
+            yearInc = yearInc! + 1
+            
+        }
+        
+        let month = NSMutableArray()
+        for i in 1...12{
+            if i < 10{
+                month.addObject("0\(i)")
+            }else{
+                month.addObject("\(i)")
+            }
+        }
+        
+        expireDate = [month, year]
+        
+        
+    }
+    
     //Mark: UITextFieldDelegate
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        retrieveData()
         
-        let labelParagraphStyle = NSMutableParagraphStyle()
-        labelParagraphStyle.alignment = .Center
-        let picker = ActionSheetStringPicker(title: "", rows: data, initialSelection: selectindex, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: textField)
-        picker.pickerTextAttributes = [NSFontAttributeName : UIFont.systemFontOfSize(25), NSParagraphStyleAttributeName : labelParagraphStyle]
-        picker.showActionSheetPicker()
+        if self.rowDescriptor!.tag == "Card Expiration Date"{
+            getExpiredData()
+            
+            let labelParagraphStyle = NSMutableParagraphStyle()
+            labelParagraphStyle.alignment = .Center
+            ActionSheetMultipleStringPicker.showPickerWithTitle("", rows: expireDate as [AnyObject], initialSelection: [0,0], target: self, successAction: Selector("expiredDateSelected:element:"), cancelAction: nil, origin: textField)
+            
+            
+        }else{
+            retrieveData()
+            let labelParagraphStyle = NSMutableParagraphStyle()
+            labelParagraphStyle.alignment = .Center
+            let picker = ActionSheetStringPicker(title: "", rows: data, initialSelection: selectindex, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: textField)
+            picker.pickerTextAttributes = [NSFontAttributeName : UIFont.systemFontOfSize(25), NSParagraphStyleAttributeName : labelParagraphStyle]
+            picker.showActionSheetPicker()
+        }
+        
 
         return false
     }
@@ -114,29 +155,49 @@ class FloatLabeledPickerCell: XLFormBaseCell{
         }
     }
     
+    var selectDateIndex = NSArray()
+    
+    func expiredDateSelected(index:NSArray, element:AnyObject){
+        
+        let txtLbl = element as! UITextField
+        
+        let monthIndex = index[0]
+        let yearIndex = index[1]
+        
+        selectDateIndex = [monthIndex.integerValue, yearIndex.integerValue]
+        txtLbl.text = "\(expireDate[0][monthIndex.integerValue]) \(expireDate[1][yearIndex.integerValue])"
+        self.textFieldDidChange(txtLbl)
+        
+        
+    }
+    
     func objectSelected(index :NSNumber, element:AnyObject){
         
         let txtLbl = element as! UITextField
         
-        if selectValue == "P"{
-            NSNotificationCenter.defaultCenter().postNotificationName("removeExpiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
-        }else if selectValue == "2"{
-            NSNotificationCenter.defaultCenter().postNotificationName("removeBusiness", object: nil)
-        }
+            if selectValue == "P"{
+                NSNotificationCenter.defaultCenter().postNotificationName("removeExpiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+            }else if selectValue == "2"{
+                NSNotificationCenter.defaultCenter().postNotificationName("removeBusiness", object: nil)
+            }
+            
+            selectindex = index.integerValue
+            selectValue = dataValue[index.integerValue]
+            
+            txtLbl.text = data[index.integerValue]
+            self.textFieldDidChange(txtLbl)
+            
+            if selectValue == "P"{
+                NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+            }else if selectValue == "2"{
+                NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
+            }else if self.rowDescriptor?.tag == "Country"{
+                NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue])
+            }
+
         
-        selectindex = index.integerValue
-        selectValue = dataValue[index.integerValue]
         
-        txtLbl.text = data[index.integerValue]
-        self.textFieldDidChange(txtLbl)
         
-        if selectValue == "P"{
-            NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
-        }else if selectValue == "2"{
-            NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
-        }else if self.rowDescriptor?.tag == "Country"{
-            NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue])
-        }
         
     }
 

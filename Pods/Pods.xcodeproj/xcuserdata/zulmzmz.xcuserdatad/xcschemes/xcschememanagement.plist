@@ -54,6 +54,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SCLAlertView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftValidator.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -82,17 +87,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2E42364FD8AEA83D9FBA87B87F68291E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3F2FDA7D91FA4CE87827E6B1777860EB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4109AB5A2E8BB06510E88BE7188EE182</key>
+		<key>24C13C42C3D689CFC7C6AA4C9FD2CC33</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,7 +97,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>43679A0B7D6765387E081B9DFBA8F799</key>
+		<key>4B2F80480EB3D001A365F6DBDC9D86FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>596FD82B7206EA5FC2362E147B210E87</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,7 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7B302D9C1BE0580CBDF9DED723A8CFDB</key>
+		<key>7DE15B62BC67DE680E6C411F4EBE3F0E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8CAE9CBC98C3CBC09920512A9CF5E257</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,12 +132,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A2C1D9C5362672B82AB3DA312EA7061F</key>
+		<key>AEBE29623B164A9CA272FD8CEFEC6E68</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AEBE29623B164A9CA272FD8CEFEC6E68</key>
+		<key>C3329CB088FF8DF6D1013684C54FC183</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -143,6 +148,11 @@
 			<true/>
 		</dict>
 		<key>E61CE3B6DFA1FE6B3E296965C76C0E10</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FB05601D83E1555FF489A285BF35D031</key>
 		<dict>
 			<key>primary</key>
 			<true/>

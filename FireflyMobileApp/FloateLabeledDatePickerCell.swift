@@ -73,7 +73,7 @@ class FloateLabeledDatePickerCell: XLFormBaseCell {
     //Mark: UITextFieldDelegate
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         
-        let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date, selectedDate: selectDate, target: self, action: "datePicked:element:", origin: textField)
+        let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date , selectedDate: selectDate, target: self, action: "datePicked:element:", origin: textField)
         datePicker.maximumDate = NSDate()
         datePicker.showActionSheetPicker()
     

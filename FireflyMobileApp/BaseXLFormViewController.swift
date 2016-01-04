@@ -46,6 +46,13 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         static var ValidationGender = "Gender"
         static var ValidationPurpose = "Purpose"
         static var ValidationCompanyName = "Company Name"
+        static var ValidationCardType = "Card Type"
+        static var ValidationCardNumber = "Card Number"
+        static var ValidationCardExpiredDate = "Card Expiration Date"
+        static var ValidationHolderName = "Holder Name"
+        static var ValidationCcvNumber = "CCV/CVC Number"
+        static var HideSection = "hide"
+        
     }
 
     

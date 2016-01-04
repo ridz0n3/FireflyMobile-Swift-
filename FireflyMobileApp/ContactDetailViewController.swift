@@ -240,7 +240,7 @@ class ContactDetailViewController: BaseXLFormViewController {
                                 self.defaults.setObject(json.dictionaryObject, forKey: "itenerary")
                                 self.defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
+                                let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
                                 self.navigationController!.pushViewController(paymentVC, animated: true)
                             }else{
                                 self.showToastMessage(json["message"].string!)
