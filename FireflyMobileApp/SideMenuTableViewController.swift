@@ -19,6 +19,10 @@ class SideMenuTableViewController: UITableViewController {
         super.viewDidLoad()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshSideMenu:", name: "reloadSideMenu", object: nil)
+        
+        if try! LoginManager.sharedInstance.isLogin(){
+            hideRow = true
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

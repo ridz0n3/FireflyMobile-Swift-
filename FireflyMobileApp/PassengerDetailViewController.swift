@@ -318,37 +318,9 @@ class PassengerDetailViewController: BaseXLFormViewController {
             }else{
                 let params = getFormData()
                 
-                let parameters = ["passengers" : params.0, "infants" : params.1, "booking_id" : params.2, "signature" : params.3]
-                print(parameters)
-                
                 showHud()
                 
-                let manager = WSDLNetworkManager()
-                
-               manager.sharedClient().createRequestWithService("passengerDetails", withParams: parameters, completion: { (result) -> Void in
-                    self.hideHud()
-                    print(result)
-                    if result["status"].string == "success"{
-                        self.showToastMessage(result["status"].string!)
-                        
-                        if result["insurance"].object["status"] as! String == "N"{
-                            self.defaults.setObject("", forKey: "insurance_status")
-                        }else{
-                            self.defaults.setObject(result["insurance"].object, forKey: "insurance_status")
-                            self.defaults.synchronize()
-                        }
-                        
-                        
-                        let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                        let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! ContactDetailViewController
-                        self.navigationController!.pushViewController(contactDetailVC, animated: true)
-                    }else{
-                        self.showToastMessage(result["message"].string!)
-                    }
-                
-                })
-                
-               /* FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
+                FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
@@ -358,6 +330,14 @@ class PassengerDetailViewController: BaseXLFormViewController {
                             
                             if json["status"] == "success"{
                                 self.showToastMessage(json["status"].string!)
+                                
+                                if json["insurance"].object["status"] as! String == "N"{
+                                    self.defaults.setObject("", forKey: "insurance_status")
+                                }else{
+                                    self.defaults.setObject(json["insurance"].object, forKey: "insurance_status")
+                                    self.defaults.synchronize()
+                                }
+                                
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                 let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! ContactDetailViewController
                                 self.navigationController!.pushViewController(contactDetailVC, animated: true)
@@ -372,7 +352,7 @@ class PassengerDetailViewController: BaseXLFormViewController {
                     case .Failure(let failureResult):
                         print (failureResult)
                     }
-                })*/
+                })
             }
         }
         

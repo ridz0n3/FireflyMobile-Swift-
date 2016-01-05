@@ -222,7 +222,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         let defaults = NSUserDefaults.standardUserDefaults()
         var userInfo = NSMutableDictionary()
         
-        if (defaults.objectForKey("userInfo") != nil){
+        if try! LoginManager.sharedInstance.isLogin(){
             userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
         }
         let date = flightDetail[0]["departure_date"].string!

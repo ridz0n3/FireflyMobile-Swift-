@@ -32,6 +32,8 @@ public enum FireFlyAPI {
     case SelectSeat(AnyObject, AnyObject, String, String)
     case PaymentSelection(String)
     case PaymentProcess(String, String, String, String, String, String, String, String, String)
+    case SearchFlight(Int, String, String, String, String, String, String, String)
+    
 }
 
 
@@ -68,11 +70,13 @@ extension FireFlyAPI : TargetType {
             return "api/selectionPayment"
         case PaymentProcess:
             return "api/paymentProcess"
+        case SearchFlight:
+            return "api/searchFlight"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight:
             return .POST
             
         default:
@@ -98,10 +102,11 @@ extension FireFlyAPI : TargetType {
             return ["signature" : signature]
         case PaymentProcess(let signature, let channelType, let channelCode, let cardNumber, let expirationDateMonth, let expirationDateYear, let cardHolderName, let issuingBank, let cvv):
             return ["signature" : signature, "channelType" : channelType, "channelCode" : channelCode, "cardNumber": cardNumber, "expirationDateMonth" : expirationDateMonth, "expirationDateYear" : expirationDateYear, "cardHolderName" : cardHolderName, "issuingBank" : issuingBank, "cvv" : cvv]
+        case .SearchFlight(let type, let departure_station, let arrival_station, let departure_date, let return_date, let adult, let infant, let signature):
+            return ["type" : type, "departure_station" : departure_station, "arrival_station" : arrival_station, "departure_date": departure_date, "return_date" : return_date, "adult" : adult, "infant" : infant, "signature" : signature]
         default:
             return nil
         }
-        
     }
     public var sampleData: NSData {
         return NSData.init()

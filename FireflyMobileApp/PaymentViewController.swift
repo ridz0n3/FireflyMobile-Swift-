@@ -215,6 +215,12 @@ class PaymentViewController: BaseXLFormViewController {
                                 
                                 if json["status"] == "Redirect"{
                                     self.showToastMessage(json["status"].string!)
+                                    
+                                    let pass = json["pass"].string?.componentsSeparatedByString("/")
+                                    let urlString = String(format: "%@/%@%@", json["link"].string!,pass![0],pass![1])
+                                    let url = NSURL(string: urlString)
+                                    print(url)
+                                    
                                 }else{
                                     self.showToastMessage(json["message"].string!)
                                 }

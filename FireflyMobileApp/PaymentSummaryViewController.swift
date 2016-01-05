@@ -202,7 +202,8 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func detailBtnPressed(sender:UIButton){
         
-        SCLAlertView().showSuccess("Taxes/Fee", subTitle: sender.accessibilityHint!)
+        //SCLAlertView.showSuccess
+        SCLAlertView().showSuccess("Taxes/Fee", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
         
     }
     /*

@@ -8,9 +8,10 @@
 
 import UIKit
 import ActionSheetPicker_3_0
+import SwiftyJSON
 
 class SearchFlightViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     var hideRow : Bool = false
     var arrival:String = "ARRIVAL AIRPORT"
     var departure:String = "DEPARTURE AIRPORT"
@@ -39,10 +40,10 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "departureDate:", name: "departure", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "returnDate:", name: "return", object: nil)
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,7 +58,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-       
+        
         if indexPath.row == 0{
             return 30
         }else if indexPath.row == 5 {
@@ -116,11 +117,11 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             }
             return cell;
         }
-
+        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
+        
         let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexPath) as! CustomSearchFlightTableViewCell
         
         if indexPath.row == 1{
@@ -146,7 +147,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             gregorianVC.view.backgroundColor = UIColor.orangeColor()
             gregorianVC.typeDate = "departure"
             self.presentViewController(gregorianVC, animated: true, completion: nil)
-
+            
             
             
         }else if indexPath.row == 4{
@@ -182,7 +183,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             arrivalSelected = index.integerValue
             arrival = (travel[arrivalSelected]["travel_location"] as? String)!
             txtLbl.text = arrival
-
+            
         }
         
     }
@@ -244,34 +245,39 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 defaults.setObject(type, forKey: "type")
                 defaults.synchronize()
                 
-                let parameters:[String:AnyObject] = [
-                    "type" : type,
-                    "departure_station" : location[departureSelected]["location_code"]!,
-                    "arrival_station": travel[arrivalSelected]["travel_location_code"]!,
-                    "departure_date": departureDateLbl,
-                    "return_date": arrivalDateLbl,
-                    "adult": cell2.adultCount.text!,
-                    "infant": cell2.infantCount.text!,
-                    "signature": defaults.objectForKey("signatureLoad")!,
-                ]
-                
-                let manager = WSDLNetworkManager()
-                
                 showHud()
-                manager.sharedClient().createRequestWithService("searchFlight", withParams: parameters, completion: { (result) -> Void in
-                    self.hideHud()
+                FireFlyProvider.request(.SearchFlight(type, location[departureSelected]["location_code"]! as! String, travel[arrivalSelected]["travel_location_code"]! as! String, departureDateLbl, arrivalDateLbl, cell2.adultCount.text!, cell2.infantCount.text!, defaults.objectForKey("signatureLoad")! as! String), completion: { (result) -> () in
                     
-                    if result["status"].string == "success"{
-                        
-                        let defaults = NSUserDefaults.standardUserDefaults()
-                        defaults.setObject(result["signature"].string, forKey: "signature")
-                        defaults.synchronize()
-                        let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                        let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("FlightDetailVC") as! FlightDetailViewController
-                        flightDetailVC.flightDetail = result["journeys"].arrayValue
-                        self.navigationController!.pushViewController(flightDetailVC, animated: true)
-                        
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            self.hideHud()
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            
+                            if json["status"] == "success"{
+                                self.showToastMessage(json["status"].string!)
+                                
+                                let defaults = NSUserDefaults.standardUserDefaults()
+                                defaults.setObject(json["signature"].string, forKey: "signature")
+                                defaults.synchronize()
+                                let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("FlightDetailVC") as! FlightDetailViewController
+                                flightDetailVC.flightDetail = json["journeys"].arrayValue
+                                self.navigationController!.pushViewController(flightDetailVC, animated: true)
+                                
+                            }else{
+                                self.showToastMessage(json["message"].string!)
+                            }
+                        }
+                        catch {
+                            
+                        }
+                        print (successResult.data)
+                    case .Failure(let failureResult):
+                        print (failureResult)
                     }
+                    
+                    
                 })
             }
         }else{
@@ -354,12 +360,12 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
