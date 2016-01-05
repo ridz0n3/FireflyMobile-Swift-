@@ -20,6 +20,7 @@ class FloatLabeledPickerCell: XLFormBaseCell{
     var selectindex = Int()
     var selectValue = String()
     var expireDate = NSArray()
+    var selectDateIndex = [0,0]
     
     static let kFontSize : CGFloat = 14.0
     
@@ -109,7 +110,7 @@ class FloatLabeledPickerCell: XLFormBaseCell{
             
             let labelParagraphStyle = NSMutableParagraphStyle()
             labelParagraphStyle.alignment = .Center
-            ActionSheetMultipleStringPicker.showPickerWithTitle("", rows: expireDate as [AnyObject], initialSelection: [0,0], target: self, successAction: Selector("expiredDateSelected:element:"), cancelAction: nil, origin: textField)
+            ActionSheetMultipleStringPicker.showPickerWithTitle("", rows: expireDate as [AnyObject], initialSelection: selectDateIndex as [AnyObject], target: self, successAction: Selector("expiredDateSelected:element:"), cancelAction: nil, origin: textField)
             
             
         }else{
@@ -155,8 +156,6 @@ class FloatLabeledPickerCell: XLFormBaseCell{
         }
     }
     
-    var selectDateIndex = NSArray()
-    
     func expiredDateSelected(index:NSArray, element:AnyObject){
         
         let txtLbl = element as! UITextField
@@ -165,7 +164,7 @@ class FloatLabeledPickerCell: XLFormBaseCell{
         let yearIndex = index[1]
         
         selectDateIndex = [monthIndex.integerValue, yearIndex.integerValue]
-        txtLbl.text = "\(expireDate[0][monthIndex.integerValue]) \(expireDate[1][yearIndex.integerValue])"
+        txtLbl.text = "\(expireDate[0][monthIndex.integerValue])/\(expireDate[1][yearIndex.integerValue])"
         self.textFieldDidChange(txtLbl)
         
         

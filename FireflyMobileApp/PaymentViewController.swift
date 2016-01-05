@@ -197,7 +197,7 @@ class PaymentViewController: BaseXLFormViewController {
                     let channelCode = getCardTypeCode(self.formValues()[Tags.ValidationCardType] as! String, cardArr: cardType)
                     let cardHolderName = self.formValues()[Tags.ValidationHolderName] as! String
                     let cvv = self.formValues()[Tags.ValidationCcvNumber] as! String
-                    let expiredDate = (self.formValues()[Tags.ValidationCardExpiredDate] as! String).componentsSeparatedByString(" ")
+                    let expiredDate = (self.formValues()[Tags.ValidationCardExpiredDate] as! String).componentsSeparatedByString("/")
                     let issuingBank = self.formValues()[Tags.ValidationCardType] as! String
                     let expirationDateMonth = expiredDate[0]
                     let expirationDateYear = expiredDate[1]
@@ -248,7 +248,7 @@ class PaymentViewController: BaseXLFormViewController {
     
     func checkDate(date:String) -> Bool{
         
-        let currentDate = date.componentsSeparatedByString(" ")
+        let currentDate = date.componentsSeparatedByString("/")
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MM"
