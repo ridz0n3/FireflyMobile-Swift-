@@ -10,8 +10,9 @@ import UIKit
 import M13Checkbox
 import XLForm
 import SwiftyJSON
+import SafariServices
 
-class PaymentViewController: BaseXLFormViewController {
+class PaymentViewController: BaseXLFormViewController, SFSafariViewControllerDelegate {
     
     var totalDue = Int()
     var paymentType = NSArray()
@@ -89,6 +90,7 @@ class PaymentViewController: BaseXLFormViewController {
             
         }
     }
+    
     
     @IBAction func checkBtn(sender: AnyObject) {
         
@@ -217,10 +219,13 @@ class PaymentViewController: BaseXLFormViewController {
                                     self.showToastMessage(json["status"].string!)
                                     
                                     let pass = json["pass"].string?.componentsSeparatedByString("/")
-                                    let urlString = String(format: "%@/%@%@", json["link"].string!,pass![0],pass![1])
-                                    let url = NSURL(string: urlString)
-                                    print(url)
+                                    let urlString = String(format: "%@/ios/%@%@", json["link"].string!,pass![0],pass![1])
                                     
+                                    let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                    let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                                    manageFlightVC.urlString = urlString
+                                    self.navigationController!.pushViewController(manageFlightVC, animated: true)
+
                                 }else{
                                     self.showToastMessage(json["message"].string!)
                                 }

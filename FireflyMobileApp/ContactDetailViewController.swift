@@ -216,7 +216,7 @@ class ContactDetailViewController: BaseXLFormViewController {
             var insuranceData = ""
             
             if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
-                insuranceData = "1"
+                insuranceData = "0"
             }else{
                 if agreeTerm.checkState.rawValue == 1{
                     insuranceData = "\(agreeTerm.checkState.rawValue)"
@@ -289,7 +289,7 @@ class ContactDetailViewController: BaseXLFormViewController {
             var insuranceData = ""
             
             if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
-                insuranceData = "1"
+                insuranceData = "0"
             }else{
                 if agreeTerm.checkState.rawValue == 1{
                     insuranceData = "\(agreeTerm.checkState.rawValue)"

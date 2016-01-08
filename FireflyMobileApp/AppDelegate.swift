@@ -137,6 +137,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        print(url)
+        
+        return true
+    }
+    
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         print("Got token data! \(deviceToken)")
     }

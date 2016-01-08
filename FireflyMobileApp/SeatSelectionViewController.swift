@@ -575,9 +575,8 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
                                     self.showToastMessage(json["status"].string!)
                                     defaults.setObject(json.dictionaryObject, forKey: "itenerary")
                                     defaults.synchronize()
-                                    
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                    let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
+                                    let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
                                     self.navigationController!.pushViewController(paymentVC, animated: true)
                                     
                                 }else{

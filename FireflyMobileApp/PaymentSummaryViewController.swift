@@ -14,7 +14,8 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     
     @IBOutlet weak var paymentTableView: UITableView!
     var flightDetail = NSArray()
-    var priceDetail = NSArray()
+    var priceDetail = NSMutableArray()
+    var serviceDetail = NSArray()
     var totalPrice = String()
     
     @IBOutlet weak var continueBtn: UIButton!
@@ -28,8 +29,12 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         let defaults = NSUserDefaults.standardUserDefaults()
         let paymentDetail = defaults.objectForKey("itenerary") as! NSDictionary
         flightDetail = paymentDetail["flight_details"] as! NSArray
-        priceDetail = paymentDetail["price_details"] as! NSArray
+        priceDetail = (paymentDetail["price_details"]?.mutableCopy())! as! NSMutableArray
         totalPrice = paymentDetail["total_price"] as! String
+        
+        let service = priceDetail.lastObject as! NSDictionary
+        priceDetail.removeLastObject()
+        serviceDetail = service["services"] as! NSArray
         
         // Do any additional setup after loading the view.
     }
@@ -40,17 +45,20 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 5
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0{
             return flightDetail.count
+        }else if section == 1{
+            return priceDetail.count
+        }else if section == 3{
+            return serviceDetail.count
         }else{
-            return priceDetail.count + 1
+            return 1
         }
-        
         
     }
     
@@ -58,14 +66,14 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         
         if indexPath.section == 0{
             return 137
+        }else if indexPath.section == 1{
+            return 80
+        }else if (indexPath.section == 2 && serviceDetail.count != 0) || indexPath.section == 3{
+            return 23
+        }else if indexPath.section == 4{
+            return 42
         }else{
-            
-            if (indexPath.row == 3 && flightDetail.count == 2) || (indexPath.row == 2 && flightDetail.count == 1){
-                return 42
-            }else{
-                return 80
-            }
-            
+            return 0
         }
         
     }
@@ -83,59 +91,55 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             
             return cell
             
-        }else{
+        }else if indexPath.section == 1{
+            let detail = priceDetail[indexPath.row] as! NSDictionary
             
-            if (indexPath.row == 3 && flightDetail.count == 2) || (indexPath.row == 2 && flightDetail.count == 1){
-                
-                let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("TotalCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
-                
-                cell.totalPriceLbl.text = totalPrice
-                
-                return cell
-                
-            }else{
-                let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("PriceDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
-                
-                let detail = priceDetail[indexPath.row] as! NSDictionary
-                
-                if detail["status"] as? String == "Services and Fees"{
-                    
-                    cell.flightDestination.text = detail["status"] as? String
-                    cell.guestLbl.text = "Insurance"
-                    cell.taxLbl.text = "Taxes"
-                    
-                    cell.guestPriceLbl.text = detail["services"]![0]["service_price"] as? String
-                    cell.taxesPrice.text = detail["services"]![1]["service_price"] as? String
-                    
-                    cell.detailBtn.hidden = true
-                    cell.detailLbl.hidden = true
-                    
-                }else{
-                    
-                    let tax = detail["taxes_or_fees"] as? NSDictionary
-                    
-                    let taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
-                    
-                    cell.flightDestination.text = detail["title"] as? String
-                    cell.guestPriceLbl.text = detail["total_guest"] as? String
-                    cell.guestLbl.text = detail["guest"] as? String
-                    cell.taxesPrice.text = detail["total_taxes_or_fees"] as? String
-                    
-                    cell.detailBtn.addTarget(self, action: "detailBtnPressed:", forControlEvents: .TouchUpInside)
-                    cell.detailBtn.accessibilityHint = taxData
-                    cell.detailBtn.hidden = false
-                    cell.detailLbl.hidden = false
-                }
-                return cell
-                
+            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("PriceDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            
+            let tax = detail["taxes_or_fees"] as? NSDictionary
+            
+            let taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            
+            cell.flightDestination.text = detail["title"] as? String
+            cell.guestPriceLbl.text = detail["total_guest"] as? String
+            cell.guestLbl.text = detail["guest"] as? String
+            cell.taxesPrice.text = detail["total_taxes_or_fees"] as? String
+            
+            cell.detailBtn.addTarget(self, action: "detailBtnPressed:", forControlEvents: .TouchUpInside)
+            cell.detailBtn.accessibilityHint = taxData
+            
+            return cell
+        }else if indexPath.section == 2{
+            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("ServiceFeeCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            
+            return cell
+        }else if indexPath.section == 3{
+            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("FeeCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            
+            if serviceDetail.count != 0{
+                cell.serviceLbl.text = serviceDetail[indexPath.row]["service_name"] as? String
+                cell.servicePriceLbl.text = serviceDetail[indexPath.row]["service_price"] as? String
             }
             
+            return cell
+        }else{
+            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("TotalCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            
+            cell.totalPriceLbl.text = totalPrice
+            
+            return cell
         }
         
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        
+        if section == 0 || section == 1{
+            return 35
+        }else{
+            return 0
+        }
+
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -195,7 +199,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             case .Failure(let failureResult):
                 print (failureResult)
             }
-
+            
         }
         
     }

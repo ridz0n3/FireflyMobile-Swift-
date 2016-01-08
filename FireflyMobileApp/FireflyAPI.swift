@@ -33,6 +33,7 @@ public enum FireFlyAPI {
     case PaymentSelection(String)
     case PaymentProcess(String, String, String, String, String, String, String, String, String)
     case SearchFlight(Int, String, String, String, String, String, String, String)
+    case FlightSummary(String)
     
 }
 
@@ -72,11 +73,13 @@ extension FireFlyAPI : TargetType {
             return "api/paymentProcess"
         case SearchFlight:
             return "api/searchFlight"
+        case FlightSummary:
+            return "api/flightSummary"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .FlightSummary:
             return .POST
             
         default:
@@ -104,6 +107,8 @@ extension FireFlyAPI : TargetType {
             return ["signature" : signature, "channelType" : channelType, "channelCode" : channelCode, "cardNumber": cardNumber, "expirationDateMonth" : expirationDateMonth, "expirationDateYear" : expirationDateYear, "cardHolderName" : cardHolderName, "issuingBank" : issuingBank, "cvv" : cvv]
         case .SearchFlight(let type, let departure_station, let arrival_station, let departure_date, let return_date, let adult, let infant, let signature):
             return ["type" : type, "departure_station" : departure_station, "arrival_station" : arrival_station, "departure_date": departure_date, "return_date" : return_date, "adult" : adult, "infant" : infant, "signature" : signature]
+        case .FlightSummary(let signature):
+            return ["signature" : signature]
         default:
             return nil
         }

@@ -8,14 +8,23 @@
 
 import UIKit
 import XLForm
+import M13Checkbox
 
 class UpdateInformationViewController: BaseXLFormViewController {
     
     var userInfo = NSMutableDictionary()
     
+    @IBOutlet weak var newsletterCheckBox: M13Checkbox!
+    @IBOutlet weak var termCheckBox: M13Checkbox!
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
+        
+        if userInfo["newsletter"] as! String == "Y"{
+            newsletterCheckBox.checkState = M13CheckboxStateChecked
+        }else{
+            newsletterCheckBox.checkState = M13CheckboxStateUnchecked
+        }
         
         var stateArr = [NSDictionary]()
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -363,6 +372,16 @@ class UpdateInformationViewController: BaseXLFormViewController {
         validateForm()
         
         if isValidate {
+            let currentDate: NSDate = NSDate()
+            let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            calendar.timeZone = NSTimeZone(name: "UTC")!
+            
+            let components: NSDateComponents = NSDateComponents()
+            components.calendar = calendar
+            
+            components.year = -18
+            let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            
             
             if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String != ""{
                 
@@ -404,6 +423,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
                     showToastMessage("Confirm password is incorrect")
                 }
 
+            }else if termCheckBox.checkState.rawValue == 0{
+                showToastMessage("Please check term and condition checkbox")
             }else {
                 sendInfo()
             }
@@ -446,6 +467,11 @@ class UpdateInformationViewController: BaseXLFormViewController {
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
         parameters.updateValue(userInfo["signature"]!, forKey: "signature")
         
+        if newsletterCheckBox.checkState.rawValue == 1{
+            parameters.updateValue("Y", forKey: "newsletter")
+        }else{
+            parameters.updateValue("N", forKey: "newsletter")
+        }
         
         let manager = WSDLNetworkManager()
         

@@ -73,7 +73,9 @@ class ManageFlightMenuViewController: BaseViewController, UITableViewDelegate, U
         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
         
         if indexPath.row == 1{
+            
             let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeContactDetailVC") as! ChangeContactDetailViewController
+            //let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("webviewVC") as! WebviewViewController
             self.navigationController!.pushViewController(manageFlightVC, animated: true)
         }else if indexPath.row == 2{
             let editPassengerVC = storyboard.instantiateViewControllerWithIdentifier("EditPassengerVC") as! EditPassengerViewController

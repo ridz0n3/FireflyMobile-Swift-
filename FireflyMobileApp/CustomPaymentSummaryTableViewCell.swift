@@ -25,6 +25,32 @@ class CustomPaymentSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var detailBtn: UIButton!
     
     @IBOutlet weak var totalPriceLbl: UILabel!
+    
+    @IBOutlet weak var confirmationLbl: UILabel!
+    @IBOutlet weak var reservationLbl: UILabel!
+    @IBOutlet weak var bookDateLbl: UILabel!
+    
+    @IBOutlet weak var confNumberLbl: UILabel!
+    @IBOutlet weak var rateLbl: UILabel!
+    
+    @IBOutlet weak var contactNameLbl: UILabel!
+    @IBOutlet weak var contactCountryLbl: UILabel!
+    @IBOutlet weak var contactMobileLbl: UILabel!
+    @IBOutlet weak var contactAlternateLbl: UILabel!
+    @IBOutlet weak var contactEmail: UILabel!
+    
+    @IBOutlet weak var passengerNameLbl: UILabel!
+    
+    @IBOutlet weak var totalPaidLbl: UILabel!
+    @IBOutlet weak var totalDueLbl: UILabel!
+    @IBOutlet weak var paymentTotalPriceLbl: UILabel!
+    
+    @IBOutlet weak var cardTypeLbl: UILabel!
+    @IBOutlet weak var cardPayLbl: UILabel!
+    @IBOutlet weak var cardStatusLbl: UILabel!
+    
+    @IBOutlet weak var serviceLbl: UILabel!
+    @IBOutlet weak var servicePriceLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
