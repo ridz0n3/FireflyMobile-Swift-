@@ -65,6 +65,25 @@ class PassengerDetailViewController: BaseXLFormViewController {
         adultCount = (defaults.objectForKey("adult")?.integerValue)!
         infantCount = (defaults.objectForKey("infant")?.integerValue)!
         
+        if try! !LoginManager.sharedInstance.isLogin(){
+           /* section = XLFormSectionDescriptor()
+            section = XLFormSectionDescriptor.formSectionWithTitle("Member Login (Optional)")
+            form.addFormSection(section)
+            
+            //first name
+            row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"User ID(Email):*")
+            row.addValidator(XLFormValidator.emailValidator())
+            row.required = true
+            section.addFormRow(row)
+            
+            //last name
+            row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Password:*")
+            row.required = true
+            section.addFormRow(row)
+            */
+            
+        }
+        
         for adult in 1...adultCount{
             
             var i = adult
@@ -77,68 +96,149 @@ class PassengerDetailViewController: BaseXLFormViewController {
             section = XLFormSectionDescriptor.formSectionWithTitle("Adult \(adult)")
             form.addFormSection(section)
             
-            // Title
             
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
-            
-            var tempArray:[AnyObject] = [AnyObject]()
-            titleArray = defaults.objectForKey("title") as! NSMutableArray
-            for title in titleArray{
-                tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
+            if try! LoginManager.sharedInstance.isLogin() && adult == 1 {
+                
+                // Title
+                
+                let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+                
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
+                
+                var tempArray:[AnyObject] = [AnyObject]()
+                titleArray = defaults.objectForKey("title") as! NSMutableArray
+                for title in titleArray{
+                    tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
+                    
+                    if title["title_code"] as! String == userInfo["title"] as! String{
+                        row.value = title["title_name"] as! String
+                    }
+                }
+                
+                row.selectorOptions = tempArray
+                row.required = true
+                section.addFormRow(row)
+                
+                //first name
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+                row.required = true
+                row.value = "\(userInfo["first_name"]!)"
+                section.addFormRow(row)
+                
+                //last name
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+                row.required = true
+                row.value = "\(userInfo["last_name"]!)"
+                section.addFormRow(row)
+                
+                // Date
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
+                row.value = "\(userInfo["DOB"]!)"
+                row.required = true
+                section.addFormRow(row)
+                
+                // Travel Document
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTravelDoc, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
+                
+                tempArray = [AnyObject]()
+                for travel in travelDoc{
+                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"], displayText: travel["doc_name"]))
+                }
+                
+                row.selectorOptions = tempArray
+                row.required = true
+                section.addFormRow(row)
+                
+                // Country
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
+                
+                tempArray = [AnyObject]()
+                countryArray = defaults.objectForKey("country") as! NSMutableArray
+                for country in countryArray{
+                    tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
+                    
+                    if country["country_code"] as! String == userInfo["contact_country"] as! String{
+                        row.value = country["country_name"] as! String
+                    }
+                }
+                
+                row.selectorOptions = tempArray
+                row.required = true
+                section.addFormRow(row)
+                
+                // Document Number
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
+                row.required = true
+                section.addFormRow(row)
+                
+                // Enrich Loyalty No
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Enrich Loyalty No:")
+                section.addFormRow(row)
+                
+            }else{
+                // Title
+                
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
+                
+                var tempArray:[AnyObject] = [AnyObject]()
+                titleArray = defaults.objectForKey("title") as! NSMutableArray
+                for title in titleArray{
+                    tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
+                }
+                
+                row.selectorOptions = tempArray
+                row.required = true
+                section.addFormRow(row)
+                
+                //first name
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+                row.required = true
+                section.addFormRow(row)
+                
+                //last name
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+                row.required = true
+                section.addFormRow(row)
+                
+                // Date
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
+                row.required = true
+                section.addFormRow(row)
+                
+                // Travel Document
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTravelDoc, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
+                
+                tempArray = [AnyObject]()
+                for travel in travelDoc{
+                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"], displayText: travel["doc_name"]))
+                }
+                
+                row.selectorOptions = tempArray
+                row.required = true
+                section.addFormRow(row)
+                
+                // Country
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
+                
+                tempArray = [AnyObject]()
+                countryArray = defaults.objectForKey("country") as! NSMutableArray
+                for country in countryArray{
+                    tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
+                }
+                
+                row.selectorOptions = tempArray
+                row.required = true
+                section.addFormRow(row)
+                
+                // Document Number
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
+                row.required = true
+                section.addFormRow(row)
+                
+                // Enrich Loyalty No
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Enrich Loyalty No:")
+                section.addFormRow(row)
             }
-            
-            row.selectorOptions = tempArray
-            row.required = true
-            section.addFormRow(row)
-            
-            //first name
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
-            row.required = true
-            section.addFormRow(row)
-            
-            //last name
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
-            row.required = true
-            section.addFormRow(row)
-            
-            // Date
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
-            row.required = true
-            section.addFormRow(row)
-            
-            // Travel Document
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTravelDoc, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
-            
-            tempArray = [AnyObject]()
-            for travel in travelDoc{
-                tempArray.append(XLFormOptionsObject(value: travel["doc_code"], displayText: travel["doc_name"]))
-            }
-            
-            row.selectorOptions = tempArray
-            row.required = true
-            section.addFormRow(row)
-            
-            // Country
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
-            
-            tempArray = [AnyObject]()
-            countryArray = defaults.objectForKey("country") as! NSMutableArray
-            for country in countryArray{
-                tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
-            }
-            
-            row.selectorOptions = tempArray
-            row.required = true
-            section.addFormRow(row)
-            
-            // Document Number
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
-            row.required = true
-            section.addFormRow(row)
-            
-            // Enrich Loyalty No
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Enrich Loyalty No:")
-            section.addFormRow(row)
             
         }
         

@@ -11,7 +11,6 @@
 		7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */; };
 		7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */; };
 		7E16D4521C1FA5B6002E7BDD /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */; };
-		7E16D4541C1FAF7F002E7BDD /* FloatLabeledPhoneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E16D4531C1FAF7F002E7BDD /* FloatLabeledPhoneCell.swift */; };
 		7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */; };
 		7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */; };
 		7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1F77E01BF96E6C00F55C46 /* Main.storyboard */; };
@@ -59,8 +58,6 @@
 		7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */; };
 		7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */; };
 		7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */; };
-		7E8262051C3CC8810071FAAA /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 7E8262031C3CC8810071FAAA /* index.html */; };
-		7E8262061C3CC8810071FAAA /* main.js in Resources */ = {isa = PBXBuildFile; fileRef = 7E8262041C3CC8810071FAAA /* main.js */; };
 		7E8262081C3CCF280071FAAA /* PaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */; };
 		7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */; };
 		7E8D81681C350A4100D9A2E1 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */; };
@@ -118,7 +115,6 @@
 		7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledPickerCell.swift; sourceTree = "<group>"; };
 		7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloateLabeledDatePickerCell.swift; sourceTree = "<group>"; };
 		7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
-		7E16D4531C1FAF7F002E7BDD /* FloatLabeledPhoneCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledPhoneCell.swift; sourceTree = "<group>"; };
 		7E1F77D91BF96E6C00F55C46 /* FireflyMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireflyMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -173,8 +169,6 @@
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjC-Header.h"; sourceTree = "<group>"; };
 		7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseXLFormViewController.swift; sourceTree = "<group>"; };
-		7E8262031C3CC8810071FAAA /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		7E8262041C3CC8810071FAAA /* main.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
 		7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentWebViewController.swift; sourceTree = "<group>"; };
 		7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightSummaryViewController.swift; sourceTree = "<group>"; };
 		7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
@@ -239,8 +233,6 @@
 		7E1F77D01BF96E6C00F55C46 = {
 			isa = PBXGroup;
 			children = (
-				7E8262031C3CC8810071FAAA /* index.html */,
-				7E8262041C3CC8810071FAAA /* main.js */,
 				7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */,
 				7E1F77F01BF96E6C00F55C46 /* FireflyMobileAppTests */,
 				7E1F77FB1BF96E6C00F55C46 /* FireflyMobileAppUITests */,
@@ -491,7 +483,6 @@
 				7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */,
 				7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */,
 				7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */,
-				7E16D4531C1FAF7F002E7BDD /* FloatLabeledPhoneCell.swift */,
 			);
 			name = FloatLabel;
 			sourceTree = "<group>";
@@ -621,8 +612,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E8262051C3CC8810071FAAA /* index.html in Resources */,
-				7E8262061C3CC8810071FAAA /* main.js in Resources */,
 				7EB07AFE1C28F6640061D1C9 /* directionView.xib in Resources */,
 				7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */,
 				7E20F90F1BFA0A3D0020AB0C /* FlightHeader.xib in Resources */,
@@ -768,7 +757,6 @@
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
 				7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
-				7E16D4541C1FAF7F002E7BDD /* FloatLabeledPhoneCell.swift in Sources */,
 				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
 				7E6930FB1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift in Sources */,
 				7E1F782A1BF9CD2800F55C46 /* RegisterPersonalInfoViewController.swift in Sources */,

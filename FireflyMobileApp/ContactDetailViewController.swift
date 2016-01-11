@@ -123,69 +123,152 @@ class ContactDetailViewController: BaseXLFormViewController {
         section = XLFormSectionDescriptor()
         form.addFormSection(section)
         
-        // Purpose
-        row = XLFormRowDescriptor(tag: Tags.ValidationPurpose, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Primary Purpose of Your Trip:*")
-        
-        var tempArray:[AnyObject] = [AnyObject]()
-        for purpose in purposeArray{
-            tempArray.append(XLFormOptionsObject(value: purpose["purpose_code"], displayText: purpose["purpose_name"]))
+        if try! LoginManager.sharedInstance.isLogin(){
+            
+            let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+            
+            // Purpose
+            row = XLFormRowDescriptor(tag: Tags.ValidationPurpose, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Primary Purpose of Your Trip:*")
+            
+            var tempArray:[AnyObject] = [AnyObject]()
+            for purpose in purposeArray{
+                tempArray.append(XLFormOptionsObject(value: purpose["purpose_code"], displayText: purpose["purpose_name"]))
+            }
+            
+            row.selectorOptions = tempArray
+            row.required = true
+            section.addFormRow(row)
+            
+            // Title
+            row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
+            
+            tempArray = [AnyObject]()
+            titleArray = defaults.objectForKey("title") as! NSMutableArray
+            for title in titleArray{
+                tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
+                
+                if title["title_code"] as! String == userInfo["title"] as! String{
+                    row.value = title["title_name"] as! String
+                }
+            }
+            
+            row.selectorOptions = tempArray
+            row.required = true
+            section.addFormRow(row)
+            
+            //first name
+            row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+            row.required = true
+            row.value = "\(userInfo["first_name"]!)"
+            section.addFormRow(row)
+            
+            //last name
+            row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+            row.required = true
+            row.value = "\(userInfo["last_name"]!)"
+            section.addFormRow(row)
+            
+            //email
+            row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Email Address:*")
+            row.required = true
+            row.value = "\(userInfo["contact_email"]!)"
+            row.addValidator(XLFormValidator.emailValidator())
+            section.addFormRow(row)
+            
+            // Country
+            row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Country:*")
+            
+            tempArray = [AnyObject]()
+            countryArray = defaults.objectForKey("country") as! NSMutableArray
+            for country in countryArray{
+                tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
+                
+                if country["country_code"] as! String == userInfo["contact_country"] as! String{
+                    row.value = country["country_name"] as! String
+                }
+            }
+            
+            row.selectorOptions = tempArray
+            row.required = true
+            section.addFormRow(row)
+            
+            // Mobile Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile Number:*")
+            row.required = true
+            row.value = "\(userInfo["contact_mobile_phone"]!)"
+            section.addFormRow(row)
+            
+            // Alternate Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Number:*")
+            row.required = true
+            row.value = "\(userInfo["contact_alternate_phone"]!)"
+            section.addFormRow(row)
+            
+        }else{
+            // Purpose
+            row = XLFormRowDescriptor(tag: Tags.ValidationPurpose, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Primary Purpose of Your Trip:*")
+            
+            var tempArray:[AnyObject] = [AnyObject]()
+            for purpose in purposeArray{
+                tempArray.append(XLFormOptionsObject(value: purpose["purpose_code"], displayText: purpose["purpose_name"]))
+            }
+            
+            row.selectorOptions = tempArray
+            row.required = true
+            section.addFormRow(row)
+            
+            // Title
+            row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
+            
+            tempArray = [AnyObject]()
+            titleArray = defaults.objectForKey("title") as! NSMutableArray
+            for title in titleArray{
+                tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
+            }
+            
+            row.selectorOptions = tempArray
+            row.required = true
+            section.addFormRow(row)
+            
+            //first name
+            row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+            row.required = true
+            section.addFormRow(row)
+            
+            //last name
+            row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+            row.required = true
+            section.addFormRow(row)
+            
+            //email
+            row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Email Address:*")
+            row.required = true
+            row.addValidator(XLFormValidator.emailValidator())
+            section.addFormRow(row)
+            
+            // Country
+            row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Country:*")
+            
+            tempArray = [AnyObject]()
+            countryArray = defaults.objectForKey("country") as! NSMutableArray
+            for country in countryArray{
+                tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
+            }
+            
+            row.selectorOptions = tempArray
+            row.required = true
+            section.addFormRow(row)
+            
+            // Mobile Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile Number:*")
+            row.required = true
+            section.addFormRow(row)
+            
+            // Alternate Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Number:*")
+            row.required = true
+            section.addFormRow(row)
         }
-        
-        row.selectorOptions = tempArray
-        row.required = true
-        section.addFormRow(row)
-        
-        // Title
-        row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
-        
-        tempArray = [AnyObject]()
-        titleArray = defaults.objectForKey("title") as! NSMutableArray
-        for title in titleArray{
-            tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
-        }
-        
-        row.selectorOptions = tempArray
-        row.required = true
-        section.addFormRow(row)
-        
-        //first name
-        row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
-        row.required = true
-        section.addFormRow(row)
-        
-        //last name
-        row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
-        row.required = true
-        section.addFormRow(row)
-        
-        //email
-        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Email Address:*")
-        row.required = true
-        row.addValidator(XLFormValidator.emailValidator())
-        section.addFormRow(row)
-        
-        // Country
-        row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Country:*")
-        
-        tempArray = [AnyObject]()
-        countryArray = defaults.objectForKey("country") as! NSMutableArray
-        for country in countryArray{
-            tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
-        }
-        
-        row.selectorOptions = tempArray
-        row.required = true
-        section.addFormRow(row)
-        
-        // Mobile Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledPhoneNumber, title:"Mobile Number:*")
-        row.required = true
-        section.addFormRow(row)
-        
-        // Alternate Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledPhoneNumber, title:"Alternate Number:*")
-        row.required = true
-        section.addFormRow(row)
         
         self.form = form
     }
@@ -372,17 +455,6 @@ class ContactDetailViewController: BaseXLFormViewController {
                         }
                         
                         
-                }else if validationStatus.rowDescriptor!.tag == Tags.ValidationMobileHome || validationStatus.rowDescriptor!.tag == Tags.ValidationAlternate{
-                    let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                    
-                    if self.tableView.cellForRowAtIndexPath(index) != nil{
-                        let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPhoneCell
-                        
-                        let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                        cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                        
-                        animateCell(cell)
-                    }
                 }else{
                     let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                     
@@ -437,7 +509,7 @@ class ContactDetailViewController: BaseXLFormViewController {
         self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
         
         // Postcode
-        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType:XLFormRowDescriptorTypeFloatLabeledPhoneNumber, title:"Postcode:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Postcode:*")
         row.required = true
         self.form.addFormRow(row, afterRowTag: Tags.ValidationState)
         

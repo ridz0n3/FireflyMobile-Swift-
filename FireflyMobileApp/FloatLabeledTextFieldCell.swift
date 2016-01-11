@@ -64,10 +64,11 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
         result.font = UIFont.systemFontOfSize(kFontSize)
         result.floatingLabel.font = UIFont.boldSystemFontOfSize(kFontSize)
         result.clearButtonMode = UITextFieldViewMode.WhileEditing
-        //result.keyboardType = .PhonePad
+        //result.keyboardType =
+        //result.secureTextEntry = true
         return result
     }()
-
+    
     
     //Mark: - XLFormDescriptorCell
     
@@ -87,6 +88,13 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
     
     override func update() {
         super.update()
+        if self.rowDescriptor?.tag == "Password"{
+            self.floatLabeledTextField.keyboardType = .ASCIICapable
+            self.floatLabeledTextField.secureTextEntry = true
+        }else if self.rowDescriptor?.tag == "Mobile/Home" || self.rowDescriptor?.tag == "Alternate" || self.rowDescriptor?.tag == "Postcode" || self.rowDescriptor?.tag == "CCV/CVC Number" || self.rowDescriptor?.tag == "Card Number"{
+            self.floatLabeledTextField.keyboardType = .PhonePad
+        }
+        
         self.floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: self.rowDescriptor!.title ?? "" , attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()])
         
         if let value: AnyObject = self.rowDescriptor!.value {

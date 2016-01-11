@@ -155,7 +155,7 @@ class PaymentViewController: BaseXLFormViewController, SFSafariViewControllerDel
         section.addFormRow(row)
         
         //card number
-        row = XLFormRowDescriptor(tag: Tags.ValidationCardNumber, rowType: XLFormRowDescriptorTypeFloatLabeledPhoneNumber, title:"Card Number:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationCardNumber, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Card Number:*")
         row.required = true
         section.addFormRow(row)
         
@@ -171,7 +171,7 @@ class PaymentViewController: BaseXLFormViewController, SFSafariViewControllerDel
         section.addFormRow(row)
         
         //CVV/CVC Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationCcvNumber, rowType: XLFormRowDescriptorTypeFloatLabeledPhoneNumber, title:"CVV/CVC Number:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationCcvNumber, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"CVV/CVC Number:*")
         row.required = true
         section.addFormRow(row)
 
@@ -319,18 +319,7 @@ class PaymentViewController: BaseXLFormViewController, SFSafariViewControllerDel
                         }
                         
                         
-                }else if errorTag == Tags.ValidationCardNumber || errorTag == Tags.ValidationCcvNumber{
-                    let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                    
-                    if self.tableView.cellForRowAtIndexPath(index) != nil{
-                        let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPhoneCell
-                        
-                        let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                        cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                        
-                        animateCell(cell)
-                    }
-                }else{
+                }else {
                     let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                     
                     if self.tableView.cellForRowAtIndexPath(index) != nil{
