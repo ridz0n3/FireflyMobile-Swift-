@@ -8,8 +8,9 @@
 
 import UIKit
 import MFSideMenu
+import SwiftyJSON
 
-class SideMenuTableViewController: UITableViewController {
+class SideMenuTableViewController: BaseViewController {
 
     @IBOutlet var sideMenuTableView: UITableView!
     var menuSections:[String] = ["Home", "Update Information", "Login", "Register", "About", "FAQ", "Logout"]
@@ -37,12 +38,12 @@ class SideMenuTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if (indexPath.row == 1 && hideRow == false) || (indexPath.row == 6 && hideRow == false) || (indexPath.row == 2 && hideRow == true) || (indexPath.row == 3 && hideRow == true){
             return 0.0
         }else {
@@ -50,13 +51,13 @@ class SideMenuTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return menuSections.count
     }
 
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SideMenuTableViewCell
         
         // This is how you change the background color
@@ -70,12 +71,12 @@ class SideMenuTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 50
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let view = UIView.init(frame: CGRectMake(0, 0, tableView.frame.size.width, 50))
         let label = UILabel.init(frame:CGRectMake(15, 0, tableView.frame.size.width, 50))
@@ -102,7 +103,7 @@ class SideMenuTableViewController: UITableViewController {
         return view
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
         
@@ -134,22 +135,53 @@ class SideMenuTableViewController: UITableViewController {
             
         }else if (indexPath.row == 4) {
             
-            //let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+            //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC")
-            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC")
-            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("FlightSummaryVC")
-            //controllers.append(homeVC)
+            let homeVC = storyboard.instantiateViewControllerWithIdentifier("FlightSummaryVC")
+            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC")
+            controllers.append(homeVC)
             
         }else if (indexPath.row == 5) {
             
         }else{
-            hideRow = false
-            self.sideMenuTableView.reloadData()
-            let defaults = NSUserDefaults.standardUserDefaults()
-            defaults.setObject("", forKey: "userInfo")
-            defaults.synchronize()
+            let storyboard = UIStoryboard(name: "Home", bundle: nil)
+            let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC")
+            controllers.append(homeVC)
             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
+            let defaults = NSUserDefaults.standardUserDefaults()
+            let signature = defaults.objectForKey("signatureLoad") as! String
+            //self.showHud()
+            FireFlyProvider.request(.Logout(signature), completion: { (result) -> () in
+                //self.hideHud()
+                switch result {
+                case .Success(let successResult):
+                    do {
+                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        if  json["status"].string == "success"{
+                            //self.showToastMessage(json["status"].string!)
+                            self.hideRow = false
+                            self.sideMenuTableView.reloadData()
+                            let defaults = NSUserDefaults.standardUserDefaults()
+                            defaults.setObject("", forKey: "userInfo")
+                            defaults.synchronize()
+                            
+                            InitialLoadManager.sharedInstance.load()
+                            
+                        }else{
+                            //self.showToastMessage(json["message"].string!)
+                        }
+                    }
+                    catch {
+                        
+                    }
+                    print (successResult.data)
+                case .Failure(let failureResult):
+                    print (failureResult)
+                }
+
+            })
         }
         
         if (controllers.count != 0){

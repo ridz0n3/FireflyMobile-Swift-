@@ -21,7 +21,7 @@ class WSDLNetworkManager: NSObject {
     
     func createRequestWithService(serviceName: String, withParams: NSDictionary, completion: (result: JSON) -> Void) {
 
-        let serviceUrl = String(format: "%@%@", kBaseURL,serviceName)
+        let serviceUrl = String(format: "%@/%@", kBaseURL,serviceName)
     
         Alamofire.request(.POST, serviceUrl, parameters: withParams as? [String : AnyObject], encoding: .JSON).responseJSON(options: .MutableContainers) { (response) -> Void in
             if response.result.isSuccess == true{

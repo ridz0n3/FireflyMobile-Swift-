@@ -225,6 +225,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         if try! LoginManager.sharedInstance.isLogin(){
             userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
         }
+        
         let date = flightDetail[0]["departure_date"].string!
         var dateArr = date.componentsSeparatedByString(" ")
         var planGo = String()
@@ -334,7 +335,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                     self.showToastMessage(result["status"].string!)
                     let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(result["booking_id"].int , forKey: "booking_id")
-                    
+                    print(result["booking_id"].int)
                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                     let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! PassengerDetailViewController
                     self.navigationController!.pushViewController(personalDetailVC, animated: true)

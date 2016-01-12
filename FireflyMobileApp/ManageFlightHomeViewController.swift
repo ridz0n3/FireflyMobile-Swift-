@@ -1,8 +1,8 @@
 //
-//  FlightSummaryViewController.swift
+//  ManageFlightHomeViewController.swift
 //  FireflyMobileApp
 //
-//  Created by ME-Tech Mac User 1 on 1/6/16.
+//  Created by ME-Tech Mac User 1 on 1/11/16.
 //  Copyright © 2016 Me-tech. All rights reserved.
 //
 
@@ -10,9 +10,18 @@ import UIKit
 import SCLAlertView
 import CoreData
 
-class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var sendItineraryBtn: UIButton!
+    @IBOutlet weak var addPaymentBtn: UIButton!
+    @IBOutlet weak var changeSeatBtn: UIButton!
+    @IBOutlet weak var changePassangerBtn: UIButton!
+    @IBOutlet weak var changeFlightBtn: UIButton!
+    @IBOutlet weak var changeContactBtn: UIButton!
+    
+    var contacts = [NSManagedObject]()
     @IBOutlet weak var flightSummarryTableView: UITableView!
+    
     var flightDetail = NSArray()
     var totalPrice = String()
     var insuranceDetails = NSDictionary()
@@ -25,16 +34,31 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     var priceDetail = NSMutableArray()
     var serviceDetail = NSArray()
     
-    var contacts = [NSManagedObject]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupMenuButton()
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        let itineraryData = defaults.objectForKey("itinerary") as! NSDictionary
+        sendItineraryBtn.layer.borderWidth = 0.5
+        sendItineraryBtn.layer.cornerRadius = 10.0
         
+        changeContactBtn.layer.borderWidth = 0.5
+        changeContactBtn.layer.cornerRadius = 10.0
+        
+        changeFlightBtn.layer.borderWidth = 0.5
+        changeFlightBtn.layer.cornerRadius = 10.0
+        
+        changePassangerBtn.layer.borderWidth = 0.5
+        changePassangerBtn.layer.cornerRadius = 10.0
+        
+        changeSeatBtn.layer.borderWidth = 0.5
+        changeSeatBtn.layer.cornerRadius = 10.0
+        
+        addPaymentBtn.layer.borderWidth = 0.5
+        addPaymentBtn.layer.cornerRadius = 10.0
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let itineraryData = defaults.objectForKey("manageFlight") as! NSDictionary
         flightDetail = itineraryData["flight_details"] as! NSArray
         priceDetail = (itineraryData["price_details"]?.mutableCopy())! as! NSMutableArray
         totalPrice = itineraryData["total_price"] as! String
@@ -50,64 +74,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         priceDetail.removeLastObject()
         serviceDetail = service["services"] as! NSArray
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext //2
-        let fetchRequest = NSFetchRequest(entityName: "Booking")
-        do {
-            let results =
-            try managedContext.executeFetchRequest(fetchRequest)
-            contacts = results as! [NSManagedObject]
-            
-            //tableView.reloadData()
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
-        }
-
-        
-        saveCoreData()
         // Do any additional setup after loading the view.
-    }
-    
-    func saveCoreData(){
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let context = appDelegate.managedObjectContext
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
-        
-        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Booking", inManagedObjectContext: context) as! Booking
-        
-        // If appropriate, configure the new managed object.
-        // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-        
-        //let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
-        
-        //if try! LoginManager.sharedInstance.isLogin(){
-        //    let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
-        //    newManagedObject.username = "\(userInfo["username"]!)"
-        //    newManagedObject.pnr = "\(itineraryInformation["pnr"]!)"
-        //    newManagedObject.flightDate = flightDetail[0]["date"] as? String
-        //    newManagedObject.contactEmail = "\(contactInformation["email"]!)"
-        //}else{
-            newManagedObject.username = "teSt"
-            newManagedObject.pnr = "Test"
-            newManagedObject.flightDate = "test"
-            newManagedObject.contactEmail = "tEst)"
-       // }
-        
-        
-        
-        // Save the context.
-        do {
-            try context.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            //print("Unresolved error \(error), \(error.userInfo)")
-            abort()
-        }
-
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -146,7 +113,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }else if indexPath.section == 2{
             return 80
         }else if (indexPath.section == 3 && serviceDetail.count != 0) || indexPath.section == 4{
-            return 23
+            return 28
         }else if indexPath.section == 5{
             return 42
         }else if (indexPath.section == 6 && insuranceDetails["status"] as! String != "N"){
@@ -160,7 +127,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             if indexPath.row == paymentDetails.count{
                 return 80
             }else{
-                return 42
+                return 28
             }
             
         }else{
@@ -207,7 +174,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             cell.detailBtn.accessibilityHint = taxData
             
             return cell
-
+            
         }else if indexPath.section == 3{
             let cell = self.flightSummarryTableView.dequeueReusableCellWithIdentifier("ServiceFeeCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
@@ -319,15 +286,41 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         SCLAlertView().showSuccess("Taxes/Fee", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
         
     }
-
-    /*
-    // MARK: - Navigation
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+    @IBAction func changeContactBtnPressed(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+        let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeContactDetailVC") as! ChangeContactDetailViewController
+        self.navigationController!.pushViewController(manageFlightVC, animated: true)
     }
-    */
+    
+    @IBAction func EditPassengerBtnPressed(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+        let editPassengerVC = storyboard.instantiateViewControllerWithIdentifier("EditPassengerVC") as! EditPassengerViewController
+        self.navigationController!.pushViewController(editPassengerVC, animated: true)
+    }
+    
+    @IBAction func ChangeFlightBtnPressed(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+        let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeFlightVC") as! ChangeFlightViewController
+        self.navigationController!.pushViewController(changeFlightVC, animated: true)
+    }
+    
+    @IBAction func ChangeSeatBtnPressed(sender: AnyObject) {
+        //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+        //let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeFlightVC") as! ChangeFlightViewController
+        //self.navigationController!.pushViewController(manageFlightVC, animated: true)
+    }
+    
+    @IBAction func AddPaymentBtnPressed(sender: AnyObject) {
+        //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+        //let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeContactDetailVC") as! ChangeContactDetailViewController
+        //self.navigationController!.pushViewController(manageFlightVC, animated: true)
+    }
+    
+    @IBAction func SendItineraryBtnPressed(sender: AnyObject) {
+        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+        let sendItineraryVC = storyboard.instantiateViewControllerWithIdentifier("SendItineraryVC") as! SendItineraryViewController
+        self.navigationController!.pushViewController(sendItineraryVC, animated: true)
+    }
     
 }

@@ -2278,7 +2278,7 @@
                                         <rect key="frame" x="0.0" y="149" width="600" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nht-1K-kka" id="oI4-1v-tYr">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="28"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="29"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mY9-w0-2YB">
@@ -2332,7 +2332,7 @@
                                         <rect key="frame" x="0.0" y="178" width="600" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EtW-x8-tQS" id="AnV-L4-Q3B">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="28"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="29"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtX-XA-7mb">
