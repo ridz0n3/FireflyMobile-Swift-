@@ -12,9 +12,9 @@ import SCLAlertView
 class BeaconManager: NSObject, ESTBeaconManagerDelegate {
     
     static let sharedInstance = BeaconManager()
+    
     var beaconManager = ESTBeaconManager()
     var region = CLBeaconRegion()
-    
     var major : CLBeaconMajorValue = 2793
     var minor : CLBeaconMinorValue = 19481
     var identifier = "time left"
@@ -45,18 +45,21 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
     func beaconManager(manager: AnyObject, didEnterRegion region: CLBeaconRegion) {
         print(region)
         
-        let notification = UILocalNotification()
-        if #available(iOS 8.2, *) {
-            notification.alertTitle = "Firefly"
-        } else {
-            // Fallback on earlier versions
+        if UIApplication.sharedApplication().applicationState == .Active{
+            showMessage()
+        }else{
+            let notification = UILocalNotification()
+            if #available(iOS 8.2, *) {
+                notification.alertTitle = "Firefly"
+            } else {
+                // Fallback on earlier versions
+            }
+            
+            notification.alertBody = "Welcome to Subang Airport"
+            notification.soundName = UILocalNotificationDefaultSoundName
+            //notification.applicationIconBadgeNumber = 1
+            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
-        
-        notification.alertBody = "Welcome to Subang Airport"
-        notification.soundName = UILocalNotificationDefaultSoundName
-        //notification.applicationIconBadgeNumber = 1
-        UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-        
         
     }
     

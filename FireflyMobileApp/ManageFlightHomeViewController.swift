@@ -282,15 +282,16 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     
     func detailBtnPressed(sender:UIButton){
         
-        //SCLAlertView.showSuccess
         SCLAlertView().showSuccess("Taxes/Fee", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
         
     }
     
     @IBAction func changeContactBtnPressed(sender: AnyObject) {
+        
         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
         let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeContactDetailVC") as! ChangeContactDetailViewController
         self.navigationController!.pushViewController(manageFlightVC, animated: true)
+        
     }
     
     @IBAction func EditPassengerBtnPressed(sender: AnyObject) {

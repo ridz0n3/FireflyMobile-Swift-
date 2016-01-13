@@ -1,3 +1,4 @@
+
 //
 //  FlightDetailViewController.swift
 //  FireflyMobileApp
@@ -26,14 +27,18 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
     var planGoing:Int = 1
     var planReturn:Int = 4
     var flightAvailable = Bool()
+    var isGoingSelected = Bool()
+    var isReturnSelected = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
         
         self.flightDetailTableView.tableHeaderView = headerView
-        selectedGoingFlight = 0
-        selectedReturnFlight = 0
+        isGoingSelected = false
+        isReturnSelected = false
+        //selectedGoingFlight = NSNumber()
+        //selectedReturnFlight = NSNumber()
         flightAvailable = true
         if flightDetail.count == 0{
             self.continueView.hidden = true
@@ -105,7 +110,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 cell.checkFlight.tag = indexPath.row
                 
                 if (planGoing == 1 && indexPath.section == 0) || (planReturn == 4 && indexPath.section == 1){
-                    cell.priceLbl.text = String(format: "MYR %.2f", (flightBasic!["total_fare"]?.floatValue)!)
+                    cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
                     cell.checkFlight.hidden = false
                     flightAvailable = true
                 }else{
@@ -117,7 +122,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                         flightAvailable = false
                         
                     }else{
-                        cell.priceLbl.text = String(format: "MYR %.2f", (flightFlex!["total_fare"]?.floatValue)!)
+                        cell.priceLbl.text = String(format: "%.2f MYR", (flightFlex!["total_fare"]?.floatValue)!)
                         cell.checkFlight.hidden = false
                     }
                     
@@ -125,7 +130,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 
                 if indexPath.section == 1{
                     cell.flightIcon.image = UIImage(named: "arrival_icon")
-                    
+                    cell.checkFlight.userInteractionEnabled = false
                     if NSNumber.init(integer: indexPath.row) == selectedReturnFlight{
                         selectedReturnFlight = NSNumber.init(integer: indexPath.row)
                         cell.checkFlight.checkState = M13CheckboxStateChecked
@@ -134,6 +139,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                     }
                 }else{
                     cell.flightIcon.image = UIImage(named: "departure_icon")
+                    cell.checkFlight.userInteractionEnabled = false
                     if NSNumber.init(integer: indexPath.row) == selectedGoingFlight{
                         selectedGoingFlight = NSNumber.init(integer: indexPath.row)
                         cell.checkFlight.checkState = M13CheckboxStateChecked
@@ -197,9 +203,11 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         if indexPath.section == 1{
             selectedReturnFlight = NSNumber(integer: indexPath.row)
             self.flightDetailTableView.reloadData()
+            isReturnSelected = true
         }else{
             selectedGoingFlight = NSNumber(integer: indexPath.row)
             self.flightDetailTableView.reloadData()
+            isGoingSelected = true
         }
     }
     
@@ -240,7 +248,11 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         
         var parameters:[String:AnyObject] = [String:AnyObject]()
         
-        if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out"{
+        if !isGoingSelected{
+            self.showToastMessage("Please select Going Flight")
+        }else if !isReturnSelected && defaults.objectForKey("type")! as! NSNumber != 0{
+            self.showToastMessage("Please select Return Flight")
+        }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out"{
             self.showToastMessage("Please select Going Flight")
         }else{
             

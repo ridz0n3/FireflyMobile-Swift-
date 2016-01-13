@@ -23,6 +23,9 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     var arrivalSelected = Int()
     var departureSelected = Int()
     
+    var departureText = String()
+    var arrivalText = String()
+    
     var type : Int = 1
     var validate : Bool = false
     
@@ -246,7 +249,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 defaults.synchronize()
                 
                 showHud()
-                FireFlyProvider.request(.SearchFlight(type, location[departureSelected]["location_code"]! as! String, travel[arrivalSelected]["travel_location_code"]! as! String, departureDateLbl, arrivalDateLbl, cell2.adultCount.text!, cell2.infantCount.text!, defaults.objectForKey("signatureLoad")! as! String), completion: { (result) -> () in
+                FireFlyProvider.request(.SearchFlight(type, location[departureSelected]["location_code"]! as! String, travel[arrivalSelected]["travel_location_code"]! as! String, departureText, arrivalText, cell2.adultCount.text!, cell2.infantCount.text!, defaults.objectForKey("signatureLoad")! as! String), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
@@ -344,8 +347,10 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         }
         
         arrivalDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
+        departureText = (notif.userInfo!["date"] as? String)!
         
-        departureDateLbl = (notif.userInfo!["date"] as? String)!
+        let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
+        departureDateLbl = "\(date[2])/\(date[1])/\(date[0])"
         searchFlightTableView.reloadData()
         
     }
@@ -353,7 +358,10 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     func returnDate(notif:NSNotification){
         print(notif.userInfo!["date"])
         
-        arrivalDateLbl = (notif.userInfo!["date"] as? String)!
+        arrivalText = (notif.userInfo!["date"] as? String)!
+        
+        let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
+        arrivalDateLbl = "\(date[2])/\(date[1])/\(date[0])"
         searchFlightTableView.reloadData()
         
     }
