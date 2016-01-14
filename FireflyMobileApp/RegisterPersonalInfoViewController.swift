@@ -238,7 +238,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         rowDescriptor.cellForFormController(self).unhighlight()
         if rowDescriptor.tag == Tags.ValidationCountry{
             var stateArr = [NSDictionary]()
-            let defaults = NSUserDefaults.standardUserDefaults()
             let state = defaults.objectForKey("state") as! NSMutableArray
             
             for stateData in state{

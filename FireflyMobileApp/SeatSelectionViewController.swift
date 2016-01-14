@@ -25,7 +25,6 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
         continueBtn.layer.cornerRadius = 10
         
         setupLeftButton()
-        let defaults = NSUserDefaults.standardUserDefaults()
         let journeys = defaults.objectForKey("journey") as! NSArray
         passenger = defaults.objectForKey("passenger") as! NSArray
         sectionSelect = NSIndexPath(forRow: 0, inSection: 0)
@@ -525,8 +524,6 @@ class SeatSelectionViewController: BaseViewController, UITableViewDelegate, UITa
     }
 
     @IBAction func continueBtnPressed(sender: AnyObject) {
-        
-        let defaults = NSUserDefaults.standardUserDefaults()
         
         let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
         let signature = defaults.objectForKey("signature") as! String

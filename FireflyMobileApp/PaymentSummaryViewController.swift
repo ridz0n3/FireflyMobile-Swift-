@@ -26,7 +26,6 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         
         setupLeftButton()
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         let paymentDetail = defaults.objectForKey("itenerary") as! NSDictionary
         flightDetail = paymentDetail["flight_details"] as! NSArray
         priceDetail = (paymentDetail["price_details"]?.mutableCopy())! as! NSMutableArray
@@ -165,7 +164,6 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     @IBAction func continueBtnPressed(sender: AnyObject) {
         
         self.showHud()
-        let defaults = NSUserDefaults.standardUserDefaults()
         
         let signature = defaults.objectForKey("signature") as! String
         

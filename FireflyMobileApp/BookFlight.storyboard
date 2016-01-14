@@ -783,10 +783,10 @@
             </objects>
             <point key="canvasLocation" x="-886" y="817"/>
         </scene>
-        <!--Contact Detail View Controller-->
+        <!--Add Contact Detail View Controller-->
         <scene sceneID="bwg-8Y-UQk">
             <objects>
-                <viewController storyboardIdentifier="ContactDetailVC" id="TwG-Sw-9p9" customClass="ContactDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactDetailVC" id="TwG-Sw-9p9" customClass="AddContactDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6e4-2D-Gva"/>
                         <viewControllerLayoutGuide type="bottom" id="gRs-7R-mTP"/>
@@ -857,19 +857,6 @@
                                     <rect key="frame" x="0.0" y="197" width="600" height="250"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWl-xN-fec">
-                                            <rect key="frame" x="16" y="154" width="568" height="40"/>
-                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="0lx-Wh-QDE"/>
-                                            </constraints>
-                                            <state key="normal" title="Continue without seat selection ">
-                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="continuePaymentBtnPressed:" destination="TwG-Sw-9p9" eventType="touchUpInside" id="Upe-zN-u3s"/>
-                                            </connections>
-                                        </button>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhI-b7-PY0">
                                             <rect key="frame" x="16" y="202" width="568" height="40"/>
                                             <constraints>
@@ -883,7 +870,7 @@
                                             </connections>
                                         </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WcS-kt-hFh">
-                                            <rect key="frame" x="16" y="0.0" width="568" height="146"/>
+                                            <rect key="frame" x="16" y="0.0" width="568" height="120"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Travel Protection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwT-k6-g3W">
                                                     <rect key="frame" x="0.0" y="8" width="568" height="35"/>
@@ -902,8 +889,8 @@
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                                 </textView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" misplaced="YES" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWJ-th-eaf">
-                                                    <rect key="frame" x="32" y="82" width="536" height="34"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" scrollEnabled="NO" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWJ-th-eaf">
+                                                    <rect key="frame" x="32" y="82" width="536" height="33"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -917,8 +904,8 @@
                                                         <constraint firstAttribute="height" constant="24" id="gPB-i3-K9h"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCU-ow-ydi">
-                                                    <rect key="frame" x="0.0" y="119" width="568" height="25"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WCU-ow-ydi">
+                                                    <rect key="frame" x="0.0" y="118" width="568" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -958,12 +945,24 @@
                                                 </mask>
                                             </variation>
                                         </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWl-xN-fec">
+                                            <rect key="frame" x="16" y="154" width="568" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="0lx-Wh-QDE"/>
+                                            </constraints>
+                                            <state key="normal" title="Continue without seat selection ">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="continuePaymentBtnPressed:" destination="TwG-Sw-9p9" eventType="touchUpInside" id="Upe-zN-u3s"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="WcS-kt-hFh" secondAttribute="trailing" constant="16" id="04I-eT-DOl"/>
                                         <constraint firstAttribute="trailing" secondItem="YWl-xN-fec" secondAttribute="trailing" constant="16" id="1gI-zn-slD"/>
-                                        <constraint firstItem="YWl-xN-fec" firstAttribute="top" secondItem="WcS-kt-hFh" secondAttribute="bottom" constant="8" id="4nV-YZ-cjm"/>
                                         <constraint firstAttribute="bottom" secondItem="EhI-b7-PY0" secondAttribute="bottom" constant="8" id="D5u-Xa-HQI"/>
                                         <constraint firstItem="WcS-kt-hFh" firstAttribute="top" secondItem="jvh-PF-TRW" secondAttribute="top" id="I3e-Vh-qJN"/>
                                         <constraint firstItem="EhI-b7-PY0" firstAttribute="top" secondItem="YWl-xN-fec" secondAttribute="bottom" constant="8" id="VQq-Fq-Zsy"/>
@@ -1001,10 +1000,10 @@
             </objects>
             <point key="canvasLocation" x="1100" y="817"/>
         </scene>
-        <!--Passenger Detail View Controller-->
+        <!--Add Passenger Detail View Controller-->
         <scene sceneID="V1v-5x-ldB">
             <objects>
-                <viewController storyboardIdentifier="PassengerDetailVC" id="bFk-bS-vD3" customClass="PassengerDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PassengerDetailVC" id="bFk-bS-vD3" customClass="AddPassengerDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2bQ-aC-0Cw"/>
                         <viewControllerLayoutGuide type="bottom" id="Op6-at-iqO"/>
@@ -1108,8 +1107,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="footerView" destination="RMj-xI-X8z" id="zn5-Z3-A5m"/>
-                        <outlet property="headerView" destination="z5L-xD-CXd" id="Nip-Dp-2Ub"/>
+                        <outlet property="footerView" destination="RMj-xI-X8z" id="cKd-KL-j8u"/>
+                        <outlet property="headerView" destination="z5L-xD-CXd" id="uCW-6P-H9M"/>
                         <outlet property="tableView" destination="5iy-YW-l5z" id="aCp-qk-DDU"/>
                     </connections>
                 </viewController>

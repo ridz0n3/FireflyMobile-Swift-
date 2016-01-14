@@ -94,7 +94,6 @@ class ManageFlightViewController: BaseXLFormViewController {
                         
                         if  json["status"].string == "success"{
                             self.showToastMessage(json["status"].string!)
-                            let defaults = NSUserDefaults.standardUserDefaults()
                             defaults.setObject(json.object, forKey: "manageFlight")
                             defaults.synchronize()
                             

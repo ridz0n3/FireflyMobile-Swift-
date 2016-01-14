@@ -36,6 +36,7 @@ public enum FireFlyAPI {
     case FlightSummary(String)
     case Logout(String)
     case RetrieveBooking(String, String, String)
+    case ChangeContact(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     
 }
 
@@ -81,11 +82,13 @@ extension FireFlyAPI : TargetType {
             return "api/logout"
         case RetrieveBooking:
             return "api/retrieveBooking"
+        case ChangeContact:
+            return "api/changeContact"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .FlightSummary, .Logout, .RetrieveBooking:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .FlightSummary, .Logout, .RetrieveBooking, .ChangeContact:
             return .POST
             
         default:
@@ -119,7 +122,8 @@ extension FireFlyAPI : TargetType {
             return ["signature" : signature]
         case .RetrieveBooking(let signature, let pnr, let email):
             return ["signature" : signature, "pnr" : pnr, "username" : email]
-            
+        case .ChangeContact(let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature, let companyName, let address1, let address2, let address3, let city, let state, let postcode, let pnr):
+            return ["booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode, "pnr" : pnr]
         default:
             return nil
         }

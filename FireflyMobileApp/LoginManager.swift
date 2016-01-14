@@ -14,8 +14,6 @@ class LoginManager {
     
     func isLogin() throws -> Bool {
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-        
         if (defaults.objectForKey("userInfo") != nil){
             
             if defaults.objectForKey("userInfo")?.count != nil{

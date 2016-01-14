@@ -9,10 +9,11 @@
 import UIKit
 import MBProgressHUD
 import SwiftValidator
-
+import SCLAlertView
 
 class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDelegate {
 
+    var alertView = SCLAlertView()
     @IBOutlet weak var borderView: UIView!
     var HUD : MBProgressHUD = MBProgressHUD()
     var location = [NSDictionary]()
@@ -104,13 +105,16 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     }
     
     func showHud(){
-        HUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        /*HUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         HUD.mode = MBProgressHUDMode.Indeterminate
-        HUD.labelText = "Loading"
+        HUD.labelText = "Loading"*/
+        alertView.showCloseButton = false
+        alertView.showWait("Loading...", subTitle: "", colorStyle: 0xEC581A)
     }
     
     func hideHud(){
-        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+        alertView.hideView()
+        //MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
     }
     
     func showToastMessage(message:String){
@@ -148,7 +152,6 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     
     func getDepartureAirport(){
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         let flight = defaults.objectForKey("flight") as! NSMutableArray
         var first = flight[0]["location_code"]
         location.append(flight[0] as! NSDictionary)
@@ -167,7 +170,6 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     
     func getArrivalAirport(departureAirport: String){
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         let flight = defaults.objectForKey("flight") as! NSMutableArray
         let first = departureAirport
         

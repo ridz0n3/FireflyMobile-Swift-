@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */; };
+		7E11C0851C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11C0841C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift */; };
+		7E11C0871C47AC9700C67BD2 /* AddPassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11C0861C47AC9700C67BD2 /* AddPassengerDetailViewController.swift */; };
+		7E11C0891C47AEE300C67BD2 /* EditPassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */; };
 		7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */; };
 		7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */; };
-		7E16D4521C1FA5B6002E7BDD /* ContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */; };
 		7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */; };
 		7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */; };
 		7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1F77E01BF96E6C00F55C46 /* Main.storyboard */; };
@@ -64,6 +66,9 @@
 		7E99B8601C2A6B1400239322 /* PaymentSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */; };
 		7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */; };
 		7E9A53831C3B5D21001094F5 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A53821C3B5D21001094F5 /* LoginManager.swift */; };
+		7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */; };
+		7EA286371C4776A30004AB9A /* AddContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */; };
+		7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */; };
 		7EA56E911C279B28002AD40C /* SeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */; };
 		7EA56E931C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */; };
 		7EB07AFE1C28F6640061D1C9 /* directionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB07AFD1C28F6640061D1C9 /* directionView.xib */; };
@@ -117,9 +122,11 @@
 /* Begin PBXFileReference section */
 		0F9AC93C947F773EF563C73C /* Pods-FireflyMobileApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.debug.xcconfig"; sourceTree = "<group>"; };
 		615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPasswordExpiredlTableViewCell.swift; sourceTree = "<group>"; };
+		7E11C0841C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPassengerDetailViewController.swift; sourceTree = "<group>"; };
+		7E11C0861C47AC9700C67BD2 /* AddPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPassengerDetailViewController.swift; sourceTree = "<group>"; };
+		7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPassengerDetailViewController.swift; sourceTree = "<group>"; };
 		7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledPickerCell.swift; sourceTree = "<group>"; };
 		7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloateLabeledDatePickerCell.swift; sourceTree = "<group>"; };
-		7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactDetailViewController.swift; sourceTree = "<group>"; };
 		7E1F77D91BF96E6C00F55C46 /* FireflyMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireflyMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -180,6 +187,9 @@
 		7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSummaryViewController.swift; sourceTree = "<group>"; };
 		7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPaymentSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		7E9A53821C3B5D21001094F5 /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonContactDetailViewController.swift; sourceTree = "<group>"; };
+		7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactDetailViewController.swift; sourceTree = "<group>"; };
+		7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatSelectionViewController.swift; sourceTree = "<group>"; };
 		7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSeatSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		7EB07AFD1C28F6640061D1C9 /* directionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = directionView.xib; sourceTree = "<group>"; };
@@ -276,6 +286,7 @@
 				7E1F780A1BF9793100F55C46 /* Home */,
 				7E1F78151BF9ABCB00F55C46 /* Login */,
 				7E1F78241BF9C1B000F55C46 /* Registration */,
+				7EA286331C4774B40004AB9A /* CommonClass */,
 				7E1F782F1BF9D67B00F55C46 /* Book Flight */,
 				7E6930F71BFAF994004F1719 /* Manage Flight */,
 				7E6931101BFB1F0A004F1719 /* Mobile Check-In */,
@@ -386,7 +397,8 @@
 				7E1F78321BF9D7A200F55C46 /* SearchFlightViewController.swift */,
 				7E20F90A1BFA02470020AB0C /* FlightDetailViewController.swift */,
 				7EC1DBCA1C15316500677D55 /* PassengerDetailViewController.swift */,
-				7E16D4511C1FA5B6002E7BDD /* ContactDetailViewController.swift */,
+				7E11C0861C47AC9700C67BD2 /* AddPassengerDetailViewController.swift */,
+				7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */,
 				7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */,
 				7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */,
 				7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */,
@@ -421,6 +433,7 @@
 				7E6930FC1BFAFEE6004F1719 /* ManageFlight.storyboard */,
 				7E69310E1BFB1BFA004F1719 /* ManageFlightViewController.swift */,
 				7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */,
+				7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */,
 				7E6931021BFB08AA004F1719 /* ChangeContactDetailViewController.swift */,
 				7E6931041BFB0BD5004F1719 /* EditPassengerViewController.swift */,
 				7E6931061BFB10FA004F1719 /* ChangeFlightViewController.swift */,
@@ -428,6 +441,7 @@
 				7E69310C1BFB195D004F1719 /* SendItineraryViewController.swift */,
 				7E6930F81BFAFE17004F1719 /* FlightHeaderView.xib */,
 				7E6930FA1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift */,
+				7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */,
 			);
 			name = "Manage Flight";
 			sourceTree = "<group>";
@@ -458,6 +472,15 @@
 				7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */,
 			);
 			name = SideMenu;
+			sourceTree = "<group>";
+		};
+		7EA286331C4774B40004AB9A /* CommonClass */ = {
+			isa = PBXGroup;
+			children = (
+				7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */,
+				7E11C0841C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift */,
+			);
+			name = CommonClass;
 			sourceTree = "<group>";
 		};
 		7EB829E11C0AC23200E83320 /* Profile */ = {
@@ -737,6 +760,7 @@
 				7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */,
 				7E6931031BFB08AA004F1719 /* ChangeContactDetailViewController.swift in Sources */,
 				7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */,
+				7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */,
 				7E20F9111BFA0A760020AB0C /* FlightHeaderView.swift in Sources */,
 				7E6931181BFB2659004F1719 /* CheckInTermViewController.swift in Sources */,
 				7EBBFA041C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift in Sources */,
@@ -744,6 +768,7 @@
 				7E6931161BFB22C6004F1719 /* CheckInDetailViewController.swift in Sources */,
 				7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */,
 				7EC3272A1C44D914001C89B5 /* Booking+CoreDataProperties.swift in Sources */,
+				7EA286371C4776A30004AB9A /* AddContactDetailViewController.swift in Sources */,
 				7E9A53831C3B5D21001094F5 /* LoginManager.swift in Sources */,
 				7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */,
 				7E1F78181BF9AC3800F55C46 /* BaseViewController.swift in Sources */,
@@ -760,7 +785,9 @@
 				7E69310F1BFB1BFA004F1719 /* ManageFlightViewController.swift in Sources */,
 				7E69310B1BFB18EB004F1719 /* ChangeSeatViewController.swift in Sources */,
 				7E6931091BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift in Sources */,
+				7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */,
 				7E6931141BFB1F6B004F1719 /* CheckInViewController.swift in Sources */,
+				7E11C0871C47AC9700C67BD2 /* AddPassengerDetailViewController.swift in Sources */,
 				7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */,
 				7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */,
 				7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */,
@@ -773,11 +800,11 @@
 				7EA56E911C279B28002AD40C /* SeatSelectionViewController.swift in Sources */,
 				7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */,
 				9615B07C1C1137DD000B522F /* FireflyAPI.swift in Sources */,
+				7E11C0851C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift in Sources */,
 				7E6931011BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift in Sources */,
 				7EB07B001C28F8440061D1C9 /* DirectionView.swift in Sources */,
 				7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */,
 				7E6931051BFB0BD5004F1719 /* EditPassengerViewController.swift in Sources */,
-				7E16D4521C1FA5B6002E7BDD /* ContactDetailViewController.swift in Sources */,
 				7ECB1B361C437E120042456D /* BeaconManager.swift in Sources */,
 				7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */,
 				7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */,
@@ -787,6 +814,7 @@
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
 				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
 				7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */,
+				7E11C0891C47AEE300C67BD2 /* EditPassengerDetailViewController.swift in Sources */,
 				7E6930FB1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift in Sources */,
 				7E1F782A1BF9CD2800F55C46 /* RegisterPersonalInfoViewController.swift in Sources */,
 				7EC1DBCB1C15316500677D55 /* PassengerDetailViewController.swift in Sources */,

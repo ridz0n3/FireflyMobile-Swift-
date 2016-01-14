@@ -97,7 +97,6 @@ class LoginViewController: BaseXLFormViewController {
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         if  json["status"].string == "success"{
                             self.showToastMessage(json["status"].string!)
-                            let defaults = NSUserDefaults.standardUserDefaults()
                             defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                             defaults.setObject(json["user_info"].object , forKey: "userInfo")
                             defaults.synchronize()

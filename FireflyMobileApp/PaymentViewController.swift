@@ -193,7 +193,6 @@ class PaymentViewController: BaseXLFormViewController, SFSafariViewControllerDel
                     self.showToastMessage("Invalid Date")
                 }else{
                     
-                    let defaults = NSUserDefaults.standardUserDefaults()
                     let signature = defaults.objectForKey("signature") as! String
                     let bookingID = "\(defaults.objectForKey("booking_id")!)"
                     let channelType = "1"

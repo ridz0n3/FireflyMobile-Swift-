@@ -32,7 +32,6 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         
         setupMenuButton()
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         let itineraryData = defaults.objectForKey("itinerary") as! NSDictionary
         
         flightDetail = itineraryData["flight_details"] as! NSArray
@@ -73,7 +72,6 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = appDelegate.managedObjectContext
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         
         let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName("Booking", inManagedObjectContext: context) as! Booking
         

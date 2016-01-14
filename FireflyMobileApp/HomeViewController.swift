@@ -58,7 +58,6 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath) as! CustomHomeMenuTableViewCell
-            let defaults = NSUserDefaults.standardUserDefaults()
             
             if (defaults.objectForKey("banner") != nil){
                 let url = NSURL(string: defaults.objectForKey("banner") as! String)!

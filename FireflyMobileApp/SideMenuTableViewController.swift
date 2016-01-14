@@ -88,7 +88,6 @@ class SideMenuTableViewController: BaseViewController {
         
         
         if hideRow == true{
-            let defaults = NSUserDefaults.standardUserDefaults()
             let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
             let greetMsg = String(format: "Hi, %@", userInfo["first_name"] as! String)
             
@@ -150,7 +149,6 @@ class SideMenuTableViewController: BaseViewController {
             let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC")
             controllers.append(homeVC)
             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
-            let defaults = NSUserDefaults.standardUserDefaults()
             let signature = defaults.objectForKey("signatureLoad") as! String
             //self.showHud()
             FireFlyProvider.request(.Logout(signature), completion: { (result) -> () in
@@ -163,7 +161,6 @@ class SideMenuTableViewController: BaseViewController {
                             //self.showToastMessage(json["status"].string!)
                             self.hideRow = false
                             self.sideMenuTableView.reloadData()
-                            let defaults = NSUserDefaults.standardUserDefaults()
                             defaults.setObject("", forKey: "userInfo")
                             defaults.synchronize()
                             

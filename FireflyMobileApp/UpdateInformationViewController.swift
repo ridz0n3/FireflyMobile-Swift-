@@ -27,7 +27,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         }
         
         var stateArr = [NSDictionary]()
-        let defaults = NSUserDefaults.standardUserDefaults()
         let state = defaults.objectForKey("state") as! NSMutableArray
         
         for stateData in state{
@@ -79,7 +78,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
     
     func initializeForm() {
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
         
         let form : XLFormDescriptor
@@ -337,7 +335,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         rowDescriptor.cellForFormController(self).unhighlight()
         if rowDescriptor.tag == Tags.ValidationCountry{
             var stateArr = [NSDictionary]()
-            let defaults = NSUserDefaults.standardUserDefaults()
             let state = defaults.objectForKey("state") as! NSMutableArray
             
             for stateData in state{
@@ -482,7 +479,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
             if result["status"].string == "success"{
                 self.showToastMessage(result["status"].string!)
                 
-                let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(result["user_info"].dictionaryObject, forKey: "userInfo")
                 defaults.synchronize()
                 

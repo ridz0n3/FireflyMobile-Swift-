@@ -8,11 +8,23 @@
 
 import UIKit
 
+let defaults = NSUserDefaults.standardUserDefaults()
 let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
 let iv = "owNLfnLjPvwbQH3h" // length == 16
 let kBaseURL = "http://fyapidev.me-tech.com.my/api"
 let estimote_uuid = NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")
 let virtual_uuid = NSUUID(UUIDString: "8492E75F-4FD6-469D-B132-043FE94921D8")
+
+
+var purposeArray = [["purpose_code":"1","purpose_name":"Leisure"],["purpose_code":"2","purpose_name":"Business"]]
+var travelDoc = [["doc_code":"P","doc_name":"Passport"],["doc_code":"NRIC","doc_name":"Malaysia IC"],["doc_code":"V","doc_name":"Travel VISA"]]
+var genderArray = [["gender_code":"Female","gender_name":"Female"],["gender_code":"Male","gender_name":"Male"]]
+
+extension String {
+    var html2String:NSAttributedString {
+        return try! NSAttributedString(data:dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
+    }
+}
 
 extension UIViewController: UITextFieldDelegate{
     func addToolBar(textField: UITextField){

@@ -242,7 +242,6 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 showToastMessage("Passenger must not exceed 9 people")
             }else{
                 
-                let defaults = NSUserDefaults.standardUserDefaults()
                 defaults.setObject(cell2.adultCount.text!, forKey: "adult")
                 defaults.setObject(cell2.infantCount.text!, forKey: "infant")
                 defaults.setObject(type, forKey: "type")
@@ -260,7 +259,6 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                             if json["status"] == "success"{
                                 self.showToastMessage(json["status"].string!)
                                 
-                                let defaults = NSUserDefaults.standardUserDefaults()
                                 defaults.setObject(json["signature"].string, forKey: "signature")
                                 defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)

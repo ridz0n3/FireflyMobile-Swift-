@@ -14,7 +14,6 @@ class InitialLoadManager {
     static let sharedInstance = InitialLoadManager()
     
     func load(){
-        let defaults = NSUserDefaults.standardUserDefaults()
         var existDataVersion = String()
         
         if (defaults.objectForKey("dataVersion") != nil){
@@ -38,8 +37,6 @@ class InitialLoadManager {
                     
                     if json["status"] != nil{
                         if json["status"].string  == "success"{
-                            
-                            let defaults = NSUserDefaults.standardUserDefaults()
                             
                             if (defaults.objectForKey("dataVersion") != nil){
                                 existDataVersion = defaults.objectForKey("dataVersion") as! String

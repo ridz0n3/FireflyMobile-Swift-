@@ -30,7 +30,6 @@ let XLFormRowDescriptorTypeFloatLabeledTextField = "XLFormRowDescriptorTypeFloat
 
 extension XLFormBaseCell: UITextFieldDelegate{
     func addToolBar(textField: UITextField){
-        let tap1 = UITapGestureRecognizer(target: textField, action: "onSingleTap")
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.Default
         toolBar.translucent = true
@@ -44,7 +43,6 @@ extension XLFormBaseCell: UITextFieldDelegate{
         
         textField.delegate = self
         textField.inputAccessoryView = toolBar
-        textField.addGestureRecognizer(tap1)
     }
     func donePressed(){
         self.endEditing(true)
@@ -82,9 +80,6 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
         contentView.addConstraints(layoutConstraints())
     }
     
-    func onSingleTap(){
-        self.floatLabeledTextField.resignFirstResponder()
-    }
     
     override func update() {
         super.update()

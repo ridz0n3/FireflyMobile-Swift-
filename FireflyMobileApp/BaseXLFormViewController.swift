@@ -10,11 +10,14 @@ import UIKit
 import MBProgressHUD
 import XLForm
 import SwiftValidator
+import SCLAlertView
 
 var isValidate: Bool = false
 
 class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, ValidationDelegate {
     
+    var alertView = SCLAlertView()
+    //var alertViewResponder = nil
     var HUD : MBProgressHUD = MBProgressHUD()
     let validator = Validator()
     
@@ -182,13 +185,13 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     }
     
     func showHud(){
-        HUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        HUD.mode = MBProgressHUDMode.Indeterminate
-        HUD.labelText = "Loading"
+        alertView.showCloseButton = false
+        alertView.showWait("Loading...", subTitle: "", colorStyle: 0xEC581A)
     }
     
     func hideHud(){
-        MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+        alertView.hideView()
+        //MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
     }
     
     func showToastMessage(message:String){
@@ -287,6 +290,16 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         return genderCode
     }
     
+    func showWaiting(){
+        
+        alertView.showCloseButton = false
+        alertView.showWait("Loading...", subTitle: "", colorStyle: 0xEC581A)
+    }
+    
+    func hideWaiting(){
+        //let alertViewResponder : SCLAlertViewResponder = alertView
+        alertView.hideView()
+    }
     /*
     // MARK: - Navigation
 

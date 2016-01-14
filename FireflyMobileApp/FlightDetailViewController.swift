@@ -227,7 +227,6 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @IBAction func continueButtonPressed(sender: AnyObject) {
-        let defaults = NSUserDefaults.standardUserDefaults()
         var userInfo = NSMutableDictionary()
         
         if try! LoginManager.sharedInstance.isLogin(){
@@ -304,7 +303,6 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                         self.hideHud()
                         
                         self.showToastMessage(result["status"].string!)
-                        let defaults = NSUserDefaults.standardUserDefaults()
                         defaults.setObject(result["booking_id"].int , forKey: "booking_id")
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! PassengerDetailViewController
@@ -345,11 +343,10 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                     self.hideHud()
                     
                     self.showToastMessage(result["status"].string!)
-                    let defaults = NSUserDefaults.standardUserDefaults()
                     defaults.setObject(result["booking_id"].int , forKey: "booking_id")
                     print(result["booking_id"].int)
                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                    let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! PassengerDetailViewController
+                    let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
                     self.navigationController!.pushViewController(personalDetailVC, animated: true)
                     
                 }

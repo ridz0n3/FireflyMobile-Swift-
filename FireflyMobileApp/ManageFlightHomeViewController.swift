@@ -57,7 +57,6 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         addPaymentBtn.layer.borderWidth = 0.5
         addPaymentBtn.layer.cornerRadius = 10.0
         
-        let defaults = NSUserDefaults.standardUserDefaults()
         let itineraryData = defaults.objectForKey("manageFlight") as! NSDictionary
         flightDetail = itineraryData["flight_details"] as! NSArray
         priceDetail = (itineraryData["price_details"]?.mutableCopy())! as! NSMutableArray
@@ -289,14 +288,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     @IBAction func changeContactBtnPressed(sender: AnyObject) {
         
         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeContactDetailVC") as! ChangeContactDetailViewController
+        let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageContactDetailVC") as! EditContactDetailViewController
         self.navigationController!.pushViewController(manageFlightVC, animated: true)
         
     }
     
     @IBAction func EditPassengerBtnPressed(sender: AnyObject) {
         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        let editPassengerVC = storyboard.instantiateViewControllerWithIdentifier("EditPassengerVC") as! EditPassengerViewController
+        let editPassengerVC = storyboard.instantiateViewControllerWithIdentifier("EditPassengerDetailVC") as! EditPassengerDetailViewController
+        editPassengerVC.passengerInformation = passengerInformation
         self.navigationController!.pushViewController(editPassengerVC, animated: true)
     }
     

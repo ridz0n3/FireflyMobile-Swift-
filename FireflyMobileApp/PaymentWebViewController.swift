@@ -53,7 +53,6 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
     func userContentController(userContentController: WKUserContentController,didReceiveScriptMessage message: WKScriptMessage) {
         if(message.name == "callbackHandler") {
             
-            let defaults = NSUserDefaults.standardUserDefaults()
             let signature = defaults.objectForKey("signature") as! String
             
             showHud()
@@ -68,7 +67,6 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
                         
                         if json["status"] == "success"{
                             self.showToastMessage(json["status"].string!)
-                            let defaults = NSUserDefaults.standardUserDefaults()
                             defaults.setObject(json.object, forKey: "itinerary")
                             defaults.synchronize()
                             
