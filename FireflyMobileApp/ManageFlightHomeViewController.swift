@@ -41,6 +41,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     var priceDetail = NSMutableArray()
     var serviceDetail = NSArray()
     var isConfirm = Bool()
+    var pnr = String()
+    var bookingId = String()
+    var signature = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -351,9 +354,43 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     }
     
     @IBAction func ChangeSeatBtnPressed(sender: AnyObject) {
-        //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        //let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeFlightVC") as! ChangeFlightViewController
-        //self.navigationController!.pushViewController(manageFlightVC, animated: true)
+        pnr = itineraryInformation["pnr"] as! String
+        bookingId = "\(itineraryData["booking_id"]!)"
+        signature = itineraryData["signature"] as! String
+        
+        showHud()
+        
+        FireFlyProvider.request(.GetAvailableSeat(pnr, bookingId, signature)) { (result) -> () in
+            switch result {
+            case .Success(let successResult):
+                do {
+                    self.hideHud()
+                    
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                        let changeSeatVC = storyboard.instantiateViewControllerWithIdentifier("EditSeatSelectionVC") as! EditSeatSelectionViewController
+                        changeSeatVC.isEdit = true
+                        changeSeatVC.pnr = self.pnr
+                        changeSeatVC.bookId = "\(self.bookingId)"
+                        changeSeatVC.signature = self.signature
+                        changeSeatVC.journeys = json["journeys"].arrayObject!
+                        self.navigationController!.pushViewController(changeSeatVC, animated: true)
+                    }else{
+                        self.showToastMessage(json["message"].string!)
+                    }
+                }
+                catch {
+                    
+                }
+                print (successResult.data)
+            case .Failure(let failureResult):
+                print (failureResult)
+            }
+
+        }
+  
     }
     
     @IBAction func AddPaymentBtnPressed(sender: AnyObject) {
@@ -370,9 +407,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     
     @IBAction func confirmBtnPressed(sender: AnyObject) {
         
-        let pnr = itineraryInformation["pnr"] as! String
-        let bookingId = "\(itineraryData["booking_id"]!)"
-        let signature = itineraryData["signature"] as! String
+        pnr = itineraryInformation["pnr"] as! String
+        bookingId = "\(itineraryData["booking_id"]!)"
+        signature = itineraryData["signature"] as! String
         
         showHud()
         FireFlyProvider.request(.ConfirmChange(pnr, bookingId, signature)) { (result) -> () in
@@ -403,6 +440,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         //let vController = navigationArray![2]
                         
                     }else if json["status"] == "need_payment"{
+                        
+                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
+                        paymentVC.totalDueStr = json["total_due"].string!
+                        //manageFlightVC.itineraryData = json.object as! NSDictionary
+                        self.navigationController!.pushViewController(paymentVC, animated: true)
                         
                     }else{
                         self.showToastMessage(json["message"].string!)

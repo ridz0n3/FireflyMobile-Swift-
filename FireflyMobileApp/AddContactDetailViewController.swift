@@ -221,7 +221,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                                 defaults.setObject(json["passengers"].arrayObject, forKey: "passenger")
                                 defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC") as! SeatSelectionViewController
+                                let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC") as! AddSeatSelectionViewController
                                 self.navigationController!.pushViewController(chooseSeatVC, animated: true)
                             }else{
                                 self.showToastMessage(json["message"].string!)

@@ -39,6 +39,8 @@ public enum FireFlyAPI {
     case ChangeContact(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     case EditPassengerDetail(AnyObject, AnyObject, String, String, String)
     case ConfirmChange(String, String, String)
+    case GetAvailableSeat(String, String, String)
+    case ChangeSeat(AnyObject, AnyObject, String, String, String)
     
 }
 
@@ -90,11 +92,16 @@ extension FireFlyAPI : TargetType {
             return "api/editPassengers"
         case ConfirmChange:
             return "api/changeConfirmation"
+        case GetAvailableSeat:
+            return "api/getSeatAvailability"
+        case ChangeSeat:
+            return "api/changeSeat"
+
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .FlightSummary, .Logout, .RetrieveBooking, .ChangeContact, .EditPassengerDetail, .ConfirmChange:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .FlightSummary, .Logout, .RetrieveBooking, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat:
             return .POST
             
         default:
@@ -134,6 +141,10 @@ extension FireFlyAPI : TargetType {
             return ["passengers" : adult, "infants" : infant, "booking_id" : bookId, "signature" : signature, "pnr" : pnr]
         case .ConfirmChange(let pnr, let booking_id, let signature):
             return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature]
+        case .GetAvailableSeat(let pnr, let booking_id, let signature):
+            return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature]
+        case .ChangeSeat(let goingFlight, let returnFlight, let bookId, let signature, let pnr):
+            return ["going_flight" : goingFlight, "return_flight" : returnFlight, "booking_id" : bookId, "signature" : signature, "pnr" : pnr]
         default:
             return nil
         }

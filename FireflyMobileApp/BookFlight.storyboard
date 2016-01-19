@@ -1116,10 +1116,10 @@
             </objects>
             <point key="canvasLocation" x="428" y="817"/>
         </scene>
-        <!--Seat Selection View Controller-->
+        <!--Add Seat Selection View Controller-->
         <scene sceneID="GHz-Dt-d21">
             <objects>
-                <viewController storyboardIdentifier="SeatSelectionVC" id="Rzc-CS-Xmv" customClass="SeatSelectionViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SeatSelectionVC" id="Rzc-CS-Xmv" customClass="AddSeatSelectionViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="G7j-lt-eBq"/>
                         <viewControllerLayoutGuide type="bottom" id="gmy-Hi-FOK"/>
@@ -1953,10 +1953,10 @@
             </objects>
             <point key="canvasLocation" x="2418" y="817"/>
         </scene>
-        <!--Payment View Controller-->
+        <!--Add Payment View Controller-->
         <scene sceneID="Juh-yV-31r">
             <objects>
-                <viewController storyboardIdentifier="PaymentVC" id="LEw-aL-M4z" customClass="PaymentViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PaymentVC" id="LEw-aL-M4z" customClass="AddPaymentViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fla-L7-RNz"/>
                         <viewControllerLayoutGuide type="bottom" id="lFS-cR-edl"/>

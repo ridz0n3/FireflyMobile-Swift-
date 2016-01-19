@@ -181,7 +181,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                         let paymentChannel = json["payment_channel"].arrayObject
                         
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! PaymentViewController
+                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! AddPaymentViewController
                         paymentVC.paymentType = paymentChannel!
                         paymentVC.totalDue = amountDue!
                         self.navigationController!.pushViewController(paymentVC, animated: true)

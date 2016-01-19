@@ -135,12 +135,12 @@ class SideMenuTableViewController: BaseViewController {
         }else if (indexPath.row == 4) {
             
             //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-            //let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC")
+            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC")
-            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("FlightSummaryVC")
+            let homeVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC")
-            //controllers.append(homeVC)
+            controllers.append(homeVC)
             
         }else if (indexPath.row == 5) {
             
@@ -148,11 +148,11 @@ class SideMenuTableViewController: BaseViewController {
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC")
             controllers.append(homeVC)
-            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
+            
             let signature = defaults.objectForKey("signatureLoad") as! String
-            //self.showHud()
+            showHud()
             FireFlyProvider.request(.Logout(signature), completion: { (result) -> () in
-                //self.hideHud()
+                self.hideHud()
                 switch result {
                 case .Success(let successResult):
                     do {
@@ -165,7 +165,7 @@ class SideMenuTableViewController: BaseViewController {
                             defaults.synchronize()
                             
                             InitialLoadManager.sharedInstance.load()
-                            
+                            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
                         }else{
                             //self.showToastMessage(json["message"].string!)
                         }
