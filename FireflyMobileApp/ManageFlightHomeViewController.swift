@@ -9,6 +9,7 @@
 import UIKit
 import SCLAlertView
 import CoreData
+import SwiftyJSON
 
 class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, UITableViewDataSource {
     
@@ -18,10 +19,16 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     @IBOutlet weak var changePassangerBtn: UIButton!
     @IBOutlet weak var changeFlightBtn: UIButton!
     @IBOutlet weak var changeContactBtn: UIButton!
+    @IBOutlet weak var confirmView: UIView!
+    @IBOutlet weak var buttonView: UIView!
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var flightSummarryTableView: UITableView!
+    @IBOutlet weak var confirmBtn: UIButton!
+    @IBOutlet weak var cancelBtn: UIButton!
     
     var contacts = [NSManagedObject]()
-    @IBOutlet weak var flightSummarryTableView: UITableView!
     
+    var itineraryData = NSDictionary()
     var flightDetail = NSArray()
     var totalPrice = String()
     var insuranceDetails = NSDictionary()
@@ -33,31 +40,64 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     var totalPaid = String()
     var priceDetail = NSMutableArray()
     var serviceDetail = NSArray()
+    var isConfirm = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupMenuButton()
         
-        sendItineraryBtn.layer.borderWidth = 0.5
-        sendItineraryBtn.layer.cornerRadius = 10.0
+        if isConfirm{
+            confirmView.hidden = false
+            buttonView.hidden = true
+            
+            cancelBtn.layer.borderWidth = 0.5
+            cancelBtn.layer.cornerRadius = 10.0
+            
+            confirmBtn.layer.borderWidth = 0.5
+            confirmBtn.layer.cornerRadius = 10.0
+            
+            var newFrame = headerView.frame
+            newFrame.size.height = 222
+            headerView.frame = newFrame
+            
+            getInfo()
+            
+        }else{
+            itineraryData = defaults.objectForKey("manageFlight") as! NSDictionary
+            
+            confirmView.hidden = true
+            buttonView.hidden = false
+            
+            sendItineraryBtn.layer.borderWidth = 0.5
+            sendItineraryBtn.layer.cornerRadius = 10.0
+            
+            changeContactBtn.layer.borderWidth = 0.5
+            changeContactBtn.layer.cornerRadius = 10.0
+            
+            changeFlightBtn.layer.borderWidth = 0.5
+            changeFlightBtn.layer.cornerRadius = 10.0
+            
+            changePassangerBtn.layer.borderWidth = 0.5
+            changePassangerBtn.layer.cornerRadius = 10.0
+            
+            changeSeatBtn.layer.borderWidth = 0.5
+            changeSeatBtn.layer.cornerRadius = 10.0
+            
+            addPaymentBtn.layer.borderWidth = 0.5
+            addPaymentBtn.layer.cornerRadius = 10.0
+            
+            getInfo()
+        }
         
-        changeContactBtn.layer.borderWidth = 0.5
-        changeContactBtn.layer.cornerRadius = 10.0
+        flightSummarryTableView.tableHeaderView = headerView
         
-        changeFlightBtn.layer.borderWidth = 0.5
-        changeFlightBtn.layer.cornerRadius = 10.0
-        
-        changePassangerBtn.layer.borderWidth = 0.5
-        changePassangerBtn.layer.cornerRadius = 10.0
-        
-        changeSeatBtn.layer.borderWidth = 0.5
-        changeSeatBtn.layer.cornerRadius = 10.0
-        
-        addPaymentBtn.layer.borderWidth = 0.5
-        addPaymentBtn.layer.cornerRadius = 10.0
-        
-        let itineraryData = defaults.objectForKey("manageFlight") as! NSDictionary
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshHomePage", name: "reloadHomePage", object: nil)
+        // Do any additional setup after loading the view.
+    }
+    
+    func getInfo(){
+    
         flightDetail = itineraryData["flight_details"] as! NSArray
         priceDetail = (itineraryData["price_details"]?.mutableCopy())! as! NSMutableArray
         totalPrice = itineraryData["total_price"] as! String
@@ -73,7 +113,6 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         priceDetail.removeLastObject()
         serviceDetail = service["services"] as! NSArray
         
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
@@ -205,9 +244,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else if indexPath.section == 7{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("ContactDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
-            cell.contactNameLbl.text = "\(contactInformation["title"]!) \(contactInformation["first_name"]!) \(contactInformation["last_name"]!)"
+            cell.contactNameLbl.text = "\(getTitleName(contactInformation["title"]! as! String)) \(contactInformation["first_name"]!) \(contactInformation["last_name"]!)"
             cell.contactEmail.text = "Email : \(contactInformation["email"]!)"
-            cell.contactCountryLbl.text = "Country : \(contactInformation["country"]!)"
+            cell.contactCountryLbl.text = "Country : \(getCountryName(contactInformation["country"]! as! String))"
             cell.contactMobileLbl.text = "Mobile Phone : \(contactInformation["mobile_phone"]!)"
             cell.contactAlternateLbl.text = "Alternate Phone : \(contactInformation["alternate_phone"]!)"
             
@@ -215,7 +254,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else if indexPath.section == 8{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PassengerDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             let passengerDetail = passengerInformation[indexPath.row] as! NSDictionary
-            cell.passengerNameLbl.text = "\(passengerDetail["name"]!)"
+            cell.passengerNameLbl.text = "\(getTitleName(passengerDetail["title"]! as! String)) \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
             return cell
         }else {
             
@@ -297,12 +336,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
         let editPassengerVC = storyboard.instantiateViewControllerWithIdentifier("EditPassengerDetailVC") as! EditPassengerDetailViewController
         editPassengerVC.passengerInformation = passengerInformation
+        editPassengerVC.pnr = itineraryInformation["pnr"] as! String
+        editPassengerVC.bookingId = "\(itineraryData["booking_id"]!)"
+        editPassengerVC.signature = itineraryData["signature"] as! String
+        
         self.navigationController!.pushViewController(editPassengerVC, animated: true)
     }
     
     @IBAction func ChangeFlightBtnPressed(sender: AnyObject) {
         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeFlightVC") as! ChangeFlightViewController
+        let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
+        changeFlightVC.flightDetail = flightDetail
         self.navigationController!.pushViewController(changeFlightVC, animated: true)
     }
     
@@ -323,5 +367,79 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         let sendItineraryVC = storyboard.instantiateViewControllerWithIdentifier("SendItineraryVC") as! SendItineraryViewController
         self.navigationController!.pushViewController(sendItineraryVC, animated: true)
     }
+    
+    @IBAction func confirmBtnPressed(sender: AnyObject) {
+        
+        let pnr = itineraryInformation["pnr"] as! String
+        let bookingId = "\(itineraryData["booking_id"]!)"
+        let signature = itineraryData["signature"] as! String
+        
+        showHud()
+        FireFlyProvider.request(.ConfirmChange(pnr, bookingId, signature)) { (result) -> () in
+            switch result {
+            case .Success(let successResult):
+                do {
+                    self.hideHud()
+                    
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        self.showToastMessage(json["status"].string!)
+                        defaults.setObject(self.itineraryData, forKey: "manageFlight")
+                        defaults.synchronize()
+                        
+                        let navigationArray = self.navigationController?.viewControllers
+                        
+                        for subView in navigationArray!{
+                            
+                            if subView.classForCoder == ManageFlightHomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(subView , animated: true)
+                                NSNotificationCenter.defaultCenter().postNotificationName("reloadHomePage", object: nil)
+                                break
+                            }
+                            
+                        }
+                        
+                        //let vController = navigationArray![2]
+                        
+                    }else if json["status"] == "need_payment"{
+                        
+                    }else{
+                        self.showToastMessage(json["message"].string!)
+                    }
+                }
+                catch {
+                    
+                }
+                print (successResult.data)
+            case .Failure(let failureResult):
+                print (failureResult)
+            }
+        }
+        
+    }
+    
+    @IBAction func cancelBtnPressed(sender: AnyObject) {
+        let navigationArray = self.navigationController?.viewControllers
+        
+        for subView in navigationArray!{
+            
+            if subView.classForCoder == ManageFlightHomeViewController.classForCoder(){
+                self.navigationController?.popToViewController(subView , animated: true)
+                NSNotificationCenter.defaultCenter().postNotificationName("reloadHomePage", object: nil)
+                break
+            }
+            
+        }
+    }
+    
+    func refreshHomePage(){
+        
+        itineraryData = defaults.objectForKey("manageFlight") as! NSDictionary
+        getInfo()
+        flightSummarryTableView.reloadData()
+        
+    }
+    
     
 }

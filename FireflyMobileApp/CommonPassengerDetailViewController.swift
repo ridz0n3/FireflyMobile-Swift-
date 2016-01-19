@@ -15,14 +15,12 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var headerView: UIView!
     
-    var titleArray = NSMutableArray()
-    var countryArray = NSMutableArray()
     var adultCount = Int()
     var infantCount = Int()
     var adultArray = NSMutableArray()
     
-    var adultData = NSMutableArray()
-    var infantData = NSMutableArray()
+    var adultDetails = NSMutableArray()
+    var infantDetails = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +95,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
         let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
         let signature = defaults.objectForKey("signature") as! String
-        
+        defaults.setObject(infant, forKey: "infant")
+        defaults.synchronize()
         
         return (passenger, infant, bookId, signature)
     }
@@ -161,16 +160,21 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     }
     
     func addExpiredDate(sender:NSNotification){
-        
         let newTag = sender.userInfo!["tag"]!.componentsSeparatedByString("(")
+        
+        addExpiredDateRow(newTag[1], date: "")
+        
+    }
+    
+    func addExpiredDateRow(tag : String, date: String){
         
         var row : XLFormRowDescriptor
         
         // Date
-        row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,newTag[1]), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Expiration Date:*")
+        row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Expiration Date:*")
         row.required = true
-        self.form.addFormRow(row, afterRowTag: String(format: "%@(%@",Tags.ValidationDocumentNo, newTag[1]))
-        
+        row.value = date
+        self.form.addFormRow(row, afterRowTag: String(format: "%@(%@",Tags.ValidationDocumentNo, tag))
     }
     
     func removeExpiredDate(sender:NSNotification){
@@ -178,6 +182,81 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         let newTag = sender.userInfo!["tag"]!.componentsSeparatedByString("(")
         self.form.removeFormRowWithTag(String(format: "%@(%@",Tags.ValidationExpiredDate, newTag[1]))
         
+    }
+    
+    func checkValidation() -> Bool{
+        var countAdultAge = Int()
+        var countMaxAdultAge = Int()
+        var countInfantAge = Int()
+        var countMaxInfantAge = Int()
+        
+        let currentDate: NSDate = NSDate()
+        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+        calendar.timeZone = NSTimeZone(name: "UTC")!
+        
+        for var i = 0; i < adultCount; i = i + 1{
+            var count = i
+            count++
+            
+            let selectDate: NSDate = stringToDate(formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]! as! String)
+            
+            let component: NSDateComponents = NSDateComponents()
+            component.calendar = calendar
+            component.year = -2
+            let adultMinAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            
+            component.year = -12
+            let adultMaxAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            
+            if selectDate.compare(stringToDate(formatDate(adultMinAge))) == NSComparisonResult.OrderedDescending{
+                //age below 2 years old
+                countAdultAge++
+            }else if selectDate.compare(stringToDate(formatDate(adultMaxAge))) == NSComparisonResult.OrderedDescending{
+                //age below 12 years old
+                countMaxAdultAge++
+            }
+        }
+        
+        for var i = 0; i < infantCount; i = i + 1{
+            
+            var count = i
+            count++
+            
+            let selectDate: NSDate = stringToDate(formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String)
+            
+            let component: NSDateComponents = NSDateComponents()
+            component.calendar = calendar
+            component.day = -9
+            let infantMinAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            
+            component.year = -2
+            let infantMaxAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            
+            if selectDate.compare(stringToDate(formatDate(infantMinAge))) == NSComparisonResult.OrderedDescending{
+                //age below 9 days
+                countInfantAge++
+            }else if selectDate.compare(stringToDate(formatDate(infantMaxAge))) == NSComparisonResult.OrderedAscending{
+                //age above 24months
+                countMaxInfantAge++
+            }
+            
+        }
+        
+        if countAdultAge > 0{
+            showToastMessage("Guest(s) must be above 2 years old at the date(s) of travel.")
+            return false
+        }else if countMaxAdultAge > 0 && adultCount == 1{
+            showToastMessage("There must be at least one(1) passenger above 12 years old at the date(s) of travel")
+            return false
+        }else if countMaxAdultAge > 0 && adultCount > 1{
+            showToastMessage("Passenger less than 12 years old must be accompanied by an 18 years old passenger.")
+            return false
+        }else if countInfantAge > 0 || countMaxInfantAge > 0{
+            showToastMessage("Infant(s) must be within the age of 9 days - 24 months at date(s) of travel.")
+            return false
+        }else{
+            return true
+        }
     }
 
     /*

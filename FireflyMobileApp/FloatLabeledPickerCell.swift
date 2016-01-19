@@ -150,9 +150,19 @@ class FloatLabeledPickerCell: XLFormBaseCell{
         data = [String]()
         dataValue = [String]()
         let row = self.rowDescriptor?.selectorOptions
+        var i = 0
         for tempData in row!{
             data.append(tempData.formDisplayText())
             dataValue.append(tempData.valueData() as! (String))
+            
+            if ((self.rowDescriptor?.value) != nil){
+                if self.rowDescriptor?.value as! String == tempData.formDisplayText(){
+                    selectindex = i
+                    selectValue = tempData.valueData() as! (String)
+                }
+            }
+            
+            i++
         }
     }
     

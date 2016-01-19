@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -75,8 +75,6 @@
                                                 <constraint firstItem="Ic5-mA-hHg" firstAttribute="centerX" secondItem="nJF-uy-YvE" secondAttribute="centerX" id="Yly-ut-omj"/>
                                                 <constraint firstAttribute="bottom" secondItem="zqs-Zn-1uT" secondAttribute="bottom" constant="8" id="bl3-4I-XSv"/>
                                                 <constraint firstAttribute="trailing" secondItem="brp-IT-DGI" secondAttribute="trailing" id="gVT-4I-J5O"/>
-                                                <constraint firstItem="brp-IT-DGI" firstAttribute="centerX" secondItem="nJF-uy-YvE" secondAttribute="centerX" id="pw4-Fe-byX"/>
-                                                <constraint firstItem="zqs-Zn-1uT" firstAttribute="centerX" secondItem="nJF-uy-YvE" secondAttribute="centerX" id="q4j-qM-pP1"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -103,7 +101,7 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FaqIcon" translatesAutoresizingMaskIntoConstraints="NO" id="xxK-Tu-SP7">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xxK-Tu-SP7">
                                                             <rect key="frame" x="205" y="8" width="33" height="33"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="33" id="350-vh-gro"/>
@@ -227,7 +225,6 @@
                             <constraint firstItem="2NE-oS-Jem" firstAttribute="top" secondItem="yOW-DO-pze" secondAttribute="bottom" id="Ghy-O4-pue"/>
                             <constraint firstItem="yOW-DO-pze" firstAttribute="leading" secondItem="r2T-yx-RHP" secondAttribute="leading" id="b2p-RO-XKY"/>
                             <constraint firstAttribute="trailing" secondItem="yOW-DO-pze" secondAttribute="trailing" id="irg-rJ-CSc"/>
-                            <constraint firstItem="yOW-DO-pze" firstAttribute="centerX" secondItem="r2T-yx-RHP" secondAttribute="centerX" id="qFE-mh-iAp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Rww-vT-W0S"/>
@@ -241,7 +238,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FaqIcon" width="750" height="194"/>
         <image name="fb" width="200" height="200"/>
         <image name="instagram" width="200" height="200"/>
         <image name="logo" width="600" height="240"/>

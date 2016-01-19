@@ -41,12 +41,8 @@
 		7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */; };
 		7E6930F61BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6930F51BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift */; };
 		7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E6930F81BFAFE17004F1719 /* FlightHeaderView.xib */; };
-		7E6930FB1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6930FA1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift */; };
 		7E6930FD1BFAFEE6004F1719 /* ManageFlight.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E6930FC1BFAFEE6004F1719 /* ManageFlight.storyboard */; };
 		7E6931011BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931001BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift */; };
-		7E6931031BFB08AA004F1719 /* ChangeContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931021BFB08AA004F1719 /* ChangeContactDetailViewController.swift */; };
-		7E6931051BFB0BD5004F1719 /* EditPassengerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931041BFB0BD5004F1719 /* EditPassengerViewController.swift */; };
-		7E6931071BFB10FA004F1719 /* ChangeFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931061BFB10FA004F1719 /* ChangeFlightViewController.swift */; };
 		7E6931091BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931081BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift */; };
 		7E69310B1BFB18EB004F1719 /* ChangeSeatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69310A1BFB18EB004F1719 /* ChangeSeatViewController.swift */; };
 		7E69310D1BFB195D004F1719 /* SendItineraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69310C1BFB195D004F1719 /* SendItineraryViewController.swift */; };
@@ -76,6 +72,7 @@
 		7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB5B2AF1BFC68D00066D311 /* SectionView.xib */; };
 		7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5B2B11BFC68EE0066D311 /* SectionView.swift */; };
 		7EB6F0441C07EB47004A8F24 /* PasswordExpiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6F0431C07EB47004A8F24 /* PasswordExpiredViewController.swift */; };
+		7EB71D341C4CD58600297C5C /* EditFlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB71D331C4CD58600297C5C /* EditFlightDetailViewController.swift */; };
 		7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */; };
 		7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */; };
 		7EBBFA021C1011CA00080FFA /* RSDFCustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA011C1011CA00080FFA /* RSDFCustomDatePickerView.swift */; };
@@ -88,7 +85,6 @@
 		7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */; };
 		7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */; };
 		7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */; };
-		7EC1DBCB1C15316500677D55 /* PassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCA1C15316500677D55 /* PassengerDetailViewController.swift */; };
 		7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */; };
 		7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */; };
 		7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */; };
@@ -161,12 +157,8 @@
 		7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDLNetworkManager.swift; sourceTree = "<group>"; };
 		7E6930F51BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPaymentTableViewCell.swift; sourceTree = "<group>"; };
 		7E6930F81BFAFE17004F1719 /* FlightHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlightHeaderView.xib; sourceTree = "<group>"; };
-		7E6930FA1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeFlightHeaderView.swift; sourceTree = "<group>"; };
 		7E6930FC1BFAFEE6004F1719 /* ManageFlight.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ManageFlight.storyboard; sourceTree = "<group>"; };
 		7E6931001BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomManageFlightMenuTableViewCell.swift; sourceTree = "<group>"; };
-		7E6931021BFB08AA004F1719 /* ChangeContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeContactDetailViewController.swift; sourceTree = "<group>"; };
-		7E6931041BFB0BD5004F1719 /* EditPassengerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPassengerViewController.swift; sourceTree = "<group>"; };
-		7E6931061BFB10FA004F1719 /* ChangeFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeFlightViewController.swift; sourceTree = "<group>"; };
 		7E6931081BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomChangeFlightTableViewCell.swift; sourceTree = "<group>"; };
 		7E69310A1BFB18EB004F1719 /* ChangeSeatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangeSeatViewController.swift; sourceTree = "<group>"; };
 		7E69310C1BFB195D004F1719 /* SendItineraryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendItineraryViewController.swift; sourceTree = "<group>"; };
@@ -197,6 +189,7 @@
 		7EB5B2AF1BFC68D00066D311 /* SectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionView.xib; sourceTree = "<group>"; };
 		7EB5B2B11BFC68EE0066D311 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		7EB6F0431C07EB47004A8F24 /* PasswordExpiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordExpiredViewController.swift; sourceTree = "<group>"; };
+		7EB71D331C4CD58600297C5C /* EditFlightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFlightDetailViewController.swift; sourceTree = "<group>"; };
 		7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UpdateInformation.storyboard; sourceTree = "<group>"; };
 		7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateInformationViewController.swift; sourceTree = "<group>"; };
 		7EBBFA011C1011CA00080FFA /* RSDFCustomDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerView.swift; sourceTree = "<group>"; };
@@ -209,7 +202,6 @@
 		7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RSDFDatePicker.storyboard; sourceTree = "<group>"; };
 		7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomChooseSeatTableViewCell.swift; sourceTree = "<group>"; };
-		7EC1DBCA1C15316500677D55 /* PassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerDetailViewController.swift; sourceTree = "<group>"; };
 		7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassengerHeader.xib; sourceTree = "<group>"; };
 		7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerHeaderView.swift; sourceTree = "<group>"; };
 		7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledTextFieldCell.swift; sourceTree = "<group>"; };
@@ -287,6 +279,7 @@
 				7E1F78151BF9ABCB00F55C46 /* Login */,
 				7E1F78241BF9C1B000F55C46 /* Registration */,
 				7EA286331C4774B40004AB9A /* CommonClass */,
+				7E985A051C4DE3AD00EBAFA5 /* Header */,
 				7E1F782F1BF9D67B00F55C46 /* Book Flight */,
 				7E6930F71BFAF994004F1719 /* Manage Flight */,
 				7E6931101BFB1F0A004F1719 /* Mobile Check-In */,
@@ -384,8 +377,6 @@
 			children = (
 				7E1F78271BF9C50400F55C46 /* Register.storyboard */,
 				7E1F78291BF9CD2800F55C46 /* RegisterPersonalInfoViewController.swift */,
-				7EB5B2AF1BFC68D00066D311 /* SectionView.xib */,
-				7EB5B2B11BFC68EE0066D311 /* SectionView.swift */,
 			);
 			name = Registration;
 			sourceTree = "<group>";
@@ -396,7 +387,6 @@
 				7E1F78301BF9D6A900F55C46 /* BookFlight.storyboard */,
 				7E1F78321BF9D7A200F55C46 /* SearchFlightViewController.swift */,
 				7E20F90A1BFA02470020AB0C /* FlightDetailViewController.swift */,
-				7EC1DBCA1C15316500677D55 /* PassengerDetailViewController.swift */,
 				7E11C0861C47AC9700C67BD2 /* AddPassengerDetailViewController.swift */,
 				7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */,
 				7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */,
@@ -404,12 +394,6 @@
 				7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */,
 				7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */,
 				7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */,
-				7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */,
-				7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */,
-				7EB07AFD1C28F6640061D1C9 /* directionView.xib */,
-				7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */,
-				7E20F90E1BFA0A3D0020AB0C /* FlightHeader.xib */,
-				7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */,
 			);
 			name = "Book Flight";
 			sourceTree = "<group>";
@@ -434,14 +418,10 @@
 				7E69310E1BFB1BFA004F1719 /* ManageFlightViewController.swift */,
 				7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */,
 				7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */,
-				7E6931021BFB08AA004F1719 /* ChangeContactDetailViewController.swift */,
-				7E6931041BFB0BD5004F1719 /* EditPassengerViewController.swift */,
-				7E6931061BFB10FA004F1719 /* ChangeFlightViewController.swift */,
+				7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */,
+				7EB71D331C4CD58600297C5C /* EditFlightDetailViewController.swift */,
 				7E69310A1BFB18EB004F1719 /* ChangeSeatViewController.swift */,
 				7E69310C1BFB195D004F1719 /* SendItineraryViewController.swift */,
-				7E6930F81BFAFE17004F1719 /* FlightHeaderView.xib */,
-				7E6930FA1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift */,
-				7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */,
 			);
 			name = "Manage Flight";
 			sourceTree = "<group>";
@@ -472,6 +452,22 @@
 				7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */,
 			);
 			name = SideMenu;
+			sourceTree = "<group>";
+		};
+		7E985A051C4DE3AD00EBAFA5 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				7EB5B2AF1BFC68D00066D311 /* SectionView.xib */,
+				7EB5B2B11BFC68EE0066D311 /* SectionView.swift */,
+				7E6930F81BFAFE17004F1719 /* FlightHeaderView.xib */,
+				7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */,
+				7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */,
+				7EB07AFD1C28F6640061D1C9 /* directionView.xib */,
+				7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */,
+				7E20F90E1BFA0A3D0020AB0C /* FlightHeader.xib */,
+				7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */,
+			);
+			name = Header;
 			sourceTree = "<group>";
 		};
 		7EA286331C4774B40004AB9A /* CommonClass */ = {
@@ -758,10 +754,10 @@
 				7EBBFA0B1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift in Sources */,
 				7E8D81681C350A4100D9A2E1 /* PaymentViewController.swift in Sources */,
 				7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */,
-				7E6931031BFB08AA004F1719 /* ChangeContactDetailViewController.swift in Sources */,
 				7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */,
 				7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */,
 				7E20F9111BFA0A760020AB0C /* FlightHeaderView.swift in Sources */,
+				7EB71D341C4CD58600297C5C /* EditFlightDetailViewController.swift in Sources */,
 				7E6931181BFB2659004F1719 /* CheckInTermViewController.swift in Sources */,
 				7EBBFA041C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift in Sources */,
 				7EB6F0441C07EB47004A8F24 /* PasswordExpiredViewController.swift in Sources */,
@@ -804,7 +800,6 @@
 				7E6931011BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift in Sources */,
 				7EB07B001C28F8440061D1C9 /* DirectionView.swift in Sources */,
 				7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */,
-				7E6931051BFB0BD5004F1719 /* EditPassengerViewController.swift in Sources */,
 				7ECB1B361C437E120042456D /* BeaconManager.swift in Sources */,
 				7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */,
 				7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */,
@@ -815,10 +810,7 @@
 				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
 				7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */,
 				7E11C0891C47AEE300C67BD2 /* EditPassengerDetailViewController.swift in Sources */,
-				7E6930FB1BFAFEC1004F1719 /* ChangeFlightHeaderView.swift in Sources */,
 				7E1F782A1BF9CD2800F55C46 /* RegisterPersonalInfoViewController.swift in Sources */,
-				7EC1DBCB1C15316500677D55 /* PassengerDetailViewController.swift in Sources */,
-				7E6931071BFB10FA004F1719 /* ChangeFlightViewController.swift in Sources */,
 				7E1F780C1BF9799900F55C46 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

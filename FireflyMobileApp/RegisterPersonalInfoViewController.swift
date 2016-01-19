@@ -87,7 +87,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         var tempArray:[AnyObject] = [AnyObject]()
         var defaults = NSUserDefaults.standardUserDefaults()
-        let titleArray = defaults.objectForKey("title") as! NSMutableArray
         tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
         for title in titleArray{
             tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
@@ -150,7 +149,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         tempArray = [AnyObject]()
         defaults = NSUserDefaults.standardUserDefaults()
-        let countryArray = defaults.objectForKey("country") as! NSMutableArray
         tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
         for country in countryArray{
             tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))

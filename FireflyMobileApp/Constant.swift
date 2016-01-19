@@ -19,6 +19,8 @@ let virtual_uuid = NSUUID(UUIDString: "8492E75F-4FD6-469D-B132-043FE94921D8")
 var purposeArray = [["purpose_code":"1","purpose_name":"Leisure"],["purpose_code":"2","purpose_name":"Business"]]
 var travelDoc = [["doc_code":"P","doc_name":"Passport"],["doc_code":"NRIC","doc_name":"Malaysia IC"],["doc_code":"V","doc_name":"Travel VISA"]]
 var genderArray = [["gender_code":"Female","gender_name":"Female"],["gender_code":"Male","gender_name":"Male"]]
+var titleArray = defaults.objectForKey("title") as! NSMutableArray
+var countryArray = defaults.objectForKey("country") as! NSMutableArray
 
 extension String {
     var html2String:NSAttributedString {
@@ -109,4 +111,26 @@ func nilIfEmpty(value : AnyObject?) -> AnyObject? {
     } else {
         return value
     }
+}
+
+func getTitleName(titleCode:String) -> String{
+    var titleName = String()
+    for titleData in titleArray{
+        if titleData["title_code"] as! String == titleCode{
+            titleName = titleData["title_name"] as! String
+        }
+    }
+    
+    return titleName
+}
+
+func getCountryName(countryCode:String) -> String{
+    var countryName = String()
+    for countryData in countryArray{
+        if countryData["country_code"] as! String == countryCode{
+            countryName = countryData["country_name"] as! String
+        }
+    }
+    
+    return countryName
 }

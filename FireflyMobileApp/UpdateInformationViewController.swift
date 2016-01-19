@@ -137,8 +137,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Title")
         
         var tempArray:[AnyObject] = [AnyObject]()
-        let titleArray = defaults.objectForKey("title") as! NSMutableArray
-        
         for title in titleArray{
             
             if title["title_code"] as! String == userInfo["title"] as! String{
@@ -228,8 +226,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Country")
         
         tempArray = [AnyObject]()
-        let countryArray = defaults.objectForKey("country") as! NSMutableArray
-        
         for country in countryArray{
             
             if country["country_code"] as! String == userInfo["contact_country"] as! String{

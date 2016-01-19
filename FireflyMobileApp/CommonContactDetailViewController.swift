@@ -12,9 +12,7 @@ import SwiftyJSON
 import M13Checkbox
 
 class CommonContactDetailViewController: BaseXLFormViewController {
-
-    var titleArray = NSMutableArray()
-    var countryArray = NSMutableArray()
+    
     var stateArray = NSMutableArray()
     var contactData = NSDictionary()
     
@@ -25,6 +23,9 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     @IBOutlet weak var agreeTerm: M13Checkbox!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var footerView: UIView!
+    
+    var titleArray = defaults.objectForKey("title") as! NSMutableArray
+    var countryArray = defaults.objectForKey("country") as! NSMutableArray
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +72,6 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
         
         tempArray = [AnyObject]()
-        titleArray = defaults.objectForKey("title") as! NSMutableArray
         for title in titleArray{
             tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
             
@@ -107,7 +107,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Country:*")
         
         tempArray = [AnyObject]()
-        countryArray = defaults.objectForKey("country") as! NSMutableArray
+        
         for country in countryArray{
             tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
             
@@ -133,6 +133,10 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         self.form = form
+        
+        if contactData["travel_purpose"] as? String == "2"{
+            addBusinessRow()
+        }
     }
 
     override func validateForm() {
@@ -192,6 +196,11 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     
     func addBusiness(sender:NSNotification){
         
+        addBusinessRow()
+        
+    }
+    
+    func addBusinessRow(){
         var row : XLFormRowDescriptor
         
         // Company Name
@@ -240,7 +249,6 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         if nullIfEmpty(self.formValues()["Country"]!) as! String != ""{
             country(getCountryCode(self.formValues()["Country"]! as! String, countryArr: countryArray))
         }
-        
     }
     
     func removeBusiness(sender:NSNotification){

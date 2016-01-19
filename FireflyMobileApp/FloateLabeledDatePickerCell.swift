@@ -74,7 +74,16 @@ class FloateLabeledDatePickerCell: XLFormBaseCell {
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         
         let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date , selectedDate: selectDate, target: self, action: "datePicked:element:", origin: textField)
-        datePicker.maximumDate = NSDate()
+        
+        let str = self.rowDescriptor?.tag?.componentsSeparatedByString("(")
+        
+        if str![0] == "Expiration Date"{
+            datePicker.minimumDate = NSDate()
+        }else{
+            datePicker.maximumDate = NSDate()
+        }
+        
+        
         datePicker.showActionSheetPicker()
     
         return false

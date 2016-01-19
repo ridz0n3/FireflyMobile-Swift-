@@ -84,14 +84,13 @@ class EditContactDetailViewController: CommonContactDetailViewController {
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
-                                //self.showToastMessage(json["status"].string!)
-                                let alertView = SCLAlertView()
-                                alertView.showCloseButton = false
-                                alertView.addButton("Update", target:self, selector:Selector("updateButton"))
-                                alertView.addButton("Cancel", target:self, selector:Selector("firstButton"))
+                                self.showToastMessage(json["status"].string!)
                                 
-                                alertView.showSuccess("Button View", subTitle: "This alert view has buttons", colorStyle: 0xEC581A)
-                                
+                                let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                                let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                                manageFlightVC.isConfirm = true
+                                manageFlightVC.itineraryData = json.object as! NSDictionary
+                                self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             }else{
                                 //self.showToastMessage(json["message"].string!)
                             }

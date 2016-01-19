@@ -54,7 +54,6 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
                 
                 var tempArray:[AnyObject] = [AnyObject]()
-                titleArray = defaults.objectForKey("title") as! NSMutableArray
                 for title in titleArray{
                     tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
                     
@@ -101,7 +100,6 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
                 
                 tempArray = [AnyObject]()
-                countryArray = defaults.objectForKey("country") as! NSMutableArray
                 for country in countryArray{
                     tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
                     
@@ -129,7 +127,6 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
                 
                 var tempArray:[AnyObject] = [AnyObject]()
-                titleArray = defaults.objectForKey("title") as! NSMutableArray
                 for title in titleArray{
                     tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
                 }
@@ -169,7 +166,6 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
                 
                 tempArray = [AnyObject]()
-                countryArray = defaults.objectForKey("country") as! NSMutableArray
                 for country in countryArray{
                     tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
                 }
@@ -256,7 +252,6 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
             
             tempArray = [AnyObject]()
-            countryArray = defaults.objectForKey("country") as! NSMutableArray
             for country in countryArray{
                 tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
             }
@@ -278,72 +273,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         validateForm()
         
         if isValidate{
-            var countAdultAge = Int()
-            var countMaxAdultAge = Int()
-            var countInfantAge = Int()
-            var countMaxInfantAge = Int()
-            
-            let currentDate: NSDate = NSDate()
-            let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-            calendar.timeZone = NSTimeZone(name: "UTC")!
-            
-            for var i = 0; i < adultCount; i = i + 1{
-                var count = i
-                count++
-                
-                let selectDate: NSDate = stringToDate(formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]! as! String)
-                
-                let component: NSDateComponents = NSDateComponents()
-                component.calendar = calendar
-                component.year = -2
-                let adultMinAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-                
-                component.year = -12
-                let adultMaxAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-                
-                if selectDate.compare(stringToDate(formatDate(adultMinAge))) == NSComparisonResult.OrderedDescending{
-                    //age below 2 years old
-                    countAdultAge++
-                }else if selectDate.compare(stringToDate(formatDate(adultMaxAge))) == NSComparisonResult.OrderedDescending{
-                    //age below 12 years old
-                    countMaxAdultAge++
-                }
-            }
-            
-            for var i = 0; i < infantCount; i = i + 1{
-                
-                var count = i
-                count++
-                
-                let selectDate: NSDate = stringToDate(formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String)
-                
-                let component: NSDateComponents = NSDateComponents()
-                component.calendar = calendar
-                component.day = -9
-                let infantMinAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-                
-                component.year = -2
-                let infantMaxAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-                
-                if selectDate.compare(stringToDate(formatDate(infantMinAge))) == NSComparisonResult.OrderedDescending{
-                    //age below 9 days
-                    countInfantAge++
-                }else if selectDate.compare(stringToDate(formatDate(infantMaxAge))) == NSComparisonResult.OrderedAscending{
-                    //age above 24months
-                    countMaxInfantAge++
-                }
-                
-            }
-            
-            if countAdultAge > 0{
-                showToastMessage("Guest(s) must be above 2 years old at the date(s) of travel.")
-            }else if countMaxAdultAge > 0 && adultCount == 1{
-                showToastMessage("There must be at least one(1) passenger above 12 years old at the date(s) of travel")
-            }else if countMaxAdultAge > 0 && adultCount > 1{
-                showToastMessage("Passenger less than 12 years old must be accompanied by an 18 years old passenger.")
-            }else if countInfantAge > 0 || countMaxInfantAge > 0{
-                showToastMessage("Infant(s) must be within the age of 9 days - 24 months at date(s) of travel.")
-            }else{
+            if checkValidation(){
                 let params = getFormData()
                 
                 showHud()
