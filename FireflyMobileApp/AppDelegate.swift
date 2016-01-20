@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let baseView = BaseViewController()
     
-    var enterBackground : Bool = false
-    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         BeaconManager.sharedInstance.startRanging()
@@ -72,7 +70,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
-        BeaconManager.sharedInstance.showMessage()
+        
+        if notification.userInfo!["identifier"] as! String == "time left"{
+            BeaconManager.sharedInstance.showMessage()
+        }else if notification.userInfo!["identifier"] as! String == "time out"{
+            BeaconManager.sharedInstance.showTimeOut(notification.userInfo!["msg"] as! String)
+        }else if notification.userInfo!["identifier"] as! String == "Departure"{
+            
+            BeaconManager.sharedInstance.departureMessage()
+            
+            for notifications in UIApplication.sharedApplication().scheduledLocalNotifications! { // loop through notifications...
+                if (notifications.userInfo!["identifier"] as! String == "time out") { // ...and cancel the notification that corresponds to this TodoItem instance (matched by UUID)
+                    UIApplication.sharedApplication().cancelLocalNotification(notifications) // there should be a maximum of one match on UUID
+                    break
+                }
+            }
+            
+        }else{
+            BeaconManager.sharedInstance.arriveAtCheckInCounter()
+        }
+        
     }
     
     func applicationWillResignActive(application: UIApplication) {
@@ -86,6 +103,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
+    
     func applicationWillEnterForeground(application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     }

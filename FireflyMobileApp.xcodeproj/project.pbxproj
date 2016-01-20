@@ -73,6 +73,8 @@
 		7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */; };
 		7EA56E911C279B28002AD40C /* SeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */; };
 		7EA56E931C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */; };
+		7EAA98F91C4F2CA300F52FB2 /* BeaconCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAA98F81C4F2CA300F52FB2 /* BeaconCheckInViewController.swift */; };
+		7EAA98FB1C4F2CC300F52FB2 /* Beacon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EAA98FA1C4F2CC300F52FB2 /* Beacon.storyboard */; };
 		7EB07AFE1C28F6640061D1C9 /* directionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB07AFD1C28F6640061D1C9 /* directionView.xib */; };
 		7EB07B001C28F8440061D1C9 /* DirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */; };
 		7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB5B2AF1BFC68D00066D311 /* SectionView.xib */; };
@@ -196,6 +198,8 @@
 		7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatSelectionViewController.swift; sourceTree = "<group>"; };
 		7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSeatSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		7EAA98F81C4F2CA300F52FB2 /* BeaconCheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconCheckInViewController.swift; sourceTree = "<group>"; };
+		7EAA98FA1C4F2CC300F52FB2 /* Beacon.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Beacon.storyboard; sourceTree = "<group>"; };
 		7EB07AFD1C28F6640061D1C9 /* directionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = directionView.xib; sourceTree = "<group>"; };
 		7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionView.swift; sourceTree = "<group>"; };
 		7EB5B2AF1BFC68D00066D311 /* SectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionView.xib; sourceTree = "<group>"; };
@@ -279,6 +283,7 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				7EAA98F71C4F2C7000F52FB2 /* Beacon */,
 				7EC3271B1C44D63B001C89B5 /* CoreData */,
 				7EC1DBD01C158A8800677D55 /* FloatLabel */,
 				7EBBFA0E1C101B7900080FFA /* DatePicker */,
@@ -497,6 +502,15 @@
 			name = CommonClass;
 			sourceTree = "<group>";
 		};
+		7EAA98F71C4F2C7000F52FB2 /* Beacon */ = {
+			isa = PBXGroup;
+			children = (
+				7EAA98F81C4F2CA300F52FB2 /* BeaconCheckInViewController.swift */,
+				7EAA98FA1C4F2CC300F52FB2 /* Beacon.storyboard */,
+			);
+			name = Beacon;
+			sourceTree = "<group>";
+		};
 		7EB829E11C0AC23200E83320 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
@@ -684,6 +698,7 @@
 				7E1F780E1BF979B300F55C46 /* Home.storyboard in Resources */,
 				7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */,
 				7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */,
+				7EAA98FB1C4F2CC300F52FB2 /* Beacon.storyboard in Resources */,
 				7E1F78281BF9C50400F55C46 /* Register.storyboard in Resources */,
 				7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */,
 				7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */,
@@ -788,6 +803,7 @@
 				7E985A0E1C4E381400EBAFA5 /* CommonPaymentViewController.swift in Sources */,
 				7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */,
 				7E1F78181BF9AC3800F55C46 /* BaseViewController.swift in Sources */,
+				7EAA98F91C4F2CA300F52FB2 /* BeaconCheckInViewController.swift in Sources */,
 				7EC3272B1C44D914001C89B5 /* Booking.swift in Sources */,
 				7E69310D1BFB195D004F1719 /* SendItineraryViewController.swift in Sources */,
 				7EBBFA021C1011CA00080FFA /* RSDFCustomDatePickerView.swift in Sources */,
