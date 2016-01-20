@@ -16,6 +16,7 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
     
     var webView: WKWebView?
     var urlString = String()
+    var signature = String()
     
     override func loadView() {
         super.loadView()
@@ -53,7 +54,7 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
     func userContentController(userContentController: WKUserContentController,didReceiveScriptMessage message: WKScriptMessage) {
         if(message.name == "callbackHandler") {
             
-            let signature = defaults.objectForKey("signature") as! String
+            
             
             showHud()
             FireFlyProvider.request(.FlightSummary(signature), completion: { (result) -> () in

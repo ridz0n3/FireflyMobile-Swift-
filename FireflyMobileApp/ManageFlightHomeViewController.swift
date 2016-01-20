@@ -400,9 +400,38 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     }
     
     @IBAction func SendItineraryBtnPressed(sender: AnyObject) {
-        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        let sendItineraryVC = storyboard.instantiateViewControllerWithIdentifier("SendItineraryVC") as! SendItineraryViewController
-        self.navigationController!.pushViewController(sendItineraryVC, animated: true)
+        
+        pnr = itineraryInformation["pnr"] as! String
+        bookingId = "\(itineraryData["booking_id"]!)"
+        signature = itineraryData["signature"] as! String
+        
+        showHud()
+        FireFlyProvider.request(.SendItinerary(pnr, bookingId, signature)) { (result) -> () in
+            switch result {
+            case .Success(let successResult):
+                do {
+                    self.hideHud()
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                        let sendItineraryVC = storyboard.instantiateViewControllerWithIdentifier("SendItineraryVC") as! SendItineraryViewController
+                        self.navigationController!.pushViewController(sendItineraryVC, animated: true)
+                    }else{
+                        self.hideHud()
+                        self.showToastMessage(json["message"].string!)
+                    }
+                }
+                catch {
+                    
+                }
+                print (successResult.data)
+            case .Failure(let failureResult):
+                print (failureResult)
+            }
+
+        }
+        
     }
     
     @IBAction func confirmBtnPressed(sender: AnyObject) {
@@ -416,11 +445,11 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             switch result {
             case .Success(let successResult):
                 do {
-                    self.hideHud()
                     
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
+                        self.hideHud()
                         self.showToastMessage(json["status"].string!)
                         defaults.setObject(self.itineraryData, forKey: "manageFlight")
                         defaults.synchronize()
@@ -441,13 +470,43 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                     }else if json["status"] == "need_payment"{
                         
-                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
-                        paymentVC.totalDueStr = json["total_due"].string!
-                        //manageFlightVC.itineraryData = json.object as! NSDictionary
-                        self.navigationController!.pushViewController(paymentVC, animated: true)
+                        self.totalDue = json["total_due"].string!
+                        FireFlyProvider.request(.PaymentSelection(self.signature)) { (result) -> () in
+                            
+                            switch result {
+                            case .Success(let successResult):
+                                do {
+                                    self.hideHud()
+                                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                                    
+                                    if json["status"] == "success"{
+                                        
+                                        let paymentChannel = json["payment_channel"].arrayObject
+                                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
+                                        paymentVC.paymentType = paymentChannel!
+                                        paymentVC.totalDueStr = self.totalDue
+                                        paymentVC.bookingId = self.bookingId
+                                        paymentVC.signature = self.signature
+                                        self.navigationController!.pushViewController(paymentVC, animated: true)
+                                        
+                                    }else{
+                                        self.showToastMessage(json["message"].string!)
+                                    }
+                                }
+                                catch {
+                                    
+                                }
+                                print (successResult.data)
+                            case .Failure(let failureResult):
+                                print (failureResult)
+                            }
+                            
+                        }
+                        
                         
                     }else{
+                        self.hideHud()
                         self.showToastMessage(json["message"].string!)
                     }
                 }

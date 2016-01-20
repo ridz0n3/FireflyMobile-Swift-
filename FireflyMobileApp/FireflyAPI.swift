@@ -41,6 +41,7 @@ public enum FireFlyAPI {
     case ConfirmChange(String, String, String)
     case GetAvailableSeat(String, String, String)
     case ChangeSeat(AnyObject, AnyObject, String, String, String)
+    case SendItinerary(String, String, String)
     
 }
 
@@ -96,12 +97,14 @@ extension FireFlyAPI : TargetType {
             return "api/getSeatAvailability"
         case ChangeSeat:
             return "api/changeSeat"
+        case SendItinerary:
+            return "api/sendItinerary"
 
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .FlightSummary, .Logout, .RetrieveBooking, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .FlightSummary, .Logout, .RetrieveBooking, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary:
             return .POST
             
         default:
@@ -145,6 +148,8 @@ extension FireFlyAPI : TargetType {
             return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature]
         case .ChangeSeat(let goingFlight, let returnFlight, let bookId, let signature, let pnr):
             return ["going_flight" : goingFlight, "return_flight" : returnFlight, "booking_id" : bookId, "signature" : signature, "pnr" : pnr]
+        case .SendItinerary(let pnr, let booking_id, let signature):
+            return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature]
         default:
             return nil
         }

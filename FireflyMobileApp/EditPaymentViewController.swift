@@ -11,6 +11,9 @@ import SwiftyJSON
 
 class EditPaymentViewController: CommonPaymentViewController {
 
+    var bookingId = String()
+    var signature = String()
+    
     var totalDueStr = String()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,8 +41,6 @@ class EditPaymentViewController: CommonPaymentViewController {
                     self.showToastMessage("Invalid Date")
                 }else{
                     
-                    let signature = defaults.objectForKey("signature") as! String
-                    let bookingID = "\(defaults.objectForKey("booking_id")!)"
                     let channelType = "1"
                     let channelCode = getCardTypeCode(self.formValues()[Tags.ValidationCardType] as! String, cardArr: cardType)
                     let cardHolderName = self.formValues()[Tags.ValidationHolderName] as! String
@@ -51,7 +52,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                     
                     
                     showHud()
-                    FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingID), completion: { (result) -> () in
+                    FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingId), completion: { (result) -> () in
                         
                         self.hideHud()
                         switch result {
@@ -63,12 +64,12 @@ class EditPaymentViewController: CommonPaymentViewController {
                                 if json["status"] == "Redirect"{
                                     self.showToastMessage(json["status"].string!)
                                     
-                                    //let pass = json["pass"].string?.componentsSeparatedByString("/")
                                     let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
                                     
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
                                     manageFlightVC.urlString = urlString
+                                    manageFlightVC.signature = self.signature
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else{
