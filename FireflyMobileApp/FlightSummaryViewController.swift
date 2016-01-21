@@ -49,6 +49,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         priceDetail.removeLastObject()
         serviceDetail = service["services"] as! NSArray
         
+        /*
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext //2
         let fetchRequest = NSFetchRequest(entityName: "Booking")
@@ -63,12 +64,12 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }
 
         
-        saveCoreData()
+        saveCoreData()*/
         // Do any additional setup after loading the view.
     }
     
     func saveCoreData(){
-        
+        /*
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let context = appDelegate.managedObjectContext
         
@@ -103,7 +104,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             //print("Unresolved error \(error), \(error.userInfo)")
             abort()
-        }
+        }*/
 
         
     }

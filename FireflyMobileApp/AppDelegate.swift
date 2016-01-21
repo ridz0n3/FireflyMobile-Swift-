@@ -12,14 +12,17 @@ import XLForm
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelegate {
 
     var window: UIWindow?
     let baseView = BaseViewController()
+    var bluetoothPeripheralManager: CBPeripheralManager?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        BeaconManager.sharedInstance.startRanging()
+        let options = [CBCentralManagerOptionShowPowerAlertKey:0] //<-this is the magic bit!
+        bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: options)
+        
         InitialLoadManager.sharedInstance.load()
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPicker] = FloatLabeledPickerCell.self
@@ -54,12 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return true
     }
-
-    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        print(url)
-        
-        return true
-    }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         print("Got token data! \(deviceToken)")
@@ -92,6 +89,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
     }
     
+    //MARK: bluetooth delegate
+    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
+        
+        if peripheral.state == CBPeripheralManagerState.PoweredOff {
+            
+            // create the alert
+            let alert = UIAlertController(title: "Turn On Bluetooth to Allow to Connect Accessories", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            // add the actions (buttons)
+            alert.addAction(UIAlertAction(title: "Setting", style: UIAlertActionStyle.Default, handler: { action in
+                // do something like...
+                UIApplication.sharedApplication().openURL(NSURL(string:"prefs:root=Bluetooth")!)
+                
+            }))
+            
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+            
+            // show the alert
+            let appDelegate = UIApplication.sharedApplication().keyWindow?.rootViewController
+            appDelegate!.presentViewController(alert, animated: true, completion: nil)
+            
+        }else if peripheral.state == CBPeripheralManagerState.PoweredOn{
+            BeaconManager.sharedInstance.startRanging()
+        }
+    }
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -115,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
+    /*
     // MARK: - Core Data stack
     
     lazy var applicationDocumentsDirectory: NSURL = {
@@ -177,7 +199,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 abort()
             }
         }
-    }
+    }*/
 
 }
 

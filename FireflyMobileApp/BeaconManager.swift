@@ -18,6 +18,7 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
     var major : CLBeaconMajorValue = 2820
     var minor : CLBeaconMinorValue = 40462
     var identifier = "time left"
+     
     
     func startRanging(){
         
@@ -158,5 +159,5 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         
         beaconManager.startMonitoringForRegion(regions)
     }
-    
+
 }
