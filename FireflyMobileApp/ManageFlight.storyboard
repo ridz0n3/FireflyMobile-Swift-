@@ -304,7 +304,6 @@
                                             <rect key="frame" x="16" y="117" width="568" height="40"/>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="568" id="899-hc-xb4"/>
                                                 <constraint firstAttribute="height" constant="40" id="KkT-SJ-H5S"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -315,7 +314,6 @@
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="FaG-mu-Jbd" firstAttribute="top" secondItem="EQo-IK-jdI" secondAttribute="top" id="0qs-5H-QFc"/>
-                                        <constraint firstItem="j5T-y7-Mec" firstAttribute="centerX" secondItem="EQo-IK-jdI" secondAttribute="centerX" id="2vg-bS-SKU"/>
                                         <constraint firstItem="j5T-y7-Mec" firstAttribute="top" secondItem="FaG-mu-Jbd" secondAttribute="bottom" constant="16" id="5VP-XO-y6N"/>
                                         <constraint firstItem="FaG-mu-Jbd" firstAttribute="leading" secondItem="EQo-IK-jdI" secondAttribute="leading" id="BjL-l1-tUM"/>
                                         <constraint firstAttribute="height" constant="201" id="PRz-2f-P0r"/>
@@ -323,7 +321,6 @@
                                         <constraint firstItem="omE-ON-Kke" firstAttribute="top" secondItem="EQo-IK-jdI" secondAttribute="top" constant="19" id="Tb5-hh-bGz"/>
                                         <constraint firstItem="j5T-y7-Mec" firstAttribute="leading" secondItem="EQo-IK-jdI" secondAttribute="leading" constant="16" id="iWb-8b-caq"/>
                                         <constraint firstAttribute="trailing" secondItem="FaG-mu-Jbd" secondAttribute="trailing" id="kuN-du-KeX"/>
-                                        <constraint firstItem="FaG-mu-Jbd" firstAttribute="centerX" secondItem="EQo-IK-jdI" secondAttribute="centerX" id="o0f-PM-0h2"/>
                                         <constraint firstItem="omE-ON-Kke" firstAttribute="centerX" secondItem="EQo-IK-jdI" secondAttribute="centerX" id="uGV-fL-AOH"/>
                                     </constraints>
                                     <variation key="default">
@@ -355,7 +352,6 @@
                                         <constraint firstItem="CVk-e0-LPv" firstAttribute="top" secondItem="xBk-Ti-6oK" secondAttribute="top" constant="8" id="2JE-CQ-5Wc"/>
                                         <constraint firstAttribute="trailing" secondItem="CVk-e0-LPv" secondAttribute="trailing" constant="16" id="9Is-Xo-we5"/>
                                         <constraint firstItem="CVk-e0-LPv" firstAttribute="leading" secondItem="xBk-Ti-6oK" secondAttribute="leading" constant="16" id="ACw-Ue-3lY"/>
-                                        <constraint firstItem="CVk-e0-LPv" firstAttribute="centerX" secondItem="xBk-Ti-6oK" secondAttribute="centerX" id="u1a-ry-qhP"/>
                                     </constraints>
                                 </view>
                             </tableView>
@@ -1707,7 +1703,6 @@
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="w9i-6C-sQb"/>
-                                                <constraint firstAttribute="width" constant="568" id="xQm-tl-JUv"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1724,9 +1719,7 @@
                                         <constraint firstAttribute="height" constant="165" id="Fin-q9-5W2"/>
                                         <constraint firstItem="Utz-PS-no5" firstAttribute="leading" secondItem="UyA-d0-MSo" secondAttribute="leading" id="Gkb-0H-jCl"/>
                                         <constraint firstItem="slJ-2j-tUu" firstAttribute="leading" secondItem="UyA-d0-MSo" secondAttribute="leading" constant="16" id="Q2E-lj-6Aa"/>
-                                        <constraint firstItem="Utz-PS-no5" firstAttribute="centerX" secondItem="UyA-d0-MSo" secondAttribute="centerX" id="XV1-aA-D9p"/>
                                         <constraint firstItem="9GY-r4-fsM" firstAttribute="centerX" secondItem="UyA-d0-MSo" secondAttribute="centerX" id="Z1X-qy-iPO"/>
-                                        <constraint firstItem="slJ-2j-tUu" firstAttribute="centerX" secondItem="UyA-d0-MSo" secondAttribute="centerX" id="lyk-ha-t09"/>
                                     </constraints>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="fNV-tr-d5e">
@@ -1735,19 +1728,22 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="99A-pi-PTt">
                                             <rect key="frame" x="17" y="7" width="566" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="SW2-ca-82t"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Continue" backgroundImage="loginBtn">
+                                            <state key="normal" title="Continue">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="continueBtnPressed:" destination="lZK-yL-MYE" eventType="touchUpInside" id="BBa-PC-MQg"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="99A-pi-PTt" secondAttribute="trailing" constant="17" id="ObH-av-pIa"/>
-                                        <constraint firstItem="99A-pi-PTt" firstAttribute="centerX" secondItem="fNV-tr-d5e" secondAttribute="centerX" id="ffn-tV-Rbb"/>
                                         <constraint firstItem="99A-pi-PTt" firstAttribute="leading" secondItem="fNV-tr-d5e" secondAttribute="leading" constant="17" id="lbK-H1-4FQ"/>
                                         <constraint firstItem="99A-pi-PTt" firstAttribute="top" secondItem="fNV-tr-d5e" secondAttribute="top" constant="7" id="y8w-Em-325"/>
                                     </constraints>
@@ -1789,7 +1785,6 @@
                                                         <constraint firstAttribute="trailing" secondItem="8Er-Jb-wZR" secondAttribute="trailing" id="CIQ-KS-RuH"/>
                                                         <constraint firstItem="8Er-Jb-wZR" firstAttribute="leading" secondItem="g5w-9g-Ysg" secondAttribute="leading" id="M9S-Wf-4Zk"/>
                                                         <constraint firstItem="ZXf-Yx-enO" firstAttribute="top" secondItem="g5w-9g-Ysg" secondAttribute="top" constant="10" id="V88-Wr-m8F"/>
-                                                        <constraint firstItem="8Er-Jb-wZR" firstAttribute="centerX" secondItem="g5w-9g-Ysg" secondAttribute="centerX" id="gOx-QA-v8c"/>
                                                         <constraint firstAttribute="height" constant="50" id="nIe-if-2ow"/>
                                                         <constraint firstAttribute="bottom" secondItem="8Er-Jb-wZR" secondAttribute="bottom" id="rag-tw-0Vj"/>
                                                     </constraints>
@@ -1799,11 +1794,11 @@
                                                 <constraint firstAttribute="trailing" secondItem="g5w-9g-Ysg" secondAttribute="trailing" constant="16" id="0AW-pu-w3Q"/>
                                                 <constraint firstItem="g5w-9g-Ysg" firstAttribute="leading" secondItem="l2k-VE-TWz" secondAttribute="leading" constant="16" id="VU7-6M-jQf"/>
                                                 <constraint firstItem="g5w-9g-Ysg" firstAttribute="top" secondItem="l2k-VE-TWz" secondAttribute="top" id="bzi-qr-ir1"/>
-                                                <constraint firstItem="g5w-9g-Ysg" firstAttribute="centerX" secondItem="l2k-VE-TWz" secondAttribute="centerX" id="f6Y-Gb-cQe"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="airportLbl" destination="aF8-k4-lgO" id="a9F-ci-Ujy"/>
+                                            <outlet property="bgView" destination="g5w-9g-Ysg" id="6li-DA-dkL"/>
                                             <outlet property="iconImg" destination="ZXf-Yx-enO" id="RmE-8Q-wv2"/>
                                             <outlet property="lineStyle" destination="8Er-Jb-wZR" id="7d7-Dv-2c8"/>
                                         </connections>
@@ -1825,6 +1820,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="99A-pi-PTt" id="be0-N2-DiS"/>
                         <outlet property="editFlightTableView" destination="QzT-f7-djk" id="TzL-s4-y3i"/>
                     </connections>
                 </viewController>

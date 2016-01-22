@@ -61,7 +61,8 @@ class ManageFlightViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
-        row.value = "xzn1tr"//"xz7i4b"
+        row.value = "xzn1tr"
+        //row.value = "bbk3nx"
         section.addFormRow(row)
         
         // username
@@ -71,6 +72,7 @@ class ManageFlightViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
         row.value = "Ridz@gmail.com"
+        //row.value = "ridz0n391@gmail.com"
         row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         

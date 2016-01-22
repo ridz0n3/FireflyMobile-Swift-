@@ -32,7 +32,7 @@ public enum FireFlyAPI {
     case SelectSeat(AnyObject, AnyObject, String, String)
     case PaymentSelection(String)
     case PaymentProcess(String, String, String, String, String, String, String, String, String, String)
-    case SearchFlight(Int, String, String, String, String, String, String, String)
+    case SearchFlight(Int, String, String, String, String, String, String, String, String)
     case FlightSummary(String)
     case Logout(String)
     case RetrieveBooking(String, String, String)
@@ -42,7 +42,8 @@ public enum FireFlyAPI {
     case GetAvailableSeat(String, String, String)
     case ChangeSeat(AnyObject, AnyObject, String, String, String)
     case SendItinerary(String, String, String)
-    
+    case GetFlightAvailability(String, String, String)
+    case SearchChangeFlight(AnyObject, AnyObject, String, String, String)
 }
 
 
@@ -99,12 +100,16 @@ extension FireFlyAPI : TargetType {
             return "api/changeSeat"
         case SendItinerary:
             return "api/sendItinerary"
+        case GetFlightAvailability:
+            return "api/getFlightAvailability"
+        case SearchChangeFlight:
+            return "api/searchChangeFlight"
 
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .FlightSummary, .Logout, .RetrieveBooking, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary:
+        case .Login, .Loading , .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .FlightSummary, .Logout, .RetrieveBooking, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight:
             return .POST
             
         default:
@@ -130,8 +135,8 @@ extension FireFlyAPI : TargetType {
             return ["signature" : signature]
         case PaymentProcess(let signature, let channelType, let channelCode, let cardNumber, let expirationDateMonth, let expirationDateYear, let cardHolderName, let issuingBank, let cvv, let booking_id):
             return ["signature" : signature, "channelType" : channelType, "channelCode" : channelCode, "cardNumber": cardNumber, "expirationDateMonth" : expirationDateMonth, "expirationDateYear" : expirationDateYear, "cardHolderName" : cardHolderName, "issuingBank" : issuingBank, "cvv" : cvv, "bookingId" : booking_id]
-        case .SearchFlight(let type, let departure_station, let arrival_station, let departure_date, let return_date, let adult, let infant, let signature):
-            return ["type" : type, "departure_station" : departure_station, "arrival_station" : arrival_station, "departure_date": departure_date, "return_date" : return_date, "adult" : adult, "infant" : infant, "signature" : signature]
+        case .SearchFlight(let type, let departure_station, let arrival_station, let departure_date, let return_date, let adult, let infant, let username, let password):
+            return ["type" : type, "departure_station" : departure_station, "arrival_station" : arrival_station, "departure_date": departure_date, "return_date" : return_date, "adult" : adult, "infant" : infant, "username" : username, "password" : password]
         case .FlightSummary(let signature):
             return ["signature" : signature]
         case .Logout(let signature):
@@ -150,6 +155,11 @@ extension FireFlyAPI : TargetType {
             return ["going_flight" : goingFlight, "return_flight" : returnFlight, "booking_id" : bookId, "signature" : signature, "pnr" : pnr]
         case .SendItinerary(let pnr, let booking_id, let signature):
             return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature]
+        case .GetFlightAvailability(let pnr, let booking_id, let signature):
+            return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature]
+        case .SearchChangeFlight(let departure, let returned, let pnr, let booking_id, let signature):
+            return ["going_flight" : departure, "return_flight" : returned, "pnr" : pnr, "booking_id" : booking_id, "signature" : signature]
+            
         default:
             return nil
         }

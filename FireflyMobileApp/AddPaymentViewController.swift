@@ -12,7 +12,7 @@ import SwiftyJSON
 class AddPaymentViewController: CommonPaymentViewController {
 
     override func viewDidLoad() {
-        
+        super.viewDidLoad()
         totalDueLbl.text = "\(totalDue) MYR"
         
     }

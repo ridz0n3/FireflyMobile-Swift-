@@ -290,16 +290,6 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         return genderCode
     }
     
-    func showWaiting(){
-        
-        alertView.showCloseButton = false
-        alertView.showWait("Loading...", subTitle: "", colorStyle: 0xEC581A)
-    }
-    
-    func hideWaiting(){
-        //let alertViewResponder : SCLAlertViewResponder = alertView
-        alertView.hideView()
-    }
     /*
     // MARK: - Navigation
 

@@ -86,7 +86,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Title")
         
         var tempArray:[AnyObject] = [AnyObject]()
-        var defaults = NSUserDefaults.standardUserDefaults()
         tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
         for title in titleArray{
             tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
@@ -148,7 +147,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Country")
         
         tempArray = [AnyObject]()
-        defaults = NSUserDefaults.standardUserDefaults()
         tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
         for country in countryArray{
             tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))

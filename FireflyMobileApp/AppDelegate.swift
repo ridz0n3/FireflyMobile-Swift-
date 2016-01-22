@@ -12,13 +12,31 @@ import XLForm
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelegate, CLLocationManagerDelegate {
 
     var window: UIWindow?
     let baseView = BaseViewController()
     var bluetoothPeripheralManager: CBPeripheralManager?
+    let locationManager = CLLocationManager()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        // 1
+        locationManager.delegate = self
+        // 2
+        locationManager.requestAlwaysAuthorization()
+        
+        let lat = "2.9241206"
+        let lon = "101.6559203"
+        
+        let location = CLLocationCoordinate2D(
+            latitude: (lat as NSString).doubleValue as CLLocationDegrees,
+            longitude: (lon as NSString).doubleValue as CLLocationDegrees
+        )
+        
+        print(location)
+        
+        
         
         let options = [CBCentralManagerOptionShowPowerAlertKey:0] //<-this is the magic bit!
         bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: options)
@@ -75,10 +93,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
         }else if notification.userInfo!["identifier"] as! String == "Departure"{
             
             BeaconManager.sharedInstance.departureMessage()
-            
             for notifications in UIApplication.sharedApplication().scheduledLocalNotifications! { // loop through notifications...
-                if (notifications.userInfo!["identifier"] as! String == "time out") { // ...and cancel the notification that corresponds to this TodoItem instance (matched by UUID)
-                    UIApplication.sharedApplication().cancelLocalNotification(notifications) // there should be a maximum of one match on UUID
+                if (notifications.userInfo!["identifier"] as! String == "time out") {
+                    UIApplication.sharedApplication().cancelLocalNotification(notifications)
                     break
                 }
             }
@@ -95,7 +112,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
         if peripheral.state == CBPeripheralManagerState.PoweredOff {
             
             // create the alert
-            let alert = UIAlertController(title: "Turn On Bluetooth to Allow to Connect Accessories", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+            let alert = UIAlertController(title: "Turn On Bluetooth to Allow to Connect Accessories", message: "For better experience using this app please turn on bluetooth", preferredStyle: UIAlertControllerStyle.Alert)
             // add the actions (buttons)
             alert.addAction(UIAlertAction(title: "Setting", style: UIAlertActionStyle.Default, handler: { action in
                 // do something like...

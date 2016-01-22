@@ -27,13 +27,38 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         beaconManager.requestAlwaysAuthorization()
         regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: major, minor: minor, identifier: identifier)//purple
         
-        beaconManager.startMonitoringForRegion(regions)
-        //beaconManager.startRangingBeaconsInRegion(region)
+        //beaconManager.startMonitoringForRegion(regions)
+        beaconManager.startRangingBeaconsInRegion(regions)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "departure:", name: "refreshDeparture", object: nil)
     }
     
     func beaconManager(manager: AnyObject, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         print(beacons)
+        if beacons.count != 0{
+        if beacons[0].accuracy < 2 && beacons[0].accuracy > 0{
+            
+            if region.identifier == "time left"{
+                showMessage()
+                beaconManager.stopRangingBeaconsInRegion(regions)
+            }else if region.identifier == "Departure"{
+                beaconManager.stopRangingBeaconsInRegion(regions)
+                departureMessage()
+                
+                for notification in UIApplication.sharedApplication().scheduledLocalNotifications! { // loop through notifications...
+                    if (notification.userInfo!["identifier"] as! String == "time out") { // ...and cancel the notification that corresponds to this TodoItem instance (matched by UUID)
+                        UIApplication.sharedApplication().cancelLocalNotification(notification) // there should be a maximum of one match on UUID
+                        break
+                    }
+                }
+                
+            }else if region.identifier == "Checkin Counter"{
+                beaconManager.stopRangingBeaconsInRegion(regions)
+                arriveAtCheckInCounter()
+            }
+            
+        }
+        }
+        
     }
     
     func beaconManager(manager: AnyObject, rangingBeaconsDidFailForRegion region: CLBeaconRegion?, withError error: NSError) {
@@ -150,14 +175,14 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         
         regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: 17407, minor: 28559, identifier: "Checkin Counter")//purple
         
-        beaconManager.startMonitoringForRegion(regions)
+        beaconManager.startRangingBeaconsInRegion(regions)// .startMonitoringForRegion(regions)
         
     }
     
     func departure(sender:NSNotificationCenter){
         regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: 24330, minor: 2117, identifier: "Departure")//purple
         
-        beaconManager.startMonitoringForRegion(regions)
+        beaconManager.startRangingBeaconsInRegion(regions)//.startMonitoringForRegion(regions)
     }
 
 }

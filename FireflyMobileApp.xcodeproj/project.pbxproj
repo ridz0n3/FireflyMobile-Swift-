@@ -71,7 +71,6 @@
 		7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */; };
 		7EA286371C4776A30004AB9A /* AddContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */; };
 		7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */; };
-		7EA56E911C279B28002AD40C /* SeatSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */; };
 		7EA56E931C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */; };
 		7EAA98F91C4F2CA300F52FB2 /* BeaconCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EAA98F81C4F2CA300F52FB2 /* BeaconCheckInViewController.swift */; };
 		7EAA98FB1C4F2CC300F52FB2 /* Beacon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EAA98FA1C4F2CC300F52FB2 /* Beacon.storyboard */; };
@@ -196,7 +195,6 @@
 		7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactDetailViewController.swift; sourceTree = "<group>"; };
-		7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeatSelectionViewController.swift; sourceTree = "<group>"; };
 		7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSeatSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		7EAA98F81C4F2CA300F52FB2 /* BeaconCheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconCheckInViewController.swift; sourceTree = "<group>"; };
 		7EAA98FA1C4F2CC300F52FB2 /* Beacon.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Beacon.storyboard; sourceTree = "<group>"; };
@@ -409,7 +407,6 @@
 				7E985A091C4DEDDC00EBAFA5 /* AddSeatSelectionViewController.swift */,
 				7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */,
 				7E985A0F1C4E38D000EBAFA5 /* AddPaymentViewController.swift */,
-				7EA56E901C279B28002AD40C /* SeatSelectionViewController.swift */,
 				7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */,
 				7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */,
 				7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */,
@@ -831,7 +828,6 @@
 				7E367BF91C4397AF00897D7D /* ManageFlightHomeViewController.swift in Sources */,
 				7E99B8601C2A6B1400239322 /* PaymentSummaryViewController.swift in Sources */,
 				7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */,
-				7EA56E911C279B28002AD40C /* SeatSelectionViewController.swift in Sources */,
 				7E985A081C4DEAAE00EBAFA5 /* CommonSeatSelectionViewController.swift in Sources */,
 				7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */,
 				9615B07C1C1137DD000B522F /* FireflyAPI.swift in Sources */,

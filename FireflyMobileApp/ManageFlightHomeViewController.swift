@@ -347,10 +347,43 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     }
     
     @IBAction func ChangeFlightBtnPressed(sender: AnyObject) {
-        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
-        changeFlightVC.flightDetail = flightDetail
-        self.navigationController!.pushViewController(changeFlightVC, animated: true)
+        
+        pnr = itineraryInformation["pnr"] as! String
+        bookingId = "\(itineraryData["booking_id"]!)"
+        signature = itineraryData["signature"] as! String
+        
+        showHud()
+        
+        FireFlyProvider.request(.GetFlightAvailability(pnr, bookingId, signature)) { (result) -> () in
+            switch result {
+            case .Success(let successResult):
+                do {
+                    self.hideHud()
+                    
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                        let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
+                        changeFlightVC.flightDetail = json["journeys"].arrayObject!
+                        changeFlightVC.pnr = self.pnr
+                        changeFlightVC.bookId = "\(self.bookingId)"
+                        changeFlightVC.signature = self.signature
+                        self.navigationController!.pushViewController(changeFlightVC, animated: true)
+                    }else{
+                        self.showToastMessage(json["message"].string!)
+                    }
+                }
+                catch {
+                    
+                }
+                print (successResult.data)
+            case .Failure(let failureResult):
+                print (failureResult)
+            }
+            
+        }
+        
     }
     
     @IBAction func ChangeSeatBtnPressed(sender: AnyObject) {
