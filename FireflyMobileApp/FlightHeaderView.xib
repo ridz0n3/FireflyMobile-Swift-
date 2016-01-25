@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditFlightDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target">
             <connections>
                 <outlet property="checkBox" destination="DEU-aE-ycP" id="OJu-mc-pUF"/>
+                <outlet property="checkBtn" destination="kiE-O2-opG" id="qjY-fq-cqh"/>
                 <outlet property="sectionHeader" destination="Nrt-9N-FnR" id="Gg3-Yq-DF4"/>
                 <outlet property="wayLbl" destination="jOg-Eh-3d7" id="Akz-5X-bLx"/>
             </connections>
@@ -55,11 +56,18 @@
                                 <constraint firstAttribute="bottom" secondItem="DEU-aE-ycP" secondAttribute="bottom" id="zei-g9-eSr"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kiE-O2-opG">
+                            <rect key="frame" x="0.0" y="0.0" width="568" height="40"/>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="kiE-O2-opG" firstAttribute="leading" secondItem="Nrt-9N-FnR" secondAttribute="leading" id="7CG-en-5DO"/>
                         <constraint firstItem="MXU-29-jTR" firstAttribute="top" secondItem="Nrt-9N-FnR" secondAttribute="top" constant="8" id="7pd-ew-mJx"/>
+                        <constraint firstAttribute="trailing" secondItem="kiE-O2-opG" secondAttribute="trailing" id="Fe6-A9-gzT"/>
+                        <constraint firstItem="kiE-O2-opG" firstAttribute="top" secondItem="Nrt-9N-FnR" secondAttribute="top" id="GeZ-dt-xam"/>
                         <constraint firstItem="MXU-29-jTR" firstAttribute="centerX" secondItem="Nrt-9N-FnR" secondAttribute="centerX" id="W2L-oc-VXJ"/>
+                        <constraint firstAttribute="bottom" secondItem="kiE-O2-opG" secondAttribute="bottom" id="lsZ-YG-Aux"/>
                         <constraint firstAttribute="height" constant="40" id="pfp-Ia-bLf"/>
                     </constraints>
                 </view>

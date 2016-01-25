@@ -373,8 +373,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
             components.calendar = calendar
             
             components.year = -18
-            let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-            
             
             if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String != ""{
                 

@@ -13,6 +13,7 @@ class CustomSearchFlightTableViewCell: UITableViewCell, UITextFieldDelegate {
     @IBOutlet weak var iconImg: UIImageView!
     @IBOutlet weak var airportLbl: UILabel!
     @IBOutlet weak var lineStyle: UIImageView!
+    @IBOutlet weak var bgView: UIView!
     
     @IBOutlet weak var adultCount: UILabel!
     @IBOutlet weak var infantCount: UILabel!

@@ -247,8 +247,19 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 defaults.setObject(type, forKey: "type")
                 defaults.synchronize()
                 
+                var username = ""
+                var password = ""
+                
+                if try! LoginManager.sharedInstance.isLogin(){
+                    let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+                    username = "\(userInfo["username"] as! String)"
+                    password = "\(userInfo["password"] as! String)"
+                    
+                }
+                
+                
                 showHud()
-                FireFlyProvider.request(.SearchFlight(type, location[departureSelected]["location_code"]! as! String, travel[arrivalSelected]["travel_location_code"]! as! String, departureText, arrivalText, cell2.adultCount.text!, cell2.infantCount.text!, defaults.objectForKey("signatureLoad")! as! String), completion: { (result) -> () in
+                FireFlyProvider.request(.SearchFlight(type, location[departureSelected]["location_code"]! as! String, travel[arrivalSelected]["travel_location_code"]! as! String, departureText, arrivalText, cell2.adultCount.text!, cell2.infantCount.text!, username, password), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):

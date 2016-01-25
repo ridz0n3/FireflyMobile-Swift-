@@ -9,7 +9,7 @@
 import UIKit
 
 class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     @IBOutlet weak var seatTableView: UITableView!
     @IBOutlet weak var continueBtn: UIButton!
     var seatSelect = [AnyObject]()
@@ -148,11 +148,20 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             
             let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
             
-            if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
-                cell.rowView.backgroundColor = UIColor.yellowColor()
+            if passengerDetail["checked_in"] as! String == "Y"{
+                cell.rowView.backgroundColor = UIColor.lightGrayColor()
             }else{
-                cell.rowView.backgroundColor = UIColor.clearColor()
+                if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
+                    cell.rowView.backgroundColor = UIColor.yellowColor()
+                }else{
+                    cell.rowView.backgroundColor = UIColor.clearColor()
+                }
+                
+                cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
+                cell.removeSeat.addTarget(self, action: "removeSeat:", forControlEvents: .TouchUpInside)
             }
+            
+            
             
             if seatDict.count != 0{
                 
@@ -180,9 +189,6 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             cell.seatNumber.layer.borderWidth = 1
             cell.seatNumber.layer.borderColor = UIColor.blackColor().CGColor
             cell.passengerName.text = passengerName
-            cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
-            cell.removeSeat.addTarget(self, action: "removeSeat:", forControlEvents: .TouchUpInside)
-            
             
             return cell
         }else if (indexPath.section == 1 && details.count == 2){
@@ -199,10 +205,17 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             
             let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
             
-            if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
-                cell.rowView.backgroundColor = UIColor.yellowColor()
+            if passengerDetail["checked_in"] as! String == "Y"{
+                cell.rowView.backgroundColor = UIColor.lightGrayColor()
             }else{
-                cell.rowView.backgroundColor = UIColor.clearColor()
+                if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
+                    cell.rowView.backgroundColor = UIColor.yellowColor()
+                }else{
+                    cell.rowView.backgroundColor = UIColor.clearColor()
+                }
+                
+                cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
+                cell.removeSeat.addTarget(self, action: "removeSeat:", forControlEvents: .TouchUpInside)
             }
             
             if seatDict.count != 0{
@@ -237,8 +250,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             cell.seatNumber.layer.borderColor = UIColor.blackColor().CGColor
             cell.passengerName.text = passengerName
             cell.removeSeat.tag = indexPath.row
-            cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
-            cell.removeSeat.addTarget(self, action: "removeSeat:", forControlEvents: .TouchUpInside)
+            
             
             return cell
         }else{
@@ -419,7 +431,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             view.backgroundColor = UIColor.redColor()
             btn.userInteractionEnabled = false
         }
-
+        
         btn.setTitle(seatDetail["seat_number"] as? String, forState: UIControlState.Normal)
         btn.tag = row
         btn.addTarget(self, action: action, forControlEvents: .TouchUpInside)
@@ -496,15 +508,15 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         self.seatSelect(seatDetail, btn: sender)
         
     }
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

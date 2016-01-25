@@ -80,9 +80,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 
             }
             
-            if isEdit{
                 passengersArr.addObject(info["passengers"] as! NSArray)
-            }
             
             data.setValue(departureStation, forKey: "departure_station")
             data.setValue(departureStationName, forKey: "departure_station_name")
