@@ -21,7 +21,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
     var selectedGoingCell:NSNumber? = nil
     var selectedReturnFlight = NSNumber()
     var selectedReturnCell:NSNumber? = nil
-    var flightDetail : Array<JSON> = []
+    var flightDetail : [JSON] = []
     var infant = String()
     var adult = String()
     var planGoing:Int = 1
