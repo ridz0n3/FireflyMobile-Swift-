@@ -1,17 +1,16 @@
-
 //
-//  FlightDetailViewController.swift
+//  CommonFlightDetailViewController.swift
 //  FireflyMobileApp
 //
-//  Created by ME-Tech Mac User 1 on 11/16/15.
-//  Copyright © 2015 Me-tech. All rights reserved.
+//  Created by ME-Tech Mac User 1 on 1/25/16.
+//  Copyright © 2016 Me-tech. All rights reserved.
 //
 
 import UIKit
 import SwiftyJSON
 import M13Checkbox
 
-class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class CommonFlightDetailViewController: BaseViewController {
 
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var flightDetailTableView: UITableView!
@@ -29,9 +28,12 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
     var flightAvailable = Bool()
     var isGoingSelected = Bool()
     var isReturnSelected = Bool()
+    var isEdit = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
         setupLeftButton()
         
         self.flightDetailTableView.tableHeaderView = headerView
@@ -41,7 +43,6 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         if flightDetail.count == 0{
             self.continueView.hidden = true
         }
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,7 +75,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    
+        
         return 107
         
     }
@@ -190,8 +191,8 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
             flightHeader.premierBtn.addTarget(self, action: "changePlan:", forControlEvents: .TouchUpInside)
-        
-        
+            
+            
             return flightHeader
         }
     }
@@ -223,136 +224,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         self.flightDetailTableView.reloadData()
         
     }
-    
-    @IBAction func continueButtonPressed(sender: AnyObject) {
-        var userInfo = NSMutableDictionary()
-        
-        if try! LoginManager.sharedInstance.isLogin(){
-            userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
-        }
-        
-        let date = flightDetail[0]["departure_date"].string!
-        var dateArr = date.componentsSeparatedByString(" ")
-        var planGo = String()
-        var planBack = String()
-        
-        if planGoing == 1{
-            planGo = "basic_class"
-        }else{
-            planGo = "flex_class"
-        }
-        
-        
-        var parameters:[String:AnyObject] = [String:AnyObject]()
-        
-        if !isGoingSelected{
-            self.showToastMessage("Please select Going Flight")
-        }else if !isReturnSelected && defaults.objectForKey("type")! as! NSNumber != 0{
-            self.showToastMessage("Please select Return Flight")
-        }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out"{
-            self.showToastMessage("Please select Going Flight")
-        }else{
-            
-            if defaults.objectForKey("type") as! Int == 1{
-                
-                let dateReturn = flightDetail[1]["departure_date"].string!
-                var dateReturnArr = dateReturn.componentsSeparatedByString(" ")
-                
-                if planReturn == 4{
-                    planBack = "basic_class"
-                }else{
-                    planBack = "flex_class"
-                }
-                
-                if planBack == "flex_class" && flightDetail[1]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out"{
-                    
-                    self.showToastMessage("Please select Return Flight")
-                    
-                }else{
-                    
-                    parameters.updateValue(defaults.objectForKey("type")!, forKey: "type")
-                    
-                    if userInfo["username"] != nil{
-                        parameters.updateValue(userInfo["username"]!, forKey: "username")
-                    }else{
-                        parameters.updateValue("", forKey: "username")
-                    }
-                    
-                    parameters.updateValue(flightDetail[0]["departure_station_code"].string!, forKey: "departure_station")
-                    parameters.updateValue(flightDetail[0]["arrival_station_code"].string!, forKey: "arrival_station")
-                    parameters.updateValue(formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])")), forKey: "departure_date")
-                    parameters.updateValue(defaults.objectForKey("adult")!, forKey: "adult")
-                    parameters.updateValue(defaults.objectForKey("infant")!, forKey: "infant")
-                    parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue]["flight_number"].string!, forKey: "flight_number_1")
-                    parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue]["departure_time"].string!, forKey: "departure_time_1")
-                    parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue]["arrival_time"].string!, forKey: "arrival_time_1")
-                    parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue]["journey_sell_key"].string!, forKey: "journey_sell_key_1")
-                    parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["fare_sell_key"].string!, forKey: "fare_sell_key_1")
-                    parameters.updateValue(formatDate(stringToDate("\(dateReturnArr[2])-\(dateReturnArr[1])-\(dateReturnArr[0])")), forKey: "return_date")
-                    parameters.updateValue(flightDetail[1]["flights"][selectedReturnFlight.integerValue]["flight_number"].string!, forKey: "flight_number_2")
-                    parameters.updateValue(flightDetail[1]["flights"][selectedReturnFlight.integerValue]["departure_time"].string!, forKey: "departure_time_2")
-                    parameters.updateValue(flightDetail[1]["flights"][selectedReturnFlight.integerValue]["arrival_time"].string!, forKey: "arrival_time_2")
-                    parameters.updateValue(flightDetail[1]["flights"][selectedReturnFlight.integerValue]["journey_sell_key"].string!, forKey: "journey_sell_key_2")
-                    parameters.updateValue(flightDetail[1]["flights"][selectedReturnFlight.integerValue][planBack]["fare_sell_key"].string!, forKey: "fare_sell_key_2")
-                    
-                    let manager = WSDLNetworkManager()
-                    showHud()
-                    manager.sharedClient().createRequestWithService("selectFlight", withParams: parameters) { (result) -> Void in
-                        self.hideHud()
-                        
-                        self.showToastMessage(result["status"].string!)
-                        defaults.setObject(result["booking_id"].int , forKey: "booking_id")
-                        let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                        let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
-                        self.navigationController!.pushViewController(personalDetailVC, animated: true)
-                        
-                    }
-                    
-                }
-                
-            }else{
-                
-                parameters.updateValue(defaults.objectForKey("type")!, forKey: "type")
-                if userInfo["username"] != nil{
-                    parameters.updateValue(userInfo["username"]!, forKey: "username")
-                }else{
-                    parameters.updateValue("", forKey: "username")
-                }
-                parameters.updateValue(flightDetail[0]["departure_station_code"].string!, forKey: "departure_station")
-                parameters.updateValue(flightDetail[0]["arrival_station_code"].string!, forKey: "arrival_station")
-                parameters.updateValue(formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])")), forKey: "departure_date")
-                parameters.updateValue(defaults.objectForKey("adult")!, forKey: "adult")
-                parameters.updateValue(defaults.objectForKey("infant")!, forKey: "infant")
-                parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue]["flight_number"].string!, forKey: "flight_number_1")
-                parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue]["departure_time"].string!, forKey: "departure_time_1")
-                parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue]["arrival_time"].string!, forKey: "arrival_time_1")
-                parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue]["journey_sell_key"].string!, forKey: "journey_sell_key_1")
-                parameters.updateValue(flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["fare_sell_key"].string!, forKey: "fare_sell_key_1")
-                parameters.updateValue("", forKey: "return_date")
-                parameters.updateValue("", forKey: "flight_number_2")
-                parameters.updateValue("", forKey: "departure_time_2")
-                parameters.updateValue("", forKey: "arrival_time_2")
-                parameters.updateValue("", forKey: "journey_sell_key_2")
-                parameters.updateValue("", forKey: "fare_sell_key_2")
-                
-                let manager = WSDLNetworkManager()
-                showHud()
-                manager.sharedClient().createRequestWithService("selectFlight", withParams: parameters) { (result) -> Void in
-                    self.hideHud()
-                    
-                    self.showToastMessage(result["status"].string!)
-                    defaults.setObject(result["booking_id"].int , forKey: "booking_id")
-                    print(result["booking_id"].int)
-                    let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                    let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
-                    self.navigationController!.pushViewController(personalDetailVC, animated: true)
-                    
-                }
-            }
-            
-        }
-        
-    }
+
     
     /*
     // MARK: - Navigation

@@ -31,7 +31,16 @@ class WSDLNetworkManager: NSObject {
             }
         }
     }
+    
+    func sentData(serviceName: String, withParams: NSDictionary){
+        let serviceUrl = "http://192.168.0.117:44447/api.php"
         
+        let ala = Alamofire.request(.POST, serviceUrl, parameters: withParams as? [String : AnyObject])
+        
+        print(ala.response)
+    }
+    
+    
     func test(serviceName:String, completion:(result:AnyObject) -> Void){
         
         Alamofire.request(.GET, serviceName, parameters: nil).responseJSON { (response) -> Void in

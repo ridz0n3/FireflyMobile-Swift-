@@ -273,7 +273,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                                 defaults.setObject(json["signature"].string, forKey: "signature")
                                 defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("FlightDetailVC") as! FlightDetailViewController
+                                let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("FlightDetailVC") as! AddFlightDetailViewController
                                 flightDetailVC.flightDetail = json["journeys"].arrayValue
                                 self.navigationController!.pushViewController(flightDetailVC, animated: true)
                                 
