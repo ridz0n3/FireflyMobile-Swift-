@@ -404,11 +404,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "475579426.915858"
+            timestampString = "475668401.700989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "refreshTable(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3450,10 +3450,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "165"
             endingLineNumber = "165"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
-            startingLineNumber = "165"
-            endingLineNumber = "165"
             landmarkName = "applicationWillResignActive(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3468,10 +3464,6 @@
             timestampString = "475665444.535262"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
             startingLineNumber = "171"
             endingLineNumber = "171"
             landmarkName = "applicationDidEnterBackground(_:)"
@@ -3492,10 +3484,6 @@
             endingLineNumber = "177"
             landmarkName = "applicationWillEnterForeground(_:)"
             landmarkType = "5">
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3508,10 +3496,6 @@
             timestampString = "475665444.535262"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
             startingLineNumber = "181"
             endingLineNumber = "181"
             landmarkName = "applicationDidBecomeActive(_:)"
@@ -3530,10 +3514,6 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "184"
             endingLineNumber = "184"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
-            startingLineNumber = "184"
-            endingLineNumber = "184"
             landmarkName = "applicationWillTerminate(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3548,10 +3528,6 @@
             timestampString = "475665444.535262"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "AppDelegate"
-            landmarkType = "3">
             startingLineNumber = "185"
             endingLineNumber = "185"
             landmarkName = "applicationWillTerminate(_:)"
@@ -6031,11 +6007,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "475579426.915858"
+            timestampString = "475668401.700989"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>

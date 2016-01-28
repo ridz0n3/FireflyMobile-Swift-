@@ -99,24 +99,6 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         }else if indexPath.row == 2{
             
-            let date = NSDate()
-            let addtime = date.dateByAddingTimeInterval(1.0 * 60.0)
-            
-            let notification = UILocalNotification()
-            if #available(iOS 8.2, *) {
-                notification.alertTitle = "Firefly"
-            } else {
-                // Fallback on earlier versions
-            }
-            notification.alertAction = "open"
-            notification.category = "Check_Bluetooth"
-            notification.userInfo = ["identifier" : "time out", "msg" : "Your flight will depart in 10minutes more, please hurry"]
-            notification.alertBody = "Hurry"
-            notification.fireDate = addtime
-            
-            notification.soundName = UILocalNotificationDefaultSoundName
-            UIApplication.sharedApplication().scheduleLocalNotification(notification)
-            
             if try! LoginManager.sharedInstance.isLogin(){
                 let userinfo = defaults.objectForKey("userInfo")
                 showHud()
