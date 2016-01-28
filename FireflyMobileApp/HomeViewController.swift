@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 import SwiftyJSON
 
 class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
@@ -61,12 +62,12 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath) as! CustomHomeMenuTableViewCell
             
             if (defaults.objectForKey("banner") != nil){
-                let url = NSURL(string: defaults.objectForKey("banner") as! String)!
-                let data = NSData(contentsOfURL: url)
                 
-                if (data != nil){
+                 let imageURL = defaults.objectForKey("banner") as! String
+                Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
                     cell.banner.image = UIImage(data: data!)
-                }
+                })
+                
                 
             }
             
