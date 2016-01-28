@@ -12,46 +12,41 @@ import XLForm
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelegate, CLLocationManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelegate {
 
     var window: UIWindow?
     let baseView = BaseViewController()
     var bluetoothPeripheralManager: CBPeripheralManager?
-    let locationManager = CLLocationManager()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        // 1
-        locationManager.delegate = self
-        // 2
-        locationManager.requestAlwaysAuthorization()
-        
-        let lat = "2.9241206"
-        let lon = "101.6559203"
-        
-        let location = CLLocationCoordinate2D(
-            latitude: (lat as NSString).doubleValue as CLLocationDegrees,
-            longitude: (lon as NSString).doubleValue as CLLocationDegrees
-        )
-        
-        print(location)
-        
-        
-        
-        let options = [CBCentralManagerOptionShowPowerAlertKey:0] //<-this is the magic bit!
-        bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: options)
-        
+        GeoFenceManager.sharedInstance.startGeoFence()
         InitialLoadManager.sharedInstance.load()
+        
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPicker] = FloatLabeledPickerCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledDatePicker] = FloateLabeledDatePickerCell.self
         
+        let completeAction = UIMutableUserNotificationAction()
+        completeAction.identifier = "Close"
+        completeAction.title = "Cancel"
+        completeAction.activationMode = .Background
+        completeAction.authenticationRequired = false
+        completeAction.destructive = false
         
-        UIApplication.sharedApplication().registerForRemoteNotifications()
+        let remindAction = UIMutableUserNotificationAction()
+        remindAction.identifier = "Turn_On"
+        remindAction.title = "Ok"
+        remindAction.activationMode = .Background
+        remindAction.destructive = false
+        
+        let todoCategory = UIMutableUserNotificationCategory()
+        todoCategory.identifier = "Check_Bluetooth"
+        todoCategory.setActions([completeAction, remindAction], forContext: .Minimal)
         
         let notifSetting:UIUserNotificationType = [.Badge, .Alert, .Sound]
-        
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: notifSetting, categories: nil))
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: notifSetting, categories: NSSet(array: [todoCategory]) as? Set<UIUserNotificationCategory>))
         
         UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         UINavigationBar.appearance().translucent = false
@@ -100,8 +95,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
                 }
             }
             
-        }else{
+        }else if notification.userInfo!["identifier"] as! String == "Checkin Counter"{
             BeaconManager.sharedInstance.arriveAtCheckInCounter()
+        }else{
+            let options = [CBCentralManagerOptionShowPowerAlertKey:0] //<-this is the magic bit!
+            bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: options)
         }
         
     }
@@ -127,8 +125,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
             appDelegate!.presentViewController(alert, animated: true, completion: nil)
             
         }else if peripheral.state == CBPeripheralManagerState.PoweredOn{
-            BeaconManager.sharedInstance.startRanging()
+            //BeaconManager.sharedInstance.startRanging()
         }
+    }
+    
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
+        //var item = TodoItem(deadline: notification.fireDate!, title: notification.userInfo!["title"] as String, UUID: notification.userInfo!["UUID"] as String!)
+        switch (identifier!) {
+        case "Close":break
+        case "Turn_On": BeaconManager.sharedInstance.startRanging()
+            //TodoList.sharedInstance.scheduleReminderforItem(item)
+        default: break // switch statements must be exhaustive - this condition should never be met
+            //println("Error: unexpected notification action identifier!")
+        }
+        completionHandler() // per developer documentation, app will terminate if we fail to call this
     }
     
     func applicationWillResignActive(application: UIApplication) {

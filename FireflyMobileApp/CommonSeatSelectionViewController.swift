@@ -148,9 +148,9 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             
             let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
             
-            if passengerDetail["checked_in"] as! String == "Y"{
+            //if passengerDetail["checked_in"] as! String == "Y"{
                 cell.rowView.backgroundColor = UIColor.lightGrayColor()
-            }else{
+            //}else{
                 if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
                     cell.rowView.backgroundColor = UIColor.yellowColor()
                 }else{
@@ -159,7 +159,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                 
                 cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
                 cell.removeSeat.addTarget(self, action: "removeSeat:", forControlEvents: .TouchUpInside)
-            }
+            //}
             
             
             
@@ -205,9 +205,9 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             
             let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
             
-            if passengerDetail["checked_in"] as! String == "Y"{
-                cell.rowView.backgroundColor = UIColor.lightGrayColor()
-            }else{
+            //if passengerDetail["checked_in"] as! String == "Y"{
+            //    cell.rowView.backgroundColor = UIColor.lightGrayColor()
+            //}else{
                 if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
                     cell.rowView.backgroundColor = UIColor.yellowColor()
                 }else{
@@ -216,7 +216,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                 
                 cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
                 cell.removeSeat.addTarget(self, action: "removeSeat:", forControlEvents: .TouchUpInside)
-            }
+           // }
             
             if seatDict.count != 0{
                 

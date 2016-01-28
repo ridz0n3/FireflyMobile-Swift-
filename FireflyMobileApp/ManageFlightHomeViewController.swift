@@ -44,11 +44,16 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     var pnr = String()
     var bookingId = String()
     var signature = String()
+    var isLogin = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupMenuButton()
+        if isLogin{
+            setupLeftButton()
+        }else{
+            setupMenuButton()
+        }
         
         if isConfirm{
             confirmView.hidden = false
@@ -91,6 +96,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             addPaymentBtn.layer.cornerRadius = 10.0
             
             getInfo()
+            
+            if totalDue == "0.00 MYR"{
+                
+                addPaymentBtn.highlighted = true
+                addPaymentBtn.userInteractionEnabled = false
+                
+            }
         }
         
         flightSummarryTableView.tableHeaderView = headerView
@@ -168,7 +180,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             if indexPath.row == paymentDetails.count{
                 return 80
             }else{
-                return 28
+                return 26
             }
             
         }else{
@@ -364,7 +376,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     
                     if json["status"] == "success"{
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
+                        let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditSearchFlightVC") as! EditSearchFlightViewController
                         changeFlightVC.flightDetail = json["journeys"].arrayObject!
                         changeFlightVC.pnr = self.pnr
                         changeFlightVC.bookId = "\(self.bookingId)"
@@ -427,9 +439,45 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     }
     
     @IBAction func AddPaymentBtnPressed(sender: AnyObject) {
-        //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        //let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ChangeContactDetailVC") as! ChangeContactDetailViewController
-        //self.navigationController!.pushViewController(manageFlightVC, animated: true)
+        
+        pnr = itineraryInformation["pnr"] as! String
+        bookingId = "\(itineraryData["booking_id"]!)"
+        signature = itineraryData["signature"] as! String
+        
+        showHud()
+        FireFlyProvider.request(.PaymentSelection(self.signature)) { (result) -> () in
+            
+            switch result {
+            case .Success(let successResult):
+                do {
+                    self.hideHud()
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        
+                        let paymentChannel = json["payment_channel"].arrayObject
+                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
+                        paymentVC.paymentType = paymentChannel!
+                        paymentVC.totalDueStr = self.totalDue
+                        paymentVC.bookingId = self.bookingId
+                        paymentVC.signature = self.signature
+                        self.navigationController!.pushViewController(paymentVC, animated: true)
+                        
+                    }else{
+                        self.showToastMessage(json["message"].string!)
+                    }
+                }
+                catch {
+                    
+                }
+                print (successResult.data)
+            case .Failure(let failureResult):
+                print (failureResult)
+            }
+            
+        }
+        
     }
     
     @IBAction func SendItineraryBtnPressed(sender: AnyObject) {

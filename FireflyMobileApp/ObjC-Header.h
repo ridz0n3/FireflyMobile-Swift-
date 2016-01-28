@@ -15,5 +15,5 @@
 #import <RSDayFlow/RSDFDatePickerView.h>
 #import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
 #import <EstimoteSDK/EstimoteSDK.h>
-
+#import "BluetoothManager.h"
 #endif /* ObjC_Header_h */

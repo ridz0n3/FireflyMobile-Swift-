@@ -21,8 +21,17 @@ class InitialLoadManager {
         }else{
             existDataVersion = ""
         }
+        var username = String()
+        var password = String()
         
-        FireFlyProvider.request(.Loading("","","","",UIDevice.currentDevice().systemVersion,UIDevice.currentDevice().identifierForVendor!.UUIDString,"Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
+        if try! LoginManager.sharedInstance.isLogin(){
+            let userinfo = defaults.objectForKey("userInfo") 
+            username = userinfo!["username"] as! String
+            password = userinfo!["password"] as! String
+        }
+        
+        
+        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,UIDevice.currentDevice().identifierForVendor!.UUIDString,"Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {

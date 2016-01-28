@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -96,9 +97,62 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             self.navigationController!.pushViewController(bookFlightVC, animated: true)
             
         }else if indexPath.row == 2{
+            
+            let date = NSDate()
+            let addtime = date.dateByAddingTimeInterval(1.0 * 60.0)
+            
+            let notification = UILocalNotification()
+            if #available(iOS 8.2, *) {
+                notification.alertTitle = "Firefly"
+            } else {
+                // Fallback on earlier versions
+            }
+            notification.alertAction = "open"
+            notification.category = "Check_Bluetooth"
+            notification.userInfo = ["identifier" : "time out", "msg" : "Your flight will depart in 10minutes more, please hurry"]
+            notification.alertBody = "Hurry"
+            notification.fireDate = addtime
+            
+            notification.soundName = UILocalNotificationDefaultSoundName
+            UIApplication.sharedApplication().scheduleLocalNotification(notification)
+            
+            if try! LoginManager.sharedInstance.isLogin(){
+                let userinfo = defaults.objectForKey("userInfo")
+                showHud()
+                
+                FireFlyProvider.request(.RetrieveBookingList(userinfo!["username"] as! String, userinfo!["password"] as! String, "manage_booking"), completion: { (result) -> () in
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            self.hideHud()
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            
+                            if json["status"] == "success"{
+                                let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                                let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("LoginManageFlightVC") as! LoginManageFlightViewController
+                                manageFlightVC.userId = "\(json["user_id"])"
+                                manageFlightVC.signature = json["signature"].string!
+                                manageFlightVC.listBooking = json["list_booking"].arrayObject!
+                                self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                            }else{
+                                self.showToastMessage(json["message"].string!)
+                            }
+                        }
+                        catch {
+                            
+                        }
+                        print (successResult.data)
+                    case .Failure(let failureResult):
+                        print (failureResult)
+                    }
+                })
+                
+            }else{
+            
             let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
             let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightVC") as! ManageFlightViewController
             self.navigationController!.pushViewController(manageFlightVC, animated: true)
+            }
         }else if indexPath.row == 3{
             let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
             let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("CheckInVC") as! CheckInViewController

@@ -2,50 +2,26 @@
 //  EditFlightDetailViewController.swift
 //  FireflyMobileApp
 //
-//  Created by ME-Tech Mac User 1 on 1/18/16.
+//  Created by ME-Tech Mac User 1 on 1/25/16.
 //  Copyright © 2016 Me-tech. All rights reserved.
 //
 
 import UIKit
-import M13Checkbox
-import ActionSheetPicker_3_0
 import SwiftyJSON
+import M13Checkbox
 
-class EditFlightDetailViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class EditFlightDetailViewController: CommonFlightDetailViewController {
     
-    @IBOutlet weak var sectionHeader: UIView!
-    @IBOutlet weak var wayLbl: UILabel!
-    @IBOutlet weak var checkBox: M13Checkbox!
-    @IBOutlet weak var editFlightTableView: UITableView!
-    @IBOutlet weak var checkBtn: UIButton!
-    @IBOutlet weak var continueBtn: UIButton!
-    
-    var arrivalDate = NSDate()
-    var goingDate = String()
-    var isChangeGoingDate = Bool()
-    var returnDate = String()
-    var isChangeReturnDate = Bool()
-    var flightDetail = NSArray()
-    var isCheckGoing = Bool()
-    var isCheckReturn = Bool()
-    
-    var goingDeparture = String()
-    var goingArrival = String()
-    var returnDeparture = String()
-    var returnArrival = String()
-    
-    var bookId = String()
+    var goingData = NSDictionary()
+    var returnData = NSDictionary()
     var signature = String()
+    var type = Int()
+    var bookId = String()
     var pnr = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLeftButton()
         
-        continueBtn.layer.cornerRadius = 10.0
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "departureDate:", name: "departure", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "returnDate:", name: "return", object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -54,277 +30,228 @@ class EditFlightDetailViewController: BaseViewController, UITableViewDataSource,
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return flightDetail.count
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        let cell = editFlightTableView.dequeueReusableCellWithIdentifier("airportCell", forIndexPath: indexPath) as! CustomSearchFlightTableViewCell
-        
-        let flightData = flightDetail[indexPath.section] as! NSDictionary
-        
-        let formater = NSDateFormatter()
-        formater.dateFormat = "yyyy/MM/dd"
-        
-        if (indexPath.section == 0 && !isCheckGoing) || (indexPath.section == 1 && !isCheckReturn){
-            cell.bgView.backgroundColor = UIColor.lightGrayColor()
+        if flightDetail.count == 0{
+            return 1
         }else{
-            cell.bgView.backgroundColor = UIColor.whiteColor()
-        }
-        
-        if indexPath.row == 0{
-            cell.iconImg.image = UIImage(named: "departure_icon")
-            cell.airportLbl.text = "\(getFlightName(flightData["departure_station"] as! String))(\(flightData["departure_station"] as! String))"
-            cell.airportLbl.tag = indexPath.row
             
-            if indexPath.section == 0{
-                goingDeparture = flightData["departure_station"] as! String
-            }else{
-                returnDeparture = flightData["departure_station"] as! String
-            }
+            let flightDict = flightDetail[section].dictionary
             
-        }else if indexPath.row == 1{
-            cell.iconImg.image = UIImage(named: "arrival_icon")
-            cell.airportLbl.text = "\(getFlightName(flightData["arrival_station"] as! String))(\(flightData["arrival_station"] as! String))"
-            cell.airportLbl.tag = indexPath.row
-            cell.lineStyle.image = UIImage(named: "lines")
-            
-            if indexPath.section == 0{
-                goingArrival = flightData["arrival_station"] as! String
-            }else{
-                returnArrival = flightData["arrival_station"] as! String
-            }
-        }else{
-            cell.iconImg.image = UIImage(named: "date_icon")
-            
-            if indexPath.section == 0{
+            if section == 0{
                 
-                if !isChangeGoingDate{
-                    let rawDate = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
-                    let dateStr = formater.dateFromString("\(rawDate[2])/\(rawDate[1])/\(rawDate[0])")
-                    goingDate = formater.stringFromDate(dateStr!)
-                    cell.airportLbl.text = goingDate
-                    
+                if flightDict!["flights"]?.count == 0 || goingData["status"] as! String == "N"{
+                    return 1
                 }else{
-                    let date = formater.dateFromString(goingDate)
-                    cell.airportLbl.text = formater.stringFromDate(date!)
+                    return (flightDict!["flights"]?.count)!
                 }
                 
-                cell.userInteractionEnabled = isCheckGoing
-                
             }else{
-                if !isChangeReturnDate{
-                    let rawDate = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
-                    let dateStr = formater.dateFromString("\(rawDate[2])/\(rawDate[1])/\(rawDate[0])")
-                    returnDate = formater.stringFromDate(dateStr!)
-                    cell.airportLbl.text = returnDate
-                    
+                
+                if flightDict!["flights"]?.count == 0 || returnData["status"] as! String == "N"{
+                    return 1
                 }else{
-                    let date = formater.dateFromString(returnDate)
-                    cell.airportLbl.text = formater.stringFromDate(date!)
+                    return (flightDict!["flights"]?.count)!
                 }
                 
-                cell.userInteractionEnabled = isCheckReturn
-            }
-            
-            cell.airportLbl.tag = indexPath.row
-        }
-        
-        //cell.userInteractionEnabled = userInteract
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        if indexPath.row == 2{
-            
-            if indexPath.section == 0{
-                let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
-                let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
-                gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-                //gregorianVC.calendar.locale = NSLocale.currentLocale()
-                gregorianVC.view.backgroundColor = UIColor.orangeColor()
-                gregorianVC.typeDate = "departure"
-                self.presentViewController(gregorianVC, animated: true, completion: nil)
-            }else{
-                let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
-                let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
-                gregorianVC.currentDate = arrivalDate
-                gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-                //gregorianVC.calendar.locale = NSLocale.currentLocale()
-                gregorianVC.view.backgroundColor = UIColor.orangeColor()
-                gregorianVC.typeDate = "return"
-                self.presentViewController(gregorianVC, animated: true, completion: nil)
-            }
-            
-            
-            
-        }
-        
-    }
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
-        
-        sectionHeader = NSBundle.mainBundle().loadNibNamed("FlightHeaderView", owner: self, options: nil)[0] as! UIView
-        
-        sectionHeader.frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
-        checkBox.uncheckedColor = UIColor.whiteColor()
-        checkBtn.tag = section
-        if (section == 1) {
-            wayLbl.text = "RETURN FLIGHT"
-            if isCheckReturn{
-                checkBox.checkState = M13CheckboxStateChecked
-            }else{
-                checkBox.checkState = M13CheckboxStateUnchecked
-            }
-        }else{
-            if isCheckGoing{
-                checkBox.checkState = M13CheckboxStateChecked
-            }else{
-                checkBox.checkState = M13CheckboxStateUnchecked
-            }
-        }
-        
-        checkBtn.addTarget(self, action: "checkSection:", forControlEvents: .TouchUpInside)
-        return sectionHeader
-        
-    }
-    
-    func departureDate(notif:NSNotification){
-        isChangeGoingDate = true
-        goingDate = notif.userInfo!["date"] as! String
-        arrivalDate = stringToDate(goingDate)
-        editFlightTableView.reloadData()
-        
-    }
-    
-    func returnDate(notif:NSNotification){
-        isChangeReturnDate = true
-        returnDate = notif.userInfo!["date"] as! String
-        //arrivalDate = stringToDate(goingDate)
-        editFlightTableView.reloadData()
-        
-    }
-    
-    func checkSection(sender:UIButton){
-        
-        if flightDetail[sender.tag]["flight_status"] as! String == "Checked_in"{
-            showToastMessage("Checked-in flight cannot be changed.")
-        }else if flightDetail[sender.tag]["flight_status"] as! String == "Departed_flight"{
-            showToastMessage("Departed flight cannot be changed.")
-        }else{
-            if sender.tag == 0 && !isCheckGoing{
-                isCheckGoing = true
-            }else if sender.tag == 1 && !isCheckReturn{
-                isCheckReturn = true
-            }else if sender.tag == 0 && isCheckGoing{
-                isCheckGoing = false
-                isChangeGoingDate = false
-            }else if sender.tag == 1 && isCheckReturn{
-                isCheckReturn = false
-                isChangeReturnDate = false
-            }
-            
-            editFlightTableView.reloadData()
-        }
-        
-    }
-    
-    func getFlightName(flightCode : String) -> String{
-        
-        let flightArr = defaults.objectForKey("flight") as! NSArray
-        var flightName = String()
-        for flightData in flightArr{
-            
-            if flightData["location_code"] as! String == flightCode{
-                flightName = flightData["location"] as! String
-                break
             }
             
         }
         
-        return flightName
-        
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if !isCheckGoing && !isCheckReturn{
-            showToastMessage("Please select at least one flight to proceed.")
+        if flightDetail.count == 0{
+            let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
+            return cell
         }else{
             
-            let departure = NSMutableDictionary()
-            let returned = NSMutableDictionary()
+            let flightDict = flightDetail[indexPath.section].dictionary
             
-            departure.setValue(isCheckGoing ? "Y" : "N", forKey: "status")
-            departure.setValue(goingDeparture, forKey: "departure_station")
-            departure.setValue(goingArrival, forKey: "arrival_station")
-            departure.setValue(formatDate(stringToDate(goingDate)), forKey: "departure_date")
-            
-            if flightDetail.count == 2{
+            if flightDict!["flights"]?.count == 0{
+                let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
+                return cell
+            }else if indexPath.section == 0 && goingData["status"] as! String == "N"{
+                let cell = tableView.dequeueReusableCellWithIdentifier("NoSelectCell", forIndexPath: indexPath)
+                return cell
+            }else if indexPath.section == 1 && returnData["status"] as! String == "N"{
+                let cell = tableView.dequeueReusableCellWithIdentifier("NoSelectCell", forIndexPath: indexPath)
+                return cell
+            }else{
+                let cell = self.flightDetailTableView.dequeueReusableCellWithIdentifier("flightCell", forIndexPath: indexPath) as! CustomFlightDetailTableViewCell
                 
-                let gDate = stringToDate(goingDate)
-                let rDate = stringToDate(returnDate)
+                let flightDict = flightDetail[indexPath.section].dictionary
+                let flights = flightDict!["flights"]?.array
+                let flightData = flights![indexPath.row].dictionary
+                let flightBasic = flightData!["basic_class"]!.dictionary
+                let flightFlex = flightData!["flex_class"]!.dictionary
                 
-                if gDate.compare(rDate) == NSComparisonResult.OrderedDescending{
-                    showToastMessage("Please make sure that your return date is not earlier than your departure date.")
+                cell.flightNumber.text = String(format: "FLIGHT NO. FY %@", flightData!["flight_number"]!.string!)
+                cell.departureAirportLbl.text = String(format: "%@ Airport", flightDict!["departure_station_name"]!.string!)
+                cell.arrivalAirportLbl.text = String(format: "%@ Airport", flightDict!["arrival_station_name"]!.string!)
+                cell.departureTimeLbl.text = flightData!["departure_time"]!.string
+                cell.arrivalTimeLbl.text = flightData!["arrival_time"]!.string
+                cell.checkFlight.tag = indexPath.row
+                
+                if (planGoing == 1 && indexPath.section == 0) || (planReturn == 4 && indexPath.section == 1){
+                    cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
+                    cell.checkFlight.hidden = false
+                    flightAvailable = true
+                }else{
+                    
+                    if flightFlex!["status"]!.string == "sold out"{
+                        cell.priceLbl.text = "SOLD OUT"
+                        cell.checkFlight.hidden = true
+                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        flightAvailable = false
+                        
+                    }else{
+                        cell.priceLbl.text = String(format: "%.2f MYR", (flightFlex!["total_fare"]?.floatValue)!)
+                        cell.checkFlight.hidden = false
+                    }
+                    
                 }
                 
-                returned.setValue(isCheckReturn ? "Y" : "N", forKey: "status")
-                returned.setValue(returnDeparture, forKey: "departure_station")
-                returned.setValue(returnArrival, forKey: "arrival_station")
-                returned.setValue(formatDate(stringToDate(returnDate)), forKey: "departure_date")
+                if indexPath.section == 1{
+                    cell.flightIcon.image = UIImage(named: "arrival_icon")
+                    cell.checkFlight.userInteractionEnabled = false
+                    if NSNumber.init(integer: indexPath.row) == selectedReturnFlight{
+                        selectedReturnFlight = NSNumber.init(integer: indexPath.row)
+                        cell.checkFlight.checkState = M13CheckboxStateChecked
+                    }else{
+                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                    }
+                }else{
+                    cell.flightIcon.image = UIImage(named: "departure_icon")
+                    cell.checkFlight.userInteractionEnabled = false
+                    if NSNumber.init(integer: indexPath.row) == selectedGoingFlight{
+                        selectedGoingFlight = NSNumber.init(integer: indexPath.row)
+                        cell.checkFlight.checkState = M13CheckboxStateChecked
+                    }else{
+                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                    }
+                }
+                return cell
+            }
+        }
+    }
+    
+    @IBAction func ContinueBtnPressed(sender: AnyObject) {
+        
+        let date = flightDetail[0]["departure_date"].string!
+        var dateArr = date.componentsSeparatedByString(" ")
+        var planGo = String()
+        var planBack = String()
+        
+        if planGoing == 1{
+            planGo = "basic_class"
+        }else{
+            planGo = "flex_class"
+        }
+        
+        if !isGoingSelected && goingData["status"] as! String == "Y"{
+            self.showToastMessage("Please select Going Flight")
+        }else if !isReturnSelected && type == 1 && returnData["status"] as! String == "Y"{
+            self.showToastMessage("Please select Return Flight")
+        }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out" && goingData["status"] as! String == "Y"{
+            self.showToastMessage("Please select Going Flight")
+        }else{
+            let parameter = NSMutableDictionary()
+            var isType1 = false
+            var isError = false
+            
+            var departure_station = String()
+            var arrival_station = String()
+            var departure_date = String()
+            var arrival_time_1 = String()
+            var departure_time_1 = String()
+            var fare_sell_key_1 = String()
+            var flight_number_1 = String()
+            var journey_sell_key_1 = String()
+            var status_1 = String()
+            
+            var return_date = String()
+            var arrival_time_2 = String()
+            var departure_time_2 = String()
+            var fare_sell_key_2 = String()
+            var flight_number_2 = String()
+            var journey_sell_key_2 = String()
+            var status_2 = String()
+            
+            if type == 1{
+                let dateReturn = flightDetail[1]["departure_date"].string!
+                var dateReturnArr = dateReturn.componentsSeparatedByString(" ")
                 
+                if planReturn == 4{
+                    planBack = "basic_class"
+                }else{
+                    planBack = "flex_class"
+                }
+                
+                if planBack == "flex_class" && flightDetail[1]["flights"][selectedReturnFlight.integerValue][planBack]["status"].string == "sold out" && returnData["status"] as! String == "Y"{
+                    self.showToastMessage("Please select Return Flight")
+                    isError = true
+                }else{
+                    return_date = formatDate(stringToDate("\(dateReturnArr[2])-\(dateReturnArr[1])-\(dateReturnArr[0])"))
+                    status_2 = returnData["status"] as! String
+                    flight_number_2 = flightDetail[1]["flights"][selectedReturnFlight.integerValue]["flight_number"].string!
+                    departure_time_2 = flightDetail[1]["flights"][selectedReturnFlight.integerValue]["departure_time"].string!
+                    arrival_time_2 = flightDetail[1]["flights"][selectedReturnFlight.integerValue]["arrival_time"].string!
+                    journey_sell_key_2 = flightDetail[1]["flights"][selectedReturnFlight.integerValue]["journey_sell_key"].string!
+                    fare_sell_key_2 = flightDetail[1]["flights"][selectedReturnFlight.integerValue][planBack]["fare_sell_key"].string!
+                }
+                isType1 = true
             }
             
-            showHud()
-            
-            FireFlyProvider.request(.SearchChangeFlight(departure, returned, pnr, bookId, signature), completion: { (result) -> () in
-                switch result {
-                case .Success(let successResult):
-                    do {
-                        self.hideHud()
-                        
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                        
-                        if json["status"] == "success"{
-                            /*let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                            let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
-                            changeFlightVC.flightDetail = json["journeys"].arrayObject!
-                            changeFlightVC.pnr = self.pnr
-                            changeFlightVC.bookId = "\(self.bookingId)"
-                            changeFlightVC.signature = self.signature
-                            self.navigationController!.pushViewController(changeFlightVC, animated: true)*/
-                        }else{
-                            self.showToastMessage(json["message"].string!)
+            if (isType1 == true && isError == false) || isType1 == false{
+                
+                departure_station = flightDetail[0]["departure_station_code"].string!
+                arrival_station = flightDetail[0]["arrival_station_code"].string!
+                
+                departure_date = formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"))
+                status_1 = goingData["status"] as! String
+                flight_number_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue]["flight_number"].string!
+                departure_time_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue]["departure_time"].string!
+                arrival_time_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue]["arrival_time"].string!
+                journey_sell_key_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue]["journey_sell_key"].string!
+                fare_sell_key_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["fare_sell_key"].string!
+                
+                showHud()
+                FireFlyProvider.request(.SelectChangeFlight(pnr, bookId, signature, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, status_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, status_2, departure_station, arrival_station), completion: { (result) -> () in
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            self.hideHud()
+                            
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            
+                            if json["status"] == "success"{
+                                let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                                let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                                manageFlightVC.isConfirm = true
+                                manageFlightVC.itineraryData = json.object as! NSDictionary
+                                self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                            }else{
+                                self.showToastMessage(json["message"].string!)
+                            }
                         }
+                        catch {
+                            
+                        }
+                        print (successResult.data)
+                    case .Failure(let failureResult):
+                        print (failureResult)
                     }
-                    catch {
-                        
-                    }
-                    print (successResult.data)
-                case .Failure(let failureResult):
-                    print (failureResult)
-                }
-            })
-            
+                    
+                })
+                
+            }
             
         }
         
     }
+    
     /*
     // MARK: - Navigation
     

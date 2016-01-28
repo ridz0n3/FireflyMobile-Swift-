@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Flight Detail View Controller-->
+        <!--Add Flight Detail View Controller-->
         <scene sceneID="Ylz-1I-t6e">
             <objects>
-                <viewController storyboardIdentifier="FlightDetailVC" id="r5v-Mz-O65" customClass="FlightDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FlightDetailVC" id="r5v-Mz-O65" customClass="AddFlightDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="yeA-Hf-g8F"/>
                         <viewControllerLayoutGuide type="bottom" id="HiB-GS-2qF"/>

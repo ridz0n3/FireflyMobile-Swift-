@@ -27,8 +27,8 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         beaconManager.requestAlwaysAuthorization()
         regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: major, minor: minor, identifier: identifier)//purple
         
-        //beaconManager.startMonitoringForRegion(regions)
-        beaconManager.startRangingBeaconsInRegion(regions)
+        beaconManager.startMonitoringForRegion(regions)
+        //beaconManager.startRangingBeaconsInRegion(regions)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "departure:", name: "refreshDeparture", object: nil)
     }
     
@@ -175,14 +175,14 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         
         regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: 17407, minor: 28559, identifier: "Checkin Counter")//purple
         
-        beaconManager.startRangingBeaconsInRegion(regions)// .startMonitoringForRegion(regions)
+        beaconManager.startMonitoringForRegion(regions)//.startRangingBeaconsInRegion(regions)// .startMonitoringForRegion(regions)
         
     }
     
     func departure(sender:NSNotificationCenter){
         regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: 24330, minor: 2117, identifier: "Departure")//purple
         
-        beaconManager.startRangingBeaconsInRegion(regions)//.startMonitoringForRegion(regions)
+        beaconManager.startMonitoringForRegion(regions)//.startRangingBeaconsInRegion(regions)//
     }
 
 }
