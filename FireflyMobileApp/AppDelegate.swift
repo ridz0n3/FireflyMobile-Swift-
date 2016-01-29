@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         GeoFenceManager.sharedInstance.startGeoFence()
-        InitialLoadManager.sharedInstance.load()
         
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPicker] = FloatLabeledPickerCell.self
@@ -76,23 +75,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
         var newToken = deviceToken.description
         newToken = newToken.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
         newToken = newToken.stringByReplacingOccurrencesOfString(" ", withString: "")
-        
-        print("Got token data! \(newToken)")
-        
-        let params = NSMutableDictionary()
-        params.setValue("join", forKey: "cmd")
-        params.setValue("123456", forKey: "user_id")
-        params.setValue(newToken, forKey: "token")
-        
-        let manager = WSDLNetworkManager()
-        
-        manager.sharedClient().sentData("/api.php", withParams: params)
-        
-        //AFHTTPClient *client = [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:ServerApiURL]];
-        //[client
-        //    postPath:@"/api.php"
-        //parameters:params
-        //success:nil failure:nil];
+        defaults.setValue(newToken, forKey: "token")
+        InitialLoadManager.sharedInstance.load()
+        //PushNotificationManager.sharedInstance.sentDeviceToken(newToken)
+    
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        print("Couldn't register: \(userInfo)")
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

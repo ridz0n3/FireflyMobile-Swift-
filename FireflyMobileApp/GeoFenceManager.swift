@@ -55,7 +55,7 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
-        print(region)
+        print(manager.monitoredRegions)
     }
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
@@ -68,16 +68,9 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
         }
         
         notification.userInfo = ["identifier" : "enter"]
-        
-        if #available(iOS 8.2, *) {
-            notification.alertBody = "Welcome To Me-Tech Solution"
-            //notification.alertBody = "Your Flight will be depart on 30minutes more"
-        } else {
-            // Fallback on earlier versions
-            notification.alertBody = "Welcome To Me-Tech Solution"
-        }
+        notification.alertBody = "Welcome To Me-Tech Solution"
         notification.alertAction = "open"
-        notification.category = "Check_Bluetooth"
+        //notification.category = "Check_Bluetooth"
         notification.soundName = UILocalNotificationDefaultSoundName
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         
@@ -92,7 +85,8 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
         } else {
             // Fallback on earlier versions
         }
-        notification.category = "TODO_CATEGORY"
+        
+        //notification.category = "TODO_CATEGORY"
         notification.userInfo = ["identifier" : "exit"]
         notification.alertBody = "Good Bye, Have a save journey"
         notification.soundName = UILocalNotificationDefaultSoundName

@@ -237,6 +237,41 @@
             </objects>
             <point key="canvasLocation" x="-173" y="472"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="flI-Zc-U8j">
+            <objects>
+                <viewController storyboardIdentifier="MapVC" id="mFb-NZ-bue" customClass="MapViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Gq9-V7-9XU"/>
+                        <viewControllerLayoutGuide type="bottom" id="w1f-gv-meH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="D1m-Lk-Z1G">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Dzx-Cw-LV1">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="mFb-NZ-bue" id="K0v-PI-vC3"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Dzx-Cw-LV1" firstAttribute="top" secondItem="D1m-Lk-Z1G" secondAttribute="top" id="EXl-3o-eo9"/>
+                            <constraint firstItem="Dzx-Cw-LV1" firstAttribute="leading" secondItem="D1m-Lk-Z1G" secondAttribute="leading" id="aBc-JI-W4Y"/>
+                            <constraint firstAttribute="trailing" secondItem="Dzx-Cw-LV1" secondAttribute="trailing" id="fPN-Hh-yuL"/>
+                            <constraint firstItem="w1f-gv-meH" firstAttribute="top" secondItem="Dzx-Cw-LV1" secondAttribute="bottom" id="ni0-WP-okj"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="Dzx-Cw-LV1" id="INi-Kp-o2u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="chC-uC-gMB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="472"/>
+        </scene>
     </scenes>
     <resources>
         <image name="fb" width="200" height="200"/>

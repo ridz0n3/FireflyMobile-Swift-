@@ -47,6 +47,7 @@ public enum FireFlyAPI {
     case GetFlightAvailability(String, String, String)
     case SearchChangeFlight(AnyObject, AnyObject, String, String, String)
     case SelectChangeFlight(String, String, String, Int, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
+    //case RegisterNotification(String, String, String, String, String)
 }
 
 

@@ -107,6 +107,8 @@
 		7EC3272B1C44D914001C89B5 /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC327291C44D914001C89B5 /* Booking.swift */; };
 		7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */; };
 		7ECB1B361C437E120042456D /* BeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB1B351C437E120042456D /* BeaconManager.swift */; };
+		7EDBE4CB1C5B0EC900AB494C /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDBE4CA1C5B0EC800AB494C /* PushNotificationManager.swift */; };
+		7EDBE4CD1C5B4A0700AB494C /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDBE4CC1C5B4A0700AB494C /* MapViewController.swift */; };
 		9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B0791C0EA6B8000B522F /* EncryptManager.swift */; };
 		9615B07C1C1137DD000B522F /* FireflyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B07B1C1137DD000B522F /* FireflyAPI.swift */; };
 		D69D4B8A65CD5940FF9528D0 /* Pods_FireflyMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */; };
@@ -240,6 +242,8 @@
 		7EC327291C44D914001C89B5 /* Booking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
 		7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialLoadManager.swift; sourceTree = "<group>"; };
 		7ECB1B351C437E120042456D /* BeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconManager.swift; sourceTree = "<group>"; };
+		7EDBE4CA1C5B0EC800AB494C /* PushNotificationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
+		7EDBE4CC1C5B4A0700AB494C /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		86B59F03D2AABF55D7291F46 /* Pods-FireflyMobileApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.release.xcconfig"; sourceTree = "<group>"; };
 		9615B0791C0EA6B8000B522F /* EncryptManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptManager.swift; sourceTree = "<group>"; };
 		9615B07B1C1137DD000B522F /* FireflyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireflyAPI.swift; sourceTree = "<group>"; };
@@ -350,6 +354,7 @@
 			children = (
 				7E1F780B1BF9799900F55C46 /* HomeViewController.swift */,
 				7E1F780D1BF979B300F55C46 /* Home.storyboard */,
+				7EDBE4CC1C5B4A0700AB494C /* MapViewController.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 				7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */,
 				7ECB1B351C437E120042456D /* BeaconManager.swift */,
 				7E8491F41C52136900EBE5B2 /* GeoFenceManager.swift */,
+				7EDBE4CA1C5B0EC800AB494C /* PushNotificationManager.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -832,6 +838,7 @@
 				7E6931161BFB22C6004F1719 /* CheckInDetailViewController.swift in Sources */,
 				7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */,
 				7EC3272A1C44D914001C89B5 /* Booking+CoreDataProperties.swift in Sources */,
+				7EDBE4CB1C5B0EC900AB494C /* PushNotificationManager.swift in Sources */,
 				7EA286371C4776A30004AB9A /* AddContactDetailViewController.swift in Sources */,
 				7E9A53831C3B5D21001094F5 /* LoginManager.swift in Sources */,
 				7E985A0E1C4E381400EBAFA5 /* CommonPaymentViewController.swift in Sources */,
@@ -880,6 +887,7 @@
 				7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */,
 				615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */,
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
+				7EDBE4CD1C5B4A0700AB494C /* MapViewController.swift in Sources */,
 				7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
 				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
@@ -959,8 +967,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: com.me-tech.my.FireflyMobileAppPushNotification";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.me-tech.my.FireflyMobileAppPushNotification";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1006,8 +1014,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: ME-Tech Solution Sdn Bhd (6S847MQDY3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: ME-Tech Solution Sdn Bhd (6S847MQDY3)";
+				CODE_SIGN_IDENTITY = "Apple Push Services: com.me-tech.my.FireflyMobileAppPushNotification";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Push Services: com.me-tech.my.FireflyMobileAppPushNotification";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1022,7 +1030,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "27795477-7bc4-424a-b4d5-2ffd09171109";
+				PROVISIONING_PROFILE = "8e67f25b-fab2-4b9e-a196-038e9ff48a88";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileApp/FireflyMobileApp/FireflyMobileApp-Bridging-Header.h";
 				VALIDATE_PRODUCT = YES;
@@ -1035,17 +1043,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: com.me-tech.my.FireflyMobileAppPushNotification";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.me-tech.my.FireflyMobileAppPushNotification";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileAppPushNotification";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "1e7980f9-918e-48ca-9537-e3d958e23e5b";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1057,17 +1065,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Push Services: com.me-tech.my.FireflyMobileAppPushNotification";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Push Services: com.me-tech.my.FireflyMobileAppPushNotification";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileAppPushNotification";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "8e67f25b-fab2-4b9e-a196-038e9ff48a88";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 			};
 			name = Release;
