@@ -15,16 +15,16 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     
     func startGeoFence(){
-        
+        //2.9238587,101.655948
         // 1
         locationManager.delegate = self
         // 2
         locationManager.requestAlwaysAuthorization()
         //let lat = "3.08316281486421"
-        let lat = "2.9243898122093"
+        let lat = "2.9238587"
         //let lon = "101.486798453622"
-        let lon = "101.656018875442"
-        let radiuss = "100"
+        let lon = "101.655948"
+        let radiuss = "500"
         
         let coordinate = CLLocationCoordinate2D(
             latitude: (lat as NSString).doubleValue as CLLocationDegrees,
@@ -70,8 +70,8 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
         notification.userInfo = ["identifier" : "enter"]
         
         if #available(iOS 8.2, *) {
-            notification.alertTitle = "Welcome To Me-Tech Solution"
-            notification.alertBody = "Your Flight will be depart on 30minutes more"
+            notification.alertBody = "Welcome To Me-Tech Solution"
+            //notification.alertBody = "Your Flight will be depart on 30minutes more"
         } else {
             // Fallback on earlier versions
             notification.alertBody = "Welcome To Me-Tech Solution"
