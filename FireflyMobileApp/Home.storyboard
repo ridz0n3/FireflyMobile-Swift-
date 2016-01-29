@@ -237,10 +237,10 @@
             </objects>
             <point key="canvasLocation" x="-173" y="472"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="ppP-y3-eXu">
             <objects>
-                <viewController id="uwP-nt-4jA" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapVC" id="uwP-nt-4jA" customClass="MapViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WNA-5i-Xgf"/>
                         <viewControllerLayoutGuide type="bottom" id="pPi-iz-hga"/>
@@ -273,6 +273,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="2Wi-pg-dDd" id="TKn-xn-sVa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tKA-v5-18J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
