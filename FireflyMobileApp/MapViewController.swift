@@ -12,20 +12,18 @@ import CoreLocation
 
 class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
-    @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
-    
+    @IBOutlet weak var mapView: MKMapView!
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
-        // Do any additional setup after loading the view.
         // 1
         locationManager.delegate = self
         // 2
         locationManager.requestAlwaysAuthorization()
-        // 3
-        
+        //let lat = "3.08316281486421"
         let lat = "2.9238587"
+        //let lon = "101.486798453622"
         let lon = "101.655948"
         let radiuss = "500"
         
@@ -46,8 +44,9 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         let clampedRadius = (radius > locationManager.maximumRegionMonitoringDistance) ? locationManager.maximumRegionMonitoringDistance : radius
         
         let geotification = Geotification(coordinate: coordinate, radius: clampedRadius, identifier: identifier, note: note, eventType: eventType)
-        addGeotification(geotification)
         
+        addGeotification(geotification)
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,15 +55,12 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
     }
     
     func addGeotification(geotification: Geotification) {
-        //geotifications.append(geotification)
+        
         mapView.addAnnotation(geotification)
         addRadiusOverlayForGeotification(geotification)
+        
     }
-    
-    func addRadiusOverlayForGeotification(geotification: Geotification) {
-        mapView?.addOverlay(MKCircle(centerCoordinate: geotification.coordinate, radius: geotification.radius))
-    }
-    
+
     // MARK: MKMapViewDelegate
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
@@ -93,10 +89,15 @@ class MapViewController: BaseViewController, MKMapViewDelegate, CLLocationManage
         // return nil
     }
 
+    // MARK: Map overlay functions
+    
+    func addRadiusOverlayForGeotification(geotification: Geotification) {
+        mapView?.addOverlay(MKCircle(centerCoordinate: geotification.coordinate, radius: geotification.radius))
+    }
+    
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         mapView.showsUserLocation = (status == .AuthorizedAlways)
     }
-    
     /*
     // MARK: - Navigation
 
