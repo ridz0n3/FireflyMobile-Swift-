@@ -1,5 +1,4 @@
 import Foundation
-import Alamofire
 
 /// Used for stubbing responses.
 public enum EndpointSampleResponse {
@@ -45,7 +44,7 @@ public class Endpoint<Target> {
         for (key, value) in parameters {
             newParameters[key] = value
         }
-print("parameters"+parameters.description)
+
         return Endpoint(URL: URL, sampleResponseClosure: sampleResponseClosure, method: method, parameters: newParameters, parameterEncoding: parameterEncoding, httpHeaderFields: httpHeaderFields)
     }
 

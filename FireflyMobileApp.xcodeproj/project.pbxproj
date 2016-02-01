@@ -54,6 +54,8 @@
 		7E69311D1BFB2F38004F1719 /* BoardingPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */; };
 		7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */; };
 		7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */; };
+		7E7537371C5F211D0068D49D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E7537361C5F211D0068D49D /* GoogleService-Info.plist */; };
+		7E7537391C5F233A0068D49D /* PushNotificationGCMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7537381C5F233A0068D49D /* PushNotificationGCMManager.swift */; };
 		7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */; };
 		7E8262081C3CCF280071FAAA /* PaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */; };
 		7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */; };
@@ -184,6 +186,8 @@
 		7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassViewController.swift; sourceTree = "<group>"; };
 		7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
+		7E7537361C5F211D0068D49D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7E7537381C5F233A0068D49D /* PushNotificationGCMManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationGCMManager.swift; sourceTree = "<group>"; };
 		7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjC-Header.h"; sourceTree = "<group>"; };
 		7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseXLFormViewController.swift; sourceTree = "<group>"; };
 		7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentWebViewController.swift; sourceTree = "<group>"; };
@@ -206,8 +210,6 @@
 		7E9A53821C3B5D21001094F5 /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoginManageFlightTableViewCell.swift; sourceTree = "<group>"; };
 		7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManageFlightViewController.swift; sourceTree = "<group>"; };
-		7E9FBCEF1C58B8BC0023095D /* BluetoothManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothManager.h; sourceTree = "<group>"; };
-		7E9FBCF01C58B91C0023095D /* CDStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CDStructures.h; sourceTree = "<group>"; };
 		7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactDetailViewController.swift; sourceTree = "<group>"; };
@@ -397,10 +399,9 @@
 		7E1F78231BF9BE8C00F55C46 /* Support File */ = {
 			isa = PBXGroup;
 			children = (
-				7E9FBCEF1C58B8BC0023095D /* BluetoothManager.h */,
-				7E9FBCF01C58B91C0023095D /* CDStructures.h */,
 				7E1F77E81BF96E6C00F55C46 /* Info.plist */,
 				7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */,
+				7E7537361C5F211D0068D49D /* GoogleService-Info.plist */,
 				7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */,
 				7E290E841BFEB3D8004E50F3 /* Constant.swift */,
 				7EC327181C449CAB001C89B5 /* CoreDataModel.xcdatamodeld */,
@@ -446,6 +447,7 @@
 				7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */,
 				7ECB1B351C437E120042456D /* BeaconManager.swift */,
 				7E8491F41C52136900EBE5B2 /* GeoFenceManager.swift */,
+				7E7537381C5F233A0068D49D /* PushNotificationGCMManager.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -733,6 +735,7 @@
 				7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */,
 				7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */,
 				7E6930FD1BFAFEE6004F1719 /* ManageFlight.storyboard in Resources */,
+				7E7537371C5F211D0068D49D /* GoogleService-Info.plist in Resources */,
 				7E6931121BFB1F2C004F1719 /* MobileCheckIn.storyboard in Resources */,
 				7E69311B1BFB2F0E004F1719 /* BoardingPass.storyboard in Resources */,
 			);
@@ -811,6 +814,7 @@
 				9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */,
 				7EA56E931C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift in Sources */,
 				7E8262081C3CCF280071FAAA /* PaymentWebViewController.swift in Sources */,
+				7E7537391C5F233A0068D49D /* PushNotificationGCMManager.swift in Sources */,
 				7E20F90D1BFA02E90020AB0C /* CustomFlightDetailTableViewCell.swift in Sources */,
 				7E985A101C4E38D000EBAFA5 /* AddPaymentViewController.swift in Sources */,
 				7E20F90B1BFA02470020AB0C /* FlightDetailViewController.swift in Sources */,
@@ -959,8 +963,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
+				CODE_SIGN_IDENTITY = "Apple Development IOS Push Services: com.me-tech.my.FireflyMobileApp.gcm";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development IOS Push Services: com.me-tech.my.FireflyMobileApp.gcm";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -982,7 +986,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "1e7980f9-918e-48ca-9537-e3d958e23e5b";
+				PROVISIONING_PROFILE = "91dcba01-da47-43c9-b042-63a6d5a9736e";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileApp/FireflyMobileApp/FireflyMobileApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1037,13 +1041,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.samples.gcm";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
@@ -1059,13 +1064,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.samples.gcm";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";

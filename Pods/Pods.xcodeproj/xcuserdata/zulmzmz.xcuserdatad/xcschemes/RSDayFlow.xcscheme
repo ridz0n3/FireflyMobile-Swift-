@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '6C43B8A7510AA53E21ACA64C'
+               BlueprintIdentifier = 'A23836BEB8AB3249CE47CA68'
                BlueprintName = 'RSDayFlow'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'RSDayFlow.framework'>
