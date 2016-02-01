@@ -36,6 +36,8 @@
 		7E20F90F1BFA0A3D0020AB0C /* FlightHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E20F90E1BFA0A3D0020AB0C /* FlightHeader.xib */; };
 		7E20F9111BFA0A760020AB0C /* FlightHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */; };
 		7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E290E841BFEB3D8004E50F3 /* Constant.swift */; };
+		7E2BEC811C5DB3D300DBC839 /* BeaconQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2BEC801C5DB3D300DBC839 /* BeaconQRCodeViewController.swift */; };
+		7E2BEC831C5DB94000DBC839 /* BeaconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E2BEC821C5DB94000DBC839 /* BeaconView.xib */; };
 		7E367BF91C4397AF00897D7D /* ManageFlightHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */; };
 		7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */; };
 		7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */; };
@@ -168,6 +170,8 @@
 		7E20F90E1BFA0A3D0020AB0C /* FlightHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlightHeader.xib; sourceTree = "<group>"; };
 		7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightHeaderView.swift; sourceTree = "<group>"; };
 		7E290E841BFEB3D8004E50F3 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		7E2BEC801C5DB3D300DBC839 /* BeaconQRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconQRCodeViewController.swift; sourceTree = "<group>"; };
+		7E2BEC821C5DB94000DBC839 /* BeaconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BeaconView.xib; sourceTree = "<group>"; };
 		7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageFlightHomeViewController.swift; sourceTree = "<group>"; };
 		7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordView.xib; sourceTree = "<group>"; };
 		7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDLNetworkManager.swift; sourceTree = "<group>"; };
@@ -539,6 +543,8 @@
 			children = (
 				7EAA98F81C4F2CA300F52FB2 /* BeaconCheckInViewController.swift */,
 				7EAA98FA1C4F2CC300F52FB2 /* Beacon.storyboard */,
+				7E2BEC801C5DB3D300DBC839 /* BeaconQRCodeViewController.swift */,
+				7E2BEC821C5DB94000DBC839 /* BeaconView.xib */,
 			);
 			name = Beacon;
 			sourceTree = "<group>";
@@ -720,6 +726,7 @@
 			files = (
 				7EB07AFE1C28F6640061D1C9 /* directionView.xib in Resources */,
 				7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */,
+				7E2BEC831C5DB94000DBC839 /* BeaconView.xib in Resources */,
 				7E20F90F1BFA0A3D0020AB0C /* FlightHeader.xib in Resources */,
 				7E1F77E71BF96E6C00F55C46 /* LaunchScreen.storyboard in Resources */,
 				7E1F77E41BF96E6C00F55C46 /* Assets.xcassets in Resources */,
@@ -860,6 +867,7 @@
 				7E985A0C1C4DF11900EBAFA5 /* EditSeatSelectionViewController.swift in Sources */,
 				7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */,
 				7EDBE4CF1C5B650500AB494C /* MapViewController.swift in Sources */,
+				7E2BEC811C5DB3D300DBC839 /* BeaconQRCodeViewController.swift in Sources */,
 				7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */,
 				7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */,
 				7EBBFA101C101BC200080FFA /* RSDFDatePickerViewController.swift in Sources */,
