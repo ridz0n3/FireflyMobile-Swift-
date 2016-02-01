@@ -410,13 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "475742569.703657"
+            timestampString = "475910203.841291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "refreshTable(_:)"
-            landmarkType = "5">
+            startingLineNumber = "168"
+            endingLineNumber = "168">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5670,7 +5668,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "126"
             endingLineNumber = "126"
-            landmarkName = "stopMonitoringGeotification(_:)"
+            landmarkName = "startMonitoringGeotification(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5814,7 +5812,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "101"
             endingLineNumber = "101"
-            landmarkName = "locationManager(_:didExitRegion:)"
+            landmarkName = "locationManager(_:monitoringDidFailForRegion:withError:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

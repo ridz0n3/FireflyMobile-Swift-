@@ -141,9 +141,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("CheckInVC") as! CheckInViewController
             self.navigationController!.pushViewController(manageFlightVC, animated: true)
         }else if indexPath.row == 4{
-            let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
+            /*let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
             let boardingPassVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassVC") as! BoardingPassViewController
-            self.navigationController!.pushViewController(boardingPassVC, animated: true)
+            self.navigationController!.pushViewController(boardingPassVC, animated: true)*/
+            
+            let storyboard = UIStoryboard(name: "Beacon", bundle: nil)
+            let boardingPassVC = storyboard.instantiateViewControllerWithIdentifier("BeaconQRCodeVC") as! BeaconQRCodeViewController
+            self.navigationController!.presentViewController(boardingPassVC, animated: true, completion: nil)
         }
     }
     
