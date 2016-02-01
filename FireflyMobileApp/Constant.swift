@@ -134,3 +134,43 @@ func getCountryName(countryCode:String) -> String{
     
     return countryName
 }
+
+var location = [NSDictionary]()
+var travel = [NSDictionary]()
+var pickerRow = [String]()
+var pickerTravel = [String]()
+
+func getDepartureAirport(){
+    
+    let flight = defaults.objectForKey("flight") as! NSMutableArray
+    var first = flight[0]["location_code"]
+    location.append(flight[0] as! NSDictionary)
+    pickerRow.append(flight[0]["location"] as! String)
+    for loc in flight{
+        
+        if loc["location_code"] as! String != first as! String{
+            location.append(loc as! NSDictionary)
+            pickerRow.append(loc["location"] as! String)
+            first = loc["location_code"]
+        }
+        
+    }
+    
+}
+
+func getArrivalAirport(departureAirport: String){
+    
+    let flight = defaults.objectForKey("flight") as! NSMutableArray
+    let first = departureAirport
+    
+    for loc in flight{
+        
+        if loc["location_code"] as! String == first{
+            travel.append(loc as! NSDictionary)
+            pickerTravel.append(loc["travel_location"] as! String)
+        }
+        
+    }
+}
+
+

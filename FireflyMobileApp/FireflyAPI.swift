@@ -47,6 +47,7 @@ public enum FireFlyAPI {
     case GetFlightAvailability(String, String, String)
     case SearchChangeFlight(AnyObject, AnyObject, String, String, String)
     case SelectChangeFlight(String, String, String, Int, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
+    case CheckIn(String, String, String, String, String)
 }
 
 
@@ -113,12 +114,14 @@ extension FireFlyAPI : TargetType {
             return "api/searchChangeFlight"
         case SelectChangeFlight:
             return "api/selectChangeFlight"
+        case CheckIn:
+            return "api/checkIn"
 
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading, .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight:
+        case .Login, .Loading, .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn:
             return .POST
             
         default:
@@ -214,6 +217,8 @@ extension FireFlyAPI : TargetType {
                 "departure_station" : departure_station,
                 "arrival_station" : arrival_station
             ]
+        case .CheckIn(let signature, let pnr, let userId, let departureCode, let arrivalCode):
+            return ["signature" : signature, "pnr" : pnr, "user_id" : userId, "departure_station_code" : departureCode, "arrival_station_code" : arrivalCode]
         default:
             return nil
         }

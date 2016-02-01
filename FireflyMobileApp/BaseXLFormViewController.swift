@@ -55,6 +55,8 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         static var ValidationHolderName = "Holder Name"
         static var ValidationCcvNumber = "CCV/CVC Number"
         static var ValidationConfirmationNumber = "Confirmation Number"
+        static var ValidationDeparting = "Departing"
+        static var ValidationArriving = "Arriving"
         static var HideSection = "hide"
         
     }
@@ -288,6 +290,24 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
             }
         }
         return genderCode
+    }
+    
+    func getStationCode(stationName:String, locArr:[NSDictionary], direction : String)->String{
+        var stationCode = String()
+        for stationData in locArr{
+            
+            if direction == "Departing"{
+                if stationData["location"] as! String == stationName{
+                    stationCode = stationData["location_code"] as! String
+                }
+            }else{
+                if stationData["travel_location"] as! String == stationName{
+                    stationCode = stationData["travel_location_code"] as! String
+                }
+            }
+            
+        }
+        return stationCode
     }
     
     /*

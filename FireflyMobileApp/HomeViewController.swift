@@ -137,9 +137,47 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             self.navigationController!.pushViewController(manageFlightVC, animated: true)
             }
         }else if indexPath.row == 3{
-            let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
-            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("CheckInVC") as! CheckInViewController
-            self.navigationController!.pushViewController(manageFlightVC, animated: true)
+            
+            if try! LoginManager.sharedInstance.isLogin(){
+                let userinfo = defaults.objectForKey("userInfo")
+                showHud()
+                
+                FireFlyProvider.request(.RetrieveBookingList(userinfo!["username"] as! String, userinfo!["password"] as! String, "check_in"), completion: { (result) -> () in
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            self.hideHud()
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            
+                            if json["status"] == "success"{
+                                let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
+                                let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginMobileCheckinVC") as! LoginMobileCheckinViewController
+                                mobileCheckinVC.userId = "\(json["user_id"])"
+                                mobileCheckinVC.signature = json["signature"].string!
+                                mobileCheckinVC.listBooking = json["list_booking"].arrayObject!
+                                self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
+                            }else{
+                                self.showToastMessage(json["message"].string!)
+                            }
+                        }
+                        catch {
+                            
+                        }
+                        print (successResult.data)
+                    case .Failure(let failureResult):
+                        print (failureResult)
+                    }
+                })
+                
+            }else{
+                
+                let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
+                let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInVC") as! MobileCheckinViewController
+                self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                
+            }
+            
+            
         }else if indexPath.row == 4{
             let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
             let boardingPassVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassVC") as! BoardingPassViewController
