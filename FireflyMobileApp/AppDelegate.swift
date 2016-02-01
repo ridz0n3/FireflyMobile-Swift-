@@ -70,9 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
         container.centerViewController = navigationController
         
         container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
-        
         PushNotificationGCMManager.sharedInstance.registerGCM()
-        
         return true
     }
     
