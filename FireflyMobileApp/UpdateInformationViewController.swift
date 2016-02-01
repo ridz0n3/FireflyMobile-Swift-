@@ -365,7 +365,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         validateForm()
         
         if isValidate {
-            let currentDate: NSDate = NSDate()
             let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
             calendar.timeZone = NSTimeZone(name: "UTC")!
             

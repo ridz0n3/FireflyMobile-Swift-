@@ -120,9 +120,6 @@ extension FireFlyAPI : TargetType {
         switch self {
         case .Login, .Loading, .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight:
             return .POST
-            
-        default:
-            return .GET
         }
     }
     
@@ -214,8 +211,6 @@ extension FireFlyAPI : TargetType {
                 "departure_station" : departure_station,
                 "arrival_station" : arrival_station
             ]
-        default:
-            return nil
         }
     }
     public var sampleData: NSData {

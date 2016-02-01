@@ -157,7 +157,6 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
         }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out" && goingData["status"] as! String == "Y"{
             self.showToastMessage("Please select Going Flight")
         }else{
-            let parameter = NSMutableDictionary()
             var isType1 = false
             var isError = false
             
