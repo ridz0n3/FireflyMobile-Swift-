@@ -54,6 +54,8 @@
 		7E69311D1BFB2F38004F1719 /* BoardingPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */; };
 		7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */; };
 		7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */; };
+		7E75373B1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */; };
+		7E75373D1C5F42CC0068D49D /* MobileCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */; };
 		7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */; };
 		7E8262081C3CCF280071FAAA /* PaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */; };
 		7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */; };
@@ -184,6 +186,8 @@
 		7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassViewController.swift; sourceTree = "<group>"; };
 		7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
+		7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginMobileCheckinViewController.swift; sourceTree = "<group>"; };
+		7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileCheckinViewController.swift; sourceTree = "<group>"; };
 		7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjC-Header.h"; sourceTree = "<group>"; };
 		7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseXLFormViewController.swift; sourceTree = "<group>"; };
 		7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentWebViewController.swift; sourceTree = "<group>"; };
@@ -471,6 +475,8 @@
 				7E6931131BFB1F6B004F1719 /* CheckInViewController.swift */,
 				7E6931151BFB22C6004F1719 /* CheckInDetailViewController.swift */,
 				7E6931171BFB2659004F1719 /* CheckInTermViewController.swift */,
+				7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */,
+				7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */,
 			);
 			name = "Mobile Check-In";
 			sourceTree = "<group>";
@@ -847,6 +853,7 @@
 				7EC3271A1C449CAB001C89B5 /* CoreDataModel.xcdatamodeld in Sources */,
 				7E69310F1BFB1BFA004F1719 /* ManageFlightViewController.swift in Sources */,
 				7E6931091BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift in Sources */,
+				7E75373B1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift in Sources */,
 				7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */,
 				7E6931141BFB1F6B004F1719 /* CheckInViewController.swift in Sources */,
 				7E11C0871C47AC9700C67BD2 /* AddPassengerDetailViewController.swift in Sources */,
@@ -873,6 +880,7 @@
 				7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */,
 				7ECB1B361C437E120042456D /* BeaconManager.swift in Sources */,
 				7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */,
+				7E75373D1C5F42CC0068D49D /* MobileCheckinViewController.swift in Sources */,
 				7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */,
 				615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */,
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,

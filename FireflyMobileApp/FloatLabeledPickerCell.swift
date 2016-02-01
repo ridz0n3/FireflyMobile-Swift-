@@ -189,7 +189,7 @@ class FloatLabeledPickerCell: XLFormBaseCell{
             }else if selectValue == "2"{
                 NSNotificationCenter.defaultCenter().postNotificationName("removeBusiness", object: nil)
             }
-            
+        
             selectindex = index.integerValue
             selectValue = dataValue[index.integerValue]
             
@@ -202,6 +202,9 @@ class FloatLabeledPickerCell: XLFormBaseCell{
                 NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
             }else if self.rowDescriptor?.tag == "Country"{
                 NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue])
+            }else if self.rowDescriptor?.tag == "Departing"{
+                NSNotificationCenter.defaultCenter().postNotificationName("refreshArrivingCode", object: nil, userInfo: ["departStationCode" : selectValue])
+                
             }
 
         
