@@ -15,8 +15,8 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
     
     var beaconManager = ESTBeaconManager()
     var regions = CLBeaconRegion()
-    var major : CLBeaconMajorValue = 2820
-    var minor : CLBeaconMinorValue = 40462
+    var major : CLBeaconMajorValue = 24330//2820
+    var minor : CLBeaconMinorValue = 2117//40462
     var identifier = "time left"
      
     
@@ -28,18 +28,17 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: major, minor: minor, identifier: identifier)//purple
         
         beaconManager.startMonitoringForRegion(regions)
-        //beaconManager.startRangingBeaconsInRegion(regions)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "departure:", name: "refreshDeparture", object: nil)
     }
     
-    func beaconManager(manager: AnyObject, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
+    /*func beaconManager(manager: AnyObject, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         print(beacons)
         if beacons.count != 0{
         if beacons[0].accuracy < 2 && beacons[0].accuracy > 0{
             
             if region.identifier == "time left"{
                 showMessage()
-                beaconManager.stopRangingBeaconsInRegion(regions)
+                //beaconManager.stopRangingBeaconsInRegion(regions)
             }else if region.identifier == "Departure"{
                 beaconManager.stopRangingBeaconsInRegion(regions)
                 departureMessage()
@@ -59,7 +58,7 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         }
         }
         
-    }
+    }*/
     
     func beaconManager(manager: AnyObject, rangingBeaconsDidFailForRegion region: CLBeaconRegion?, withError error: NSError) {
         print(error.localizedDescription)
@@ -153,11 +152,15 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
     var clock = NSTimer()
     func showMessage(){
 
-        let alert = SCLAlertView()
+        /*let alert = SCLAlertView()
         alert.addButton("Okay!", target: self, selector: "doneBtnPressed")
         alert.showCloseButton = false
         alert.showSuccess("Welcome", subTitle: "Your flight departure time left 30 minutes more", colorStyle:0xEC581A)
-
+*/
+        let storyboard = UIStoryboard(name: "Beacon", bundle: nil)
+        let sendItineraryVC = storyboard.instantiateViewControllerWithIdentifier("BeaconQRCodeVC") as! BeaconQRCodeViewController
+        let appDelegate = UIApplication.sharedApplication().keyWindow?.rootViewController
+        appDelegate!.presentViewController(sendItineraryVC, animated: true, completion: nil)
     }
     
     func departureMessage(){

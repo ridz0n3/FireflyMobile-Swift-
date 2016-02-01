@@ -410,11 +410,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "475910203.841291"
+            timestampString = "475742569.703657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168">
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "refreshTable(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3417,15 +3419,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BeaconManager.swift"
-            timestampString = "475119600.746559"
+            timestampString = "475995105.39064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "beaconManager(_:didStartMonitoringForRegion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3433,15 +3435,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BeaconManager.swift"
-            timestampString = "475119600.746559"
+            timestampString = "475995105.39064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "beaconManager(_:didExitRegion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3453,11 +3455,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/AppDelegate.swift"
-            timestampString = "475732642.38441"
+            timestampString = "475994393.29199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "application(_:handleActionWithIdentifier:forLocalNotification:completionHandler:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3469,11 +3471,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/AppDelegate.swift"
-            timestampString = "475732642.38441"
+            timestampString = "475994393.29199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "application(_:handleActionWithIdentifier:forLocalNotification:completionHandler:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3485,11 +3487,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/AppDelegate.swift"
-            timestampString = "475732642.38441"
+            timestampString = "475994393.29199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "applicationWillResignActive(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3501,11 +3503,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/AppDelegate.swift"
-            timestampString = "475732642.38441"
+            timestampString = "475994393.29199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "160"
+            endingLineNumber = "160"
             landmarkName = "applicationDidEnterBackground(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3517,11 +3519,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/AppDelegate.swift"
-            timestampString = "475732642.38441"
+            timestampString = "475994393.29199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -3533,11 +3535,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/AppDelegate.swift"
-            timestampString = "475732642.38441"
+            timestampString = "475994393.29199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
             landmarkName = "AppDelegate"
             landmarkType = "3">
          </BreakpointContent>
@@ -4853,15 +4855,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BeaconManager.swift"
-            timestampString = "475119600.746559"
+            timestampString = "475995105.39064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "beaconManager(_:didEnterRegion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4873,11 +4875,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BeaconManager.swift"
-            timestampString = "475119600.746559"
+            timestampString = "475995105.39064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "beaconManager(_:didEnterRegion:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -5393,29 +5395,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BeaconManager.swift"
-            timestampString = "475119456.562179"
+            timestampString = "475995105.39064"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "beaconManager(_:didRangeBeacons:inRegion:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FireflyMobileApp/BeaconManager.swift"
-            timestampString = "475120461.345668"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "beaconManager(_:didRangeBeacons:inRegion:)"
-            landmarkType = "5">
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "BeaconManager"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5668,7 +5654,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "126"
             endingLineNumber = "126"
-            landmarkName = "startMonitoringGeotification(_:)"
+            landmarkName = "stopMonitoringGeotification(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5797,22 +5783,6 @@
             startingLineNumber = "219"
             endingLineNumber = "219"
             landmarkName = "ContinueBtnPressed(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FireflyMobileApp/GeoFenceManager.swift"
-            timestampString = "475744302.350722"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "locationManager(_:monitoringDidFailForRegion:withError:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -6078,38 +6048,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FireflyMobileApp/AppDelegate.swift"
-            timestampString = "475732642.38441"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
-            landmarkName = "peripheralManagerDidUpdateState(_:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "FireflyMobileApp/AppDelegate.swift"
-            timestampString = "475732642.38441"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BeaconManager.swift"
             timestampString = "475581606.790839"
             startingColumnNumber = "9223372036854775807"
@@ -6139,7 +6077,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/GeoFenceManager.swift"
@@ -6245,11 +6183,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/AppDelegate.swift"
-            timestampString = "475750419.352568"
+            timestampString = "475994393.29199"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "application(_:didRegisterForRemoteNotificationsWithDeviceToken:)"
             landmarkType = "5">
          </BreakpointContent>
