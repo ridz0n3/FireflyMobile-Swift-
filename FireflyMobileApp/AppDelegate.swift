@@ -70,11 +70,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
         container.centerViewController = navigationController
         
         container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
-
+        
+        PushNotificationGCMManager.sharedInstance.registerGCM()
+        
         return true
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        
+        PushNotificationGCMManager.sharedInstance.getGCMToken(deviceToken)
         
         var newToken = deviceToken.description
         newToken = newToken.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
@@ -82,6 +86,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
         
         print("Got token data! \(newToken)")
 
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        print("Message: \(userInfo)")
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

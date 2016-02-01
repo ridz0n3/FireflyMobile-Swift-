@@ -6,6 +6,7 @@
 #import "XLFormDateCell.h"
 #import "XLFormDatePickerCell.h"
 #import "XLFormDescriptorCell.h"
+#import "XLFormImageCell.h"
 #import "XLFormInlineRowDescriptorCell.h"
 #import "XLFormInlineSelectorCell.h"
 #import "XLFormLeftRightSelectorCell.h"

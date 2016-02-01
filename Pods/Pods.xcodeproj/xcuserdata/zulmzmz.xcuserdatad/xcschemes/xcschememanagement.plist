@@ -2,84 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SchemeUserState</key>
-	<dict>
-		<key>ActionSheetPicker-3.0.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Alamofire.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>CryptoSwift.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>JVFloatLabeledTextField.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>M13Checkbox.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MBProgressHUD.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>MFSideMenu.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Moya.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>Pods-FireflyMobileApp.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>RSDayFlow.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SCLAlertView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftValidator.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwiftyJSON.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>TPKeyboardAvoiding.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>XLForm.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>01A2E158197733309E368714FAD80F60</key>
@@ -92,27 +14,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>24C13C42C3D689CFC7C6AA4C9FD2CC33</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>320859C6D4F9A088A15E1D2271F15C59</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>432ECC54282C84882B482CCB4CF227FC</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>4B2F80480EB3D001A365F6DBDC9D86FB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>596FD82B7206EA5FC2362E147B210E87</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,37 +44,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7DE15B62BC67DE680E6C411F4EBE3F0E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8CAE9CBC98C3CBC09920512A9CF5E257</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>952FE1EB61CA49FEC151B1763B93E741</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>9A923F554FE24682810ED75DC853CD39</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AEBE29623B164A9CA272FD8CEFEC6E68</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>B548E4553FE35D18C8F62AC4E0A88374</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C3329CB088FF8DF6D1013684C54FC183</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -198,11 +80,6 @@
 			<true/>
 		</dict>
 		<key>F523C5FC78A89D28771433F38A28E102</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FB05601D83E1555FF489A285BF35D031</key>
 		<dict>
 			<key>primary</key>
 			<true/>
