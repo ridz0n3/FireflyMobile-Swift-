@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import WebKit
 
-class FAQViewController: BaseViewController, UIWebViewDelegate, UIScrollViewDelegate {
+class FAQViewController: BaseViewController, UIScrollViewDelegate, WKNavigationDelegate {
 
     private var faqWebView: WKWebView!
     
@@ -18,21 +18,23 @@ class FAQViewController: BaseViewController, UIWebViewDelegate, UIScrollViewDele
         faqWebView = WKWebView()
         
         //If you want to implement the delegate
-        //webView?.navigationDelegate = self
-        
+        self.faqWebView.navigationDelegate = self
         view = faqWebView
+        
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupLeftButton()
        self.faqWebView.scrollView.delegate = self
+        
         self.faqWebView.scrollView.showsHorizontalScrollIndicator = false
         self.showHud()
         FireFlyProvider.request(.GetTerm) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    self.hideHud()
+            
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -46,6 +48,7 @@ class FAQViewController: BaseViewController, UIWebViewDelegate, UIScrollViewDele
                 
                     else{
                     self.showToastMessage(json["message"].string!)
+                    self.hideHud()
                 }
             }
             catch {
@@ -64,15 +67,16 @@ class FAQViewController: BaseViewController, UIWebViewDelegate, UIScrollViewDele
         // Dispose of any resources that can be recreated.
     }
     
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        faqWebView.sizeToFit()
+        self.hideHud()
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if (scrollView.contentOffset.x > 0)
         {
             scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y)
         }
-    }
-    
-    func webViewDidFinishLoad(webView: UIWebView) {
-        faqWebView.sizeToFit()
     }
 
 }
