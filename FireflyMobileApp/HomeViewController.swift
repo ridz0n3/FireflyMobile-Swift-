@@ -16,6 +16,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     var menuTitle:[String] = ["","BOOK FLIGHT", "MANAGE FLIGHT", "MOBILE CHECK-IN", "BOARDING PASS",""]
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
@@ -28,9 +29,46 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int{
-        return 1
+    //TODO: Get the URL from Backend
+    func facebookSelected(sender: UIGestureRecognizer) {
+        let facebookHooks = "fb://profile/Firefly"
+        let facebookURL = NSURL(string: facebookHooks)
+        if UIApplication.sharedApplication().canOpenURL(facebookURL!)
+        {
+            UIApplication.sharedApplication().openURL(facebookURL!)
+            
+        } else {
+            //redirect to safari because the user doesn't have Instagram
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/Firefly")!)
+        }
     }
+    
+    func instaSelected(sender: UIGestureRecognizer) {
+        let instagramHooks = "instagram://user?username=fireflyairlines"
+        let instagramUrl = NSURL(string: instagramHooks)
+        if UIApplication.sharedApplication().canOpenURL(instagramUrl!)
+        {
+            UIApplication.sharedApplication().openURL(instagramUrl!)
+            
+        } else {
+            //redirect to safari because the user doesn't have Instagram
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.instagram.com/fireflyairlines")!)
+        }
+    }
+    
+    func twitterSelected(sender: UIGestureRecognizer) {
+        let twitterHooks = "twitter:///user?screen_name=flyfirefly"
+        let twitterUrl = NSURL(string: twitterHooks)
+        if UIApplication.sharedApplication().canOpenURL(twitterUrl!)
+        {
+            UIApplication.sharedApplication().openURL(twitterUrl!)
+            
+        } else {
+            //redirect to safari because the user doesn't have Instagram
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/flyfirefly")!)
+        }
+    }
+
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
@@ -44,7 +82,6 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             }else{
                 return self.view.frame.size.height - 236
             }
-            
         }
         else if indexPath.row == 5 {
             
@@ -60,22 +97,28 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath) as! CustomHomeMenuTableViewCell
-            
             if (defaults.objectForKey("banner") != nil){
-                
-                 let imageURL = defaults.objectForKey("banner") as! String
+                let imageURL = defaults.objectForKey("banner") as! String
                 Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
                     cell.banner.image = UIImage(data: data!)
                 })
-                
-                
             }
-            
             return cell
-        }else if indexPath.row == 5{
+        }
+        else if indexPath.row == 5{
             let cell = tableView.dequeueReusableCellWithIdentifier("SocialCell", forIndexPath: indexPath)
+            let facebookView = cell.viewWithTag(1)
+            let facebookSelected = UITapGestureRecognizer(target: self, action: "facebookSelected:")
+            facebookView?.addGestureRecognizer(facebookSelected)
+            let twitterSelected = UITapGestureRecognizer(target: self, action: "twitterSelected:")
+            let twitterView = cell.viewWithTag(2)
+            twitterView?.addGestureRecognizer(twitterSelected)
+            let instaView = cell.viewWithTag(3)
+            let instaSelected = UITapGestureRecognizer(target: self, action: "instaSelected:")
+            instaView?.addGestureRecognizer(instaSelected)
             return cell
-        }else{
+        }
+        else{
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomHomeMenuTableViewCell
             
             let replaced = menuTitle[indexPath.row].stringByReplacingOccurrencesOfString(" ", withString: "")
@@ -150,14 +193,5 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     func refreshTable(sender: NSNotification){
         self.homeMenuTableView.reloadData()
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
