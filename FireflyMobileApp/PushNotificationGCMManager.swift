@@ -75,6 +75,9 @@ class PushNotificationGCMManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDe
         if (registrationToken != nil) {
             self.registrationToken = registrationToken
             print("Registration Token: \(registrationToken)")
+            defaults.setValue(registrationToken, forKey: "token")
+            defaults.synchronize()
+            InitialLoadManager.sharedInstance.load()
             //self.subscribeToTopic()
             //let userInfo = ["registrationToken": registrationToken]
             //NSNotificationCenter.defaultCenter().postNotificationName(

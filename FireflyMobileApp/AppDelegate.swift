@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         GeoFenceManager.sharedInstance.startGeoFence()
-        InitialLoadManager.sharedInstance.load()
         
         let options = [CBCentralManagerOptionShowPowerAlertKey:0] //<-this is the magic bit!
         bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: options)
