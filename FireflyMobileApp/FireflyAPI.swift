@@ -47,6 +47,7 @@ public enum FireFlyAPI {
     case GetFlightAvailability(String, String, String)
     case SearchChangeFlight(AnyObject, AnyObject, String, String, String)
     case SelectChangeFlight(String, String, String, Int, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
+    case GetTerm
 }
 
 
@@ -67,6 +68,8 @@ extension FireFlyAPI : TargetType {
     
     public var path: String {
         switch self {
+        case GetTerm:
+            return "api/getTerm"
         case Login:
             return "api/login"
         case Loading:
@@ -113,13 +116,14 @@ extension FireFlyAPI : TargetType {
             return "api/searchChangeFlight"
         case SelectChangeFlight:
             return "api/selectChangeFlight"
-
         }
     }
     public var method: Moya.Method {
         switch self {
         case .Login, .Loading, .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight:
             return .POST
+        case .GetTerm:
+            return .GET
         }
     }
     
@@ -211,6 +215,9 @@ extension FireFlyAPI : TargetType {
                 "departure_station" : departure_station,
                 "arrival_station" : arrival_station
             ]
+        
+        default:
+        return nil
         }
     }
     public var sampleData: NSData {

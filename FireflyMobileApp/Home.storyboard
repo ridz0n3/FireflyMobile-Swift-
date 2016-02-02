@@ -279,7 +279,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tKA-v5-18J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="459" y="472"/>
+            <point key="canvasLocation" x="455" y="472"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="u0u-21-fsP">
+            <objects>
+                <viewController storyboardIdentifier="FAQVC" id="SXb-lT-Fx7" customClass="FAQViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="G6X-In-7Ri"/>
+                        <viewControllerLayoutGuide type="bottom" id="iqW-Vd-PwL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KHF-uq-XH0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vcU-7L-Tm3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1109" y="472"/>
         </scene>
     </scenes>
     <resources>
