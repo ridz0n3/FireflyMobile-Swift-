@@ -10,26 +10,19 @@ import UIKit
 import SwiftyJSON
 import WebKit
 
-class FAQViewController: BaseViewController, UIScrollViewDelegate, WKNavigationDelegate {
+class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDelegate {
 
-    private var faqWebView: WKWebView!
-    
-    override func loadView() {
-        faqWebView = WKWebView()
-        
-        //If you want to implement the delegate
-        self.faqWebView.navigationDelegate = self
-        view = faqWebView
-        
-    }
+    @IBOutlet weak var webView: UIWebView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupLeftButton()
-       self.faqWebView.scrollView.delegate = self
+        //If you want to implement the delegate
         
-        self.faqWebView.scrollView.showsHorizontalScrollIndicator = false
+        self.setupLeftButton()
+        webView.scrollView.delegate = self
+        webView.scrollView.showsHorizontalScrollIndicator = false
         self.showHud()
+        
         FireFlyProvider.request(.GetTerm) { (result) -> () in
             switch result {
             case .Success(let successResult):
@@ -42,7 +35,7 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, WKNavigationD
                         
                         if let url = NSURL(string: json["url"].stringValue){
                             let request = NSURLRequest(URL: url)
-                            self.faqWebView.loadRequest(request)
+                            self.webView.loadRequest(request)
                         }
                     }
                 
@@ -56,9 +49,10 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, WKNavigationD
             }
             case .Failure(let failureResult):
                 print (failureResult)
+                self.hideHud()
             }
         }
-
+        
         // Do any additional setup after loading the view.
     }
 
@@ -67,11 +61,15 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, WKNavigationD
         // Dispose of any resources that can be recreated.
     }
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
-        faqWebView.sizeToFit()
+    func webViewDidFinishLoad(webView: UIWebView) {
+        webView.sizeToFit()
         self.hideHud()
     }
-    
+    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+        self.hideHud()
+    }
+
+
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if (scrollView.contentOffset.x > 0)
         {
