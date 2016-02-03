@@ -63,13 +63,13 @@ class LoginMobileCheckinViewController: BaseViewController, UITableViewDataSourc
                     if  json["status"].string == "success"{
                         self.showToastMessage(json["status"].string!)
                         /*defaults.setObject(json.object, forKey: "manageFlight")
-                        defaults.synchronize()
+                        defaults.synchronize()*/
                         
-                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
-                        manageFlightVC.isLogin = true
-                        self.navigationController!.pushViewController(manageFlightVC, animated: true)
-                        */
+                        let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
+                        let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInDetailVC") as! MobileCheckInDetailViewController
+                        checkInDetailVC.checkInDetail = json.object as! NSDictionary
+                        self.navigationController!.pushViewController(checkInDetailVC, animated: true)
+                        
                     }else{
                         self.showToastMessage(json["message"].string!)
                     }

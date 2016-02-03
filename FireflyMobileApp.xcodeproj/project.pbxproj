@@ -67,6 +67,8 @@
 		7E8491F31C5210E800EBE5B2 /* Geotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8491F21C5210E800EBE5B2 /* Geotification.swift */; };
 		7E8491F51C52136900EBE5B2 /* GeoFenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8491F41C52136900EBE5B2 /* GeoFenceManager.swift */; };
 		7E8D81681C350A4100D9A2E1 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */; };
+		7E9011461C61BD450051F7BE /* MobileCheckInDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9011451C61BD450051F7BE /* MobileCheckInDetailViewController.swift */; };
+		7E9011481C61D1B50051F7BE /* MobileCheckInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9011471C61D1B50051F7BE /* MobileCheckInView.xib */; };
 		7E9438541C56499F002D6792 /* CommonFlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9438531C56499F002D6792 /* CommonFlightDetailViewController.swift */; };
 		7E9438561C564A3E002D6792 /* AddFlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9438551C564A3E002D6792 /* AddFlightDetailViewController.swift */; };
 		7E9438581C564E3F002D6792 /* EditSearchFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9438571C564E3F002D6792 /* EditSearchFlightViewController.swift */; };
@@ -206,6 +208,8 @@
 		7E8491F21C5210E800EBE5B2 /* Geotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geotification.swift; sourceTree = "<group>"; };
 		7E8491F41C52136900EBE5B2 /* GeoFenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoFenceManager.swift; sourceTree = "<group>"; };
 		7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		7E9011451C61BD450051F7BE /* MobileCheckInDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileCheckInDetailViewController.swift; sourceTree = "<group>"; };
+		7E9011471C61D1B50051F7BE /* MobileCheckInView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MobileCheckInView.xib; sourceTree = "<group>"; };
 		7E9438531C56499F002D6792 /* CommonFlightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFlightDetailViewController.swift; sourceTree = "<group>"; };
 		7E9438551C564A3E002D6792 /* AddFlightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFlightDetailViewController.swift; sourceTree = "<group>"; };
 		7E9438571C564E3F002D6792 /* EditSearchFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSearchFlightViewController.swift; sourceTree = "<group>"; };
@@ -492,6 +496,7 @@
 				7E6931171BFB2659004F1719 /* CheckInTermViewController.swift */,
 				7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */,
 				7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */,
+				7E9011451C61BD450051F7BE /* MobileCheckInDetailViewController.swift */,
 			);
 			name = "Mobile Check-In";
 			sourceTree = "<group>";
@@ -533,6 +538,7 @@
 				7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */,
 				7E20F90E1BFA0A3D0020AB0C /* FlightHeader.xib */,
 				7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */,
+				7E9011471C61D1B50051F7BE /* MobileCheckInView.xib */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -750,6 +756,7 @@
 				7E20F90F1BFA0A3D0020AB0C /* FlightHeader.xib in Resources */,
 				7E1F77E71BF96E6C00F55C46 /* LaunchScreen.storyboard in Resources */,
 				7E1F77E41BF96E6C00F55C46 /* Assets.xcassets in Resources */,
+				7E9011481C61D1B50051F7BE /* MobileCheckInView.xib in Resources */,
 				7E1F78311BF9D6A900F55C46 /* BookFlight.storyboard in Resources */,
 				7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */,
 				7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */,
@@ -881,6 +888,7 @@
 				7E1F78111BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift in Sources */,
 				7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */,
 				7EC3271A1C449CAB001C89B5 /* CoreDataModel.xcdatamodeld in Sources */,
+				7E9011461C61BD450051F7BE /* MobileCheckInDetailViewController.swift in Sources */,
 				7E69310F1BFB1BFA004F1719 /* ManageFlightViewController.swift in Sources */,
 				7E6931091BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift in Sources */,
 				7E75373B1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift in Sources */,
