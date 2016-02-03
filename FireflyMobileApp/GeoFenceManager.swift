@@ -15,12 +15,16 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     
     func startGeoFence(){
-        //2.9238587,101.655948
+        
         // 1
         locationManager.delegate = self
         // 2
         locationManager.requestAlwaysAuthorization()
-        //let lat = "3.08316281486421"
+        startMonitoringGeotification(getGeotification())
+    }
+    
+    func getGeotification() -> Geotification{
+        
         let lat = "2.9238587"
         //let lon = "101.486798453622"
         let lon = "101.655948"
@@ -40,22 +44,21 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
         let clampedRadius = (radius > locationManager.maximumRegionMonitoringDistance) ? locationManager.maximumRegionMonitoringDistance : radius
         
         let geotification = Geotification(coordinate: coordinate, radius: clampedRadius, identifier: identifier, note: note, eventType: eventType)
-        // 2
-        startMonitoringGeotification(geotification)
+        
+        return geotification
         
     }
     
+    func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
+        print(region)
+    }
     func regionWithGeotification(geotification: Geotification) -> CLCircularRegion {
         // 1
         let region = CLCircularRegion(center: geotification.coordinate, radius: geotification.radius, identifier: geotification.identifier)
         // 2
-        region.notifyOnEntry = true// (geotification.eventType == .OnEntry)
-        region.notifyOnExit = true//!region.notifyOnEntry
+        region.notifyOnEntry = true
+        //region.notifyOnExit = true//!region.notifyOnEntry
         return region
-    }
-    
-    func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
-        print(manager.monitoredRegions)
     }
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
@@ -66,19 +69,18 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
         } else {
             // Fallback on earlier versions
         }
-        
-        notification.userInfo = ["identifier" : "enter"]
-        notification.alertBody = "Welcome To Me-Tech Solution"
-        notification.alertAction = "open"
+        let userInfo = defaults.objectForKey("userInfo")
+        notification.userInfo = ["identifier" : "geofence"]
+        notification.alertBody = "Firefly welcomes \(userInfo!["title"]! as! String) \(userInfo!["first_name"] as! String) to Subang Airport. This app requires Bluetooth connection. Click OK to switch on Bluetooth."
         //notification.category = "Check_Bluetooth"
         notification.soundName = UILocalNotificationDefaultSoundName
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         
-        // we're now providing a set containing our category as an argument
+        //stopMonitoringGeotification(getGeotification())
         
     }
     
-    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+    /*func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
         let notification = UILocalNotification()
         if #available(iOS 8.2, *) {
             notification.alertTitle = "Firefly"
@@ -93,7 +95,7 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
         UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         
         
-    }
+    }*/
     
     func locationManager(manager: CLLocationManager, monitoringDidFailForRegion region: CLRegion?, withError error: NSError) {
         print("Monitoring failed for region with identifier: \(region!.identifier)")

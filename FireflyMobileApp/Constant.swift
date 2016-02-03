@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SCLAlertView
 
 let defaults = NSUserDefaults.standardUserDefaults()
 let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
@@ -172,5 +173,19 @@ func getArrivalAirport(departureAirport: String){
         
     }
 }
+
+var alertView = SCLAlertView()
+
+func showHud(){
+    alertView.showCloseButton = false
+    alertView.showWait("Loading...", subTitle: "", colorStyle: 0xEC581A)
+}
+
+func hideHud(){
+    alertView.hideView()
+    //MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
+}
+
+
 
 

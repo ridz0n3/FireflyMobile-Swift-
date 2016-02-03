@@ -9,8 +9,14 @@
             <connections>
                 <outlet property="QRview" destination="iN0-l3-epB" id="rdN-JI-dZ0"/>
                 <outlet property="border" destination="Chi-P3-AxI" id="4Yf-Ze-ARD"/>
+                <outlet property="date" destination="WkF-6G-Jnn" id="lRD-IS-EJN"/>
+                <outlet property="destination" destination="5gp-7m-Moe" id="VvA-oc-oXl"/>
+                <outlet property="flightNo" destination="oVa-e1-2Pn" id="uBX-wB-e4p"/>
                 <outlet property="img" destination="ghs-bI-ojR" id="eGe-Mh-BBi"/>
+                <outlet property="passengerName" destination="mJw-Ni-n1U" id="jQ1-p7-2rH"/>
                 <outlet property="pnr" destination="f4E-Jh-OhV" id="fBr-2o-rOt"/>
+                <outlet property="seat" destination="i22-gO-515" id="7Dr-Ke-QgR"/>
+                <outlet property="time" destination="StR-87-ha6" id="58V-x0-5lH"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>

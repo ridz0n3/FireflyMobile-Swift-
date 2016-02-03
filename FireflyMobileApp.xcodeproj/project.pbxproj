@@ -38,6 +38,7 @@
 		7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E290E841BFEB3D8004E50F3 /* Constant.swift */; };
 		7E2BEC811C5DB3D300DBC839 /* BeaconQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2BEC801C5DB3D300DBC839 /* BeaconQRCodeViewController.swift */; };
 		7E2BEC831C5DB94000DBC839 /* BeaconView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E2BEC821C5DB94000DBC839 /* BeaconView.xib */; };
+		7E2D53C21C611DF2007C843D /* NotCheckInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E2D53C11C611DF2007C843D /* NotCheckInView.xib */; };
 		7E367BF91C4397AF00897D7D /* ManageFlightHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */; };
 		7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */; };
 		7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */; };
@@ -89,6 +90,7 @@
 		7EAA98FB1C4F2CC300F52FB2 /* Beacon.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EAA98FA1C4F2CC300F52FB2 /* Beacon.storyboard */; };
 		7EB07AFE1C28F6640061D1C9 /* directionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB07AFD1C28F6640061D1C9 /* directionView.xib */; };
 		7EB07B001C28F8440061D1C9 /* DirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */; };
+		7EB0CE481C6074AB0019CE0F /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB0CE471C6074AA0019CE0F /* BluetoothManager.swift */; };
 		7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB5B2AF1BFC68D00066D311 /* SectionView.xib */; };
 		7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5B2B11BFC68EE0066D311 /* SectionView.swift */; };
 		7EB6F0441C07EB47004A8F24 /* PasswordExpiredViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB6F0431C07EB47004A8F24 /* PasswordExpiredViewController.swift */; };
@@ -174,6 +176,7 @@
 		7E290E841BFEB3D8004E50F3 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		7E2BEC801C5DB3D300DBC839 /* BeaconQRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconQRCodeViewController.swift; sourceTree = "<group>"; };
 		7E2BEC821C5DB94000DBC839 /* BeaconView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BeaconView.xib; sourceTree = "<group>"; };
+		7E2D53C11C611DF2007C843D /* NotCheckInView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotCheckInView.xib; sourceTree = "<group>"; };
 		7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageFlightHomeViewController.swift; sourceTree = "<group>"; };
 		7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordView.xib; sourceTree = "<group>"; };
 		7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDLNetworkManager.swift; sourceTree = "<group>"; };
@@ -226,6 +229,7 @@
 		7EAA98FA1C4F2CC300F52FB2 /* Beacon.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Beacon.storyboard; sourceTree = "<group>"; };
 		7EB07AFD1C28F6640061D1C9 /* directionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = directionView.xib; sourceTree = "<group>"; };
 		7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionView.swift; sourceTree = "<group>"; };
+		7EB0CE471C6074AA0019CE0F /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		7EB5B2AF1BFC68D00066D311 /* SectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionView.xib; sourceTree = "<group>"; };
 		7EB5B2B11BFC68EE0066D311 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		7EB6F0431C07EB47004A8F24 /* PasswordExpiredViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordExpiredViewController.swift; sourceTree = "<group>"; };
@@ -456,6 +460,7 @@
 				7ECB1B351C437E120042456D /* BeaconManager.swift */,
 				7E8491F41C52136900EBE5B2 /* GeoFenceManager.swift */,
 				7E7537381C5F233A0068D49D /* PushNotificationGCMManager.swift */,
+				7EB0CE471C6074AA0019CE0F /* BluetoothManager.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -551,6 +556,7 @@
 				7EAA98FA1C4F2CC300F52FB2 /* Beacon.storyboard */,
 				7E2BEC801C5DB3D300DBC839 /* BeaconQRCodeViewController.swift */,
 				7E2BEC821C5DB94000DBC839 /* BeaconView.xib */,
+				7E2D53C11C611DF2007C843D /* NotCheckInView.xib */,
 			);
 			name = Beacon;
 			sourceTree = "<group>";
@@ -694,6 +700,14 @@
 					7E1F77D81BF96E6C00F55C46 = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = 6S847MQDY3;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					7E1F77EC1BF96E6C00F55C46 = {
 						CreatedOnToolsVersion = 7.1;
@@ -750,6 +764,7 @@
 				7E6930FD1BFAFEE6004F1719 /* ManageFlight.storyboard in Resources */,
 				7E6931121BFB1F2C004F1719 /* MobileCheckIn.storyboard in Resources */,
 				7E69311B1BFB2F0E004F1719 /* BoardingPass.storyboard in Resources */,
+				7E2D53C21C611DF2007C843D /* NotCheckInView.xib in Resources */,
 				7E75373F1C5F6A880068D49D /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -901,6 +916,7 @@
 				615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */,
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
 				7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */,
+				7EB0CE481C6074AB0019CE0F /* BluetoothManager.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
 				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
 				7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */,

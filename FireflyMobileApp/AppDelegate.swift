@@ -12,43 +12,16 @@ import XLForm
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let baseView = BaseViewController()
-    var bluetoothPeripheralManager: CBPeripheralManager?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
-        GeoFenceManager.sharedInstance.startGeoFence()
-        
-        let options = [CBCentralManagerOptionShowPowerAlertKey:0] //<-this is the magic bit!
-        bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: options)
         
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPicker] = FloatLabeledPickerCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledDatePicker] = FloateLabeledDatePickerCell.self
-        
-        let completeAction = UIMutableUserNotificationAction()
-        completeAction.identifier = "Close"
-        completeAction.title = "Cancel"
-        completeAction.activationMode = .Background
-        completeAction.authenticationRequired = false
-        completeAction.destructive = false
-        
-        let remindAction = UIMutableUserNotificationAction()
-        remindAction.identifier = "Turn_On"
-        remindAction.title = "Ok"
-        remindAction.activationMode = .Background
-        remindAction.destructive = false
-        
-        let todoCategory = UIMutableUserNotificationCategory()
-        todoCategory.identifier = "Check_Bluetooth"
-        todoCategory.setActions([completeAction, remindAction], forContext: .Minimal)
-        
-        let notifSetting:UIUserNotificationType = [.Badge, .Alert, .Sound]
-        UIApplication.sharedApplication().registerForRemoteNotifications()
-        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: notifSetting, categories: NSSet(array: [todoCategory]) as? Set<UIUserNotificationCategory>))
         
         UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         UINavigationBar.appearance().translucent = false
@@ -69,24 +42,58 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
         container.centerViewController = navigationController
         
         container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
+        
+        PushNotificationGCMManager.sharedInstance.registerNotificationCategory()
         PushNotificationGCMManager.sharedInstance.registerGCM()
+        
+        if let options = launchOptions {
+            let value = options[UIApplicationLaunchOptionsLocalNotificationKey] as? UILocalNotification
+            let remotevalue = options[UIApplicationLaunchOptionsRemoteNotificationKey] as? NSDictionary
+            
+            if let notification = value {
+                self.application(application, didReceiveLocalNotification: notification)
+            }else if let remote = remotevalue{
+                self.application(application, didReceiveRemoteNotification: remote as [NSObject : AnyObject])
+            }
+        }
+        
         return true
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         
         PushNotificationGCMManager.sharedInstance.getGCMToken(deviceToken)
-        
-        var newToken = deviceToken.description
-        newToken = newToken.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
-        newToken = newToken.stringByReplacingOccurrencesOfString(" ", withString: "")
-        
-        print("Got token data! \(newToken)")
 
     }
     
+    var isEnter = Bool()
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        print("Message: \(userInfo)")
+        
+        if userInfo["aps"]!["category"] as! String == "DepartureGate"{
+            isEnter = true
+            BeaconManager.sharedInstance.startMonitor(7714, minor: 13156, identifier: "Departure", uuid : virtual_uuid!)
+            //BeaconManager.sharedInstance.startMonitor(24330, minor: 2117, identifier: "Departure", uuid : estimote_uuid!) //sea blue
+            let date = NSDate()
+            let addtime = date.dateByAddingTimeInterval(1.0 * 20.0)
+            
+            let notification = UILocalNotification()
+            if #available(iOS 8.2, *) {
+                notification.alertTitle = "Firefly"
+            } else {
+                // Fallback on earlier versions
+            }
+            
+            notification.userInfo = ["identifier" : "time out", "msg" : "Your flight will depart in 30 minutes. Please go to Departure Gate immediately."]
+            notification.alertBody = "Your flight will depart in 30 minutes. Please go to Departure Gate immediately."
+            notification.fireDate = addtime
+            notification.soundName = UILocalNotificationDefaultSoundName
+            UIApplication.sharedApplication().scheduleLocalNotification(notification)
+        }else if userInfo["aps"]!["category"] as! String == "Geofence"{
+            GeoFenceManager.sharedInstance.startGeoFence()
+        }else if userInfo["aps"]!["category"] as! String == "Check_Bluetooth"{
+            BluetoothManager.sharedInstance.checkBluetooth()
+        }
+        
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
@@ -95,9 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         
-        if notification.userInfo!["identifier"] as! String == "time left"{
-            BeaconManager.sharedInstance.showMessage()
-        }else if notification.userInfo!["identifier"] as! String == "time out"{
+        if notification.userInfo!["identifier"] as! String == "time out"{
             BeaconManager.sharedInstance.showTimeOut(notification.userInfo!["msg"] as! String)
         }else if notification.userInfo!["identifier"] as! String == "Departure"{
             
@@ -111,47 +116,54 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CBPeripheralManagerDelega
             
         }else if notification.userInfo!["identifier"] as! String == "Checkin Counter"{
             BeaconManager.sharedInstance.arriveAtCheckInCounter()
-        }else{
-            let options = [CBCentralManagerOptionShowPowerAlertKey:0] //<-this is the magic bit!
-            bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: options)
+        }else if notification.userInfo!["identifier"] as! String == "geofence"{
+            BluetoothManager.sharedInstance.checkBluetooth()
+        }else if notification.userInfo!["identifier"] as! String == "checkingate"{
+            BeaconManager.sharedInstance.checkStatus()
         }
         
     }
     
-    //MARK: bluetooth delegate
-    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
         
-        if peripheral.state == CBPeripheralManagerState.PoweredOff {
+        if identifier! == "geofence"{
+            GeoFenceManager.sharedInstance.startGeoFence()
+        }else if identifier! == "DepartureScan"{
             
-            // create the alert
-            let alert = UIAlertController(title: "Turn On Bluetooth to Allow to Connect Accessories", message: "For better experience using this app please turn on bluetooth", preferredStyle: UIAlertControllerStyle.Alert)
-            // add the actions (buttons)
-            alert.addAction(UIAlertAction(title: "Setting", style: UIAlertActionStyle.Default, handler: { action in
-                // do something like...
-                UIApplication.sharedApplication().openURL(NSURL(string:"prefs:root=Bluetooth")!)
+            if !isEnter{
+                let date = NSDate()
+                let addtime = date.dateByAddingTimeInterval(1.0 * 20.0)
                 
-            }))
+                let notification = UILocalNotification()
+                if #available(iOS 8.2, *) {
+                    notification.alertTitle = "Firefly"
+                } else {
+                    // Fallback on earlier versions
+                }
+                
+                notification.userInfo = ["identifier" : "time out", "msg" : "Your flight will depart in 30 minutes. Please go to Departure Gate immediately."]
+                notification.alertBody = "Your flight will depart in 30 minutes. Please go to Departure Gate immediately."
+                notification.fireDate = addtime
+                notification.soundName = UILocalNotificationDefaultSoundName
+                UIApplication.sharedApplication().scheduleLocalNotification(notification)
+                //BeaconManager.sharedInstance.startMonitor(24330, minor: 2117, identifier: "Departure", uuid : estimote_uuid!) //sea blue
+                BeaconManager.sharedInstance.startMonitor(7714, minor: 13156, identifier: "Departure", uuid : virtual_uuid!)
+            }
             
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
-            
-            // show the alert
-            let appDelegate = UIApplication.sharedApplication().keyWindow?.rootViewController
-            appDelegate!.presentViewController(alert, animated: true, completion: nil)
-            
-        }else if peripheral.state == CBPeripheralManagerState.PoweredOn{
-            BeaconManager.sharedInstance.startRanging()
+        }else if identifier! == "Turn_On"{
+            BluetoothManager.sharedInstance.checkBluetooth()
         }
+        
+        completionHandler()
     }
-    
+
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forLocalNotification notification: UILocalNotification, completionHandler: () -> Void) {
-        //var item = TodoItem(deadline: notification.fireDate!, title: notification.userInfo!["title"] as String, UUID: notification.userInfo!["UUID"] as String!)
-        switch (identifier!) {
-        case "Close":break
-        case "Turn_On": break//BeaconManager.sharedInstance.startRanging()
-            //TodoList.sharedInstance.scheduleReminderforItem(item)
-        default: break // switch statements must be exhaustive - this condition should never be met
-            //println("Error: unexpected notification action identifier!")
+        
+        if identifier! == "Turn_On"{
+            BluetoothManager.sharedInstance.checkBluetooth()
+            
         }
+        
         completionHandler() // per developer documentation, app will terminate if we fail to call this
     }
     

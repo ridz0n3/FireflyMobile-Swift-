@@ -22,6 +22,63 @@ class PushNotificationGCMManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDe
     let messageKey = "onMessageReceived"
     let subscriptionTopic = "/topics/global"
     
+    
+    func registerNotificationCategory(){
+        
+        let completeAction = UIMutableUserNotificationAction()
+        completeAction.identifier = "Close"
+        completeAction.title = "Close"
+        completeAction.activationMode = .Background
+        completeAction.authenticationRequired = false
+        completeAction.destructive = true
+        
+        let remindAction = UIMutableUserNotificationAction()
+        remindAction.identifier = "Turn_On"
+        remindAction.title = "Open"
+        remindAction.activationMode = .Foreground
+        remindAction.destructive = false
+        
+        let todoCategory = UIMutableUserNotificationCategory()
+        todoCategory.identifier = "Check_Bluetooth"
+        todoCategory.setActions([remindAction], forContext: .Minimal)
+        
+        
+        //geofence
+        let noNotifyAction = UIMutableUserNotificationAction()
+        noNotifyAction.identifier = "geofence"
+        noNotifyAction.title = "Open"
+        noNotifyAction.activationMode = .Background
+        noNotifyAction.destructive = true
+        
+        let geoCategory = UIMutableUserNotificationCategory()
+        geoCategory.identifier = "Geofence"
+        geoCategory.setActions([noNotifyAction], forContext: .Minimal)
+        
+        let notifyAction = UIMutableUserNotificationAction()
+        notifyAction.identifier = "DepartureScan"
+        notifyAction.title = "Ok"
+        notifyAction.activationMode = .Background
+        notifyAction.destructive = true
+        
+        let beaconCategory = UIMutableUserNotificationCategory()
+        beaconCategory.identifier = "DepartureGate"
+        beaconCategory.setActions([notifyAction], forContext: .Minimal)
+        
+        let reminderAction = UIMutableUserNotificationAction()
+        reminderAction.identifier = "Reminder"
+        reminderAction.title = "Ok"
+        reminderAction.activationMode = .Background
+        reminderAction.destructive = true
+        
+        let reminderCategory = UIMutableUserNotificationCategory()
+        reminderCategory.identifier = "Reminder"
+        reminderCategory.setActions([reminderAction], forContext: .Minimal)
+        
+        let notifSetting:UIUserNotificationType = [.Badge, .Alert, .Sound]
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: notifSetting, categories: NSSet(array: [todoCategory, beaconCategory, geoCategory, reminderCategory]) as? Set<UIUserNotificationCategory>))
+    }
+    
     func registerGCM(){
         
         // [START_EXCLUDE]
@@ -56,19 +113,6 @@ class PushNotificationGCMManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDe
             scope: kGGLInstanceIDScopeGCM, options: registrationOptions, handler: registrationHandler)
         // [END get_gcm_reg_token]
         
-        
-        GCMService.sharedInstance().connectWithHandler({
-            (NSError error) -> Void in
-            if error != nil {
-                print("Could not connect to GCM: \(error.localizedDescription)")
-            } else {
-                self.connectedToGCM = true
-                print("Connected to GCM")
-                // [START_EXCLUDE]
-                //self.subscribeToTopic()
-                // [END_EXCLUDE]
-            }
-        })
     }
     
     func registrationHandler(registrationToken: String!, error: NSError!) {
@@ -78,15 +122,8 @@ class PushNotificationGCMManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDe
             defaults.setValue(registrationToken, forKey: "token")
             defaults.synchronize()
             InitialLoadManager.sharedInstance.load()
-            //self.subscribeToTopic()
-            //let userInfo = ["registrationToken": registrationToken]
-            //NSNotificationCenter.defaultCenter().postNotificationName(
-                //self.registrationKey, object: nil, userInfo: userInfo)
         } else {
             print("Registration to GCM failed with error: \(error.localizedDescription)")
-            //let userInfo = ["error": error.localizedDescription]
-            //NSNotificationCenter.defaultCenter().postNotificationName(
-                //self.registrationKey, object: nil, userInfo: userInfo)
         }
     }
     

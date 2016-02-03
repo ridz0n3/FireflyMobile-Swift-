@@ -197,6 +197,25 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             let boardingPassVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassVC") as! BoardingPassViewController
             self.navigationController!.pushViewController(boardingPassVC, animated: true)*/
             
+            let date = NSDate()
+            let addtime = date.dateByAddingTimeInterval(1.0 * 30.0)
+            
+            let notification = UILocalNotification()
+            if #available(iOS 8.2, *) {
+                notification.alertTitle = "Firefly"
+            } else {
+                // Fallback on earlier versions
+            }
+            
+            notification.userInfo = ["identifier" : "geofence"]
+            
+            notification.fireDate = addtime
+            
+            notification.category = "Check_Bluetooth"
+            notification.alertBody = "Welcome To Subang Airport. Please turn on Bluetooth for better experience."
+            notification.soundName = UILocalNotificationDefaultSoundName
+            UIApplication.sharedApplication().scheduleLocalNotification(notification)
+            
             let storyboard = UIStoryboard(name: "Beacon", bundle: nil)
             let boardingPassVC = storyboard.instantiateViewControllerWithIdentifier("BeaconQRCodeVC") as! BeaconQRCodeViewController
             self.navigationController!.presentViewController(boardingPassVC, animated: true, completion: nil)

@@ -8,6 +8,7 @@
 
 import UIKit
 import SCLAlertView
+import SwiftyJSON
 
 class BeaconManager: NSObject, ESTBeaconManagerDelegate {
     
@@ -15,91 +16,65 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
     
     var beaconManager = ESTBeaconManager()
     var regions = CLBeaconRegion()
-    var major : CLBeaconMajorValue = 24330//2820
-    var minor : CLBeaconMinorValue = 2117//40462
-    var identifier = "time left"
-     
     
-    func startRanging(){
-        
+    func startMonitor(major : CLBeaconMajorValue, minor : CLBeaconMinorValue, identifier : String, uuid : NSUUID){
         beaconManager = ESTBeaconManager()
         beaconManager.delegate = self
         beaconManager.requestAlwaysAuthorization()
-        regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: major, minor: minor, identifier: identifier)//purple
+        regions = CLBeaconRegion(proximityUUID: uuid, major: major, minor: minor, identifier: identifier)
         
+        regions.notifyOnEntry = true
+        regions.notifyOnExit = true
         beaconManager.startMonitoringForRegion(regions)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "departure:", name: "refreshDeparture", object: nil)
+        //beaconManager.stopMonitoringForRegion(regions)
     }
     
-    /*func beaconManager(manager: AnyObject, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
+    func beaconManager(manager: AnyObject, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         print(beacons)
-        if beacons.count != 0{
-        if beacons[0].accuracy < 2 && beacons[0].accuracy > 0{
-            
-            if region.identifier == "time left"{
-                showMessage()
-                //beaconManager.stopRangingBeaconsInRegion(regions)
-            }else if region.identifier == "Departure"{
-                beaconManager.stopRangingBeaconsInRegion(regions)
-                departureMessage()
-                
-                for notification in UIApplication.sharedApplication().scheduledLocalNotifications! { // loop through notifications...
-                    if (notification.userInfo!["identifier"] as! String == "time out") { // ...and cancel the notification that corresponds to this TodoItem instance (matched by UUID)
-                        UIApplication.sharedApplication().cancelLocalNotification(notification) // there should be a maximum of one match on UUID
-                        break
-                    }
-                }
-                
-            }else if region.identifier == "Checkin Counter"{
-                beaconManager.stopRangingBeaconsInRegion(regions)
-                arriveAtCheckInCounter()
-            }
-            
-        }
-        }
-        
-    }*/
+    }
     
     func beaconManager(manager: AnyObject, rangingBeaconsDidFailForRegion region: CLBeaconRegion?, withError error: NSError) {
         print(error.localizedDescription)
     }
     
     func beaconManager(manager: AnyObject, didStartMonitoringForRegion region: CLBeaconRegion) {
-        print(region)
+        print(beaconManager.monitoredRegions)
     }
     
     func beaconManager(manager: AnyObject, didEnterRegion region: CLBeaconRegion) {
         
-        beaconManager.stopMonitoringForRegion(region)
-        
         if UIApplication.sharedApplication().applicationState == .Active{
             
-            if region.identifier == "time left"{
-                showMessage()
+            if region.identifier == "checkingate"{
+                checkStatus()
             }else if region.identifier == "Departure"{
                 
                 departureMessage()
                 
                 for notification in UIApplication.sharedApplication().scheduledLocalNotifications! { // loop through notifications...
-                    if (notification.userInfo!["identifier"] as! String == "time out") { // ...and cancel the notification that corresponds to this TodoItem instance (matched by UUID)
-                        UIApplication.sharedApplication().cancelLocalNotification(notification) // there should be a maximum of one match on UUID
+                    if (notification.userInfo!["identifier"] as! String == "time out") {
+                        UIApplication.sharedApplication().cancelLocalNotification(notification) 
                         break
                     }
                 }
                 
-            }else{
-                arriveAtCheckInCounter()
             }
             
         }else{
             
             var msg = String()
-            if region.identifier == "time left"{
-                msg = "Welcome to Subang Airport"
-            }else if region.identifier == "Departure"{
+            if region.identifier == "Departure"{
                 msg = "Have a save journey"
-            }else{
-                msg = "You're now at check in region"
+                
+                for notifications in UIApplication.sharedApplication().scheduledLocalNotifications! { // loop through notifications...
+                    if (notifications.userInfo!["identifier"] as! String == "time out") {
+                        UIApplication.sharedApplication().cancelLocalNotification(notifications)
+                        break
+                    }
+                }
+                
+            }else if region.identifier == "checkingate"{
+                msg = "Your flight information is as displayed. You may print boarding pass at Firefly kiosk."
             }
             
             let notification = UILocalNotification()
@@ -114,6 +89,7 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
             notification.soundName = UILocalNotificationDefaultSoundName
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
+        beaconManager.stopMonitoringForRegion(region)
         
     }
     
@@ -152,15 +128,10 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
     var clock = NSTimer()
     func showMessage(){
 
-        /*let alert = SCLAlertView()
+        let alert = SCLAlertView()
         alert.addButton("Okay!", target: self, selector: "doneBtnPressed")
         alert.showCloseButton = false
         alert.showSuccess("Welcome", subTitle: "Your flight departure time left 30 minutes more", colorStyle:0xEC581A)
-*/
-        let storyboard = UIStoryboard(name: "Beacon", bundle: nil)
-        let sendItineraryVC = storyboard.instantiateViewControllerWithIdentifier("BeaconQRCodeVC") as! BeaconQRCodeViewController
-        let appDelegate = UIApplication.sharedApplication().keyWindow?.rootViewController
-        appDelegate!.presentViewController(sendItineraryVC, animated: true, completion: nil)
     }
     
     func departureMessage(){
@@ -170,22 +141,63 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         
     }
     
+    
+    
     func beaconManager(manager: AnyObject, didExitRegion region: CLBeaconRegion) {
         print(region)
+        //showTimeOut("region exit")
     }
     
     func doneBtnPressed(){
-        
-        regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: 17407, minor: 28559, identifier: "Checkin Counter")//purple
-        
-        beaconManager.startMonitoringForRegion(regions)//.startRangingBeaconsInRegion(regions)// .startMonitoringForRegion(regions)
-        
+        exit(0)
     }
     
     func departure(sender:NSNotificationCenter){
         regions = CLBeaconRegion(proximityUUID: estimote_uuid!, major: 24330, minor: 2117, identifier: "Departure")//purple
         
         beaconManager.startMonitoringForRegion(regions)//.startRangingBeaconsInRegion(regions)//
+    }
+    
+    
+    func checkStatus(){
+        
+        let userinfo = defaults.objectForKey("userInfo")
+        
+        showHud()
+        //userinfo!["username"] as! String, userinfo!["password"] as! String
+        //"zhariffadam@me-tech.com.my","ubYXnfrZhQs4X7ZJ9y4rwQ=="
+        
+        FireFlyProvider.request(.RetrieveBookingList(userinfo!["username"] as! String, userinfo!["password"] as! String, "beacon")) { (result) -> () in
+            switch result {
+            case .Success(let successResult):
+                do {
+                    hideHud()
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        
+                        if json["list_booking"].count != 0{
+                            let storyboard = UIStoryboard(name: "Beacon", bundle: nil)
+                            let sendItineraryVC = storyboard.instantiateViewControllerWithIdentifier("BeaconQRCodeVC") as! BeaconQRCodeViewController
+                            sendItineraryVC.data = json.object as! NSDictionary
+                            let appDelegate = UIApplication.sharedApplication().keyWindow?.rootViewController
+                            appDelegate!.presentViewController(sendItineraryVC, animated: true, completion: nil)
+                        }else{
+                            self.showTimeOut("No Flight Today")
+                        }
+                        
+                    }else{
+                    }
+                }
+                catch {
+                    
+                }
+                print (successResult.data)
+            case .Failure(let failureResult):
+                print (failureResult)
+            }
+        }
+        
     }
 
 }
