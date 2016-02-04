@@ -101,8 +101,8 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 let flightFlex = flightData!["flex_class"]!.dictionary
                 
                 cell.flightNumber.text = String(format: "FLIGHT NO. FY %@", flightData!["flight_number"]!.string!)
-                cell.departureAirportLbl.text = String(format: "%@ Airport", flightDict!["departure_station_name"]!.string!)
-                cell.arrivalAirportLbl.text = String(format: "%@ Airport", flightDict!["arrival_station_name"]!.string!)
+                cell.departureAirportLbl.text = "\(flightDict!["departure_station_name"]?.stringValue)"
+                cell.arrivalAirportLbl.text = "\(flightDict!["arrival_station_name"]?.stringValue))"
                 cell.departureTimeLbl.text = flightData!["departure_time"]!.string
                 cell.arrivalTimeLbl.text = flightData!["arrival_time"]!.string
                 cell.checkFlight.tag = indexPath.row

@@ -88,8 +88,8 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                 let flightFlex = flightData!["flex_class"]!.dictionary
                 
                 cell.flightNumber.text = String(format: "FLIGHT NO. FY %@", flightData!["flight_number"]!.string!)
-                cell.departureAirportLbl.text = String(format: "%@ Airport", flightDict!["departure_station_name"]!.string!)
-                cell.arrivalAirportLbl.text = String(format: "%@ Airport", flightDict!["arrival_station_name"]!.string!)
+                cell.departureAirportLbl.text = "\(flightDict!["departure_station_name"]!.stringValue)"
+                cell.arrivalAirportLbl.text = "\(flightDict!["arrival_station_name"]!.stringValue)"
                 cell.departureTimeLbl.text = flightData!["departure_time"]!.string
                 cell.arrivalTimeLbl.text = flightData!["arrival_time"]!.string
                 cell.checkFlight.tag = indexPath.row
@@ -157,7 +157,6 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
         }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out" && goingData["status"] as! String == "Y"{
             self.showToastMessage("Please select Going Flight")
         }else{
-            let parameter = NSMutableDictionary()
             var isType1 = false
             var isError = false
             

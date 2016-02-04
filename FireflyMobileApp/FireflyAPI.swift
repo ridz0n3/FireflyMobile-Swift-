@@ -48,6 +48,7 @@ public enum FireFlyAPI {
     case SearchChangeFlight(AnyObject, AnyObject, String, String, String)
     case SelectChangeFlight(String, String, String, Int, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     case CheckIn(String, String, String, String, String)
+    case GetTerm
 }
 
 
@@ -68,6 +69,8 @@ extension FireFlyAPI : TargetType {
     
     public var path: String {
         switch self {
+        case GetTerm:
+            return "api/getTerm"
         case Login:
             return "api/login"
         case Loading:
@@ -123,8 +126,7 @@ extension FireFlyAPI : TargetType {
         switch self {
         case .Login, .Loading, .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn:
             return .POST
-            
-        default:
+        case .GetTerm:
             return .GET
         }
     }
@@ -220,7 +222,7 @@ extension FireFlyAPI : TargetType {
         case .CheckIn(let signature, let pnr, let userId, let departureCode, let arrivalCode):
             return ["signature" : signature, "pnr" : pnr, "user_id" : userId, "departure_station_code" : departureCode, "arrival_station_code" : arrivalCode]
         default:
-            return nil
+        return nil
         }
     }
     public var sampleData: NSData {
