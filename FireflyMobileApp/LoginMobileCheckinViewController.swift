@@ -61,13 +61,10 @@ class LoginMobileCheckinViewController: BaseViewController, UITableViewDataSourc
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if  json["status"].string == "success"{
-                        self.showToastMessage(json["status"].string!)
-                        /*defaults.setObject(json.object, forKey: "manageFlight")
-                        defaults.synchronize()*/
-                        
                         let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                         let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInDetailVC") as! MobileCheckInDetailViewController
                         checkInDetailVC.checkInDetail = json.object as! NSDictionary
+                        checkInDetailVC.pnr = bookingList["pnr"] as! String
                         self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                         
                     }else{

@@ -107,14 +107,11 @@ class MobileCheckinViewController: BaseXLFormViewController {
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if  json["status"].string == "success"{
-                            self.showToastMessage(json["status"].string!)
-                            /*defaults.setObject(json.object, forKey: "manageFlight")
-                            defaults.synchronize()
-                            
-                            let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
-                            self.navigationController!.pushViewController(manageFlightVC, animated: true)
-                            */
+                            let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
+                            let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInDetailVC") as! MobileCheckInDetailViewController
+                            checkInDetailVC.checkInDetail = json.object as! NSDictionary
+                            checkInDetailVC.pnr = pnr
+                            self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                         }else{
                             self.showToastMessage(json["message"].string!)
                         }

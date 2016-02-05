@@ -49,6 +49,8 @@ public enum FireFlyAPI {
     case SelectChangeFlight(String, String, String, Int, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     case CheckIn(String, String, String, String, String)
     case GetTerm
+    case CheckInPassengerList(String, String, String, String, AnyObject)
+    case CheckInConfirmation(String, String, String, String, AnyObject)
 }
 
 
@@ -119,12 +121,15 @@ extension FireFlyAPI : TargetType {
             return "api/selectChangeFlight"
         case CheckIn:
             return "api/checkIn"
-
+        case CheckInPassengerList:
+            return "api/checkInPassengerList"
+        case CheckInConfirmation:
+            return "api/checkInConfirmation"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading, .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn:
+        case .Login, .Loading, .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation:
             return .POST
         case .GetTerm:
             return .GET
@@ -221,6 +226,23 @@ extension FireFlyAPI : TargetType {
             ]
         case .CheckIn(let signature, let pnr, let userId, let departureCode, let arrivalCode):
             return ["signature" : signature, "pnr" : pnr, "user_id" : userId, "departure_station_code" : departureCode, "arrival_station_code" : arrivalCode]
+            
+        case .CheckInPassengerList(let pnr, let departure_station_code, let arrival_station_code, let signature, let passengers):
+            return [
+                "pnr" : pnr,
+                "departure_station_code" : departure_station_code,
+                "arrival_station_code" : arrival_station_code,
+                "signature" : signature,
+                "passengers" : passengers
+            ]
+        case .CheckInConfirmation(let pnr, let departure_station_code, let arrival_station_code, let signature, let passengers):
+            return [
+                "pnr" : pnr,
+                "departure_station_code" : departure_station_code,
+                "arrival_station_code" : arrival_station_code,
+                "signature" : signature,
+                "passengers" : passengers
+            ]
         default:
         return nil
         }
