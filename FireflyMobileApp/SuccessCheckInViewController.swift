@@ -1,0 +1,40 @@
+//
+//  SuccessCheckInViewController.swift
+//  FireflyMobileApp
+//
+//  Created by ME-Tech Mac User 1 on 2/15/16.
+//  Copyright © 2016 Me-tech. All rights reserved.
+//
+
+import UIKit
+
+class SuccessCheckInViewController: BaseViewController {
+
+    @IBOutlet weak var border: UIView!
+    @IBOutlet weak var messageTextView: UITextView!
+    var msg = String()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupMenuButton()
+        border.layer.borderWidth = 1
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+
+}

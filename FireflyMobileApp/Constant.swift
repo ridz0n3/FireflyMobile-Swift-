@@ -116,10 +116,14 @@ func nilIfEmpty(value : AnyObject?) -> AnyObject? {
 
 func getTitleName(titleCode:String) -> String{
     var titleName = String()
-    for titleData in titleArray{
-        if titleData["title_code"] as! String == titleCode{
-            titleName = titleData["title_name"] as! String
+    if (defaults.objectForKey("title") != nil){
+        for titleData in titleArray{
+            if titleData["title_code"] as! String == titleCode{
+                titleName = titleData["title_name"] as! String
+            }
         }
+    }else{
+        titleName = titleCode
     }
     
     return titleName
@@ -127,11 +131,19 @@ func getTitleName(titleCode:String) -> String{
 
 func getCountryName(countryCode:String) -> String{
     var countryName = String()
-    for countryData in countryArray{
-        if countryData["country_code"] as! String == countryCode{
-            countryName = countryData["country_name"] as! String
+    
+    if (defaults.objectForKey("country") != nil){
+        
+        for countryData in countryArray{
+            if countryData["country_code"] as! String == countryCode{
+                countryName = countryData["country_name"] as! String
+            }
         }
+        
+    }else{
+        countryName = countryCode
     }
+    
     
     return countryName
 }
@@ -143,35 +155,41 @@ var pickerTravel = [String]()
 
 func getDepartureAirport(){
     
-    let flight = defaults.objectForKey("flight") as! NSMutableArray
-    var first = flight[0]["location_code"]
-    location.append(flight[0] as! NSDictionary)
-    pickerRow.append(flight[0]["location"] as! String)
-    for loc in flight{
-        
-        if loc["location_code"] as! String != first as! String{
-            location.append(loc as! NSDictionary)
-            pickerRow.append(loc["location"] as! String)
-            first = loc["location_code"]
+    if (defaults.objectForKey("flight") != nil){
+        let flight = defaults.objectForKey("flight") as! NSMutableArray
+        var first = flight[0]["location_code"]
+        location.append(flight[0] as! NSDictionary)
+        pickerRow.append(flight[0]["location"] as! String)
+        for loc in flight{
+            
+            if loc["location_code"] as! String != first as! String{
+                location.append(loc as! NSDictionary)
+                pickerRow.append(loc["location"] as! String)
+                first = loc["location_code"]
+            }
+            
         }
-        
     }
-    
 }
 
 func getArrivalAirport(departureAirport: String){
     
-    let flight = defaults.objectForKey("flight") as! NSMutableArray
-    let first = departureAirport
-    
-    for loc in flight{
+    if (defaults.objectForKey("flight") != nil){
         
-        if loc["location_code"] as! String == first{
-            travel.append(loc as! NSDictionary)
-            pickerTravel.append(loc["travel_location"] as! String)
+        let flight = defaults.objectForKey("flight") as! NSMutableArray
+        let first = departureAirport
+        
+        for loc in flight{
+            
+            if loc["location_code"] as! String == first{
+                travel.append(loc as! NSDictionary)
+                pickerTravel.append(loc["travel_location"] as! String)
+            }
+            
         }
         
     }
+    
 }
 
 var alertView = SCLAlertView()

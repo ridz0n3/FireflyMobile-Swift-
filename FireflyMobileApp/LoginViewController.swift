@@ -95,6 +95,7 @@ class LoginViewController: BaseXLFormViewController {
                 case .Success(let successResult):
                     do {
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        
                         if  json["status"].string == "success"{
                             self.showToastMessage(json["status"].string!)
                             defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
@@ -104,6 +105,11 @@ class LoginViewController: BaseXLFormViewController {
                             NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
                             let storyBoard = UIStoryboard(name: "Home", bundle: nil)
                             let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+                            self.navigationController!.pushViewController(homeVC, animated: true)
+                        }else if json["status"].string == "change_password" {
+                            self.showToastMessage(json["message"].string!)
+                            let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+                            let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
                             self.navigationController!.pushViewController(homeVC, animated: true)
                         }else{
                             self.showToastMessage(json["message"].string!)
@@ -164,8 +170,10 @@ class LoginViewController: BaseXLFormViewController {
     
     
     override func validationSuccessful() {
-      
+        showHud()
         FireFlyProvider.request(.ForgotPassword(self.emailTxtField.text!, "")) { (result) -> () in
+            
+            self.hideHud()
             switch result {
             case .Success(let successResult):
                 do{

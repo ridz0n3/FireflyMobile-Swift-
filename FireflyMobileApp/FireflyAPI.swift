@@ -27,6 +27,7 @@ public enum FireFlyAPI {
     case Login(String, String)
     case Loading(String, String, String, String, String, String, String, String, String)
     case ForgotPassword(String, String)
+    case ChangePassword(String, String, String)
     case PassengerDetail(AnyObject, AnyObject, String, String)
     case ContactDetail(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     case SelectSeat(AnyObject, AnyObject, String, String)
@@ -51,6 +52,7 @@ public enum FireFlyAPI {
     case GetTerm
     case CheckInPassengerList(String, String, String, String, AnyObject)
     case CheckInConfirmation(String, String, String, String, AnyObject)
+    case RetrieveBoardingPass(String, String, String, String, String)
 }
 
 
@@ -79,6 +81,8 @@ extension FireFlyAPI : TargetType {
             return "api/loading"
         case ForgotPassword:
             return "api/forgotPassword"
+        case ChangePassword:
+            return "api/changePassword"
         case PassengerDetail:
             return "api/passengerDetails"
         case ContactDetail:
@@ -125,11 +129,13 @@ extension FireFlyAPI : TargetType {
             return "api/checkInPassengerList"
         case CheckInConfirmation:
             return "api/checkInConfirmation"
+        case RetrieveBoardingPass:
+            return "api/getBoardingPass"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading, .ForgotPassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation:
+        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass:
             return .POST
         case .GetTerm:
             return .GET
@@ -144,6 +150,8 @@ extension FireFlyAPI : TargetType {
             return ["signature" : signature, "username" : username, "password" : password, "sdkVersion": sdkVersion, "version" : version, "deviceId" : deviceId, "brand" : brand, "model" : model, "dataVersion" : dataVersion]
         case .ForgotPassword(let username, let signature):
             return ["username" : username, "signature" : signature]
+        case .ChangePassword(let username, let password, let newPassword):
+            return ["username" : username, "password" : password, "new_password" : newPassword]
         case .PassengerDetail(let adult, let infant, let bookId, let signature):
             return ["passengers" : adult, "infants" : infant, "booking_id" : bookId, "signature" : signature]
         case .ContactDetail(let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature, let companyName, let address1, let address2, let address3, let city, let state, let postcode, let seatStatus):
@@ -243,6 +251,8 @@ extension FireFlyAPI : TargetType {
                 "signature" : signature,
                 "passengers" : passengers
             ]
+        case .RetrieveBoardingPass(let signature, let pnr, let departureCode, let arrivalCode, let userId):
+            return ["signature" : signature, "pnr" : pnr, "departure_station_code" : departureCode, "arrival_station_code" : arrivalCode, "user_id" : userId]
         default:
         return nil
         }

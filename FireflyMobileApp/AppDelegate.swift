@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPicker] = FloatLabeledPickerCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledDatePicker] = FloateLabeledDatePickerCell.self
         
+        InitialLoadManager.sharedInstance.load()
         UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         UINavigationBar.appearance().translucent = false
         // Override point for customization after application launch.
@@ -43,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
         
-        PushNotificationGCMManager.sharedInstance.registerNotificationCategory()
+        /*PushNotificationGCMManager.sharedInstance.registerNotificationCategory()
         PushNotificationGCMManager.sharedInstance.registerGCM()
         
         if let options = launchOptions {
@@ -55,14 +56,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }else if let remote = remotevalue{
                 self.application(application, didReceiveRemoteNotification: remote as [NSObject : AnyObject])
             }
-        }
+        }*/
         
         return true
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         
-        PushNotificationGCMManager.sharedInstance.getGCMToken(deviceToken)
+        //PushNotificationGCMManager.sharedInstance.getGCMToken(deviceToken)
 
     }
     

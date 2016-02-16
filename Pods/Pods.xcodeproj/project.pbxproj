@@ -2512,6 +2512,56 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
+				TargetAttributes = {
+					01A2E158197733309E368714FAD80F60 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					113331C8344479FA212C61E3292ACD87 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					320859C6D4F9A088A15E1D2271F15C59 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					432ECC54282C84882B482CCB4CF227FC = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					5A1C5E7902ACF669BB3C82B34CB83DAC = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					735882DA95E7FCCEC084FC1C5384FF8A = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					77983B53FA314D89942F3D0922ABBCBB = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					78C33D52F7E2D591E77871DBB03E8468 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					9A923F554FE24682810ED75DC853CD39 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					B548E4553FE35D18C8F62AC4E0A88374 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					CE0A701D8A271EFE0065667D13272921 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					D58CAD74411F3EA5D73A48FFB3DC29A5 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					D7A1BEC792292CD59DA83CED91062106 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					DD87AA06A4DC05B858D3B85C257950B1 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					E61CE3B6DFA1FE6B3E296965C76C0E10 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+					F523C5FC78A89D28771433F38A28E102 = {
+						DevelopmentTeam = 6S847MQDY3;
+					};
+				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2946,6 +2996,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6AD281092964629EA7CE44EBD0A279AD /* TPKeyboardAvoiding.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -2973,6 +3024,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2E4E8256A220C138B5D6304C4319050 /* Moya.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3000,6 +3052,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CC1B39AADDA9C7E50AF4673CCE245C48 /* SwiftyJSON.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3027,6 +3080,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 78A5AFC73EC38E4B6539207F06BAE67D /* MBProgressHUD.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3054,6 +3108,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE6F05E6F0BB7C98C45D16FE212786DD /* RSDayFlow.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3081,6 +3136,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CDB42966B63788C050F74B01BFD6FCD8 /* Result.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3108,6 +3164,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEDAEAE530C26F3CD565F5AF69B7FB12 /* CryptoSwift.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3123,6 +3180,7 @@
 				MODULEMAP_FILE = "Target Support Files/CryptoSwift/CryptoSwift.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = CryptoSwift;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3136,6 +3194,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D64DBBA40981E244D6DD7F5080033847 /* XLForm.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3163,6 +3222,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7F085732711677D73FBC7D91D1721D2C /* M13Checkbox.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3190,6 +3250,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ED4CC3B65DE8571CED471D4A69E9C683 /* MFSideMenu.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3217,6 +3278,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B2E4E8256A220C138B5D6304C4319050 /* Moya.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3245,6 +3307,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CDB42966B63788C050F74B01BFD6FCD8 /* Result.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3273,6 +3336,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D8A673D838FEB40D72B1E844657751B /* JVFloatLabeledTextField.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3300,6 +3364,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F22F1A51E86B00498B1FA75E0AC603B /* SwiftValidator.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3328,6 +3393,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D8A673D838FEB40D72B1E844657751B /* JVFloatLabeledTextField.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3355,6 +3421,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5F5EC48A87640F33A037704FAB6A88C1 /* Alamofire.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3370,6 +3437,7 @@
 				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = Alamofire;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3421,6 +3489,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85B330F247A395886DF525F77FBA9E4A /* ActionSheetPicker-3.0.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3448,6 +3517,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 85B330F247A395886DF525F77FBA9E4A /* ActionSheetPicker-3.0.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3475,6 +3545,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FE6F05E6F0BB7C98C45D16FE212786DD /* RSDayFlow.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3502,6 +3573,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CC1B39AADDA9C7E50AF4673CCE245C48 /* SwiftyJSON.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3530,6 +3602,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F9DF2B1F4F1213A61BBF5683472F50EA /* Pods-FireflyMobileApp.debug.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3561,6 +3634,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5F5EC48A87640F33A037704FAB6A88C1 /* Alamofire.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3576,6 +3650,7 @@
 				MODULEMAP_FILE = "Target Support Files/Alamofire/Alamofire.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = Alamofire;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3589,6 +3664,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EEDAEAE530C26F3CD565F5AF69B7FB12 /* CryptoSwift.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3604,6 +3680,7 @@
 				MODULEMAP_FILE = "Target Support Files/CryptoSwift/CryptoSwift.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = CryptoSwift;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -3616,6 +3693,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D64DBBA40981E244D6DD7F5080033847 /* XLForm.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3643,6 +3721,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7F085732711677D73FBC7D91D1721D2C /* M13Checkbox.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3670,6 +3749,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4937133589973B547C936448CF515C82 /* SCLAlertView.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3698,6 +3778,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6AD281092964629EA7CE44EBD0A279AD /* TPKeyboardAvoiding.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3725,6 +3806,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F22F1A51E86B00498B1FA75E0AC603B /* SwiftValidator.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3752,6 +3834,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 78A5AFC73EC38E4B6539207F06BAE67D /* MBProgressHUD.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3779,6 +3862,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = ED4CC3B65DE8571CED471D4A69E9C683 /* MFSideMenu.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3806,6 +3890,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F94445FAD86A8A50D165C374ABDA440 /* Pods-FireflyMobileApp.release.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -3836,6 +3921,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4937133589973B547C936448CF515C82 /* SCLAlertView.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;

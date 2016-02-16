@@ -152,16 +152,20 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     
     func getDepartureAirport(){
         
-        let flight = defaults.objectForKey("flight") as! NSMutableArray
-        var first = flight[0]["location_code"]
-        location.append(flight[0] as! NSDictionary)
-        pickerRow.append(flight[0]["location"] as! String)
-        for loc in flight{
+        if (defaults.objectForKey("flight") != nil){
             
-            if loc["location_code"] as! String != first as! String{
-                location.append(loc as! NSDictionary)
-                pickerRow.append(loc["location"] as! String)
-                first = loc["location_code"]
+            let flight = defaults.objectForKey("flight") as! NSMutableArray
+            var first = flight[0]["location_code"]
+            location.append(flight[0] as! NSDictionary)
+            pickerRow.append(flight[0]["location"] as! String)
+            for loc in flight{
+                
+                if loc["location_code"] as! String != first as! String{
+                    location.append(loc as! NSDictionary)
+                    pickerRow.append(loc["location"] as! String)
+                    first = loc["location_code"]
+                }
+                
             }
             
         }
@@ -170,16 +174,18 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     
     func getArrivalAirport(departureAirport: String){
         
-        let flight = defaults.objectForKey("flight") as! NSMutableArray
-        let first = departureAirport
-        
-        for loc in flight{
+        if (defaults.objectForKey("flight") != nil){
+            let flight = defaults.objectForKey("flight") as! NSMutableArray
+            let first = departureAirport
             
-            if loc["location_code"] as! String == first{
-                travel.append(loc as! NSDictionary)
-                pickerTravel.append(loc["travel_location"] as! String)
+            for loc in flight{
+                
+                if loc["location_code"] as! String == first{
+                    travel.append(loc as! NSDictionary)
+                    pickerTravel.append(loc["travel_location"] as! String)
+                }
+                
             }
-            
         }
         
     }

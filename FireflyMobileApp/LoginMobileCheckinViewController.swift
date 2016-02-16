@@ -9,46 +9,9 @@
 import UIKit
 import SwiftyJSON
 
-class LoginMobileCheckinViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
-
-    @IBOutlet weak var LoginMobileCheckinTableView: UITableView!
+class LoginMobileCheckinViewController: CommonListViewController {
     
-    var userId = String()
-    var signature = String()
-    var listBooking = NSArray()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupMenuButton()
-        // Do any additional setup after loading the view.
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listBooking.count
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 57
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = LoginMobileCheckinTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
-        
-        let bookingList = listBooking[indexPath.row] as! NSDictionary
-        
-        cell.flightNumber.text = "\(bookingList["departure_station_code"]!) - \(bookingList["arrival_station_code"]!)"
-        cell.flightDate.text = "\(bookingList["date"]!)"
-        
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let bookingList = listBooking[indexPath.row] as! NSDictionary
         showHud()

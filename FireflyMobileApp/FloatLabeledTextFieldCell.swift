@@ -80,10 +80,9 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
         contentView.addConstraints(layoutConstraints())
     }
     
-    
     override func update() {
         super.update()
-        if self.rowDescriptor?.tag == "Password"{
+        if self.rowDescriptor?.tag == "Password" || self.rowDescriptor?.tag == "New Password" || self.rowDescriptor?.tag == "Confirm Password"{
             self.floatLabeledTextField.keyboardType = .ASCIICapable
             self.floatLabeledTextField.secureTextEntry = true
         }else if self.rowDescriptor?.tag == "Mobile/Home" || self.rowDescriptor?.tag == "Alternate" || self.rowDescriptor?.tag == "Postcode" || self.rowDescriptor?.tag == "CCV/CVC Number" || self.rowDescriptor?.tag == "Card Number"{

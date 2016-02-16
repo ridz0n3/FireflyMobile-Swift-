@@ -28,6 +28,8 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
     @IBOutlet weak var rule2Info1: UITextView!
     @IBOutlet weak var rule2Info2: UITextView!
     @IBOutlet weak var rule2Info3: UITextView!
+    @IBOutlet weak var termContentView: UIView!
+    @IBOutlet weak var termScview: UIScrollView!
     
     var termDetail = NSDictionary()
     var termRules = NSDictionary()
@@ -185,10 +187,10 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             let departure_station_code = termDetail["departure_station_code"] as! String
             let arrival_station_code = termDetail["arrival_station_code"] as! String
             let signature = termDetail["signature"] as! String
-            let passengers = termDetail["passengers"] as! NSDictionary
+            let passengers = termDetail["passengers"]
             
             showHud()
-            FireFlyProvider.request(.CheckInConfirmation(pnr, departure_station_code, arrival_station_code, signature, passengers), completion: { (result) -> () in
+            FireFlyProvider.request(.CheckInConfirmation(pnr, departure_station_code, arrival_station_code, signature, passengers!), completion: { (result) -> () in
                 self.hideHud()
                 switch result {
                 case .Success(let successResult):
@@ -196,12 +198,10 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if  json["status"].string == "success"{
-                            self.showToastMessage(json["status"].string!)
-                           /* let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
-                            let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInTermVC") as! MobileCheckInTermViewController
-                            checkInDetailVC.pnr = self.pnr
-                            checkInDetailVC.termDetail = json.object as! NSDictionary
-                            self.navigationController!.pushViewController(checkInDetailVC, animated: true)*/
+                            
+                            let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
+                            let successVC = storyboard.instantiateViewControllerWithIdentifier("SuccessCheckInVC") as! SuccessCheckInViewController
+                            self.navigationController!.pushViewController(successVC, animated: true)
                             
                         }else{
                             self.showToastMessage(json["message"].string!)

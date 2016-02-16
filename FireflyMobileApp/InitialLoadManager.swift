@@ -29,9 +29,9 @@ class InitialLoadManager {
             username = userinfo!["username"] as! String
             password = userinfo!["password"] as! String
         }
-        let deviceId = defaults.objectForKey("token") as! String
-        print(deviceId)
-        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,deviceId,"Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
+        let deviceId = UIDevice.currentDevice().identifierForVendor?.UUIDString//defaults.objectForKey("token") as! String
+        //print(deviceId)
+        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,deviceId!,"Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {

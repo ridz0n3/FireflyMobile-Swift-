@@ -7,20 +7,70 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
 
-class BoardingPassViewController: BaseViewController {
+class BoardingPassViewController: CommonSearchDetailViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupLeftButton()
-        // Do any additional setup after loading the view.
+    @IBAction func ContinueBtnPressed(sender: AnyObject) {
+        
+        validateForm()
+        
+        if isValidate{
+            let signature = defaults.objectForKey("signatureLoad") as! String
+            let pnr = self.formValues()[Tags.ValidationConfirmationNumber] as! String
+            let departure_station_code = getStationCode(self.formValues()[Tags.ValidationDeparting] as! String, locArr: location, direction : "Departing")
+            //self.formValues()[Tags.ValidationDeparting] as! String
+            let arrival_station_code = getStationCode(self.formValues()[Tags.ValidationArriving] as! String, locArr: travel, direction : "Arriving")
+            showHud()
+            FireFlyProvider.request(.RetrieveBoardingPass(signature, pnr, departure_station_code, arrival_station_code, ""), completion: { (result) -> () in
+                
+                switch result {
+                case .Success(let successResult):
+                    do {
+                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        
+                        if  json["status"].string == "success"{
+                            var i = 0
+                            var j = 0
+                            let dict = NSMutableDictionary()
+                            for info in json["boarding_pass"].arrayObject!{
+                                let index = "\(j)"
+                                let imageURL = info["QRCodeURL"] as? String
+                                Alamofire.request(.GET, imageURL!).response(completionHandler: { (request, response, data, error) -> Void in
+                                    print(index)
+                                    dict.setObject(UIImage(data: data!)!, forKey: "\(index)")
+                                    i++
+                                    
+                                    if i == j{
+                                        self.hideHud()
+                                        let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
+                                        let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
+                                        boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
+                                        boardingPassDetailVC.imgDict = dict
+                                        self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
+                                    }
+                                })
+                                j++
+                            }
+                        }else{
+                            self.hideHud()
+                            self.showToastMessage(json["message"].string!)
+                        }
+                    }
+                    catch {
+                        
+                    }
+                    print (successResult.data)
+                case .Failure(let failureResult):
+                    print (failureResult)
+                }
+                
+            })
+            
+        }
+
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
 
     /*
     // MARK: - Navigation
