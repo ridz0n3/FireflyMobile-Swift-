@@ -174,7 +174,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else if indexPath.section == 7{
             return 136
         }else if indexPath.section == 8{
-            return 42
+            return 30
         }else if indexPath.section == 9{
             
             if indexPath.row == paymentDetails.count{
@@ -269,7 +269,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else if indexPath.section == 8{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PassengerDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             let passengerDetail = passengerInformation[indexPath.row] as! NSDictionary
-            cell.passengerNameLbl.text = "\(getTitleName(passengerDetail["title"]! as! String)) \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
+            
+            if passengerDetail["type"] as! String == "Infant"{
+                cell.passengerNameLbl.text = "\(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
+            }else{
+                cell.passengerNameLbl.text = "\(getTitleName(passengerDetail["title"]! as! String)) \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
+            }
+            
             return cell
         }else {
             

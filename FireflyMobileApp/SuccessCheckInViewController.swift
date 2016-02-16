@@ -18,6 +18,8 @@ class SuccessCheckInViewController: BaseViewController {
         super.viewDidLoad()
         setupMenuButton()
         border.layer.borderWidth = 1
+        messageTextView.attributedText = msg.html2String
+        
         // Do any additional setup after loading the view.
     }
 
