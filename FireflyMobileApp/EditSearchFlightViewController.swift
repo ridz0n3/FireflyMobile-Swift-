@@ -186,15 +186,15 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         if (section == 1) {
             wayLbl.text = "RETURN FLIGHT"
             if isCheckReturn{
-                checkBox.checkState = M13CheckboxStateChecked
+                checkBox.checkState = M13CheckboxState.Checked
             }else{
-                checkBox.checkState = M13CheckboxStateUnchecked
+                checkBox.checkState = M13CheckboxState.Unchecked
             }
         }else{
             if isCheckGoing{
-                checkBox.checkState = M13CheckboxStateChecked
+                checkBox.checkState = M13CheckboxState.Checked
             }else{
-                checkBox.checkState = M13CheckboxStateUnchecked
+                checkBox.checkState = M13CheckboxState.Unchecked
             }
         }
         
@@ -290,13 +290,13 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                 
             }
             
-            showHud()
+            showHud("open")
             
             FireFlyProvider.request(.SearchChangeFlight(departure, returned, pnr, bookId, signature), completion: { (result) -> () in
                 switch result {
                 case .Success(let successResult):
                     do {
-                        self.hideHud()
+                        showHud("close")
                         
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
@@ -316,14 +316,15 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                             changeFlightVC.bookId = "\(self.bookId)"
                             changeFlightVC.signature = self.signature
                             self.navigationController!.pushViewController(changeFlightVC, animated: true)
-                        }else{
-                            self.showToastMessage(json["message"].string!)
+                        }else if json["status"] == "error"{
+                            //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
                         
                     }
-                    print (successResult.data)
+                    
                 case .Failure(let failureResult):
                     print (failureResult)
                 }

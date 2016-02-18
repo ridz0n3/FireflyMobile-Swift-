@@ -115,7 +115,7 @@ class SideMenuTableViewController: BaseViewController {
             controllers.append(homeVC)
             
         }else if (indexPath.row == 1) {
-            
+            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
             let storyboard = UIStoryboard(name: "UpdateInformation", bundle: nil)
             let updateVC = storyboard.instantiateViewControllerWithIdentifier("UpdateInfoVC")
             controllers.append(updateVC)
@@ -152,15 +152,15 @@ class SideMenuTableViewController: BaseViewController {
             controllers.append(homeVC)
             
             let signature = defaults.objectForKey("signatureLoad") as! String
-            showHud()
+            showHud("open")
             FireFlyProvider.request(.Logout(signature), completion: { (result) -> () in
-                self.hideHud()
+                showHud("close")
                 switch result {
                 case .Success(let successResult):
                     do {
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         if  json["status"].string == "success"{
-                            //self.showToastMessage(json["status"].string!)
+                            //
                             self.hideRow = false
                             self.sideMenuTableView.reloadData()
                             defaults.setObject("", forKey: "userInfo")
@@ -169,13 +169,14 @@ class SideMenuTableViewController: BaseViewController {
                             InitialLoadManager.sharedInstance.load()
                             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
                         }else{
-                            //self.showToastMessage(json["message"].string!)
+                            ////showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
                         
                     }
-                    print (successResult.data)
+                    
                 case .Failure(let failureResult):
                     print (failureResult)
                 }

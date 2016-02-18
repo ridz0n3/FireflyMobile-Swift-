@@ -144,13 +144,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         }else if indexPath.row == 2{
             if try! LoginManager.sharedInstance.isLogin(){
                 let userinfo = defaults.objectForKey("userInfo")
-                showHud()
+                showHud("open")
                 
                 FireFlyProvider.request(.RetrieveBookingList(userinfo!["username"] as! String, userinfo!["password"] as! String, "manage_booking"), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
-                            self.hideHud()
+                            showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -165,14 +165,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     let alert = SCLAlertView()
                                     alert.showSuccess("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
                                 }
-                            }else{
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }
@@ -188,13 +189,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if try! LoginManager.sharedInstance.isLogin(){
                 let userinfo = defaults.objectForKey("userInfo")
-                showHud()
+                showHud("open")
                 
                 FireFlyProvider.request(.RetrieveBookingList(userinfo!["username"] as! String, userinfo!["password"] as! String, "check_in"), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
-                            self.hideHud()
+                            showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -209,14 +210,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     let alert = SCLAlertView()
                                     alert.showSuccess("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
                                 }
-                            }else{
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }
@@ -235,13 +237,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if try! LoginManager.sharedInstance.isLogin(){
                 let userinfo = defaults.objectForKey("userInfo")
-                showHud()
+                showHud("open")
                 
                 FireFlyProvider.request(.RetrieveBookingList(userinfo!["username"] as! String, userinfo!["password"] as! String, "boarding_pass"), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
-                            self.hideHud()
+                            showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -257,14 +259,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     let alert = SCLAlertView()
                                     alert.showSuccess("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
                                 }
-                            }else{
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }

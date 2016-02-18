@@ -118,7 +118,9 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Enrich Loyalty No
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Enrich Loyalty No:")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Bonuslink Card Number:")
+                row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+                row.value = "\(userInfo["bonuslink"]!)"
                 section.addFormRow(row)
                 
             }else{
@@ -180,7 +182,8 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Enrich Loyalty No
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Enrich Loyalty No:")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Bonuslink Card Number:")
+                row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                 section.addFormRow(row)
             }
             
@@ -276,18 +279,18 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             if checkValidation(){
                 let params = getFormData()
                 
-                showHud()
+                showHud("open")
                 
                 FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            self.hideHud()
+                            showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
-                                self.showToastMessage(json["status"].string!)
+                                
                                 
                                 if json["insurance"].object["status"] as! String == "N"{
                                     defaults.setObject("", forKey: "insurance_status")
@@ -299,14 +302,15 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                 let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
                                 self.navigationController!.pushViewController(contactDetailVC, animated: true)
-                            }else{
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }

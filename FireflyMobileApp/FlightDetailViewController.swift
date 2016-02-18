@@ -116,7 +116,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                     if flightFlex!["status"]!.string == "sold out"{
                         cell.priceLbl.text = "SOLD OUT"
                         cell.checkFlight.hidden = true
-                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
                         flightAvailable = false
                         
                     }else{
@@ -131,18 +131,18 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                     cell.checkFlight.userInteractionEnabled = false
                     if NSNumber.init(integer: indexPath.row) == selectedReturnFlight{
                         selectedReturnFlight = NSNumber.init(integer: indexPath.row)
-                        cell.checkFlight.checkState = M13CheckboxStateChecked
+                        cell.checkFlight.checkState = M13CheckboxState.Checked
                     }else{
-                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
                     }
                 }else{
                     cell.flightIcon.image = UIImage(named: "departure_icon")
                     cell.checkFlight.userInteractionEnabled = false
                     if NSNumber.init(integer: indexPath.row) == selectedGoingFlight{
                         selectedGoingFlight = NSNumber.init(integer: indexPath.row)
-                        cell.checkFlight.checkState = M13CheckboxStateChecked
+                        cell.checkFlight.checkState = M13CheckboxState.Checked
                     }else{
-                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
                     }
                 }
                 return cell
@@ -246,11 +246,11 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
         var parameters:[String:AnyObject] = [String:AnyObject]()
         
         if !isGoingSelected{
-            self.showToastMessage("Please select Going Flight")
+            showToastMessage("Please select Going Flight")
         }else if !isReturnSelected && defaults.objectForKey("type")! as! NSNumber != 0{
-            self.showToastMessage("Please select Return Flight")
+            showToastMessage("Please select Return Flight")
         }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out"{
-            self.showToastMessage("Please select Going Flight")
+            showToastMessage("Please select Going Flight")
         }else{
             
             if defaults.objectForKey("type") as! Int == 1{
@@ -266,7 +266,7 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 
                 if planBack == "flex_class" && flightDetail[1]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out"{
                     
-                    self.showToastMessage("Please select Return Flight")
+                    showToastMessage("Please select Return Flight")
                     
                 }else{
                     
@@ -296,11 +296,10 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                     parameters.updateValue(flightDetail[1]["flights"][selectedReturnFlight.integerValue][planBack]["fare_sell_key"].string!, forKey: "fare_sell_key_2")
                     
                     let manager = WSDLNetworkManager()
-                    showHud()
+                    showHud("open")
                     manager.sharedClient().createRequestWithService("selectFlight", withParams: parameters) { (result) -> Void in
-                        self.hideHud()
+                        showHud("close")
                         
-                        self.showToastMessage(result["status"].string!)
                         defaults.setObject(result["booking_id"].int , forKey: "booking_id")
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
@@ -336,11 +335,10 @@ class FlightDetailViewController: BaseViewController, UITableViewDelegate, UITab
                 parameters.updateValue("", forKey: "fare_sell_key_2")
                 
                 let manager = WSDLNetworkManager()
-                showHud()
+                showHud("open")
                 manager.sharedClient().createRequestWithService("selectFlight", withParams: parameters) { (result) -> Void in
-                    self.hideHud()
+                    showHud("close")
                     
-                    self.showToastMessage(result["status"].string!)
                     defaults.setObject(result["booking_id"].int , forKey: "booking_id")
                     print(result["booking_id"].int)
                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)

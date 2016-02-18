@@ -108,12 +108,12 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
     @IBAction func continueBtnPressed(sender: AnyObject) {
         
         if seatDict.count == 0 || seatDict.count != details.count{
-            self.showToastMessage("Please select seat first")
+            showToastMessage("Please select seat first")
         }else{
             if seatDict.count == 2{
                 
                 if seatDict["0"]!.count == 0 || seatDict["1"]!.count == 0{
-                    self.showToastMessage("Please select seat first")
+                    showToastMessage("Please select seat first")
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()
@@ -137,32 +137,33 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                         }
                     }
                     
-                    self.showHud()
+                    showHud("open")
                     
                     FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
                             do {
-                                self.hideHud()
+                                showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "success"{
-                                    //self.showToastMessage(json["status"].string!)
+                                    //
                                     let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
                                     let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
                                     manageFlightVC.isConfirm = true
                                     manageFlightVC.itineraryData = json.object as! NSDictionary
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
-                                }else{
-                                    self.showToastMessage(json["message"].string!)
+                                }else if json["status"] == "error"{
+                                    //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                                 }
                             }
                             catch {
                                 
                             }
-                            print (successResult.data)
+                            
                         case .Failure(let failureResult):
                             print (failureResult)
                         }
@@ -174,7 +175,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             }else{
                 
                 if seatDict["0"]!.count == 0{
-                    self.showToastMessage("Please select seat first")
+                    showToastMessage("Please select seat first")
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()
@@ -199,14 +200,14 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     returnSeatSelection.addObject(tempDict)
                     
-                    self.showHud()
+                    showHud("open")
                     
                     FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
                             do {
-                                self.hideHud()
+                                showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "success"{
@@ -216,14 +217,15 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                     manageFlightVC.itineraryData = json.object as! NSDictionary
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
-                                }else{
-                                    self.showToastMessage(json["message"].string!)
+                                }else if json["status"] == "error"{
+                                    //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                                 }
                             }
                             catch {
                                 
                             }
-                            print (successResult.data)
+                            
                         case .Failure(let failureResult):
                             print (failureResult)
                         }

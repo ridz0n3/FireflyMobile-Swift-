@@ -63,7 +63,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         //Confirmation Number
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmationNumber, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Confirmation Number:*")
         row.required = true
-        row.value = "y4pcsf"
+        //row.value = "y4pcsf"
         section.addFormRow(row)
         
         

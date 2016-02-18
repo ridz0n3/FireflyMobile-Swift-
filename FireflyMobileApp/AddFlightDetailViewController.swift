@@ -42,11 +42,11 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         }
         
         if !isGoingSelected{
-            self.showToastMessage("Please select Going Flight")
+            showToastMessage("Please select Going Flight")
         }else if !isReturnSelected && defaults.objectForKey("type")! as! NSNumber != 0{
-            self.showToastMessage("Please select Return Flight")
+            showToastMessage("Please select Return Flight")
         }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out"{
-            self.showToastMessage("Please select Going Flight")
+            showToastMessage("Please select Going Flight")
         }else{
             
             var isType1 = false
@@ -85,7 +85,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                 
                 if planBack == "flex_class" && flightDetail[1]["flights"][selectedReturnFlight.integerValue][planBack]["status"].string == "sold out"{
                     
-                    self.showToastMessage("Please select Return Flight")
+                    showToastMessage("Please select Return Flight")
                     isError = true
                 }else{
                     
@@ -119,12 +119,12 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                 journey_sell_key_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue]["journey_sell_key"].string!
                 fare_sell_key_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["fare_sell_key"].string!
                 
-                showHud()
+                showHud("open")
                 FireFlyProvider.request(.SelectFlight(adult, infant, username, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, departure_station, arrival_station), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
-                            self.hideHud()
+                            showHud("close")
                             
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
@@ -133,14 +133,15 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                 let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
                                 self.navigationController!.pushViewController(personalDetailVC, animated: true)
-                            }else{
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }

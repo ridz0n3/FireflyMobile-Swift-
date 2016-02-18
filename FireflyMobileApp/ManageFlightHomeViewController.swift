@@ -370,13 +370,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud()
+        showHud("open")
         
         FireFlyProvider.request(.GetFlightAvailability(pnr, bookingId, signature)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    self.hideHud()
+                    showHud("close")
                     
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
@@ -388,14 +388,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         changeFlightVC.bookId = "\(self.bookingId)"
                         changeFlightVC.signature = self.signature
                         self.navigationController!.pushViewController(changeFlightVC, animated: true)
-                    }else{
-                        self.showToastMessage(json["message"].string!)
+                    }else if json["status"] == "error"{
+                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
                     
                 }
-                print (successResult.data)
+                
             case .Failure(let failureResult):
                 print (failureResult)
             }
@@ -409,13 +410,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud()
+        showHud("open")
         
         FireFlyProvider.request(.GetAvailableSeat(pnr, bookingId, signature)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    self.hideHud()
+                    showHud("close")
                     
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
@@ -428,14 +429,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         changeSeatVC.signature = self.signature
                         changeSeatVC.journeys = json["journeys"].arrayObject!
                         self.navigationController!.pushViewController(changeSeatVC, animated: true)
-                    }else{
-                        self.showToastMessage(json["message"].string!)
+                    }else if json["status"] == "error"{
+                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
                     
                 }
-                print (successResult.data)
+                
             case .Failure(let failureResult):
                 print (failureResult)
             }
@@ -450,13 +452,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud()
+        showHud("open")
         FireFlyProvider.request(.PaymentSelection(self.signature)) { (result) -> () in
             
             switch result {
             case .Success(let successResult):
                 do {
-                    self.hideHud()
+                    showHud("close")
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -470,14 +472,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         paymentVC.signature = self.signature
                         self.navigationController!.pushViewController(paymentVC, animated: true)
                         
-                    }else{
-                        self.showToastMessage(json["message"].string!)
+                    }else if json["status"] == "error"{
+                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
                     
                 }
-                print (successResult.data)
+                
             case .Failure(let failureResult):
                 print (failureResult)
             }
@@ -492,27 +495,28 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud()
+        showHud("open")
         FireFlyProvider.request(.SendItinerary(pnr, bookingId, signature)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    self.hideHud()
+                    showHud("close")
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
                         let sendItineraryVC = storyboard.instantiateViewControllerWithIdentifier("SendItineraryVC") as! SendItineraryViewController
                         self.navigationController!.pushViewController(sendItineraryVC, animated: true)
-                    }else{
-                        self.hideHud()
-                        self.showToastMessage(json["message"].string!)
+                    }else if json["status"] == "error"{
+                        showHud("close")
+                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
                     
                 }
-                print (successResult.data)
+                
             case .Failure(let failureResult):
                 print (failureResult)
             }
@@ -527,7 +531,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud()
+        showHud("open")
         FireFlyProvider.request(.ConfirmChange(pnr, bookingId, signature)) { (result) -> () in
             switch result {
             case .Success(let successResult):
@@ -536,8 +540,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
-                        self.hideHud()
-                        self.showToastMessage(json["status"].string!)
+                        showHud("close")
+                        
                         defaults.setObject(self.itineraryData, forKey: "manageFlight")
                         defaults.synchronize()
                         
@@ -563,7 +567,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                             switch result {
                             case .Success(let successResult):
                                 do {
-                                    self.hideHud()
+                                    showHud("close")
                                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                     
                                     if json["status"] == "success"{
@@ -577,14 +581,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         paymentVC.signature = self.signature
                                         self.navigationController!.pushViewController(paymentVC, animated: true)
                                         
-                                    }else{
-                                        self.showToastMessage(json["message"].string!)
+                                    }else if json["status"] == "error"{
+                                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                                     }
                                 }
                                 catch {
                                     
                                 }
-                                print (successResult.data)
+                                
                             case .Failure(let failureResult):
                                 print (failureResult)
                             }
@@ -592,15 +597,16 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         }
                         
                         
-                    }else{
-                        self.hideHud()
-                        self.showToastMessage(json["message"].string!)
+                    }else if json["status"] == "error"{
+                        showHud("close")
+                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
                     
                 }
-                print (successResult.data)
+                
             case .Failure(let failureResult):
                 print (failureResult)
             }

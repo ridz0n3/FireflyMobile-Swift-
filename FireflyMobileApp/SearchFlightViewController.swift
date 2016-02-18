@@ -258,17 +258,17 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 }
                 
                 
-                showHud()
+                showHud("open")
                 FireFlyProvider.request(.SearchFlight(type, location[departureSelected]["location_code"]! as! String, travel[arrivalSelected]["travel_location_code"]! as! String, departureText, arrivalText, cell2.adultCount.text!, cell2.infantCount.text!, username, password), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            self.hideHud()
+                            showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
-                                self.showToastMessage(json["status"].string!)
+                                
                                 
                                 defaults.setObject(json["signature"].string, forKey: "signature")
                                 defaults.synchronize()
@@ -277,14 +277,15 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                                 flightDetailVC.flightDetail = json["journeys"].arrayValue
                                 self.navigationController!.pushViewController(flightDetailVC, animated: true)
                                 
-                            }else{
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }

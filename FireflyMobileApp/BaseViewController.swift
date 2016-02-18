@@ -104,35 +104,6 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         self.navigationController?.popViewControllerAnimated(true)
     }
     
-    func showHud(){
-        /*HUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        HUD.mode = MBProgressHUDMode.Indeterminate
-        HUD.labelText = "Loading"*/
-        alertView.showCloseButton = false
-        alertView.showWait("Loading...", subTitle: "", colorStyle: 0xEC581A)
-    }
-    
-    func hideHud(){
-        alertView.hideView()
-        //MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-    }
-    
-    func showToastMessage(message:String){
-        
-        //if self.classForCoder
-        if self.isKindOfClass(RSDFDatePickerViewController.classForCoder()){
-            HUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        }else{
-            HUD = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
-        }
-        
-        HUD.yOffset = 0
-        HUD.mode = MBProgressHUDMode.Text
-        HUD.detailsLabelText = message
-        HUD.removeFromSuperViewOnHide = true
-        HUD.hide(true, afterDelay: 3)
-    }
-    
     func actionPickerCancelled(sender:AnyObject){
         //do nothing
     }
@@ -221,6 +192,8 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         print("Validation FAILED!")
     }
 
+    
+    
     /*
     // MARK: - Navigation
 

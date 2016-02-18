@@ -19,7 +19,7 @@ class LoginViewController: BaseXLFormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLeftButton()
+        setupMenuButton()
         
         // Do any additional setup after loading the view.
     }
@@ -86,18 +86,18 @@ class LoginViewController: BaseXLFormViewController {
 
             let username: String = self.formValues()["Email"]! as! String
 
-            showHud()
+            showHud("open")
             
             
             FireFlyProvider.request(.Login(username, encPassword), completion: { (result) -> () in
-                self.hideHud()
+                showHud("close")
                 switch result {
                 case .Success(let successResult):
                     do {
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if  json["status"].string == "success"{
-                            self.showToastMessage(json["status"].string!)
+                            
                             defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                             defaults.setObject(json["user_info"].object , forKey: "userInfo")
                             defaults.synchronize()
@@ -107,26 +107,25 @@ class LoginViewController: BaseXLFormViewController {
                             let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                             self.navigationController!.pushViewController(homeVC, animated: true)
                         }else if json["status"].string == "change_password" {
-                            self.showToastMessage(json["message"].string!)
+                            ////showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                             let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
                             self.navigationController!.pushViewController(homeVC, animated: true)
                         }else{
-                            self.showToastMessage(json["message"].string!)
+                            showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
                         
                     }
-                print (successResult.data)
+                
                 case .Failure(let failureResult):
                 print (failureResult)
                 }
                 //var success = error == nil
                 }
             )
-        }else{
-           // showToastMessage("Please Fill All Field")
         }
         
     }
@@ -170,19 +169,20 @@ class LoginViewController: BaseXLFormViewController {
     
     
     override func validationSuccessful() {
-        showHud()
+        showHud("open")
         FireFlyProvider.request(.ForgotPassword(self.emailTxtField.text!, "")) { (result) -> () in
             
-            self.hideHud()
+            showHud("close")
             switch result {
             case .Success(let successResult):
                 do{
              let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                    if json["status"].string == "success"{
-                        self.showToastMessage(json["message"].string!)
+                    if json["status"] == "success"{
+                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                         self.forgotPasswordView.removeFromSuperview()
                     }else{
-                        self.showToastMessage(json["userInfo"].string!)
+                        showToastMessage(json["userInfo"].string!)
                     }
                 }
                 catch{

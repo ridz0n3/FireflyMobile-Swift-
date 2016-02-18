@@ -153,7 +153,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }else if indexPath.section == 7{
             return 136
         }else if indexPath.section == 8{
-            return 42
+            return 30
         }else if indexPath.section == 9{
             
             if indexPath.row == paymentDetails.count{

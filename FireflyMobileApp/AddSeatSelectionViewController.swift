@@ -71,12 +71,12 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
         let signature = defaults.objectForKey("signature") as! String
         
         if seatDict.count == 0 || seatDict.count != details.count{
-            self.showToastMessage("Please select seat first")
+            showToastMessage("Please select seat first")
         }else{
             if seatDict.count == 2{
                 
                 if seatDict["0"]!.count == 0 || seatDict["1"]!.count == 0{
-                    self.showToastMessage("Please select seat first")
+                    showToastMessage("Please select seat first")
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()
@@ -100,32 +100,33 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                         }
                     }
                     
-                    self.showHud()
+                    showHud("open")
                     
                     FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
                             do {
-                                self.hideHud()
+                                showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "success"{
-                                    self.showToastMessage(json["status"].string!)
+                                    
                                     defaults.setObject(json.dictionaryObject, forKey: "itenerary")
                                     defaults.synchronize()
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
                                     self.navigationController!.pushViewController(paymentVC, animated: true)
                                     
-                                }else{
-                                    self.showToastMessage(json["message"].string!)
+                                }else if json["status"] == "error"{
+                                    //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                                 }
                             }
                             catch {
                                 
                             }
-                            print (successResult.data)
+                            
                         case .Failure(let failureResult):
                             print (failureResult)
                         }
@@ -137,7 +138,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
             }else{
                 
                 if seatDict["0"]!.count == 0{
-                    self.showToastMessage("Please select seat first")
+                    showToastMessage("Please select seat first")
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()
@@ -162,18 +163,18 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     returnSeatSelection.addObject(tempDict)
                     
-                    self.showHud()
+                    showHud("open")
                     
                     FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
                             do {
-                                self.hideHud()
+                                showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "success"{
-                                    self.showToastMessage(json["status"].string!)
+                                    
                                     defaults.setObject(json.dictionaryObject, forKey: "itenerary")
                                     defaults.synchronize()
                                     
@@ -181,14 +182,15 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                                     let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
                                     self.navigationController!.pushViewController(paymentVC, animated: true)
                                     
-                                }else{
-                                    self.showToastMessage(json["message"].string!)
+                                }else if json["status"] == "error"{
+                                    //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                                 }
                             }
                             catch {
                                 
                             }
-                            print (successResult.data)
+                            
                         case .Failure(let failureResult):
                             print (failureResult)
                         }

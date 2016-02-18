@@ -11,7 +11,7 @@ import SwiftyJSON
 import WebKit
 
 class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDelegate {
-
+    
     @IBOutlet weak var webView: UIWebView!
     
     override func viewDidLoad() {
@@ -21,13 +21,13 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         self.setupLeftButton()
         webView.scrollView.delegate = self
         webView.scrollView.showsHorizontalScrollIndicator = false
-        self.showHud()
+        showHud("open")
         
         FireFlyProvider.request(.GetTerm) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-            
+                    
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -37,25 +37,24 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                             let request = NSURLRequest(URL: url)
                             self.webView.loadRequest(request)
                         }
+                    }else if json["status"] == "error"{
+                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
+                        showHud("close")
                     }
-                
-                    else{
-                    self.showToastMessage(json["message"].string!)
-                    self.hideHud()
                 }
-            }
-            catch {
-                
-            }
+                catch {
+                    
+                }
             case .Failure(let failureResult):
                 print (failureResult)
-                self.hideHud()
+                showHud("close")
             }
         }
         
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -63,18 +62,18 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
     
     func webViewDidFinishLoad(webView: UIWebView) {
         webView.sizeToFit()
-        self.hideHud()
+        showHud("close")
     }
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        self.hideHud()
+        showHud("close")
     }
-
-
+    
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if (scrollView.contentOffset.x > 0)
         {
             scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y)
         }
     }
-
+    
 }

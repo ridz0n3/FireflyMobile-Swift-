@@ -44,7 +44,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         static var ValidationTravelDoc = "Travel Document"
         static var ValidationDocumentNo = "Document No"
         static var ValidationExpiredDate = "Expiration Date"
-        static var ValidationEnrichLoyaltyNo = "Enrich Loyalty No"
+        static var ValidationEnrichLoyaltyNo = "Bonuslink"
         static var ValidationTravelWith = "Traveling with"
         static var ValidationGender = "Gender"
         static var ValidationPurpose = "Purpose"
@@ -73,7 +73,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
                 validationError.textField.layer.borderColor = UIColor.redColor().CGColor
                 validationError.textField.layer.borderWidth = 1.0
                 
-                self.showToastMessage(validationError.errorMessage)
+                showToastMessage(validationError.errorMessage)
         })
         // Do any additional setup after loading the view.
     }
@@ -142,6 +142,8 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         if array.count != 0{
             
             isValidate = false
+            var i = 0
+            var message = String()
             
             for errorItem in array {
                 
@@ -165,10 +167,14 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
                         cell.backgroundColor = UIColor(patternImage: UIImage(named: "txtField")!)
                     })
                     
-                    self.showToastMessage(validationStatus.msg)
-                    
+                    message += "\(validationStatus.msg),\n"
+                    i++
                 }
                 self.animateCell(cell)
+            }
+            
+            if i != 0{
+                showToastMessage(message)
             }
         }else{
             isValidate = true
@@ -186,24 +192,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         cell.layer.addAnimation(animation, forKey: "shake")
     }
     
-    func showHud(){
-        alertView.showCloseButton = false
-        alertView.showWait("Loading...", subTitle: "", colorStyle: 0xEC581A)
-    }
     
-    func hideHud(){
-        alertView.hideView()
-        //MBProgressHUD.hideAllHUDsForView(self.view, animated: true)
-    }
-    
-    func showToastMessage(message:String){
-        HUD = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
-        HUD.yOffset = 0
-        HUD.mode = MBProgressHUDMode.Text
-        HUD.detailsLabelText = message
-        HUD.removeFromSuperViewOnHide = true
-        HUD.hide(true, afterDelay: 3)
-    }
     
     func formatDate(date:NSDate) -> String{
         

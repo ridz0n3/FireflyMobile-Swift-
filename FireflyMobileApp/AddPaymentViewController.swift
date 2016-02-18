@@ -27,9 +27,9 @@ class AddPaymentViewController: CommonPaymentViewController {
                 let cardNumber = self.formValues()[Tags.ValidationCardNumber] as! String
                 
                 if !luhnCheck(cardNumber){
-                    self.showToastMessage("Invalid credit card")
+                    showToastMessage("Invalid credit card")
                 }else if !checkDate(self.formValues()[Tags.ValidationCardExpiredDate] as! String){
-                    self.showToastMessage("Invalid Date")
+                    showToastMessage("Invalid Date")
                 }else{
                     
                     let signature = defaults.objectForKey("signature") as! String
@@ -44,18 +44,18 @@ class AddPaymentViewController: CommonPaymentViewController {
                     let expirationDateYear = expiredDate[1]
                     
                     
-                    showHud()
+                    showHud("open")
                     FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingID), completion: { (result) -> () in
                         
-                        self.hideHud()
+                        showHud("close")
                         switch result {
                         case .Success(let successResult):
                             do {
-                                self.hideHud()
+                                showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "Redirect"{
-                                    self.showToastMessage(json["status"].string!)
+                                    
                                     
                                     //let pass = json["pass"].string?.componentsSeparatedByString("/")
                                     let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
@@ -67,13 +67,14 @@ class AddPaymentViewController: CommonPaymentViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else{
-                                    self.showToastMessage(json["message"].string!)
+                                    //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                                 }
                             }
                             catch {
                                 
                             }
-                            print (successResult.data)
+                            
                         case .Failure(let failureResult):
                             print (failureResult)
                         }

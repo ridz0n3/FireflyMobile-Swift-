@@ -53,17 +53,17 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
         let bookingList = listBooking[indexPath.row] as! NSDictionary
         let userInfo = defaults.objectForKey("userInfo")
         let username = userInfo!["username"] as! String
-        showHud()
+        showHud("open")
         
         FireFlyProvider.request(.RetrieveBooking(signature, bookingList["pnr"] as! String,username, userId)) { (result) -> () in
-            self.hideHud()
+            showHud("close")
             switch result {
             case .Success(let successResult):
                 do {
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
-                    if  json["status"].string == "success"{
-                        self.showToastMessage(json["status"].string!)
+                    if json["status"] == "success"{
+                        
                         defaults.setObject(json.object, forKey: "manageFlight")
                         defaults.synchronize()
                         
@@ -72,14 +72,15 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
                         manageFlightVC.isLogin = true
                         self.navigationController!.pushViewController(manageFlightVC, animated: true)
                         
-                    }else{
-                        self.showToastMessage(json["message"].string!)
+                    }else if json["status"].string == "error"{
+                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
                     
                 }
-                print (successResult.data)
+                
             case .Failure(let failureResult):
                 print (failureResult)
             }

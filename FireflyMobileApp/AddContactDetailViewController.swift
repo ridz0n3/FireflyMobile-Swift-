@@ -130,7 +130,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             if insuranceData == ""{
                 showToastMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
-                showHud()
+                showHud("open")
                 
                 
                 
@@ -139,24 +139,24 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     switch result {
                     case .Success(let successResult):
                         do {
-                            self.hideHud()
+                            showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
-                                self.showToastMessage(json["status"].string!)
+                                
                                 defaults.setObject(json.dictionaryObject, forKey: "itenerary")
                                 defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                 let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
                                 self.navigationController!.pushViewController(paymentVC, animated: true)
-                            }else{
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }
@@ -206,31 +206,32 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             if insuranceData == ""{
                 showToastMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
-                showHud()
+                showHud("open")
                 FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "Y" ), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            self.hideHud()
+                            showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
-                                self.showToastMessage(json["status"].string!)
+                                
                                 defaults.setObject(json["journeys"].arrayObject, forKey: "journey")
                                 defaults.setObject(json["passengers"].arrayObject, forKey: "passenger")
                                 defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                 let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC") as! AddSeatSelectionViewController
                                 self.navigationController!.pushViewController(chooseSeatVC, animated: true)
-                            }else{
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }

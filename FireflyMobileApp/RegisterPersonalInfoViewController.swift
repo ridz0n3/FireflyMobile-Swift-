@@ -18,23 +18,14 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.lvlHeaderImg.image = UIImage(named: "registerLvl1")
-        setupLeftButton()
+        setupMenuButton()
+        initializeForm()
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        initializeForm()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        initializeForm()
     }
     
     func initializeForm() {
@@ -210,6 +201,20 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         section.addFormRow(row)
         
+        // BonusLink - Section
+        section = XLFormSectionDescriptor()
+        section.title = "Loyalty Programme"
+        //section.hidden = "$\(Tags.Button3).value contains 'hide'"
+        form.addFormSection(section)
+        
+        // BonusLink
+        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypePhone, title:"")
+        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card Number"
+        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
+        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+        section.addFormRow(row)
+        
         self.form = form
     }
     
@@ -292,15 +297,15 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 animateCell(cell)
                 showToastMessage("Confirm password incorrect")
             }else if ((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String == "") {
-                showToastMessage("Title Empty")
+                showToastMessage("Title can't empty")
             }else if ((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String == "") {
-                showToastMessage("Country Empty")
+                showToastMessage("Country can't empty")
             }else if ((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String == "") {
-                showToastMessage("State Empty")
-            }else if termCheckBox.checkState.rawValue == 0{
-                showToastMessage("Please check term and condition checkbox")
+                showToastMessage("State can't empty")
             }else if minDate.compare(formValues()[Tags.ValidationDate] as! NSDate) == NSComparisonResult.OrderedAscending {
                 showToastMessage("User must age 18 and above to register")
+            }else if termCheckBox.checkState.rawValue == 0{
+                showToastMessage("Please check term and condition checkbox")
             }else{
                 
                 let enc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationPassword]! as! String, key: key, iv: iv)
@@ -326,6 +331,8 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
 
                     parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate])!, forKey: "alternate_phone")
                 
+                parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])!, forKey: "bonuslink")
+                
                 if promotionCheckBox.checkState.rawValue == 0{
                     parameters.updateValue("N", forKey: "newsletter")
                 }else{
@@ -340,24 +347,21 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                     
                     let manager = WSDLNetworkManager()
                     
-                    showHud()
+                    showHud("open")
                     manager.sharedClient().createRequestWithService("register", withParams: parameters, completion: { (result) -> Void in
-                        self.hideHud()
+                        showHud("close")
                         
                         if result["status"].string == "success"{
-                            self.showToastMessage(result["status"].string!)
                             
                             let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                             let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
                             self.navigationController!.pushViewController(loginVC, animated: true)
-                        }else{
-                            self.showToastMessage(result["message"].string!)
+                        }else if result["status"].string == "error"{
+                            showToastMessage(result["message"].string!)
                         }
                         
                     })
                 }
-        }else{
-            self.showToastMessage("Please Fill All Field")
         }
     }
 }

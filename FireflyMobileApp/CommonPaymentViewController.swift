@@ -28,7 +28,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
         setupLeftButton()
-        creditCardCheckBox.checkState = M13CheckboxStateChecked
+        creditCardCheckBox.checkState = M13CheckboxState.Checked
         paymentMethod = "Card"
         creditCardCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
         onlineBankingCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
@@ -95,23 +95,23 @@ class CommonPaymentViewController: BaseXLFormViewController {
         let btn = sender as! UIButton
         
         if btn.tag == 1{
-            creditCardCheckBox.checkState = M13CheckboxStateChecked
-            onlineBankingCheckBox.checkState = M13CheckboxStateUnchecked
-            cashCheckBox.checkState = M13CheckboxStateUnchecked
+            creditCardCheckBox.checkState = M13CheckboxState.Checked
+            onlineBankingCheckBox.checkState = M13CheckboxState.Unchecked
+            cashCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "notHide"
             tableView.reloadData()
             paymentMethod = "Card"
         }else if btn.tag == 2{
-            creditCardCheckBox.checkState = M13CheckboxStateUnchecked
-            onlineBankingCheckBox.checkState = M13CheckboxStateChecked
-            cashCheckBox.checkState = M13CheckboxStateUnchecked
+            creditCardCheckBox.checkState = M13CheckboxState.Unchecked
+            onlineBankingCheckBox.checkState = M13CheckboxState.Checked
+            cashCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
             paymentMethod = "Online Banking"
         }else{
-            creditCardCheckBox.checkState = M13CheckboxStateUnchecked
-            onlineBankingCheckBox.checkState = M13CheckboxStateUnchecked
-            cashCheckBox.checkState = M13CheckboxStateChecked
+            creditCardCheckBox.checkState = M13CheckboxState.Unchecked
+            onlineBankingCheckBox.checkState = M13CheckboxState.Unchecked
+            cashCheckBox.checkState = M13CheckboxState.Checked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
             paymentMethod = "Cash"

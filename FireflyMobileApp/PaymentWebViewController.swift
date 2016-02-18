@@ -56,18 +56,18 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
             
             
             
-            showHud()
+            showHud("open")
             FireFlyProvider.request(.FlightSummary(signature), completion: { (result) -> () in
-                self.hideHud()
+                showHud("close")
                 switch result {
                 case .Success(let successResult):
                     do {
-                        self.hideHud()
+                        showHud("close")
                         
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if json["status"] == "success"{
-                            self.showToastMessage(json["status"].string!)
+                            
                             defaults.setObject(json.object, forKey: "itinerary")
                             defaults.synchronize()
                             
@@ -75,14 +75,15 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
                             let flightSummaryFlightVC = storyboard.instantiateViewControllerWithIdentifier("FlightSummaryVC") as! FlightSummaryViewController
                             self.navigationController!.pushViewController(flightSummaryFlightVC, animated: true)
                             
-                        }else{
-                            self.showToastMessage(json["message"].string!)
+                        }else if json["status"] == "error"{
+                            //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
                         
                     }
-                    print (successResult.data)
+                    
                 case .Failure(let failureResult):
                     print (failureResult)
                 }

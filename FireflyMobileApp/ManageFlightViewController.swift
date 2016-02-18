@@ -11,7 +11,7 @@ import XLForm
 import SwiftyJSON
 
 class ManageFlightViewController: BaseXLFormViewController {
-
+    
     @IBOutlet weak var continueBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,7 @@ class ManageFlightViewController: BaseXLFormViewController {
         continueBtn.layer.cornerRadius = 10.0
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,36 +45,20 @@ class ManageFlightViewController: BaseXLFormViewController {
         section = XLFormSectionDescriptor()
         form.addFormSection(section)
         
-        /*//first name
-        row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+        
+        //Confirmation Number
+        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmationNumber, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Confirmation Number:*")
         row.required = true
+        //row.value = "y4pcsf"
         section.addFormRow(row)
         
-        //last name
-        row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+        //Username
+        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Contact Email:*")
         row.required = true
-        section.addFormRow(row)*/
-        
-        // Password
-        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmationNumber, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Confirmation Number"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.required = true
-        row.value = "e72pwj"//"pedixe"////"xzn1tr"
-        //row.value = "bbk3nx"
-        section.addFormRow(row)
-        
-        // username
-        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Contact Email"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.required = true
-        row.value = "ridzuan.othman@me-tech.com.my"//"Ridz@gmail.com"//
-        //row.value = "ridz0n391@gmail.com"
         row.addValidator(XLFormValidator.emailValidator())
+        //row.value = "y4pcsf"
         section.addFormRow(row)
+        
         
         self.form = form
         
@@ -88,16 +72,16 @@ class ManageFlightViewController: BaseXLFormViewController {
             
             let pnr = self.formValues()[Tags.ValidationConfirmationNumber] as! String
             let username = self.formValues()[Tags.ValidationEmail] as! String
-            showHud()
+            showHud("open")
             FireFlyProvider.request(.RetrieveBooking("", pnr, username, ""), completion: { (result) -> () in
-                self.hideHud()
+                showHud("close")
                 switch result {
                 case .Success(let successResult):
                     do {
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if  json["status"].string == "success"{
-                            self.showToastMessage(json["status"].string!)
+                            
                             defaults.setObject(json.object, forKey: "manageFlight")
                             defaults.synchronize()
                             
@@ -106,31 +90,59 @@ class ManageFlightViewController: BaseXLFormViewController {
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else{
-                            self.showToastMessage(json["message"].string!)
+                            //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
                         
                     }
-                    print (successResult.data)
+                    
                 case .Failure(let failureResult):
                     print (failureResult)
                 }
-
+                
             })
-
+            
         }
         
     }
-
+    
+    override func validateForm() {
+        let array = formValidationErrors()
+        
+        if array.count != 0{
+            isValidate = false
+            
+            for errorItem in array {
+                
+                let error = errorItem as! NSError
+                let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
+                
+                
+                let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                
+                if self.tableView.cellForRowAtIndexPath(index) != nil{
+                    let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
+                    
+                    let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                    cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
+                    
+                    animateCell(cell)
+                }
+            }
+        }else{
+            isValidate = true
+        }
+    }
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

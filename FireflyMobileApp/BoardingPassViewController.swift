@@ -22,7 +22,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
             let departure_station_code = getStationCode(self.formValues()[Tags.ValidationDeparting] as! String, locArr: location, direction : "Departing")
             //self.formValues()[Tags.ValidationDeparting] as! String
             let arrival_station_code = getStationCode(self.formValues()[Tags.ValidationArriving] as! String, locArr: travel, direction : "Arriving")
-            showHud()
+            showHud("open")
             FireFlyProvider.request(.RetrieveBoardingPass(signature, pnr, departure_station_code, arrival_station_code, ""), completion: { (result) -> () in
                 
                 switch result {
@@ -43,7 +43,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                                     i++
                                     
                                     if i == j{
-                                        self.hideHud()
+                                        showHud("close")
                                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                                         let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
                                         boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
@@ -54,14 +54,15 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                                 j++
                             }
                         }else{
-                            self.hideHud()
-                            self.showToastMessage(json["message"].string!)
+                            showHud("close")
+                            //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
                         
                     }
-                    print (successResult.data)
+                    
                 case .Failure(let failureResult):
                     print (failureResult)
                 }

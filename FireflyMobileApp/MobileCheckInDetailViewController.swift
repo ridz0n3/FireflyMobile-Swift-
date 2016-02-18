@@ -175,9 +175,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         }
         
         if arr[section] == "true"{
-            checkBox.checkState = M13CheckboxStateChecked
+            checkBox.checkState = M13CheckboxState.Checked
         }else{
-            checkBox.checkState = M13CheckboxStateUnchecked
+            checkBox.checkState = M13CheckboxState.Unchecked
         }
         
         return passengerName
@@ -206,7 +206,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         detailTableView.beginUpdates()
         detailTableView.endUpdates()
         detailTableView.reloadData()
-        //checkBox.checkState = M13CheckboxStateChecked
+        //checkBox.checkState = M13CheckboxState.Checked
     }
     
     @IBAction func continueBtnPressed(sender: AnyObject) {
@@ -255,16 +255,16 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 let departure_station_code = checkInDetail["departure_station_code"] as! String
                 let arrival_station_code = checkInDetail["arrival_station_code"] as! String
 
-                showHud()
+                showHud("open")
                 FireFlyProvider.request(.CheckInPassengerList(pnr, departure_station_code, arrival_station_code, signature, passenger), completion: { (result) -> () in
-                    self.hideHud()
+                    showHud("close")
                     switch result {
                     case .Success(let successResult):
                         do {
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if  json["status"].string == "success"{
-                                self.showToastMessage(json["status"].string!)
+                                
                                 let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                                 let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInTermVC") as! MobileCheckInTermViewController
                                 checkInDetailVC.pnr = self.pnr
@@ -272,13 +272,14 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                                 self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                                 
                             }else{
-                                self.showToastMessage(json["message"].string!)
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }

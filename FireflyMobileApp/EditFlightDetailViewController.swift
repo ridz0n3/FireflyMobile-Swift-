@@ -103,7 +103,7 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                     if flightFlex!["status"]!.string == "sold out"{
                         cell.priceLbl.text = "SOLD OUT"
                         cell.checkFlight.hidden = true
-                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
                         flightAvailable = false
                         
                     }else{
@@ -118,18 +118,18 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                     cell.checkFlight.userInteractionEnabled = false
                     if NSNumber.init(integer: indexPath.row) == selectedReturnFlight{
                         selectedReturnFlight = NSNumber.init(integer: indexPath.row)
-                        cell.checkFlight.checkState = M13CheckboxStateChecked
+                        cell.checkFlight.checkState = M13CheckboxState.Checked
                     }else{
-                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
                     }
                 }else{
                     cell.flightIcon.image = UIImage(named: "departure_icon")
                     cell.checkFlight.userInteractionEnabled = false
                     if NSNumber.init(integer: indexPath.row) == selectedGoingFlight{
                         selectedGoingFlight = NSNumber.init(integer: indexPath.row)
-                        cell.checkFlight.checkState = M13CheckboxStateChecked
+                        cell.checkFlight.checkState = M13CheckboxState.Checked
                     }else{
-                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
                     }
                 }
                 return cell
@@ -151,11 +151,11 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
         }
         
         if !isGoingSelected && goingData["status"] as! String == "Y"{
-            self.showToastMessage("Please select Going Flight")
+            showToastMessage("Please select Going Flight")
         }else if !isReturnSelected && type == 1 && returnData["status"] as! String == "Y"{
-            self.showToastMessage("Please select Return Flight")
+            showToastMessage("Please select Return Flight")
         }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out" && goingData["status"] as! String == "Y"{
-            self.showToastMessage("Please select Going Flight")
+            showToastMessage("Please select Going Flight")
         }else{
             var isType1 = false
             var isError = false
@@ -189,7 +189,7 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                 }
                 
                 if planBack == "flex_class" && flightDetail[1]["flights"][selectedReturnFlight.integerValue][planBack]["status"].string == "sold out" && returnData["status"] as! String == "Y"{
-                    self.showToastMessage("Please select Return Flight")
+                    showToastMessage("Please select Return Flight")
                     isError = true
                 }else{
                     return_date = formatDate(stringToDate("\(dateReturnArr[2])-\(dateReturnArr[1])-\(dateReturnArr[0])"))
@@ -216,12 +216,12 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                 journey_sell_key_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue]["journey_sell_key"].string!
                 fare_sell_key_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["fare_sell_key"].string!
                 
-                showHud()
+                showHud("open")
                 FireFlyProvider.request(.SelectChangeFlight(pnr, bookId, signature, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, status_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, status_2, departure_station, arrival_station), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
-                            self.hideHud()
+                            showHud("close")
                             
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
@@ -231,14 +231,15 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                                 manageFlightVC.isConfirm = true
                                 manageFlightVC.itineraryData = json.object as! NSDictionary
                                 self.navigationController!.pushViewController(manageFlightVC, animated: true)
-                            }else{
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch {
                             
                         }
-                        print (successResult.data)
+                        
                     case .Failure(let failureResult):
                         print (failureResult)
                     }

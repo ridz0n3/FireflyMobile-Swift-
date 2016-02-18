@@ -163,7 +163,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     
     @IBAction func continueBtnPressed(sender: AnyObject) {
         
-        self.showHud()
+        showHud("open")
         
         let signature = defaults.objectForKey("signature") as! String
         
@@ -172,11 +172,11 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             switch result {
             case .Success(let successResult):
                 do {
-                    self.hideHud()
+                    showHud("close")
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
-                        self.showToastMessage(json["status"].string!)
+                        
                         let amountDue = json["amount_due"].int
                         let paymentChannel = json["payment_channel"].arrayObject
                         
@@ -186,14 +186,15 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                         paymentVC.totalDue = amountDue!
                         self.navigationController!.pushViewController(paymentVC, animated: true)
                         
-                    }else{
-                        self.showToastMessage(json["message"].string!)
+                    }else if json["status"] == "error"{
+                        //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
                     
                 }
-                print (successResult.data)
+                
             case .Failure(let failureResult):
                 print (failureResult)
             }

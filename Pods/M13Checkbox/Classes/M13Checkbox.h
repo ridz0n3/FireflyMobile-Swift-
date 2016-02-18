@@ -20,19 +20,20 @@
 /**
  The posible states of the checkbox.
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, M13CheckboxState) {
     M13CheckboxStateUnchecked = NO, //Default
     M13CheckboxStateChecked = YES,
     M13CheckboxStateMixed
-} M13CheckboxState;
+};
+
 
 /**
  Where the box is located in comparison to the text.
  */
-typedef enum {
+typedef NS_ENUM(NSInteger, M13CheckboxAlignment) {
     M13CheckboxAlignmentLeft,
     M13CheckboxAlignmentRight //Default
-} M13CheckboxAlignment;
+};
 
 #define M13CheckboxHeightAutomatic CGFLOAT_MAX
 
@@ -55,7 +56,7 @@ typedef enum {
  */
 @property (nonatomic, assign) M13CheckboxAlignment checkAlignment UI_APPEARANCE_SELECTOR;
 /**
- A manual setting to set the height of the checkbox. If set to M13CheckHeightAutomatic, the check will fill the height of the control.
+ A manual setting to set the height of the checkbox. If set to M13CheckboxHeightAutomatic, the check will fill the height of the control.
  */
 @property (nonatomic, assign) CGFloat checkHeight UI_APPEARANCE_SELECTOR;
 /**

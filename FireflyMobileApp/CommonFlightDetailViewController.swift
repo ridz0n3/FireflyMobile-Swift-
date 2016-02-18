@@ -117,7 +117,7 @@ class CommonFlightDetailViewController: BaseViewController {
                     if flightFlex!["status"]!.string == "sold out"{
                         cell.priceLbl.text = "SOLD OUT"
                         cell.checkFlight.hidden = true
-                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
                         flightAvailable = false
                         
                     }else{
@@ -132,18 +132,18 @@ class CommonFlightDetailViewController: BaseViewController {
                     cell.checkFlight.userInteractionEnabled = false
                     if NSNumber.init(integer: indexPath.row) == selectedReturnFlight{
                         selectedReturnFlight = NSNumber.init(integer: indexPath.row)
-                        cell.checkFlight.checkState = M13CheckboxStateChecked
+                        cell.checkFlight.checkState = M13CheckboxState.Checked
                     }else{
-                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
                     }
                 }else{
                     cell.flightIcon.image = UIImage(named: "departure_icon")
                     cell.checkFlight.userInteractionEnabled = false
                     if NSNumber.init(integer: indexPath.row) == selectedGoingFlight{
                         selectedGoingFlight = NSNumber.init(integer: indexPath.row)
-                        cell.checkFlight.checkState = M13CheckboxStateChecked
+                        cell.checkFlight.checkState = M13CheckboxState.Checked
                     }else{
-                        cell.checkFlight.checkState = M13CheckboxStateUnchecked
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
                     }
                 }
                 return cell

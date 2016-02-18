@@ -163,7 +163,7 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         
         let userinfo = defaults.objectForKey("userInfo")
         
-        showHud()
+        showHud("open")
         //userinfo!["username"] as! String, userinfo!["password"] as! String
         //"zhariffadam@me-tech.com.my","ubYXnfrZhQs4X7ZJ9y4rwQ=="
         
@@ -171,7 +171,7 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
             switch result {
             case .Success(let successResult):
                 do {
-                    hideHud()
+                    showHud("close")
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -182,7 +182,7 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
                             sendItineraryVC.data = json.object as! NSDictionary
                             let appDelegate = UIApplication.sharedApplication().keyWindow?.rootViewController
                             appDelegate!.presentViewController(sendItineraryVC, animated: true, completion: nil)
-                        }else{
+                        }else if json["status"] == "error"{
                             self.showTimeOut("No Flight Today")
                         }
                         
@@ -192,7 +192,7 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
                 catch {
                     
                 }
-                print (successResult.data)
+                
             case .Failure(let failureResult):
                 print (failureResult)
             }

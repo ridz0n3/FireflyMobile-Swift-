@@ -72,9 +72,9 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         }else{
             
             if checkStatus[indexPath.row] == "true"{
-                cell.termCheck.checkState = M13CheckboxStateChecked
+                cell.termCheck.checkState = M13CheckboxState.Checked
             }else{
-                cell.termCheck.checkState = M13CheckboxStateUnchecked
+                cell.termCheck.checkState = M13CheckboxState.Unchecked
             }
         }
         
@@ -189,9 +189,9 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             let signature = termDetail["signature"] as! String
             let passengers = termDetail["passengers"]
             
-            showHud()
+            showHud("open")
             FireFlyProvider.request(.CheckInConfirmation(pnr, departure_station_code, arrival_station_code, signature, passengers!), completion: { (result) -> () in
-                self.hideHud()
+                showHud("close")
                 switch result {
                 case .Success(let successResult):
                     do {
@@ -205,13 +205,14 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                             self.navigationController!.pushViewController(successVC, animated: true)
                             
                         }else{
-                            self.showToastMessage(json["message"].string!)
+                            //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
                         
                     }
-                    print (successResult.data)
+                    
                 case .Failure(let failureResult):
                     print (failureResult)
                 }

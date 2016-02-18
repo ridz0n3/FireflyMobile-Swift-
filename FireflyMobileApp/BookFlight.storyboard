@@ -2308,21 +2308,18 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PassengerDetailCell" rowHeight="41" id="UMh-z7-7a1" userLabel="PassengerDetailCell" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="207" width="600" height="41"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PassengerDetailCell" rowHeight="30" id="UMh-z7-7a1" userLabel="PassengerDetailCell" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="207" width="600" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UMh-z7-7a1" id="j16-rQ-90p">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="41"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTU-MJ-8ty">
-                                                    <rect key="frame" x="16" y="0.0" width="568" height="41"/>
+                                                    <rect key="frame" x="16" y="0.0" width="568" height="30"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tfh-1y-T8x">
-                                                            <rect key="frame" x="8" y="12" width="552" height="17"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="17" id="chC-H3-zuJ"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="8" y="0.0" width="552" height="30"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -2330,16 +2327,18 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstItem="tfh-1y-T8x" firstAttribute="top" secondItem="kTU-MJ-8ty" secondAttribute="top" constant="12" id="5RB-nO-P8s"/>
                                                         <constraint firstItem="tfh-1y-T8x" firstAttribute="leading" secondItem="kTU-MJ-8ty" secondAttribute="leading" constant="8" id="6Ml-dQ-L4e"/>
                                                         <constraint firstAttribute="trailing" secondItem="tfh-1y-T8x" secondAttribute="trailing" constant="8" id="AaP-d9-iW2"/>
-                                                        <constraint firstAttribute="bottom" secondItem="tfh-1y-T8x" secondAttribute="bottom" constant="12" id="qOo-Pm-Qlw"/>
+                                                        <constraint firstAttribute="bottom" secondItem="tfh-1y-T8x" secondAttribute="bottom" id="F5J-dw-Kfd"/>
+                                                        <constraint firstItem="tfh-1y-T8x" firstAttribute="top" secondItem="kTU-MJ-8ty" secondAttribute="top" id="WRa-hb-XAk"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="kTU-MJ-8ty" firstAttribute="top" secondItem="j16-rQ-90p" secondAttribute="top" id="0eZ-49-Htu"/>
+                                                <constraint firstAttribute="bottom" secondItem="kTU-MJ-8ty" secondAttribute="bottom" id="LjS-Aq-FLz"/>
                                                 <constraint firstAttribute="bottom" secondItem="kTU-MJ-8ty" secondAttribute="bottom" id="Qlu-WT-gd5"/>
+                                                <constraint firstItem="kTU-MJ-8ty" firstAttribute="top" secondItem="j16-rQ-90p" secondAttribute="top" id="VSZ-2x-DYz"/>
                                                 <constraint firstItem="kTU-MJ-8ty" firstAttribute="leading" secondItem="j16-rQ-90p" secondAttribute="leading" constant="16" id="mFe-2y-LKz"/>
                                                 <constraint firstAttribute="trailing" secondItem="kTU-MJ-8ty" secondAttribute="trailing" constant="16" id="xCz-kC-TUi"/>
                                             </constraints>
@@ -2349,7 +2348,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CardDetailCell" rowHeight="45" id="4rH-pb-5VA" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="248" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="237" width="600" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4rH-pb-5VA" id="lLg-4J-45m">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
@@ -2407,7 +2406,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PaymentDetailCell" rowHeight="81" id="GfQ-vP-k4Q" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="293" width="600" height="81"/>
+                                        <rect key="frame" x="0.0" y="282" width="600" height="81"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GfQ-vP-k4Q" id="URe-LI-7Lu">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="81"/>
@@ -2470,7 +2469,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItineraryCell" rowHeight="83" id="0Aq-vP-Fmq" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="374" width="600" height="83"/>
+                                        <rect key="frame" x="0.0" y="363" width="600" height="83"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Aq-vP-Fmq" id="M5d-9V-6bR">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
@@ -2562,7 +2561,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FlightDetailCell" rowHeight="137" id="EPw-Sq-E2s" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="457" width="600" height="137"/>
+                                        <rect key="frame" x="0.0" y="446" width="600" height="137"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EPw-Sq-E2s" id="Cnx-OD-jWm">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="137"/>
@@ -2638,7 +2637,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PriceDetailCell" rowHeight="80" id="1wk-aq-5g8" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="594" width="600" height="80"/>
+                                        <rect key="frame" x="0.0" y="583" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1wk-aq-5g8" id="RSe-l2-1UI">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
@@ -2758,7 +2757,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TotalCell" rowHeight="42" id="wls-8m-7Im" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="674" width="600" height="42"/>
+                                        <rect key="frame" x="0.0" y="663" width="600" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wls-8m-7Im" id="Zi2-Ge-P0V">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="42"/>
@@ -2799,7 +2798,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InsuranceCell" rowHeight="58" id="45f-Lb-fRo" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="716" width="600" height="58"/>
+                                        <rect key="frame" x="0.0" y="705" width="600" height="58"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45f-Lb-fRo" id="31o-3A-md7">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="58"/>
@@ -2858,7 +2857,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactDetailCell" rowHeight="136" id="hhI-rf-vMZ" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="774" width="600" height="136"/>
+                                        <rect key="frame" x="0.0" y="763" width="600" height="136"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hhI-rf-vMZ" id="yKy-7l-vCh">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="136"/>

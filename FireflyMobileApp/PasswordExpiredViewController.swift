@@ -43,11 +43,13 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         //current password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Current Password:*")
         row.required = true
+        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$"))
         section.addFormRow(row)
         
         //new password
         row = XLFormRowDescriptor(tag: Tags.ValidationNewPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"New Password:*")
         row.required = true
+        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$"))
         section.addFormRow(row)
         
         //confirm password
@@ -73,7 +75,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                 let newPasswordEnc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationNewPassword]! as! String, key: key, iv: iv)
                 let userId = formValues()[Tags.ValidationEmail] as! String
                 
-                showHud()
+                showHud("open")
                 FireFlyProvider.request(.ChangePassword(userId, currentPasswordEnc, newPasswordEnc), completion: { (result) -> () in
                     
                     switch result {
@@ -81,19 +83,19 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                         do{
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
-                            if json["status"].string == "success"{
+                            if json["status"] == "success"{
                                 
                                 let  info = json["user_info"].dictionaryObject
                                 
                                 FireFlyProvider.request(.Login(info!["username"] as! String, info!["password"] as! String), completion: { (result) -> () in
-                                    self.hideHud()
+                                    showHud("close")
                                     switch result {
                                     case .Success(let successResult):
                                         do {
                                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                             
-                                            if  json["status"].string == "success"{
-                                                self.showToastMessage(json["status"].string!)
+                                            if  json["status"] == "success"{
+                                                
                                                 defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                                                 defaults.setObject(json["user_info"].object , forKey: "userInfo")
                                                 defaults.synchronize()
@@ -102,19 +104,21 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                                 let storyBoard = UIStoryboard(name: "Home", bundle: nil)
                                                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                                                 self.navigationController!.pushViewController(homeVC, animated: true)
-                                            }else if json["status"].string == "change_password" {
-                                                self.showToastMessage(json["message"].string!)
+                                            }else if json["status"] == "change_password" {
+                                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                                                 let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                                                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
                                                 self.navigationController!.pushViewController(homeVC, animated: true)
-                                            }else{
-                                                self.showToastMessage(json["message"].string!)
+                                            }else if json["status"] == "error"{
+                                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                                             }
                                         }
                                         catch {
                                             
                                         }
-                                        print (successResult.data)
+                                        
                                     case .Failure(let failureResult):
                                         print (failureResult)
                                     }
@@ -123,9 +127,10 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                 )
                                 
                                 
-                            }else{
-                                self.hideHud()
-                                self.showToastMessage(json["message"].string!)
+                            }else if json["status"] == "error"{
+                                showHud("close")
+                                //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                             }
                         }
                         catch{

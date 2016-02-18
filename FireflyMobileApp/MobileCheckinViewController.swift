@@ -22,9 +22,9 @@ class MobileCheckinViewController: CommonSearchDetailViewController {
             let departure_station_code = getStationCode(self.formValues()[Tags.ValidationDeparting] as! String, locArr: location, direction : "Departing")
             //self.formValues()[Tags.ValidationDeparting] as! String
             let arrival_station_code = getStationCode(self.formValues()[Tags.ValidationArriving] as! String, locArr: travel, direction : "Arriving")
-            showHud()
+            showHud("open")
             FireFlyProvider.request(.CheckIn("", pnr, "", departure_station_code, arrival_station_code), completion: { (result) -> () in
-                self.hideHud()
+                showHud("close")
                 switch result {
                 case .Success(let successResult):
                     do {
@@ -37,13 +37,14 @@ class MobileCheckinViewController: CommonSearchDetailViewController {
                             checkInDetailVC.pnr = pnr
                             self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                         }else{
-                            self.showToastMessage(json["message"].string!)
+                            //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
                         
                     }
-                    print (successResult.data)
+                    
                 case .Failure(let failureResult):
                     print (failureResult)
                 }

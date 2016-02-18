@@ -186,7 +186,11 @@
         if ([title respondsToSelector:@selector(sizeWithAttributes:)]) {
             labelSize = [title sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
         } else {
-            labelSize = [title sizeWithFont:_titleLabel.font];
+
+            NSDictionary *attributes = @{NSFontAttributeName: _titleLabel.font};
+            labelSize = [_titleLabel.text sizeWithAttributes:attributes];
+            labelSize =CGSizeMake(ceilf(labelSize.width), ceilf(labelSize.height));
+
         }
         
         self.frame = CGRectMake(
@@ -315,7 +319,12 @@
         if ([text respondsToSelector:@selector(sizeWithAttributes:)]) {
             labelSize = [text sizeWithAttributes:@{ NSFontAttributeName: font }];
         } else {
-            labelSize = [text sizeWithFont:font];
+
+            NSDictionary *attributes = @{NSFontAttributeName: font};
+            labelSize = [text sizeWithAttributes:attributes];
+            labelSize =CGSizeMake(ceilf(labelSize.width), ceilf(labelSize.height));
+
+
         }
         tempHeight = labelSize.height;
     } while (tempHeight >= height);
@@ -329,7 +338,10 @@
     if ([_titleLabel.text respondsToSelector:@selector(sizeWithAttributes:)]) {
         labelSize = [_titleLabel.text sizeWithAttributes:@{ NSFontAttributeName: _titleLabel.font }];
     } else {
-        labelSize = [_titleLabel.text sizeWithFont:_titleLabel.font];
+    
+        NSDictionary *attributes = @{NSFontAttributeName: _titleLabel.font};
+        labelSize = [_titleLabel.text sizeWithAttributes:attributes];
+        labelSize =CGSizeMake(ceilf(labelSize.width), ceilf(labelSize.height));
     }
     
     self.frame = CGRectMake(

@@ -85,7 +85,7 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
         if self.rowDescriptor?.tag == "Password" || self.rowDescriptor?.tag == "New Password" || self.rowDescriptor?.tag == "Confirm Password"{
             self.floatLabeledTextField.keyboardType = .ASCIICapable
             self.floatLabeledTextField.secureTextEntry = true
-        }else if self.rowDescriptor?.tag == "Mobile/Home" || self.rowDescriptor?.tag == "Alternate" || self.rowDescriptor?.tag == "Postcode" || self.rowDescriptor?.tag == "CCV/CVC Number" || self.rowDescriptor?.tag == "Card Number"{
+        }else if self.rowDescriptor?.tag == "Mobile/Home" || self.rowDescriptor?.tag == "Alternate" || self.rowDescriptor?.tag == "Postcode" || self.rowDescriptor?.tag == "CCV/CVC Number" || self.rowDescriptor?.tag == "Card Number" || self.rowDescriptor?.tag == "Bonuslink"{
             self.floatLabeledTextField.keyboardType = .PhonePad
         }
         

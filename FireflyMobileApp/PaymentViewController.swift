@@ -30,7 +30,7 @@ class PaymentViewController: BaseXLFormViewController {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
         setupLeftButton()
-        creditCardCheckBox.checkState = M13CheckboxStateChecked
+        creditCardCheckBox.checkState = M13CheckboxState.Checked
         paymentMethod = "Card"
         creditCardCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
         onlineBankingCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
@@ -97,23 +97,23 @@ class PaymentViewController: BaseXLFormViewController {
         let btn = sender as! UIButton
         
         if btn.tag == 1{
-            creditCardCheckBox.checkState = M13CheckboxStateChecked
-            onlineBankingCheckBox.checkState = M13CheckboxStateUnchecked
-            cashCheckBox.checkState = M13CheckboxStateUnchecked
+            creditCardCheckBox.checkState = M13CheckboxState.Checked
+            onlineBankingCheckBox.checkState = M13CheckboxState.Unchecked
+            cashCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "notHide"
             tableView.reloadData()
             paymentMethod = "Card"
         }else if btn.tag == 2{
-            creditCardCheckBox.checkState = M13CheckboxStateUnchecked
-            onlineBankingCheckBox.checkState = M13CheckboxStateChecked
-            cashCheckBox.checkState = M13CheckboxStateUnchecked
+            creditCardCheckBox.checkState = M13CheckboxState.Unchecked
+            onlineBankingCheckBox.checkState = M13CheckboxState.Checked
+            cashCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
             paymentMethod = "Online Banking"
         }else{
-            creditCardCheckBox.checkState = M13CheckboxStateUnchecked
-            onlineBankingCheckBox.checkState = M13CheckboxStateUnchecked
-            cashCheckBox.checkState = M13CheckboxStateChecked
+            creditCardCheckBox.checkState = M13CheckboxState.Unchecked
+            onlineBankingCheckBox.checkState = M13CheckboxState.Unchecked
+            cashCheckBox.checkState = M13CheckboxState.Checked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
             paymentMethod = "Cash"
@@ -188,9 +188,9 @@ class PaymentViewController: BaseXLFormViewController {
                 let cardNumber = self.formValues()[Tags.ValidationCardNumber] as! String
                 
                 if !luhnCheck(cardNumber){
-                    self.showToastMessage("Invalid credit card")
+                    showToastMessage("Invalid credit card")
                 }else if !checkDate(self.formValues()[Tags.ValidationCardExpiredDate] as! String){
-                    self.showToastMessage("Invalid Date")
+                    showToastMessage("Invalid Date")
                 }else{
                     
                     let signature = defaults.objectForKey("signature") as! String
@@ -205,18 +205,18 @@ class PaymentViewController: BaseXLFormViewController {
                     let expirationDateYear = expiredDate[1]
                     
                     
-                    showHud()
+                    showHud("open")
                     FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingID), completion: { (result) -> () in
                         
-                        self.hideHud()
+                        showHud("close")
                         switch result {
                         case .Success(let successResult):
                             do {
-                                self.hideHud()
+                                showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "Redirect"{
-                                    self.showToastMessage(json["status"].string!)
+                                    
                                     
                                     //let pass = json["pass"].string?.componentsSeparatedByString("/")
                                     let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
@@ -227,13 +227,14 @@ class PaymentViewController: BaseXLFormViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
 
                                 }else{
-                                    self.showToastMessage(json["message"].string!)
+                                    //showToastMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
                                 }
                             }
                             catch {
                                 
                             }
-                            print (successResult.data)
+                            
                         case .Failure(let failureResult):
                             print (failureResult)
                         }
