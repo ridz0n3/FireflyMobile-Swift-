@@ -141,8 +141,6 @@ class BeaconManager: NSObject, ESTBeaconManagerDelegate {
         
     }
     
-    
-    
     func beaconManager(manager: AnyObject, didExitRegion region: CLBeaconRegion) {
         print(region)
         //showTimeOut("region exit")

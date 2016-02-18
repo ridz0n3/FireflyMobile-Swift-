@@ -191,13 +191,10 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             }
         }
         return purposeCode
-        
     }
     
     func addBusiness(sender:NSNotification){
-        
         addBusinessRow()
-        
     }
     
     func addBusinessRow(){
@@ -264,9 +261,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     }
     
     func selectCountry(sender:NSNotification){
-        
         country(sender.userInfo!["countryVal"]! as! String)
-        
     }
     
     func country(countryCode:String){
@@ -292,7 +287,8 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                             row.value = data["state_name"]
                         }
                 }
-            }else{
+            }
+            else {
                 tempArray.append(XLFormOptionsObject(value: 0, displayText: "Other"))
             }
             
@@ -302,16 +298,5 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
         }
     }
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

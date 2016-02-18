@@ -118,7 +118,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         //section.hidden = "$\(Tags.Button2).value contains 'hide'"
         form.addFormSection(section)
         
-        
         // Address Line 1
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeText, title:"")
         row.cellConfigAtConfigure["textField.placeholder"] = "*Address Line 1"
@@ -224,8 +223,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionView = NSBundle.mainBundle().loadNibNamed("SectionView", owner: self, options: nil)[0] as! SectionView
-        
-        //sectionView.frame = CGRectMake(0, 0,self.view.frame.size.width, 50)
+
         sectionView.backgroundColor = UIColor(patternImage: UIImage(named: "lineSection")!)
         
         let index = UInt(section)
@@ -241,7 +239,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             var stateArr = [NSDictionary]()
             let state = defaults.objectForKey("state") as! NSMutableArray
             
-            for stateData in state{
+            for stateData in state {
                 if stateData["country_code"] as! String == (form.formRowWithTag(Tags.ValidationCountry)?.value as! XLFormOptionObject).formValue() as! String{
                     stateArr.append(stateData as! NSDictionary)
                 }
@@ -257,10 +255,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 for data in stateArr{
                     tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
                 }
-            }else{
+            }
+            else {
                 tempArray.append(XLFormOptionsObject(value: 0, displayText: "Other"))
             }
-            
             
             row.selectorOptions = tempArray
             row.value = tempArray[0]
@@ -289,31 +287,36 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
             
             
-            if formValues()[Tags.ValidationPassword]! as! String != formValues()[Tags.ValidationConfirmPassword]! as! String{
+            if formValues()[Tags.ValidationPassword]! as! String != formValues()[Tags.ValidationConfirmPassword]! as! String {
             
                 let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
                 let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
                 
                 animateCell(cell)
                 showToastMessage("Confirm password incorrect")
-            }else if ((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String == "") {
+            }
+			else if ((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String == "") {
                 showToastMessage("Title can't empty")
-            }else if ((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String == "") {
+            }
+			else if ((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String == "") {
                 showToastMessage("Country can't empty")
-            }else if ((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String == "") {
+            }
+			else if ((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String == "") {
                 showToastMessage("State can't empty")
-            }else if minDate.compare(formValues()[Tags.ValidationDate] as! NSDate) == NSComparisonResult.OrderedAscending {
+            }
+			else if minDate.compare(formValues()[Tags.ValidationDate] as! NSDate) == NSComparisonResult.OrderedAscending {
                 showToastMessage("User must age 18 and above to register")
-            }else if termCheckBox.checkState.rawValue == 0{
+            }
+			else if termCheckBox.checkState.rawValue == 0 {
                 showToastMessage("Please check term and condition checkbox")
-            }else{
+            }
+			else{
                 
                 let enc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationPassword]! as! String, key: key, iv: iv)
                     var parameters:[String:AnyObject] = [String:AnyObject]()
                     
                     parameters.updateValue(formValues()[Tags.ValidationUsername]!, forKey: "username")
                     parameters.updateValue(enc, forKey: "password")
-                    
                     parameters.updateValue((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData(), forKey: "title")
                     parameters.updateValue(formValues()[Tags.ValidationFirstName]!, forKey: "first_name")
                     parameters.updateValue(formValues()[Tags.ValidationLastName]!, forKey: "last_name")
@@ -333,13 +336,12 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 
                 parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])!, forKey: "bonuslink")
                 
-                if promotionCheckBox.checkState.rawValue == 0{
+                if promotionCheckBox.checkState.rawValue == 0 {
                     parameters.updateValue("N", forKey: "newsletter")
-                }else{
+                }
+                else {
                     parameters.updateValue("Y", forKey: "newsletter")
                 }
-                
-                
                 
                     parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
                 
@@ -356,7 +358,8 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                             let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                             let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
                             self.navigationController!.pushViewController(loginVC, animated: true)
-                        }else if result["status"].string == "error"{
+                        }
+                        else {
                             showToastMessage(result["message"].string!)
                         }
                         
