@@ -20,6 +20,10 @@ class CustomSeatSelectionTableViewCell: UITableViewCell {
     @IBOutlet weak var colFView: UIView!
     @IBOutlet weak var colDView: UIView!
     
+    @IBOutlet weak var lblC: UILabel!
+    @IBOutlet weak var lblF: UILabel!
+    @IBOutlet weak var lblD: UILabel!
+    @IBOutlet weak var lbla: UILabel!
     @IBOutlet weak var removeSeat: UIButton!
     @IBOutlet weak var seatNumber: UILabel!
     @IBOutlet weak var passengerName: UILabel!

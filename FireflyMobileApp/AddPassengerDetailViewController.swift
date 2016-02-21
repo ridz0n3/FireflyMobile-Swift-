@@ -80,7 +80,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
-                row.value = "\(userInfo["DOB"]!)"
+                row.value = formatDate(stringToDate(userInfo["DOB"] as! String))//"\(userInfo["DOB"]!)"
                 row.required = true
                 section.addFormRow(row)
                 
@@ -97,7 +97,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Country
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Issuing Country:*")
                 
                 tempArray = [AnyObject]()
                 for country in countryArray{
@@ -165,7 +165,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Country
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Issuing Country:*")
                 
                 tempArray = [AnyObject]()
                 for country in countryArray{
@@ -252,7 +252,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             // Country
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, j), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Issuing Country:*")
             
             tempArray = [AnyObject]()
             for country in countryArray{
@@ -303,7 +303,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                 let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
                                 self.navigationController!.pushViewController(contactDetailVC, animated: true)
                             }else if json["status"] == "error"{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }

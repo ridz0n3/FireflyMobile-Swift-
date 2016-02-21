@@ -14,6 +14,4 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <RSDayFlow/RSDFDatePickerView.h>
 #import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
-#import <EstimoteSDK/EstimoteSDK.h>
-#import <Google/CloudMessaging.h>
 #endif /* ObjC_Header_h */

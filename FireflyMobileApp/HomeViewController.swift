@@ -163,10 +163,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                 }else{
                                     let alert = SCLAlertView()
-                                    alert.showSuccess("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                                    alert.showInfo("Manage Flight", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
                                 }
                             }else if json["status"] == "error"{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }
@@ -208,10 +208,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                                 }else{
                                     let alert = SCLAlertView()
-                                    alert.showSuccess("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                                    alert.showInfo("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
                                 }
                             }else if json["status"] == "error"{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }
@@ -257,10 +257,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                                 }else{
                                     let alert = SCLAlertView()
-                                    alert.showSuccess("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                                    alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
                                 }
                             }else if json["status"] == "error"{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }

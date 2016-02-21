@@ -68,7 +68,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         if isValidate{
             
             if formValues()[Tags.ValidationNewPassword]! as! String != formValues()[Tags.ValidationConfirmPassword]! as! String{
-                showToastMessage("Confirm password incorrect")
+                showErrorMessage("Confirm password incorrect")
             }else{
                 
                 let currentPasswordEnc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationPassword]! as! String, key: key, iv: iv)
@@ -85,8 +85,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                             
                             if json["status"] == "success"{
                                 
-                                let  info = json["user_info"].dictionaryObject
-                                
+                                let info = json["user_info"].dictionaryObject
                                 FireFlyProvider.request(.Login(info!["username"] as! String, info!["password"] as! String), completion: { (result) -> () in
                                     showHud("close")
                                     switch result {
@@ -95,7 +94,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                             
                                             if  json["status"] == "success"{
-                                                
+                                                showToastMessage("Successfully change password")
                                                 defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                                                 defaults.setObject(json["user_info"].object , forKey: "userInfo")
                                                 defaults.synchronize()
@@ -105,13 +104,13 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                                                 self.navigationController!.pushViewController(homeVC, animated: true)
                                             }else if json["status"] == "change_password" {
-                                                //showToastMessage(json["message"].string!)
+                                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                                                 let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                                                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
                                                 self.navigationController!.pushViewController(homeVC, animated: true)
                                             }else if json["status"] == "error"{
-                                                //showToastMessage(json["message"].string!)
+                                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                                             }
                                         }
@@ -129,7 +128,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                 
                             }else if json["status"] == "error"{
                                 showHud("close")
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }

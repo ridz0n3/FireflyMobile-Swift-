@@ -19,7 +19,7 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMenuButton()
+        setupLeftButton()
         // Do any additional setup after loading the view.
     }
 
@@ -73,7 +73,7 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
                         self.navigationController!.pushViewController(manageFlightVC, animated: true)
                         
                     }else if json["status"].string == "error"{
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
                 }

@@ -27,9 +27,9 @@ class AddPaymentViewController: CommonPaymentViewController {
                 let cardNumber = self.formValues()[Tags.ValidationCardNumber] as! String
                 
                 if !luhnCheck(cardNumber){
-                    showToastMessage("Invalid credit card")
+                    showErrorMessage("Invalid credit card")
                 }else if !checkDate(self.formValues()[Tags.ValidationCardExpiredDate] as! String){
-                    showToastMessage("Invalid Date")
+                    showErrorMessage("Invalid Date")
                 }else{
                     
                     let signature = defaults.objectForKey("signature") as! String
@@ -66,9 +66,9 @@ class AddPaymentViewController: CommonPaymentViewController {
                                     manageFlightVC.signature = defaults.objectForKey("signature") as! String
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
-                                }else{
-                                    //showToastMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                                }else if json["status"] == "error"{
+                                    //showErrorMessage(json["message"].string!)
+                                    showErrorMessage(json["message"].string!)
                                 }
                             }
                             catch {

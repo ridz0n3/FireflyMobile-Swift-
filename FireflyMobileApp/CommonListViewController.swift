@@ -18,7 +18,7 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMenuButton()
+        setupLeftButton()
         // Do any additional setup after loading the view.
     }
     

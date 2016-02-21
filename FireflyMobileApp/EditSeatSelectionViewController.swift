@@ -108,12 +108,12 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
     @IBAction func continueBtnPressed(sender: AnyObject) {
         
         if seatDict.count == 0 || seatDict.count != details.count{
-            showToastMessage("Please select seat first")
+            showErrorMessage("Please select seat first")
         }else{
             if seatDict.count == 2{
                 
                 if seatDict["0"]!.count == 0 || seatDict["1"]!.count == 0{
-                    showToastMessage("Please select seat first")
+                    showErrorMessage("Please select seat first")
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()
@@ -156,7 +156,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else if json["status"] == "error"{
-                                    //showToastMessage(json["message"].string!)
+                                    //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                                 }
                             }
@@ -175,7 +175,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             }else{
                 
                 if seatDict["0"]!.count == 0{
-                    showToastMessage("Please select seat first")
+                    showErrorMessage("Please select seat first")
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()
@@ -218,7 +218,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else if json["status"] == "error"{
-                                    //showToastMessage(json["message"].string!)
+                                    //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                                 }
                             }

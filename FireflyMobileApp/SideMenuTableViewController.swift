@@ -135,7 +135,7 @@ class SideMenuTableViewController: BaseViewController {
         }else if (indexPath.row == 4) {
             
             //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-            //let storyboard = UIStoryboard(name: "Login", bundle: nil)
+            //let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PasswordExpiredVC")
@@ -168,8 +168,11 @@ class SideMenuTableViewController: BaseViewController {
                             
                             InitialLoadManager.sharedInstance.load()
                             self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
+                        }else if json["status"].string == "401"{
+                            showErrorMessage(json["message"].string!)
+                            InitialLoadManager.sharedInstance.load()
                         }else{
-                            ////showToastMessage(json["message"].string!)
+                            ////showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                         }
                     }

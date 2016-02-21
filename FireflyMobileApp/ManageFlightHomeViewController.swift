@@ -389,7 +389,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         changeFlightVC.signature = self.signature
                         self.navigationController!.pushViewController(changeFlightVC, animated: true)
                     }else if json["status"] == "error"{
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
                 }
@@ -430,7 +430,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         changeSeatVC.journeys = json["journeys"].arrayObject!
                         self.navigationController!.pushViewController(changeSeatVC, animated: true)
                     }else if json["status"] == "error"{
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
                 }
@@ -473,7 +473,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         self.navigationController!.pushViewController(paymentVC, animated: true)
                         
                     }else if json["status"] == "error"{
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
                 }
@@ -509,7 +509,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         self.navigationController!.pushViewController(sendItineraryVC, animated: true)
                     }else if json["status"] == "error"{
                         showHud("close")
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
                 }
@@ -582,7 +582,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         self.navigationController!.pushViewController(paymentVC, animated: true)
                                         
                                     }else if json["status"] == "error"{
-                                        //showToastMessage(json["message"].string!)
+                                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                                     }
                                 }
@@ -599,7 +599,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                     }else if json["status"] == "error"{
                         showHud("close")
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
                 }

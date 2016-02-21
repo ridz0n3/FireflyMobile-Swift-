@@ -49,7 +49,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                         }
                     }else{
                         showHud("close")
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
                 }

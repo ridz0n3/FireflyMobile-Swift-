@@ -76,7 +76,7 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
                             self.navigationController!.pushViewController(flightSummaryFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
-                            //showToastMessage(json["message"].string!)
+                            //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                         }
                     }

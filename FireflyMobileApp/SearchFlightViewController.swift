@@ -236,10 +236,10 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             
             if Int(cell2.infantCount.text!)! > Int(cell2.adultCount.text!)!{
                 animateCell(cell2)
-                showToastMessage("Number of infant must lower or equal with adult.")
+                showErrorMessage("Number of infant must lower or equal with adult.")
             }else if Int(cell2.adultCount.text!)! + Int(cell2.infantCount.text!)! > 9 {
                 animateCell(cell2)
-                showToastMessage("Passenger must not exceed 9 people")
+                showErrorMessage("Passenger must not exceed 9 people")
             }else{
                 
                 defaults.setObject(cell2.adultCount.text!, forKey: "adult")
@@ -278,7 +278,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                                 self.navigationController!.pushViewController(flightDetailVC, animated: true)
                                 
                             }else if json["status"] == "error"{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }
@@ -294,7 +294,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 })
             }
         }else{
-            showToastMessage("Please Select All Field")
+            showErrorMessage("Please Select All Field")
         }
         
     }

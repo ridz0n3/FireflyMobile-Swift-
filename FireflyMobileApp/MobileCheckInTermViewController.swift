@@ -182,7 +182,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         }
         
         if statusCount != 0{
-            showToastMessage("You must read and understand the important dangerous goods information and terms and condition.")
+            showErrorMessage("You must read and understand the important dangerous goods information and terms and condition.")
         }else{
             let departure_station_code = termDetail["departure_station_code"] as! String
             let arrival_station_code = termDetail["arrival_station_code"] as! String
@@ -205,7 +205,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                             self.navigationController!.pushViewController(successVC, animated: true)
                             
                         }else{
-                            //showToastMessage(json["message"].string!)
+                            //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                         }
                     }

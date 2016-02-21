@@ -20,8 +20,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
     
     var userInfo = NSMutableDictionary()
     
-    @IBOutlet weak var newsletterCheckBox: M13Checkbox!
-    @IBOutlet weak var termCheckBox: M13Checkbox!
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
@@ -282,12 +280,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
     
     func checkState(){
         
-        if userInfo["newsletter"] as! String == "Y"{
-            newsletterCheckBox.checkState = M13CheckboxState.Checked
-        }else{
-            newsletterCheckBox.checkState = M13CheckboxState.Unchecked
-        }
-        
         var stateArr = [NSDictionary]()
         let state = defaults.objectForKey("state") as! NSMutableArray
         
@@ -313,6 +305,11 @@ class UpdateInformationViewController: BaseXLFormViewController {
             }
         }
         
+        if tempArray.count == 0{
+            row.value = XLFormOptionsObject(value: "OT", displayText: "Others")
+            tempArray.append(XLFormOptionsObject(value: "OT", displayText: "Others"))
+        }
+        
         row.selectorOptions = tempArray
         row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
         row.cellStyle = .Value2
@@ -320,7 +317,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.required = true
         
         self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
-
+        
     }
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 35
@@ -363,18 +360,23 @@ class UpdateInformationViewController: BaseXLFormViewController {
             
             var tempArray:[AnyObject] = [AnyObject]()
             
-            for data in stateArr{
-                tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
+            if stateArr.count != 0{
+                for data in stateArr{
+                    tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
+                }
+            }else{
+                tempArray.append(XLFormOptionsObject(value: "OT", displayText: "Others"))
             }
             
-            row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
-            row.cellStyle = .Value2
-            row.selectorOptions = tempArray
-            row.value = tempArray[0]
-            row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-            row.required = true
+                row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
+                row.cellStyle = .Value2
+                row.selectorOptions = tempArray
+                row.value = tempArray[0]
+                row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
+                row.required = true
+                
+                self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
             
-            self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
         }
     }
     
@@ -402,7 +404,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
                     
                     let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                     cell.textField?.attributedPlaceholder = textFieldAttrib
-                    showToastMessage(msg)
+                    showErrorMessage(msg)
                     
                 }else if nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String == ""{
                     
@@ -413,7 +415,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
                     
                     let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                     cell.textField?.attributedPlaceholder = textFieldAttrib
-                    showToastMessage(msg)
+                    showErrorMessage(msg)
                     
                 }else if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String{
                     
@@ -424,21 +426,19 @@ class UpdateInformationViewController: BaseXLFormViewController {
                         sendInfo()
                         
                     }else{
-                        showToastMessage("Current password is incorrect")
+                        showErrorMessage("Current password is incorrect")
                     }
                     
                 }else{
-                    showToastMessage("Confirm password is incorrect")
+                    showErrorMessage("Confirm password is incorrect")
                 }
-
-            }else if termCheckBox.checkState.rawValue == 0{
-                showToastMessage("Please check term and condition checkbox")
+                
             }else {
                 sendInfo()
             }
         }
     }
-
+    
     func sendInfo(){
         var encOldPassword = String()
         var encNewPassword = String()
@@ -473,12 +473,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])!, forKey: "bonuslink")
         parameters.updateValue(userInfo["signature"]!, forKey: "signature")
-        //defaults.objectForKey("signatureLoad")
-        if newsletterCheckBox.checkState.rawValue == 1{
-            parameters.updateValue("Y", forKey: "newsletter")
-        }else{
-            parameters.updateValue("N", forKey: "newsletter")
-        }
+        parameters.updateValue(userInfo["newsletter"] as! String, forKey: "newsletter")
+        
         
         let manager = WSDLNetworkManager()
         
@@ -487,7 +483,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
             showHud("close")
             
             if result["status"].string == "success"{
-                
+                showToastMessage("Successfully change information")
                 defaults.setObject(result["user_info"].dictionaryObject, forKey: "userInfo")
                 defaults.synchronize()
                 
@@ -495,20 +491,23 @@ class UpdateInformationViewController: BaseXLFormViewController {
                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                 self.navigationController!.pushViewController(homeVC, animated: true)
             }else if result["status"].string == "error"{
-                showToastMessage(result["message"].string!)
+                showErrorMessage(result["message"].string!)
+            }else if result["status"].string == "401"{
+                showErrorMessage(result["message"].string!)
+                InitialLoadManager.sharedInstance.load()
             }
-        
+            
         })
-
+        
     }
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

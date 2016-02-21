@@ -151,11 +151,11 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
         }
         
         if !isGoingSelected && goingData["status"] as! String == "Y"{
-            showToastMessage("Please select Going Flight")
+            showErrorMessage("Please select Going Flight")
         }else if !isReturnSelected && type == 1 && returnData["status"] as! String == "Y"{
-            showToastMessage("Please select Return Flight")
+            showErrorMessage("Please select Return Flight")
         }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out" && goingData["status"] as! String == "Y"{
-            showToastMessage("Please select Going Flight")
+            showErrorMessage("Please select Going Flight")
         }else{
             var isType1 = false
             var isError = false
@@ -189,7 +189,7 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                 }
                 
                 if planBack == "flex_class" && flightDetail[1]["flights"][selectedReturnFlight.integerValue][planBack]["status"].string == "sold out" && returnData["status"] as! String == "Y"{
-                    showToastMessage("Please select Return Flight")
+                    showErrorMessage("Please select Return Flight")
                     isError = true
                 }else{
                     return_date = formatDate(stringToDate("\(dateReturnArr[2])-\(dateReturnArr[1])-\(dateReturnArr[0])"))
@@ -232,7 +232,7 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                                 manageFlightVC.itineraryData = json.object as! NSDictionary
                                 self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             }else if json["status"] == "error"{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }

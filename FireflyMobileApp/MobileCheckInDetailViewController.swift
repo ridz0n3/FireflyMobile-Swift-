@@ -222,11 +222,11 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         }
         
         if checkData == 0{
-            showToastMessage("No passenger selected.")
+            showErrorMessage("No passenger selected.")
         }else{
             
             if !isValidate{
-                showToastMessage("Please filled all field")
+                showErrorMessage("Please filled all field")
             }else{
                 var passenger = [String:AnyObject]()
                 var count = 0
@@ -272,7 +272,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                                 self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                                 
                             }else{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }

@@ -55,9 +55,9 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
         //selectedDate = dateFormatters().stringFromDate(date)
         
         if dateFormatters().stringFromDate(date) == ""{
-            showToastMessage("Please select Date")
+            showErrorMessage("Please select Date")
         }else if date.compare(currentDate) == NSComparisonResult.OrderedAscending && typeDate == "return"{
-            showToastMessage("Return Date must not before Departure Date")
+            showErrorMessage("Return Date must not before Departure Date")
         }else{
             let pageDict: Dictionary<String,String>! = [
                 "date": dateFormatters().stringFromDate(date),
@@ -114,9 +114,9 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
     @IBAction func doneSelectedDate(sender: AnyObject) {
         
         if selectedDate == ""{
-            showToastMessage("Please select Date")
+            showErrorMessage("Please select Date")
         }else if selectDate.compare(currentDate) == NSComparisonResult.OrderedAscending{
-            showToastMessage("Return Date must not before Departure Date")
+            showErrorMessage("Return Date must not before Departure Date")
         }else{
             let pageDict: Dictionary<String,String>! = [
                 "date": selectedDate,

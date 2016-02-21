@@ -107,8 +107,9 @@ class LoginViewController: BaseXLFormViewController {
                             let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                             self.navigationController!.pushViewController(homeVC, animated: true)
                         }else if json["status"].string == "change_password" {
-                            ////showToastMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                            ////showErrorMessage(json["message"].string!)
+                                
+                                showInfo(json["message"].string!)
                             let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                             let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
                             self.navigationController!.pushViewController(homeVC, animated: true)
@@ -153,7 +154,8 @@ class LoginViewController: BaseXLFormViewController {
     @IBAction func registerButtonPressed(sender: AnyObject) {
         
         let storyboard = UIStoryboard(name: "Register", bundle: nil)
-        let registerVC = storyboard.instantiateViewControllerWithIdentifier("RegisterVC")
+        let registerVC = storyboard.instantiateViewControllerWithIdentifier("RegisterVC") as! RegisterPersonalInfoViewController
+        registerVC.fromLogin = true
         self.navigationController?.pushViewController(registerVC, animated: true)
         
     }
@@ -178,11 +180,11 @@ class LoginViewController: BaseXLFormViewController {
                 do{
              let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     if json["status"] == "success"{
-                        //showToastMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                        showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                         self.forgotPasswordView.removeFromSuperview()
                     }else{
-                        showToastMessage(json["userInfo"].string!)
+                        showErrorMessage(json["userInfo"].string!)
                     }
                 }
                 catch{

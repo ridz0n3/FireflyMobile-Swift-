@@ -15,7 +15,7 @@ class ManageFlightViewController: BaseXLFormViewController {
     @IBOutlet weak var continueBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMenuButton()
+        setupLeftButton()
         continueBtn.layer.cornerRadius = 10.0
         // Do any additional setup after loading the view.
     }
@@ -90,7 +90,7 @@ class ManageFlightViewController: BaseXLFormViewController {
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else{
-                            //showToastMessage(json["message"].string!)
+                            //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                         }
                     }

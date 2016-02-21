@@ -187,7 +187,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                         self.navigationController!.pushViewController(paymentVC, animated: true)
                         
                     }else if json["status"] == "error"{
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
                 }

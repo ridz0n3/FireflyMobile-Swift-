@@ -222,9 +222,9 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     func checkSection(sender:UIButton){
         
         if flightDetail[sender.tag]["flight_status"] as! String == "Checked_in"{
-            showToastMessage("Checked-in flight cannot be changed.")
+            showErrorMessage("Checked-in flight cannot be changed.")
         }else if flightDetail[sender.tag]["flight_status"] as! String == "Departed_flight"{
-            showToastMessage("Departed flight cannot be changed.")
+            showErrorMessage("Departed flight cannot be changed.")
         }else{
             if sender.tag == 0 && !isCheckGoing{
                 isCheckGoing = true
@@ -263,7 +263,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     @IBAction func continueBtnPressed(sender: AnyObject) {
         
         if !isCheckGoing && !isCheckReturn{
-            showToastMessage("Please select at least one flight to proceed.")
+            showErrorMessage("Please select at least one flight to proceed.")
         }else{
             
             let departure = NSMutableDictionary()
@@ -280,7 +280,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                 let rDate = stringToDate(returnDate)
                 
                 if gDate.compare(rDate) == NSComparisonResult.OrderedDescending{
-                    showToastMessage("Please make sure that your return date is not earlier than your departure date.")
+                    showErrorMessage("Please make sure that your return date is not earlier than your departure date.")
                 }
                 
                 returned.setValue(isCheckReturn ? "Y" : "N", forKey: "status")
@@ -317,7 +317,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                             changeFlightVC.signature = self.signature
                             self.navigationController!.pushViewController(changeFlightVC, animated: true)
                         }else if json["status"] == "error"{
-                            //showToastMessage(json["message"].string!)
+                            //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                         }
                     }

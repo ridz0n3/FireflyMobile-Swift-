@@ -209,23 +209,22 @@ func showHud(status:String){
 func showErrorMessage(message : String){
     
     let errorView = SCLAlertView()
-    //errorView.showCloseButton = false
     errorView.showError("Error!", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close")
     
 }
 
 func showToastMessage(message:String){
-    /*HUD = MBProgressHUD.showHUDAddedTo(self.navigationController?.view, animated: true)
-    HUD.yOffset = 0
-    HUD.mode = MBProgressHUDMode.Text
-    HUD.detailsLabelText = message
-    HUD.removeFromSuperViewOnHide = true
-    HUD.hide(true, afterDelay: 2)
-    */
+    
     let messageView = SCLAlertView()
-    //errorView.showCloseButton = false
-    messageView.showError("Error!", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close")
-    //[alert showError:self title:@"Hello Error" subTitle:@"This is a more descriptive error text." closeButtonTitle:@"OK" duration:0.0f];
+    messageView.showSuccess("Success", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close")
+    
+}
+
+func showInfo(message:String){
+    
+    let infoView = SCLAlertView()
+    infoView.showInfo("Info", subTitle: message, closeButtonTitle: "Okay", colorStyle: 0xEC581A)
+    
 }
 
 

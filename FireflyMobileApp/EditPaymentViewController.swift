@@ -36,9 +36,9 @@ class EditPaymentViewController: CommonPaymentViewController {
                 let cardNumber = self.formValues()[Tags.ValidationCardNumber] as! String
                 
                 if !luhnCheck(cardNumber){
-                    showToastMessage("Invalid credit card")
+                    showErrorMessage("Invalid credit card")
                 }else if !checkDate(self.formValues()[Tags.ValidationCardExpiredDate] as! String){
-                    showToastMessage("Invalid Date")
+                    showErrorMessage("Invalid Date")
                 }else{
                     
                     let channelType = "1"
@@ -73,7 +73,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else{
-                                    //showToastMessage(json["message"].string!)
+                                    //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                                 }
                             }

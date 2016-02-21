@@ -111,7 +111,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             // Country
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Issuing Country:*")
             
             tempArray = [AnyObject]()
             for country in countryArray{
@@ -223,7 +223,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Country
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Nationality:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Issuing Country:*")
                 
                 tempArray = [AnyObject]()
                 for country in countryArray{
@@ -304,7 +304,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                                 manageFlightVC.itineraryData = json.object as! NSDictionary
                                 self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             }else if json["status"] == "error"{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }

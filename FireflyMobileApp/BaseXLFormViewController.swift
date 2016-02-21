@@ -73,7 +73,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
                 validationError.textField.layer.borderColor = UIColor.redColor().CGColor
                 validationError.textField.layer.borderWidth = 1.0
                 
-                showToastMessage(validationError.errorMessage)
+                showErrorMessage(validationError.errorMessage)
         })
         // Do any additional setup after loading the view.
     }
@@ -174,7 +174,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
             }
             
             if i != 0{
-                showToastMessage(message)
+                showErrorMessage(message)
             }
         }else{
             isValidate = true

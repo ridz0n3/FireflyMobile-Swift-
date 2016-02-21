@@ -14,7 +14,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
     @IBOutlet weak var continueBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMenuButton()
+        setupLeftButton()
         continueBtn.layer.cornerRadius = 10.0
         
         getDepartureAirport()
@@ -127,7 +127,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
                         animateCell(cell)
                     }
                 }
-                //showToastMessage("Please fill all fields")
+                //showErrorMessage("Please fill all fields")
                 
             }
         }else{

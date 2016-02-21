@@ -55,7 +55,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                             }
                         }else{
                             showHud("close")
-                            //showToastMessage(json["message"].string!)
+                            //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                         }
                     }

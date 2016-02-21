@@ -128,7 +128,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             }
             
             if insuranceData == ""{
-                showToastMessage("To proceed, you need to agree with the Insurance Declaration.")
+                showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
                 showHud("open")
                 
@@ -165,7 +165,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             }
             
         }else{
-            showToastMessage("Please fill all fields")
+            showErrorMessage("Please fill all fields")
         }
         
     }
@@ -204,7 +204,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             }
             
             if insuranceData == ""{
-                showToastMessage("To proceed, you need to agree with the Insurance Declaration.")
+                showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
                 showHud("open")
                 FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "Y" ), completion: { (result) -> () in
@@ -224,7 +224,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                                 let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC") as! AddSeatSelectionViewController
                                 self.navigationController!.pushViewController(chooseSeatVC, animated: true)
                             }else if json["status"] == "error"{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }
@@ -239,7 +239,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 })
             }
         }else{
-            showToastMessage("Please fill all fields")
+            showErrorMessage("Please fill all fields")
         }
     }
 

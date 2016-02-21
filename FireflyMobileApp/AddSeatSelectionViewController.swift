@@ -71,12 +71,12 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
         let signature = defaults.objectForKey("signature") as! String
         
         if seatDict.count == 0 || seatDict.count != details.count{
-            showToastMessage("Please select seat first")
+            showErrorMessage("Please select seat first")
         }else{
             if seatDict.count == 2{
                 
                 if seatDict["0"]!.count == 0 || seatDict["1"]!.count == 0{
-                    showToastMessage("Please select seat first")
+                    showErrorMessage("Please select seat first")
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()
@@ -119,7 +119,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                                     self.navigationController!.pushViewController(paymentVC, animated: true)
                                     
                                 }else if json["status"] == "error"{
-                                    //showToastMessage(json["message"].string!)
+                                    //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                                 }
                             }
@@ -138,7 +138,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
             }else{
                 
                 if seatDict["0"]!.count == 0{
-                    showToastMessage("Please select seat first")
+                    showErrorMessage("Please select seat first")
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()
@@ -147,9 +147,9 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     for i in 0...seatDict.count-1{
                         let newSeat = NSMutableDictionary()
-                        let newDetail = NSMutableDictionary()
+                        
                         for j in 0...seatDict["\(i)"]!.count-1{
-                            
+                            let newDetail = NSMutableDictionary()
                             newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["seat_number"], forKey: "seat_number")
                             newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["compartment_designator"], forKey: "compartment_designator")
                             
@@ -183,8 +183,8 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                                     self.navigationController!.pushViewController(paymentVC, animated: true)
                                     
                                 }else if json["status"] == "error"{
-                                    //showToastMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                                    //showErrorMessage(json["message"].string!)
+                                    showErrorMessage(json["message"].string!)
                                 }
                             }
                             catch {

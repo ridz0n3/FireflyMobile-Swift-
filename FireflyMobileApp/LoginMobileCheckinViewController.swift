@@ -31,7 +31,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
                         self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                         
                     }else{
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
                 }

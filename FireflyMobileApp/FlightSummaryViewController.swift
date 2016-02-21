@@ -145,7 +145,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }else if indexPath.section == 2{
             return 80
         }else if (indexPath.section == 3 && serviceDetail.count != 0) || indexPath.section == 4{
-            return 23
+            return 29
         }else if indexPath.section == 5{
             return 42
         }else if (indexPath.section == 6 && insuranceDetails["status"] as! String != "N"){

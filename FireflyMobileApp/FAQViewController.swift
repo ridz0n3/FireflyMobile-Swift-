@@ -18,7 +18,7 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         super.viewDidLoad()
         //If you want to implement the delegate
         
-        self.setupLeftButton()
+        self.setupMenuButton()
         webView.scrollView.delegate = self
         webView.scrollView.showsHorizontalScrollIndicator = false
         showHud("open")
@@ -38,7 +38,7 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                             self.webView.loadRequest(request)
                         }
                     }else if json["status"] == "error"{
-                        //showToastMessage(json["message"].string!)
+                        //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                         showHud("close")
                     }

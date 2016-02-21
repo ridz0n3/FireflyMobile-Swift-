@@ -37,7 +37,7 @@ class MobileCheckinViewController: CommonSearchDetailViewController {
                             checkInDetailVC.pnr = pnr
                             self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                         }else{
-                            //showToastMessage(json["message"].string!)
+                            //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                         }
                     }

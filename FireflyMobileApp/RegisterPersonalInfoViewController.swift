@@ -14,11 +14,18 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
 
     @IBOutlet weak var termCheckBox: M13Checkbox!
     @IBOutlet weak var promotionCheckBox: M13Checkbox!
+    var fromLogin = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.lvlHeaderImg.image = UIImage(named: "registerLvl1")
-        setupMenuButton()
+        if fromLogin{
+            setupLeftButton()
+        }else{
+            setupMenuButton()
+        }
+        
+        
         initializeForm()
         // Do any additional setup after loading the view.
     }
@@ -257,7 +264,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 }
             }
             else {
-                tempArray.append(XLFormOptionsObject(value: 0, displayText: "Other"))
+                tempArray.append(XLFormOptionsObject(value: "OT", displayText: "Others"))
             }
             
             row.selectorOptions = tempArray
@@ -293,22 +300,22 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
                 
                 animateCell(cell)
-                showToastMessage("Confirm password incorrect")
+                showErrorMessage("Confirm password incorrect")
             }
 			else if ((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String == "") {
-                showToastMessage("Title can't empty")
+                showErrorMessage("Title can't empty")
             }
 			else if ((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String == "") {
-                showToastMessage("Country can't empty")
+                showErrorMessage("Country can't empty")
             }
 			else if ((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String == "") {
-                showToastMessage("State can't empty")
+                showErrorMessage("State can't empty")
             }
 			else if minDate.compare(formValues()[Tags.ValidationDate] as! NSDate) == NSComparisonResult.OrderedAscending {
-                showToastMessage("User must age 18 and above to register")
+                showErrorMessage("User must age 18 and above to register")
             }
 			else if termCheckBox.checkState.rawValue == 0 {
-                showToastMessage("Please check term and condition checkbox")
+                showErrorMessage("Please check term and condition checkbox")
             }
 			else{
                 
@@ -360,7 +367,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                             self.navigationController!.pushViewController(loginVC, animated: true)
                         }
                         else {
-                            showToastMessage(result["message"].string!)
+                            showErrorMessage(result["message"].string!)
                         }
                         
                     })

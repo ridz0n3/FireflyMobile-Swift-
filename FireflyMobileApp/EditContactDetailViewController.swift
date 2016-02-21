@@ -70,7 +70,7 @@ class EditContactDetailViewController: CommonContactDetailViewController {
             }
 
             if insuranceData == ""{
-                showToastMessage("To proceed, you need to agree with the Insurance Declaration.")
+                showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
                 showHud("open")
                 
@@ -92,7 +92,7 @@ class EditContactDetailViewController: CommonContactDetailViewController {
                                 manageFlightVC.itineraryData = json.object as! NSDictionary
                                 self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             }else if json["status"] == "error"{
-                                //showToastMessage(json["message"].string!)
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }

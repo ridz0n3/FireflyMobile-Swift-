@@ -151,7 +151,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                         animateCell(cell)
                     }
                 }
-                //showToastMessage("Please fill all fields")
+                //showErrorMessage("Please fill all fields")
                 
             }
         }else{
@@ -243,16 +243,16 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         }
         
         if countAdultAge > 0{
-            showToastMessage("Guest(s) must be above 2 years old at the date(s) of travel.")
+            showErrorMessage("Guest(s) must be above 2 years old at the date(s) of travel.")
             return false
         }else if countMaxAdultAge > 0 && adultCount == 1{
-            showToastMessage("There must be at least one(1) passenger above 12 years old at the date(s) of travel")
+            showErrorMessage("There must be at least one(1) passenger above 12 years old at the date(s) of travel")
             return false
         }else if countMaxAdultAge > 0 && adultCount > 1{
-            showToastMessage("Passenger less than 12 years old must be accompanied by an 18 years old passenger.")
+            showErrorMessage("Passenger less than 12 years old must be accompanied by an 18 years old passenger.")
             return false
         }else if countInfantAge > 0 || countMaxInfantAge > 0{
-            showToastMessage("Infant(s) must be within the age of 9 days - 24 months at date(s) of travel.")
+            showErrorMessage("Infant(s) must be within the age of 9 days - 24 months at date(s) of travel.")
             return false
         }else{
             return true

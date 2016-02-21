@@ -72,20 +72,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 
                 xonlinePosition = xonlinePosition + 70
                 
-            }else{
-                
-                let img = UIImageView(frame: CGRectMake(xcashPosition, 418, 68, 42))
-                img.contentMode = .ScaleToFill
-                
-                if (data != nil){
-                    img.image = UIImage(data: data!)
-                    headerView.addSubview(img)
-                }
-                
-                xcashPosition = xcashPosition + 70
-                
-            }
-            
+            }            
         }
     }
     
@@ -260,7 +247,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
                         animateCell(cell)
                     }
                 }
-                //showToastMessage("Please fill all fields")
+                //showErrorMessage("Please fill all fields")
                 
             }
         }else{
