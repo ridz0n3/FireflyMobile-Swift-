@@ -398,7 +398,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 }
                 
             case .Failure(let failureResult):
-                print (failureResult)
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
         }
@@ -439,7 +440,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 }
                 
             case .Failure(let failureResult):
-                print (failureResult)
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
             }
 
         }
@@ -482,7 +484,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 }
                 
             case .Failure(let failureResult):
-                print (failureResult)
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
         }
@@ -518,7 +521,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 }
                 
             case .Failure(let failureResult):
-                print (failureResult)
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
             }
 
         }
@@ -591,7 +595,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                 }
                                 
                             case .Failure(let failureResult):
-                                print (failureResult)
+                                showHud("close")
+                                showErrorMessage(failureResult.nsError.localizedDescription)
                             }
                             
                         }
@@ -608,7 +613,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 }
                 
             case .Failure(let failureResult):
-                print (failureResult)
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
             }
         }
         

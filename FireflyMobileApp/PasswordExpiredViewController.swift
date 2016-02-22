@@ -119,7 +119,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                         }
                                         
                                     case .Failure(let failureResult):
-                                        print (failureResult)
+                                        showErrorMessage(failureResult.nsError.localizedDescription)
                                     }
                                     //var success = error == nil
                                     }
@@ -137,7 +137,8 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                         }
                         
                     case .Failure(let failureResult):
-                        print(failureResult)
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                         
                     }
                     

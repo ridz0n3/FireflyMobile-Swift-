@@ -99,7 +99,7 @@ class ManageFlightViewController: BaseXLFormViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    print (failureResult)
+                    showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 
             })

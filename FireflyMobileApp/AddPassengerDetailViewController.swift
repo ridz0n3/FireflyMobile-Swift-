@@ -312,7 +312,8 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                         }
                         
                     case .Failure(let failureResult):
-                        print (failureResult)
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })
             }

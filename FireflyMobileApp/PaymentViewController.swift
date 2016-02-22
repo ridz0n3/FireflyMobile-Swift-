@@ -212,7 +212,6 @@ class PaymentViewController: BaseXLFormViewController {
                         switch result {
                         case .Success(let successResult):
                             do {
-                                showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "Redirect"{
@@ -236,7 +235,7 @@ class PaymentViewController: BaseXLFormViewController {
                             }
                             
                         case .Failure(let failureResult):
-                            print (failureResult)
+                            showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         
                         

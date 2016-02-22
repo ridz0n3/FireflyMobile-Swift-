@@ -165,7 +165,8 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                             }
                             
                         case .Failure(let failureResult):
-                            print (failureResult)
+                            showHud("close")
+                            showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         
                     })
@@ -227,7 +228,8 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                             }
                             
                         case .Failure(let failureResult):
-                            print (failureResult)
+                            showHud("close")
+                            showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         
                     })

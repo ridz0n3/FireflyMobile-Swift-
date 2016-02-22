@@ -27,7 +27,7 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
             switch result {
             case .Success(let successResult):
                 do {
-                    
+                    showHud("close")
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -40,14 +40,14 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                     }else if json["status"] == "error"{
                         //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
-                        showHud("close")
+                        
                     }
                 }
                 catch {
                     
                 }
             case .Failure(let failureResult):
-                print (failureResult)
+                showErrorMessage(failureResult.nsError.localizedDescription)
                 showHud("close")
             }
         }

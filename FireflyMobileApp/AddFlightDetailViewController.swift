@@ -184,7 +184,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    print (failureResult)
+                    showHud("close")
+                    showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 //var success = error == nil
                 }
@@ -236,7 +237,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                 }
                 
             case .Failure(let failureResult):
-                print (failureResult)
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
         })

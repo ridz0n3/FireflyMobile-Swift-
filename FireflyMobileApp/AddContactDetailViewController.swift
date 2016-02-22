@@ -158,7 +158,8 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                         }
                         
                     case .Failure(let failureResult):
-                        print (failureResult)
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     
                 })
@@ -233,7 +234,8 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                         }
                         
                     case .Failure(let failureResult):
-                        print (failureResult)
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     
                 })

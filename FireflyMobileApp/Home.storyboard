@@ -237,6 +237,39 @@
             </objects>
             <point key="canvasLocation" x="-173" y="472"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="IFX-7a-soM">
+            <objects>
+                <viewController storyboardIdentifier="FAQVC" id="DaO-dD-KZx" customClass="FAQViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="evg-Yw-fwn"/>
+                        <viewControllerLayoutGuide type="bottom" id="bbI-BF-8yf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="L1c-Pg-SEl">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjO-rf-wl1">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bbI-BF-8yf" firstAttribute="top" secondItem="fjO-rf-wl1" secondAttribute="bottom" id="RP5-7e-A5X"/>
+                            <constraint firstItem="fjO-rf-wl1" firstAttribute="top" secondItem="L1c-Pg-SEl" secondAttribute="top" id="Xh2-7U-S0i"/>
+                            <constraint firstItem="fjO-rf-wl1" firstAttribute="leading" secondItem="L1c-Pg-SEl" secondAttribute="leading" id="aUa-yC-Ksi"/>
+                            <constraint firstAttribute="trailing" secondItem="fjO-rf-wl1" secondAttribute="trailing" id="m7S-w9-sgM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="fjO-rf-wl1" id="nrE-3w-M5F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sPg-Vx-Kf9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="985" y="370"/>
+        </scene>
     </scenes>
     <resources>
         <image name="fb" width="200" height="200"/>

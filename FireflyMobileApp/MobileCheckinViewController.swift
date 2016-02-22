@@ -46,7 +46,7 @@ class MobileCheckinViewController: CommonSearchDetailViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    print (failureResult)
+                    showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 
             })

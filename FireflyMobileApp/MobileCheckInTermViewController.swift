@@ -214,7 +214,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                     }
                     
                 case .Failure(let failureResult):
-                    print (failureResult)
+                    showErrorMessage(failureResult.nsError.localizedDescription)
                 }
             })
             

@@ -62,8 +62,6 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
                 switch result {
                 case .Success(let successResult):
                     do {
-                        showHud("close")
-                        
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if json["status"] == "success"{
@@ -85,7 +83,7 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
                     }
                     
                 case .Failure(let failureResult):
-                    print (failureResult)
+                    showErrorMessage(failureResult.nsError.localizedDescription)
                 }
             })
         }

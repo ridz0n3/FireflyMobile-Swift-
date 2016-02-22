@@ -196,7 +196,8 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                 }
                 
             case .Failure(let failureResult):
-                print (failureResult)
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
         }

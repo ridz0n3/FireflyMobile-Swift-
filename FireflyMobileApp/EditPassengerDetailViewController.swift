@@ -313,7 +313,8 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                         }
                         
                     case .Failure(let failureResult):
-                        print (failureResult)
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })
             }

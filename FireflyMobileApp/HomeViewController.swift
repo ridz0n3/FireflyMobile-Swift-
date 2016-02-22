@@ -175,7 +175,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                         }
                         
                     case .Failure(let failureResult):
-                        print (failureResult)
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })
                 
@@ -220,7 +221,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                         }
                         
                     case .Failure(let failureResult):
-                        print (failureResult)
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })
                 
@@ -269,7 +271,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                         }
                         
                     case .Failure(let failureResult):
-                        print (failureResult)
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })
                 

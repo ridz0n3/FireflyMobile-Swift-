@@ -11,8 +11,10 @@ import Alamofire
 import XLForm
 import SwiftValidator
 import SwiftyJSON
-class LoginViewController: BaseXLFormViewController {
+import SCLAlertView
 
+class LoginViewController: BaseXLFormViewController {
+    
     @IBOutlet var forgotPasswordView: UIView!
     @IBOutlet weak var emailTxtField: UITextField!
     
@@ -23,7 +25,7 @@ class LoginViewController: BaseXLFormViewController {
         
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,7 +76,7 @@ class LoginViewController: BaseXLFormViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 50
     }
-
+    
     @IBAction func loginButtonPressed(sender: AnyObject) {
         
         validateForm()
@@ -83,9 +85,9 @@ class LoginViewController: BaseXLFormViewController {
             
             let password = self.formValues()["Password"] as! String
             let encPassword = try! EncryptManager.sharedInstance.aesEncrypt(password, key: key, iv: iv)
-
+            
             let username: String = self.formValues()["Email"]! as! String
-
+            
             showHud("open")
             
             
@@ -108,8 +110,8 @@ class LoginViewController: BaseXLFormViewController {
                             self.navigationController!.pushViewController(homeVC, animated: true)
                         }else if json["status"].string == "change_password" {
                             ////showErrorMessage(json["message"].string!)
-                                
-                                showInfo(json["message"].string!)
+                            
+                            showInfo(json["message"].string!)
                             let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                             let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
                             self.navigationController!.pushViewController(homeVC, animated: true)
@@ -120,9 +122,9 @@ class LoginViewController: BaseXLFormViewController {
                     catch {
                         
                     }
-                
+                    
                 case .Failure(let failureResult):
-                print (failureResult)
+                    showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 //var success = error == nil
                 }
@@ -133,7 +135,9 @@ class LoginViewController: BaseXLFormViewController {
     
     @IBAction func forgotPasswordButtonPressed(sender: AnyObject) {
         
-
+        reloadAlertView("Please insert your detail")
+        /*
+        
         forgotPasswordView = NSBundle.mainBundle().loadNibNamed("ForgotPasswordView", owner: self, options: nil)[0] as! UIView
         
         forgotPasswordView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
@@ -147,7 +151,37 @@ class LoginViewController: BaseXLFormViewController {
         applicationLoadViewIn.duration = 2.0
         applicationLoadViewIn.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
         forgotPasswordView.layer.addAnimation(applicationLoadViewIn, forKey: kCATransitionReveal)
-        self.view.addSubview(forgotPasswordView)
+        self.view.addSubview(forgotPasswordView)*/
+        
+    }
+    
+    var email = UITextField()
+    var tempEmail = String()
+    
+    func reloadAlertView(msg : String){
+        
+        let alert = SCLAlertView()
+        email = alert.addTextField("Enter email")
+        email.text = tempEmail
+        alert.addButton("Login", target: self, selector: "loginBtnPressed")
+        alert.showCloseButton = false
+        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A)
+        
+    }
+    
+    func loginBtnPressed(){
+        
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        
+        if email.text == ""{
+            reloadAlertView("Please fill all field")
+        }else if !emailTest.evaluateWithObject(self.email.text){
+            reloadAlertView("Email is invalid")
+        }else{
+            validationSuccessful()
+        }
         
     }
     
@@ -159,54 +193,43 @@ class LoginViewController: BaseXLFormViewController {
         self.navigationController?.pushViewController(registerVC, animated: true)
         
     }
-
-    @IBAction func sendDetail(sender: AnyObject) {
-        validator.validate(self)
-    }
-    
-    @IBAction func closeButtonPressed(sender: AnyObject) {
-        //sender.superview?!.removeFromSuperview()
-        forgotPasswordView.hidden = true
-    }
-    
     
     override func validationSuccessful() {
         showHud("open")
-        FireFlyProvider.request(.ForgotPassword(self.emailTxtField.text!, "")) { (result) -> () in
+        FireFlyProvider.request(.ForgotPassword(email.text!, "")) { (result) -> () in
             
             showHud("close")
             switch result {
             case .Success(let successResult):
                 do{
-             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
                     if json["status"] == "success"{
                         showToastMessage(json["message"].string!)
-                        //showErrorMessage(json["message"].string!)
-                        self.forgotPasswordView.removeFromSuperview()
-                    }else{
-                        showErrorMessage(json["userInfo"].string!)
+                    }else if json["status"] == "error"{
+                        self.reloadAlertView(json["message"].string!)
                     }
                 }
                 catch{
                     
                 }
-            
+                
             case .Failure(let failureResult):
-            print(failureResult)
-            
+                showErrorMessage(failureResult.nsError.localizedDescription)
+                
             }
         }
     }
-        
-    }
-    /*
-    // MARK: - Navigation
+    
+}
+/*
+// MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+// Get the new view controller using segue.destinationViewController.
+// Pass the selected object to the new view controller.
+}
+*/
 
 

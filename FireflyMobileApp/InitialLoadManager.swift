@@ -95,9 +95,9 @@ class InitialLoadManager {
                 }
                 catch {
                     
-                }
-            case .Failure(let errorResult):
-                print (errorResult)
+                }//
+            case .Failure(let failureResult):
+                showErrorMessage(failureResult.nsError.localizedDescription)
             }
         }
 
