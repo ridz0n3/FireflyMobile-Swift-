@@ -238,7 +238,18 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
                         passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
                         passengerInfo.updateValue(formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]!, forKey: "document_number")
-                        passengerInfo.updateValue(nilIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationExpiredDate, count)])!, forKey: "expiration_date")
+                        
+                        let expiredDate = nilIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationExpiredDate, count)])! as! String
+                        var arrangeExpDate = NSArray()
+                        var newExpDate = String()
+                        
+                        if expiredDate != ""{
+                            arrangeExpDate = expiredDate.componentsSeparatedByString("-")
+                            newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
+                        }
+                        
+                        passengerInfo.updateValue(newExpDate, forKey: "expiration_date")
+                        
                         //passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "enrich_loyalty_number")
                         
                         passenger.updateValue(passengerInfo, forKey: "\(count)")
@@ -371,7 +382,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         // Date
         row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Expiration Date:*")
         row.required = true
-        row.value = date
+        row.value = formatDate(stringToDate(date))
         self.form.addFormRow(row, afterRowTag: String(format: "%@(%@",Tags.ValidationDocumentNo, tag))
     }
     

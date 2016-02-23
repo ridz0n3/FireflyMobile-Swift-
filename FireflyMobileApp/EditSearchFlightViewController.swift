@@ -73,7 +73,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         let flightData = flightDetail[indexPath.section] as! NSDictionary
         
         let formater = NSDateFormatter()
-        formater.dateFormat = "yyyy/MM/dd"
+        formater.dateFormat = "yyyy-MM-dd"
         
         if (indexPath.section == 0 && !isCheckGoing) || (indexPath.section == 1 && !isCheckReturn){
             cell.bgView.backgroundColor = UIColor.lightGrayColor()
@@ -109,28 +109,30 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
             if indexPath.section == 0{
                 
                 if !isChangeGoingDate{
-                    let rawDate = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
-                    let dateStr = formater.dateFromString("\(rawDate[2])/\(rawDate[1])/\(rawDate[0])")
-                    goingDate = formater.stringFromDate(dateStr!)
-                    cell.airportLbl.text = goingDate
+                    let date = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
+                    
+                    let dateStr = formater.dateFromString("\(date[2])-\(date[1])-\(date[0])")
+                    arrivalDate = dateStr!
+                    nonFormatGoingDate = formater.stringFromDate(dateStr!)
+                    cell.airportLbl.text = flightData["departure_date"] as? String
                     
                 }else{
-                    let date = formater.dateFromString(goingDate)
-                    cell.airportLbl.text = formater.stringFromDate(date!)
+                    cell.airportLbl.text = goingDate
                 }
                 
                 cell.userInteractionEnabled = isCheckGoing
                 
             }else{
                 if !isChangeReturnDate{
-                    let rawDate = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
-                    let dateStr = formater.dateFromString("\(rawDate[2])/\(rawDate[1])/\(rawDate[0])")
-                    returnDate = formater.stringFromDate(dateStr!)
-                    cell.airportLbl.text = returnDate
+                    let date = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
+                    
+                    let dateStr = formater.dateFromString("\(date[2])-\(date[1])-\(date[0])")
+                    
+                    nonFormatReturnDate = formater.stringFromDate(dateStr!)
+                    cell.airportLbl.text = flightData["departure_date"] as? String
                     
                 }else{
-                    let date = formater.dateFromString(returnDate)
-                    cell.airportLbl.text = formater.stringFromDate(date!)
+                    cell.airportLbl.text = returnDate
                 }
                 
                 cell.userInteractionEnabled = isCheckReturn
@@ -203,17 +205,26 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
     }
     
+    var nonFormatGoingDate = String()
+    var nonFormatReturnDate = String()
+    
     func departureDate(notif:NSNotification){
         isChangeGoingDate = true
-        goingDate = notif.userInfo!["date"] as! String
-        arrivalDate = stringToDate(goingDate)
+        
+        let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
+        goingDate = "\(date[2])/\(date[1])/\(date[0])"
+        
+        nonFormatGoingDate = notif.userInfo!["date"] as! String
+        arrivalDate = stringToDate(notif.userInfo!["date"] as! String)
         editFlightTableView.reloadData()
         
     }
     
     func returnDate(notif:NSNotification){
         isChangeReturnDate = true
-        returnDate = notif.userInfo!["date"] as! String
+        let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
+        returnDate = "\(date[2])/\(date[1])/\(date[0])"
+        nonFormatReturnDate = notif.userInfo!["date"] as! String
         //arrivalDate = stringToDate(goingDate)
         editFlightTableView.reloadData()
         
@@ -267,84 +278,88 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         if !isCheckGoing && !isCheckReturn{
             showErrorMessage("Please select at least one flight to proceed.")
         }else{
-            
+            var isValid = true
             let departure = NSMutableDictionary()
             let returned = NSMutableDictionary()
             
             departure.setValue(isCheckGoing ? "Y" : "N", forKey: "status")
             departure.setValue(goingDeparture, forKey: "departure_station")
             departure.setValue(goingArrival, forKey: "arrival_station")
-            departure.setValue(formatDate(stringToDate(goingDate)), forKey: "departure_date")
+            
+            departure.setValue(formatDate(stringToDate(nonFormatGoingDate)), forKey: "departure_date")
             
             if flightDetail.count == 2{
                 
-                let gDate = stringToDate(goingDate)
-                let rDate = stringToDate(returnDate)
+                let gDate = stringToDate(nonFormatGoingDate)
+                let rDate = stringToDate(nonFormatReturnDate)
                 
                 if gDate.compare(rDate) == NSComparisonResult.OrderedDescending{
                     showErrorMessage("Please make sure that your return date is not earlier than your departure date.")
+                    isValid = false
                 }
                 
                 returned.setValue(isCheckReturn ? "Y" : "N", forKey: "status")
                 returned.setValue(returnDeparture, forKey: "departure_station")
                 returned.setValue(returnArrival, forKey: "arrival_station")
-                returned.setValue(formatDate(stringToDate(returnDate)), forKey: "departure_date")
+                returned.setValue(formatDate(stringToDate(nonFormatReturnDate)), forKey: "departure_date")
                 
             }
             
-            showHud("open")
             
-            FireFlyProvider.request(.SearchChangeFlight(departure, returned, pnr, bookId, signature), completion: { (result) -> () in
-                switch result {
-                case .Success(let successResult):
-                    do {
-                        showHud("close")
-                        
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                        
-                        if json["status"] == "success"{
-                            let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                            let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
-                            changeFlightVC.flightDetail = json["journeys"].arrayValue
+            if isValid{
+                showHud("open")
+                
+                FireFlyProvider.request(.SearchChangeFlight(departure, returned, pnr, bookId, signature), completion: { (result) -> () in
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            showHud("close")
                             
-                            if json["type"] == 1{
-                                changeFlightVC.returnData = json["return_flight"].dictionaryObject!
-                            }
-                            changeFlightVC.type = json["type"].int!
-                            changeFlightVC.goingData = json["going_flight"].dictionaryObject!
-                            changeFlightVC.signature = json["signature"].string!
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
-                            changeFlightVC.pnr = self.pnr
-                            changeFlightVC.bookId = "\(self.bookId)"
-                            changeFlightVC.signature = self.signature
-                            self.navigationController!.pushViewController(changeFlightVC, animated: true)
-                        }else if json["status"] == "error"{
-                            //showErrorMessage(json["message"].string!)
+                            if json["status"] == "success"{
+                                let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                                let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
+                                changeFlightVC.flightDetail = json["journeys"].arrayValue
+                                
+                                if json["type"] == 1{
+                                    changeFlightVC.returnData = json["return_flight"].dictionaryObject!
+                                }
+                                changeFlightVC.type = json["type"].int!
+                                changeFlightVC.goingData = json["going_flight"].dictionaryObject!
+                                changeFlightVC.signature = json["signature"].string!
+                                
+                                changeFlightVC.pnr = self.pnr
+                                changeFlightVC.bookId = "\(self.bookId)"
+                                changeFlightVC.signature = self.signature
+                                self.navigationController!.pushViewController(changeFlightVC, animated: true)
+                            }else if json["status"] == "error"{
+                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
+                            }
                         }
-                    }
-                    catch {
+                        catch {
+                            
+                        }
                         
+                    case .Failure(let failureResult):
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
-                    
-                case .Failure(let failureResult):
-                    showHud("close")
-                    showErrorMessage(failureResult.nsError.localizedDescription)
-                }
-            })
-            
-            
+                })
+                
+            }
         }
         
     }
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

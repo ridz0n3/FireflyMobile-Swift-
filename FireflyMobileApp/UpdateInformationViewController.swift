@@ -64,7 +64,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "Current Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,}$"))
         //row.required = true
         section.addFormRow(row)
         
@@ -73,7 +73,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "New Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,}$"))
         //row.required = true
         section.addFormRow(row)
         
@@ -285,7 +285,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         for stateData in state{
             if stateData["country_code"] as! String == userInfo["contact_country"] as! String{
-                stateArr.append(stateData as! NSDictionary)
+                stateArr.append(stateData as NSDictionary)
             }
         }
         
@@ -474,7 +474,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])!, forKey: "bonuslink")
         parameters.updateValue(userInfo["signature"]!, forKey: "signature")
         parameters.updateValue(userInfo["newsletter"] as! String, forKey: "newsletter")
-        
         
         let manager = WSDLNetworkManager()
         

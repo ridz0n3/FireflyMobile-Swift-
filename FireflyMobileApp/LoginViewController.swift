@@ -136,23 +136,6 @@ class LoginViewController: BaseXLFormViewController {
     @IBAction func forgotPasswordButtonPressed(sender: AnyObject) {
         
         reloadAlertView("Please insert your detail")
-        /*
-        
-        forgotPasswordView = NSBundle.mainBundle().loadNibNamed("ForgotPasswordView", owner: self, options: nil)[0] as! UIView
-        
-        forgotPasswordView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
-        forgotPasswordView.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.25)
-        
-        validator.registerField(emailTxtField, rules: [RequiredRule(), EmailRule()])
-        addToolBar(self.emailTxtField)
-        
-        let applicationLoadViewIn = CATransition()
-        applicationLoadViewIn.type = kCATransitionFade
-        applicationLoadViewIn.duration = 2.0
-        applicationLoadViewIn.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        forgotPasswordView.layer.addAnimation(applicationLoadViewIn, forKey: kCATransitionReveal)
-        self.view.addSubview(forgotPasswordView)*/
-        
     }
     
     var email = UITextField()
@@ -164,8 +147,8 @@ class LoginViewController: BaseXLFormViewController {
         email = alert.addTextField("Enter email")
         email.text = tempEmail
         alert.addButton("Login", target: self, selector: "loginBtnPressed")
-        alert.showCloseButton = false
-        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A)
+        //alert.showCloseButton = false
+        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
         
     }
     

@@ -32,7 +32,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                             let imageURL = info["QRCodeURL"].stringValue
                             
                             Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
-                                print(index)
+                                
                                 dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
                                 i++
                                 

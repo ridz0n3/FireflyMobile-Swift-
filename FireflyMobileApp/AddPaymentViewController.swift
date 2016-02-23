@@ -50,7 +50,6 @@ class AddPaymentViewController: CommonPaymentViewController {
                         switch result {
                         case .Success(let successResult):
                             do {
-                                
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "Redirect"{

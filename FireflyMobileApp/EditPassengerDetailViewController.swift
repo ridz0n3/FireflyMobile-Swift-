@@ -91,7 +91,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             // Date
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
             row.required = true
-            row.value = adultDetails[i]["dob"] as! String
+            row.value = formatDate(stringToDate(adultDetails[i]["dob"] as! String))
             section.addFormRow(row)
             
             // Travel Document
@@ -202,7 +202,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDate, infant), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
                 row.required = true
-                row.value = infantDict["dob"] as! String
+                row.value = formatDate(stringToDate(infantDict["dob"] as! String))
                 section.addFormRow(row)
                 
                 

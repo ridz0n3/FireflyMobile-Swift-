@@ -21,7 +21,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
         var newSeat = [Dictionary<String,AnyObject>]()
         var seatArray = [Dictionary<String,AnyObject>]()
         var seatData = [Dictionary<String,AnyObject>]()
-        var passengersArr = [Dictionary<String,AnyObject>]()
+        var passengersArr = [AnyObject]()
         var countJourney = 0
         for info in journeys as! [Dictionary<String, AnyObject>]{
             
@@ -60,14 +60,14 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 
                 for seatRowInfo in seat{
                     
-                    for info in seatRowInfo as! [Dictionary<String,AnyObject>]{
+                    for tempInfo in seatRowInfo as! [Dictionary<String,AnyObject>]{
                         
-                        if seatInfo["unit_designator"] as! String == info["seat_number"] as! String{
+                        if seatInfo["unit_designator"] as! String == tempInfo["seat_number"] as! String{
                             if countJourney == 0{
-                                passengers1.updateValue(info as NSDictionary, forKey: "\(i)")
+                                passengers1.updateValue(tempInfo as NSDictionary, forKey: "\(i)")
                                 seatDict.updateValue(passengers1, forKey: "\(countJourney)")
                             }else{
-                                passengers2.updateValue(info as NSDictionary, forKey: "\(i)")
+                                passengers2.updateValue(tempInfo as NSDictionary, forKey: "\(i)")
                                 seatDict.updateValue(passengers2, forKey: "\(countJourney)")
                             }
                             break
@@ -80,7 +80,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 
             }
             
-            passengersArr.append(info["passengers"] as! [String:AnyObject])
+            passengersArr.append(passengerInfo)
             
             data.setValue(departureStation, forKey: "departure_station")
             data.setValue(departureStationName, forKey: "departure_station_name")
@@ -120,9 +120,9 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     let returnSeatSelection = NSMutableArray()
                     for i in 0...seatDict.count-1{
                         let newSeat = NSMutableDictionary()
-                        let newDetail = NSMutableDictionary()
+                        
                         for j in 0...seatDict["\(i)"]!.count-1{
-                            
+                            let newDetail = NSMutableDictionary()
                             newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["seat_number"], forKey: "seat_number")
                             newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["compartment_designator"], forKey: "compartment_designator")
                             

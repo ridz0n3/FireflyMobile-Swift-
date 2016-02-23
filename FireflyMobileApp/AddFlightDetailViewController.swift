@@ -203,12 +203,12 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         password.secureTextEntry = true
         password.text = tempPassword
         alert.addButton("Login", target: self, selector: "loginBtnPressed:")
-        alert.showCloseButton = false
+        //alert.showCloseButton = false
         alert.addButton("Continue as guest") {
             showHud("open")
             self.sentData()
         }
-        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A)
+        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
         
     }
     

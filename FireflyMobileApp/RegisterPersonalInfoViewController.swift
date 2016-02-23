@@ -63,10 +63,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "*Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,}$"))
         row.required = true
         section.addFormRow(row)
-        
+        //^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$
         // Confirm Password
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
         row.cellConfigAtConfigure["textField.placeholder"] = "*Confirm Password"
