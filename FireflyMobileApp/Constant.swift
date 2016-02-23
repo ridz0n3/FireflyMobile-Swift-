@@ -8,7 +8,9 @@
 
 import UIKit
 import SCLAlertView
+import RealmSwift
 
+let realm = try! Realm()
 let defaults = NSUserDefaults.standardUserDefaults()
 let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
 let iv = "owNLfnLjPvwbQH3h" // length == 16

@@ -6,13 +6,13 @@
 //  Copyright © 2016 Me-tech. All rights reserved.
 //
 
+import RealmSwift
+import Foundation
 import Realm
 
-class BoardingPassModel: RLMObject {
+class BoardingPassModel: Object {
     
-// Specify properties to ignore (Realm won't persist these)
+    dynamic var userId = ""
+    let pnr = List<PNRList>()
     
-//  override static func ignoredProperties() -> [String] {
-//    return []
-//  }
 }

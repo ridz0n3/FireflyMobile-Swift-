@@ -10,6 +10,7 @@ import UIKit
 import M13Checkbox
 import SwiftyJSON
 import Alamofire
+import Realm
 
 class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate  {
 
@@ -198,6 +199,35 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if  json["status"].string == "success"{
+                            
+                            if try! LoginManager.sharedInstance.isLogin(){
+                                
+                                
+                                /*defaults.setObject(json["boarding_pass"].arrayValue, forKey: "boarding_pass")
+                                defaults.setObject(self.pnr, forKey: "pnr")
+                                defaults.synchronize()*/
+                                /*
+                                let realm = RLMRealm.defaultRealm()
+                                
+                                let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+                                let boardingPass = BoardingPassModel()
+                                boardingPass.pnr = self.pnr
+                                boardingPass.userId = userInfo["username"]!
+                                //boardingPass.boardingPass = json["boarding_pass"]
+                                //newTodoItem.name = (alertController.textFields?.first?.text!)!
+                                //newTodoItem.itemDescription = (alertController.textFields?.last?.text!)!
+                                do {
+                                    try realm.transactionWithBlock(){
+                                        realm.addObject(boardingPass)
+                                    }
+                                }
+                                catch {
+                                    
+                                }*/
+                            }
+                            
+                            
+
                             
                             let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                             let successVC = storyboard.instantiateViewControllerWithIdentifier("SuccessCheckInVC") as! SuccessCheckInViewController

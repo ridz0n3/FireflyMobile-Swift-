@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import SCLAlertView
+import RealmSwift
 
 class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -22,6 +23,19 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         setupMenuButton()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshTable:", name: "reloadHome", object: nil)
+        
+        let boardingArr = defaults.objectForKey("boarding_pass") as! [Dictionary<String, AnyObject>]
+        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+        
+        var userData = Results<BoardingPassModel>!()
+        userData = realm.objects(BoardingPassModel)
+        let mainUser = userData.filter("userId == %@", userInfo["username"]!)
+        
+        print(mainUser)
+        
+        /*realm.beginWrite()
+        realm.deleteAll()
+        try! realm.commitWrite()*/
         // Do any additional setup after loading the view.
     }
     

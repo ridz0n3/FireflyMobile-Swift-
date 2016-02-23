@@ -9,6 +9,7 @@
 import UIKit
 import MFSideMenu
 import SwiftyJSON
+import RealmSwift
 
 class SideMenuTableViewController: BaseViewController {
 
@@ -24,6 +25,7 @@ class SideMenuTableViewController: BaseViewController {
         if try! LoginManager.sharedInstance.isLogin(){
             hideRow = true
         }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -134,6 +136,65 @@ class SideMenuTableViewController: BaseViewController {
             
         }else if (indexPath.row == 4) {
             
+            if try! LoginManager.sharedInstance.isLogin(){
+                
+                let boardingArr = defaults.objectForKey("boarding_pass") as! [Dictionary<String, AnyObject>]
+                let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+                
+                var userData = Results<BoardingPassModel>!()
+                userData = realm.objects(BoardingPassModel)
+                let mainUser = userData.filter("userId == %@", userInfo["username"]!)
+
+                let pnr = PNRList()
+                pnr.pnr = defaults.objectForKey("pnr") as! String
+                
+                let boardingPass = BoardingPass()
+                for boardingInfo in boardingArr{
+                    boardingPass.name = boardingInfo["Name"] as! String
+                    boardingPass.departureStation = boardingInfo["DepartureStation"] as! String
+                    boardingPass.arrivalStation = boardingInfo["ArrivalStation"] as! String
+                    boardingPass.departureDate = boardingInfo["DepartureDate"] as! String
+                    boardingPass.departureTime = boardingInfo["DepartureTime"] as! String
+                    boardingPass.boardingTime = boardingInfo["BoardingTime"] as! String
+                    boardingPass.fare = boardingInfo["Fare"] as! String
+                    boardingPass.flightNumber = boardingInfo["FlightNumber"] as! String
+                    boardingPass.SSR = boardingInfo["SSR"] as! String
+                    boardingPass.QRCodeURL = boardingInfo["QRCodeURL"] as! String
+                    boardingPass.recordLocator = boardingInfo["RecordLocator"] as! String
+                    boardingPass.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
+                    boardingPass.departureStationCode = boardingInfo["DepartureStationCode"] as! String
+                    
+                    pnr.boardingPass.append(boardingPass)
+                }
+                
+                if mainUser.count == 0{
+                    
+                    let user = BoardingPassModel()
+                    user.userId = userInfo["username"]!
+                    user.pnr.append(pnr)
+                    
+                    try! realm.write({ () -> Void in
+                        realm.add(user)
+                        showToastMessage("success")
+                    })
+
+                }else{
+                    
+                    let mainPNR = mainUser[0].pnr.filter("pnr == %@", defaults.objectForKey("pnr") as! String)
+                    
+                    if mainPNR.count != 0{
+                        realm.beginWrite()
+                        realm.delete(mainPNR[0])
+                        try! realm.commitWrite()
+                    }
+                    
+                    try! realm.write({ () -> Void in
+                        mainUser[0].pnr.append(pnr)
+                        showToastMessage("success")
+                    })
+                }
+                
+            }
             //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
             //let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC")
