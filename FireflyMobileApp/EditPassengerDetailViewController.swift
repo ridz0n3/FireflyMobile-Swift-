@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class EditPassengerDetailViewController: CommonPassengerDetailViewController {
 
-    var passengerInformation = NSArray()
+    var passengerInformation = [Dictionary<String, AnyObject>]()
     var itineraryData = NSDictionary()
     var pnr = String()
     var bookingId = String()
@@ -24,14 +24,14 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
         for data in passengerInformation{
             
             if data["type"] as! String == "Adult"{
-                adultDetails.addObject(data)
+                adultDetails.append(data)
             }else{
-                infantDetails.addObject(data)
+                infantDetails.append(data)
             }
             
         }
         
-        adultArray = NSMutableArray()
+        adultArray = [Dictionary<String, AnyObject>]()
         
         adultCount = adultDetails.count
         infantCount = infantDetails.count
@@ -53,7 +53,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             i--
             
             let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(adult)"]
-            adultArray.addObject(adultData)
+            adultArray.append(adultData)
 
             section = XLFormSectionDescriptor()
             section = XLFormSectionDescriptor.formSectionWithTitle("Adult \(adult)")
@@ -99,9 +99,9 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             
             tempArray = [AnyObject]()
             for travel in travelDoc{
-                tempArray.append(XLFormOptionsObject(value: travel["doc_code"], displayText: travel["doc_name"]))
+                tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
                 
-                if adultDetails[i]["travel_document"] as? String == travel["doc_code"]{
+                if adultDetails[i]["travel_document"] as? String == travel["doc_code"] as! String{
                     row.value = travel["doc_name"]
                 }
             }
@@ -146,7 +146,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 var j = infant
                 j--
                 
-                let infantDict:NSDictionary = infantDetails[j] as! NSDictionary
+                let infantDict:NSDictionary = infantDetails[j] as NSDictionary
                 
                 // Basic Information - Section
                 section = XLFormSectionDescriptor()
@@ -174,9 +174,9 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 tempArray = [AnyObject]()
                 for gender in genderArray{
-                    tempArray.append(XLFormOptionsObject(value: gender["gender_code"], displayText: gender["gender_name"]))
+                    tempArray.append(XLFormOptionsObject(value: gender["gender_code"] as! String, displayText: gender["gender_name"] as! String))
                     
-                    if infantDict["gender"] as? String == gender["gender_code"]{
+                    if infantDict["gender"] as? String == gender["gender_code"] as? String{
                         row.value = gender["gender_name"]
                     }
                 }
@@ -211,9 +211,9 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 tempArray = [AnyObject]()
                 for travel in travelDoc{
-                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"], displayText: travel["doc_name"]))
+                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
                     
-                    if infantDict["travel_document"] as? String == travel["doc_code"]{
+                    if infantDict["travel_document"] as? String == travel["doc_code"] as! String{
                         row.value = travel["doc_name"]
                     }
                 }

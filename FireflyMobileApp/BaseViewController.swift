@@ -125,14 +125,14 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         
         if (defaults.objectForKey("flight") != nil){
             
-            let flight = defaults.objectForKey("flight") as! NSMutableArray
+            let flight = defaults.objectForKey("flight") as! [Dictionary<String,AnyObject>]
             var first = flight[0]["location_code"]
-            location.append(flight[0] as! NSDictionary)
+            location.append(flight[0])
             pickerRow.append(flight[0]["location"] as! String)
             for loc in flight{
                 
                 if loc["location_code"] as! String != first as! String{
-                    location.append(loc as! NSDictionary)
+                    location.append(loc)
                     pickerRow.append(loc["location"] as! String)
                     first = loc["location_code"]
                 }
@@ -146,13 +146,13 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     func getArrivalAirport(departureAirport: String){
         
         if (defaults.objectForKey("flight") != nil){
-            let flight = defaults.objectForKey("flight") as! NSMutableArray
+            let flight = defaults.objectForKey("flight") as! [Dictionary<String,AnyObject>]
             let first = departureAirport
             
             for loc in flight{
                 
                 if loc["location_code"] as! String == first{
-                    travel.append(loc as! NSDictionary)
+                    travel.append(loc)
                     pickerTravel.append(loc["travel_location"] as! String)
                 }
                 

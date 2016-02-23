@@ -63,7 +63,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         
         var i = 0
         var countNotCheckIn = 0
-        for passengerData in checkInDetail["passengers"] as! NSArray {
+        for passengerData in checkInDetail["passengers"] as! [Dictionary<String,AnyObject>] {
             
             section = XLFormSectionDescriptor()
             form.addFormSection(section)
@@ -81,9 +81,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             
             var tempArray = [AnyObject]()
             for travel in travelDoc{
-                tempArray.append(XLFormOptionsObject(value: travel["doc_code"], displayText: travel["doc_name"]))
+                tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
                 
-                if passengerData["travel_document"] as? String == travel["doc_code"]{
+                if passengerData["travel_document"] as? String == travel["doc_code"] as? String{
                     row.value = travel["doc_name"]
                 }
             }
@@ -128,7 +128,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             continueBtn.hidden = true
         }
         var j = 0
-        for passengerData in checkInDetail["passengers"] as! NSArray {
+        for passengerData in checkInDetail["passengers"] as! [Dictionary<String,AnyObject>] {
             
             let expiredDate = (passengerData["expiration_date"] as! String).componentsSeparatedByString("T")
             if passengerData["travel_document"] as! String == "P"{
@@ -234,7 +234,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                     if data == "true"{
                         var passengerInfo = [String:AnyObject]()
                         passengerInfo.updateValue("Y", forKey: "status")
-                        passengerInfo.updateValue(checkInDetail["passengers"]![count]["passenger_number"] as! String, forKey: "passenger_number")
+                        passengerInfo.updateValue(checkInDetail["passengers"]![count]["passenger_number"], forKey: "passenger_number")
                         passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
                         passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
                         passengerInfo.updateValue(formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]!, forKey: "document_number")
@@ -245,7 +245,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                     }else{
                         var passengerInfo = [String:AnyObject]()
                         passengerInfo.updateValue("N", forKey: "status")
-                        passengerInfo.updateValue(checkInDetail["passengers"]![count]["passenger_number"] as! String, forKey: "passenger_number")
+                        passengerInfo.updateValue(checkInDetail["passengers"]![count]["passenger_number"], forKey: "passenger_number")
                         passenger.updateValue(passengerInfo, forKey: "\(count)")
                     }
                     count++

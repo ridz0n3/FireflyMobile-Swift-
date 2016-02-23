@@ -17,10 +17,10 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     
     var adultCount = Int()
     var infantCount = Int()
-    var adultArray = NSMutableArray()
+    var adultArray = [Dictionary<String,AnyObject>]()
     
-    var adultDetails = NSMutableArray()
-    var infantDetails = NSMutableArray()
+    var adultDetails = [Dictionary<String,AnyObject>]()
+    var infantDetails = [Dictionary<String,AnyObject>]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

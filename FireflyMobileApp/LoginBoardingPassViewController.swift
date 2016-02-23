@@ -26,21 +26,21 @@ class LoginBoardingPassViewController: CommonListViewController {
                     if  json["status"].string == "success"{
                         var i = 0
                         var j = 0
-                        let dict = NSMutableDictionary()
-                        for info in json["boarding_pass"].arrayObject!{
+                        var dict = [String:AnyObject]()
+                        for info in json["boarding_pass"].arrayValue{
                             let index = "\(j)"
-                            let imageURL = info["QRCodeURL"] as? String
+                            let imageURL = info["QRCodeURL"].stringValue
                             
-                            Alamofire.request(.GET, imageURL!).response(completionHandler: { (request, response, data, error) -> Void in
+                            Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
                                 print(index)
-                                dict.setObject(UIImage(data: data!)!, forKey: "\(index)")
+                                dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
                                 i++
                                 
                                 if i == j{
                                     showHud("close")
                                     let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                                     let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-                                    boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
+                                    boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayValue
                                     boardingPassDetailVC.imgDict = dict
                                     self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
                                 }

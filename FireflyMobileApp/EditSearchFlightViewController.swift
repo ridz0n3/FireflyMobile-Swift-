@@ -221,9 +221,11 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     
     func checkSection(sender:UIButton){
         
-        if flightDetail[sender.tag]["flight_status"] as! String == "Checked_in"{
+        let detail = flightDetail[sender.tag] as! [String: String]
+        
+        if detail["flight_status"]! as String == "Checked_in"{
             showErrorMessage("Checked-in flight cannot be changed.")
-        }else if flightDetail[sender.tag]["flight_status"] as! String == "Departed_flight"{
+        }else if detail["flight_status"]! as String == "Departed_flight"{
             showErrorMessage("Departed flight cannot be changed.")
         }else{
             if sender.tag == 0 && !isCheckGoing{
@@ -245,7 +247,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     
     func getFlightName(flightCode : String) -> String{
         
-        let flightArr = defaults.objectForKey("flight") as! NSArray
+        let flightArr = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
         var flightName = String()
         for flightData in flightArr{
             

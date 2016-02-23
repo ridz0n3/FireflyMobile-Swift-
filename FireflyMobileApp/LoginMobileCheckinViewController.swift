@@ -26,7 +26,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
                     if  json["status"].string == "success"{
                         let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                         let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInDetailVC") as! MobileCheckInDetailViewController
-                        checkInDetailVC.checkInDetail = json.object as! NSDictionary
+                        checkInDetailVC.checkInDetail = json.object as! NSDictionary as! [String : AnyObject]
                         checkInDetailVC.pnr = bookingList["pnr"] as! String
                         self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                         

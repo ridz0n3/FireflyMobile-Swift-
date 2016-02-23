@@ -13,9 +13,9 @@ import SwiftyJSON
 class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet weak var paymentTableView: UITableView!
-    var flightDetail = NSArray()
-    var priceDetail = NSMutableArray()
-    var serviceDetail = NSArray()
+    var flightDetail = [Dictionary<String,AnyObject>]()
+    var priceDetail = [Dictionary<String,AnyObject>]()
+    var serviceDetail = [Dictionary<String,AnyObject>]()
     var totalPrice = String()
     
     @IBOutlet weak var continueBtn: UIButton!
@@ -27,13 +27,13 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         setupLeftButton()
         
         let paymentDetail = defaults.objectForKey("itenerary") as! NSDictionary
-        flightDetail = paymentDetail["flight_details"] as! NSArray
-        priceDetail = (paymentDetail["price_details"]?.mutableCopy())! as! NSMutableArray
+        flightDetail = paymentDetail["flight_details"] as! [Dictionary<String,AnyObject>]
+        priceDetail = paymentDetail["price_details"] as! [Dictionary<String,AnyObject>]
         totalPrice = paymentDetail["total_price"] as! String
         
-        let service = priceDetail.lastObject as! NSDictionary
-        priceDetail.removeLastObject()
-        serviceDetail = service["services"] as! NSArray
+        let service = priceDetail.last
+        priceDetail.removeLast()// .removeLastObject()
+        serviceDetail = service!["services"] as! [Dictionary<String,AnyObject>]
         
         // Do any additional setup after loading the view.
     }
@@ -91,7 +91,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             return cell
             
         }else if indexPath.section == 1{
-            let detail = priceDetail[indexPath.row] as! NSDictionary
+            let detail = priceDetail[indexPath.row] as NSDictionary
             
             let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("PriceDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             

@@ -244,11 +244,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         rowDescriptor.cellForFormController(self).unhighlight()
         if rowDescriptor.tag == Tags.ValidationCountry{
             var stateArr = [NSDictionary]()
-            let state = defaults.objectForKey("state") as! NSMutableArray
+            let state = defaults.objectForKey("state") as! [Dictionary<String, AnyObject>]
             
             for stateData in state {
                 if stateData["country_code"] as! String == (form.formRowWithTag(Tags.ValidationCountry)?.value as! XLFormOptionObject).formValue() as! String{
-                    stateArr.append(stateData as! NSDictionary)
+                    stateArr.append(stateData as NSDictionary)
                 }
             }
             

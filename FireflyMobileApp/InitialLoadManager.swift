@@ -25,9 +25,9 @@ class InitialLoadManager {
         var password = String()
         
         if try! LoginManager.sharedInstance.isLogin(){
-            let userinfo = defaults.objectForKey("userInfo") 
-            username = userinfo!["username"] as! String
-            password = userinfo!["password"] as! String
+            let userinfo = defaults.objectForKey("userInfo") as! [String: AnyObject]
+            username = userinfo["username"] as! String
+            password = userinfo["password"] as! String
         }
         let deviceId = UIDevice.currentDevice().identifierForVendor?.UUIDString//defaults.objectForKey("token") as! String
         //print(deviceId)

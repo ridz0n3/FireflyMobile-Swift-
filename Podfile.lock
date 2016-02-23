@@ -11,6 +11,11 @@ PODS:
   - Moya/Core (5.3.0):
     - Alamofire (~> 3.0)
     - Result (~> 1.0)
+  - Realm (0.98.2):
+    - Realm/Headers (= 0.98.2)
+  - Realm/Headers (0.98.2)
+  - RealmSwift (0.98.2):
+    - Realm (= 0.98.2)
   - Result (1.0.2)
   - RSDayFlow (1.3.0)
   - SCLAlertView (0.5.1)
@@ -28,6 +33,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9)
   - MFSideMenu (~> 0.5)
   - Moya (~> 5.0)
+  - RealmSwift (~> 0.98)
   - RSDayFlow
   - SCLAlertView
   - SwiftValidator (= 3.0.1)
@@ -44,6 +50,8 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MFSideMenu: 268122e6894f2747fc3a2b48578100b232506c60
   Moya: dfd9310f3dfb198927976dad445ead477ca6c2a3
+  Realm: 88a147fe04b8f07191a676b15c779b2b448991de
+  RealmSwift: 9907c7415b3e19ef2ab9f89878fc890f03f93aea
   Result: dd3dd71af3fa2e262f1a999e14fba2c25ec14f16
   RSDayFlow: d9dbd8a7f0d57019a482220e5f3ed9d836fdb397
   SCLAlertView: 3ac39a863d3e10fc165662b1228b03402297aea9

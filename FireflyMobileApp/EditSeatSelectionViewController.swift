@@ -18,37 +18,37 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var newSeat = NSMutableArray()
-        var seatArray = NSMutableArray()
-        var seatData = NSMutableArray()
-        let passengersArr = NSMutableArray()
+        var newSeat = [Dictionary<String,AnyObject>]()
+        var seatArray = [Dictionary<String,AnyObject>]()
+        var seatData = [Dictionary<String,AnyObject>]()
+        var passengersArr = [Dictionary<String,AnyObject>]()
         var countJourney = 0
-        for info in journeys{
+        for info in journeys as! [Dictionary<String, AnyObject>]{
             
             let data = NSMutableDictionary()
             let departureStationName = info["departure_station_name"] as! String
             let departureStation =  info["departure_station"] as! String
             let arrivalStation = info["arrival_station"] as! String
             let arrivalStationName = info["arrival_station_name"] as! String
-            let passengerInfo = info["passengers"] as! NSArray
+            let passengerInfo = info["passengers"] as! [Dictionary<String,AnyObject>]
             let seat = NSMutableArray()
-            seatData = info["seat_info"] as! NSMutableArray
-            newSeat = seatData.mutableCopy() as! NSMutableArray
+            seatData = info["seat_info"] as! [Dictionary<String,AnyObject>]
+            newSeat = seatData 
             var seatIndex = 0
             
             while newSeat.count != 0{
                 if seatIndex == 3{
                     
                     seatIndex = 0
-                    seatArray.addObject(newSeat[0])
+                    seatArray.append(newSeat[0])
                     seat.addObject(seatArray)
-                    newSeat.removeObjectAtIndex(0)
-                    seatArray = NSMutableArray()
+                    newSeat.removeAtIndex(0)
+                    seatArray = [Dictionary<String,AnyObject>]()
                     
                 }else{
                     
-                    seatArray.addObject(newSeat[0])
-                    newSeat.removeObjectAtIndex(0)
+                    seatArray.append(newSeat[0])
+                    newSeat.removeAtIndex(0)
                     seatIndex++
                     
                 }
@@ -60,14 +60,14 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 
                 for seatRowInfo in seat{
                     
-                    for info in seatRowInfo as! NSArray{
+                    for info in seatRowInfo as! [Dictionary<String,AnyObject>]{
                         
                         if seatInfo["unit_designator"] as! String == info["seat_number"] as! String{
                             if countJourney == 0{
-                                passengers1.updateValue(info as! NSDictionary, forKey: "\(i)")
+                                passengers1.updateValue(info as NSDictionary, forKey: "\(i)")
                                 seatDict.updateValue(passengers1, forKey: "\(countJourney)")
                             }else{
-                                passengers2.updateValue(info as! NSDictionary, forKey: "\(i)")
+                                passengers2.updateValue(info as NSDictionary, forKey: "\(i)")
                                 seatDict.updateValue(passengers2, forKey: "\(countJourney)")
                             }
                             break
@@ -80,7 +80,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 
             }
             
-                passengersArr.addObject(info["passengers"] as! NSArray)
+            passengersArr.append(info["passengers"] as! [String:AnyObject])
             
             data.setValue(departureStation, forKey: "departure_station")
             data.setValue(departureStationName, forKey: "departure_station_name")
@@ -94,7 +94,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
         }
         
         if isEdit{
-            passenger = passengersArr.mutableCopy() as! NSArray
+            passenger = passengersArr
         }
 
         // Do any additional setup after loading the view.

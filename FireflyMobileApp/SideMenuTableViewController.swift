@@ -143,9 +143,11 @@ class SideMenuTableViewController: BaseViewController {
             //controllers.append(homeVC)
             
         }else if (indexPath.row == 5) {
+            
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             let faqVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC")
             controllers.append(faqVC)
+            
         }else{
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC")

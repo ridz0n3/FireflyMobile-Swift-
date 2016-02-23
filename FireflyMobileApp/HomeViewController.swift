@@ -135,7 +135,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if indexPath.row == 1{
+        if indexPath.row == 0{
+            
+            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+            let bookFlightVC = storyboard.instantiateViewControllerWithIdentifier("BookFlightVC") as! SearchFlightViewController
+            self.navigationController!.pushViewController(bookFlightVC, animated: true)
+            
+        }else if indexPath.row == 1{
             
             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
             let bookFlightVC = storyboard.instantiateViewControllerWithIdentifier("BookFlightVC") as! SearchFlightViewController
@@ -143,10 +149,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         }else if indexPath.row == 2{
             if try! LoginManager.sharedInstance.isLogin(){
-                let userinfo = defaults.objectForKey("userInfo")
+                let userinfo = defaults.objectForKey("userInfo") as! [String: String]
                 showHud("open")
                 
-                FireFlyProvider.request(.RetrieveBookingList(userinfo!["username"] as! String, userinfo!["password"] as! String, "manage_booking"), completion: { (result) -> () in
+                FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]!, userinfo["password"]!, "manage_booking"), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
@@ -189,10 +195,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         }else if indexPath.row == 3{
             
             if try! LoginManager.sharedInstance.isLogin(){
-                let userinfo = defaults.objectForKey("userInfo")
+                let userinfo = defaults.objectForKey("userInfo") as! [String: String]
                 showHud("open")
                 
-                FireFlyProvider.request(.RetrieveBookingList(userinfo!["username"] as! String, userinfo!["password"] as! String, "check_in"), completion: { (result) -> () in
+                FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]!, userinfo["password"]!, "check_in"), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
@@ -238,10 +244,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         }else if indexPath.row == 4{
             
             if try! LoginManager.sharedInstance.isLogin(){
-                let userinfo = defaults.objectForKey("userInfo")
+                let userinfo = defaults.objectForKey("userInfo") as! [String : String]
                 showHud("open")
                 
-                FireFlyProvider.request(.RetrieveBookingList(userinfo!["username"] as! String, userinfo!["password"] as! String, "boarding_pass"), completion: { (result) -> () in
+                FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]!, userinfo["password"]!, "boarding_pass"), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {

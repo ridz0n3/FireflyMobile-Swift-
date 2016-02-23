@@ -8,12 +8,13 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate {
 
     @IBOutlet var boardingPassView: UIView!
-    var boardingPassData = NSArray()
-    var imgDict = NSMutableDictionary()
+    var boardingPassData = [JSON]()
+    var imgDict = [String:AnyObject]()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!

@@ -13,8 +13,8 @@ import M13Checkbox
 
 class CommonContactDetailViewController: BaseXLFormViewController {
     
-    var stateArray = NSMutableArray()
-    var contactData = NSDictionary()
+    var stateArray = [Dictionary<String,AnyObject>]()
+    var contactData = Dictionary<String,AnyObject>()
     
     @IBOutlet weak var views: UIView!
     @IBOutlet weak var paragraph1: UITextView!
@@ -24,13 +24,13 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var footerView: UIView!
     
-    var titleArray = defaults.objectForKey("title") as! NSMutableArray
-    var countryArray = defaults.objectForKey("country") as! NSMutableArray
+    var titleArray = defaults.objectForKey("title") as! [Dictionary<String,AnyObject>]
+    var countryArray = defaults.objectForKey("country") as! [Dictionary<String,AnyObject>]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
-        stateArray = defaults.objectForKey("state") as! NSMutableArray
+        stateArray = defaults.objectForKey("state") as! [Dictionary<String,AnyObject>]
         // Do any additional setup after loading the view.
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "addBusiness:", name: "addBusiness", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeBusiness:", name: "removeBusiness", object: nil)
@@ -57,9 +57,9 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         
         var tempArray:[AnyObject] = [AnyObject]()
         for purpose in purposeArray{
-            tempArray.append(XLFormOptionsObject(value: purpose["purpose_code"], displayText: purpose["purpose_name"]))
+            tempArray.append(XLFormOptionsObject(value: purpose["purpose_code"], displayText: purpose["purpose_name"] as! String))
             
-            if contactData["travel_purpose"] as? String == purpose["purpose_code"]{
+            if contactData["travel_purpose"] as? String == purpose["purpose_code"] as! String{
                 row.value = purpose["purpose_name"]
             }
         }
@@ -72,10 +72,10 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
         
         tempArray = [AnyObject]()
-        for title in titleArray{
-            tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
+        for title in titleArray {
+            tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as? String))
             
-            if contactData["title"] as? String == title["title_code"]  as? String{
+            if contactData["title"] as? String == title["title_code"] as? String{
                 row.value = title["title_name"]
             }
         }
@@ -182,7 +182,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         }
     }
 
-    func getPurpose(purposeName:String, purposeArr:NSArray) -> String{
+    func getPurpose(purposeName:String, purposeArr:[Dictionary<String,AnyObject>]) -> String{
         
         var purposeCode = String()
         for purposeData in purposeArr{
@@ -269,7 +269,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             var stateArr = [NSDictionary]()
             for stateData in stateArray{
                 if stateData["country_code"] as! String == countryCode{
-                    stateArr.append(stateData as! NSDictionary)
+                    stateArr.append(stateData as NSDictionary)
                 }
             }
             

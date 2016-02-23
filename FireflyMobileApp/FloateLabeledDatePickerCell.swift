@@ -111,7 +111,7 @@ class FloateLabeledDatePickerCell: XLFormBaseCell {
     func formatDate(date:NSDate) -> String{
         
         let formater = NSDateFormatter()
-        formater.dateFormat = "dd-MM-yyyy"
+        formater.dateFormat = "yyyy-MM-dd"
         return formater.stringFromDate(date)
         
     }

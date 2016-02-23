@@ -51,8 +51,8 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let bookingList = listBooking[indexPath.row] as! NSDictionary
-        let userInfo = defaults.objectForKey("userInfo")
-        let username = userInfo!["username"] as! String
+        let userInfo = defaults.objectForKey("userInfo") as! [String:AnyObject]
+        let username = userInfo["username"] as! String
         showHud("open")
         
         FireFlyProvider.request(.RetrieveBooking(signature, bookingList["pnr"] as! String,username, userId)) { (result) -> () in

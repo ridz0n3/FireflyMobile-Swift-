@@ -9,12 +9,13 @@
 import UIKit
 import M13Checkbox
 import XLForm
+import SwiftyJSON
 
 class CommonPaymentViewController: BaseXLFormViewController {
 
     var totalDue = Int()
-    var paymentType = NSArray()
-    var cardType = NSMutableArray()
+    var paymentType = [AnyObject]()
+    var cardType = [Dictionary<String,AnyObject>]()
     var paymentMethod = String()
     
     @IBOutlet weak var headerView: UIView!
@@ -45,11 +46,11 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         var xchannelPosition : CGFloat = 41
         var xonlinePosition : CGFloat = 41
-        var xcashPosition : CGFloat = 41
+        //var xcashPosition : CGFloat = 41
         
-        for channel in paymentType{
+        for channel in paymentType as! [Dictionary<String, AnyObject>]{
             
-            let url = NSURL(string: channel["channel_logo"] as! String)!
+            let url = NSURL(string: (channel["channel_logo"] as! String))!
             let data = NSData(contentsOfURL: url)
             
             if channel["channel_type"] as! Int == 1{
@@ -61,7 +62,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 
                 xchannelPosition = xchannelPosition + 70
                 
-                cardType.addObject(channel)
+                cardType.append(channel)
                 
             }else if channel["channel_type"] as! Int == 2{
                 
@@ -132,7 +133,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         var tempArray = [AnyObject]()
         for cType in cardType{
-            tempArray.append(XLFormOptionsObject(value: cType["channel_code"], displayText: cType["channel_name"] as! String))
+            tempArray.append(XLFormOptionsObject(value: cType["channel_code"] as! String, displayText: cType["channel_name"] as! String))
         }
         
         row.selectorOptions = tempArray
@@ -163,11 +164,11 @@ class CommonPaymentViewController: BaseXLFormViewController {
         self.form = form
     }
 
-    func getCardTypeCode(cardName:String, cardArr:NSArray)->String{
+    func getCardTypeCode(cardName:String, cardArr:[Dictionary<String,AnyObject>])->String{
         var cardCode = String()
         for cardData in cardArr{
             if cardData["channel_name"] as! String == cardName{
-                cardCode = cardData["channel_code"] as! String
+                cardCode = (cardData["channel_code"] as! String)
             }
         }
         return cardCode
