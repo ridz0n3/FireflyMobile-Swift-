@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -250,16 +251,23 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fjO-rf-wl1">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="90" width="600" height="510"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="headerLogo" translatesAutoresizingMaskIntoConstraints="NO" id="DN4-8N-rBX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bbI-BF-8yf" firstAttribute="top" secondItem="fjO-rf-wl1" secondAttribute="bottom" id="RP5-7e-A5X"/>
-                            <constraint firstItem="fjO-rf-wl1" firstAttribute="top" secondItem="L1c-Pg-SEl" secondAttribute="top" id="Xh2-7U-S0i"/>
-                            <constraint firstItem="fjO-rf-wl1" firstAttribute="leading" secondItem="L1c-Pg-SEl" secondAttribute="leading" id="aUa-yC-Ksi"/>
-                            <constraint firstAttribute="trailing" secondItem="fjO-rf-wl1" secondAttribute="trailing" id="m7S-w9-sgM"/>
+                            <constraint firstItem="fjO-rf-wl1" firstAttribute="leading" secondItem="L1c-Pg-SEl" secondAttribute="leading" id="1nu-QD-l5I"/>
+                            <constraint firstItem="bbI-BF-8yf" firstAttribute="top" secondItem="fjO-rf-wl1" secondAttribute="bottom" id="34q-R4-nI9"/>
+                            <constraint firstItem="DN4-8N-rBX" firstAttribute="height" secondItem="L1c-Pg-SEl" secondAttribute="height" multiplier="0.15" id="62g-lc-CU7"/>
+                            <constraint firstAttribute="trailing" secondItem="fjO-rf-wl1" secondAttribute="trailing" id="6ef-SJ-ekF"/>
+                            <constraint firstItem="fjO-rf-wl1" firstAttribute="top" secondItem="DN4-8N-rBX" secondAttribute="bottom" id="VpI-Ue-Bhy"/>
+                            <constraint firstAttribute="trailing" secondItem="DN4-8N-rBX" secondAttribute="trailing" id="amb-8X-ULv"/>
+                            <constraint firstItem="DN4-8N-rBX" firstAttribute="leading" secondItem="L1c-Pg-SEl" secondAttribute="leading" id="hLd-Vt-Fcm"/>
+                            <constraint firstItem="DN4-8N-rBX" firstAttribute="top" secondItem="L1c-Pg-SEl" secondAttribute="top" id="hP9-AB-acw"/>
                         </constraints>
                     </view>
                     <connections>
@@ -268,11 +276,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPg-Vx-Kf9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="985" y="370"/>
+            <point key="canvasLocation" x="979" y="380"/>
         </scene>
     </scenes>
     <resources>
         <image name="fb" width="200" height="200"/>
+        <image name="headerLogo" width="559" height="144"/>
         <image name="instagram" width="200" height="200"/>
         <image name="twitter" width="200" height="200"/>
     </resources>
