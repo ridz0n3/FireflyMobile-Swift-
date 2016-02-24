@@ -24,14 +24,17 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         setupMenuButton()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshTable:", name: "reloadHome", object: nil)
         
-        let boardingArr = defaults.objectForKey("boarding_pass") as! [Dictionary<String, AnyObject>]
-        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+     //    let boardingArr = defaults.objectForKey("boarding_pass") as! [Dictionary<String, AnyObject>]
+        if   let userInfo = defaults.objectForKey("userInfo") as! [String : String]? {
+            var userData = Results<BoardingPassModel>!()
+            userData = realm.objects(BoardingPassModel)
+            let mainUser = userData.filter("userId == %@", userInfo["username"]!)
+             print(mainUser)
+
+        }
         
-        var userData = Results<BoardingPassModel>!()
-        userData = realm.objects(BoardingPassModel)
-        let mainUser = userData.filter("userId == %@", userInfo["username"]!)
         
-        print(mainUser)
+       
         
         /*realm.beginWrite()
         realm.deleteAll()
