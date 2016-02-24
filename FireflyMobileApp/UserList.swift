@@ -1,16 +1,15 @@
 //
-//  BoardingPassModel.swift
+//  UserList.swift
 //  FireflyMobileApp
 //
-//  Created by ME-Tech Mac User 1 on 2/22/16.
+//  Created by ME-Tech Mac User 1 on 2/24/16.
 //  Copyright © 2016 Me-tech. All rights reserved.
 //
 
-import RealmSwift
 import Foundation
-import Realm
+import RealmSwift
 
-class BoardingPassModel: Object {
+class UserList: Object {
     
     dynamic var userId = ""
     let pnr = List<PNRList>()

@@ -42,7 +42,7 @@ class MobileCheckinViewController: CommonSearchDetailViewController {
                         }
                     }
                     catch {
-                        
+                        showErrorMessage("We are unable to locate the itinerary. Please verify the information is correct and try again.")
                     }
                     
                 case .Failure(let failureResult):

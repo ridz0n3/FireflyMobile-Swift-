@@ -289,7 +289,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                 }
             }
             else {
-                tempArray.append(XLFormOptionsObject(value: 0, displayText: "Other"))
+                tempArray.append(XLFormOptionsObject(value: "OT", displayText: "Other"))
             }
             
             row.selectorOptions = tempArray

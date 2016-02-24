@@ -12,10 +12,10 @@ import RealmSwift
 class PNRList: Object {
     
     dynamic var pnr = ""
-    let boardingPass = List<BoardingPass>()
-// Specify properties to ignore (Realm won't persist these)
+    dynamic var departureStationCode = ""
+    dynamic var arrivalStationCode = ""
+    dynamic var departureDateTime = NSDate()
+    dynamic var departureDayDate = ""
+    let boardingPass = List<BoardingPassList>()
     
-//  override static func ignoredProperties() -> [String] {
-//    return []
-//  }
 }
