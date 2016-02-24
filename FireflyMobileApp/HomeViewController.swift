@@ -24,18 +24,6 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         setupMenuButton()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshTable:", name: "reloadHome", object: nil)
         
-     //    let boardingArr = defaults.objectForKey("boarding_pass") as! [Dictionary<String, AnyObject>]
-        if   let userInfo = defaults.objectForKey("userInfo") as! [String : String]? {
-            var userData = Results<BoardingPassModel>!()
-            userData = realm.objects(BoardingPassModel)
-            let mainUser = userData.filter("userId == %@", userInfo["username"]!)
-             print(mainUser)
-
-        }
-        
-        
-       
-        
         /*realm.beginWrite()
         realm.deleteAll()
         try! realm.commitWrite()*/
@@ -295,7 +283,26 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                         
                     case .Failure(let failureResult):
                         showHud("close")
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        //showErrorMessage(failureResult.nsError.localizedDescription)
+                        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+                        var userData = Results<UserList>!()
+                        userData = realm.objects(UserList)
+                        let mainUser = userData.filter("userId == %@", userInfo["username"]!)
+                        
+                        if mainUser.count != 0{
+                            
+                            let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
+                            let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginBoardingPassVC") as! LoginBoardingPassViewController
+                            mobileCheckinVC.isOffline = true
+                            mobileCheckinVC.pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: false)
+                            self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
+                            print(mainUser[0].pnr.count)
+                        }else{
+                            let alert = SCLAlertView()
+                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                        }
+                        
+                        
                     }
                 })
                 

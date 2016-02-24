@@ -64,7 +64,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "Current Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,}$"))
+        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         //row.required = true
         section.addFormRow(row)
         
@@ -73,7 +73,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "New Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,}$"))
+        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         //row.required = true
         section.addFormRow(row)
         

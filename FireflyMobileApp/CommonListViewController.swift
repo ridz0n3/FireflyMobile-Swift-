@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import RealmSwift
+import Realm
 
 class CommonListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var LoginMobileCheckinTableView: UITableView!
+    
+    var isOffline = Bool()
+    var pnrList = Results<PNRList>!()
     
     var userId = String()
     var signature = String()
@@ -28,7 +33,13 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return listBooking.count
+        
+        if isOffline{
+            return pnrList.count
+        }else{
+            return listBooking.count
+        }
+        
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -39,10 +50,19 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
         
         let cell = LoginMobileCheckinTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
         
-        let bookingList = listBooking[indexPath.row] as! NSDictionary
+        if isOffline{
+            let bookingList = pnrList[indexPath.row]
+            
+            cell.flightNumber.text = "\(bookingList.departureStationCode) - \(bookingList.arrivalStationCode)"
+            cell.flightDate.text = bookingList.departureDayDate
+            
+        }else{
+            let bookingList = listBooking[indexPath.row] as! NSDictionary
+            
+            cell.flightNumber.text = "\(bookingList["departure_station_code"]!) - \(bookingList["arrival_station_code"]!)"
+            cell.flightDate.text = "\(bookingList["date"]!)"
+        }
         
-        cell.flightNumber.text = "\(bookingList["departure_station_code"]!) - \(bookingList["arrival_station_code"]!)"
-        cell.flightDate.text = "\(bookingList["date"]!)"
         
         return cell
     }
