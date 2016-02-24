@@ -18,6 +18,7 @@ pod 'RSDayFlow'
 pod 'JVFloatLabeledTextField', '1.0.2', :inhibit_warnings => true
 pod 'Moya', '~> 5.0'
 pod 'SCLAlertView'
+pod 'RealmSwift', '~> 0.98'
 end
 
 target 'FireflyMobileAppTests' do

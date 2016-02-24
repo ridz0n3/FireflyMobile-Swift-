@@ -13,15 +13,15 @@ import SCLAlertView
 class EditContactDetailViewController: CommonContactDetailViewController {
 
     @IBOutlet weak var continueBtn: UIButton!
-    var itineraryData = NSDictionary()
-    var insuranceDetails = NSDictionary()
+    var itineraryData = [String: AnyObject]()
+    var insuranceDetails = [String: AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
         
-        itineraryData = defaults.objectForKey("manageFlight") as! NSDictionary
-        contactData = itineraryData["contact_information"] as! NSDictionary
-        insuranceDetails = itineraryData["insurance_details"] as! NSDictionary
+        itineraryData = defaults.objectForKey("manageFlight") as! [String : AnyObject]
+        contactData = itineraryData["contact_information"] as! Dictionary<String, AnyObject>
+        insuranceDetails = itineraryData["insurance_details"]  as! [String : AnyObject]
         
         if insuranceDetails["status"] as! String == "N"{
             views.hidden = true
@@ -57,7 +57,11 @@ class EditContactDetailViewController: CommonContactDetailViewController {
             let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState])! as! String, stateArr: stateArray)
             let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode])!  as! String
             
-            let pnr = "\(itineraryData["itinerary_information"]!["pnr"])"
+            var pnr = ""
+            if let interaryInfo = itineraryData["itinerary_information"] as? Dictionary<String,String>{
+                pnr = interaryInfo["pnr"]! as String
+            }
+            
             let booking_id = "\(itineraryData["booking_id"]!)"
             let signature = "\(itineraryData["signature"]!)"
             

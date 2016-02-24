@@ -13,13 +13,13 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        journeys = defaults.objectForKey("journey") as! NSArray
+        journeys = defaults.objectForKey("journey") as! [AnyObject]
         passenger = defaults.objectForKey("passenger") as! NSArray
         
-        var newSeat = NSMutableArray()
-        var seatArray = NSMutableArray()
-        var seatData = NSMutableArray()
-        for info in journeys{
+        var newSeat = [Dictionary<String, AnyObject>]()
+        var seatArray = [Dictionary<String, AnyObject>]()
+        var seatData = [Dictionary<String, AnyObject>]()
+        for info in journeys as! [Dictionary<String, AnyObject>]{
             
             let data = NSMutableDictionary()
             let departureStationName = info["departure_station_name"] as! String
@@ -27,22 +27,22 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
             let arrivalStation = info["arrival_station"] as! String
             let arrivalStationName = info["arrival_station_name"] as! String
             let seat = NSMutableArray()
-            seatData = info["seat_info"] as! NSMutableArray
-            newSeat = seatData.mutableCopy() as! NSMutableArray
+            seatData = info["seat_info"] as! [Dictionary<String, AnyObject>]
+            newSeat = seatData
             var seatIndex = 0
             while newSeat.count != 0{
                 if seatIndex == 3{
                     
                     seatIndex = 0
-                    seatArray.addObject(newSeat[0])
+                    seatArray.append(newSeat[0])
                     seat.addObject(seatArray)
-                    newSeat.removeObjectAtIndex(0)
-                    seatArray = NSMutableArray()
+                    newSeat.removeAtIndex(0)
+                    seatArray = [Dictionary<String, AnyObject>]()
                     
                 }else{
                     
-                    seatArray.addObject(newSeat[0])
-                    newSeat.removeObjectAtIndex(0)
+                    seatArray.append(newSeat[0])
+                    newSeat.removeAtIndex(0)
                     seatIndex++
                     
                 }
@@ -83,9 +83,9 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     let returnSeatSelection = NSMutableArray()
                     for i in 0...seatDict.count-1{
                         let newSeat = NSMutableDictionary()
-                        let newDetail = NSMutableDictionary()
+                        
                         for j in 0...seatDict["\(i)"]!.count-1{
-                            
+                            let newDetail = NSMutableDictionary()
                             newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["seat_number"], forKey: "seat_number")
                             newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["compartment_designator"], forKey: "compartment_designator")
                             

@@ -54,11 +54,10 @@ class EditPaymentViewController: CommonPaymentViewController {
                     showHud("open")
                     FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingId), completion: { (result) -> () in
                         
-                        showHud("close")
                         switch result {
                         case .Success(let successResult):
                             do {
-                                showHud("close")
+                                
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "Redirect"{
@@ -73,6 +72,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else{
+                                    showHud("close")
                                     //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                                 }

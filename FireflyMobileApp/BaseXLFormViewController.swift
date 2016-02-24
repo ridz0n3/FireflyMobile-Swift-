@@ -197,7 +197,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     func formatDate(date:NSDate) -> String{
         
         let formater = NSDateFormatter()
-        formater.dateFormat = "yyyy-MM-dd"
+        formater.dateFormat = "dd-MM-yyyy"
         return formater.stringFromDate(date)
         
     }
@@ -221,7 +221,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         
     }
     
-    func getTitleCode(titleName:String, titleArr:NSArray)->String{
+    func getTitleCode(titleName:String, titleArr:[Dictionary<String, AnyObject>])->String{
         var titleCode = String()
         for titleData in titleArr{
             if titleData["title_name"] as! String == titleName{
@@ -231,7 +231,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         return titleCode
     }
     
-    func getCountryCode(countryName:String, countryArr:NSArray)->String{
+    func getCountryCode(countryName:String, countryArr:[Dictionary<String, AnyObject>])->String{
         var countryCode = String()
         for countryData in countryArr{
             if countryData["country_name"] as! String == countryName{
@@ -241,7 +241,8 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         return countryCode
     }
     
-    func getStateCode(stateName:String, stateArr:NSArray)->String{
+    func getStateCode(stateName:String, stateArr:[Dictionary<String, AnyObject>]
+)->String{
         var stateCode = String()
         for stateData in stateArr{
             if stateData["state_name"] as! String == stateName{
@@ -251,7 +252,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         return stateCode
     }
     
-    func getTravelDocCode(docName:String, docArr:NSArray)->String{
+    func getTravelDocCode(docName:String, docArr:[Dictionary<String, AnyObject>])->String{
         var docCode = String()
         for docData in docArr{
             if docData["doc_name"] as! String == docName{
@@ -261,7 +262,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         return docCode
     }
     
-    func getTravelWithCode(travelName:String, travelArr:NSArray)->String{
+    func getTravelWithCode(travelName:String, travelArr:[Dictionary<String, AnyObject>])->String{
         var travelCode = String()
         for travelData in travelArr {
             if travelData["passenger_name"] as! String == travelName{
@@ -271,7 +272,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         return travelCode
     }
     
-    func getGenderCode(genderName:String, genderArr:NSArray)->String{
+    func getGenderCode(genderName:String, genderArr:[Dictionary<String, AnyObject>])->String{
         var genderCode = String()
         for genderData in genderArr{
             if genderData["gender_name"] as! String == genderName{

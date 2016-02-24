@@ -10,6 +10,8 @@ import UIKit
 import MFSideMenu
 import XLForm
 import CoreData
+import RealmSwift
+import Realm
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -43,6 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.centerViewController = navigationController
         
         container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
+        
+        let config = RLMRealmConfiguration.defaultConfiguration()
+        config.schemaVersion = 4
+        config.migrationBlock = { (migration, oldSchemaVersion) in
+            // nothing to do
+        }
+        RLMRealmConfiguration.setDefaultConfiguration(config)
         
         return true
     }

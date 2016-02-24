@@ -29,17 +29,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     var contacts = [NSManagedObject]()
     
     var itineraryData = NSDictionary()
-    var flightDetail = NSArray()
+    var flightDetail = [Dictionary<String,AnyObject>]()
     var totalPrice = String()
     var insuranceDetails = NSDictionary()
     var contactInformation = NSDictionary()
     var itineraryInformation = NSDictionary()
-    var paymentDetails = NSArray()
-    var passengerInformation = NSArray()
+    var paymentDetails = [Dictionary<String,AnyObject>]()
+    var passengerInformation = [Dictionary<String,AnyObject>]()
     var totalDue = String()
     var totalPaid = String()
-    var priceDetail = NSMutableArray()
-    var serviceDetail = NSArray()
+    var priceDetail = [Dictionary<String,AnyObject>]()
+    var serviceDetail = [Dictionary<String,AnyObject>]()
     var isConfirm = Bool()
     var pnr = String()
     var bookingId = String()
@@ -112,21 +112,21 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     }
     
     func getInfo(){
-    
-        flightDetail = itineraryData["flight_details"] as! NSArray
-        priceDetail = (itineraryData["price_details"]?.mutableCopy())! as! NSMutableArray
+        
+        flightDetail = itineraryData["flight_details"] as! [Dictionary<String,AnyObject>]
+        priceDetail = itineraryData["price_details"] as! [Dictionary<String,AnyObject>]
         totalPrice = itineraryData["total_price"] as! String
         insuranceDetails = itineraryData["insurance_details"] as! NSDictionary
         contactInformation = itineraryData["contact_information"] as! NSDictionary
         itineraryInformation = itineraryData["itinerary_information"] as! NSDictionary
-        paymentDetails = itineraryData["payment_details"] as! NSArray
-        passengerInformation = itineraryData["passenger_information"] as! NSArray
+        paymentDetails = itineraryData["payment_details"] as! [Dictionary<String,AnyObject>]
+        passengerInformation = itineraryData["passenger_information"] as! [Dictionary<String,AnyObject>]
         totalDue = itineraryData["total_due"] as! String
         totalPaid = itineraryData["total_paid"] as! String
         
-        let service = priceDetail.lastObject as! NSDictionary
-        priceDetail.removeLastObject()
-        serviceDetail = service["services"] as! NSArray
+        let service = priceDetail.last
+        priceDetail.removeLast()
+        serviceDetail = service!["services"] as! [Dictionary<String,AnyObject>]
         
     }
     
@@ -268,7 +268,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             return cell
         }else if indexPath.section == 8{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PassengerDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
-            let passengerDetail = passengerInformation[indexPath.row] as! NSDictionary
+            let passengerDetail = passengerInformation[indexPath.row] as NSDictionary
             
             if passengerDetail["type"] as! String == "Infant"{
                 cell.passengerNameLbl.text = "\(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
@@ -287,7 +287,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 return cell
             }else{
                 let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("CardDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
-                let cardData = paymentDetails[indexPath.row] as! NSDictionary
+                let cardData = paymentDetails[indexPath.row] as NSDictionary
                 cell.cardPayLbl.text = "\(cardData["payment_amount"]!)"
                 cell.cardStatusLbl.text = "\(cardData["payment_status"]!)"
                 cell.cardTypeLbl.text = "\(cardData["payment_method"]!)"
@@ -390,7 +390,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         self.navigationController!.pushViewController(changeFlightVC, animated: true)
                     }else if json["status"] == "error"{
                         //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
@@ -432,7 +432,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         self.navigationController!.pushViewController(changeSeatVC, animated: true)
                     }else if json["status"] == "error"{
                         //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
@@ -443,9 +443,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 showHud("close")
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
-
+            
         }
-  
+        
     }
     
     @IBAction func AddPaymentBtnPressed(sender: AnyObject) {
@@ -476,7 +476,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                     }else if json["status"] == "error"{
                         //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
@@ -507,13 +507,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
-                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let sendItineraryVC = storyboard.instantiateViewControllerWithIdentifier("SendItineraryVC") as! SendItineraryViewController
-                        self.navigationController!.pushViewController(sendItineraryVC, animated: true)
+                        
+                        showToastMessage(json["message"].string!)
+                        
                     }else if json["status"] == "error"{
                         showHud("close")
-                        //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
@@ -524,7 +523,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 showHud("close")
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
-
+            
         }
         
     }
@@ -561,8 +560,6 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                             
                         }
                         
-                        //let vController = navigationArray![2]
-                        
                     }else if json["status"] == "need_payment"{
                         
                         self.totalDue = json["total_due"].string!
@@ -587,7 +584,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         
                                     }else if json["status"] == "error"{
                                         //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                                        showErrorMessage(json["message"].string!)
                                     }
                                 }
                                 catch {
@@ -605,7 +602,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     }else if json["status"] == "error"{
                         showHud("close")
                         //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {

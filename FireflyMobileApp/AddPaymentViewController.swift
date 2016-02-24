@@ -47,17 +47,13 @@ class AddPaymentViewController: CommonPaymentViewController {
                     showHud("open")
                     FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingID), completion: { (result) -> () in
                         
-                        showHud("close")
                         switch result {
                         case .Success(let successResult):
                             do {
-                                showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "Redirect"{
                                     
-                                    
-                                    //let pass = json["pass"].string?.componentsSeparatedByString("/")
                                     let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
                                     
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
@@ -67,6 +63,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else if json["status"] == "error"{
+                                    showHud("close")
                                     //showErrorMessage(json["message"].string!)
                                     showErrorMessage(json["message"].string!)
                                 }

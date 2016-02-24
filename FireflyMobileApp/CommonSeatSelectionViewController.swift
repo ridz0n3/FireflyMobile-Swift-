@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,7 +20,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
     
     var details = NSMutableArray()
     var passenger = NSArray()
-    var journeys = NSArray()
+    var journeys = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
@@ -168,11 +169,11 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                 
                 if seatDict["\(indexPath.section)"] != nil{
                     
-                    let tempSeat = seatDict["\(indexPath.section)"] as! NSDictionary
+                    let tempSeat = seatDict["\(indexPath.section)"] as! [String:AnyObject]
                     
                     if tempSeat["\(indexPath.row)"] != nil{
-                        
-                        cell.seatNumber.text = tempSeat["\(indexPath.row)"]!["seat_number"] as? String
+                        let data = tempSeat["\(indexPath.row)"] as! NSDictionary
+                        cell.seatNumber.text = data["seat_number"] as? String
                         
                     }else{
                         cell.seatNumber.text = ""
@@ -223,11 +224,12 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                 if seatDict["\(indexPath.section)"] != nil{
                     if seatDict["\(indexPath.section)"] != nil{
                         
-                        let tempSeat = seatDict["\(indexPath.section)"] as! NSDictionary
+                        let tempSeat = seatDict["\(indexPath.section)"] as! Dictionary<String, AnyObject>
                         
                         if tempSeat["\(indexPath.row)"] != nil{
                             
-                            cell.seatNumber.text = tempSeat["\(indexPath.row)"]!["seat_number"] as? String
+                            let data = tempSeat["\(indexPath.row)"] as! Dictionary<String, AnyObject>
+                            cell.seatNumber.text = data["seat_number"] as? String
                             
                         }else{
                             cell.seatNumber.text = ""
@@ -290,12 +292,12 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         
         let cell = self.seatTableView.dequeueReusableCellWithIdentifier("seatRowCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
         
-        var seatCols = NSArray()
+        var seatCols = [Dictionary<String, AnyObject>]()
         
         if selectIndex != 0 && selectIndex != 1{
-            seatCols = details[0]["seat_info"]!![indexPath.row] as! NSArray
+            seatCols = details[0]["seat_info"]!![indexPath.row] as! [Dictionary<String, AnyObject>]
         }else{
-            seatCols = details[selectIndex]["seat_info"]!![indexPath.row] as! NSArray
+            seatCols = details[selectIndex]["seat_info"]!![indexPath.row] as! [Dictionary<String, AnyObject>]
         }
         
         
@@ -312,18 +314,18 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             
             if index == 0{
                
-                self.cellConfig(cell.lbla, btn: cell.colABtn, view: cell.colAView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColASeat:")
+                self.cellConfig(cell.lbla, btn: cell.colABtn, view: cell.colAView, seatDetail: seatDetail , row: indexPath.row, action: "selectColASeat:")
                 
             }else if index == 1{
                 
-                self.cellConfig(cell.lblC, btn: cell.colCBtn, view: cell.colCView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColCSeat:")
+                self.cellConfig(cell.lblC, btn: cell.colCBtn, view: cell.colCView, seatDetail: seatDetail , row: indexPath.row, action: "selectColCSeat:")
                 
             }else if index == 2{
                 
-                self.cellConfig(cell.lblD, btn: cell.colDBtn, view: cell.colDView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColDSeat:")
+                self.cellConfig(cell.lblD, btn: cell.colDBtn, view: cell.colDView, seatDetail: seatDetail , row: indexPath.row, action: "selectColDSeat:")
             }else{
                 
-                self.cellConfig(cell.lblF, btn: cell.colFBtn, view: cell.colFView, seatDetail: seatDetail as! NSDictionary, row: indexPath.row, action: "selectColFSeat:")
+                self.cellConfig(cell.lblF, btn: cell.colFBtn, view: cell.colFView, seatDetail: seatDetail , row: indexPath.row, action: "selectColFSeat:")
                 
             }
             
@@ -417,13 +419,13 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         self.seatTableView.reloadData()
     }
     
-    func cellConfig(lbl : UILabel, btn:UIButton, view:UIView, seatDetail:NSDictionary, row:Int, action:Selector){
+    func cellConfig(lbl : UILabel, btn:UIButton, view:UIView, seatDetail:Dictionary<String,AnyObject>, row:Int, action:Selector){
         
         if seatDict.count != 0{
             
             if seatDict["\(sectionSelect.section)"] != nil{
                 var indexSameSeat = 0
-                let tempSeat = seatDict["\(sectionSelect.section)"] as! NSDictionary
+                let tempSeat = seatDict["\(sectionSelect.section)"] as! Dictionary<String,AnyObject>
                 //tempSeat["\(sectionSeatRemove.row)"]
                 var passengerCount = 0
                 if isEdit{
@@ -435,7 +437,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                 for i in 0...passengerCount - 1{
                     
                     if tempSeat["\(i)"] != nil{
-                        if tempSeat["\(i)"]!["seat_number"] as! String == seatDetail["seat_number"] as! String{
+                        if tempSeat["\(i)"]!["seat_number"] == seatDetail["seat_number"] as! String{
                             indexSameSeat++
                         }
                     }

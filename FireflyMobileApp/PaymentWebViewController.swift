@@ -10,7 +10,7 @@ import UIKit
 import WebKit
 import SwiftyJSON
 
-class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
+class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScriptMessageHandler, UIWebViewDelegate, WKNavigationDelegate {
 
     @IBOutlet var contentView: UIView! = nil
     
@@ -41,11 +41,29 @@ class PaymentWebViewController: BaseViewController, WKScriptMessageHandler {
         setupMenuButton()
         let url = NSURL(string: urlString)
         let req = NSURLRequest(URL: url!)
+        self.webView?.navigationDelegate = self
+        //self.webView!.scrollView.delegate = self
+        //self.webView!.scrollView.showsHorizontalScrollIndicator = false
         self.webView!.loadRequest(req)
         
         // Do any additional setup after loading the view.
     }
 
+    var count = 0
+    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+        webView.sizeToFit()
+        
+        if count == 1{
+            showHud("close")
+        }
+        
+        count++
+    }
+    
+    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+        showHud("close")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

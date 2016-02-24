@@ -16,7 +16,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        adultArray = NSMutableArray()
+        adultArray = [Dictionary<String,AnyObject>]()
         adultCount = (defaults.objectForKey("adult")?.integerValue)!
         infantCount = (defaults.objectForKey("infant")?.integerValue)!
         
@@ -24,7 +24,6 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
     }
 
     func initializeForm() {
-        
         
         let form : XLFormDescriptor
         var section : XLFormSectionDescriptor
@@ -38,7 +37,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             i--
             
             let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(adult)"]
-            adultArray.addObject(adultData)
+            adultArray.append(adultData)
             // Basic Information - Section
             section = XLFormSectionDescriptor()
             section = XLFormSectionDescriptor.formSectionWithTitle("Adult \(adult)")
@@ -89,7 +88,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 tempArray = [AnyObject]()
                 for travel in travelDoc{
-                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"], displayText: travel["doc_name"]))
+                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
                 }
                 
                 row.selectorOptions = tempArray
@@ -157,7 +156,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 tempArray = [AnyObject]()
                 for travel in travelDoc{
-                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"], displayText: travel["doc_name"]))
+                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
                 }
                 
                 row.selectorOptions = tempArray
@@ -216,7 +215,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             tempArray = [AnyObject]()
             for gender in genderArray{
-                tempArray.append(XLFormOptionsObject(value: gender["gender_code"], displayText: gender["gender_name"]))
+                tempArray.append(XLFormOptionsObject(value: gender["gender_code"] as! String, displayText: gender["gender_name"] as! String))
             }
             
             row.selectorOptions = tempArray
@@ -244,7 +243,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             tempArray = [AnyObject]()
             for travel in travelDoc{
-                tempArray.append(XLFormOptionsObject(value: travel["doc_code"], displayText: travel["doc_name"]))
+                tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
             }
             
             row.selectorOptions = tempArray
@@ -292,7 +291,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                             if json["status"] == "success"{
                                 
                                 
-                                if json["insurance"].object["status"] as! String == "N"{
+                                if json["insurance"].dictionaryValue["status"]!.string == "N"{
                                     defaults.setObject("", forKey: "insurance_status")
                                 }else{
                                     defaults.setObject(json["insurance"].object, forKey: "insurance_status")

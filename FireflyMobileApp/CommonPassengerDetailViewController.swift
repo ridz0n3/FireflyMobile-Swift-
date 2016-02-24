@@ -17,10 +17,10 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     
     var adultCount = Int()
     var infantCount = Int()
-    var adultArray = NSMutableArray()
+    var adultArray = [Dictionary<String,AnyObject>]()
     
-    var adultDetails = NSMutableArray()
-    var infantDetails = NSMutableArray()
+    var adultDetails = [Dictionary<String,AnyObject>]()
+    var infantDetails = [Dictionary<String,AnyObject>]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,11 +63,25 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             adultInfo.updateValue(getTitleCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationTitle, count)] as! String, titleArr: titleArray), forKey: "title")
             adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationFirstName, count)]!, forKey: "first_name")
             adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
-            adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]!, forKey: "dob")
+            
+            let date = formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]! as! String
+            var arrangeDate = date.componentsSeparatedByString("-")
+            
+            adultInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])", forKey: "dob")
             adultInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
             adultInfo.updateValue(getCountryCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
             adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationDocumentNo, count)]!, forKey: "document_number")
-            adultInfo.updateValue(nilIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationExpiredDate, count)])!, forKey: "expiration_date")
+            
+            let expiredDate = nilIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationExpiredDate, count)])! as! String
+            var arrangeExpDate = NSArray()
+            var newExpDate = String()
+            
+            if expiredDate != ""{
+                arrangeExpDate = expiredDate.componentsSeparatedByString("-")
+                newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
+            }
+            
+            adultInfo.updateValue(newExpDate, forKey: "expiration_date")
             adultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "bonuslink")
             
             passenger.updateValue(adultInfo, forKey: "\(i)")
@@ -84,11 +98,25 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             infantInfo.updateValue(getGenderCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationGender, count)] as! String, genderArr: genderArray), forKey: "gender")
             infantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationFirstName, count)]!, forKey: "first_name")
             infantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
-            infantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]!, forKey: "dob")
+            
+            let date = formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String
+            let arrangeDate = date.componentsSeparatedByString("-")
+            
+            infantInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])", forKey: "dob")
             infantInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
             infantInfo.updateValue(getCountryCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
             infantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationDocumentNo, count)]!, forKey: "document_number")
-            infantInfo.updateValue(nilIfEmpty(formValues()[String(format: "%@(infant%i)", Tags.ValidationExpiredDate, count)])!, forKey: "expiration_date")
+            
+            let expiredDate = nilIfEmpty(formValues()[String(format: "%@(infant%i)", Tags.ValidationExpiredDate, count)])! as! String
+            var arrangeExpDate = NSArray()
+            var newExpDate = String()
+            
+            if expiredDate != ""{
+                arrangeExpDate = expiredDate.componentsSeparatedByString("-")
+                newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
+            }
+            
+            infantInfo.updateValue(newExpDate, forKey: "expiration_date")
             
             infant.updateValue(infantInfo, forKey: "\(j)")
         }
@@ -173,7 +201,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         // Date
         row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Expiration Date:*")
         row.required = true
-        row.value = date
+        row.value = formatDate(stringToDate(date))
         self.form.addFormRow(row, afterRowTag: String(format: "%@(%@",Tags.ValidationDocumentNo, tag))
     }
     
@@ -198,7 +226,10 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             var count = i
             count++
             
-            let selectDate: NSDate = stringToDate(formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]! as! String)
+            let date = formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]! as! String
+            let arrangeDate = date.componentsSeparatedByString("-")
+            
+            let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
             
             let component: NSDateComponents = NSDateComponents()
             component.calendar = calendar
@@ -208,10 +239,15 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             component.year = -12
             let adultMaxAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
             
-            if selectDate.compare(stringToDate(formatDate(adultMinAge))) == NSComparisonResult.OrderedDescending{
+            let minAge = formatDate(adultMinAge)
+            var arrangeMinAge = minAge.componentsSeparatedByString("-")
+            let maxAge = formatDate(adultMaxAge)
+            var arrangeMaxAge = maxAge.componentsSeparatedByString("-")
+            
+            if selectDate.compare(stringToDate("\(arrangeMinAge[2])-\(arrangeMinAge[1])-\(arrangeMinAge[0])")) == NSComparisonResult.OrderedDescending{
                 //age below 2 years old
                 countAdultAge++
-            }else if selectDate.compare(stringToDate(formatDate(adultMaxAge))) == NSComparisonResult.OrderedDescending{
+            }else if selectDate.compare(stringToDate("\(arrangeMaxAge[2])-\(arrangeMaxAge[1])-\(arrangeMaxAge[0])")) == NSComparisonResult.OrderedDescending{
                 //age below 12 years old
                 countMaxAdultAge++
             }
@@ -222,7 +258,10 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             var count = i
             count++
             
-            let selectDate: NSDate = stringToDate(formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String)
+            let date = formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String
+            let arrangeDate = date.componentsSeparatedByString("-")
+            
+            let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
             
             let component: NSDateComponents = NSDateComponents()
             component.calendar = calendar
@@ -232,10 +271,15 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             component.year = -2
             let infantMaxAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
             
-            if selectDate.compare(stringToDate(formatDate(infantMinAge))) == NSComparisonResult.OrderedDescending{
+            let minAge = formatDate(infantMinAge)
+            var arrangeMinAge = minAge.componentsSeparatedByString("-")
+            let maxAge = formatDate(infantMaxAge)
+            var arrangeMaxAge = maxAge.componentsSeparatedByString("-")
+            
+            if selectDate.compare(stringToDate("\(arrangeMinAge[2])-\(arrangeMinAge[1])-\(arrangeMinAge[0])")) == NSComparisonResult.OrderedDescending{
                 //age below 9 days
                 countInfantAge++
-            }else if selectDate.compare(stringToDate(formatDate(infantMaxAge))) == NSComparisonResult.OrderedAscending{
+            }else if selectDate.compare(stringToDate("\(arrangeMaxAge[2])-\(arrangeMaxAge[1])-\(arrangeMaxAge[0])")) == NSComparisonResult.OrderedAscending{
                 //age above 24months
                 countMaxInfantAge++
             }

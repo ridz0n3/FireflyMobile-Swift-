@@ -39,7 +39,7 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                         }
                     }else if json["status"] == "error"{
                         //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
                         
                     }
                 }

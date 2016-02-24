@@ -8,7 +8,9 @@
 
 import UIKit
 import SCLAlertView
+import RealmSwift
 
+let realm = try! Realm()
 let defaults = NSUserDefaults.standardUserDefaults()
 let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
 let iv = "owNLfnLjPvwbQH3h" // length == 16
@@ -17,11 +19,11 @@ let estimote_uuid = NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")
 let virtual_uuid = NSUUID(UUIDString: "8492E75F-4FD6-469D-B132-043FE94921D8")
 
 
-var purposeArray = [["purpose_code":"1","purpose_name":"Leisure"],["purpose_code":"2","purpose_name":"Business"]]
-var travelDoc = [["doc_code":"P","doc_name":"Passport"],["doc_code":"NRIC","doc_name":"Malaysia IC"],["doc_code":"V","doc_name":"Travel VISA"]]
-var genderArray = [["gender_code":"Female","gender_name":"Female"],["gender_code":"Male","gender_name":"Male"]]
-var titleArray = defaults.objectForKey("title") as! NSMutableArray
-var countryArray = defaults.objectForKey("country") as! NSMutableArray
+var purposeArray:[Dictionary<String,AnyObject>] = [["purpose_code":"1","purpose_name":"Leisure"],["purpose_code":"2","purpose_name":"Business"]]
+var travelDoc : [Dictionary<String, AnyObject>] = [["doc_code":"P","doc_name":"Passport"],["doc_code":"NRIC","doc_name":"Malaysia IC"],["doc_code":"V","doc_name":"Travel VISA"]]
+var genderArray : [Dictionary<String, AnyObject>] = [["gender_code":"Female","gender_name":"Female"],["gender_code":"Male","gender_name":"Male"]]
+var titleArray = defaults.objectForKey("title") as! [Dictionary<String,AnyObject>]
+var countryArray = defaults.objectForKey("country") as! [Dictionary<String,AnyObject>]
 
 extension String {
     var html2String:NSAttributedString {
@@ -156,14 +158,14 @@ var pickerTravel = [String]()
 func getDepartureAirport(){
     
     if (defaults.objectForKey("flight") != nil){
-        let flight = defaults.objectForKey("flight") as! NSMutableArray
+        let flight = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
         var first = flight[0]["location_code"]
-        location.append(flight[0] as! NSDictionary)
+        location.append(flight[0] as NSDictionary)
         pickerRow.append(flight[0]["location"] as! String)
         for loc in flight{
             
             if loc["location_code"] as! String != first as! String{
-                location.append(loc as! NSDictionary)
+                location.append(loc as NSDictionary)
                 pickerRow.append(loc["location"] as! String)
                 first = loc["location_code"]
             }
@@ -176,13 +178,14 @@ func getArrivalAirport(departureAirport: String){
     
     if (defaults.objectForKey("flight") != nil){
         
-        let flight = defaults.objectForKey("flight") as! NSMutableArray
+        let flight = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
+
         let first = departureAirport
         
         for loc in flight{
             
             if loc["location_code"] as! String == first{
-                travel.append(loc as! NSDictionary)
+                travel.append(loc as NSDictionary)
                 pickerTravel.append(loc["travel_location"] as! String)
             }
             

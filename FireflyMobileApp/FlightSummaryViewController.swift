@@ -13,17 +13,17 @@ import CoreData
 class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var flightSummarryTableView: UITableView!
-    var flightDetail = NSArray()
+    var flightDetail = [Dictionary<String,AnyObject>]()
     var totalPrice = String()
     var insuranceDetails = NSDictionary()
     var contactInformation = NSDictionary()
     var itineraryInformation = NSDictionary()
-    var paymentDetails = NSArray()
-    var passengerInformation = NSArray()
+    var paymentDetails = [Dictionary<String,AnyObject>]()
+    var passengerInformation = [Dictionary<String,AnyObject>]()
     var totalDue = String()
     var totalPaid = String()
-    var priceDetail = NSMutableArray()
-    var serviceDetail = NSArray()
+    var priceDetail = [Dictionary<String,AnyObject>]()
+    var serviceDetail = [Dictionary<String,AnyObject>]()
     
     var contacts = [NSManagedObject]()
     
@@ -34,20 +34,20 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         
         let itineraryData = defaults.objectForKey("itinerary") as! NSDictionary
         
-        flightDetail = itineraryData["flight_details"] as! NSArray
-        priceDetail = (itineraryData["price_details"]?.mutableCopy())! as! NSMutableArray
+        flightDetail = itineraryData["flight_details"] as! [Dictionary<String,AnyObject>]
+        priceDetail = itineraryData["price_details"] as! [Dictionary<String,AnyObject>]
         totalPrice = itineraryData["total_price"] as! String
         insuranceDetails = itineraryData["insurance_details"] as! NSDictionary
         contactInformation = itineraryData["contact_information"] as! NSDictionary
         itineraryInformation = itineraryData["itinerary_information"] as! NSDictionary
-        paymentDetails = itineraryData["payment_details"] as! NSArray
-        passengerInformation = itineraryData["passenger_information"] as! NSArray
+        paymentDetails = itineraryData["payment_details"] as! [Dictionary<String,AnyObject>]
+        passengerInformation = itineraryData["passenger_information"] as! [Dictionary<String,AnyObject>]
         totalDue = itineraryData["total_due"] as! String
         totalPaid = itineraryData["total_paid"] as! String
         
-        let service = priceDetail.lastObject as! NSDictionary
-        priceDetail.removeLastObject()
-        serviceDetail = service["services"] as! NSArray
+        let service = priceDetail.last
+        priceDetail.removeLast()
+        serviceDetail = service!["services"] as! [Dictionary<String,AnyObject>]
         
         /*
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate

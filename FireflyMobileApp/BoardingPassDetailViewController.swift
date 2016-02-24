@@ -8,12 +8,13 @@
 
 import UIKit
 import Alamofire
+import SwiftyJSON
 
 class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate {
 
     @IBOutlet var boardingPassView: UIView!
-    var boardingPassData = NSArray()
-    var imgDict = NSMutableDictionary()
+    var boardingPassData = [JSON]()
+    var imgDict = [String:AnyObject]()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
@@ -30,30 +31,6 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     @IBOutlet weak var departureTimeLbl: UILabel!
     @IBOutlet weak var fareLbl: UILabel!
     @IBOutlet weak var ssrLbl: UILabel!
-    
-    /*
-    "BoardingTime" : "21:10",
-    "ArrivalTime" : "22:40",
-    "DepartureTime" : "21:40",
-    "BarCodeData" : "Q0012216SZB",
-    "DepartureGate" : "",
-    "DepartureStationCode" : "SZB",
-    "ArrivalDateTime" : "2016-02-05T22:40:00",
-    "BoardingSequence" : "1",
-    "BarCodeURL" : "http:\/\/booking.fireflyz.com.my\/CreateImage.aspx?name=barcode&barcode=Q0012216SZB",
-    "ArrivalStation" : "PENANG",
-    "DepartureDate" : "5 FEB 2016",
-    "Seat" : "2A",
-    "QRCodeURL" : "http:\/\/fyapidev.me-tech.com.my\/api\/getQRCode\/BCU37R\/SZB\/PEN\/1",
-    "SSR" : "",
-    "FlightNumber" : "FY2216",
-    "Fare" : "I",
-    "RecordLocator" : "BCU37R",
-    "ArrivalStationCode" : "PEN",
-    "DepartureStation" : "SUBANG",
-    "Name" : "MR Zakwan Affiq",
-    "DepartureDateTime" : "2016-02-05T21:40:00"
-    */
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,16 +60,16 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
             })*/
             
             img.image = imgDict["\(i)"] as? UIImage
-            pnr.text = info["RecordLocator"] as? String
-            nameLbl.text = info["Name"] as? String
-            departLbl.text = info["DepartureStation"] as? String
-            flightDateLbl.text = info["DepartureDate"] as? String
-            boardingTimeLbl.text = info["BoardingTime"] as? String
-            flightNoLbl.text = info["FlightNumber"] as? String
-            arriveLbl.text = info["ArrivalStation"] as? String
-            departureTimeLbl.text = info["DepartureTime"] as? String
-            fareLbl.text = info["Fare"] as? String
-            ssrLbl.text = info["SSR"] as? String
+            pnr.text = info["RecordLocator"].string
+            nameLbl.text = info["Name"].string
+            departLbl.text = info["DepartureStation"].string
+            flightDateLbl.text = info["DepartureDate"].string
+            boardingTimeLbl.text = info["BoardingTime"].string
+            flightNoLbl.text = info["FlightNumber"].string
+            arriveLbl.text = info["ArrivalStation"].string
+            departureTimeLbl.text = info["DepartureTime"].string
+            fareLbl.text = info["Fare"].string
+            ssrLbl.text = info["SSR"].string
             
             scrollView.addSubview(boardingPassView)
             i++

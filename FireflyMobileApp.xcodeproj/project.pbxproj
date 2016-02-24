@@ -67,7 +67,6 @@
 		7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */; };
 		7E8262081C3CCF280071FAAA /* PaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */; };
 		7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */; };
-		7E8D81681C350A4100D9A2E1 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */; };
 		7E9011461C61BD450051F7BE /* MobileCheckInDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9011451C61BD450051F7BE /* MobileCheckInDetailViewController.swift */; };
 		7E9011481C61D1B50051F7BE /* MobileCheckInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9011471C61D1B50051F7BE /* MobileCheckInView.xib */; };
 		7E9438541C56499F002D6792 /* CommonFlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9438531C56499F002D6792 /* CommonFlightDetailViewController.swift */; };
@@ -83,6 +82,7 @@
 		7E99B8601C2A6B1400239322 /* PaymentSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */; };
 		7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */; };
 		7E9A53831C3B5D21001094F5 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A53821C3B5D21001094F5 /* LoginManager.swift */; };
+		7E9C65161C7C8BEC00D2E8D1 /* PNRList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */; };
 		7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */; };
 		7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */; };
 		7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */; };
@@ -91,6 +91,8 @@
 		7EA56E931C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */; };
 		7EB07AFE1C28F6640061D1C9 /* directionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB07AFD1C28F6640061D1C9 /* directionView.xib */; };
 		7EB07B001C28F8440061D1C9 /* DirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */; };
+		7EB1B9CF1C7C5169002434A0 /* BoardingPass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB1B9CE1C7C5168002434A0 /* BoardingPass.swift */; };
+		7EB40EE11C7ABB9400296137 /* BoardingPassModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB40EE01C7ABB9400296137 /* BoardingPassModel.swift */; };
 		7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB5B2AF1BFC68D00066D311 /* SectionView.xib */; };
 		7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5B2B11BFC68EE0066D311 /* SectionView.swift */; };
 		7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */; };
@@ -204,7 +206,6 @@
 		7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseXLFormViewController.swift; sourceTree = "<group>"; };
 		7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentWebViewController.swift; sourceTree = "<group>"; };
 		7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightSummaryViewController.swift; sourceTree = "<group>"; };
-		7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		7E9011451C61BD450051F7BE /* MobileCheckInDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileCheckInDetailViewController.swift; sourceTree = "<group>"; };
 		7E9011471C61D1B50051F7BE /* MobileCheckInView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MobileCheckInView.xib; sourceTree = "<group>"; };
 		7E9438531C56499F002D6792 /* CommonFlightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFlightDetailViewController.swift; sourceTree = "<group>"; };
@@ -220,6 +221,7 @@
 		7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSummaryViewController.swift; sourceTree = "<group>"; };
 		7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPaymentSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		7E9A53821C3B5D21001094F5 /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNRList.swift; sourceTree = "<group>"; };
 		7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoginManageFlightTableViewCell.swift; sourceTree = "<group>"; };
 		7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManageFlightViewController.swift; sourceTree = "<group>"; };
 		7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonContactDetailViewController.swift; sourceTree = "<group>"; };
@@ -228,6 +230,8 @@
 		7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSeatSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		7EB07AFD1C28F6640061D1C9 /* directionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = directionView.xib; sourceTree = "<group>"; };
 		7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionView.swift; sourceTree = "<group>"; };
+		7EB1B9CE1C7C5168002434A0 /* BoardingPass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPass.swift; sourceTree = "<group>"; };
+		7EB40EE01C7ABB9400296137 /* BoardingPassModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassModel.swift; sourceTree = "<group>"; };
 		7EB5B2AF1BFC68D00066D311 /* SectionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionView.xib; sourceTree = "<group>"; };
 		7EB5B2B11BFC68EE0066D311 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UpdateInformation.storyboard; sourceTree = "<group>"; };
@@ -307,6 +311,7 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				7EB40EDF1C7ABB4200296137 /* Model */,
 				7EC3271B1C44D63B001C89B5 /* CoreData */,
 				7EC1DBD01C158A8800677D55 /* FloatLabel */,
 				7EBBFA0E1C101B7900080FFA /* DatePicker */,
@@ -436,7 +441,6 @@
 				7E985A091C4DEDDC00EBAFA5 /* AddSeatSelectionViewController.swift */,
 				7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */,
 				7E985A0F1C4E38D000EBAFA5 /* AddPaymentViewController.swift */,
-				7E8D81671C350A4100D9A2E1 /* PaymentViewController.swift */,
 				7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */,
 				7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */,
 			);
@@ -537,6 +541,16 @@
 				7E0707911C72ED36001D7328 /* CommonListViewController.swift */,
 			);
 			name = CommonClass;
+			sourceTree = "<group>";
+		};
+		7EB40EDF1C7ABB4200296137 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7EB40EE01C7ABB9400296137 /* BoardingPassModel.swift */,
+				7EB1B9CE1C7C5168002434A0 /* BoardingPass.swift */,
+				7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		7EB829E11C0AC23200E83320 /* Profile */ = {
@@ -817,6 +831,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EB40EE11C7ABB9400296137 /* BoardingPassModel.swift in Sources */,
 				7E6930F61BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift in Sources */,
 				9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */,
 				7EA56E931C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift in Sources */,
@@ -827,7 +842,6 @@
 				7E1F781A1BF9B60800F55C46 /* LoginViewController.swift in Sources */,
 				7EBBFA0B1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift in Sources */,
 				7E41682E1C71773F008884DC /* CommonSearchDetailViewController.swift in Sources */,
-				7E8D81681C350A4100D9A2E1 /* PaymentViewController.swift in Sources */,
 				7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */,
 				7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */,
 				7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */,
@@ -861,6 +875,7 @@
 				7E9011461C61BD450051F7BE /* MobileCheckInDetailViewController.swift in Sources */,
 				7E69310F1BFB1BFA004F1719 /* ManageFlightViewController.swift in Sources */,
 				7E6931091BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift in Sources */,
+				7E9C65161C7C8BEC00D2E8D1 /* PNRList.swift in Sources */,
 				7E75373B1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift in Sources */,
 				7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */,
 				7E11C0871C47AC9700C67BD2 /* AddPassengerDetailViewController.swift in Sources */,
@@ -891,6 +906,7 @@
 				7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */,
 				615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */,
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
+				7EB1B9CF1C7C5169002434A0 /* BoardingPass.swift in Sources */,
 				7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
 				7E0707901C72CD14001D7328 /* PasswordExpiredViewController.swift in Sources */,
