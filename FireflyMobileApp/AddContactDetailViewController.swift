@@ -22,8 +22,8 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         chooseSeatBtn.layer.cornerRadius = 10
         chooseSeatBtn.layer.borderWidth = 1
         chooseSeatBtn.layer.borderColor = UIColor.orangeColor().CGColor
-        
-        
+       //mes chooseSeatBtn.titleLabel?.text = String.localizedStringWithFormat("Choose seat", <#T##arguments: CVarArgType...##CVarArgType#>)
+
         if try! LoginManager.sharedInstance.isLogin(){
             
             let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
