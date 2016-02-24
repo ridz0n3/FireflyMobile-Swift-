@@ -10,10 +10,10 @@ import UIKit
 import M13Checkbox
 import SwiftyJSON
 import Alamofire
-import Realm
+import RealmSwift
 
 class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate  {
-
+    
     @IBOutlet weak var continueBtn: UIButton!
     @IBOutlet weak var termTableView: UITableView!
     
@@ -46,7 +46,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         termTableView.rowHeight = UITableViewAutomaticDimension
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -80,9 +80,9 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         }
         
         return cell
-
+        
     }
-
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.row == 0{
@@ -93,7 +93,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             Alamofire.request(.GET, rules["image"] as! String).response(completionHandler: { (request, response, data, error) -> Void in
                 self.rule1Img.image = UIImage(data: data!)
             })
-
+            
             rule1View = NSBundle.mainBundle().loadNibNamed("Rule1View", owner: self, options: nil)[0] as! UIView
             
             rule1View.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
@@ -156,7 +156,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             applicationLoadViewIn.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
             rule2View.layer.addAnimation(applicationLoadViewIn, forKey: kCATransitionReveal)
             self.view.addSubview(rule2View)
-
+            
             
         }else{
             
@@ -202,32 +202,9 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                             
                             if try! LoginManager.sharedInstance.isLogin(){
                                 
+                                self.saveBoardingPass(json["boarding_pass"].arrayObject!, pnrStr: self.pnr)
                                 
-                                /*defaults.setObject(json["boarding_pass"].arrayValue, forKey: "boarding_pass")
-                                defaults.setObject(self.pnr, forKey: "pnr")
-                                defaults.synchronize()*/
-                                /*
-                                let realm = RLMRealm.defaultRealm()
-                                
-                                let userInfo = defaults.objectForKey("userInfo") as! [String : String]
-                                let boardingPass = BoardingPassModel()
-                                boardingPass.pnr = self.pnr
-                                boardingPass.userId = userInfo["username"]!
-                                //boardingPass.boardingPass = json["boarding_pass"]
-                                //newTodoItem.name = (alertController.textFields?.first?.text!)!
-                                //newTodoItem.itemDescription = (alertController.textFields?.last?.text!)!
-                                do {
-                                    try realm.transactionWithBlock(){
-                                        realm.addObject(boardingPass)
-                                    }
-                                }
-                                catch {
-                                    
-                                }*/
                             }
-                            
-                            
-
                             
                             let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                             let successVC = storyboard.instantiateViewControllerWithIdentifier("SuccessCheckInVC") as! SuccessCheckInViewController
@@ -236,7 +213,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                             
                         }else{
                             //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                            showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
@@ -252,6 +229,88 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         
     }
     
+    func saveBoardingPass(boardingPassArr : [AnyObject], pnrStr : String){
+        
+        //let boardingPassArr = defaults.objectForKey("boarding_pass") as! [Dictionary<String, AnyObject>]
+        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+        
+        var userData = Results<UserList>!()
+        userData = realm.objects(UserList)
+        let mainUser = userData.filter("userId == %@", userInfo["username"]!)
+        
+        let pnr = PNRList()
+        pnr.pnr = pnrStr
+        
+        var count = 0
+        for boardingInfo in boardingPassArr{
+            let boardingPass = BoardingPassList()
+            count++
+            
+            if boardingPassArr.count == count{
+                
+                let formater = NSDateFormatter()
+                formater.dateFormat = "dd MM yyyy"
+                
+                pnr.departureStationCode = boardingInfo["DepartureStationCode"] as! String
+                pnr.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
+                pnr.departureDateTime = formater.dateFromString(boardingInfo["DepartureDayDate"] as! String)!
+                pnr.departureDayDate = boardingInfo["DepartureDayDate"] as! String
+            }
+            
+            let url = NSURL(string: boardingInfo["QRCodeURL"] as! String)
+            let data = NSData(contentsOfURL: url!)
+            
+            boardingPass.name = boardingInfo["Name"] as! String
+            boardingPass.departureStation = boardingInfo["DepartureStation"] as! String
+            boardingPass.arrivalStation = boardingInfo["ArrivalStation"] as! String
+            boardingPass.departureDate = boardingInfo["DepartureDate"] as! String
+            boardingPass.departureTime = boardingInfo["DepartureTime"] as! String
+            boardingPass.boardingTime = boardingInfo["BoardingTime"] as! String
+            boardingPass.fare = boardingInfo["Fare"] as! String
+            boardingPass.flightNumber = boardingInfo["FlightNumber"] as! String
+            boardingPass.SSR = boardingInfo["SSR"] as! String
+            boardingPass.QRCodeURL = data!
+            boardingPass.recordLocator = boardingInfo["RecordLocator"] as! String
+            boardingPass.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
+            boardingPass.departureStationCode = boardingInfo["DepartureStationCode"] as! String
+            
+            pnr.boardingPass.append(boardingPass)
+        }
+        
+        if mainUser.count == 0{
+            
+            let user = UserList()
+            user.userId = userInfo["username"]!
+            user.pnr.append(pnr)
+            
+            try! realm.write({ () -> Void in
+                realm.add(user)
+                showToastMessage("success")
+            })
+            
+        }else{
+            
+            let mainPNR = mainUser[0].pnr.filter("pnr == %@", pnrStr)
+            if mainPNR.count != 0{
+                
+                for pnrData in mainPNR{
+                    if pnrData.departureDayDate == pnr.departureDayDate{
+                        realm.beginWrite()
+                        realm.delete(pnrData)
+                        try! realm.commitWrite()
+                    }
+                }
+                
+            }
+            
+            try! realm.write({ () -> Void in
+                mainUser[0].pnr.append(pnr)
+                showToastMessage("success")
+            })
+        }
+        
+        
+    }
     
     @IBAction func rule1BtnPressed(sender: AnyObject) {
         rule1View.removeFromSuperview()
@@ -264,12 +323,12 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
     }
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

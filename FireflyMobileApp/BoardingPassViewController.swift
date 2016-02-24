@@ -11,7 +11,7 @@ import SwiftyJSON
 import Alamofire
 
 class BoardingPassViewController: CommonSearchDetailViewController {
-
+    
     @IBAction func ContinueBtnPressed(sender: AnyObject) {
         
         validateForm()
@@ -56,11 +56,11 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                         }else{
                             showHud("close")
                             //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                            showErrorMessage(json["message"].string!)
                         }
                     }
                     catch {
-                        
+                        showErrorMessage("We are unable to locate the itinerary. Please verify the information is correct and try again.")
                     }
                     
                 case .Failure(let failureResult):
@@ -71,17 +71,17 @@ class BoardingPassViewController: CommonSearchDetailViewController {
             })
             
         }
-
+        
     }
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
