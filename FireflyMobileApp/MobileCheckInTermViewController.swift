@@ -231,12 +231,11 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
     
     func saveBoardingPass(boardingPassArr : [AnyObject], pnrStr : String){
         
-        //let boardingPassArr = defaults.objectForKey("boarding_pass") as! [Dictionary<String, AnyObject>]
-        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+        let userInfo = defaults.objectForKey("userInfo")
+        var userList = Results<UserList>!()
+        userList = realm.objects(UserList)
         
-        var userData = Results<UserList>!()
-        userData = realm.objects(UserList)
-        let mainUser = userData.filter("userId == %@", userInfo["username"]!)
+        let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
         
         let pnr = PNRList()
         pnr.pnr = pnrStr
@@ -249,11 +248,11 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             if boardingPassArr.count == count{
                 
                 let formater = NSDateFormatter()
-                formater.dateFormat = "dd MM yyyy"
+                formater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                 
                 pnr.departureStationCode = boardingInfo["DepartureStationCode"] as! String
                 pnr.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
-                pnr.departureDateTime = formater.dateFromString(boardingInfo["DepartureDayDate"] as! String)!
+                pnr.departureDateTime = formater.dateFromString(boardingInfo["DepartureDateTime"] as! String)!
                 pnr.departureDayDate = boardingInfo["DepartureDayDate"] as! String
             }
             
@@ -277,27 +276,27 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             pnr.boardingPass.append(boardingPass)
         }
         
+        
         if mainUser.count == 0{
-            
             let user = UserList()
-            user.userId = userInfo["username"]!
+            user.userId = userInfo!["username"] as! String
             user.pnr.append(pnr)
             
             try! realm.write({ () -> Void in
                 realm.add(user)
             })
-            
         }else{
-            
             let mainPNR = mainUser[0].pnr.filter("pnr == %@", pnrStr)
             if mainPNR.count != 0{
                 
                 for pnrData in mainPNR{
-                    if pnrData.departureDayDate == pnr.departureDayDate{
+                    
+                    if pnrData.departureDateTime.compare(pnr.departureDateTime) == NSComparisonResult.OrderedSame{
                         realm.beginWrite()
                         realm.delete(pnrData)
                         try! realm.commitWrite()
                     }
+                    
                 }
                 
             }
@@ -305,8 +304,8 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             try! realm.write({ () -> Void in
                 mainUser[0].pnr.append(pnr)
             })
+            
         }
-        
         
     }
     
