@@ -135,7 +135,7 @@ class LoginViewController: BaseXLFormViewController {
     
     @IBAction func forgotPasswordButtonPressed(sender: AnyObject) {
         
-        reloadAlertView("Please insert your detail")
+        reloadAlertView("USER ID (Email):*")
     }
     
     var email = UITextField()
@@ -148,7 +148,7 @@ class LoginViewController: BaseXLFormViewController {
         email.text = tempEmail
         alert.addButton("Login", target: self, selector: "loginBtnPressed")
         //alert.showCloseButton = false
-        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
+        alert.showEdit("Forgot Password", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
         
     }
     
