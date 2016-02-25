@@ -10,12 +10,6 @@ import UIKit
 import XLForm
 import M13Checkbox
 
-extension String {
-    func charAt(index: Int) -> Character {
-        return [Character](characters)[index]
-    }
-}
-
 class UpdateInformationViewController: BaseXLFormViewController {
     
     var userInfo = NSMutableDictionary()

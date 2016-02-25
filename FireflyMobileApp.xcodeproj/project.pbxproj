@@ -107,6 +107,7 @@
 		7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */; };
 		7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */; };
 		7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */; };
+		7EBE67471C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBE67461C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift */; };
 		7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */; };
 		7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */; };
 		7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */; };
@@ -245,6 +246,7 @@
 		7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RSDFDatePicker.storyboard; sourceTree = "<group>"; };
 		7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomChooseSeatTableViewCell.swift; sourceTree = "<group>"; };
+		7EBE67461C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFloatLabeledTextFieldCell.swift; sourceTree = "<group>"; };
 		7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassengerHeader.xib; sourceTree = "<group>"; };
 		7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerHeaderView.swift; sourceTree = "<group>"; };
 		7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledTextFieldCell.swift; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 				7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */,
 				7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */,
 				7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */,
+				7EBE67461C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift */,
 			);
 			name = FloatLabel;
 			sourceTree = "<group>";
@@ -896,6 +899,7 @@
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
 				7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
+				7EBE67471C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift in Sources */,
 				7E0707901C72CD14001D7328 /* PasswordExpiredViewController.swift in Sources */,
 				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
 				7E1AFD5E1C7D3CF400046200 /* UserList.swift in Sources */,
