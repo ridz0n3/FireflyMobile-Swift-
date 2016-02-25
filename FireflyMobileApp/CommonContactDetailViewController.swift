@@ -123,11 +123,13 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         // Mobile Number
         row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile Number:*")
         row.required = true
+        row.addValidator(XLFormRegexValidator(msg: "Mobile phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
         row.value = contactData["mobile_phone"]
         section.addFormRow(row)
         
         // Alternate Number
         row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Number:*")
+        row.addValidator(XLFormRegexValidator(msg: "Alternate phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
         row.required = true
         row.value = contactData["alternate_phone"]
         section.addFormRow(row)

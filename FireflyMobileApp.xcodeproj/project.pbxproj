@@ -111,8 +111,6 @@
 		7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */; };
 		7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */; };
 		7EC3271A1C449CAB001C89B5 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7EC327181C449CAB001C89B5 /* CoreDataModel.xcdatamodeld */; };
-		7EC3272A1C44D914001C89B5 /* Booking+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC327281C44D914001C89B5 /* Booking+CoreDataProperties.swift */; };
-		7EC3272B1C44D914001C89B5 /* Booking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC327291C44D914001C89B5 /* Booking.swift */; };
 		7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */; };
 		9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B0791C0EA6B8000B522F /* EncryptManager.swift */; };
 		9615B07C1C1137DD000B522F /* FireflyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B07B1C1137DD000B522F /* FireflyAPI.swift */; };
@@ -250,8 +248,6 @@
 		7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerHeaderView.swift; sourceTree = "<group>"; };
 		7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledTextFieldCell.swift; sourceTree = "<group>"; };
 		7EC327191C449CAB001C89B5 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
-		7EC327281C44D914001C89B5 /* Booking+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Booking+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7EC327291C44D914001C89B5 /* Booking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Booking.swift; sourceTree = "<group>"; };
 		7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialLoadManager.swift; sourceTree = "<group>"; };
 		86B59F03D2AABF55D7291F46 /* Pods-FireflyMobileApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.release.xcconfig"; sourceTree = "<group>"; };
 		9615B0791C0EA6B8000B522F /* EncryptManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptManager.swift; sourceTree = "<group>"; };
@@ -312,7 +308,6 @@
 			isa = PBXGroup;
 			children = (
 				7EB40EDF1C7ABB4200296137 /* Model */,
-				7EC3271B1C44D63B001C89B5 /* CoreData */,
 				7EC1DBD01C158A8800677D55 /* FloatLabel */,
 				7EBBFA0E1C101B7900080FFA /* DatePicker */,
 				7EBBFA001C10115200080FFA /* CustomDatePickerView */,
@@ -594,15 +589,6 @@
 			name = FloatLabel;
 			sourceTree = "<group>";
 		};
-		7EC3271B1C44D63B001C89B5 /* CoreData */ = {
-			isa = PBXGroup;
-			children = (
-				7EC327281C44D914001C89B5 /* Booking+CoreDataProperties.swift */,
-				7EC327291C44D914001C89B5 /* Booking.swift */,
-			);
-			name = CoreData;
-			sourceTree = "<group>";
-		};
 		96C7660040AB98CB0FD039B9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -851,13 +837,11 @@
 				7E4168341C71C602008884DC /* SuccessCheckInViewController.swift in Sources */,
 				7E9438541C56499F002D6792 /* CommonFlightDetailViewController.swift in Sources */,
 				7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */,
-				7EC3272A1C44D914001C89B5 /* Booking+CoreDataProperties.swift in Sources */,
 				7EA286371C4776A30004AB9A /* AddContactDetailViewController.swift in Sources */,
 				7E9A53831C3B5D21001094F5 /* LoginManager.swift in Sources */,
 				7E985A0E1C4E381400EBAFA5 /* CommonPaymentViewController.swift in Sources */,
 				7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */,
 				7E1F78181BF9AC3800F55C46 /* BaseViewController.swift in Sources */,
-				7EC3272B1C44D914001C89B5 /* Booking.swift in Sources */,
 				7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */,
 				7E9438561C564A3E002D6792 /* AddFlightDetailViewController.swift in Sources */,
 				7E69310D1BFB195D004F1719 /* SendItineraryViewController.swift in Sources */,
