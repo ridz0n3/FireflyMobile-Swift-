@@ -285,7 +285,6 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             
             try! realm.write({ () -> Void in
                 realm.add(user)
-                showToastMessage("success")
             })
             
         }else{
@@ -305,7 +304,6 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             
             try! realm.write({ () -> Void in
                 mainUser[0].pnr.append(pnr)
-                showToastMessage("success")
             })
         }
         

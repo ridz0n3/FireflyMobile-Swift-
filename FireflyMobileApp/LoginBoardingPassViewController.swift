@@ -143,13 +143,21 @@ class LoginBoardingPassViewController: CommonListViewController {
             })
         }else{
             let mainPNR = mainUser[0].pnr.filter("pnr == %@", pnrStr)
-            if mainPNR.count == 0{
+            if mainPNR.count != 0{
                 
-                try! realm.write({ () -> Void in
-                    mainUser[0].pnr.append(pnr)
-                })
+                for pnrData in mainPNR{
+                    if pnrData.departureDayDate == pnr.departureDayDate{
+                        realm.beginWrite()
+                        realm.delete(pnrData)
+                        try! realm.commitWrite()
+                    }
+                }
                 
             }
+            
+            try! realm.write({ () -> Void in
+                mainUser[0].pnr.append(pnr)
+            })
             
         }
         
