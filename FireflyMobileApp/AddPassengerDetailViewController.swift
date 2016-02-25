@@ -40,7 +40,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             adultArray.append(adultData)
             // Basic Information - Section
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("Adult \(adult)")
+            section = XLFormSectionDescriptor.formSectionWithTitle("ADULT \(adult)")
             form.addFormSection(section)
             
             
@@ -117,7 +117,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Enrich Loyalty No
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Bonuslink Card Number:")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No:")
                 row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                 row.value = "\(userInfo["bonuslink"]!)"
                 section.addFormRow(row)
@@ -181,7 +181,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Enrich Loyalty No
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Bonuslink Card Number:")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No:")
                 row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                 section.addFormRow(row)
             }
@@ -195,7 +195,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             // Basic Information - Section
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("Infant \(j)")
+            section = XLFormSectionDescriptor.formSectionWithTitle("INFANT \(j)")
             form.addFormSection(section)
             
             // Title

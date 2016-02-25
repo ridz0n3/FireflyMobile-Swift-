@@ -56,7 +56,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             adultArray.append(adultData)
 
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("Adult \(adult)")
+            section = XLFormSectionDescriptor.formSectionWithTitle("ADULT \(adult)")
             form.addFormSection(section)
             
             // Title
@@ -133,7 +133,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             // Enrich Loyalty No
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Bonuslink Card Number:")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No:")
             row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
             row.value = adultDetails[i]["bonuslink"] as! String
             section.addFormRow(row)
@@ -150,7 +150,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 // Basic Information - Section
                 section = XLFormSectionDescriptor()
-                section = XLFormSectionDescriptor.formSectionWithTitle("Infant \(infant)")
+                section = XLFormSectionDescriptor.formSectionWithTitle("INFANT \(infant)")
                 form.addFormSection(section)
                 
                 // Title
