@@ -43,11 +43,11 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         }
         
         if !isGoingSelected{
-            showErrorMessage("Please select Going Flight")
+            showErrorMessage("LabelErrorGoingFlight".localized)
         }else if !isReturnSelected && defaults.objectForKey("type")! as! NSNumber != 0{
-            showErrorMessage("Please select Return Flight")
+            showErrorMessage("LabelErrorReturnFlight".localized)
         }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out"{
-            showErrorMessage("Please select Going Flight")
+            showErrorMessage("LabelErrorGoingFlight".localized)
         }else{
             
             var isType1 = false
@@ -66,7 +66,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                 
                 if planBack == "flex_class" && flightDetail[1]["flights"][selectedReturnFlight.integerValue][planBack]["status"].string == "sold out"{
                     
-                    showErrorMessage("Please select Return Flight")
+                    showErrorMessage("LabelErrorReturnFlight".localized)
                     isError = true
                 }else{
                     

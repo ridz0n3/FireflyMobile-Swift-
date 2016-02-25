@@ -71,12 +71,12 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
         let signature = defaults.objectForKey("signature") as! String
         
         if seatDict.count == 0 || seatDict.count != details.count{
-            showErrorMessage("Please select seat first")
+            showErrorMessage("LabelErrorSelectSeat".localized)
         }else{
             if seatDict.count == 2{
                 
                 if seatDict["0"]!.count == 0 || seatDict["1"]!.count == 0{
-                    showErrorMessage("Please select seat first")
+                    showErrorMessage("LabelErrorSelectSeat".localized)
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()
@@ -139,7 +139,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
             }else{
                 
                 if seatDict["0"]!.count == 0{
-                    showErrorMessage("Please select seat first")
+                    showErrorMessage("LabelErrorSelectSeat".localized)
                 }else{
                     
                     let goingSeatSelection = NSMutableArray()

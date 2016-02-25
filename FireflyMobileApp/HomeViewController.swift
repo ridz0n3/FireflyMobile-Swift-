@@ -16,7 +16,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var homeMenuTableView: UITableView!
     
-    var menuTitle:[String] = ["","LabelBookFlight".localized, "LabelManageFlight".localized, "LabelMobileCheckIn".localized, "LabelBoardingPass".localized,""]
+    var menuTitle:[String] = ["","LabelHomeBookFlight".localized, "LabelHomeManageFlight".localized, "LabelHomeMobileCheckIn".localized, "LabelHomeBoardingPass".localized,""]
     
     
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshTable:", name: "reloadHome", object: nil)
         
      //    let boardingArr = defaults.objectForKey("boarding_pass") as! [Dictionary<String, AnyObject>]
-        if  let userInfo = defaults.objectForKey("userInfo") as! [String : String]? {
+       /* if  let userInfo = defaults.objectForKey("userInfo") as! [String : String]? {
             var userData = Results<BoardingPassModel>!()
             userData = realm.objects(BoardingPassModel)
             let mainUser = userData.filter("userId == %@", userInfo["username"]!)
@@ -33,7 +33,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
 
         }
         
-        
+        */
        
         
         /*realm.beginWrite()

@@ -151,11 +151,11 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
         }
         
         if !isGoingSelected && goingData["status"] as! String == "Y"{
-            showErrorMessage("Please select Going Flight")
+            showErrorMessage("LabelErrorGoingFlight".localized)
         }else if !isReturnSelected && type == 1 && returnData["status"] as! String == "Y"{
-            showErrorMessage("Please select Return Flight")
+            showErrorMessage("LabelErrorReturnFlight".localized)
         }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out" && goingData["status"] as! String == "Y"{
-            showErrorMessage("Please select Going Flight")
+            showErrorMessage("LabelErrorGoingFlight".localized)
         }else{
             var isType1 = false
             var isError = false
@@ -189,7 +189,7 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                 }
                 
                 if planBack == "flex_class" && flightDetail[1]["flights"][selectedReturnFlight.integerValue][planBack]["status"].string == "sold out" && returnData["status"] as! String == "Y"{
-                    showErrorMessage("Please select Return Flight")
+                    showErrorMessage("LabelErrorReturnFlight".localized)
                     isError = true
                 }else{
                     return_date = formatDate(stringToDate("\(dateReturnArr[2])-\(dateReturnArr[1])-\(dateReturnArr[0])"))
