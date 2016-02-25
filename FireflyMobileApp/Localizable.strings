@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  FireflyMobileApp
+
+  Created by ME-Tech MacPro User 2 on 2/25/16.
+  Copyright © 2016 Me-tech. All rights reserved.
+*/
+
+//HomeViewController
+
+LabelBookFlight = "BOOK FLIGHT";
+LabelManageFlight = "MANAGE FLIGHT";
+LabelMobileCheckIn = "MOBILE CHECK-IN";
+LabelBoardingPass = "BOARDING PASS";
