@@ -33,9 +33,6 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
 
         }
         
-        
-       
-        
         /*realm.beginWrite()
         realm.deleteAll()
         try! realm.commitWrite()*/
