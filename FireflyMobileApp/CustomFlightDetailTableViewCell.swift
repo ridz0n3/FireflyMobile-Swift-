@@ -20,6 +20,13 @@ class CustomFlightDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var departureAirportLbl: UILabel!
     @IBOutlet weak var checkFlight: M13Checkbox!
 
+    @IBOutlet weak var economyPromoLbl: UILabel!
+    @IBOutlet weak var economyLbl: UILabel!
+    @IBOutlet weak var businessLbl: UILabel!
+    @IBOutlet weak var economyPromoPriceLbl: UILabel!
+    @IBOutlet weak var economyPriceLbl: UILabel!
+    @IBOutlet weak var businessPriceLbl: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

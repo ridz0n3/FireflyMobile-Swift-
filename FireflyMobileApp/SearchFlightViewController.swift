@@ -269,7 +269,6 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                             
                             if json["status"] == "success"{
                                 
-                                
                                 defaults.setObject(json["signature"].string, forKey: "signature")
                                 defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
