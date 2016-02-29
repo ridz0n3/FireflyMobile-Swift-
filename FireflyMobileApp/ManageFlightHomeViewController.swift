@@ -210,13 +210,19 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             return cell
         }else if indexPath.section == 2{
             
-            let detail = priceDetail[indexPath.row] as! NSDictionary
+            let detail = priceDetail[indexPath.row] as NSDictionary
             
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PriceDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
             let tax = detail["taxes_or_fees"] as? NSDictionary
             
-            let taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            var taxData = String()
+            
+            if tax!.count == 3{
+                taxData = "Airport Tax: \(tax!["airport_tax"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }else{
+                taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }
             
             cell.flightDestination.text = detail["title"] as? String
             cell.guestPriceLbl.text = detail["total_guest"] as? String

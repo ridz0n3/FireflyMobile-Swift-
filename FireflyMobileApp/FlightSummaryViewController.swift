@@ -132,13 +132,19 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             return cell
         }else if indexPath.section == 2{
             
-            let detail = priceDetail[indexPath.row] as! NSDictionary
+            let detail = priceDetail[indexPath.row] as NSDictionary
             
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PriceDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
             let tax = detail["taxes_or_fees"] as? NSDictionary
             
-            let taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            var taxData = String()
+            
+            if tax!.count == 3{
+                taxData = "Airport Tax: \(tax!["airport_tax"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }else{
+                taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }
             
             cell.flightDestination.text = detail["title"] as? String
             cell.guestPriceLbl.text = detail["total_guest"] as? String
@@ -190,7 +196,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             return cell
         }else if indexPath.section == 8{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PassengerDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
-            let passengerDetail = passengerInformation[indexPath.row] as! NSDictionary
+            let passengerDetail = passengerInformation[indexPath.row] as NSDictionary
             cell.passengerNameLbl.text = "\(passengerDetail["name"]!)"
             return cell
         }else {
@@ -203,7 +209,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
                 return cell
             }else{
                 let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("CardDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
-                let cardData = paymentDetails[indexPath.row] as! NSDictionary
+                let cardData = paymentDetails[indexPath.row] as NSDictionary
                 cell.cardPayLbl.text = "\(cardData["payment_amount"]!)"
                 cell.cardStatusLbl.text = "\(cardData["payment_status"]!)"
                 cell.cardTypeLbl.text = "\(cardData["payment_method"]!)"
@@ -261,6 +267,15 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         
     }
 
+    @IBAction func continueBtnPressed(sender: AnyObject) {
+        
+        for views in (self.navigationController?.viewControllers)!{
+            if views.classForCoder == HomeViewController.classForCoder(){
+                self.navigationController?.popToViewController(views, animated: true)
+            }
+        }
+        
+    }
     /*
     // MARK: - Navigation
     

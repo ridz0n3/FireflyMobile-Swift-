@@ -83,17 +83,17 @@ class CommonFlightDetailViewController: BaseViewController {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if flightDetail.count == 0{
-            let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("NoFyFlightCell", forIndexPath: indexPath)
             return cell
         }else{
             
             let flightDict = flightDetail[indexPath.section].dictionary
             
             if flightDict!["flights"]?.count == 0{
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
+                let cell = tableView.dequeueReusableCellWithIdentifier("NoFyFlightCell", forIndexPath: indexPath)
                 return cell
             }else{
-                let cell = self.flightDetailTableView.dequeueReusableCellWithIdentifier("flightCell", forIndexPath: indexPath) as! CustomFlightDetailTableViewCell
+                let cell = self.flightDetailTableView.dequeueReusableCellWithIdentifier("fyFlightCell", forIndexPath: indexPath) as! CustomFlightDetailTableViewCell
                 
                 let flightDict = flightDetail[indexPath.section].dictionary
                 let flights = flightDict!["flights"]?.array

@@ -97,7 +97,14 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             
             let tax = detail["taxes_or_fees"] as? NSDictionary
             
-            let taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            var taxData = String()
+            
+            if tax!.count == 3{
+                taxData = "Airport Tax: \(tax!["airport_tax"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }else{
+                taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }
+            
             
             cell.flightDestination.text = detail["title"] as? String
             cell.guestPriceLbl.text = detail["total_guest"] as? String
