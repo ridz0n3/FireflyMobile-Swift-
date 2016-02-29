@@ -551,9 +551,9 @@
 				7E985A071C4DEAAE00EBAFA5 /* CommonSeatSelectionViewController.swift */,
 				7E985A0D1C4E381300EBAFA5 /* CommonPaymentViewController.swift */,
 				7E9438531C56499F002D6792 /* CommonFlightDetailViewController.swift */,
+				7E86C25B1C828C5700C6547B /* CommonMHFlightDetailViewController.swift */,
 				7E41682D1C71773E008884DC /* CommonSearchDetailViewController.swift */,
 				7E0707911C72ED36001D7328 /* CommonListViewController.swift */,
-				7E86C25B1C828C5700C6547B /* CommonMHFlightDetailViewController.swift */,
 			);
 			name = CommonClass;
 			sourceTree = "<group>";

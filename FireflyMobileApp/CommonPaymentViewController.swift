@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class CommonPaymentViewController: BaseXLFormViewController {
 
-    var totalDue = Int()
+    var totalDue = Double()
     var paymentType = [AnyObject]()
     var cardType = [Dictionary<String,AnyObject>]()
     var paymentMethod = String()
@@ -152,7 +152,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         //holder name
-        row = XLFormRowDescriptor(tag: Tags.ValidationHolderName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Holder Name:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationHolderName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Card Holder Name:*")
         row.required = true
         section.addFormRow(row)
         

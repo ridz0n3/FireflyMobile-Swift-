@@ -184,13 +184,13 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                     
                     if json["status"] == "success"{
                         
-                        let amountDue = json["amount_due"].int
+                        let amountDue = json["amount_due"].doubleValue
                         let paymentChannel = json["payment_channel"].arrayObject
                         
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! AddPaymentViewController
                         paymentVC.paymentType = paymentChannel!
-                        paymentVC.totalDue = amountDue!
+                        paymentVC.totalDue = amountDue
                         self.navigationController!.pushViewController(paymentVC, animated: true)
                         
                     }else if json["status"] == "error"{

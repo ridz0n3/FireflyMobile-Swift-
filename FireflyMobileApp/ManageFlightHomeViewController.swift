@@ -27,7 +27,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     @IBOutlet weak var cancelBtn: UIButton!
     
     var contacts = [NSManagedObject]()
-    
+    var totalDueStr = Double()
     var itineraryData = NSDictionary()
     var flightDetail = [Dictionary<String,AnyObject>]()
     var totalPrice = String()
@@ -475,7 +475,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
                         let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
                         paymentVC.paymentType = paymentChannel!
-                        paymentVC.totalDueStr = self.totalDue
+                        paymentVC.totalDueStr = self.totalDueStr
                         paymentVC.bookingId = self.bookingId
                         paymentVC.signature = self.signature
                         self.navigationController!.pushViewController(paymentVC, animated: true)
@@ -568,7 +568,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                     }else if json["status"] == "need_payment"{
                         
-                        self.totalDue = json["total_due"].string!
+                        self.totalDueStr = json["total_due"].doubleValue
                         FireFlyProvider.request(.PaymentSelection(self.signature)) { (result) -> () in
                             
                             switch result {
@@ -583,7 +583,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
                                         let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
                                         paymentVC.paymentType = paymentChannel!
-                                        paymentVC.totalDueStr = self.totalDue
+                                        paymentVC.totalDueStr = self.totalDueStr
                                         paymentVC.bookingId = self.bookingId
                                         paymentVC.signature = self.signature
                                         self.navigationController!.pushViewController(paymentVC, animated: true)
