@@ -11,6 +11,7 @@ import UIKit
 class SideMenuTableViewCell: UITableViewCell {
 
     @IBOutlet weak var menuLbl: UILabel!
+    @IBOutlet weak var menuIcon: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

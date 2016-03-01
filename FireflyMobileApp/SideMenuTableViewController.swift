@@ -16,6 +16,9 @@ class SideMenuTableViewController: BaseViewController {
 
     @IBOutlet var sideMenuTableView: UITableView!
     var menuSections:[String] = ["LabelMenuHome".localized, "LabelMenuUpdateInformation".localized, "LabelMenuLogin".localized, "LabelMenuRegister".localized, "LabelMenuAbout".localized, "LabelMenuFAQ".localized, "LabelMenuLogout".localized]
+    
+    var menuIcon:[String] = ["homeIcon", "profileIcon", "loginIcon", "registerIcon", "aboutIcon", "faqIcon", "logoutIcon"]
+    
     var hideRow : Bool = false
     
     override func viewDidLoad() {
@@ -70,6 +73,7 @@ class SideMenuTableViewController: BaseViewController {
         cell.selectedBackgroundView = bgColorView
         
         cell.menuLbl.text = menuSections[indexPath.row]
+        cell.menuIcon.image = UIImage(named: menuIcon[indexPath.row])
         
         return cell
     }
