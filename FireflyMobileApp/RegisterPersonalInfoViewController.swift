@@ -218,7 +218,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // BonusLink
         row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card Number"
+        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card No"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
@@ -239,7 +239,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         let index = UInt(section)
         
         sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
-        
+
         return sectionView
     }
     

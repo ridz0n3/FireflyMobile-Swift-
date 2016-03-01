@@ -101,7 +101,7 @@
                                                     <constraint firstAttribute="height" constant="30" id="kJY-Mt-p04"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                <state key="normal" title="Forgot Password">
+                                                <state key="normal" title="Forgot Password?">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>

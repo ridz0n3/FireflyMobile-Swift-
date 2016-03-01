@@ -45,7 +45,6 @@
 		7E4168301C718209008884DC /* BoardingPassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E41682F1C718209008884DC /* BoardingPassView.xib */; };
 		7E4168321C71828F008884DC /* BoardingPassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4168311C71828F008884DC /* BoardingPassDetailViewController.swift */; };
 		7E4168341C71C602008884DC /* SuccessCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4168331C71C601008884DC /* SuccessCheckInViewController.swift */; };
-		7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */; };
 		7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */; };
 		7E5C6C301C643DA5006A5927 /* MobileCheckInTermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C6C2F1C643DA5006A5927 /* MobileCheckInTermViewController.swift */; };
 		7E5C6C321C644307006A5927 /* MobileTermTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C6C311C644307006A5927 /* MobileTermTableViewCell.swift */; };
@@ -188,7 +187,6 @@
 		7E41682F1C718209008884DC /* BoardingPassView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardingPassView.xib; sourceTree = "<group>"; };
 		7E4168311C71828F008884DC /* BoardingPassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassDetailViewController.swift; sourceTree = "<group>"; };
 		7E4168331C71C601008884DC /* SuccessCheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessCheckInViewController.swift; sourceTree = "<group>"; };
-		7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ForgotPasswordView.xib; sourceTree = "<group>"; };
 		7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDLNetworkManager.swift; sourceTree = "<group>"; };
 		7E5C6C2F1C643DA5006A5927 /* MobileCheckInTermViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileCheckInTermViewController.swift; sourceTree = "<group>"; };
 		7E5C6C311C644307006A5927 /* MobileTermTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileTermTableViewCell.swift; sourceTree = "<group>"; };
@@ -401,7 +399,6 @@
 		7E1F78151BF9ABCB00F55C46 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				7E55ADC51BFD837B002FAA84 /* ForgotPasswordView.xib */,
 				7E1F781D1BF9B6AD00F55C46 /* Login.storyboard */,
 				7E1F78191BF9B60700F55C46 /* LoginViewController.swift */,
 				7E07078F1C72CD14001D7328 /* PasswordExpiredViewController.swift */,
@@ -751,7 +748,6 @@
 				7E9011481C61D1B50051F7BE /* MobileCheckInView.xib in Resources */,
 				7E1F78311BF9D6A900F55C46 /* BookFlight.storyboard in Resources */,
 				7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */,
-				7E55ADC61BFD837B002FAA84 /* ForgotPasswordView.xib in Resources */,
 				7EB0DE0A1C83DD6F000AA6A8 /* MHFlightHeaderView.xib in Resources */,
 				7E1F781E1BF9B6AD00F55C46 /* Login.storyboard in Resources */,
 				7E1F780E1BF979B300F55C46 /* Home.storyboard in Resources */,
