@@ -571,9 +571,9 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[           ]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sqc-Y7-ZJb">
-                                                            <rect key="frame" x="89" y="53" width="56" height="18"/>
+                                                            <rect key="frame" x="89" y="53" width="58" height="18"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="56" id="J5Y-Tl-aQH"/>
+                                                                <constraint firstAttribute="width" constant="58" id="J5Y-Tl-aQH"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

@@ -1713,10 +1713,10 @@
                                                     <rect key="frame" x="16" y="0.0" width="568" height="80"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[           ]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uf-nZ-vXR">
-                                                            <rect key="frame" x="88" y="51" width="55" height="21"/>
+                                                            <rect key="frame" x="88" y="51" width="58" height="21"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="21" id="0QD-CX-0U9"/>
-                                                                <constraint firstAttribute="width" constant="55" id="xAd-Xs-XL0"/>
+                                                                <constraint firstAttribute="width" constant="58" id="xAd-Xs-XL0"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2424,9 +2424,9 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[           ]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ssj-KY-UFg">
-                                                            <rect key="frame" x="89" y="50" width="56" height="21"/>
+                                                            <rect key="frame" x="89" y="50" width="58" height="21"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="56" id="4yh-vc-FGw"/>
+                                                                <constraint firstAttribute="width" constant="58" id="4yh-vc-FGw"/>
                                                                 <constraint firstAttribute="height" constant="21" id="bTy-qo-FXX"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
