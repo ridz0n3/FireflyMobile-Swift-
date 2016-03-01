@@ -38,12 +38,17 @@ class CustomSearchFlightTableViewCell: UITableViewCell, UITextFieldDelegate {
         if plus.tag == 2 {
             var count: Int? = Int(self.adultCount.text!)
             count = count! + 1
-            self.adultCount.text = String(format: "%i", count!)
             
+            if count <= 9{
+               self.adultCount.text = String(format: "%i", count!)
+            }
         }else if plus.tag == 6 {
             var count: Int? = Int(self.infantCount.text!)
             count = count! + 1
-            self.infantCount.text = String(format: "%i", count!)
+            
+            if count <= 4{
+                self.infantCount.text = String(format: "%i", count!)
+            }
         }
 
     }
