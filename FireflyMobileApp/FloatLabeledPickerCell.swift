@@ -47,7 +47,18 @@ class FloatLabeledPickerCell: XLFormBaseCell{
     
     override func update() {
         super.update()
-        self.floatLabeledTextField.attributedPlaceholder = NSAttributedString(string: self.rowDescriptor!.title ?? "" , attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        
+        let title = self.rowDescriptor!.title?.componentsSeparatedByString(":")
+        
+        let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+        var attrString = NSMutableAttributedString()
+        attrString = NSMutableAttributedString(attributedString: NSAttributedString(string: "\(title![0]):"))
+        if title?.count >= 2{
+            let attrStar = NSMutableAttributedString(string: title![1], attributes: star)
+            attrString.appendAttributedString(attrStar)
+        }
+        
+        self.floatLabeledTextField.attributedPlaceholder = attrString
         
         if let value: AnyObject = self.rowDescriptor!.value {
             self.floatLabeledTextField.text = value.displayText()

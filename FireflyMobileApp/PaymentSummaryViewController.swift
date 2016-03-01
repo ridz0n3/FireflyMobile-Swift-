@@ -155,9 +155,9 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
         if section == 0{
-            sectionView.sectionLbl.text = "Flight Detail"
+            sectionView.sectionLbl.text = "FLIGHT DETAILS"
         }else{
-            sectionView.sectionLbl.text = "Price Detail"
+            sectionView.sectionLbl.text = "PRICE DETAILS"
         }
         
         

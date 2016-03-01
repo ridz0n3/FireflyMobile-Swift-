@@ -21,8 +21,9 @@ class CommonPaymentViewController: BaseXLFormViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var totalDueLbl: UILabel!
     @IBOutlet weak var creditCardCheckBox: M13Checkbox!
-    @IBOutlet weak var onlineBankingCheckBox: M13Checkbox!
-    @IBOutlet weak var cashCheckBox: M13Checkbox!
+    @IBOutlet weak var maybank2uCheckBox: M13Checkbox!
+    @IBOutlet weak var cimbCheckBox: M13Checkbox!
+    @IBOutlet weak var fpxCheckBox: M13Checkbox!
     @IBOutlet weak var continueBtn: UIButton!
     
     override func viewDidLoad() {
@@ -31,10 +32,6 @@ class CommonPaymentViewController: BaseXLFormViewController {
         setupLeftButton()
         creditCardCheckBox.checkState = M13CheckboxState.Checked
         paymentMethod = "Card"
-        creditCardCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
-        onlineBankingCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
-        cashCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
-        
         
         rearrangePaymentType()
         initializeForm()
@@ -45,7 +42,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
     func rearrangePaymentType(){
         
         var xchannelPosition : CGFloat = 41
-        var xonlinePosition : CGFloat = 41
+        var yonlinePosition : CGFloat = 362
         //var xcashPosition : CGFloat = 41
         
         for channel in paymentType as! [Dictionary<String, AnyObject>]{
@@ -66,12 +63,13 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 
             }else if channel["channel_type"] as! Int == 2{
                 
-                let img = UIImageView(frame: CGRectMake(xonlinePosition, 362, 68, 42))
+                let img = UIImageView(frame: CGRectMake(41, yonlinePosition, 68, 42))
                 img.contentMode = .ScaleToFill
                 img.image = UIImage(data: data!)
                 headerView.addSubview(img)
                 
-                xonlinePosition = xonlinePosition + 70
+                
+                yonlinePosition = yonlinePosition + 53
                 
             }            
         }
@@ -84,25 +82,36 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         if btn.tag == 1{
             creditCardCheckBox.checkState = M13CheckboxState.Checked
-            onlineBankingCheckBox.checkState = M13CheckboxState.Unchecked
-            cashCheckBox.checkState = M13CheckboxState.Unchecked
+            maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
+            cimbCheckBox.checkState = M13CheckboxState.Unchecked
+            fpxCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "notHide"
             tableView.reloadData()
             paymentMethod = "Card"
         }else if btn.tag == 2{
             creditCardCheckBox.checkState = M13CheckboxState.Unchecked
-            onlineBankingCheckBox.checkState = M13CheckboxState.Checked
-            cashCheckBox.checkState = M13CheckboxState.Unchecked
+            maybank2uCheckBox.checkState = M13CheckboxState.Checked
+            cimbCheckBox.checkState = M13CheckboxState.Unchecked
+            fpxCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
-            paymentMethod = "Online Banking"
+            paymentMethod = "Maybank2U"
+        }else if btn.tag == 3{
+            creditCardCheckBox.checkState = M13CheckboxState.Unchecked
+            maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
+            cimbCheckBox.checkState = M13CheckboxState.Checked
+            fpxCheckBox.checkState = M13CheckboxState.Unchecked
+            self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
+            tableView.reloadData()
+            paymentMethod = "CIMBClicks"
         }else{
             creditCardCheckBox.checkState = M13CheckboxState.Unchecked
-            onlineBankingCheckBox.checkState = M13CheckboxState.Unchecked
-            cashCheckBox.checkState = M13CheckboxState.Checked
+            maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
+            cimbCheckBox.checkState = M13CheckboxState.Unchecked
+            fpxCheckBox.checkState = M13CheckboxState.Checked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
-            paymentMethod = "Cash"
+            paymentMethod = "FPX"
         }
         
     }

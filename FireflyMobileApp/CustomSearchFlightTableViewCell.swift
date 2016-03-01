@@ -61,7 +61,10 @@ class CustomSearchFlightTableViewCell: UITableViewCell, UITextFieldDelegate {
             if count != 0 {
                 count = count! - 1;
             }
-            self.adultCount.text = String(format : "%i",count!)
+            
+            if count >= 1{
+                self.adultCount.text = String(format : "%i",count!)
+            }
             
         }else if (minus.tag == 5) {
             var count: Int? = Int(self.infantCount.text!)

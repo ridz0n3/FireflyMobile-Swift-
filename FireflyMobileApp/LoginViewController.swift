@@ -47,6 +47,8 @@ class LoginViewController: BaseXLFormViewController {
         var section : XLFormSectionDescriptor
         var row : XLFormRowDescriptor
         
+        let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+        var attrString = NSMutableAttributedString()
         
         form = XLFormDescriptor(title: "")
         
@@ -55,7 +57,10 @@ class LoginViewController: BaseXLFormViewController {
         
         // username
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Enter Email"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Enter Email"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Enter Email"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
@@ -64,7 +69,10 @@ class LoginViewController: BaseXLFormViewController {
         
         // Password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Password"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Password"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
