@@ -122,6 +122,8 @@
 		961C57211C7EA849000910B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 961C57201C7EA840000910B7 /* Localizable.strings */; };
 		96C1938E1C60904D00617C17 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C1938D1C60904D00617C17 /* FAQViewController.swift */; };
 		D69D4B8A65CD5940FF9528D0 /* Pods_FireflyMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */; };
+		FC4F998D1C86BB710068C5A8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC4F998C1C86BB710068C5A8 /* About.storyboard */; };
+		FC4F998F1C86E2390068C5A8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4F998E1C86E2390068C5A8 /* AboutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -266,6 +268,8 @@
 		961C57201C7EA840000910B7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		96C1938D1C60904D00617C17 /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
 		FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireflyMobileApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC4F998C1C86BB710068C5A8 /* About.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
+		FC4F998E1C86E2390068C5A8 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -319,6 +323,7 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				FC4F998B1C86BA760068C5A8 /* About */,
 				7EB40EDF1C7ABB4200296137 /* Model */,
 				7EC1DBD01C158A8800677D55 /* FloatLabel */,
 				7EBBFA0E1C101B7900080FFA /* DatePicker */,
@@ -624,6 +629,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		FC4F998B1C86BA760068C5A8 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				FC4F998C1C86BB710068C5A8 /* About.storyboard */,
+				FC4F998E1C86E2390068C5A8 /* AboutViewController.swift */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -746,6 +760,7 @@
 				7E1F77E71BF96E6C00F55C46 /* LaunchScreen.storyboard in Resources */,
 				7E1F77E41BF96E6C00F55C46 /* Assets.xcassets in Resources */,
 				7E9011481C61D1B50051F7BE /* MobileCheckInView.xib in Resources */,
+				FC4F998D1C86BB710068C5A8 /* About.storyboard in Resources */,
 				7E1F78311BF9D6A900F55C46 /* BookFlight.storyboard in Resources */,
 				7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */,
 				7EB0DE0A1C83DD6F000AA6A8 /* MHFlightHeaderView.xib in Resources */,
@@ -854,6 +869,7 @@
 				7E4168321C71828F008884DC /* BoardingPassDetailViewController.swift in Sources */,
 				7EBBFA041C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift in Sources */,
 				7E94385A1C564F24002D6792 /* EditFlightDetailViewController.swift in Sources */,
+				FC4F998F1C86E2390068C5A8 /* AboutViewController.swift in Sources */,
 				7E4168341C71C602008884DC /* SuccessCheckInViewController.swift in Sources */,
 				7E9438541C56499F002D6792 /* CommonFlightDetailViewController.swift in Sources */,
 				7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */,

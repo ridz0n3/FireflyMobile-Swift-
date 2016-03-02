@@ -53,6 +53,7 @@ public enum FireFlyAPI {
     case CheckInPassengerList(String, String, String, String, AnyObject)
     case CheckInConfirmation(String, String, String, String, AnyObject)
     case RetrieveBoardingPass(String, String, String, String, String)
+    case GetAbout
 }
 
 
@@ -131,13 +132,15 @@ extension FireFlyAPI : TargetType {
             return "api/checkInConfirmation"
         case RetrieveBoardingPass:
             return "api/getBoardingPass"
+        case GetAbout:
+            return "api/getAboutUS"
         }
     }
     public var method: Moya.Method {
         switch self {
         case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass:
             return .POST
-        case .GetTerm:
+        case .GetTerm, .GetAbout:
             return .GET
         }
     }

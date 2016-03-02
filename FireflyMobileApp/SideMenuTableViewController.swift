@@ -141,13 +141,13 @@ class SideMenuTableViewController: BaseViewController {
             
         }else if (indexPath.row == 4) {
             
-            //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+            let storyboard = UIStoryboard(name: "About", bundle: nil)
             //let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
-            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("SuccessCheckInVC")
+            let aboutVC = storyboard.instantiateViewControllerWithIdentifier("AboutVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PasswordExpiredVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC")
-            //controllers.append(homeVC)
+            controllers.append(aboutVC)
             
         }else if (indexPath.row == 5) {
             
