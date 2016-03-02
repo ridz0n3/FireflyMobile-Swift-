@@ -15,7 +15,7 @@ import Realm
 class SideMenuTableViewController: BaseViewController {
 
     @IBOutlet var sideMenuTableView: UITableView!
-    var menuSections:[String] = ["Home", "Update Information", "Login", "Register", "About", "FAQ", "Logout"]
+    var menuSections:[String] = ["LabelMenuHome".localized, "LabelMenuUpdateInformation".localized, "LabelMenuLogin".localized, "LabelMenuRegister".localized, "LabelMenuAbout".localized, "LabelMenuFAQ".localized, "LabelMenuLogout".localized]
     var hideRow : Bool = false
     
     override func viewDidLoad() {

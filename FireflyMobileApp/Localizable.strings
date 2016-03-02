@@ -6,9 +6,26 @@
   Copyright © 2016 Me-tech. All rights reserved.
 */
 
+//Menu
+
+LabelMenuHome = "Home";
+LabelMenuLogin = "Login";
+LabelMenuLogout = "Logout";
+LabelMenuUpdateInformation = "Update Information";
+LabelMenuRegister = "Register";
+LabelMenuAbout = "About";
+LabelMenuFAQ = "FAQ";
+
 //HomeViewController
 
-LabelBookFlight = "BOOK FLIGHT";
-LabelManageFlight = "MANAGE FLIGHT";
-LabelMobileCheckIn = "MOBILE CHECK-IN";
-LabelBoardingPass = "BOARDING PASS";
+LabelHomeBookFlight = "BOOK FLIGHT";
+LabelHomeManageFlight = "MANAGE FLIGHT";
+LabelHomeMobileCheckIn = "MOBILE CHECK-IN";
+LabelHomeBoardingPass = "BOARDING PASS";
+
+
+//Error Message
+
+LabelErrorSelectSeat = "Please select Seat First";
+LabelErrorGoingFlight = "Please select Going Flight";
+LabelErrorReturnFlight = "Please select Return Flight";

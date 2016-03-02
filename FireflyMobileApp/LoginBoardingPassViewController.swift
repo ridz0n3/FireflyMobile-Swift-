@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import RealmSwift
+import Realm
 
 class LoginBoardingPassViewController: CommonListViewController {
     
@@ -34,76 +35,97 @@ class LoginBoardingPassViewController: CommonListViewController {
             userList = realm.objects(UserList)
             
             let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
-            let mainPNR = mainUser[0].pnr.filter("pnr == %@", bookingList["pnr"] as! String)
             
-            if mainPNR.count != 0{
+            if mainUser.count != 0{
+                let mainPNR = mainUser[0].pnr.filter("pnr == %@", bookingList["pnr"] as! String)
                 
-                let boardingPass = mainPNR[0].boardingPass
-                
-                let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-                boardingPassDetailVC.boardingList = boardingPass
-                boardingPassDetailVC.isOffline = true
-                self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-                
-            }else{
-                
-                showHud("open")
-                FireFlyProvider.request(.RetrieveBoardingPass(signature, bookingList["pnr"] as! String, bookingList["departure_station_code"] as! String, bookingList["arrival_station_code"] as! String, userId), completion: { (result) -> () in
-                    switch result {
-                    case .Success(let successResult):
-                        do {
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                            
-                            if  json["status"].string == "success"{
-                                
-                                self.saveBoardingPass(json["boarding_pass"].arrayObject!, pnrStr: bookingList["pnr"] as! String)
-                                
-                                var i = 0
-                                var j = 0
-                                var dict = [String:AnyObject]()
-                                for info in json["boarding_pass"].arrayValue{
-                                    let index = "\(j)"
-                                    let imageURL = info["QRCodeURL"].stringValue
-                                    
-                                    Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
-                                        
-                                        dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
-                                        i++
-                                        
-                                        if i == j{
-                                            showHud("close")
-                                            let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                                            let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-                                            boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayValue
-                                            boardingPassDetailVC.imgDict = dict
-                                            self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-                                        }
-                                    })
-                                    j++
-                                }
-                            }else{
-                                showHud("close")
-                                //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
-                            }
-                        }
-                        catch {
+                if mainPNR.count != 0{
+                    
+                    var check = 0
+                    var boardingPass = List<BoardingPassList>!()
+                    for data in mainPNR{
+                        
+                        if data.departureStationCode == bookingList["departure_station_code"] as! String{
+                    
+                            boardingPass = data.boardingPass
+                            check++
                             
                         }
                         
-                    case .Failure(let failureResult):
-                        showHud("close")
-                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     
-                })
-
+                    if check == 0{
+                        sentData(bookingList)
+                    }else{
+                        let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
+                        let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
+                        boardingPassDetailVC.boardingList = boardingPass
+                        boardingPassDetailVC.isOffline = true
+                        self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
+                    }
+                    
+                }else{
+                    sentData(bookingList)
+                }
+            }else{
+                sentData(bookingList)
             }
         }
+    }
+    
+    func sentData(bookingList : NSDictionary){
         
-        
-        
+        showHud("open")
+        FireFlyProvider.request(.RetrieveBoardingPass(signature, bookingList["pnr"] as! String, bookingList["departure_station_code"] as! String, bookingList["arrival_station_code"] as! String, userId), completion: { (result) -> () in
+            switch result {
+            case .Success(let successResult):
+                do {
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if  json["status"].string == "success"{
+                        
+                        self.saveBoardingPass(json["boarding_pass"].arrayObject!, pnrStr: bookingList["pnr"] as! String)
+                        
+                        var i = 0
+                        var j = 0
+                        var dict = [String:AnyObject]()
+                        for info in json["boarding_pass"].arrayValue{
+                            let index = "\(j)"
+                            let imageURL = info["QRCodeURL"].stringValue
+                            
+                            Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
+                                
+                                dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
+                                i++
+                                
+                                if i == j{
+                                    showHud("close")
+                                    let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
+                                    let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
+                                    boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayValue
+                                    boardingPassDetailVC.imgDict = dict
+                                    self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
+                                }
+                            })
+                            j++
+                        }
+                    }else{
+                        showHud("close")
+                        //showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
+                    }
+                }
+                catch {
+                    
+                }
+                
+            case .Failure(let failureResult):
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
+            }
+            
+        })
+
     }
     
     func saveBoardingPass(boardingPassArr : [AnyObject], pnrStr : String){
@@ -125,11 +147,11 @@ class LoginBoardingPassViewController: CommonListViewController {
             if boardingPassArr.count == count{
                 
                 let formater = NSDateFormatter()
-                formater.dateFormat = "dd MM yyyy"
+                formater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                 
                 pnr.departureStationCode = boardingInfo["DepartureStationCode"] as! String
                 pnr.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
-                pnr.departureDateTime = formater.dateFromString(boardingInfo["DepartureDayDate"] as! String)!
+                pnr.departureDateTime = formater.dateFromString(boardingInfo["DepartureDateTime"] as! String)!
                 pnr.departureDayDate = boardingInfo["DepartureDayDate"] as! String
             }
             
@@ -167,11 +189,13 @@ class LoginBoardingPassViewController: CommonListViewController {
             if mainPNR.count != 0{
                 
                 for pnrData in mainPNR{
-                    if pnrData.departureDayDate == pnr.departureDayDate{
+                    
+                    if pnrData.departureDateTime.compare(pnr.departureDateTime) == NSComparisonResult.OrderedSame{
                         realm.beginWrite()
                         realm.delete(pnrData)
                         try! realm.commitWrite()
                     }
+                    
                 }
                 
             }

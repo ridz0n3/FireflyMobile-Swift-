@@ -177,7 +177,7 @@ class CommonFlightDetailViewController: BaseViewController {
                 flightHeader.premierBtn.backgroundColor = UIColor.whiteColor()
             }
             
-            flightHeader.destinationLbl.text = String(format: "%@ - %@", (flightDict!["departure_station_name"]?.string)!,flightDict!["arrival_station_name"]!.string!) //"PENANG - SUBANG"
+            flightHeader.destinationLbl.text = String(format: "%@ - %@", (flightDict!["departure_station_name"]?.string?.uppercaseString)!,flightDict!["arrival_station_name"]!.string!.uppercaseString) //"PENANG - SUBANG"
             flightHeader.wayLbl.text = String(format: "(%@)", flightDict!["type"]!.string!)// "(Return Flight)"
             flightHeader.dateLbl.text = String(format: "%@", flightDict!["departure_date"]!.string!) //"26 JAN 2015"
             

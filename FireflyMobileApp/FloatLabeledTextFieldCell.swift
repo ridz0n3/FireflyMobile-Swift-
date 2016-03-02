@@ -62,8 +62,6 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
         result.font = UIFont.systemFontOfSize(kFontSize)
         result.floatingLabel.font = UIFont.boldSystemFontOfSize(kFontSize)
         result.clearButtonMode = UITextFieldViewMode.WhileEditing
-        //result.keyboardType =
-        //result.secureTextEntry = true
         return result
     }()
     
@@ -76,7 +74,7 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
         self.contentView.addSubview(self.floatLabeledTextField)
         self.floatLabeledTextField.delegate = self
         
-        addToolBar(self.floatLabeledTextField)
+        //addToolBar(self.floatLabeledTextField)
         contentView.addConstraints(layoutConstraints())
     }
     
