@@ -154,7 +154,7 @@ class LoginViewController: BaseXLFormViewController {
         let alert = SCLAlertView()
         email = alert.addTextField("Enter email")
         email.text = tempEmail
-        alert.addButton("Login", target: self, selector: "loginBtnPressed")
+        alert.addButton("Submit", target: self, selector: "loginBtnPressed")
         //alert.showCloseButton = false
         alert.showEdit("Forgot Password", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
         

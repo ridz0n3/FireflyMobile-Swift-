@@ -12,7 +12,7 @@ import XLForm
 import SwiftyJSON
 
 class CommonPaymentViewController: BaseXLFormViewController {
-
+    
     var totalDue = Double()
     var paymentType = [AnyObject]()
     var cardType = [Dictionary<String,AnyObject>]()
@@ -71,7 +71,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 
                 yonlinePosition = yonlinePosition + 53
                 
-            }            
+            }
         }
     }
     
@@ -172,7 +172,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         self.form = form
     }
-
+    
     func getCardTypeCode(cardName:String, cardArr:[Dictionary<String,AnyObject>])->String{
         var cardCode = String()
         for cardData in cardArr{
@@ -223,7 +223,9 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         if array.count != 0{
             isValidate = false
-            
+            var i = 0
+            var message = String()
+
             for errorItem in array {
                 
                 let error = errorItem as! NSError
@@ -231,49 +233,60 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 
                 let errorTag = validationStatus.rowDescriptor!.tag!
                 
-                if errorTag == Tags.ValidationCardType ||
-                    errorTag == Tags.ValidationCardExpiredDate {
+                let empty = validationStatus.msg.componentsSeparatedByString("*")
+                
+                if empty.count == 1{
+                    
+                    message += "\(validationStatus.msg),\n"
+                    i++
+                    
+                }else{
+                    if errorTag == Tags.ValidationCardType ||
+                        errorTag == Tags.ValidationCardExpiredDate {
+                            let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                            
+                            if self.tableView.cellForRowAtIndexPath(index) != nil{
+                                let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
+                                
+                                let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                                cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
+                                
+                                animateCell(cell)
+                            }
+                            
+                            
+                    }else {
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
                         if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
                             
                             let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                             
                             animateCell(cell)
                         }
-                        
-                        
-                }else {
-                    let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                    
-                    if self.tableView.cellForRowAtIndexPath(index) != nil{
-                        let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
-                        
-                        let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                        cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                        
-                        animateCell(cell)
                     }
+                    //showErrorMessage("Please fill all fields")
                 }
-                //showErrorMessage("Please fill all fields")
-                
+            }
+            if i != 0{
+                showErrorMessage(message)
             }
         }else{
             isValidate = true
         }
     }
-
-
+    
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

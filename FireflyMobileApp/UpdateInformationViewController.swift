@@ -126,6 +126,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         //row.cellConfigAtConfigure["textField.placeholder"] = "*First Name"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         row.value = userInfo["contact_first_name"]
         section.addFormRow(row)
@@ -138,6 +139,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         //row.cellConfigAtConfigure["textField.placeholder"] = "*Last Name"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         row.value = userInfo["contact_last_name"]
         section.addFormRow(row)

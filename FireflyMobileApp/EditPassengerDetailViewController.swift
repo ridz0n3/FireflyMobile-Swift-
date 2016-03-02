@@ -76,6 +76,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             
             //first name
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+            row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
             row.required = true
             row.disabled = NSNumber(bool: true)
             row.value = adultDetails[i]["first_name"] as! String
@@ -83,6 +84,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             
             //last name
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+            row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
             row.required = true
             row.disabled = NSNumber(bool: true)
             row.value = adultDetails[i]["last_name"] as! String
@@ -101,7 +103,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             for travel in travelDoc{
                 tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
                 
-                if adultDetails[i]["travel_document"] as? String == travel["doc_code"] as! String{
+                if adultDetails[i]["travel_document"] as? String == travel["doc_code"] as? String{
                     row.value = travel["doc_name"]
                 }
             }
@@ -187,6 +189,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 // First name
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationFirstName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+                row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
                 row.value = infantDict["first_name"] as! String
                 row.disabled = NSNumber(bool: true)
@@ -194,6 +197,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 // Last Name
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationLastName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+                row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
                 row.value = infantDict["last_name"] as! String
                 row.disabled = NSNumber(bool: true)
@@ -213,7 +217,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 for travel in travelDoc{
                     tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
                     
-                    if infantDict["travel_document"] as? String == travel["doc_code"] as! String{
+                    if infantDict["travel_document"] as? String == travel["doc_code"] as? String{
                         row.value = travel["doc_name"]
                     }
                 }

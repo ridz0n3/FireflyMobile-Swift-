@@ -122,6 +122,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         //row.cellConfigAtConfigure["textField.placeholder"] = "*First Name"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         section.addFormRow(row)
         
@@ -134,6 +135,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
+        row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         section.addFormRow(row)
     
         // Date
