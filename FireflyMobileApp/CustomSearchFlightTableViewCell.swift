@@ -46,7 +46,7 @@ class CustomSearchFlightTableViewCell: UITableViewCell, UITextFieldDelegate {
             var count: Int? = Int(self.infantCount.text!)
             count = count! + 1
             
-            if count <= 4{
+            if count <= 9{
                 self.infantCount.text = String(format: "%i", count!)
             }
         }
