@@ -27,7 +27,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     @IBOutlet weak var cancelBtn: UIButton!
     
     var contacts = [NSManagedObject]()
-    
+    var totalDueStr = Double()
     var itineraryData = NSDictionary()
     var flightDetail = [Dictionary<String,AnyObject>]()
     var totalPrice = String()
@@ -210,13 +210,19 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             return cell
         }else if indexPath.section == 2{
             
-            let detail = priceDetail[indexPath.row] as! NSDictionary
+            let detail = priceDetail[indexPath.row] as NSDictionary
             
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PriceDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
             let tax = detail["taxes_or_fees"] as? NSDictionary
             
-            let taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            var taxData = String()
+            
+            if tax!.count == 3{
+                taxData = "Airport Tax: \(tax!["airport_tax"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }else{
+                taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }
             
             cell.flightDestination.text = detail["title"] as? String
             cell.guestPriceLbl.text = detail["total_guest"] as? String
@@ -469,7 +475,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
                         let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
                         paymentVC.paymentType = paymentChannel!
-                        paymentVC.totalDueStr = self.totalDue
+                        paymentVC.totalDueStr = self.totalDueStr
                         paymentVC.bookingId = self.bookingId
                         paymentVC.signature = self.signature
                         self.navigationController!.pushViewController(paymentVC, animated: true)
@@ -562,7 +568,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                     }else if json["status"] == "need_payment"{
                         
-                        self.totalDue = json["total_due"].string!
+                        self.totalDueStr = json["total_due"].doubleValue
                         FireFlyProvider.request(.PaymentSelection(self.signature)) { (result) -> () in
                             
                             switch result {
@@ -577,7 +583,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
                                         let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
                                         paymentVC.paymentType = paymentChannel!
-                                        paymentVC.totalDueStr = self.totalDue
+                                        paymentVC.totalDueStr = self.totalDueStr
                                         paymentVC.bookingId = self.bookingId
                                         paymentVC.signature = self.signature
                                         self.navigationController!.pushViewController(paymentVC, animated: true)

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <scenes>
+        <!--About View Controller-->
+        <scene sceneID="XQd-ma-gu5">
+            <objects>
+                <viewController storyboardIdentifier="AboutVC" id="IYM-w9-9bH" customClass="AboutViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nhV-BY-mJu"/>
+                        <viewControllerLayoutGuide type="bottom" id="bpf-1i-cyO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bbA-cT-HxH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tempHeader" translatesAutoresizingMaskIntoConstraints="NO" id="Y3u-Pa-onc">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="101"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="101" id="Vok-V1-YpP"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="FB2-kR-pDY">
+                                <rect key="frame" x="197" y="8" width="207" height="63"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="207" id="KZq-Wi-iSa"/>
+                                    <constraint firstAttribute="height" constant="63" id="OXt-mI-bPB"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3h-BJ-rSq">
+                                <rect key="frame" x="8" y="109" width="584" height="483"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABOUT US" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Inc-9v-7qd">
+                                        <rect key="frame" x="8" y="8" width="568" height="40"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="xmV-aa-td2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nP0-nR-Mad">
+                                        <rect key="frame" x="8" y="56" width="560" height="33"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="nP0-nR-Mad" secondAttribute="trailing" constant="16" id="0A6-sJ-tqR"/>
+                                    <constraint firstItem="Inc-9v-7qd" firstAttribute="top" secondItem="J3h-BJ-rSq" secondAttribute="top" constant="8" id="CrJ-2H-KEn"/>
+                                    <constraint firstItem="nP0-nR-Mad" firstAttribute="top" secondItem="Inc-9v-7qd" secondAttribute="bottom" constant="8" id="DaR-Ea-y2f"/>
+                                    <constraint firstAttribute="trailing" secondItem="Inc-9v-7qd" secondAttribute="trailing" constant="8" id="Wct-Q3-wc7"/>
+                                    <constraint firstItem="Inc-9v-7qd" firstAttribute="leading" secondItem="J3h-BJ-rSq" secondAttribute="leading" constant="8" id="Yle-d7-ENW"/>
+                                    <constraint firstItem="nP0-nR-Mad" firstAttribute="leading" secondItem="J3h-BJ-rSq" secondAttribute="leading" constant="8" id="d22-ox-wig"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="J3h-BJ-rSq" secondAttribute="trailing" constant="8" id="4V3-79-AaP"/>
+                            <constraint firstItem="J3h-BJ-rSq" firstAttribute="leading" secondItem="bbA-cT-HxH" secondAttribute="leading" constant="8" id="8Rg-dg-Era"/>
+                            <constraint firstItem="bpf-1i-cyO" firstAttribute="top" secondItem="J3h-BJ-rSq" secondAttribute="bottom" constant="8" id="Fwb-uf-5rk"/>
+                            <constraint firstAttribute="trailing" secondItem="Y3u-Pa-onc" secondAttribute="trailing" id="N5p-6Y-aXr"/>
+                            <constraint firstItem="J3h-BJ-rSq" firstAttribute="top" secondItem="Y3u-Pa-onc" secondAttribute="bottom" constant="8" id="cbh-ET-8dD"/>
+                            <constraint firstItem="Y3u-Pa-onc" firstAttribute="leading" secondItem="bbA-cT-HxH" secondAttribute="leading" id="gYc-lz-EFr"/>
+                            <constraint firstItem="Y3u-Pa-onc" firstAttribute="top" secondItem="bbA-cT-HxH" secondAttribute="top" id="iRV-RN-ahr"/>
+                            <constraint firstItem="FB2-kR-pDY" firstAttribute="centerX" secondItem="bbA-cT-HxH" secondAttribute="centerX" id="pgS-xX-Fcm"/>
+                            <constraint firstItem="FB2-kR-pDY" firstAttribute="top" secondItem="bbA-cT-HxH" secondAttribute="top" constant="8" id="vDf-Rp-r4I"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="aboutLbl" destination="nP0-nR-Mad" id="lrC-7f-VB3"/>
+                        <outlet property="lineView" destination="J3h-BJ-rSq" id="CIr-jo-oPy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jxf-AT-LXg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="427" y="433"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="logo" width="600" height="240"/>
+        <image name="tempHeader" width="750" height="194"/>
+    </resources>
+</document>

@@ -10,6 +10,7 @@ import UIKit
 
 class SuccessCheckInViewController: BaseViewController {
 
+    @IBOutlet weak var closeButton: UIButton!
     @IBOutlet weak var border: UIView!
     @IBOutlet weak var messageTextView: UITextView!
     var msg = String()
@@ -18,6 +19,7 @@ class SuccessCheckInViewController: BaseViewController {
         super.viewDidLoad()
         setupMenuButton()
         border.layer.borderWidth = 1
+        closeButton.layer.cornerRadius = 10
         messageTextView.attributedText = msg.html2String
         
         // Do any additional setup after loading the view.
@@ -28,6 +30,15 @@ class SuccessCheckInViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func closeBtnPressed(sender: AnyObject) {
+        
+        for views in (self.navigationController?.viewControllers)!{
+            if views.classForCoder == HomeViewController.classForCoder(){
+                self.navigationController?.popToViewController(views, animated: true)
+            }
+        }
+        
+    }
 
     /*
     // MARK: - Navigation

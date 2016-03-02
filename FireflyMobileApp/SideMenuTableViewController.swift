@@ -16,6 +16,9 @@ class SideMenuTableViewController: BaseViewController {
 
     @IBOutlet var sideMenuTableView: UITableView!
     var menuSections:[String] = ["LabelMenuHome".localized, "LabelMenuUpdateInformation".localized, "LabelMenuLogin".localized, "LabelMenuRegister".localized, "LabelMenuAbout".localized, "LabelMenuFAQ".localized, "LabelMenuLogout".localized]
+    
+    var menuIcon:[String] = ["homeIcon", "profileIcon", "loginIcon", "registerIcon", "aboutIcon", "faqIcon", "logoutIcon"]
+    
     var hideRow : Bool = false
     
     override func viewDidLoad() {
@@ -70,6 +73,7 @@ class SideMenuTableViewController: BaseViewController {
         cell.selectedBackgroundView = bgColorView
         
         cell.menuLbl.text = menuSections[indexPath.row]
+        cell.menuIcon.image = UIImage(named: menuIcon[indexPath.row])
         
         return cell
     }
@@ -137,13 +141,13 @@ class SideMenuTableViewController: BaseViewController {
             
         }else if (indexPath.row == 4) {
             
-            //let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-            //let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC")
+            let storyboard = UIStoryboard(name: "About", bundle: nil)
+            //let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
+            let aboutVC = storyboard.instantiateViewControllerWithIdentifier("AboutVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PasswordExpiredVC")
             //let homeVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC")
-            //controllers.append(homeVC)
+            controllers.append(aboutVC)
             
         }else if (indexPath.row == 5) {
             

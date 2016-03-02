@@ -97,7 +97,14 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             
             let tax = detail["taxes_or_fees"] as? NSDictionary
             
-            let taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            var taxData = String()
+            
+            if tax!.count == 3{
+                taxData = "Airport Tax: \(tax!["airport_tax"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }else{
+                taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            }
+            
             
             cell.flightDestination.text = detail["title"] as? String
             cell.guestPriceLbl.text = detail["total_guest"] as? String
@@ -148,9 +155,9 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
         if section == 0{
-            sectionView.sectionLbl.text = "Flight Detail"
+            sectionView.sectionLbl.text = "FLIGHT DETAILS"
         }else{
-            sectionView.sectionLbl.text = "Price Detail"
+            sectionView.sectionLbl.text = "PRICE DETAILS"
         }
         
         
@@ -177,13 +184,13 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                     
                     if json["status"] == "success"{
                         
-                        let amountDue = json["amount_due"].int
+                        let amountDue = json["amount_due"].doubleValue
                         let paymentChannel = json["payment_channel"].arrayObject
                         
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! AddPaymentViewController
                         paymentVC.paymentType = paymentChannel!
-                        paymentVC.totalDue = amountDue!
+                        paymentVC.totalDue = amountDue
                         self.navigationController!.pushViewController(paymentVC, animated: true)
                         
                     }else if json["status"] == "error"{

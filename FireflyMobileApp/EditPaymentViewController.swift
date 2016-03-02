@@ -14,10 +14,10 @@ class EditPaymentViewController: CommonPaymentViewController {
     var bookingId = String()
     var signature = String()
     
-    var totalDueStr = String()
+    var totalDueStr = Double()
     override func viewDidLoad() {
         super.viewDidLoad()
-        totalDueLbl.text = "\(totalDueStr)"
+        totalDueLbl.text = String(format: "%.2f MYR", totalDueStr)
         // Do any additional setup after loading the view.
     }
 

@@ -43,6 +43,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         form = XLFormDescriptor(title: "")
         
+        let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+        let text = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
+        var attrString = NSMutableAttributedString()
+        var attrText = NSMutableAttributedString()
+        
         // Basic Information - Section
         section = XLFormSectionDescriptor()
         section = XLFormSectionDescriptor.formSectionWithTitle("Basic Information")
@@ -51,7 +56,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // username
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Email"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Email"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Email"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
@@ -60,7 +68,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Password"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Password"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase) must be no more than 16 characters in length.", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
@@ -69,7 +80,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         //^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$
         // Confirm Password
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Confirm Password"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Confirm Password"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Confirm Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
@@ -82,6 +96,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Title
         row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Title")
+        
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "Title", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
         
         var tempArray:[AnyObject] = [AnyObject]()
         tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
@@ -97,22 +116,36 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // First Name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*First Name"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "First Name"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*First Name"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         section.addFormRow(row)
         
         // Last Name
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Last Name"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Last Name"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Last Name"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
+        row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         section.addFormRow(row)
     
         // Date
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeDate, title:"*Date of Birth")
+        
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "Date of Birth", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         row.value = NSDate()
         row.cellConfigAtConfigure["maximumDate"] = NSDate()
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
@@ -127,7 +160,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Address Line 1
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Address Line 1"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Address Line 1"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Address Line 1"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
@@ -143,6 +179,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // Country
         row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Country")
         
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "Country", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         tempArray = [AnyObject]()
         tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
         for country in countryArray{
@@ -157,7 +198,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Town/City
         row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Town / City"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Town / City"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Town / City"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
@@ -165,6 +209,12 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // State
         row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
+        
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "State", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
         row.value = XLFormOptionsObject(value: "", displayText:"")
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
@@ -173,7 +223,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Postcode
         row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypeNumber, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Postcode"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Postcode"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Postcode"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
@@ -187,7 +240,9 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Mobile Number
         row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Mobile / Home"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Mobile / Home"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.addValidator(XLFormRegexValidator(msg: "Mobile phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
@@ -196,7 +251,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Alternate
         row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "*Alternate"
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrString.appendAttributedString(NSAttributedString(string: "Alternate"))
+        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*Alternate"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
@@ -218,7 +276,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // BonusLink
         row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card Number"
+        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card No"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
@@ -239,7 +297,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         let index = UInt(section)
         
         sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
-        
+
         return sectionView
     }
     
@@ -255,9 +313,19 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 }
             }
             
+            let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+            let text = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
+            var attrString = NSMutableAttributedString()
+            var attrText = NSMutableAttributedString()
+            
             self.form.removeFormRowWithTag(Tags.ValidationState)
             var row : XLFormRowDescriptor
             row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
+            
+            attrString = NSMutableAttributedString(string: "*", attributes: star)
+            attrText = NSMutableAttributedString(string: "State", attributes: text)
+            attrString.appendAttributedString(attrText)
+            row.cellConfig["textLabel.attributedText"] = attrString
             
             var tempArray:[AnyObject] = [AnyObject]()
             tempArray.append(XLFormOptionsObject(value: "", displayText: ""))

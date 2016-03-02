@@ -508,13 +508,30 @@ Below is the list of airports equipped with KIOSK:
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZwK-Yc-8hH">
+                                        <rect key="frame" x="8" y="434" width="568" height="40"/>
+                                        <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="qzP-gZ-hCJ"/>
+                                        </constraints>
+                                        <state key="normal" title="Close">
+                                            <color key="titleColor" red="1" green="0.97396640940000001" blue="0.99092548840000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeBtnPressed:" destination="RLq-X4-YA6" eventType="touchUpInside" id="z50-MT-aBq"/>
+                                            <action selector="continueBtnPressed:" destination="VoA-lx-hzP" eventType="touchUpInside" id="JYB-hk-VWj"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="oBL-qw-fJU" firstAttribute="top" secondItem="vC0-vy-nAr" secondAttribute="top" constant="8" id="9Qa-W8-KTc"/>
                                     <constraint firstItem="Z9k-U7-cX7" firstAttribute="top" secondItem="oBL-qw-fJU" secondAttribute="bottom" constant="8" id="EWM-Tk-nQa"/>
+                                    <constraint firstItem="ZwK-Yc-8hH" firstAttribute="leading" secondItem="vC0-vy-nAr" secondAttribute="leading" constant="8" id="OEG-Tw-UEu"/>
                                     <constraint firstAttribute="trailing" secondItem="Z9k-U7-cX7" secondAttribute="trailing" constant="16" id="Uwv-je-JzI"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZwK-Yc-8hH" secondAttribute="trailing" constant="8" id="Vae-qh-em0"/>
                                     <constraint firstAttribute="trailing" secondItem="oBL-qw-fJU" secondAttribute="trailing" constant="8" id="eU7-IP-gdH"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZwK-Yc-8hH" secondAttribute="bottom" constant="8" id="fp8-ma-U0a"/>
                                     <constraint firstItem="oBL-qw-fJU" firstAttribute="leading" secondItem="vC0-vy-nAr" secondAttribute="leading" constant="8" id="lnH-Gh-pRJ"/>
                                     <constraint firstItem="Z9k-U7-cX7" firstAttribute="leading" secondItem="vC0-vy-nAr" secondAttribute="leading" constant="16" id="xBe-0a-N26"/>
                                 </constraints>
@@ -533,6 +550,7 @@ Below is the list of airports equipped with KIOSK:
                     </view>
                     <connections>
                         <outlet property="border" destination="vC0-vy-nAr" id="yvr-Lz-x1g"/>
+                        <outlet property="closeButton" destination="ZwK-Yc-8hH" id="owB-yd-V7g"/>
                         <outlet property="messageTextView" destination="Z9k-U7-cX7" id="jES-zR-U7A"/>
                     </connections>
                 </viewController>

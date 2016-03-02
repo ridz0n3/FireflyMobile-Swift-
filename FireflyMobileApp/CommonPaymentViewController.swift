@@ -12,8 +12,8 @@ import XLForm
 import SwiftyJSON
 
 class CommonPaymentViewController: BaseXLFormViewController {
-
-    var totalDue = Int()
+    
+    var totalDue = Double()
     var paymentType = [AnyObject]()
     var cardType = [Dictionary<String,AnyObject>]()
     var paymentMethod = String()
@@ -21,8 +21,9 @@ class CommonPaymentViewController: BaseXLFormViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var totalDueLbl: UILabel!
     @IBOutlet weak var creditCardCheckBox: M13Checkbox!
-    @IBOutlet weak var onlineBankingCheckBox: M13Checkbox!
-    @IBOutlet weak var cashCheckBox: M13Checkbox!
+    @IBOutlet weak var maybank2uCheckBox: M13Checkbox!
+    @IBOutlet weak var cimbCheckBox: M13Checkbox!
+    @IBOutlet weak var fpxCheckBox: M13Checkbox!
     @IBOutlet weak var continueBtn: UIButton!
     
     override func viewDidLoad() {
@@ -31,10 +32,6 @@ class CommonPaymentViewController: BaseXLFormViewController {
         setupLeftButton()
         creditCardCheckBox.checkState = M13CheckboxState.Checked
         paymentMethod = "Card"
-        creditCardCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
-        onlineBankingCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
-        cashCheckBox.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
-        
         
         rearrangePaymentType()
         initializeForm()
@@ -45,7 +42,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
     func rearrangePaymentType(){
         
         var xchannelPosition : CGFloat = 41
-        var xonlinePosition : CGFloat = 41
+        var yonlinePosition : CGFloat = 362
         //var xcashPosition : CGFloat = 41
         
         for channel in paymentType as! [Dictionary<String, AnyObject>]{
@@ -66,14 +63,15 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 
             }else if channel["channel_type"] as! Int == 2{
                 
-                let img = UIImageView(frame: CGRectMake(xonlinePosition, 362, 68, 42))
+                let img = UIImageView(frame: CGRectMake(41, yonlinePosition, 68, 42))
                 img.contentMode = .ScaleToFill
                 img.image = UIImage(data: data!)
                 headerView.addSubview(img)
                 
-                xonlinePosition = xonlinePosition + 70
                 
-            }            
+                yonlinePosition = yonlinePosition + 53
+                
+            }
         }
     }
     
@@ -84,25 +82,36 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         if btn.tag == 1{
             creditCardCheckBox.checkState = M13CheckboxState.Checked
-            onlineBankingCheckBox.checkState = M13CheckboxState.Unchecked
-            cashCheckBox.checkState = M13CheckboxState.Unchecked
+            maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
+            cimbCheckBox.checkState = M13CheckboxState.Unchecked
+            fpxCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "notHide"
             tableView.reloadData()
             paymentMethod = "Card"
         }else if btn.tag == 2{
             creditCardCheckBox.checkState = M13CheckboxState.Unchecked
-            onlineBankingCheckBox.checkState = M13CheckboxState.Checked
-            cashCheckBox.checkState = M13CheckboxState.Unchecked
+            maybank2uCheckBox.checkState = M13CheckboxState.Checked
+            cimbCheckBox.checkState = M13CheckboxState.Unchecked
+            fpxCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
-            paymentMethod = "Online Banking"
+            paymentMethod = "Maybank2U"
+        }else if btn.tag == 3{
+            creditCardCheckBox.checkState = M13CheckboxState.Unchecked
+            maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
+            cimbCheckBox.checkState = M13CheckboxState.Checked
+            fpxCheckBox.checkState = M13CheckboxState.Unchecked
+            self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
+            tableView.reloadData()
+            paymentMethod = "CIMBClicks"
         }else{
             creditCardCheckBox.checkState = M13CheckboxState.Unchecked
-            onlineBankingCheckBox.checkState = M13CheckboxState.Unchecked
-            cashCheckBox.checkState = M13CheckboxState.Checked
+            maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
+            cimbCheckBox.checkState = M13CheckboxState.Unchecked
+            fpxCheckBox.checkState = M13CheckboxState.Checked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
-            paymentMethod = "Cash"
+            paymentMethod = "FPX"
         }
         
     }
@@ -152,7 +161,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         //holder name
-        row = XLFormRowDescriptor(tag: Tags.ValidationHolderName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Holder Name:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationHolderName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Card Holder Name:*")
         row.required = true
         section.addFormRow(row)
         
@@ -163,7 +172,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         self.form = form
     }
-
+    
     func getCardTypeCode(cardName:String, cardArr:[Dictionary<String,AnyObject>])->String{
         var cardCode = String()
         for cardData in cardArr{
@@ -214,7 +223,9 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         if array.count != 0{
             isValidate = false
-            
+            var i = 0
+            var message = String()
+
             for errorItem in array {
                 
                 let error = errorItem as! NSError
@@ -222,49 +233,60 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 
                 let errorTag = validationStatus.rowDescriptor!.tag!
                 
-                if errorTag == Tags.ValidationCardType ||
-                    errorTag == Tags.ValidationCardExpiredDate {
+                let empty = validationStatus.msg.componentsSeparatedByString("*")
+                
+                if empty.count == 1{
+                    
+                    message += "\(validationStatus.msg),\n"
+                    i++
+                    
+                }else{
+                    if errorTag == Tags.ValidationCardType ||
+                        errorTag == Tags.ValidationCardExpiredDate {
+                            let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                            
+                            if self.tableView.cellForRowAtIndexPath(index) != nil{
+                                let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
+                                
+                                let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                                cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
+                                
+                                animateCell(cell)
+                            }
+                            
+                            
+                    }else {
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
                         if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
                             
                             let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                             
                             animateCell(cell)
                         }
-                        
-                        
-                }else {
-                    let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                    
-                    if self.tableView.cellForRowAtIndexPath(index) != nil{
-                        let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
-                        
-                        let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                        cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                        
-                        animateCell(cell)
                     }
+                    //showErrorMessage("Please fill all fields")
                 }
-                //showErrorMessage("Please fill all fields")
-                
+            }
+            if i != 0{
+                showErrorMessage(message)
             }
         }else{
             isValidate = true
         }
     }
-
-
+    
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

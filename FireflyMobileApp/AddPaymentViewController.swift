@@ -13,7 +13,7 @@ class AddPaymentViewController: CommonPaymentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        totalDueLbl.text = "\(totalDue) MYR"
+        totalDueLbl.text = String(format: "%.2f MYR", totalDue)//"\(totalDue) MYR"
         
     }
     

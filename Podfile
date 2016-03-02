@@ -15,7 +15,7 @@ pod 'CryptoSwift'
 pod 'SwiftValidator', '3.0.1'
 pod 'SwiftyJSON', '~> 2.3'
 pod 'RSDayFlow'
-pod 'JVFloatLabeledTextField', '1.0.2', :inhibit_warnings => true
+pod 'JVFloatLabeledTextField'
 pod 'Moya', '~> 5.0'
 pod 'SCLAlertView'
 pod 'RealmSwift', '~> 0.98'

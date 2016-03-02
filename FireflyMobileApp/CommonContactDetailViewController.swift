@@ -36,7 +36,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeBusiness:", name: "removeBusiness", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectCountry:", name: "selectCountry", object: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -86,12 +86,14 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         
         //first name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+        row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         row.value = contactData["first_name"]
         section.addFormRow(row)
         
         //last name
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+        row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         row.value = contactData["last_name"]
         section.addFormRow(row)
@@ -140,50 +142,64 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             addBusinessRow()
         }
     }
-
+    
     override func validateForm() {
         let array = formValidationErrors()
         
         if array.count != 0{
             isValidate = false
+            var i = 0
+            var message = String()
             
             for errorItem in array {
                 
                 let error = errorItem as! NSError
                 let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
                 
-                if validationStatus.rowDescriptor!.tag == Tags.ValidationTitle ||
-                    validationStatus.rowDescriptor!.tag == Tags.ValidationCountry || validationStatus.rowDescriptor!.tag == Tags.ValidationPurpose{
+                let empty = validationStatus.msg.componentsSeparatedByString("*")
+                
+                if empty.count == 1{
+                    
+                    message += "\(validationStatus.msg),\n"
+                    i++
+                    
+                }else{
+                    if validationStatus.rowDescriptor!.tag == Tags.ValidationTitle ||
+                        validationStatus.rowDescriptor!.tag == Tags.ValidationCountry || validationStatus.rowDescriptor!.tag == Tags.ValidationPurpose{
+                            let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                            
+                            if self.tableView.cellForRowAtIndexPath(index) != nil{
+                                let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
+                                
+                                let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                                cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
+                                
+                                animateCell(cell)
+                            }
+                            
+                            
+                    }else{
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
                         if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
                             
                             let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                             
                             animateCell(cell)
                         }
-                        
-                        
-                }else{
-                    let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                    
-                    if self.tableView.cellForRowAtIndexPath(index) != nil{
-                        let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
-                        
-                        let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                        cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                        
-                        animateCell(cell)
                     }
                 }
+            }
+            if i != 0{
+                showErrorMessage(message)
             }
         }else{
             isValidate = true
         }
     }
-
+    
     func getPurpose(purposeName:String, purposeArr:[Dictionary<String,AnyObject>]) -> String{
         
         var purposeCode = String()
@@ -285,9 +301,9 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                     tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
                     
                     
-                        if nilIfEmpty(contactData["state"]) as! String == data["state_code"] as! String{
-                            row.value = data["state_name"]
-                        }
+                    if nilIfEmpty(contactData["state"]) as! String == data["state_code"] as! String{
+                        row.value = data["state_name"]
+                    }
                 }
             }
             else {
@@ -300,5 +316,5 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
         }
     }
-
+    
 }
