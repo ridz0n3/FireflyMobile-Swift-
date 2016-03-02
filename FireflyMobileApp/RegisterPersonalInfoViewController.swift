@@ -44,7 +44,9 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         form = XLFormDescriptor(title: "")
         
         let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+        let text = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
         var attrString = NSMutableAttributedString()
+        var attrText = NSMutableAttributedString()
         
         // Basic Information - Section
         section = XLFormSectionDescriptor()
@@ -95,6 +97,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // Title
         row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Title")
         
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "Title", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         var tempArray:[AnyObject] = [AnyObject]()
         tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
         for title in titleArray{
@@ -131,6 +138,12 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     
         // Date
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeDate, title:"*Date of Birth")
+        
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "Date of Birth", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         row.value = NSDate()
         row.cellConfigAtConfigure["maximumDate"] = NSDate()
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
@@ -164,6 +177,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // Country
         row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Country")
         
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "Country", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         tempArray = [AnyObject]()
         tempArray.append(XLFormOptionsObject(value: "", displayText: ""))
         for country in countryArray{
@@ -189,6 +207,12 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // State
         row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
+        
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "State", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
         row.value = XLFormOptionsObject(value: "", displayText:"")
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
@@ -287,9 +311,19 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 }
             }
             
+            let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+            let text = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
+            var attrString = NSMutableAttributedString()
+            var attrText = NSMutableAttributedString()
+            
             self.form.removeFormRowWithTag(Tags.ValidationState)
             var row : XLFormRowDescriptor
             row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
+            
+            attrString = NSMutableAttributedString(string: "*", attributes: star)
+            attrText = NSMutableAttributedString(string: "State", attributes: text)
+            attrString.appendAttributedString(attrText)
+            row.cellConfig["textLabel.attributedText"] = attrString
             
             var tempArray:[AnyObject] = [AnyObject]()
             tempArray.append(XLFormOptionsObject(value: "", displayText: ""))

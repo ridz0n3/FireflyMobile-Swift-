@@ -35,7 +35,9 @@ class UpdateInformationViewController: BaseXLFormViewController {
         var row : XLFormRowDescriptor
         
         let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+        let text = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
         var attrString = NSMutableAttributedString()
+        var attrText = NSMutableAttributedString()
         
         form = XLFormDescriptor(title: "")
         
@@ -92,6 +94,11 @@ class UpdateInformationViewController: BaseXLFormViewController {
         // Title
         row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Title")
         
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "Title", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+
         var tempArray:[AnyObject] = [AnyObject]()
         for title in titleArray{
             
@@ -152,6 +159,12 @@ class UpdateInformationViewController: BaseXLFormViewController {
         let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
         
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeDate, title:"*Date of Birth")
+        
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "Date of Birth", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         row.value = df
         row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
         row.cellStyle = .Value2
@@ -190,6 +203,11 @@ class UpdateInformationViewController: BaseXLFormViewController {
         // Country
         row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Country")
         
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "Country", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         tempArray = [AnyObject]()
         for country in countryArray{
             
@@ -222,6 +240,12 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // State
         row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
+        
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "State", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
+        
         row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
         row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
         row.cellStyle = .Value2
@@ -317,6 +341,16 @@ class UpdateInformationViewController: BaseXLFormViewController {
         self.form.removeFormRowWithTag(Tags.ValidationState)
         var row : XLFormRowDescriptor
         row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
+        
+        let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+        let text = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
+        var attrString = NSMutableAttributedString()
+        var attrText = NSMutableAttributedString()
+        
+        attrString = NSMutableAttributedString(string: "*", attributes: star)
+        attrText = NSMutableAttributedString(string: "State", attributes: text)
+        attrString.appendAttributedString(attrText)
+        row.cellConfig["textLabel.attributedText"] = attrString
         
         var tempArray:[AnyObject] = [AnyObject]()
         
