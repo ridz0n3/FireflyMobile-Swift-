@@ -23,6 +23,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         setupMenuButton()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshTable:", name: "reloadHome", object: nil)
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
         
      //    let boardingArr = defaults.objectForKey("boarding_pass") as! [Dictionary<String, AnyObject>]
        /* if  let userInfo = defaults.objectForKey("userInfo") as! [String : String]? {

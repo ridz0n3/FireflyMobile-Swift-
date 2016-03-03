@@ -32,6 +32,8 @@ class InitialLoadManager {
         let deviceId = UIDevice.currentDevice().identifierForVendor?.UUIDString//defaults.objectForKey("token") as! String
         //print(deviceId)
         
+        
+        initializeGA()
         FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,deviceId!,"Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
             switch result {
             case .Success(let successResult):
@@ -101,6 +103,18 @@ class InitialLoadManager {
             }
         }
 
+    }
+    
+    func initializeGA(){
+        // Configure tracker from GoogleService-Info.plist.
+        var configureError:NSError?
+        GGLContext.sharedInstance().configureWithError(&configureError)
+        assert(configureError == nil, "Error configuring Google services: \(configureError)")
+        
+        // Optional: configure GAI options.
+        let gai = GAI.sharedInstance()
+        gai.trackUncaughtExceptions = true  // report uncaught exceptions
+        gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
     }
 
 }

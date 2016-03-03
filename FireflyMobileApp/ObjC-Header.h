@@ -14,4 +14,5 @@
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <RSDayFlow/RSDFDatePickerView.h>
 #import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>
+#import <Google/Analytics.h>
 #endif /* ObjC_Header_h */

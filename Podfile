@@ -19,6 +19,7 @@ pod 'JVFloatLabeledTextField'
 pod 'Moya', '~> 5.0'
 pod 'SCLAlertView'
 pod 'RealmSwift', '~> 0.98'
+pod 'Google/Analytics'
 end
 
 target 'FireflyMobileAppTests' do

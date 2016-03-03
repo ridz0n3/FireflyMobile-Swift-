@@ -74,6 +74,10 @@ internal struct Tags {
     
 }
 
+struct GAConstants {
+    static let homeScreen = "Home";
+}
+
 extension UIViewController: UITextFieldDelegate{
     func addToolBar(textField: UITextField){
         let toolBar = UIToolbar()
@@ -272,5 +276,6 @@ func showInfo(message:String){
     infoView.showInfo("Info", subTitle: message, closeButtonTitle: "Okay", colorStyle: 0xEC581A)
     
 }
+
 
 

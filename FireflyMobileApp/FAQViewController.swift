@@ -16,6 +16,7 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen("FAQ")
         //If you want to implement the delegate
         
         self.setupMenuButton()

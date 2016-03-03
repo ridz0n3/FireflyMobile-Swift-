@@ -64,7 +64,7 @@
 		7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */; };
 		7E75373B1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */; };
 		7E75373D1C5F42CC0068D49D /* MobileCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */; };
-		7E75373F1C5F6A880068D49D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E75373E1C5F6A880068D49D /* GoogleService-Info.plist */; };
+		7E75373F1C5F6A880068D49D /* GoogleService-Infogcm.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E75373E1C5F6A880068D49D /* GoogleService-Infogcm.plist */; };
 		7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */; };
 		7E8262081C3CCF280071FAAA /* PaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */; };
 		7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */; };
@@ -121,6 +121,8 @@
 		9615B07C1C1137DD000B522F /* FireflyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B07B1C1137DD000B522F /* FireflyAPI.swift */; };
 		961C57211C7EA849000910B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 961C57201C7EA840000910B7 /* Localizable.strings */; };
 		96C1938E1C60904D00617C17 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C1938D1C60904D00617C17 /* FAQViewController.swift */; };
+		96DF6A531C87DB7F005BA920 /* AnalyticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DF6A521C87DB7F005BA920 /* AnalyticsManager.swift */; };
+		96DF6A551C87E176005BA920 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 96DF6A541C87E176005BA920 /* GoogleService-Info.plist */; };
 		D69D4B8A65CD5940FF9528D0 /* Pods_FireflyMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */; };
 		FC4F998D1C86BB710068C5A8 /* About.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC4F998C1C86BB710068C5A8 /* About.storyboard */; };
 		FC4F998F1C86E2390068C5A8 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC4F998E1C86E2390068C5A8 /* AboutViewController.swift */; };
@@ -208,7 +210,7 @@
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginMobileCheckinViewController.swift; sourceTree = "<group>"; };
 		7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileCheckinViewController.swift; sourceTree = "<group>"; };
-		7E75373E1C5F6A880068D49D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7E75373E1C5F6A880068D49D /* GoogleService-Infogcm.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Infogcm.plist"; sourceTree = "<group>"; };
 		7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ObjC-Header.h"; sourceTree = "<group>"; };
 		7E7E45BF1BFC3F57002EB3E0 /* BaseXLFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseXLFormViewController.swift; sourceTree = "<group>"; };
 		7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentWebViewController.swift; sourceTree = "<group>"; };
@@ -267,6 +269,8 @@
 		9615B07B1C1137DD000B522F /* FireflyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireflyAPI.swift; sourceTree = "<group>"; };
 		961C57201C7EA840000910B7 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		96C1938D1C60904D00617C17 /* FAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
+		96DF6A521C87DB7F005BA920 /* AnalyticsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnalyticsManager.swift; sourceTree = "<group>"; };
+		96DF6A541C87E176005BA920 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		FC1BD77AE0B5708A765053DD /* Pods_FireflyMobileApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FireflyMobileApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC4F998C1C86BB710068C5A8 /* About.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = About.storyboard; sourceTree = "<group>"; };
 		FC4F998E1C86E2390068C5A8 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -423,8 +427,9 @@
 		7E1F78231BF9BE8C00F55C46 /* Support File */ = {
 			isa = PBXGroup;
 			children = (
+				96DF6A541C87E176005BA920 /* GoogleService-Info.plist */,
 				7E1F77E81BF96E6C00F55C46 /* Info.plist */,
-				7E75373E1C5F6A880068D49D /* GoogleService-Info.plist */,
+				7E75373E1C5F6A880068D49D /* GoogleService-Infogcm.plist */,
 				7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */,
 				7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */,
 				7E290E841BFEB3D8004E50F3 /* Constant.swift */,
@@ -469,6 +474,7 @@
 				9615B07B1C1137DD000B522F /* FireflyAPI.swift */,
 				7E9A53821C3B5D21001094F5 /* LoginManager.swift */,
 				7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */,
+				96DF6A521C87DB7F005BA920 /* AnalyticsManager.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -767,6 +773,7 @@
 				7E1F781E1BF9B6AD00F55C46 /* Login.storyboard in Resources */,
 				7E1F780E1BF979B300F55C46 /* Home.storyboard in Resources */,
 				7E5C6C361C648F96006A5927 /* Rule2View.xib in Resources */,
+				96DF6A551C87E176005BA920 /* GoogleService-Info.plist in Resources */,
 				7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */,
 				961C57211C7EA849000910B7 /* Localizable.strings in Resources */,
 				7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */,
@@ -778,7 +785,7 @@
 				7E4168301C718209008884DC /* BoardingPassView.xib in Resources */,
 				7E6931121BFB1F2C004F1719 /* MobileCheckIn.storyboard in Resources */,
 				7E69311B1BFB2F0E004F1719 /* BoardingPass.storyboard in Resources */,
-				7E75373F1C5F6A880068D49D /* GoogleService-Info.plist in Resources */,
+				7E75373F1C5F6A880068D49D /* GoogleService-Infogcm.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -923,6 +930,7 @@
 				7E6931011BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift in Sources */,
 				7EB07B001C28F8440061D1C9 /* DirectionView.swift in Sources */,
 				7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */,
+				96DF6A531C87DB7F005BA920 /* AnalyticsManager.swift in Sources */,
 				7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */,
 				7E75373D1C5F42CC0068D49D /* MobileCheckinViewController.swift in Sources */,
 				7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */,
