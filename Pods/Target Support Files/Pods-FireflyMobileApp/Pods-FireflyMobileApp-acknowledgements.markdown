@@ -65,6 +65,30 @@ Permission is granted to anyone to use this software for any purpose,including c
 - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
 - This notice may not be removed or altered from any source or binary distribution.
 
+## Google
+
+Copyright 2015 Google Inc.
+
+## GoogleAnalytics
+
+Copyright 2015 Google Inc.
+
+## GoogleInterchangeUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleNetworkingUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleSymbolUtilities
+
+Copyright 2015 Google Inc.
+
+## GoogleUtilities
+
+Copyright 2015 Google Inc.
+
 ## JVFloatLabeledTextField
 
 The MIT License (MIT)
