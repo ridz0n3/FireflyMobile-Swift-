@@ -43,13 +43,13 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         //current password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Current Password:*")
         row.required = true
-        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase) must be no more than 16 characters in length.", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "The password must be at least 8 characters, no more than 16 characters. The password cannot contain a period(.) comma(,) or tilde(~)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         section.addFormRow(row)
         
         //new password
         row = XLFormRowDescriptor(tag: Tags.ValidationNewPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"New Password:*")
         row.required = true
-        row.addValidator(XLFormRegexValidator(msg: "The password must contain \n (number, symbol, uppercase, lowercase) must be no more than 16 characters in length.", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "The password must be at least 8 characters, no more than 16 characters. The password cannot contain a period(.) comma(,) or tilde(~)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         section.addFormRow(row)
         
         //confirm password

@@ -40,6 +40,7 @@
 		7E20F90F1BFA0A3D0020AB0C /* FlightHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E20F90E1BFA0A3D0020AB0C /* FlightHeader.xib */; };
 		7E20F9111BFA0A760020AB0C /* FlightHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */; };
 		7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E290E841BFEB3D8004E50F3 /* Constant.swift */; };
+		7E33D8E71C87CFC900901629 /* EditMHFlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E33D8E61C87CFC900901629 /* EditMHFlightDetailViewController.swift */; };
 		7E367BF91C4397AF00897D7D /* ManageFlightHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */; };
 		7E41682E1C71773F008884DC /* CommonSearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E41682D1C71773E008884DC /* CommonSearchDetailViewController.swift */; };
 		7E4168301C718209008884DC /* BoardingPassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E41682F1C718209008884DC /* BoardingPassView.xib */; };
@@ -184,6 +185,7 @@
 		7E20F90E1BFA0A3D0020AB0C /* FlightHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FlightHeader.xib; sourceTree = "<group>"; };
 		7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightHeaderView.swift; sourceTree = "<group>"; };
 		7E290E841BFEB3D8004E50F3 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		7E33D8E61C87CFC900901629 /* EditMHFlightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMHFlightDetailViewController.swift; sourceTree = "<group>"; };
 		7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageFlightHomeViewController.swift; sourceTree = "<group>"; };
 		7E41682D1C71773E008884DC /* CommonSearchDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonSearchDetailViewController.swift; sourceTree = "<group>"; };
 		7E41682F1C718209008884DC /* BoardingPassView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardingPassView.xib; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 				7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */,
 				7E9438571C564E3F002D6792 /* EditSearchFlightViewController.swift */,
 				7E9438591C564F24002D6792 /* EditFlightDetailViewController.swift */,
+				7E33D8E61C87CFC900901629 /* EditMHFlightDetailViewController.swift */,
 				7E985A0B1C4DF11900EBAFA5 /* EditSeatSelectionViewController.swift */,
 				7E985A111C4E3B7600EBAFA5 /* EditPaymentViewController.swift */,
 				7E69310C1BFB195D004F1719 /* SendItineraryViewController.swift */,
@@ -935,6 +938,7 @@
 				7E0707901C72CD14001D7328 /* PasswordExpiredViewController.swift in Sources */,
 				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
 				7E1AFD5E1C7D3CF400046200 /* UserList.swift in Sources */,
+				7E33D8E71C87CFC900901629 /* EditMHFlightDetailViewController.swift in Sources */,
 				7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */,
 				7E9438581C564E3F002D6792 /* EditSearchFlightViewController.swift in Sources */,
 				7E11C0891C47AEE300C67BD2 /* EditPassengerDetailViewController.swift in Sources */,

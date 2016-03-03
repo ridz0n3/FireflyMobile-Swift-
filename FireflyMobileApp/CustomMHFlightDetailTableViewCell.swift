@@ -37,6 +37,9 @@ class CustomMHFlightDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var economyBtn: UIButton!
     @IBOutlet weak var businessBtn: UIButton!
     
+    @IBOutlet weak var economyPromoNotAvailableView: UIView!
+    @IBOutlet weak var economyNotAvailableView: UIView!
+    @IBOutlet weak var businessNotAvailableView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
