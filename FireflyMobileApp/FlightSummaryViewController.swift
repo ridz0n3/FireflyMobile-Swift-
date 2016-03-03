@@ -263,7 +263,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     
     func detailBtnPressed(sender:UIButton){
         
-        SCLAlertView().showSuccess("Taxes/Fee", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
+        SCLAlertView().showSuccess("Taxes/Fees", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
         
     }
 

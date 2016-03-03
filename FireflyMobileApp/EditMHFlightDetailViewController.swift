@@ -1,77 +1,87 @@
 //
-//  CommonMHFlightDetailViewController.swift
+//  EditMHFlightDetailViewController.swift
 //  FireflyMobileApp
 //
-//  Created by ME-Tech Mac User 1 on 2/28/16.
+//  Created by ME-Tech Mac User 1 on 3/3/16.
 //  Copyright © 2016 Me-tech. All rights reserved.
 //
 
 import UIKit
+import M13Checkbox
 import SwiftyJSON
 
-class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
+
+    var goingData = NSDictionary()
+    var returnData = NSDictionary()
+    var signature = String()
+    var type = Int()
+    var bookId = String()
+    var pnr = String()
     
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var flightDetailTableView: UITableView!
-    @IBOutlet weak var continueView: UIView!
+    var username = String()
+    var departure_station = String()
+    var arrival_station = String()
+    var departure_date = String()
+    var arrival_time_1 = String()
+    var departure_time_1 = String()
+    var fare_sell_key_1 = String()
+    var flight_number_1 = String()
+    var journey_sell_key_1 = String()
+    var status_1 = String()
     
-    var infant = String()
-    var adult = String()
-    var flightDetail : Array<JSON> = []
-    var checkGoingIndexPath = NSIndexPath()
-    var checkReturnIndexPath = NSIndexPath()
-    var checkGoingIndex = String()
-    var checkReturnIndex = String()
+    var return_date = String()
+    var arrival_time_2 = String()
+    var departure_time_2 = String()
+    var fare_sell_key_2 = String()
+    var flight_number_2 = String()
+    var journey_sell_key_2 = String()
+    var status_2 = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLeftButton()
-        
-        if flightDetail.count == 0{
-            self.continueView.hidden = true
-        }
+
+        checkGoingIndexPath = NSIndexPath(forRow: 0, inSection: 0)
+        checkReturnIndexPath = NSIndexPath(forRow: 0, inSection: 1)
         // Do any additional setup after loading the view.
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if flightDetail.count == 0{
             return 1
         }else{
-            return flightDetail.count
-        }
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if flightDetail.count == 0{
-            return 1
-        }else{
+            
             let flightDict = flightDetail[section].dictionary
             
-            if flightDict!["flights"]?.count == 0{
-                return 1
+            if section == 0{
+                
+                if flightDict!["flights"]?.count == 0 || goingData["status"] as! String == "N"{
+                    return 1
+                }else{
+                    return (flightDict!["flights"]?.count)!
+                }
+                
             }else{
-                return (flightDict!["flights"]?.count)!
+                
+                if flightDict!["flights"]?.count == 0 || returnData["status"] as! String == "N"{
+                    return 1
+                }else{
+                    return (flightDict!["flights"]?.count)!
+                }
+                
             }
-        }
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        let flightDict = flightDetail[indexPath.section].dictionary
-        
-        if flightDict!["flights"]?.count == 0{
-            return 107
-        }else{
-            return 222
+            
         }
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if flightDetail.count == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
@@ -80,10 +90,16 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
             
             let flightDict = flightDetail[indexPath.section].dictionary
             
-            if flightDict!["flights"]?.count == 0{
+            if indexPath.section == 0 && goingData["status"] as! String == "N"{
+                let cell = tableView.dequeueReusableCellWithIdentifier("NoSelectCell", forIndexPath: indexPath)
+                return cell
+            }else if indexPath.section == 1 && returnData["status"] as! String == "N"{
+                let cell = tableView.dequeueReusableCellWithIdentifier("NoSelectCell", forIndexPath: indexPath)
+                return cell
+            }else if flightDict!["flights"]?.count == 0{
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
                 return cell
-            }else{
+            }else {
                 let cell = self.flightDetailTableView.dequeueReusableCellWithIdentifier("flightCell", forIndexPath: indexPath) as! CustomMHFlightDetailTableViewCell
                 
                 let flights = flightDict!["flights"]?.array
@@ -155,7 +171,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                     cell.businessBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:3"
                     cell.businessBtn.addTarget(self, action: "checkCategory:", forControlEvents: .TouchUpInside)
                 }
-                
+
                 if indexPath.section == 1{
                     cell.flightIcon.image = UIImage(named: "arrival_icon")
                     if checkReturnIndexPath.section == 1{
@@ -202,51 +218,119 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                 return cell
             }
         }
-        
     }
-    
-    
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 88
-    }
-    
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let flightHeader = NSBundle.mainBundle().loadNibNamed("MHFlightHeaderView", owner: self, options: nil)[0] as! MHFlightHeaderView
+
+    @IBAction func continueBtnPressed(sender: AnyObject) {
         
-        let flightDict = flightDetail[section].dictionary
+        var planGo = String()
+        var planBack = String()
         
-        flightHeader.destinationLbl.text = String(format: "%@ - %@", (flightDict!["departure_station_name"]?.string?.uppercaseString)!,flightDict!["arrival_station_name"]!.string!.uppercaseString) //"PENANG - SUBANG"
-        flightHeader.directionLbl.text = String(format: "(%@)", flightDict!["type"]!.string!)// "(Return Flight)"
-        flightHeader.dateLbl.text = String(format: "%@", flightDict!["departure_date"]!.string!) //"26 JAN 2015"
+        let date = flightDetail[0]["departure_date"].string!
+        var dateArr = date.componentsSeparatedByString(" ")
+        var isReturn = Bool()
         
-        flightHeader.frame = CGRectMake(0, 0,self.view.frame.size.width, 88)
-        return flightHeader
-    }
-    
-    func checkCategory(sender : UIButton){
-        let index = sender.accessibilityHint?.componentsSeparatedByString(" ")
-        let section = index![0].componentsSeparatedByString(":")
-        let row = index![1].componentsSeparatedByString(":")
-        let indexCheck = index![2].componentsSeparatedByString(":")
-        
-        if section[1] == "0"{
-            checkGoingIndex = indexCheck[1]
-            checkGoingIndexPath = NSIndexPath(forRow: Int(row[1])!, inSection: Int(section[1])!)
-        }else{
-            checkReturnIndex = indexCheck[1]
-            checkReturnIndexPath = NSIndexPath(forRow: Int(row[1])!, inSection: Int(section[1])!)
+        if flightDetail.count == 2{
+            isReturn = true
         }
         
-        flightDetailTableView.reloadData()
+        if checkGoingIndex == "" && goingData["status"] as! String == "Y"{
+            showErrorMessage("LabelErrorGoingFlight".localized)
+        }else if isReturn && checkReturnIndex == ""  && returnData["status"] as! String == "Y"{
+            showErrorMessage("LabelErrorReturnFlight".localized)
+        }else{
+            
+            if type == 1{
+                let dateReturn = flightDetail[1]["departure_date"].string!
+                var dateReturnArr = dateReturn.componentsSeparatedByString(" ")
+                
+                if checkReturnIndex == "1"{
+                    planBack = "economy_promo_class"
+                }else if checkReturnIndex == "2"{
+                    planBack = "economy_class"
+                }else{
+                    planBack = "business_class"
+                }
+                
+                status_2 = returnData["status"] as! String
+                return_date = formatDate(stringToDate("\(dateReturnArr[2])-\(dateReturnArr[1])-\(dateReturnArr[0])"))
+                
+                if status_2 == "Y"{
+                    flight_number_2 = flightDetail[1]["flights"][checkReturnIndexPath.row]["flight_number"].string!
+                    departure_time_2 = flightDetail[1]["flights"][checkReturnIndexPath.row]["departure_time"].string!
+                    arrival_time_2 = flightDetail[1]["flights"][checkReturnIndexPath.row]["arrival_time"].string!
+                    journey_sell_key_2 = flightDetail[1]["flights"][checkReturnIndexPath.row]["journey_sell_key"].string!
+                    fare_sell_key_2 = flightDetail[1]["flights"][checkReturnIndexPath.row][planBack]["fare_sell_key"].string!
+                }
+                
+            }
+            
+            if checkGoingIndex == "1"{
+                planGo = "economy_promo_class"
+            }else if checkGoingIndex == "2"{
+                planGo = "economy_class"
+            }else{
+                planGo = "business_class"
+            }
+            
+            status_1 = goingData["status"] as! String
+            departure_station = flightDetail[0]["departure_station_code"].string!
+            arrival_station = flightDetail[0]["arrival_station_code"].string!
+            departure_date = formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"))
+            
+            if status_1 == "Y"{
+                flight_number_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["flight_number"].string!
+                departure_time_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["departure_time"].string!
+                arrival_time_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["arrival_time"].string!
+                journey_sell_key_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["journey_sell_key"].string!
+                fare_sell_key_1 = flightDetail[0]["flights"][checkGoingIndexPath.row][planGo]["fare_sell_key"].string!
+            }
+            
+            sentData()
+            
+        }
+        
     }
+    
+    func sentData(){
+        
+        FireFlyProvider.request(.SelectChangeFlight(pnr, bookId, signature, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, status_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, status_2, departure_station, arrival_station), completion: { (result) -> () in
+            switch result {
+            case .Success(let successResult):
+                do {
+                    showHud("close")
+                    
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                        let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                        manageFlightVC.isConfirm = true
+                        manageFlightVC.itineraryData = json.object as! NSDictionary
+                        self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                    }else if json["status"] == "error"{
+                        //showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
+                    }
+                }
+                catch {
+                    
+                }
+                
+            case .Failure(let failureResult):
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
+            }
+            
+        })    }
+
     /*
     // MARK: - Navigation
-    
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
     */
-    
+
 }

@@ -92,6 +92,123 @@ class EditPaymentViewController: CommonPaymentViewController {
                 }
                 
             }
+        }else if paymentMethod == "MU"{
+            
+            showHud("open")
+            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId), completion: { (result) -> () in
+                
+                switch result {
+                case .Success(let successResult):
+                    do {
+                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        
+                        if json["status"] == "Redirect"{
+                            
+                            let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
+                            
+                            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                            manageFlightVC.paymentType = "MU"
+                            manageFlightVC.urlString = urlString
+                            manageFlightVC.signature = defaults.objectForKey("signature") as! String
+                            self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                            
+                        }else if json["status"] == "error"{
+                            showHud("close")
+                            //showErrorMessage(json["message"].string!)
+                            showErrorMessage(json["message"].string!)
+                        }
+                    }
+                    catch {
+                        
+                    }
+                    
+                case .Failure(let failureResult):
+                    showHud("close")
+                    showErrorMessage(failureResult.nsError.localizedDescription)
+                }
+                
+                
+            })
+            
+        }else if paymentMethod == "CI"{
+            
+            showHud("open")
+            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId), completion: { (result) -> () in
+                
+                switch result {
+                case .Success(let successResult):
+                    do {
+                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        
+                        if json["status"] == "Redirect"{
+                            
+                            let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
+                            
+                            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                            manageFlightVC.paymentType = "CI"
+                            manageFlightVC.urlString = urlString
+                            manageFlightVC.signature = defaults.objectForKey("signature") as! String
+                            self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                            
+                        }else if json["status"] == "error"{
+                            showHud("close")
+                            //showErrorMessage(json["message"].string!)
+                            showErrorMessage(json["message"].string!)
+                        }
+                    }
+                    catch {
+                        
+                    }
+                    
+                case .Failure(let failureResult):
+                    showHud("close")
+                    showErrorMessage(failureResult.nsError.localizedDescription)
+                }
+                
+                
+            })
+            
+        }else if paymentMethod == "PX"{
+            
+            showHud("open")
+            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId), completion: { (result) -> () in
+                
+                switch result {
+                case .Success(let successResult):
+                    do {
+                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        
+                        if json["status"] == "Redirect"{
+                            
+                            let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
+                            
+                            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                            manageFlightVC.paymentType = "PX"
+                            manageFlightVC.urlString = urlString
+                            manageFlightVC.signature = defaults.objectForKey("signature") as! String
+                            self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                            
+                        }else if json["status"] == "error"{
+                            showHud("close")
+                            //showErrorMessage(json["message"].string!)
+                            showErrorMessage(json["message"].string!)
+                        }
+                    }
+                    catch {
+                        
+                    }
+                    
+                case .Failure(let failureResult):
+                    showHud("close")
+                    showErrorMessage(failureResult.nsError.localizedDescription)
+                }
+                
+                
+            })
+            
         }
     }
 

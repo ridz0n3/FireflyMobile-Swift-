@@ -347,7 +347,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     
     func detailBtnPressed(sender:UIButton){
         
-        SCLAlertView().showSuccess("Taxes/Fee", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
+        SCLAlertView().showSuccess("Taxes/Fees", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
         
     }
     
@@ -470,7 +470,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
-                        
+                        self.totalDueStr = json["amount_due"].doubleValue
                         let paymentChannel = json["payment_channel"].arrayObject
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
                         let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController

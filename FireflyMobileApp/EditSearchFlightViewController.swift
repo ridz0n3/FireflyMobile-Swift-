@@ -318,21 +318,45 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
-                                let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
-                                changeFlightVC.flightDetail = json["journeys"].arrayValue
                                 
-                                if json["type"] == 1{
-                                    changeFlightVC.returnData = json["return_flight"].dictionaryObject!
+                                if json["flight_type"].string == "MH"{
+                                    
+                                    let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                                    let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditMHFlightDetailVC") as! EditMHFlightDetailViewController
+                                    changeFlightVC.flightDetail = json["journeys"].arrayValue
+                                    
+                                    if json["type"] == 1{
+                                        changeFlightVC.returnData = json["return_flight"].dictionaryObject!
+                                    }
+                                    changeFlightVC.type = json["type"].int!
+                                    changeFlightVC.goingData = json["going_flight"].dictionaryObject!
+                                    changeFlightVC.signature = json["signature"].string!
+                                    
+                                    changeFlightVC.pnr = self.pnr
+                                    changeFlightVC.bookId = "\(self.bookId)"
+                                    changeFlightVC.signature = self.signature
+                                    self.navigationController!.pushViewController(changeFlightVC, animated: true)
+                                    
+                                }else{
+                                    
+                                    let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                                    let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
+                                    changeFlightVC.flightDetail = json["journeys"].arrayValue
+                                    
+                                    if json["type"] == 1{
+                                        changeFlightVC.returnData = json["return_flight"].dictionaryObject!
+                                    }
+                                    changeFlightVC.type = json["type"].int!
+                                    changeFlightVC.goingData = json["going_flight"].dictionaryObject!
+                                    changeFlightVC.signature = json["signature"].string!
+                                    
+                                    changeFlightVC.pnr = self.pnr
+                                    changeFlightVC.bookId = "\(self.bookId)"
+                                    changeFlightVC.signature = self.signature
+                                    self.navigationController!.pushViewController(changeFlightVC, animated: true)
+                                    
                                 }
-                                changeFlightVC.type = json["type"].int!
-                                changeFlightVC.goingData = json["going_flight"].dictionaryObject!
-                                changeFlightVC.signature = json["signature"].string!
                                 
-                                changeFlightVC.pnr = self.pnr
-                                changeFlightVC.bookId = "\(self.bookId)"
-                                changeFlightVC.signature = self.signature
-                                self.navigationController!.pushViewController(changeFlightVC, animated: true)
                             }else if json["status"] == "error"{
                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)

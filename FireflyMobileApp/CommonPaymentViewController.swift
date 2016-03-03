@@ -95,7 +95,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
             fpxCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
-            paymentMethod = "Maybank2U"
+            paymentMethod = "MU"
         }else if btn.tag == 3{
             creditCardCheckBox.checkState = M13CheckboxState.Unchecked
             maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
@@ -103,7 +103,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
             fpxCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
-            paymentMethod = "CIMBClicks"
+            paymentMethod = "CI"
         }else{
             creditCardCheckBox.checkState = M13CheckboxState.Unchecked
             maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
@@ -111,7 +111,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
             fpxCheckBox.checkState = M13CheckboxState.Checked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
             tableView.reloadData()
-            paymentMethod = "FPX"
+            paymentMethod = "PX"
         }
         
     }
