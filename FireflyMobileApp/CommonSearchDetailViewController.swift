@@ -17,7 +17,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         setupLeftButton()
         continueBtn.layer.cornerRadius = 10.0
         
-        getDepartureAirport()
+        getDepartureAirport("checkIn")
         initializeForm()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshArrivingCode:", name: "refreshArrivingCode", object: nil)
@@ -31,7 +31,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
     
     func refreshArrivingCode(notif : NSNotification){
         travel = [NSDictionary]()
-        getArrivalAirport(notif.userInfo!["departStationCode"] as! String)
+        getArrivalAirport(notif.userInfo!["departStationCode"] as! String, module : "checkIn")
         self.form.removeFormRowWithTag(Tags.ValidationArriving)
         
         var row : XLFormRowDescriptor

@@ -202,7 +202,7 @@ var travel = [NSDictionary]()
 var pickerRow = [String]()
 var pickerTravel = [String]()
 
-func getDepartureAirport(){
+func getDepartureAirport(module : String){
     
     if (defaults.objectForKey("flight") != nil){
         let flight = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
@@ -212,16 +212,28 @@ func getDepartureAirport(){
         for loc in flight{
             
             if loc["location_code"] as! String != first as! String{
-                location.append(loc as NSDictionary)
-                pickerRow.append(loc["location"] as! String)
-                first = loc["location_code"]
+                
+                if module == "checkIn"{
+                    
+                    if loc["mobile_check_in"] as! String == "Y"{
+                        location.append(loc as NSDictionary)
+                        pickerRow.append(loc["location"] as! String)
+                        first = loc["location_code"]
+                    }
+                    
+                }else{
+                    location.append(loc as NSDictionary)
+                    pickerRow.append(loc["location"] as! String)
+                    first = loc["location_code"]
+                }
+                
             }
             
         }
     }
 }
 
-func getArrivalAirport(departureAirport: String){
+func getArrivalAirport(departureAirport: String, module : String){
     
     if (defaults.objectForKey("flight") != nil){
         
@@ -232,8 +244,18 @@ func getArrivalAirport(departureAirport: String){
         for loc in flight{
             
             if loc["location_code"] as! String == first{
-                travel.append(loc as NSDictionary)
-                pickerTravel.append(loc["travel_location"] as! String)
+                
+                if module == "checkIn"{
+                    
+                    if loc["mobile_check_in"] as! String == "Y"{
+                        travel.append(loc as NSDictionary)
+                        pickerTravel.append(loc["travel_location"] as! String)
+                    }
+                }else{
+                    travel.append(loc as NSDictionary)
+                    pickerTravel.append(loc["travel_location"] as! String)
+                }
+                
             }
             
         }

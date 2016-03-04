@@ -121,7 +121,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     
     //MARK: - Get flight
     
-    func getDepartureAirport(){
+    func getDepartureAirport(module : String){
         
         if (defaults.objectForKey("flight") != nil){
             
@@ -143,7 +143,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         
     }
     
-    func getArrivalAirport(departureAirport: String){
+    func getArrivalAirport(departureAirport: String, module : String){
         
         if (defaults.objectForKey("flight") != nil){
             let flight = defaults.objectForKey("flight") as! [Dictionary<String,AnyObject>]
