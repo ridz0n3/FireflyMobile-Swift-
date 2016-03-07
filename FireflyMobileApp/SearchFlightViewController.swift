@@ -39,7 +39,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         self.searchFlightTableView.tableHeaderView = headerView
         
         setupLeftButton()
-        getDepartureAirport()
+        getDepartureAirport("search")
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "departureDate:", name: "departure", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "returnDate:", name: "return", object: nil)
@@ -181,7 +181,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             travel.removeAll()
             arrival = "ARRIVAL AIRPORT"
             self.searchFlightTableView.reloadData()
-            getArrivalAirport((location[departureSelected]["location_code"] as? String)!)
+            getArrivalAirport((location[departureSelected]["location_code"] as? String)!, module : "search")
         }else{
             arrivalSelected = index.integerValue
             arrival = (travel[arrivalSelected]["travel_location"] as? String)!
@@ -269,11 +269,15 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                                 defaults.synchronize()
                                 
                                 if json["type"].string == "MH"{
+                                    defaults.setValue(json["type"].string, forKey: "flightType")
+                                    defaults.synchronize()
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("MHFlightDetailVC") as! AddMHFlightDetailViewController
                                     flightDetailVC.flightDetail = json["journeys"].arrayValue
                                     self.navigationController!.pushViewController(flightDetailVC, animated: true)
                                 }else{
+                                    defaults.setValue(json["type"].string, forKey: "flightType")
+                                    defaults.synchronize()
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("FlightDetailVC") as! AddFlightDetailViewController
                                     flightDetailVC.flightDetail = json["journeys"].arrayValue

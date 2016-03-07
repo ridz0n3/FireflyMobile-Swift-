@@ -51,6 +51,32 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let flightDict = flightDetail[indexPath.section].dictionary
+        
+        if flightDict!["flights"]?.count == 0 {
+            return 107
+        }else{
+            
+            if indexPath.section == 0{
+                if goingData["status"] as! String == "N"{
+                    return 107
+                }else{
+                    return 222
+                }
+            }else{
+                if returnData["status"] as! String == "N"{
+                    return 107
+                }else{
+                    return 222
+                }
+            }
+            
+            
+        }
+        
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if flightDetail.count == 0{
@@ -260,6 +286,12 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                     arrival_time_2 = flightDetail[1]["flights"][checkReturnIndexPath.row]["arrival_time"].string!
                     journey_sell_key_2 = flightDetail[1]["flights"][checkReturnIndexPath.row]["journey_sell_key"].string!
                     fare_sell_key_2 = flightDetail[1]["flights"][checkReturnIndexPath.row][planBack]["fare_sell_key"].string!
+                }else{
+                    flight_number_2 = "none"
+                    departure_time_2 = "none"
+                    arrival_time_2 = "none"
+                    journey_sell_key_2 = "none"
+                    fare_sell_key_2 = "none"
                 }
                 
             }
@@ -283,6 +315,12 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                 arrival_time_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["arrival_time"].string!
                 journey_sell_key_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["journey_sell_key"].string!
                 fare_sell_key_1 = flightDetail[0]["flights"][checkGoingIndexPath.row][planGo]["fare_sell_key"].string!
+            }else{
+                flight_number_1 = "none"
+                departure_time_1 = "none"
+                arrival_time_1 = "none"
+                journey_sell_key_1 = "none"
+                fare_sell_key_1 = "none"
             }
             
             sentData()
@@ -292,7 +330,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
     }
     
     func sentData(){
-        
+        showHud("show")
         FireFlyProvider.request(.SelectChangeFlight(pnr, bookId, signature, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, status_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, status_2, departure_station, arrival_station), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):

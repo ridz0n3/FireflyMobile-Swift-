@@ -23,6 +23,10 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         chooseSeatBtn.layer.borderWidth = 1
         chooseSeatBtn.layer.borderColor = UIColor.orangeColor().CGColor
         
+        if defaults.objectForKey("flightType") as! String == "MH"{
+            chooseSeatBtn.hidden = true
+            paymentBtn.setTitle("Continue", forState: UIControlState.Normal)
+        }
         
         if try! LoginManager.sharedInstance.isLogin(){
             

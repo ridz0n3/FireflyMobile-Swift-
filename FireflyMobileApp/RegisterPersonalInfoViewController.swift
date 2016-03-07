@@ -78,6 +78,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.required = true
         section.addFormRow(row)
         //^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$
+        
         // Confirm Password
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
         attrString = NSMutableAttributedString(string: "*", attributes: star)

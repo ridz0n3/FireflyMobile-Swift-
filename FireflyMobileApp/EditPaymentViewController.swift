@@ -74,7 +74,11 @@ class EditPaymentViewController: CommonPaymentViewController {
                                 }else{
                                     showHud("close")
                                     //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                                    if json["message"].type == Type.Dictionary{
+                                        showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
+                                    }else{
+                                        showErrorMessage(json["message"].string!)
+                                    }
                                 }
                             }
                             catch {
@@ -116,7 +120,11 @@ class EditPaymentViewController: CommonPaymentViewController {
                         }else if json["status"] == "error"{
                             showHud("close")
                             //showErrorMessage(json["message"].string!)
-                            showErrorMessage(json["message"].string!)
+                            if json["message"].type == Type.Dictionary{
+                                showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
+                            }else{
+                                showErrorMessage(json["message"].string!)
+                            }
                         }
                     }
                     catch {
@@ -155,7 +163,12 @@ class EditPaymentViewController: CommonPaymentViewController {
                         }else if json["status"] == "error"{
                             showHud("close")
                             //showErrorMessage(json["message"].string!)
-                            showErrorMessage(json["message"].string!)
+                            if json["message"].type == Type.Dictionary{
+                                showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
+                            }else{
+                                showErrorMessage(json["message"].string!)
+                            }
+                            
                         }
                     }
                     catch {
@@ -194,7 +207,11 @@ class EditPaymentViewController: CommonPaymentViewController {
                         }else if json["status"] == "error"{
                             showHud("close")
                             //showErrorMessage(json["message"].string!)
-                            showErrorMessage(json["message"].string!)
+                            if json["message"].type == Type.Dictionary{
+                                showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
+                            }else{
+                                showErrorMessage(json["message"].string!)
+                            }
                         }
                     }
                     catch {
