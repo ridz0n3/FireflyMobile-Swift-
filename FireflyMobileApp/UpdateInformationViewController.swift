@@ -381,14 +381,24 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
     }
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        
+        if section == 0{
+            return 55
+        }else{
+            return 35
+        }
+        
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionView = NSBundle.mainBundle().loadNibNamed("SectionView", owner: self, options: nil)[0] as! SectionView
         
+        if section != 0{
+            sectionView.changePassLbl.hidden = true
+        }
+        
         //sectionView.frame = CGRectMake(0, 0,self.view.frame.size.width, 44)
-        sectionView.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+        sectionView.bgView.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
         let index = UInt(section)
         

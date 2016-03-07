@@ -10,6 +10,8 @@ import UIKit
 
 class SectionView: UIView {
     @IBOutlet weak var sectionLbl: UILabel!
+    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var changePassLbl: UILabel!
 
     /*
     // Only override drawRect: if you perform custom drawing.

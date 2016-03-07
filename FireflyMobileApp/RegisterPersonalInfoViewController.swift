@@ -292,7 +292,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionView = NSBundle.mainBundle().loadNibNamed("SectionView", owner: self, options: nil)[0] as! SectionView
-
+        sectionView.changePassLbl.hidden = true
         sectionView.backgroundColor = UIColor(patternImage: UIImage(named: "lineSection")!)
         
         let index = UInt(section)
