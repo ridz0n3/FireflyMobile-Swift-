@@ -330,7 +330,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
     }
     
     func sentData(){
-        showHud("show")
+        showHud("open")
         FireFlyProvider.request(.SelectChangeFlight(pnr, bookId, signature, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, status_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, status_2, departure_station, arrival_station), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):

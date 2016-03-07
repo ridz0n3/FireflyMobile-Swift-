@@ -45,6 +45,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     var bookingId = String()
     var signature = String()
     var isLogin = Bool()
+    var flightType = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,10 +99,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             getInfo()
             
             if totalDue == "0.00 MYR"{
-                
-                addPaymentBtn.highlighted = true
-                addPaymentBtn.userInteractionEnabled = false
-                
+                addPaymentBtn.hidden = true
+                var newFrame = headerView.frame
+                newFrame.size.height = newFrame.size.height - 42
+                headerView.frame = newFrame
+            }
+            
+            if flightType == "MH"{
+                changeSeatBtn.hidden = true
+                var newFrame = headerView.frame
+                newFrame.size.height = newFrame.size.height - 42
+                headerView.frame = newFrame
             }
         }
         
@@ -123,7 +131,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         passengerInformation = itineraryData["passenger_information"] as! [Dictionary<String,AnyObject>]
         totalDue = itineraryData["total_due"] as! String
         totalPaid = itineraryData["total_paid"] as! String
-        
+        flightType = itineraryData["flight_type"] as! String
         let service = priceDetail.last
         priceDetail.removeLast()
         serviceDetail = service!["services"] as! [Dictionary<String,AnyObject>]

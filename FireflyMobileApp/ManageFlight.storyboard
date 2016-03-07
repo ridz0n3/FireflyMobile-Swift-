@@ -284,105 +284,6 @@
                                                 <constraint firstAttribute="width" constant="207" id="PMc-zx-Qq4"/>
                                             </constraints>
                                         </imageView>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n0R-HQ-Qcn">
-                                            <rect key="frame" x="0.0" y="109" width="600" height="260"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ute-bf-rYQ">
-                                                    <rect key="frame" x="16" y="4" width="568" height="35"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="qIk-qR-UUC"/>
-                                                    </constraints>
-                                                    <state key="normal" title="CHANGE CONTACT" backgroundImage="bg">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="changeContactBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="KI0-dZ-mxc"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yTw-wH-QzU">
-                                                    <rect key="frame" x="16" y="47" width="568" height="35"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="zzH-Kq-L1X"/>
-                                                    </constraints>
-                                                    <state key="normal" title="EDIT PASSENGERS" backgroundImage="bg">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="EditPassengerBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="4kK-pp-y6U"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqV-DR-Mse">
-                                                    <rect key="frame" x="16" y="90" width="568" height="35"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="BhA-Bv-YBK"/>
-                                                    </constraints>
-                                                    <state key="normal" title="CHANGE FLIGHTS" backgroundImage="bg">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="ChangeFlightBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="Lj9-5P-xWC"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ym8-jX-vXm">
-                                                    <rect key="frame" x="16" y="176" width="568" height="35"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="fDN-Fd-suo"/>
-                                                    </constraints>
-                                                    <state key="normal" title="ADD PAYMENT" backgroundImage="bg">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="AddPaymentBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="XWf-H8-rjB"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0V-HS-gcB">
-                                                    <rect key="frame" x="16" y="219" width="568" height="35"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="gWq-YZ-c16"/>
-                                                    </constraints>
-                                                    <state key="normal" title="SEND ITINERARY" backgroundImage="bg">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="SendItineraryBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="gO3-XJ-00d"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6Q-wT-cgt">
-                                                    <rect key="frame" x="16" y="133" width="568" height="35"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="35" id="RFN-XG-G6t"/>
-                                                    </constraints>
-                                                    <state key="normal" title="CHANGE SEATS" backgroundImage="bg">
-                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="ChangeSeatBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="Xhl-NN-3Gq"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="zqV-DR-Mse" secondAttribute="trailing" constant="16" id="8bj-Js-nKV"/>
-                                                <constraint firstItem="yTw-wH-QzU" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="GvS-DF-AND"/>
-                                                <constraint firstAttribute="trailing" secondItem="Ute-bf-rYQ" secondAttribute="trailing" constant="16" id="RlN-Ih-014"/>
-                                                <constraint firstItem="yTw-wH-QzU" firstAttribute="top" secondItem="Ute-bf-rYQ" secondAttribute="bottom" constant="8" id="Y9R-sn-n5g"/>
-                                                <constraint firstAttribute="trailing" secondItem="yTw-wH-QzU" secondAttribute="trailing" constant="16" id="fPw-gg-kBo"/>
-                                                <constraint firstItem="a6Q-wT-cgt" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="fq2-rZ-wHI"/>
-                                                <constraint firstItem="b0V-HS-gcB" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="hJ1-2U-WcH"/>
-                                                <constraint firstItem="Ute-bf-rYQ" firstAttribute="top" secondItem="n0R-HQ-Qcn" secondAttribute="top" constant="4" id="jZj-sP-tam"/>
-                                                <constraint firstAttribute="trailing" secondItem="b0V-HS-gcB" secondAttribute="trailing" constant="16" id="ksY-Fy-Wmu"/>
-                                                <constraint firstItem="ym8-jX-vXm" firstAttribute="top" secondItem="a6Q-wT-cgt" secondAttribute="bottom" constant="8" id="m57-Sc-k9B"/>
-                                                <constraint firstItem="Ute-bf-rYQ" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="pUC-Vs-g6d"/>
-                                                <constraint firstItem="b0V-HS-gcB" firstAttribute="top" secondItem="ym8-jX-vXm" secondAttribute="bottom" constant="8" id="q0H-wv-qfx"/>
-                                                <constraint firstItem="ym8-jX-vXm" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="qn9-RF-1LO"/>
-                                                <constraint firstAttribute="trailing" secondItem="a6Q-wT-cgt" secondAttribute="trailing" constant="16" id="se5-Bg-oI0"/>
-                                                <constraint firstItem="a6Q-wT-cgt" firstAttribute="top" secondItem="zqV-DR-Mse" secondAttribute="bottom" constant="8" id="vwA-3Y-oJR"/>
-                                                <constraint firstItem="zqV-DR-Mse" firstAttribute="top" secondItem="yTw-wH-QzU" secondAttribute="bottom" constant="8" id="wN2-Iy-Kcv"/>
-                                                <constraint firstAttribute="bottom" secondItem="b0V-HS-gcB" secondAttribute="bottom" constant="6" id="xPR-gs-eq8"/>
-                                                <constraint firstAttribute="trailing" secondItem="ym8-jX-vXm" secondAttribute="trailing" constant="16" id="y8m-on-6Mt"/>
-                                                <constraint firstItem="zqV-DR-Mse" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="ygD-ts-ml9"/>
-                                            </constraints>
-                                        </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LxN-vF-Zxv">
                                             <rect key="frame" x="0.0" y="109" width="600" height="121"/>
                                             <subviews>
@@ -442,6 +343,104 @@
                                                 <constraint firstItem="5rE-C9-96G" firstAttribute="centerX" secondItem="LxN-vF-Zxv" secondAttribute="centerX" id="n9G-ql-gWe"/>
                                                 <constraint firstItem="349-uy-S9H" firstAttribute="top" secondItem="5rE-C9-96G" secondAttribute="bottom" constant="8" id="rdu-QA-Noh"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="121" id="v3q-CI-woT"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n0R-HQ-Qcn">
+                                            <rect key="frame" x="0.0" y="109" width="600" height="260"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ute-bf-rYQ">
+                                                    <rect key="frame" x="16" y="4" width="568" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="jAp-Ee-SPu"/>
+                                                    </constraints>
+                                                    <state key="normal" title="CHANGE CONTACT" backgroundImage="bg">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="changeContactBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="KI0-dZ-mxc"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yTw-wH-QzU">
+                                                    <rect key="frame" x="16" y="47" width="568" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="zzH-Kq-L1X"/>
+                                                    </constraints>
+                                                    <state key="normal" title="EDIT PASSENGERS" backgroundImage="bg">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="EditPassengerBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="4kK-pp-y6U"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zqV-DR-Mse">
+                                                    <rect key="frame" x="16" y="90" width="568" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="HDS-Db-EhT"/>
+                                                    </constraints>
+                                                    <state key="normal" title="CHANGE FLIGHTS" backgroundImage="bg">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="ChangeFlightBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="Lj9-5P-xWC"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ym8-jX-vXm">
+                                                    <rect key="frame" x="16" y="176" width="568" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="fDN-Fd-suo"/>
+                                                    </constraints>
+                                                    <state key="normal" title="ADD PAYMENT" backgroundImage="bg">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="AddPaymentBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="XWf-H8-rjB"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b0V-HS-gcB">
+                                                    <rect key="frame" x="16" y="219" width="568" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="gWq-YZ-c16"/>
+                                                    </constraints>
+                                                    <state key="normal" title="SEND ITINERARY" backgroundImage="bg">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="SendItineraryBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="gO3-XJ-00d"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6Q-wT-cgt">
+                                                    <rect key="frame" x="16" y="133" width="568" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="Qdx-Po-AX5"/>
+                                                    </constraints>
+                                                    <state key="normal" title="CHANGE SEATS" backgroundImage="bg">
+                                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="ChangeSeatBtnPressed:" destination="K5D-DU-3Xq" eventType="touchUpInside" id="Xhl-NN-3Gq"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="zqV-DR-Mse" secondAttribute="trailing" constant="16" id="8bj-Js-nKV"/>
+                                                <constraint firstItem="yTw-wH-QzU" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="GvS-DF-AND"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ute-bf-rYQ" secondAttribute="trailing" constant="16" id="RlN-Ih-014"/>
+                                                <constraint firstItem="zqV-DR-Mse" firstAttribute="top" secondItem="yTw-wH-QzU" secondAttribute="bottom" constant="8" id="bxG-IJ-1od"/>
+                                                <constraint firstItem="yTw-wH-QzU" firstAttribute="top" secondItem="Ute-bf-rYQ" secondAttribute="bottom" constant="8" id="dBx-sb-cRh"/>
+                                                <constraint firstAttribute="trailing" secondItem="yTw-wH-QzU" secondAttribute="trailing" constant="16" id="fPw-gg-kBo"/>
+                                                <constraint firstItem="a6Q-wT-cgt" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="fq2-rZ-wHI"/>
+                                                <constraint firstItem="b0V-HS-gcB" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="hJ1-2U-WcH"/>
+                                                <constraint firstItem="Ute-bf-rYQ" firstAttribute="top" secondItem="n0R-HQ-Qcn" secondAttribute="top" constant="4" id="jZj-sP-tam"/>
+                                                <constraint firstAttribute="trailing" secondItem="b0V-HS-gcB" secondAttribute="trailing" constant="16" id="ksY-Fy-Wmu"/>
+                                                <constraint firstItem="a6Q-wT-cgt" firstAttribute="top" secondItem="zqV-DR-Mse" secondAttribute="bottom" constant="8" id="olN-qt-TpM"/>
+                                                <constraint firstItem="Ute-bf-rYQ" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="pUC-Vs-g6d"/>
+                                                <constraint firstItem="ym8-jX-vXm" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="qn9-RF-1LO"/>
+                                                <constraint firstAttribute="trailing" secondItem="a6Q-wT-cgt" secondAttribute="trailing" constant="16" id="se5-Bg-oI0"/>
+                                                <constraint firstAttribute="bottom" secondItem="b0V-HS-gcB" secondAttribute="bottom" constant="6" id="xPR-gs-eq8"/>
+                                                <constraint firstItem="b0V-HS-gcB" firstAttribute="top" secondItem="ym8-jX-vXm" secondAttribute="bottom" constant="8" id="xfK-su-N8q"/>
+                                                <constraint firstAttribute="trailing" secondItem="ym8-jX-vXm" secondAttribute="trailing" constant="16" id="y8m-on-6Mt"/>
+                                                <constraint firstItem="zqV-DR-Mse" firstAttribute="leading" secondItem="n0R-HQ-Qcn" secondAttribute="leading" constant="16" id="ygD-ts-ml9"/>
                                             </constraints>
                                         </view>
                                     </subviews>
