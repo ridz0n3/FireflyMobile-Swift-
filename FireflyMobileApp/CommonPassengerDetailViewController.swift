@@ -135,6 +135,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         if array.count != 0{
             isValidate = false
             var i = 0
+            var j = 0
             var message = String()
             
             for errorItem in array {
@@ -189,6 +190,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                             animateCell(cell)
                         }
                     }
+                    
+                    j++
                 }
                 //showErrorMessage("Please fill all fields")
                 
@@ -196,6 +199,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
             if i != 0{
                 showErrorMessage(message)
+            }else if j != 0{
+                showErrorMessage("Please fill all fields")
             }
             
         }else{

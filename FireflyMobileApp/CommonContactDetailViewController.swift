@@ -165,7 +165,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                     
                 }else{
                     if validationStatus.rowDescriptor!.tag == Tags.ValidationTitle ||
-                        validationStatus.rowDescriptor!.tag == Tags.ValidationCountry || validationStatus.rowDescriptor!.tag == Tags.ValidationPurpose{
+                        validationStatus.rowDescriptor!.tag == Tags.ValidationCountry || validationStatus.rowDescriptor!.tag == Tags.ValidationPurpose || validationStatus.rowDescriptor!.tag == Tags.ValidationState{
                             let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                             
                             if self.tableView.cellForRowAtIndexPath(index) != nil{
@@ -192,6 +192,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                     }
                 }
             }
+            
             if i != 0{
                 showErrorMessage(message)
             }
