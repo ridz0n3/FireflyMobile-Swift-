@@ -222,31 +222,31 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         // Company Name
         row = XLFormRowDescriptor(tag: Tags.ValidationCompanyName, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Company Name:*")
         row.required = true
-        row.value = contactData["company_name"]!.xmlSimpleUnescapeString()
+        row.value = nilIfEmpty(contactData["company_name"])!.xmlSimpleUnescapeString()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationEmail)
         
         // Address 1
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address 1:*")
         row.required = true
-        row.value = contactData["address1"]!.xmlSimpleUnescapeString()
+        row.value = nilIfEmpty(contactData["address1"])!.xmlSimpleUnescapeString()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationCompanyName)
         
         // Address 2
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address 2:*")
         row.required = true
-        row.value = contactData["address2"]!.xmlSimpleUnescapeString()
+        row.value = nilIfEmpty(contactData["address2"])!.xmlSimpleUnescapeString()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine1)
         
         // Address 3
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address 3:*")
         row.required = true
-        row.value = contactData["address3"]!.xmlSimpleUnescapeString()
+        row.value = nilIfEmpty(contactData["address3"])!.xmlSimpleUnescapeString()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine2)
         
         // City
         row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType:XLFormRowDescriptorTypeFloatLabeledTextField, title:"City:*")
         row.required = true
-        row.value = contactData["city"]!.xmlSimpleUnescapeString()
+        row.value = nilIfEmpty(contactData["city"])!.xmlSimpleUnescapeString()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationCountry)
         
         // State

@@ -101,7 +101,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             for (key, value) in tax! {
                  taxData += "\((key as! String).stringByReplacingOccurrencesOfString("_", withString: " ").capitalizedString): \(value as! String)\n"
             }
-                        
+            
             cell.flightDestination.text = detail["title"] as? String
             cell.guestPriceLbl.text = detail["total_guest"] as? String
             cell.guestLbl.text = detail["guest"] as? String
@@ -191,7 +191,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                         
                     }else if json["status"] == "error"{
                         //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
                     }
                 }
                 catch {
