@@ -140,10 +140,8 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             
             var taxData = String()
             
-            if tax!.count == 3{
-                taxData = "Airport Tax: \(tax!["airport_tax"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
-            }else{
-                taxData = "Admin Fee : \(tax!["admin_fee"]!)\nAirport Tax: \(tax!["airport_tax"]!)\nFuel Surcharge : \(tax!["fuel_surcharge"]!)\nGood & Service Tax : \(tax!["goods_and_services_tax"]!)\nTotal : \(tax!["total"]!)"
+            for (key, value) in tax! {
+                taxData += "\((key as! String).stringByReplacingOccurrencesOfString("_", withString: " ").capitalizedString): \(value as! String)\n"
             }
             
             cell.flightDestination.text = detail["title"] as? String
