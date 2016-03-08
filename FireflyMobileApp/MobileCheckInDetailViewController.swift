@@ -111,12 +111,12 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             // Document Number
             row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationDocumentNo, i), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
             row.required = true
-            row.value = passengerData["document_number"] as! String
+            row.value = (passengerData["document_number"] as! String).xmlSimpleUnescapeString()
             section.addFormRow(row)
             
             // Enrich Loyalty No
             row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, i), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No:")
-            //row.value = adultDetails[i]["enrich_loyalty_number"] as! String
+            //row.value = passengerData["document_number"] as! String
             section.addFormRow(row)
             
             i++
@@ -237,7 +237,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         passengerInfo.updateValue(checkInDetail["passengers"]![count]["passenger_number"], forKey: "passenger_number")
                         passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
                         passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
-                        passengerInfo.updateValue(formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]!, forKey: "document_number")
+                        passengerInfo.updateValue(formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
                         
                         let expiredDate = nilIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationExpiredDate, count)])! as! String
                         var arrangeExpDate = NSArray()

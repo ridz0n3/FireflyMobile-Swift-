@@ -113,11 +113,11 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate])!  as! String
             let signatureData = defaults.objectForKey("signature")!  as! String
             let bookIdData = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
-            let companyNameData = nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String
-            let address1Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String
-            let address2Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String
-            let address3Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine3])!  as! String
-            let cityData = nilIfEmpty(formValues()[Tags.ValidationTownCity])!  as! String
+            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String).xmlSimpleEscapeString()
+            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String).xmlSimpleEscapeString()
+            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String).xmlSimpleEscapeString()
+            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3])!  as! String).xmlSimpleEscapeString()
+            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity])!  as! String).xmlSimpleEscapeString()
             let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState])! as! String, stateArr: stateArray)
             let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode])!  as! String
             
@@ -135,8 +135,6 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
                 showHud("open")
-                
-                
                 
                 FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "N"), completion: { (result) -> () in
                     
@@ -190,11 +188,11 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate])!  as! String
             let signatureData = defaults.objectForKey("signature")!  as! String
             let bookIdData = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
-            let companyNameData = nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String
-            let address1Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String
-            let address2Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String
-            let address3Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine3])!  as! String
-            let cityData = nilIfEmpty(formValues()[Tags.ValidationTownCity])!  as! String
+            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String).xmlSimpleEscapeString()
+            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String).xmlSimpleEscapeString()
+            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String).xmlSimpleEscapeString()
+            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3])!  as! String).xmlSimpleEscapeString()
+            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity])!  as! String).xmlSimpleEscapeString()
             let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState])! as! String, stateArr: stateArray)
             let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode])!  as! String
             

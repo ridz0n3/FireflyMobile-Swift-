@@ -191,7 +191,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
-        row.value = userInfo["contact_address1"]
+        row.value = userInfo["contact_address1"]?.xmlSimpleUnescapeString()
         section.addFormRow(row)
         
         // Address Line 2
@@ -199,7 +199,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "Address Line 2"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.value = userInfo["contact_address2"]
+        row.value = userInfo["contact_address2"]?.xmlSimpleUnescapeString()
         section.addFormRow(row)
         
         // Country
@@ -237,7 +237,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.required = true
-        row.value = userInfo["contact_city"]
+        row.value = userInfo["contact_city"]?.xmlSimpleUnescapeString()
         section.addFormRow(row)
         
         // State
@@ -256,7 +256,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         // Postcode
-        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypeNumber, title:"")
+        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypePhone, title:"")
         attrString = NSMutableAttributedString(string: "*", attributes: star)
         attrString.appendAttributedString(NSAttributedString(string: "Postcode"))
         row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
@@ -532,11 +532,11 @@ class UpdateInformationViewController: BaseXLFormViewController {
         parameters.updateValue(formValues()[Tags.ValidationFirstName]!, forKey: "first_name")
         parameters.updateValue(formValues()[Tags.ValidationLastName]!, forKey: "last_name")
         parameters.updateValue(formatDate(formValues()[Tags.ValidationDate]! as! NSDate), forKey: "dob")
-        parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!, forKey: "address_1")
-        parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!, forKey: "address_2")
+        parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString(), forKey: "address_1")
+        parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString(), forKey: "address_2")
         parameters.updateValue("", forKey: "address_3")
         parameters.updateValue((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData(), forKey: "country")
-        parameters.updateValue(formValues()[Tags.ValidationTownCity]!, forKey: "city")
+        parameters.updateValue(formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString(), forKey: "city")
         parameters.updateValue((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData(), forKey: "state")
         parameters.updateValue(formValues()[Tags.ValidationPostcode]!, forKey: "postcode")
         parameters.updateValue(formValues()[Tags.ValidationMobileHome]!, forKey: "mobile_phone")

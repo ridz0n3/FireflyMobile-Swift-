@@ -49,11 +49,11 @@ class EditContactDetailViewController: CommonContactDetailViewController {
             let countryData = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
             let mobileData = formValues()[Tags.ValidationMobileHome]!  as! String
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate])!  as! String
-            let companyNameData = nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String
-            let address1Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String
-            let address2Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String
-            let address3Data = nilIfEmpty(formValues()[Tags.ValidationAddressLine3])!  as! String
-            let cityData = nilIfEmpty(formValues()[Tags.ValidationTownCity])!  as! String
+            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String).xmlSimpleEscapeString()
+            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String).xmlSimpleEscapeString()
+            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String).xmlSimpleEscapeString()
+            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3])!  as! String).xmlSimpleEscapeString()
+            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity])!  as! String).xmlSimpleEscapeString()
             let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState])! as! String, stateArr: stateArray)
             let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode])!  as! String
             

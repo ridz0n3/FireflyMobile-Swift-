@@ -131,7 +131,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             // Document Number
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
             row.required = true
-            row.value = adultDetails[i]["document_number"] as! String
+            row.value = (adultDetails[i]["document_number"] as! String).xmlSimpleUnescapeString()
             section.addFormRow(row)
             
             // Enrich Loyalty No
@@ -245,7 +245,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Document Number
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDocumentNo, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
                 row.required = true
-                row.value = infantDict["document_number"] as! String
+                row.value = (infantDict["document_number"] as! String).xmlSimpleUnescapeString()
                 section.addFormRow(row)
                 
             }

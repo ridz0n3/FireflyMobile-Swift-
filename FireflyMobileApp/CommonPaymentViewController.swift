@@ -162,6 +162,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         //holder name
         row = XLFormRowDescriptor(tag: Tags.ValidationHolderName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Card Holder Name:*")
+        row.addValidator(XLFormRegexValidator(msg: "Card holder name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         section.addFormRow(row)
         

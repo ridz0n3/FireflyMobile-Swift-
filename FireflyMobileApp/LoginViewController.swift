@@ -94,7 +94,7 @@ class LoginViewController: BaseXLFormViewController {
             let password = self.formValues()["Password"] as! String
             let encPassword = try! EncryptManager.sharedInstance.aesEncrypt(password, key: key, iv: iv)
             
-            let username: String = self.formValues()["Email"]! as! String
+            let username: String = (self.formValues()["Email"]! as! String).xmlSimpleEscapeString()
             
             showHud("open")
             

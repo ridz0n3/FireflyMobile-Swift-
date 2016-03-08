@@ -223,7 +223,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         // Postcode
-        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypeNumber, title:"")
+        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypePhone, title:"")
         attrString = NSMutableAttributedString(string: "*", attributes: star)
         attrString.appendAttributedString(NSAttributedString(string: "Postcode"))
         row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
@@ -394,24 +394,24 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 let enc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationPassword]! as! String, key: key, iv: iv)
                     var parameters:[String:AnyObject] = [String:AnyObject]()
                     
-                    parameters.updateValue(formValues()[Tags.ValidationUsername]!, forKey: "username")
+                    parameters.updateValue(formValues()[Tags.ValidationUsername]!.xmlSimpleEscapeString(), forKey: "username")
                     parameters.updateValue(enc, forKey: "password")
                     parameters.updateValue((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData(), forKey: "title")
-                    parameters.updateValue(formValues()[Tags.ValidationFirstName]!, forKey: "first_name")
-                    parameters.updateValue(formValues()[Tags.ValidationLastName]!, forKey: "last_name")
+                    parameters.updateValue(formValues()[Tags.ValidationFirstName]!.xmlSimpleEscapeString(), forKey: "first_name")
+                    parameters.updateValue(formValues()[Tags.ValidationLastName]!.xmlSimpleEscapeString(), forKey: "last_name")
                     parameters.updateValue(formatDate(formValues()[Tags.ValidationDate]! as! NSDate), forKey: "dob")
-                    parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!, forKey: "address_1")
+                    parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString(), forKey: "address_1")
                 
-                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!, forKey: "address_2")
+                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString(), forKey: "address_2")
                 
                     parameters.updateValue("", forKey: "address_3")
                     parameters.updateValue((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData(), forKey: "country")
-                    parameters.updateValue(formValues()[Tags.ValidationTownCity]!, forKey: "city")
+                    parameters.updateValue(formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString(), forKey: "city")
                     parameters.updateValue((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData(), forKey: "state")
                     parameters.updateValue(formValues()[Tags.ValidationPostcode]!, forKey: "postcode")
                     parameters.updateValue(formValues()[Tags.ValidationMobileHome]!, forKey: "mobile_phone")
 
-                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate])!, forKey: "alternate_phone")
+                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate]!)!, forKey: "alternate_phone")
                 
                 parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])!, forKey: "bonuslink")
                 

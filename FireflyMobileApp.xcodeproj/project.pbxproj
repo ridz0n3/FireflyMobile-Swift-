@@ -86,6 +86,8 @@
 		7E99B8601C2A6B1400239322 /* PaymentSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */; };
 		7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */; };
 		7E9A53831C3B5D21001094F5 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9A53821C3B5D21001094F5 /* LoginManager.swift */; };
+		7E9B2BBC1C8E6AF60046EB82 /* NSString+ExtraMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9B2BB91C8E6AF60046EB82 /* NSString+ExtraMethod.m */; };
+		7E9B2BBD1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9B2BBB1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m */; };
 		7E9C65161C7C8BEC00D2E8D1 /* PNRList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */; };
 		7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */; };
 		7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */; };
@@ -234,6 +236,10 @@
 		7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentSummaryViewController.swift; sourceTree = "<group>"; };
 		7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPaymentSummaryTableViewCell.swift; sourceTree = "<group>"; };
 		7E9A53821C3B5D21001094F5 /* LoginManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
+		7E9B2BB81C8E6AF60046EB82 /* NSString+ExtraMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ExtraMethod.h"; sourceTree = "<group>"; };
+		7E9B2BB91C8E6AF60046EB82 /* NSString+ExtraMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ExtraMethod.m"; sourceTree = "<group>"; };
+		7E9B2BBA1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+ExtraMethod.h"; sourceTree = "<group>"; };
+		7E9B2BBB1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+ExtraMethod.m"; sourceTree = "<group>"; };
 		7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNRList.swift; sourceTree = "<group>"; };
 		7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoginManageFlightTableViewCell.swift; sourceTree = "<group>"; };
 		7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManageFlightViewController.swift; sourceTree = "<group>"; };
@@ -471,6 +477,10 @@
 		7E55ADC91BFDC6B2002FAA84 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				7E9B2BB81C8E6AF60046EB82 /* NSString+ExtraMethod.h */,
+				7E9B2BB91C8E6AF60046EB82 /* NSString+ExtraMethod.m */,
+				7E9B2BBA1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.h */,
+				7E9B2BBB1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m */,
 				7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */,
 				9615B0791C0EA6B8000B522F /* EncryptManager.swift */,
 				9615B07B1C1137DD000B522F /* FireflyAPI.swift */,
@@ -890,6 +900,7 @@
 				7E1F78181BF9AC3800F55C46 /* BaseViewController.swift in Sources */,
 				7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */,
 				7E9438561C564A3E002D6792 /* AddFlightDetailViewController.swift in Sources */,
+				7E9B2BBC1C8E6AF60046EB82 /* NSString+ExtraMethod.m in Sources */,
 				7E69310D1BFB195D004F1719 /* SendItineraryViewController.swift in Sources */,
 				7EBBFA021C1011CA00080FFA /* RSDFCustomDatePickerView.swift in Sources */,
 				7E5C6C321C644307006A5927 /* MobileTermTableViewCell.swift in Sources */,
@@ -902,6 +913,7 @@
 				7EC3271A1C449CAB001C89B5 /* CoreDataModel.xcdatamodeld in Sources */,
 				7E0707941C72EE77001D7328 /* LoginBoardingPassViewController.swift in Sources */,
 				7E9011461C61BD450051F7BE /* MobileCheckInDetailViewController.swift in Sources */,
+				7E9B2BBD1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m in Sources */,
 				7E69310F1BFB1BFA004F1719 /* ManageFlightViewController.swift in Sources */,
 				7E6931091BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift in Sources */,
 				7E9C65161C7C8BEC00D2E8D1 /* PNRList.swift in Sources */,
