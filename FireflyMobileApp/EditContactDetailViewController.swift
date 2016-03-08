@@ -21,14 +21,11 @@ class EditContactDetailViewController: CommonContactDetailViewController {
         
         itineraryData = defaults.objectForKey("manageFlight") as! [String : AnyObject]
         contactData = itineraryData["contact_information"] as! Dictionary<String, AnyObject>
-        insuranceDetails = itineraryData["insurance_details"]  as! [String : AnyObject]
         
-        if insuranceDetails["status"] as! String == "N"{
-            views.hidden = true
-            var newFrame = footerView.bounds
-            newFrame.size.height = 58
-            footerView.frame = newFrame
-        }
+        views.hidden = true
+        var newFrame = footerView.bounds
+        newFrame.size.height = 58
+        footerView.frame = newFrame
         
         self.tableView.tableHeaderView = headerView
         self.tableView.tableFooterView = footerView
