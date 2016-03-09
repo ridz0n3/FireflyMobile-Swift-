@@ -21,7 +21,8 @@ class EditContactDetailViewController: CommonContactDetailViewController {
         
         itineraryData = defaults.objectForKey("manageFlight") as! [String : AnyObject]
         contactData = itineraryData["contact_information"] as! Dictionary<String, AnyObject>
-        
+        insuranceDetails = itineraryData["insurance_details"]  as! [String : AnyObject]
+
         views.hidden = true
         var newFrame = footerView.bounds
         newFrame.size.height = 58
