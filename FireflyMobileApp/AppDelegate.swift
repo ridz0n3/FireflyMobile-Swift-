@@ -18,8 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     let baseView = BaseViewController()
+    let locationManager = CLLocationManager()
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        
+        locationManager.delegate = self
         
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledTextField] = FloatLabeledTextFieldCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPicker] = FloatLabeledPickerCell.self
@@ -53,6 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         RLMRealmConfiguration.setDefaultConfiguration(config)
         
+        GeoFenceBeaconManager.sharedInstance.startBeacon()
         return true
     }
     
