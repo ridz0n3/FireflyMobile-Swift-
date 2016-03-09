@@ -120,6 +120,9 @@
 		7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */; };
 		7EC3271A1C449CAB001C89B5 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7EC327181C449CAB001C89B5 /* CoreDataModel.xcdatamodeld */; };
 		7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */; };
+		7EFA0D6E1C8FCAB800566400 /* GeoFenceBeaconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFA0D6D1C8FCAB800566400 /* GeoFenceBeaconManager.swift */; };
+		7EFA0D701C8FCAFB00566400 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFA0D6F1C8FCAFA00566400 /* Beacon.swift */; };
+		7EFA0D721C8FCB1900566400 /* Geotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EFA0D711C8FCB1900566400 /* Geotification.swift */; };
 		9615B07A1C0EA6B9000B522F /* EncryptManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B0791C0EA6B8000B522F /* EncryptManager.swift */; };
 		9615B07C1C1137DD000B522F /* FireflyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9615B07B1C1137DD000B522F /* FireflyAPI.swift */; };
 		961C57211C7EA849000910B7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 961C57201C7EA840000910B7 /* Localizable.strings */; };
@@ -272,6 +275,9 @@
 		7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledTextFieldCell.swift; sourceTree = "<group>"; };
 		7EC327191C449CAB001C89B5 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
 		7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialLoadManager.swift; sourceTree = "<group>"; };
+		7EFA0D6D1C8FCAB800566400 /* GeoFenceBeaconManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeoFenceBeaconManager.swift; sourceTree = "<group>"; };
+		7EFA0D6F1C8FCAFA00566400 /* Beacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
+		7EFA0D711C8FCB1900566400 /* Geotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geotification.swift; sourceTree = "<group>"; };
 		86B59F03D2AABF55D7291F46 /* Pods-FireflyMobileApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FireflyMobileApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-FireflyMobileApp/Pods-FireflyMobileApp.release.xcconfig"; sourceTree = "<group>"; };
 		9615B0791C0EA6B8000B522F /* EncryptManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncryptManager.swift; sourceTree = "<group>"; };
 		9615B07B1C1137DD000B522F /* FireflyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireflyAPI.swift; sourceTree = "<group>"; };
@@ -487,6 +493,9 @@
 				7E9A53821C3B5D21001094F5 /* LoginManager.swift */,
 				7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */,
 				96DF6A521C87DB7F005BA920 /* AnalyticsManager.swift */,
+				7EFA0D6D1C8FCAB800566400 /* GeoFenceBeaconManager.swift */,
+				7EFA0D6F1C8FCAFA00566400 /* Beacon.swift */,
+				7EFA0D711C8FCB1900566400 /* Geotification.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -900,6 +909,7 @@
 				7E1F78181BF9AC3800F55C46 /* BaseViewController.swift in Sources */,
 				7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */,
 				7E9438561C564A3E002D6792 /* AddFlightDetailViewController.swift in Sources */,
+				7EFA0D6E1C8FCAB800566400 /* GeoFenceBeaconManager.swift in Sources */,
 				7E9B2BBC1C8E6AF60046EB82 /* NSString+ExtraMethod.m in Sources */,
 				7E69310D1BFB195D004F1719 /* SendItineraryViewController.swift in Sources */,
 				7EBBFA021C1011CA00080FFA /* RSDFCustomDatePickerView.swift in Sources */,
@@ -921,6 +931,7 @@
 				7E75373B1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift in Sources */,
 				7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */,
 				7E86C25C1C828C5700C6547B /* CommonMHFlightDetailViewController.swift in Sources */,
+				7EFA0D721C8FCB1900566400 /* Geotification.swift in Sources */,
 				7E11C0871C47AC9700C67BD2 /* AddPassengerDetailViewController.swift in Sources */,
 				7E985A0C1C4DF11900EBAFA5 /* EditSeatSelectionViewController.swift in Sources */,
 				7EB0DE0C1C83DFAB000AA6A8 /* MHFlightHeaderView.swift in Sources */,
@@ -937,6 +948,7 @@
 				7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */,
 				7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */,
 				7E985A081C4DEAAE00EBAFA5 /* CommonSeatSelectionViewController.swift in Sources */,
+				7EFA0D701C8FCAFB00566400 /* Beacon.swift in Sources */,
 				7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */,
 				9615B07C1C1137DD000B522F /* FireflyAPI.swift in Sources */,
 				96C1938E1C60904D00617C17 /* FAQViewController.swift in Sources */,

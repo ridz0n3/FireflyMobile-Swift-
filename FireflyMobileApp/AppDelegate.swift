@@ -9,9 +9,9 @@
 import UIKit
 import MFSideMenu
 import XLForm
-import CoreData
 import RealmSwift
 import Realm
+import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -80,5 +80,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+}
+
+// MARK: CLLocationManagerDelegate
+extension AppDelegate: CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        if let beaconRegion = region as? CLBeaconRegion {
+            let notification = UILocalNotification()
+            notification.alertBody = "Exit Beacon?"
+            notification.soundName = "Default"
+            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        }
+        
+        if let geotificationRegion = region as? CLCircularRegion{
+            let notification = UILocalNotification()
+            notification.alertBody = "Exit Geotification"
+            notification.soundName = "Default"
+            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        }
+        
+    }
+    
+    func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        if let beaconRegion = region as? CLBeaconRegion {
+            let notification = UILocalNotification()
+            notification.alertBody = "Enter Beacon"
+            notification.soundName = "Default"
+            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        }
+        
+        if let geotificationRegion = region as? CLCircularRegion{
+            let notification = UILocalNotification()
+            notification.alertBody = "Enter Geotification"
+            notification.soundName = "Default"
+            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        }
+    }
 }
 
