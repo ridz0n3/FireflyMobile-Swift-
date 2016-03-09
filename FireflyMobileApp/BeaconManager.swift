@@ -1,5 +1,5 @@
 //
-//  GeoFenceBeaconManager.swift
+//  BeaconManager.swift
 //  FireflyMobileApp
 //
 //  Created by ME-Tech Mac User 1 on 3/9/16.
@@ -9,28 +9,18 @@
 import UIKit
 import CoreLocation
 
-class GeoFenceBeaconManager: NSObject, CLLocationManagerDelegate {
-
-    static let sharedInstance = GeoFenceBeaconManager()
+class BeaconManager: NSObject, CLLocationManagerDelegate {
+    
+    static let sharedInstance = BeaconManager()
     
     let locationManager = CLLocationManager()
     var newBeacon: Beacon?
     
-    func startGeoFence(){
+    func startBeacon(identifier : String, uuid : NSUUID,  major: CLBeaconMajorValue, minor: CLBeaconMinorValue){
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         
-    }
-    
-    func startBeacon(){
-        locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
-        
-        let uuid = virtual_uuid
-        let major: CLBeaconMajorValue = UInt16(7714)
-        let minor: CLBeaconMinorValue = UInt16(13156)
-        
-        newBeacon = Beacon(name: "test", uuid: uuid!, majorValue: major, minorValue: minor)
+        newBeacon = Beacon(name: identifier, uuid: uuid, majorValue: major, minorValue: minor)
         startMonitoringItem(newBeacon!)
         
     }
@@ -43,13 +33,10 @@ class GeoFenceBeaconManager: NSObject, CLLocationManagerDelegate {
     func startMonitoringItem(beacon:Beacon) {
         let beaconRegion = beaconRegionWithItem(beacon)
         locationManager.startMonitoringForRegion(beaconRegion)
-        //locationManager.startRangingBeaconsInRegion(beaconRegion)
     }
     
     func stopMonitoringItem(beacon:Beacon) {
         let beaconRegion = beaconRegionWithItem(beacon)
         locationManager.stopMonitoringForRegion(beaconRegion)
-        //locationManager.stopRangingBeaconsInRegion(beaconRegion)
     }
-    
 }
