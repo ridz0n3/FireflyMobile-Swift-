@@ -25,7 +25,6 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
                 locationManager.stopMonitoringForRegion(circularRegion)
             }
         }
-        
         let geoLocation = getGeotification()
         startMonitoringGeotification(geoLocation)
         

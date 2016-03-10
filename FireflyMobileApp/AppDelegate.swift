@@ -56,9 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         RLMRealmConfiguration.setDefaultConfiguration(config)
         GeoFenceManager.sharedInstance.startGeoFence()
-        //BeaconManager.sharedInstance.startBeacon("test", major: UInt16(7714), minor: UInt16(13156))
-        //major 2793
-        //minor 19481
+        BluetoothManager.sharedInstance.checkBluetooth()
         return true
     }
     
