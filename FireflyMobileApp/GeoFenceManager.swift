@@ -26,8 +26,8 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
 
     func getGeotification() -> Geotification{
         
-        let lat = "2.9238587"
-        let lon = "101.655948"
+        let lat = "3.0825501"//2.9238587"
+        let lon = "101.4863185"//101.655948"
         let radiuss = "500"
         
         let coordinate = CLLocationCoordinate2D(

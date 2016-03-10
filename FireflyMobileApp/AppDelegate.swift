@@ -57,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RLMRealmConfiguration.setDefaultConfiguration(config)
         
         GeoFenceManager.sharedInstance.startGeoFence()
-        BeaconManager.sharedInstance.startBeacon("test", uuid: virtual_uuid!, major: UInt16(2793), minor: UInt16(19481))
         return true
     }
     
@@ -87,12 +86,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
         
-        if let identifier = notification.userInfo!["identifier"] as? String{
+        if let identifier = notification.userInfo{
             
-            if identifier == "test"{
+            if identifier["identifier"] as! String == "test"{
                 
-            }else if identifier == "airport"{
-                BeaconManager.sharedInstance.startBeacon("test", uuid: virtual_uuid!, major: UInt16(2793), minor: UInt16(19481))
             }
             
         }
@@ -103,6 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: CLLocationManagerDelegate
 extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        
         if let beaconRegion = region as? CLBeaconRegion {
             let notification = UILocalNotification()
             notification.alertBody = "Exit Beacon?"
@@ -120,22 +118,38 @@ extension AppDelegate: CLLocationManagerDelegate {
     }
     
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
+        
         if let beaconRegion = region as? CLBeaconRegion {
+            
+            let major = Int(beaconRegion.major!)
+            let minor = Int(beaconRegion.minor!)
+            BeaconManager.sharedInstance.stopBeacon(beaconRegion.identifier, major: UInt16(major), minor: UInt16(minor))
+            
             let notification = UILocalNotification()
             notification.userInfo = NSDictionary(object: beaconRegion.identifier, forKey: "identifier") as [NSObject : AnyObject]
             notification.alertBody = "Enter Beacon"
             notification.soundName = "Default"
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+            
+            
         }
         
         if let geotificationRegion = region as? CLCircularRegion{
+            
+            BeaconManager.sharedInstance.startBeacon("test", major: UInt16(2793), minor: UInt16(19481))
+            
             let notification = UILocalNotification()
             notification.userInfo = NSDictionary(object: geotificationRegion.identifier, forKey: "identifier") as [NSObject : AnyObject]
             notification.alertBody = "Enter Geotification"
             notification.soundName = "Default"
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+            
         }
+        
     }
     
+    func locationManager(manager: CLLocationManager, didStartMonitoringForRegion region: CLRegion) {
+        print(region)
+    }
 }
 

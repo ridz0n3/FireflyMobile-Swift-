@@ -16,27 +16,41 @@ class BeaconManager: NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     var newBeacon: Beacon?
     
-    func startBeacon(identifier : String, uuid : NSUUID,  major: CLBeaconMajorValue, minor: CLBeaconMinorValue){
+    func startBeacon(identifier : String,  major: CLBeaconMajorValue, minor: CLBeaconMinorValue){
+        
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
-        
-        newBeacon = Beacon(name: identifier, uuid: uuid, majorValue: major, minorValue: minor)
+        newBeacon = Beacon(name: identifier, uuid: virtual_uuid!, majorValue: major, minorValue: minor)
         startMonitoringItem(newBeacon!)
         
     }
     
+    func stopBeacon(identifier : String,  major: CLBeaconMajorValue, minor: CLBeaconMinorValue){
+        
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        newBeacon = Beacon(name: identifier, uuid: virtual_uuid!, majorValue: major, minorValue: minor)
+        stopMonitoringItem(newBeacon!)
+    }
+    
     func beaconRegionWithItem(beacon:Beacon) -> CLBeaconRegion {
+        
         let beaconRegion = CLBeaconRegion(proximityUUID: beacon.uuid, major: beacon.majorValue, minor: beacon.minorValue, identifier: beacon.name)
         return beaconRegion
+        
     }
     
     func startMonitoringItem(beacon:Beacon) {
+        
         let beaconRegion = beaconRegionWithItem(beacon)
         locationManager.startMonitoringForRegion(beaconRegion)
+        
     }
     
     func stopMonitoringItem(beacon:Beacon) {
+        
         let beaconRegion = beaconRegionWithItem(beacon)
         locationManager.stopMonitoringForRegion(beaconRegion)
+        
     }
 }
