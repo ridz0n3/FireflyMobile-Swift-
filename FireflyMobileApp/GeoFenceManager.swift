@@ -19,6 +19,13 @@ class GeoFenceManager: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         
+        
+        for region in locationManager.monitoredRegions {
+            if let circularRegion = region as? CLCircularRegion {
+                locationManager.stopMonitoringForRegion(circularRegion)
+            }
+        }
+        
         let geoLocation = getGeotification()
         startMonitoringGeotification(geoLocation)
         
