@@ -55,8 +55,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // nothing to do
         }
         RLMRealmConfiguration.setDefaultConfiguration(config)
-        
         GeoFenceManager.sharedInstance.startGeoFence()
+        //BeaconManager.sharedInstance.startBeacon("test", major: UInt16(7714), minor: UInt16(13156))
+        //major 2793
+        //minor 19481
         return true
     }
     
@@ -89,7 +91,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let identifier = notification.userInfo{
             
             if identifier["identifier"] as! String == "test"{
-                
+                print("masuk")
+            }else if identifier["identifier"] as! String == "TurnOnBluetooth"{
+                BluetoothManager.sharedInstance.showTurnOn()
             }
             
         }
@@ -101,14 +105,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
         
-        if let beaconRegion = region as? CLBeaconRegion {
+        if let _ = region as? CLBeaconRegion {
             let notification = UILocalNotification()
             notification.alertBody = "Exit Beacon?"
             notification.soundName = "Default"
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
         }
         
-        if let geotificationRegion = region as? CLCircularRegion{
+        if let _ = region as? CLCircularRegion{
             let notification = UILocalNotification()
             notification.alertBody = "Exit Geotification"
             notification.soundName = "Default"
@@ -131,19 +135,13 @@ extension AppDelegate: CLLocationManagerDelegate {
             notification.soundName = "Default"
             UIApplication.sharedApplication().presentLocalNotificationNow(notification)
             
-            
         }
         
-        if let geotificationRegion = region as? CLCircularRegion{
+        if let _ = region as? CLCircularRegion{
             
+            BluetoothManager.sharedInstance.checkBluetooth()
             BeaconManager.sharedInstance.startBeacon("test", major: UInt16(2793), minor: UInt16(19481))
-            
-            let notification = UILocalNotification()
-            notification.userInfo = NSDictionary(object: geotificationRegion.identifier, forKey: "identifier") as [NSObject : AnyObject]
-            notification.alertBody = "Enter Geotification"
-            notification.soundName = "Default"
-            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
-            
+            //BeaconManager.sharedInstance.startBeacon("test", major: UInt16(7714), minor: UInt16(13156))
         }
         
     }

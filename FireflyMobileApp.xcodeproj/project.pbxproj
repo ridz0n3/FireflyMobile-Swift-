@@ -95,6 +95,7 @@
 		7EA286371C4776A30004AB9A /* AddContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */; };
 		7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */; };
 		7EA56E931C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */; };
+		7EA659411C910CBC00FAFB48 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA659401C910CBC00FAFB48 /* BluetoothManager.swift */; };
 		7EB07AFE1C28F6640061D1C9 /* directionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB07AFD1C28F6640061D1C9 /* directionView.xib */; };
 		7EB07B001C28F8440061D1C9 /* DirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */; };
 		7EB0DE0A1C83DD6F000AA6A8 /* MHFlightHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB0DE091C83DD6F000AA6A8 /* MHFlightHeaderView.xib */; };
@@ -251,6 +252,7 @@
 		7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSeatSelectionTableViewCell.swift; sourceTree = "<group>"; };
+		7EA659401C910CBC00FAFB48 /* BluetoothManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 		7EB07AFD1C28F6640061D1C9 /* directionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = directionView.xib; sourceTree = "<group>"; };
 		7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionView.swift; sourceTree = "<group>"; };
 		7EB0DE091C83DD6F000AA6A8 /* MHFlightHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MHFlightHeaderView.xib; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				7E9A53821C3B5D21001094F5 /* LoginManager.swift */,
 				7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */,
 				96DF6A521C87DB7F005BA920 /* AnalyticsManager.swift */,
+				7EA659401C910CBC00FAFB48 /* BluetoothManager.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -965,6 +968,7 @@
 				7E367BF91C4397AF00897D7D /* ManageFlightHomeViewController.swift in Sources */,
 				7EFA0D741C8FD7B000566400 /* GeoFenceManager.swift in Sources */,
 				7E99B8601C2A6B1400239322 /* PaymentSummaryViewController.swift in Sources */,
+				7EA659411C910CBC00FAFB48 /* BluetoothManager.swift in Sources */,
 				7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */,
 				7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */,
 				7E985A081C4DEAAE00EBAFA5 /* CommonSeatSelectionViewController.swift in Sources */,
