@@ -11,7 +11,7 @@ import SwiftyJSON
 import M13Checkbox
 
 class CommonFlightDetailViewController: BaseViewController {
-
+    
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var flightDetailTableView: UITableView!
     @IBOutlet weak var continueView: UIView!
@@ -32,7 +32,7 @@ class CommonFlightDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         setupLeftButton()
         
@@ -44,7 +44,7 @@ class CommonFlightDetailViewController: BaseViewController {
             self.continueView.hidden = true
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -109,9 +109,17 @@ class CommonFlightDetailViewController: BaseViewController {
                 cell.checkFlight.tag = indexPath.row
                 
                 if (planGoing == 1 && indexPath.section == 0) || (planReturn == 4 && indexPath.section == 1){
-                    cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
-                    cell.checkFlight.hidden = false
-                    flightAvailable = true
+                    if flightBasic!["status"]!.string == "sold out"{
+                        cell.priceLbl.text = "SOLD OUT"
+                        cell.checkFlight.hidden = true
+                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
+                        flightAvailable = false
+                        
+                    }else{
+                        cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
+                        cell.checkFlight.hidden = false
+                        flightAvailable = true
+                    }
                 }else{
                     
                     if flightFlex!["status"]!.string == "sold out"{
@@ -224,16 +232,16 @@ class CommonFlightDetailViewController: BaseViewController {
         self.flightDetailTableView.reloadData()
         
     }
-
+    
     
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

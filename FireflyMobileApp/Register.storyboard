@@ -29,7 +29,7 @@
                                                     <constraint firstAttribute="height" constant="101" id="eYE-r7-ViN"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="ZXB-Gn-ODo">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="ZXB-Gn-ODo">
                                                 <rect key="frame" x="196" y="19" width="207" height="63"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="63" id="1zV-eB-vZF"/>

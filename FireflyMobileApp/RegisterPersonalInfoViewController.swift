@@ -115,12 +115,12 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.required = true
         section.addFormRow(row)
         
-        // First Name
+        // First Name/Given Name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeText, title:"")
         attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "First Name"))
+        attrString.appendAttributedString(NSAttributedString(string: "First Name/Given Name"))
         row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-        //row.cellConfigAtConfigure["textField.placeholder"] = "*First Name"
+        //row.cellConfigAtConfigure["textField.placeholder"] = "*First Name/Given Name"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
@@ -130,7 +130,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // Last Name
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeText, title:"")
         attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "Last Name"))
+        attrString.appendAttributedString(NSAttributedString(string: "Last Name/Family Name"))
         row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
         //row.cellConfigAtConfigure["textField.placeholder"] = "*Last Name"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
@@ -241,24 +241,19 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Mobile Number
         row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypePhone, title:"")
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "Mobile / Home"))
-        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
+        row.cellConfigAtConfigure["textField.placeholder"] = "Mobile / Home"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         row.addValidator(XLFormRegexValidator(msg: "Mobile phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
-        row.required = true
+        //row.required = true
         section.addFormRow(row)
         
         // Alternate
         row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypePhone, title:"")
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "Alternate"))
-        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-        //row.cellConfigAtConfigure["textField.placeholder"] = "*Alternate"
+        row.cellConfigAtConfigure["textField.placeholder"] = "Alternate"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.required = true
+        //row.required = true
         row.addValidator(XLFormRegexValidator(msg: "Alternate phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
         section.addFormRow(row)
         
@@ -437,6 +432,17 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                             let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                             let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
                             self.navigationController!.pushViewController(loginVC, animated: true)
+                        }
+                        else if result["status"].string == "error_validation"{
+                            
+                            var str = String()
+                            for (_, value) in result["message"].dictionary!{
+                                
+                                str += "\(value[0])\n"
+                            }
+                            
+                            showErrorMessage(str)
+                            
                         }
                         else {
                             showErrorMessage(result["message"].string!)

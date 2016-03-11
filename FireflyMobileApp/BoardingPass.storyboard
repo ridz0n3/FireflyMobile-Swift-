@@ -30,7 +30,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="PT7-F4-Hcs"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="cVg-Iy-450">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="cVg-Iy-450">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="1mV-4g-Qme"/>
@@ -137,7 +137,7 @@
                                             <constraint firstAttribute="height" constant="101" id="VfX-x2-yUu"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Qkv-wp-CkS">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Qkv-wp-CkS">
                                         <rect key="frame" x="196" y="19" width="207" height="63"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="63" id="WA3-aw-5Rf"/>
@@ -216,7 +216,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="Gmo-9w-Rjz"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="0SM-WO-trd">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="0SM-WO-trd">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="207" id="CBU-3M-nQt"/>

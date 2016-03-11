@@ -28,7 +28,7 @@
                                             <constraint firstAttribute="height" constant="101" id="XCo-2M-ffl"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="QwS-yG-yZI">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="QwS-yG-yZI">
                                         <rect key="frame" x="197" y="10" width="207" height="63"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="207" id="LWV-7K-sxa"/>
@@ -172,7 +172,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="dAS-4m-KcP"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="omE-ON-Kke">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="omE-ON-Kke">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="207" id="8xr-64-VSS"/>
@@ -277,7 +277,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="Kfb-LG-Upr"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="aMm-j9-ibl">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="aMm-j9-ibl">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="Eqa-0E-onr"/>
@@ -1243,7 +1243,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="zX5-4s-5he"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ks2-jw-IZu">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ks2-jw-IZu">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="Wjs-3s-Jl1"/>
@@ -1415,7 +1415,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="JFH-Nt-2mG"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="fzJ-6R-OX4">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="fzJ-6R-OX4">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="fTe-rr-jvE"/>
@@ -1616,7 +1616,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="904-uv-rgl"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="1Zo-v0-XME">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="1Zo-v0-XME">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="207" id="EBe-aC-wkN"/>
@@ -1732,7 +1732,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="kTU-v3-aFa"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9GY-r4-fsM">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="9GY-r4-fsM">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="ocy-ZG-7bU"/>
@@ -1894,7 +1894,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="wye-aa-pMW"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="94c-2o-q4h">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="94c-2o-q4h">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="Q3f-aD-hdk"/>
@@ -2313,7 +2313,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="IKJ-da-IEc"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="5VD-aW-UmE">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="5VD-aW-UmE">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="LBT-xb-QfG"/>
@@ -2581,7 +2581,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="WPj-I5-Zuw"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="qKe-YX-X51">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="qKe-YX-X51">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="NT7-2G-8rd"/>
@@ -2902,7 +2902,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="ZXf-Jf-cpM"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="4Oh-eq-21o">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="4Oh-eq-21o">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="inR-Jf-WXf"/>

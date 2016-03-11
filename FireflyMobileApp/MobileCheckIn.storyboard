@@ -199,7 +199,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="PWt-bh-kay"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Wfa-HF-whx">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="Wfa-HF-whx">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="eos-8L-Kvp"/>
@@ -312,7 +312,7 @@
                                                 <constraint firstAttribute="height" constant="101" id="Ato-h7-SZm"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="CWr-Go-sgW">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="CWr-Go-sgW">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="207" id="82c-nE-TDq"/>
@@ -455,7 +455,7 @@
                                             <constraint firstAttribute="height" constant="101" id="uEw-vh-UML"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="s0V-aJ-Z3Q">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="s0V-aJ-Z3Q">
                                         <rect key="frame" x="196" y="19" width="207" height="63"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="63" id="I72-Qu-Atl"/>
@@ -583,7 +583,7 @@ Below is the list of airports equipped with KIOSK:
                                                 <constraint firstAttribute="height" constant="101" id="Apv-zY-IDy"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lyw-YK-iOa">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lyw-YK-iOa">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="f9i-u0-eFq"/>
@@ -755,7 +755,7 @@ Below is the list of airports equipped with KIOSK:
                                                 <constraint firstAttribute="height" constant="101" id="ZY2-cF-Y2K"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="QbZ-Vf-2Af">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="QbZ-Vf-2Af">
                                             <rect key="frame" x="196" y="19" width="207" height="63"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="63" id="04X-oZ-dT0"/>

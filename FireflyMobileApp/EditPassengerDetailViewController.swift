@@ -75,7 +75,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             //first name
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name/Given Name:*")
             row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
             row.required = true
             row.disabled = NSNumber(bool: true)
@@ -83,7 +83,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             //last name
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name/Family Name:*")
             row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
             row.required = true
             row.disabled = NSNumber(bool: true)
@@ -188,7 +188,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // First name
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationFirstName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationFirstName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name/Given Name:*")
                 row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
                 row.value = infantDict["first_name"] as! String
@@ -196,7 +196,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Last Name
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationLastName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationLastName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name/Family Name:*")
                 row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
                 row.value = infantDict["last_name"] as! String
