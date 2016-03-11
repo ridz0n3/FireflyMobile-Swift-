@@ -277,10 +277,20 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         
         if section[1] == "0"{
             passengers1.removeValueForKey("\(row[1])")
-            seatDict.updateValue(passengers1, forKey: "\(section[1])")
+            
+            if passengers1.count == 0{
+                seatDict.removeValueForKey("\(section[1])")
+            }else{
+                seatDict.updateValue(passengers1, forKey: "\(section[1])")
+            }
+            
         }else{
             passengers2.removeValueForKey("\(row[1])")
-            seatDict.updateValue(passengers2, forKey: "\(section[1])")
+            if passengers2.count == 0{
+                seatDict.removeValueForKey("\(section[1])")
+            }else{
+                seatDict.updateValue(passengers2, forKey: "\(section[1])")
+            }
         }
         
         sectionSeatRemove = NSIndexPath(forRow: Int(row[1])!, inSection: Int(section[1])!)

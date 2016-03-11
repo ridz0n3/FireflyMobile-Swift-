@@ -70,112 +70,96 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
         let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
         let signature = defaults.objectForKey("signature") as! String
         
-        /*if seatDict.count == 0 || seatDict.count != details.count{
-        showErrorMessage("LabelErrorSelectSeat".localized)
-        }else{*/
         if journeys.count == 2{
-            
-            /* if seatDict["0"]!.count == 0 || seatDict["1"]!.count == 0{
-            showErrorMessage("LabelErrorSelectSeat".localized)
-            }else{*/
             
             let goingSeatSelection = NSMutableArray()
             let returnSeatSelection = NSMutableArray()
             let tempDict = NSMutableDictionary()
             if seatDict.count != 0{
-                for i in 0...seatDict.count-1{
+                
+                for (keys, data) in seatDict{
                     let newSeat = NSMutableDictionary()
-                    
-                    for j in 0...seatDict["\(i)"]!.count-1{
-                        let newDetail = NSMutableDictionary()
-                        newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["seat_number"], forKey: "seat_number")
-                        newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["compartment_designator"], forKey: "compartment_designator")
-                        
-                        newSeat.setValue(newDetail, forKeyPath: "\(j)")
-                        
+                    for (passengerKey, passengerDetail) in data as! NSDictionary{
+                        newSeat.setValue(passengerDetail, forKey: passengerKey as! String)
                     }
                     
-                    if i == 0{
+                    if keys == "0"{
                         goingSeatSelection.addObject(newSeat)
                     }else{
                         returnSeatSelection.addObject(newSeat)
                     }
+                    
                 }
-            }else{
-                goingSeatSelection.addObject(tempDict)
-                returnSeatSelection.addObject(tempDict)
-            }
-            
-            showHud("open")
-            
-            FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
                 
-                switch result {
-                case .Success(let successResult):
-                    do {
-                        showHud("close")
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                        
-                        if json["status"] == "success"{
+                if goingSeatSelection.count == 0{
+                    goingSeatSelection.addObject(tempDict)
+                }else if returnSeatSelection.count == 0{
+                    returnSeatSelection.addObject(tempDict)
+                }
+                showHud("open")
+                
+                FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
+                    
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            showHud("close")
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
-                            defaults.setObject(json.dictionaryObject, forKey: "itenerary")
-                            defaults.synchronize()
-                            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
-                            self.navigationController!.pushViewController(paymentVC, animated: true)
-                            
-                        }else if json["status"] == "error"{
-                            //showErrorMessage(json["message"].string!)
-                            showErrorMessage(json["message"].string!)
+                            if json["status"] == "success"{
+                                
+                                defaults.setObject(json.dictionaryObject, forKey: "itenerary")
+                                defaults.synchronize()
+                                let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
+                                self.navigationController!.pushViewController(paymentVC, animated: true)
+                                
+                            }else if json["status"] == "error"{
+                                showErrorMessage(json["message"].string!)
+                            }
                         }
-                    }
-                    catch {
+                        catch {
+                            
+                        }
                         
+                    case .Failure(let failureResult):
+                        showHud("close")
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     
-                case .Failure(let failureResult):
-                    showHud("close")
-                    showErrorMessage(failureResult.nsError.localizedDescription)
-                }
+                })
                 
-            })
-            
-            // }
+            }else{
+                continueWithoutSelectSeat(signature)
+            }
             
         }else{
-            
-            /* if seatDict["0"]!.count == 0{
-            showErrorMessage("LabelErrorSelectSeat".localized)
-            }else{*/
             
             let goingSeatSelection = NSMutableArray()
             let tempDict = NSMutableDictionary()
             let returnSeatSelection = NSMutableArray()
             
             if seatDict.count != 0{
-                for i in 0...seatDict.count-1{
+                
+                for (_, data) in seatDict{
+                    
                     let newSeat = NSMutableDictionary()
                     
-                    for j in 0...seatDict["\(i)"]!.count-1{
-                        let newDetail = NSMutableDictionary()
-                        newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["seat_number"], forKey: "seat_number")
-                        newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["compartment_designator"], forKey: "compartment_designator")
+                    for (passengerKey, passengerDetail) in data as! NSDictionary{
                         
-                        newSeat.setValue(newDetail, forKeyPath: "\(j)")
+                        newSeat.setValue(passengerDetail, forKey: passengerKey as! String)
                         
                     }
-                    
                     goingSeatSelection.addObject(newSeat)
                     
                 }
-            }else{
-                goingSeatSelection.addObject(tempDict)
-            }
-            
-            
-            returnSeatSelection.addObject(tempDict)
-            
-            showHud("open")
+                
+                if goingSeatSelection.count == 0{
+                    goingSeatSelection.addObject(tempDict)
+                }
+                
+                returnSeatSelection.addObject(tempDict)
+                showHud("open")
                 
                 FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
                     
@@ -195,7 +179,6 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                                 self.navigationController!.pushViewController(paymentVC, animated: true)
                                 
                             }else if json["status"] == "error"{
-                                //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
                         }
@@ -210,12 +193,49 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                 })
                 
-            //}
-            //}
+            }else{
+                continueWithoutSelectSeat(signature)
+            }
         }
     }
     
-    
+    func continueWithoutSelectSeat(signature : String){
+        
+        showHud("open")
+        
+        FireFlyProvider.request(.FlightSummary(signature), completion: { (result) -> () in
+            
+            switch result {
+            case .Success(let successResult):
+                do {
+                    showHud("close")
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        
+                        defaults.setObject(json.dictionaryObject, forKey: "itenerary")
+                        defaults.synchronize()
+                        let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
+                        self.navigationController!.pushViewController(paymentVC, animated: true)
+                        
+                    }else if json["status"] == "error"{
+                        //showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
+                    }
+                }
+                catch {
+                    
+                }
+                
+            case .Failure(let failureResult):
+                showHud("close")
+                showErrorMessage(failureResult.nsError.localizedDescription)
+            }
+            
+        })
+        
+    }
     /*
     // MARK: - Navigation
     
