@@ -124,6 +124,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
         let signature = defaults.objectForKey("signature") as! String
         defaults.setObject(infant, forKey: "infant")
+        defaults.setObject(passenger, forKey: "passengerData")
         defaults.synchronize()
         
         return (passenger, infant, bookId, signature)

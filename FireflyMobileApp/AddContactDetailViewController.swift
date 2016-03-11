@@ -9,11 +9,13 @@
 import UIKit
 import M13Checkbox
 import SwiftyJSON
+import ActionSheetPicker_3_0
 
 class AddContactDetailViewController: CommonContactDetailViewController {
 
     @IBOutlet weak var chooseSeatBtn: UIButton!
     @IBOutlet weak var paymentBtn: UIButton!
+    @IBOutlet weak var checkPassenger: M13Checkbox!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             chooseSeatBtn.hidden = true
             paymentBtn.setTitle("Continue", forState: UIControlState.Normal)
         }
-        
+        var isLogin = Bool()
         if try! LoginManager.sharedInstance.isLogin(){
             
             let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
@@ -47,19 +49,27 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "title" : "\(userInfo["title"]!)",
                 "travel_purpose" : ""]
             
+            isLogin = true
+            
         }
         
         if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
             
             views.hidden = true
             var newFrame = footerView.bounds
-            newFrame.size.height = 98
+            
+            if isLogin{
+                newFrame.size.height = 98
+            }else{
+                newFrame.size.height = 136
+            }
+            
             footerView.frame = newFrame
             
         }else{
             
             var newFrame = footerView.bounds
-            newFrame.size.height = 750
+            newFrame.size.height = 738
             footerView.frame = newFrame
             
             let insuranceData = defaults.objectForKey("insurance_status") as! NSDictionary
@@ -247,6 +257,81 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         }
     }
 
+    @IBAction func changeContactBtnPressed(sender: AnyObject) {
+        
+        if checkPassenger.checkState == M13CheckboxState.Checked{
+            checkPassenger.checkState = M13CheckboxState.Unchecked
+            
+            contactData = ["address1" : "" ,
+                "address2" : "",
+                "address3" : "",
+                "alternate_phone" : "",
+                "city" : "",
+                "company_name" : "",
+                "country" : "",
+                "email" : "",
+                "first_name" : "",
+                "last_name" : "",
+                "mobile_phone" : "",
+                "postcode" : "",
+                "state" : "",
+                "title" : "",
+                "travel_purpose" : ""]
+            
+            initializeForm()
+            
+        }else{
+            checkPassenger.checkState = M13CheckboxState.Checked
+            getPassengerData()
+            
+            let picker = ActionSheetStringPicker(title: "", rows: passengerArray, initialSelection: passengerSelected, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: sender)
+            picker.showActionSheetPicker()
+            
+        }
+        
+    }
+    
+    var passengerSelected = Int()
+    var passengerData = [NSDictionary]()
+    var passengerArray = [String]()
+    func getPassengerData(){
+        
+        if let passenger = defaults.objectForKey("passengerData") as? NSDictionary{
+            passengerData = [NSDictionary]()
+            passengerArray = [String]()
+            for (_, data) in passenger{
+                
+                let passengerInfo = data as! NSDictionary
+                let name = "\(getTitleName(passengerInfo["title"] as! String)) \(passengerInfo["first_name"]!) \(passengerInfo["last_name"]!)"
+                
+                passengerArray.append(name)
+                passengerData.append(passengerInfo)
+            }
+        }
+    }
+    
+    func objectSelected(index :NSNumber, element:AnyObject){
+        
+        let tempData = passengerData[Int(index)]
+        
+        contactData = ["address1" : "" ,
+            "address2" : "",
+            "address3" : "",
+            "alternate_phone" : "",
+            "city" : "",
+            "company_name" : "",
+            "country" : "\(tempData["issuing_country"]!)",
+            "email" : "",
+            "first_name" : "\(tempData["first_name"]!)",
+            "last_name" : "\(tempData["last_name"]!)",
+            "mobile_phone" : "",
+            "postcode" : "",
+            "state" : "",
+            "title" : "\(tempData["title"]!)",
+            "travel_purpose" : ""]
+        
+        initializeForm()
+    }
     /*
     // MARK: - Navigation
 
