@@ -30,6 +30,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             paymentBtn.setTitle("Continue", forState: UIControlState.Normal)
         }
         var isLogin = Bool()
+        var isOnePassenger = Bool()
         if try! LoginManager.sharedInstance.isLogin(){
             
             let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
@@ -51,6 +52,30 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             isLogin = true
             
+        }else if let passData = defaults.objectForKey("passengerData") as? NSDictionary{
+            
+            if passData.count == 1{
+                
+                let tempData = passData["0"] as! NSDictionary
+                
+                contactData = ["address1" : "" ,
+                    "address2" : "",
+                    "address3" : "",
+                    "alternate_phone" : "",
+                    "city" : "",
+                    "company_name" : "",
+                    "country" : "\(tempData["issuing_country"]!)",
+                    "email" : "",
+                    "first_name" : "\(tempData["first_name"]!)",
+                    "last_name" : "\(tempData["last_name"]!)",
+                    "mobile_phone" : "",
+                    "postcode" : "",
+                    "state" : "",
+                    "title" : "\(tempData["title"]!)",
+                    "travel_purpose" : ""]
+                
+                isOnePassenger = true
+            }
         }
         
         if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
@@ -58,7 +83,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             views.hidden = true
             var newFrame = footerView.bounds
             
-            if isLogin{
+            if isLogin || isOnePassenger{
                 newFrame.size.height = 98
             }else{
                 newFrame.size.height = 136
@@ -69,7 +94,13 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         }else{
             
             var newFrame = footerView.bounds
-            newFrame.size.height = 738
+            
+            if isLogin || isOnePassenger{
+                newFrame.size.height = 710
+            }else{
+                newFrame.size.height = 738
+            }
+            
             footerView.frame = newFrame
             
             let insuranceData = defaults.objectForKey("insurance_status") as! NSDictionary
