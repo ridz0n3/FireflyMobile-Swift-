@@ -12,6 +12,7 @@ import WebKit
 
 class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDelegate {
     
+    var secondLevel = Bool()
     @IBOutlet weak var webView: UIWebView!
     
     override func viewDidLoad() {
@@ -19,7 +20,12 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         AnalyticsManager.sharedInstance.logScreen("FAQ")
         //If you want to implement the delegate
         
-        self.setupMenuButton()
+        if secondLevel {
+            setupLeftButton()
+        }else{
+            setupMenuButton()
+        }
+        
         webView.scrollView.delegate = self
         webView.scrollView.showsHorizontalScrollIndicator = false
         showHud("open")

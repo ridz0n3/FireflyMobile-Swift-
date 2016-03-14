@@ -29,6 +29,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             chooseSeatBtn.hidden = true
             paymentBtn.setTitle("Continue", forState: UIControlState.Normal)
         }
+        
         var isLogin = Bool()
         var isOnePassenger = Bool()
         if try! LoginManager.sharedInstance.isLogin(){
@@ -56,7 +57,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "state" : "",
                 "title" : "\(userInfo["title"]!)",
                 "travel_purpose" : ""]
-            
+            checkPassenger.checkState = M13CheckboxState.Checked
             isLogin = true
             
         }else if let passData = defaults.objectForKey("passengerData") as? NSDictionary{
@@ -83,6 +84,8 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 
                 isOnePassenger = true
             }
+            
+            checkPassenger.checkState = M13CheckboxState.Checked
         }
         
         if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){

@@ -35,7 +35,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     //TODO: Get the URL from Backend
     func facebookSelected(sender: UIGestureRecognizer) {
-        let facebookHooks = "fb://profile/Firefly"
+        let facebookHooks = "fb://profile/\(defaults.objectForKey("facebook") as! String)"
         let facebookURL = NSURL(string: facebookHooks)
         if UIApplication.sharedApplication().canOpenURL(facebookURL!)
         {
@@ -43,12 +43,12 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/Firefly")!)
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/\(defaults.objectForKey("facebook") as! String)")!)
         }
     }
     
     func instaSelected(sender: UIGestureRecognizer) {
-        let instagramHooks = "instagram://user?username=fireflyairlines"
+        let instagramHooks = "instagram://user?username=\(defaults.objectForKey("instagram") as! String)"
         let instagramUrl = NSURL(string: instagramHooks)
         if UIApplication.sharedApplication().canOpenURL(instagramUrl!)
         {
@@ -56,12 +56,12 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.instagram.com/fireflyairlines")!)
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.instagram.com/\(defaults.objectForKey("instagram") as! String)")!)
         }
     }
     
     func twitterSelected(sender: UIGestureRecognizer) {
-        let twitterHooks = "twitter:///user?screen_name=flyfirefly"
+        let twitterHooks = "twitter:///user?screen_name=\(defaults.objectForKey("twitter") as! String)"
         let twitterUrl = NSURL(string: twitterHooks)
         if UIApplication.sharedApplication().canOpenURL(twitterUrl!)
         {
@@ -69,7 +69,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/flyfirefly")!)
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/\(defaults.objectForKey("twitter") as! String)")!)
         }
     }
     
@@ -140,9 +140,17 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
         if indexPath.row == 0{
             
-            let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-            let bookFlightVC = storyboard.instantiateViewControllerWithIdentifier("BookFlightVC") as! SearchFlightViewController
-            self.navigationController!.pushViewController(bookFlightVC, animated: true)
+            if defaults.objectForKey("module") as! String == "faq"{
+                let storyboard = UIStoryboard(name: "Home", bundle: nil)
+                let FAQVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController
+                FAQVC.secondLevel = true
+                self.navigationController!.pushViewController(FAQVC, animated: true)
+            }else{
+                let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                let bookFlightVC = storyboard.instantiateViewControllerWithIdentifier("BookFlightVC") as! SearchFlightViewController
+                self.navigationController!.pushViewController(bookFlightVC, animated: true)
+            }
+            
             
         }else if indexPath.row == 1{
             

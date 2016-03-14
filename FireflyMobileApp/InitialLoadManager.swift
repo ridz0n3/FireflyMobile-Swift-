@@ -80,7 +80,13 @@ class InitialLoadManager {
                             }
                             
                             signature = json["signature"].string!
+                            let socialLink = json["social_media_link"].dictionary
                             
+                            defaults.setObject(socialLink!["instagram"]?.string, forKey: "instagram")
+                            defaults.setObject(socialLink!["twitter"]?.string, forKey: "twitter")
+                            defaults.setObject(socialLink!["facebookScreen"]?.string, forKey: "facebook")
+                            
+                            defaults.setObject(json["banner_module"].string, forKey: "module")
                             defaults.setObject(signature, forKey: "signatureLoad")
                             defaults.setObject(banner, forKey: "banner")
                             defaults.synchronize()
