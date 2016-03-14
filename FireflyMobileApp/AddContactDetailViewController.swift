@@ -12,7 +12,7 @@ import SwiftyJSON
 import ActionSheetPicker_3_0
 
 class AddContactDetailViewController: CommonContactDetailViewController {
-
+    
     @IBOutlet weak var chooseSeatBtn: UIButton!
     @IBOutlet weak var paymentBtn: UIButton!
     @IBOutlet weak var checkPassenger: M13Checkbox!
@@ -32,6 +32,13 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         var isLogin = Bool()
         var isOnePassenger = Bool()
         if try! LoginManager.sharedInstance.isLogin(){
+            
+            if let passData = defaults.objectForKey("passengerData") as? NSDictionary{
+                
+                if passData.count == 1{
+                    isOnePassenger = true
+                }
+            }
             
             let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
             contactData = ["address1" : "" ,
@@ -83,7 +90,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             views.hidden = true
             var newFrame = footerView.bounds
             
-            if isLogin || isOnePassenger{
+            if isOnePassenger{
                 newFrame.size.height = 98
             }else{
                 newFrame.size.height = 136
@@ -95,7 +102,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             var newFrame = footerView.bounds
             
-            if isLogin || isOnePassenger{
+            if isOnePassenger{
                 newFrame.size.height = 710
             }else{
                 newFrame.size.height = 738
@@ -287,7 +294,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             showErrorMessage("Please fill all fields")
         }
     }
-
+    
     @IBAction func changeContactBtnPressed(sender: AnyObject) {
         
         if checkPassenger.checkState == M13CheckboxState.Checked{
@@ -325,6 +332,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     var passengerSelected = Int()
     var passengerData = [NSDictionary]()
     var passengerArray = [String]()
+    
     func getPassengerData(){
         
         if let passenger = defaults.objectForKey("passengerData") as? NSDictionary{
@@ -345,32 +353,76 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         
         let tempData = passengerData[Int(index)]
         
-        contactData = ["address1" : "" ,
-            "address2" : "",
-            "address3" : "",
-            "alternate_phone" : "",
-            "city" : "",
-            "company_name" : "",
-            "country" : "\(tempData["issuing_country"]!)",
-            "email" : "",
-            "first_name" : "\(tempData["first_name"]!)",
-            "last_name" : "\(tempData["last_name"]!)",
-            "mobile_phone" : "",
-            "postcode" : "",
-            "state" : "",
-            "title" : "\(tempData["title"]!)",
-            "travel_purpose" : ""]
+        if let userInfo = defaults.objectForKey("userInfo") as? NSDictionary{
+            
+            if userInfo["first_name"] as! String == tempData["first_name"] as! String{
+                contactData = ["address1" : "" ,
+                    "address2" : "",
+                    "address3" : "",
+                    "alternate_phone" : "\(userInfo["contact_alternate_phone"]!)",
+                    "city" : "",
+                    "company_name" : "",
+                    "country" : "\(userInfo["contact_country"]!)",
+                    "email" : "\(userInfo["contact_email"]!)",
+                    "first_name" : "\(userInfo["first_name"]!)",
+                    "last_name" : "\(userInfo["last_name"]!)",
+                    "mobile_phone" : "\(userInfo["contact_mobile_phone"]!)",
+                    "postcode" : "",
+                    "state" : "",
+                    "title" : "\(userInfo["title"]!)",
+                    "travel_purpose" : ""]
+            }else{
+                
+                contactData = ["address1" : "" ,
+                    "address2" : "",
+                    "address3" : "",
+                    "alternate_phone" : "",
+                    "city" : "",
+                    "company_name" : "",
+                    "country" : "\(tempData["issuing_country"]!)",
+                    "email" : "",
+                    "first_name" : "\(tempData["first_name"]!)",
+                    "last_name" : "\(tempData["last_name"]!)",
+                    "mobile_phone" : "",
+                    "postcode" : "",
+                    "state" : "",
+                    "title" : "\(tempData["title"]!)",
+                    "travel_purpose" : ""]
+                
+            }
+            
+        }else{
+            
+            contactData = ["address1" : "" ,
+                "address2" : "",
+                "address3" : "",
+                "alternate_phone" : "",
+                "city" : "",
+                "company_name" : "",
+                "country" : "\(tempData["issuing_country"]!)",
+                "email" : "",
+                "first_name" : "\(tempData["first_name"]!)",
+                "last_name" : "\(tempData["last_name"]!)",
+                "mobile_phone" : "",
+                "postcode" : "",
+                "state" : "",
+                "title" : "\(tempData["title"]!)",
+                "travel_purpose" : ""]
+            
+        }
+        
+        
         
         initializeForm()
     }
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
