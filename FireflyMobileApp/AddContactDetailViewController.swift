@@ -85,7 +85,6 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 isOnePassenger = true
             }
             
-            checkPassenger.checkState = M13CheckboxState.Checked
         }
         
         if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
