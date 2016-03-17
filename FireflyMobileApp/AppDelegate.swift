@@ -25,8 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledPicker] = FloatLabeledPickerCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeledDatePicker] = FloateLabeledDatePickerCell.self
         
-        InitialLoadManager.sharedInstance.load()
-        UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+        let homeStoryBoard = UIStoryboard(name: "SplashScreen", bundle: nil)
+        let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("LaunchScreenVC")
+        self.window?.rootViewController = navigationController
+        
+        /*UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         UINavigationBar.appearance().translucent = false
         // Override point for customization after application launch.
         
@@ -45,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.centerViewController = navigationController
         
         container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
-        
+        */
         let config = RLMRealmConfiguration.defaultConfiguration()
         config.schemaVersion = 8
         config.migrationBlock = { (migration, oldSchemaVersion) in

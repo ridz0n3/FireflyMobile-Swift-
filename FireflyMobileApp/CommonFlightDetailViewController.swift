@@ -163,7 +163,7 @@ class CommonFlightDetailViewController: BaseViewController {
         if flightDetail.count == 0{
             return 0
         }else{
-            return 118
+            return 88//118
         }
     }
     
@@ -171,10 +171,11 @@ class CommonFlightDetailViewController: BaseViewController {
         if flightDetail.count == 0{
             return nil
         }else{
-            let flightHeader = NSBundle.mainBundle().loadNibNamed("FlightHeader", owner: self, options: nil)[0] as! FlightHeaderView
             
-            flightHeader.frame = CGRectMake(0, 0,self.view.frame.size.width, 118)
+            //FLIGHT HEADER WITH BASIC & PREMIER BUTTON
+            /*let flightHeader = NSBundle.mainBundle().loadNibNamed("FlightHeader", owner: self, options: nil)[0] as! FlightHeaderView
             
+            flightHeader.frame = CGRectMake(0, 0,self.view.frame.size.width, 88)
             let flightDict = flightDetail[section].dictionary
             
             if (planGoing == 1 && section == 0) || (planReturn == 4 && section == 1){
@@ -199,7 +200,17 @@ class CommonFlightDetailViewController: BaseViewController {
             }
             
             flightHeader.premierBtn.addTarget(self, action: "changePlan:", forControlEvents: .TouchUpInside)
+            */
             
+            let flightHeader = NSBundle.mainBundle().loadNibNamed("MHFlightHeaderView", owner: self, options: nil)[0] as! MHFlightHeaderView
+            
+            let flightDict = flightDetail[section].dictionary
+            
+            flightHeader.destinationLbl.text = String(format: "%@ - %@", (flightDict!["departure_station_name"]?.string?.uppercaseString)!,flightDict!["arrival_station_name"]!.string!.uppercaseString) //"PENANG - SUBANG"
+            flightHeader.directionLbl.text = String(format: "(%@)", flightDict!["type"]!.string!)// "(Return Flight)"
+            flightHeader.dateLbl.text = String(format: "%@", flightDict!["departure_date"]!.string!) //"26 JAN 2015"
+            
+            flightHeader.frame = CGRectMake(0, 0,self.view.frame.size.width, 88)
             
             return flightHeader
         }

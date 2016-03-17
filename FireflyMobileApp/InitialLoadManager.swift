@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import MFSideMenu
 
 class InitialLoadManager {
     
@@ -32,13 +33,11 @@ class InitialLoadManager {
         let deviceId = UIDevice.currentDevice().identifierForVendor?.UUIDString//defaults.objectForKey("token") as! String
         //print(deviceId)
         
-        
         initializeGA()
         FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,deviceId!,"Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    
                     var title = NSArray()
                     var flight = NSArray()
                     var country = NSArray()
@@ -90,7 +89,7 @@ class InitialLoadManager {
                             defaults.setObject(signature, forKey: "signatureLoad")
                             defaults.setObject(banner, forKey: "banner")
                             defaults.synchronize()
-                            
+                            self.checkForAppUpdate()
                             NSNotificationCenter.defaultCenter().postNotificationName("reloadHome", object: nil)
                         }
                         else{
@@ -121,6 +120,53 @@ class InitialLoadManager {
         let gai = GAI.sharedInstance()
         gai.trackUncaughtExceptions = true  // report uncaught exceptions
         gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+    }
+    
+    func checkForAppUpdate(){
+        
+        let appVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+        let buildVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+        
+        if appVersion != "1.0"{
+            
+            UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+            UINavigationBar.appearance().translucent = false
+            // Override point for customization after application launch.
+            
+            let viewController = UIApplication.sharedApplication().delegate as! AppDelegate
+            
+            UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+            UINavigationBar.appearance().translucent = false
+            
+            let storyboard = UIStoryboard(name: "NewUpdate", bundle: nil)
+            let aboutVC = storyboard.instantiateViewControllerWithIdentifier("NewUpdateVC") as! UINavigationController
+            
+            viewController.window?.rootViewController = aboutVC
+            
+        }else{
+            
+            UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+            UINavigationBar.appearance().translucent = false
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            
+            let container = storyboard.instantiateViewControllerWithIdentifier("MFSideMenuContainerViewController") as! MFSideMenuContainerViewController
+            
+            let viewController = UIApplication.sharedApplication().delegate as! AppDelegate
+            
+            viewController.window?.rootViewController = container
+            
+            let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("sideMenuVC") as! SideMenuTableViewController
+            
+            let homeStoryBoard = UIStoryboard(name: "Home", bundle: nil)
+            let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("NavigationVC") as! UINavigationController
+            
+            container.leftMenuViewController = sideMenuVC
+            container.centerViewController = navigationController
+            
+            container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
+        }
+        
     }
 
 }
