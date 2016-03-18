@@ -551,6 +551,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
                 defaults.setObject(result["user_info"].dictionaryObject, forKey: "userInfo")
                 defaults.synchronize()
                 
+                NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
+                
                 let storyBoard = UIStoryboard(name: "Home", bundle: nil)
                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                 self.navigationController!.pushViewController(homeVC, animated: true)

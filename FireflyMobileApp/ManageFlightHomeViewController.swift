@@ -573,13 +573,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         for subView in navigationArray!{
                             
                             if subView.classForCoder == ManageFlightHomeViewController.classForCoder(){
+                                
+                                hideLoading(self)
                                 self.navigationController?.popToViewController(subView , animated: true)
                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadHomePage", object: nil)
                                 break
                             }
                             
                         }
-                        hideLoading(self)
+                        
                         
                     }else if json["status"] == "need_payment"{
                         

@@ -174,7 +174,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
         if txtLbl.tag == 1{
             departureSelected = index.integerValue
-            departure = (location[departureSelected]["location"] as? String)!
+            departure = "\(location[departureSelected]["location"] as! String) (\(location[departureSelected]["location_code"] as! String))"
             txtLbl.text = departure
             arrivalSelected = 0
             pickerTravel.removeAll()
@@ -184,7 +184,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             getArrivalAirport((location[departureSelected]["location_code"] as? String)!, module : "search")
         }else{
             arrivalSelected = index.integerValue
-            arrival = (travel[arrivalSelected]["travel_location"] as? String)!
+            arrival = "\(travel[arrivalSelected]["travel_location"] as! String) (\(travel[arrivalSelected]["travel_location_code"] as! String))"
             txtLbl.text = arrival
             
         }
