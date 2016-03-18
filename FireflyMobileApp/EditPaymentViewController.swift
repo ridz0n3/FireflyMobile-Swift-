@@ -73,7 +73,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     
                                 }else{
                                     //showHud("close")
-                                    hideLoading(self)
+                                    
                                     //showErrorMessage(json["message"].string!)
                                     if json["message"].type == Type.Dictionary{
                                         showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
@@ -82,6 +82,8 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     }
                                     
                                 }
+                                hideLoading(self)
+
                             }
                             catch {
                                 

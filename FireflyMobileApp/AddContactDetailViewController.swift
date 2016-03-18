@@ -56,34 +56,33 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "postcode" : "",
                 "state" : "",
                 "title" : "\(userInfo["title"]!)",
-                "travel_purpose" : ""]
+                "travel_purpose" : "Leisure"]
             checkPassenger.checkState = M13CheckboxState.Checked
             isLogin = true
             
         }else if let passData = defaults.objectForKey("passengerData") as? NSDictionary{
             
             if passData.count == 1{
-                
-                let tempData = passData["0"] as! NSDictionary
-                
-                contactData = ["address1" : "" ,
-                    "address2" : "",
-                    "address3" : "",
-                    "alternate_phone" : "",
-                    "city" : "",
-                    "company_name" : "",
-                    "country" : "\(tempData["issuing_country"]!)",
-                    "email" : "",
-                    "first_name" : "\(tempData["first_name"]!)",
-                    "last_name" : "\(tempData["last_name"]!)",
-                    "mobile_phone" : "",
-                    "postcode" : "",
-                    "state" : "",
-                    "title" : "\(tempData["title"]!)",
-                    "travel_purpose" : ""]
-                
                 isOnePassenger = true
             }
+            
+            let tempData = passData["0"] as! NSDictionary
+            
+            contactData = ["address1" : "" ,
+                "address2" : "",
+                "address3" : "",
+                "alternate_phone" : "",
+                "city" : "",
+                "company_name" : "",
+                "country" : "\(tempData["issuing_country"]!)",
+                "email" : "",
+                "first_name" : "\(tempData["first_name"]!)",
+                "last_name" : "\(tempData["last_name"]!)",
+                "mobile_phone" : "",
+                "postcode" : "",
+                "state" : "",
+                "title" : "\(tempData["title"]!)",
+                "travel_purpose" : "Leisure"]
             
         }
         
@@ -320,7 +319,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "postcode" : "",
                 "state" : "",
                 "title" : "",
-                "travel_purpose" : ""]
+                "travel_purpose" : "Leisure"]
             
             initializeForm()
             
@@ -376,7 +375,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     "postcode" : "",
                     "state" : "",
                     "title" : "\(userInfo["title"]!)",
-                    "travel_purpose" : ""]
+                    "travel_purpose" : "Leisure"]
             }else{
                 
                 contactData = ["address1" : "" ,
@@ -393,7 +392,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     "postcode" : "",
                     "state" : "",
                     "title" : "\(tempData["title"]!)",
-                    "travel_purpose" : ""]
+                    "travel_purpose" : "Leisure"]
                 
             }
             
@@ -413,7 +412,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "postcode" : "",
                 "state" : "",
                 "title" : "\(tempData["title"]!)",
-                "travel_purpose" : ""]
+                "travel_purpose" : "Leisure"]
             
         }
         

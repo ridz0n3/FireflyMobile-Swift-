@@ -73,7 +73,7 @@ class FloateLabeledDatePickerCell: XLFormBaseCell {
     }
     
     override static func formDescriptorCellHeightForRowDescriptor(rowDescriptor: XLFormRowDescriptor!) -> CGFloat {
-        return 46
+        return 55
     }
     
     
@@ -101,7 +101,7 @@ class FloateLabeledDatePickerCell: XLFormBaseCell {
     //MARK: Helpers
     func layoutConstraints() -> [NSLayoutConstraint]{
         let views = ["floatLabeledTextField" : self.floatLabeledTextField]
-        let metrics = ["hMargin": 25.0, "vMargin": 8.0]
+        let metrics = ["hMargin": 15.0, "vMargin": 8.0]
         var result =  NSLayoutConstraint.constraintsWithVisualFormat("H:|-(hMargin)-[floatLabeledTextField]-(hMargin)-|", options:NSLayoutFormatOptions.AlignAllCenterY, metrics:metrics, views:views)
         result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(vMargin)-[floatLabeledTextField]-(vMargin)-|", options:NSLayoutFormatOptions.AlignAllCenterX, metrics:metrics, views:views)
         return result

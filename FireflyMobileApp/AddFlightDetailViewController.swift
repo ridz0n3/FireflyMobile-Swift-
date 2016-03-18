@@ -101,8 +101,39 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                 fare_sell_key_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["fare_sell_key"].string!
                 
                 if try! LoginManager.sharedInstance.isLogin(){
-                    showLoading(self) //showHud("open")
-                    sentData()
+                    showHud("open")
+                    //showLoading(self)
+                    FireFlyProvider.request(.SelectFlight(adult, infant, username, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, departure_station, arrival_station), completion: { (result) -> () in
+                        switch result {
+                        case .Success(let successResult):
+                            do {
+                                showHud("close")
+                                // hideLoading(self)
+                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                                
+                                if json["status"] == "success"{
+                                    defaults.setObject(json["booking_id"].int , forKey: "booking_id")
+                                    let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                    let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
+                                    self.navigationController!.pushViewController(personalDetailVC, animated: true)
+                                }else if json["status"] == "error"{
+                                    //showErrorMessage(json["message"].string!)
+                                    showErrorMessage(json["message"].string!)
+                                }
+                                hideLoading(self)
+                            }
+                            catch {
+                                
+                            }
+                            
+                        case .Failure(let failureResult):
+                            //showHud("close")
+                            hideLoading(self)
+                            showErrorMessage(failureResult.nsError.localizedDescription)
+                        }
+                        
+                    })
+
                     
                 }else{
                     
@@ -163,6 +194,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                 switch result {
                 case .Success(let successResult):
                     do {
+                        hideLoading(self)
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if  json["status"].string == "success"{
@@ -176,7 +208,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                            self.sentData()
                         }else{
                             //showHud("close")
-                            hideLoading(self)
+                            //hideLoading(self)
                             self.reloadAlertView(json["message"].string!)
                         }
                     }
@@ -207,7 +239,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         alert.addButton("Login", target: self, selector: "loginBtnPressed:")
         //alert.showCloseButton = false
         alert.addButton("Continue as guest") {
-            showLoading(self) //showHud("open")
+             //showHud("open")
             self.sentData()
         }
         alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
@@ -215,13 +247,13 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
     }
     
     func sentData(){
-        
+        //showLoading(self)
         FireFlyProvider.request(.SelectFlight(adult, infant, username, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, departure_station, arrival_station), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
                     //showHud("close")
-                    
+                   // hideLoading(self)
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -233,7 +265,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                         //showErrorMessage(json["message"].string!)
                         showErrorMessage(json["message"].string!)
                     }
-                    hideLoading(self)
+                    
                 }
                 catch {
                     

@@ -53,12 +53,16 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
     }
     
-    func getFormData()->([String:AnyObject], [String:AnyObject], String, String){
+    func getFormData()->([String:AnyObject], [String:AnyObject], String, String, Bool){
         var passenger = [String:AnyObject]()
+        var passengerName = [String]()
         for var i = 0; i < adultCount; i = i + 1{
             var count = i
             count = count + 1
             var adultInfo = [String:AnyObject]()
+            
+            let name = "\(formValues()[String(format: "%@(adult%i)", Tags.ValidationTitle, count)] as! String, titleArr: titleArray) \(formValues()[String(format: "%@(adult%i)", Tags.ValidationFirstName, count)]!) \(formValues()[String(format: "%@(adult%i)", Tags.ValidationLastName, count)]!))"
+            passengerName.append(name)
             
             adultInfo.updateValue(getTitleCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationTitle, count)] as! String, titleArr: titleArray), forKey: "title")
             adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationFirstName, count)]!, forKey: "first_name")
@@ -127,7 +131,17 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         defaults.setObject(passenger, forKey: "passengerData")
         defaults.synchronize()
         
-        return (passenger, infant, bookId, signature)
+        let firstPassenger = passengerName[0]
+        var nameDuplicate = Bool()
+        for var i = 1; i < passengerName.count; i = i + 1{
+            
+            if passengerName[i] == firstPassenger{
+                nameDuplicate = true
+            }
+            
+        }
+        
+        return (passenger, infant, bookId, signature, nameDuplicate)
     }
     
     override func validateForm() {
@@ -144,7 +158,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 let error = errorItem as! NSError
                 let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
                 
-                //let errorTag = validationStatus.rowDescriptor!.tag!.componentsSeparatedByString("(")
+                let errorTag = validationStatus.rowDescriptor!.tag!.componentsSeparatedByString("(")
                 
                 let empty = validationStatus.msg.componentsSeparatedByString("*")
                 
@@ -154,7 +168,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                     i++
                     
                 }else{
-                    /*if errorTag[0] == Tags.ValidationTitle ||
+                    if errorTag[0] == Tags.ValidationTitle ||
                         errorTag[0] == Tags.ValidationCountry || errorTag[0] == Tags.ValidationTravelDoc || errorTag[0] == Tags.ValidationTravelWith || errorTag[0] == Tags.ValidationGender{
                             let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                             
@@ -190,7 +204,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                             
                             animateCell(cell)
                         }
-                    }*/
+                    }
                     
                     j++
                 }

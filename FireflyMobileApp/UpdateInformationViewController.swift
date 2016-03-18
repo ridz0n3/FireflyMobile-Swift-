@@ -537,7 +537,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate])!, forKey: "alternate_phone")
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
         parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])!, forKey: "bonuslink")
-        parameters.updateValue(userInfo["signature"]!, forKey: "signature")
+        parameters.updateValue(defaults.objectForKey("signatureLoad")! , forKey: "signature")
         parameters.updateValue(userInfo["newsletter"] as! String, forKey: "newsletter")
         
         let manager = WSDLNetworkManager()

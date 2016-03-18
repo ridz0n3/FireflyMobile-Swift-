@@ -120,7 +120,7 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
     }
     
     override static func formDescriptorCellHeightForRowDescriptor(rowDescriptor: XLFormRowDescriptor!) -> CGFloat {
-        return 46
+        return 55
     }
     
     
@@ -128,7 +128,7 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
     
     func layoutConstraints() -> [NSLayoutConstraint]{
         let views = ["floatLabeledTextField" : self.floatLabeledTextField]
-        let metrics = ["hMargin": 25.0, "vMargin": 8.0]
+        let metrics = ["hMargin": 15.0, "vMargin": 8.0]
         var result =  NSLayoutConstraint.constraintsWithVisualFormat("H:|-(hMargin)-[floatLabeledTextField]-(hMargin)-|", options:NSLayoutFormatOptions.AlignAllCenterY, metrics:metrics, views:views)
         result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(vMargin)-[floatLabeledTextField]-(vMargin)-|", options:NSLayoutFormatOptions.AlignAllCenterX, metrics:metrics, views:views)
         return result
@@ -166,7 +166,23 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
     
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        
+        let doc = self.rowDescriptor?.tag?.componentsSeparatedByString("(")
+        if self.rowDescriptor?.tag == Tags.ValidationCcvNumber{
+            let maxLength = 4
+            let currentString: NSString = textField.text!
+            let newString: NSString =
+            currentString.stringByReplacingCharactersInRange(range, withString: string)
+            return newString.length <= maxLength
+        }else if doc![0] == Tags.ValidationDocumentNo{
+            let maxLength = 20
+            let currentString: NSString = textField.text!
+            let newString: NSString =
+            currentString.stringByReplacingCharactersInRange(range, withString: string)
+            return newString.length <= maxLength
+        }else{
         return self.formViewController().textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
+        }
     }
     
     func textFieldDidEndEditing(textField: UITextField) {

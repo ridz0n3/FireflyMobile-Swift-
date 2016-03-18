@@ -48,6 +48,7 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
         
         let url = NSURL(string: urlString)
         let req = NSURLRequest(URL: url!)
+
         self.webView?.navigationDelegate = self
         self.webView!.UIDelegate = self;
         self.webView!.loadRequest(req)
@@ -55,15 +56,13 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
     }
     
     var count = 0
+    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+       showLoading(self)
+    }
+    
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
         webView.sizeToFit()
-        
-        if count == 1{
-            hideLoading(self)
-            //showHud("close")
-        }
-        
-        count++
+        hideLoading(self)
     }
     
     func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {

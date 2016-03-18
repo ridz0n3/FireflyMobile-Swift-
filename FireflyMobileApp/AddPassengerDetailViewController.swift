@@ -209,7 +209,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             for passenger in adultArray{
                 tempArray.append(XLFormOptionsObject(value: passenger["passenger_code"], displayText: passenger["passenger_name"] as! String))
             }
-            
+            row.value = adultArray[i]["passenger_name"] as! String
             row.selectorOptions = tempArray
             row.required = true
             section.addFormRow(row)
@@ -284,45 +284,49 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             if checkValidation(){
                 let params = getFormData()
                 
-                showLoading(self) //showHud("open")
-                
-                FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
+                if params.4{
+                    showErrorMessage("Passenger name is duplicated.")
+                }else{
+                    showLoading(self) //showHud("open")
                     
-                    switch result {
-                    case .Success(let successResult):
-                        do {
-                            //showHud("close")
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                            
-                            if json["status"] == "success"{
-                                
-                                
-                                if json["insurance"].dictionaryValue["status"]!.string == "N"{
-                                    defaults.setObject("", forKey: "insurance_status")
-                                }else{
-                                    defaults.setObject(json["insurance"].object, forKey: "insurance_status")
-                                    defaults.synchronize()
-                                }
-                                
-                                let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
-                                self.navigationController!.pushViewController(contactDetailVC, animated: true)
-                            }else if json["status"] == "error"{
-                                //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
-                            }
-                            hideLoading(self)
-                        }
-                        catch {
-                            
-                        }
+                    FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
                         
-                    case .Failure(let failureResult):
-                        //showHud("close")
-                        hideLoading(self)
-                        showErrorMessage(failureResult.nsError.localizedDescription)
-                    }
-                })
+                        switch result {
+                        case .Success(let successResult):
+                            do {
+                                //showHud("close")
+                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                                
+                                if json["status"] == "success"{
+                                    
+                                    
+                                    if json["insurance"].dictionaryValue["status"]!.string == "N"{
+                                        defaults.setObject("", forKey: "insurance_status")
+                                    }else{
+                                        defaults.setObject(json["insurance"].object, forKey: "insurance_status")
+                                        defaults.synchronize()
+                                    }
+                                    
+                                    let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                    let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
+                                    self.navigationController!.pushViewController(contactDetailVC, animated: true)
+                                }else if json["status"] == "error"{
+                                    //showErrorMessage(json["message"].string!)
+                                    showErrorMessage(json["message"].string!)
+                                }
+                                hideLoading(self)
+                            }
+                            catch {
+                                
+                            }
+                            
+                        case .Failure(let failureResult):
+                            //showHud("close")
+                            hideLoading(self)
+                            showErrorMessage(failureResult.nsError.localizedDescription)
+                        }
+                    })
+                }
             }
         }
         
