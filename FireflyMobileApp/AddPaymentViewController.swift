@@ -43,7 +43,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                     let expirationDateYear = expiredDate[1]
                     
                     
-                    showHud("open")
+                    showLoading(self) //showHud("open")
                     FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingID), completion: { (result) -> () in
                         
                         switch result {
@@ -63,7 +63,8 @@ class AddPaymentViewController: CommonPaymentViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else if json["status"] == "error"{
-                                    showHud("close")
+                                    //showHud("close")
+                                    hideLoading(self)
                                     //showErrorMessage(json["message"].string!)
                                     showErrorMessage(json["message"].string!)
                                 }
@@ -73,7 +74,8 @@ class AddPaymentViewController: CommonPaymentViewController {
                             }
                             
                         case .Failure(let failureResult):
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         
@@ -85,7 +87,7 @@ class AddPaymentViewController: CommonPaymentViewController {
             }
         }else if paymentMethod == "MU"{
             
-            showHud("open")
+            showLoading(self) //showHud("open")
             FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingID), completion: { (result) -> () in
                 
                 switch result {
@@ -105,7 +107,8 @@ class AddPaymentViewController: CommonPaymentViewController {
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             //showErrorMessage(json["message"].string!)
                             showErrorMessage(json["message"].string!)
                         }
@@ -115,7 +118,8 @@ class AddPaymentViewController: CommonPaymentViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    showHud("close")
+                    //showHud("close")
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 
@@ -124,7 +128,7 @@ class AddPaymentViewController: CommonPaymentViewController {
             
         }else if paymentMethod == "CI"{
             
-            showHud("open")
+            showLoading(self) //showHud("open")
             FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingID), completion: { (result) -> () in
                 
                 switch result {
@@ -144,7 +148,8 @@ class AddPaymentViewController: CommonPaymentViewController {
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             //showErrorMessage(json["message"].string!)
                             showErrorMessage(json["message"].string!)
                         }
@@ -154,7 +159,8 @@ class AddPaymentViewController: CommonPaymentViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    showHud("close")
+                    //showHud("close")
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 
@@ -163,7 +169,7 @@ class AddPaymentViewController: CommonPaymentViewController {
 
         }else if paymentMethod == "PX"{
             
-            showHud("open")
+            showLoading(self) //showHud("open")
             FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingID), completion: { (result) -> () in
                 
                 switch result {
@@ -183,7 +189,8 @@ class AddPaymentViewController: CommonPaymentViewController {
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             //showErrorMessage(json["message"].string!)
                             showErrorMessage(json["message"].string!)
                         }
@@ -193,7 +200,8 @@ class AddPaymentViewController: CommonPaymentViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    showHud("close")
+                    //showHud("close")
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 

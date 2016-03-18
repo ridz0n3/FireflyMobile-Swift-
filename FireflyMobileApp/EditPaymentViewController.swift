@@ -51,7 +51,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                     let expirationDateYear = expiredDate[1]
                     
                     
-                    showHud("open")
+                    showLoading(self) //showHud("open")
                     FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingId), completion: { (result) -> () in
                         
                         switch result {
@@ -72,13 +72,15 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else{
-                                    showHud("close")
+                                    //showHud("close")
+                                    hideLoading(self)
                                     //showErrorMessage(json["message"].string!)
                                     if json["message"].type == Type.Dictionary{
                                         showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
                                     }else{
                                         showErrorMessage(json["message"].string!)
                                     }
+                                    
                                 }
                             }
                             catch {
@@ -86,7 +88,8 @@ class EditPaymentViewController: CommonPaymentViewController {
                             }
                             
                         case .Failure(let failureResult):
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         
@@ -98,7 +101,7 @@ class EditPaymentViewController: CommonPaymentViewController {
             }
         }else if paymentMethod == "MU"{
             
-            showHud("open")
+            showLoading(self) //showHud("open")
             FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId), completion: { (result) -> () in
                 
                 switch result {
@@ -118,7 +121,8 @@ class EditPaymentViewController: CommonPaymentViewController {
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             //showErrorMessage(json["message"].string!)
                             if json["message"].type == Type.Dictionary{
                                 showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
@@ -132,7 +136,8 @@ class EditPaymentViewController: CommonPaymentViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    showHud("close")
+                    //showHud("close")
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 
@@ -141,7 +146,7 @@ class EditPaymentViewController: CommonPaymentViewController {
             
         }else if paymentMethod == "CI"{
             
-            showHud("open")
+            showLoading(self) //showHud("open")
             FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId), completion: { (result) -> () in
                 
                 switch result {
@@ -161,7 +166,8 @@ class EditPaymentViewController: CommonPaymentViewController {
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             //showErrorMessage(json["message"].string!)
                             if json["message"].type == Type.Dictionary{
                                 showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
@@ -176,7 +182,8 @@ class EditPaymentViewController: CommonPaymentViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    showHud("close")
+                    //showHud("close")
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 
@@ -185,7 +192,7 @@ class EditPaymentViewController: CommonPaymentViewController {
             
         }else if paymentMethod == "PX"{
             
-            showHud("open")
+            showLoading(self) //showHud("open")
             FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId), completion: { (result) -> () in
                 
                 switch result {
@@ -205,7 +212,8 @@ class EditPaymentViewController: CommonPaymentViewController {
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             //showErrorMessage(json["message"].string!)
                             if json["message"].type == Type.Dictionary{
                                 showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
@@ -219,7 +227,8 @@ class EditPaymentViewController: CommonPaymentViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    showHud("close")
+                    //showHud("close")
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 

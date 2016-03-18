@@ -74,14 +74,14 @@ class EditContactDetailViewController: CommonContactDetailViewController {
             if insuranceData == ""{
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
-                showHud("open")
+                showLoading(self) //showHud("open")
                 
                 FireFlyProvider.request(.ChangeContact(booking_id, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signature, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, pnr), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            showHud("close")
+                            //showHud("close")
                             
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
@@ -97,13 +97,15 @@ class EditContactDetailViewController: CommonContactDetailViewController {
                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
+                            hideLoading(self)
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        showHud("close")
+                        //showHud("close")
+                        hideLoading(self)
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     

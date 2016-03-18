@@ -307,13 +307,13 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
             
             
             if isValid{
-                showHud("open")
+                showLoading(self) //showHud("open")
                 
                 FireFlyProvider.request(.SearchChangeFlight(departure, returned, pnr, bookId, signature), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
-                            showHud("close")
+                            //showHud("close")
                             
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
@@ -361,13 +361,15 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
+                            hideLoading(self)
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        showHud("close")
+                        //showHud("close")
+                        hideLoading(self)
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })

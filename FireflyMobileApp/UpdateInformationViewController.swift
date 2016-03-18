@@ -66,7 +66,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "Current Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "The password must be at least 8 characters, no more than 16 characters. The password cannot contain a period(.) comma(,) or tilde(~)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         //row.required = true
         section.addFormRow(row)
         
@@ -75,7 +75,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "New Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "The password must be at least 8 characters, no more than 16 characters. The password cannot contain a period(.) comma(,) or tilde(~)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         //row.required = true
         section.addFormRow(row)
         
@@ -542,9 +542,9 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         let manager = WSDLNetworkManager()
         
-        showHud("open")
+        showLoading(self) //showHud("open")
         manager.sharedClient().createRequestWithService("updateProfile", withParams: parameters, completion: { (result) -> Void in
-            showHud("close")
+            //showHud("close")
             
             if result["status"].string == "success"{
                 showToastMessage("Successfully change information")
@@ -570,6 +570,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
                 showErrorMessage(str)
                 
             }
+            hideLoading(self)
             
         })
         

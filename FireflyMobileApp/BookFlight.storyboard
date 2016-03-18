@@ -522,7 +522,7 @@
                                                                         <constraint firstAttribute="height" constant="33" id="t6A-vH-iTy"/>
                                                                     </constraints>
                                                                 </view>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infant_icon" translatesAutoresizingMaskIntoConstraints="NO" id="DgH-cw-rEJ">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DgH-cw-rEJ">
                                                                     <rect key="frame" x="230" y="2" width="54" height="58"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="58" id="0Lj-gc-Z9c"/>
@@ -555,7 +555,7 @@
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="adult_icon" translatesAutoresizingMaskIntoConstraints="NO" id="fAr-b1-8Y9">
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fAr-b1-8Y9">
                                                                     <rect key="frame" x="235" y="6" width="49" height="47"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="47" id="b84-R6-a2J"/>
@@ -3704,7 +3704,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="adult_icon" width="86" height="86"/>
         <image name="book_flight1" width="684" height="53"/>
         <image name="book_flight2" width="684" height="53"/>
         <image name="book_flight3" width="684" height="53"/>
@@ -3712,7 +3711,6 @@
         <image name="book_flight5" width="684" height="53"/>
         <image name="departure_icon" width="86" height="86"/>
         <image name="dot_horizontal" width="40" height="542"/>
-        <image name="infant_icon" width="87" height="87"/>
         <image name="loginBtn" width="371" height="57"/>
         <image name="logo" width="600" height="240"/>
         <image name="tempHeader" width="750" height="194"/>

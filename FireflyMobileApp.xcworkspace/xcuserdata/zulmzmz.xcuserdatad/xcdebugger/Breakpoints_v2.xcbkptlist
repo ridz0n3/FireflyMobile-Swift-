@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "475556767.854022"
+            timestampString = "479880176.804391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "81"
-            endingLineNumber = "81"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "tableView(_:heightForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BaseViewController.swift"
-            timestampString = "477471787.363129"
+            timestampString = "479891468.083239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "getArrivalAirport(_:module:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "479634461.886794"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -378,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BaseViewController.swift"
-            timestampString = "477471787.363129"
+            timestampString = "479891468.083239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "getArrivalAirport(_:module:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -394,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BaseViewController.swift"
-            timestampString = "477471787.363129"
+            timestampString = "479891468.083239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "formatDate(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -522,11 +522,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BaseViewController.swift"
-            timestampString = "477471787.363129"
+            timestampString = "479891468.083239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "163"
-            endingLineNumber = "163"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "BaseViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -554,11 +554,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/SearchFlightViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "302"
-            endingLineNumber = "302"
+            startingLineNumber = "305"
+            endingLineNumber = "305"
             landmarkName = "continueButtonPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -602,11 +602,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/SideMenuTableViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -890,11 +890,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/SearchFlightViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
+            startingLineNumber = "354"
+            endingLineNumber = "354"
             landmarkName = "searchFlightValidation()"
             landmarkType = "5">
          </BreakpointContent>
@@ -938,11 +938,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/SearchFlightViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "369"
-            endingLineNumber = "369"
+            startingLineNumber = "372"
+            endingLineNumber = "372"
             landmarkName = "departureDate(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2406,7 +2406,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "108"
             endingLineNumber = "108"
-            landmarkName = "textFieldShouldBeginEditing(_:)"
+            landmarkName = "getExpiredData()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2422,7 +2422,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "76"
             endingLineNumber = "76"
-            landmarkName = "getExpiredData()"
+            landmarkName = "formDescriptorCellCanBecomeFirstResponder()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2438,8 +2438,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "179"
             endingLineNumber = "179"
-            landmarkName = "expiredDateSelected(_:element:)"
-            landmarkType = "5">
+            landmarkName = "FloatLabeledPickerCell"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2577,11 +2577,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/PaymentSummaryViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "detailBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2687,11 +2687,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/PaymentWebViewController.swift"
-            timestampString = "479619969.150781"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
             landmarkName = "PaymentWebViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -2703,11 +2703,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/FlightSummaryViewController.swift"
-            timestampString = "475033786.858003"
+            timestampString = "479876981.521991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "182"
-            endingLineNumber = "182"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -2719,11 +2719,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/FlightSummaryViewController.swift"
-            timestampString = "475033786.858003"
+            timestampString = "479876981.521991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3253,11 +3253,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/FlightSummaryViewController.swift"
-            timestampString = "475033786.858003"
+            timestampString = "479876981.521991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3317,11 +3317,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/SearchFlightViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "371"
-            endingLineNumber = "371"
+            startingLineNumber = "374"
+            endingLineNumber = "374"
             landmarkName = "departureDate(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3457,7 +3457,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/AddContactDetailViewController.swift"
@@ -3882,8 +3882,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "78"
             endingLineNumber = "78"
-            landmarkName = "textFieldShouldBeginEditing(_:)"
-            landmarkType = "5">
+            landmarkName = "FloateLabeledDatePickerCell"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3898,8 +3898,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
             endingLineNumber = "79"
-            landmarkName = "textFieldShouldBeginEditing(_:)"
-            landmarkType = "5">
+            landmarkName = "FloateLabeledDatePickerCell"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -3957,11 +3957,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "540"
-            endingLineNumber = "540"
+            startingLineNumber = "548"
+            endingLineNumber = "548"
             landmarkName = "SendItineraryBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -3978,7 +3978,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "150"
             endingLineNumber = "150"
-            landmarkName = "retrieveData()"
+            landmarkName = "textFieldDidChange(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4005,11 +4005,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "559"
-            endingLineNumber = "559"
+            startingLineNumber = "567"
+            endingLineNumber = "567"
             landmarkName = "confirmBtnPressed(_:)"
             landmarkType = "5">
             <Locations>
@@ -4053,11 +4053,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "632"
-            endingLineNumber = "632"
+            startingLineNumber = "644"
+            endingLineNumber = "644"
             landmarkName = "cancelBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4069,11 +4069,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
+            startingLineNumber = "552"
+            endingLineNumber = "552"
             landmarkName = "confirmBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4138,8 +4138,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "289"
             endingLineNumber = "289"
-            landmarkName = "EditFlightDetailViewController"
-            landmarkType = "3">
+            landmarkName = "ContinueBtnPressed(_:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4149,11 +4149,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/BaseViewController.swift"
-            timestampString = "477471787.363129"
+            timestampString = "479891468.083239"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
             landmarkName = "stringToDate(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4195,11 +4195,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/FlightSummaryViewController.swift"
-            timestampString = "475033786.858003"
+            timestampString = "479876981.521991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "tableView(_:viewForHeaderInSection:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4211,11 +4211,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "420"
-            endingLineNumber = "420"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
             landmarkName = "ManageFlightHomeViewController"
             landmarkType = "3">
          </BreakpointContent>
@@ -4227,11 +4227,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "425"
-            endingLineNumber = "425"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
             landmarkName = "ChangeSeatBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4243,11 +4243,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "413"
-            endingLineNumber = "413"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
             landmarkName = "ChangeFlightBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4307,11 +4307,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/EditSeatSelectionViewController.swift"
-            timestampString = "479361148.080547"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
             landmarkName = "continueBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4451,11 +4451,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
+            startingLineNumber = "413"
+            endingLineNumber = "413"
             landmarkName = "ChangeFlightBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4467,11 +4467,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "563"
-            endingLineNumber = "563"
+            startingLineNumber = "571"
+            endingLineNumber = "571"
             landmarkName = "confirmBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4531,11 +4531,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "503"
-            endingLineNumber = "503"
+            startingLineNumber = "509"
+            endingLineNumber = "509"
             landmarkName = "AddPaymentBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4595,11 +4595,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/SearchFlightViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479897342.274519"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "continueButtonPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4627,11 +4627,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/SearchFlightViewController.swift"
-            timestampString = "475041858.811334"
+            timestampString = "479897342.274519"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "269"
-            endingLineNumber = "269"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "continueButtonPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -4775,11 +4775,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "421"
-            endingLineNumber = "421"
+            startingLineNumber = "423"
+            endingLineNumber = "423"
             landmarkName = "ChangeSeatBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -5491,11 +5491,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "475742569.703657"
+            timestampString = "479880176.804391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -5555,11 +5555,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "475744258.876984"
+            timestampString = "479880176.804391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -5662,7 +5662,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "184"
             endingLineNumber = "184"
-            landmarkName = "objectSelected(_:element:)"
+            landmarkName = "expiredDateSelected(_:element:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5755,7 +5755,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "140"
-            endingLineNumber = "140">
+            endingLineNumber = "140"
+            landmarkName = "departureMessage()"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -5955,11 +5957,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/MobileCheckInDetailViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "304"
-            endingLineNumber = "304"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
             landmarkName = "validatedForm(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -5971,11 +5973,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/MobileCheckInDetailViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
+            startingLineNumber = "307"
+            endingLineNumber = "307"
             landmarkName = "validatedForm(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -6003,12 +6005,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/MobileCheckInDetailViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
-            landmarkName = "validatedForm(_:)"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "continueBtnPressed(_:)"
             landmarkType = "5">
             <Locations>
                <Location
@@ -6019,12 +6021,12 @@
                   moduleName = "FireflyMobileApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/MobileCheckInDetailViewController.swift"
-                  timestampString = "479788257.916753"
+                  timestampString = "479963440.455334"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "297"
-                  endingLineNumber = "297"
-                  offsetFromSymbolStart = "17420">
+                  startingLineNumber = "299"
+                  endingLineNumber = "299"
+                  offsetFromSymbolStart = "17412">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -6034,12 +6036,12 @@
                   moduleName = "FireflyMobileApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/MobileCheckInDetailViewController.swift"
-                  timestampString = "479788257.916977"
+                  timestampString = "479963440.455552"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "297"
-                  endingLineNumber = "297"
-                  offsetFromSymbolStart = "3952">
+                  startingLineNumber = "299"
+                  endingLineNumber = "299"
+                  offsetFromSymbolStart = "3968">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -6051,11 +6053,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/MobileCheckInDetailViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "validatedForm(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -6271,7 +6273,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/CommonSearchDetailViewController.swift"
@@ -6387,11 +6389,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "479634461.886794"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -6419,11 +6421,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "479634461.886794"
+            timestampString = "479880176.804391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "163"
+            endingLineNumber = "163"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -6435,11 +6437,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "479634461.886794"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -6451,11 +6453,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "479634461.886794"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -6531,11 +6533,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
-            timestampString = "477460085.609337"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "541"
-            endingLineNumber = "541"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
             landmarkName = "SendItineraryBtnPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -7067,7 +7069,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/FlightSummaryViewController.swift"
@@ -7087,11 +7089,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/PaymentWebViewController.swift"
-            timestampString = "479619969.150781"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
             landmarkName = "webView(_:didFailNavigation:withError:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -7103,11 +7105,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/PaymentWebViewController.swift"
-            timestampString = "479619969.150781"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "77"
-            endingLineNumber = "77"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "webView(_:createWebViewWithConfiguration:forNavigationAction:windowFeatures:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -7119,11 +7121,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/PaymentWebViewController.swift"
-            timestampString = "479620408.031349"
+            timestampString = "479961183.333445"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "75"
-            endingLineNumber = "75"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
             landmarkName = "didReceiveMemoryWarning()"
             landmarkType = "5">
          </BreakpointContent>
@@ -7231,11 +7233,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "479634078.488541"
+            timestampString = "479880176.804391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "143"
-            endingLineNumber = "143"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -7247,11 +7249,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "479634448.896754"
+            timestampString = "479880176.804391"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "facebookSelected(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -7259,7 +7261,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/AddContactDetailViewController.swift"
@@ -7272,14 +7274,14 @@
             landmarkType = "5">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "FireflyMobileApp.AddContactDetailViewController.viewDidLoad (FireflyMobileApp.AddContactDetailViewController)() -&gt; ()"
                   moduleName = "FireflyMobileApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/AddContactDetailViewController.swift"
-                  timestampString = "479788257.933165"
+                  timestampString = "479878127.256255"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "88"
@@ -7287,14 +7289,14 @@
                   offsetFromSymbolStart = "15216">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "FireflyMobileApp.AddContactDetailViewController.viewDidLoad (FireflyMobileApp.AddContactDetailViewController)() -&gt; ()"
                   moduleName = "FireflyMobileApp"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/AddContactDetailViewController.swift"
-                  timestampString = "479788257.933336"
+                  timestampString = "479878127.256426"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "88"
@@ -7317,6 +7319,278 @@
             startingLineNumber = "58"
             endingLineNumber = "58"
             landmarkName = "application(_:didFinishLaunchingWithOptions:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/FlightSummaryViewController.swift"
+            timestampString = "479876981.521991"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/FlightSummaryViewController.swift"
+            timestampString = "479876775.575689"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/NotificationManager.swift"
+            timestampString = "479888340.513615"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "setLocalNotification(_:scheduleDate:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/NotificationManager.swift"
+            timestampString = "479888340.513615"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "setLocalNotification(_:scheduleDate:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/NotificationManager.swift"
+            timestampString = "479888340.513615"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "updateLocalNotification(_:newDate:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/NotificationManager.swift"
+            timestampString = "479888340.513615"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "updateLocalNotification(_:newDate:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/NotificationManager.swift"
+            timestampString = "479888340.513615"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "setLocalNotification(_:scheduleDate:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/NotificationManager.swift"
+            timestampString = "479888601.21659"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "updateLocalNotification(_:newDate:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/BaseViewController.swift"
+            timestampString = "479891468.083239"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "getDepartureAirport(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/BaseViewController.swift"
+            timestampString = "479891468.083239"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "getArrivalAirport(_:module:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/BaseViewController.swift"
+            timestampString = "479891860.629586"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "getDepartureAirport(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/Constant.swift"
+            timestampString = "479892040.557672"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "207"
+            endingLineNumber = "207"
+            landmarkName = "getDepartureAirport(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/FloatLabeledPickerCell.swift"
+            timestampString = "479892323.304072"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
+            landmarkName = "retrieveData()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/FloatLabeledPickerCell.swift"
+            timestampString = "479892360.853276"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "166"
+            endingLineNumber = "166"
+            landmarkName = "retrieveData()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/EditPassengerDetailViewController.swift"
+            timestampString = "479896381.495549"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "initializeForm()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/SearchFlightViewController.swift"
+            timestampString = "479900594.885273"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "continueButtonPressed(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/CommonMHFlightDetailViewController.swift"
+            timestampString = "479900731.945442"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "tableView(_:cellForRowAtIndexPath:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -161,9 +161,9 @@ class SideMenuTableViewController: BaseViewController {
             controllers.append(homeVC)
             
             let signature = defaults.objectForKey("signatureLoad") as! String
-            showHud("open")
+            showLoading(self) //showHud("open")
             FireFlyProvider.request(.Logout(signature), completion: { (result) -> () in
-                showHud("close")
+                //showHud("close")
                 switch result {
                 case .Success(let successResult):
                     do {
@@ -184,12 +184,14 @@ class SideMenuTableViewController: BaseViewController {
                             ////showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                         }
+                        hideLoading(self)
                     }
                     catch {
                         
                     }
                     
                 case .Failure(let failureResult):
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
 

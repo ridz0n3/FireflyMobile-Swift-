@@ -59,14 +59,16 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
         webView.sizeToFit()
         
         if count == 1{
-            showHud("close")
+            hideLoading(self)
+            //showHud("close")
         }
         
         count++
     }
     
     func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
-        showHud("close")
+        //showHud("close")
+        hideLoading(self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,18 +94,18 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
                 //self.webView?.loadRequest(navigationAction.request)
             }
         }else{
-            showHud("open")
+            showLoading(self) //showHud("open")
             self.webView?.loadRequest(navigationAction.request)
         }
         return nil;
     }
     
     func userContentController(userContentController: WKUserContentController,didReceiveScriptMessage message: WKScriptMessage) {
-        //showHud("close")
+        ////showHud("close")
         if(message.name == "callbackHandler") {
-            showHud("open")
+            showLoading(self) //showHud("open")
             FireFlyProvider.request(.FlightSummary(signature), completion: { (result) -> () in
-                showHud("close")
+                //showHud("close")
                 switch result {
                 case .Success(let successResult):
                     do {
@@ -122,12 +124,14 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
                             //showErrorMessage(json["message"].string!)
                             showErrorMessage(json["message"].string!)
                         }
+                        hideLoading(self)
                     }
                     catch {
                         
                     }
                     
                 case .Failure(let failureResult):
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
             })

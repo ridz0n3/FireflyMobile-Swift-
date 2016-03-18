@@ -101,7 +101,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                 fare_sell_key_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["fare_sell_key"].string!
                 
                 if try! LoginManager.sharedInstance.isLogin(){
-                    showHud("open")
+                    showLoading(self) //showHud("open")
                     sentData()
                     
                 }else{
@@ -156,7 +156,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             
             let username: String = email.text!
             
-            showHud("open")
+            showLoading(self) //showHud("open")
             
             FireFlyProvider.request(.Login(username, encPassword), completion: { (result) -> () in
                 
@@ -175,7 +175,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                             
                            self.sentData()
                         }else{
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             self.reloadAlertView(json["message"].string!)
                         }
                     }
@@ -184,7 +185,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    showHud("close")
+                    //showHud("close")
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 //var success = error == nil
@@ -205,7 +207,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         alert.addButton("Login", target: self, selector: "loginBtnPressed:")
         //alert.showCloseButton = false
         alert.addButton("Continue as guest") {
-            showHud("open")
+            showLoading(self) //showHud("open")
             self.sentData()
         }
         alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
@@ -218,7 +220,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             switch result {
             case .Success(let successResult):
                 do {
-                    showHud("close")
+                    //showHud("close")
                     
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
@@ -231,13 +233,15 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                         //showErrorMessage(json["message"].string!)
                         showErrorMessage(json["message"].string!)
                     }
+                    hideLoading(self)
                 }
                 catch {
                     
                 }
                 
             case .Failure(let failureResult):
-                showHud("close")
+                //showHud("close")
+                hideLoading(self)
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             

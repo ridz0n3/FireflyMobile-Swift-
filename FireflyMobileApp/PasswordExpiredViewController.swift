@@ -75,7 +75,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                 let newPasswordEnc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationNewPassword]! as! String, key: key, iv: iv)
                 let userId = formValues()[Tags.ValidationEmail] as! String
                 
-                showHud("open")
+                showLoading(self) //showHud("open")
                 FireFlyProvider.request(.ChangePassword(userId, currentPasswordEnc, newPasswordEnc), completion: { (result) -> () in
                     
                     switch result {
@@ -87,7 +87,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                 
                                 let info = json["user_info"].dictionaryObject
                                 FireFlyProvider.request(.Login(info!["username"] as! String, info!["password"] as! String), completion: { (result) -> () in
-                                    showHud("close")
+                                    //showHud("close")
                                     switch result {
                                     case .Success(let successResult):
                                         do {
@@ -113,12 +113,14 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                                             }
+                                            hideLoading(self)
                                         }
                                         catch {
                                             
                                         }
                                         
                                     case .Failure(let failureResult):
+                                        hideLoading(self)
                                         showErrorMessage(failureResult.nsError.localizedDescription)
                                     }
                                     //var success = error == nil
@@ -127,7 +129,8 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                 
                                 
                             }else if json["status"] == "error"{
-                                showHud("close")
+                                //showHud("close")
+                                hideLoading(self)
                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
@@ -137,7 +140,8 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                         }
                         
                     case .Failure(let failureResult):
-                        showHud("close")
+                        //showHud("close")
+                        hideLoading(self)
                         showErrorMessage(failureResult.nsError.localizedDescription)
                         
                     }

@@ -284,14 +284,14 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             if checkValidation(){
                 let params = getFormData()
                 
-                showHud("open")
+                showLoading(self) //showHud("open")
                 
                 FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            showHud("close")
+                            //showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -311,13 +311,15 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
+                            hideLoading(self)
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        showHud("close")
+                        //showHud("close")
+                        hideLoading(self)
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })

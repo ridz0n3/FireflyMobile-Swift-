@@ -88,6 +88,10 @@
 		7E9B2BBC1C8E6AF60046EB82 /* NSString+ExtraMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9B2BB91C8E6AF60046EB82 /* NSString+ExtraMethod.m */; };
 		7E9B2BBD1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E9B2BBB1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m */; };
 		7E9C65161C7C8BEC00D2E8D1 /* PNRList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */; };
+		7E9DD28B1C9AA7C8008E1B90 /* Loading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E9DD28A1C9AA7C8008E1B90 /* Loading.storyboard */; };
+		7E9DD28D1C9AA906008E1B90 /* preloader300.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7E9DD28C1C9AA906008E1B90 /* preloader300.gif */; };
+		7E9DD28F1C9AA9A6008E1B90 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9DD28E1C9AA9A6008E1B90 /* UIImage+Gif.swift */; };
+		7E9DD2911C9AA9F7008E1B90 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */; };
 		7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */; };
 		7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */; };
 		7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */; };
@@ -242,6 +246,10 @@
 		7E9B2BBA1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+ExtraMethod.h"; sourceTree = "<group>"; };
 		7E9B2BBB1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+ExtraMethod.m"; sourceTree = "<group>"; };
 		7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PNRList.swift; sourceTree = "<group>"; };
+		7E9DD28A1C9AA7C8008E1B90 /* Loading.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Loading.storyboard; sourceTree = "<group>"; };
+		7E9DD28C1C9AA906008E1B90 /* preloader300.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = preloader300.gif; sourceTree = "<group>"; };
+		7E9DD28E1C9AA9A6008E1B90 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
+		7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoginManageFlightTableViewCell.swift; sourceTree = "<group>"; };
 		7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManageFlightViewController.swift; sourceTree = "<group>"; };
 		7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonContactDetailViewController.swift; sourceTree = "<group>"; };
@@ -339,6 +347,7 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				7E9DD2891C9AA769008E1B90 /* Loading */,
 				7EE2F9A41C99110E00499B37 /* LaunchScreen */,
 				7EE2F9A11C990F7C00499B37 /* New Update */,
 				FC4F998B1C86BA760068C5A8 /* About */,
@@ -480,6 +489,7 @@
 		7E55ADC91BFDC6B2002FAA84 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				7E9DD28E1C9AA9A6008E1B90 /* UIImage+Gif.swift */,
 				7E9B2BB81C8E6AF60046EB82 /* NSString+ExtraMethod.h */,
 				7E9B2BB91C8E6AF60046EB82 /* NSString+ExtraMethod.m */,
 				7E9B2BBA1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.h */,
@@ -565,6 +575,16 @@
 				7EB0DE0B1C83DFAB000AA6A8 /* MHFlightHeaderView.swift */,
 			);
 			name = Header;
+			sourceTree = "<group>";
+		};
+		7E9DD2891C9AA769008E1B90 /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				7E9DD28C1C9AA906008E1B90 /* preloader300.gif */,
+				7E9DD28A1C9AA7C8008E1B90 /* Loading.storyboard */,
+				7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */,
+			);
+			name = Loading;
 			sourceTree = "<group>";
 		};
 		7EA286331C4774B40004AB9A /* CommonClass */ = {
@@ -798,8 +818,10 @@
 				7EB07AFE1C28F6640061D1C9 /* directionView.xib in Resources */,
 				7EB5B2B01BFC68D00066D311 /* SectionView.xib in Resources */,
 				7E20F90F1BFA0A3D0020AB0C /* FlightHeader.xib in Resources */,
+				7E9DD28B1C9AA7C8008E1B90 /* Loading.storyboard in Resources */,
 				7E1F77E71BF96E6C00F55C46 /* LaunchScreen.storyboard in Resources */,
 				7E1F77E41BF96E6C00F55C46 /* Assets.xcassets in Resources */,
+				7E9DD28D1C9AA906008E1B90 /* preloader300.gif in Resources */,
 				7E9011481C61D1B50051F7BE /* MobileCheckInView.xib in Resources */,
 				FC4F998D1C86BB710068C5A8 /* About.storyboard in Resources */,
 				7E1F78311BF9D6A900F55C46 /* BookFlight.storyboard in Resources */,
@@ -932,6 +954,7 @@
 				7EBBFA061C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift in Sources */,
 				7E69311D1BFB2F38004F1719 /* BoardingPassViewController.swift in Sources */,
 				7EBBFA091C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift in Sources */,
+				7E9DD28F1C9AA9A6008E1B90 /* UIImage+Gif.swift in Sources */,
 				7E1F78111BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift in Sources */,
 				7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */,
 				7E0707941C72EE77001D7328 /* LoginBoardingPassViewController.swift in Sources */,
@@ -976,6 +999,7 @@
 				615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */,
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
 				7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */,
+				7E9DD2911C9AA9F7008E1B90 /* LoadingViewController.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
 				7EB0DE0E1C84295D000AA6A8 /* CustomMHFlightDetailTableViewCell.swift in Sources */,
 				7EBE67471C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift in Sources */,

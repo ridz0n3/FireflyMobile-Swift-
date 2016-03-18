@@ -53,10 +53,10 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
         let bookingList = listBooking[indexPath.row] as! NSDictionary
         let userInfo = defaults.objectForKey("userInfo") as! [String:AnyObject]
         let username = userInfo["username"] as! String
-        showHud("open")
+        showLoading(self) //showHud("open")
         
         FireFlyProvider.request(.RetrieveBooking(signature, bookingList["pnr"] as! String,username, userId)) { (result) -> () in
-            showHud("close")
+            //showHud("close")
             switch result {
             case .Success(let successResult):
                 do {
@@ -76,12 +76,14 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
                         //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                     }
+                    hideLoading(self)
                 }
                 catch {
                     
                 }
                 
             case .Failure(let failureResult):
+                hideLoading(self)
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
 

@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 
 class EditSeatSelectionViewController: CommonSeatSelectionViewController {
-
+    
     var bookId = String()
     var signature = String()
     var pnr = String()
@@ -33,7 +33,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             let passengerInfo = info["passengers"] as! [Dictionary<String,AnyObject>]
             let seat = NSMutableArray()
             seatData = info["seat_info"] as! [Dictionary<String,AnyObject>]
-            newSeat = seatData 
+            newSeat = seatData
             var seatIndex = 0
             
             while newSeat.count != 0{
@@ -96,10 +96,10 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
         if isEdit{
             passenger = passengersArr
         }
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -137,14 +137,14 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                         }
                     }
                     
-                    showHud("open")
+                    showLoading(self) //showHud("open")
                     
                     FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
                             do {
-                                showHud("close")
+                                //showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "success"{
@@ -157,15 +157,17 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                     
                                 }else if json["status"] == "error"{
                                     //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                                    showErrorMessage(json["message"].string!)
                                 }
+                                hideLoading(self)
                             }
                             catch {
                                 
                             }
                             
                         case .Failure(let failureResult):
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         
@@ -201,14 +203,14 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     returnSeatSelection.addObject(tempDict)
                     
-                    showHud("open")
+                    showLoading(self) //showHud("open")
                     
                     FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
                             do {
-                                showHud("close")
+                                //showHud("close")
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "success"{
@@ -220,15 +222,17 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                     
                                 }else if json["status"] == "error"{
                                     //showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
+                                    showErrorMessage(json["message"].string!)
                                 }
+                                hideLoading(self)
                             }
                             catch {
                                 
                             }
                             
                         case .Failure(let failureResult):
-                            showHud("close")
+                            //showHud("close")
+                            hideLoading(self)
                             showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         
@@ -238,15 +242,15 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             }
         }
     }
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

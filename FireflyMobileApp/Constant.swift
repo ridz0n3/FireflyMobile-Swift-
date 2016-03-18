@@ -208,7 +208,8 @@ func getDepartureAirport(module : String){
         let flight = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
         var first = flight[0]["location_code"]
         location.append(flight[0] as NSDictionary)
-        pickerRow.append(flight[0]["location"] as! String)
+        pickerRow.append("\(flight[0]["location"] as! String) (\(flight[0]["location_code"] as! String))")
+        
         for loc in flight{
             
             if loc["location_code"] as! String != first as! String{
@@ -217,13 +218,13 @@ func getDepartureAirport(module : String){
                     
                     if loc["mobile_check_in"] as! String == "Y"{
                         location.append(loc as NSDictionary)
-                        pickerRow.append(loc["location"] as! String)
+                        pickerRow.append("\(loc["location"] as! String) (\(loc["location_code"] as! String))")
                         first = loc["location_code"]
                     }
                     
                 }else{
                     location.append(loc as NSDictionary)
-                    pickerRow.append(loc["location"] as! String)
+                    pickerRow.append("\(loc["location"] as! String) (\(loc["location_code"] as! String))")
                     first = loc["location_code"]
                 }
                 
@@ -249,11 +250,11 @@ func getArrivalAirport(departureAirport: String, module : String){
                     
                     if loc["mobile_check_in"] as! String == "Y"{
                         travel.append(loc as NSDictionary)
-                        pickerTravel.append(loc["travel_location"] as! String)
+                        pickerTravel.append("\(loc["travel_location"] as! String) (\(loc["travel_location_code"] as! String))")
                     }
                 }else{
                     travel.append(loc as NSDictionary)
-                    pickerTravel.append(loc["travel_location"] as! String)
+                    pickerTravel.append("\(loc["travel_location"] as! String) (\(loc["travel_location_code"] as! String))")
                 }
                 
             }
@@ -299,5 +300,17 @@ func showInfo(message:String){
     
 }
 
+func showLoading(vc : UIViewController){
+    
+    let storyboard = UIStoryboard(name: "Loading", bundle: nil)
+    let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("LoadingVC") as! LoadingViewController
+    flightDetailVC.view.backgroundColor = UIColor.clearColor()
+    vc.presentViewController(flightDetailVC, animated: true, completion: nil)
+    
+}
 
-
+func hideLoading(vc : UIViewController){
+    
+    vc.dismissViewControllerAnimated(true, completion: nil)
+    
+}

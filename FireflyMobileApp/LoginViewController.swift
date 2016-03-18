@@ -93,11 +93,11 @@
                 
                 let username: String = (self.formValues()["Email"]! as! String).xmlSimpleEscapeString()
                 
-                showHud("open")
+                showLoading(self) //showHud("open")
                 
                 
                 FireFlyProvider.request(.Login(username, encPassword), completion: { (result) -> () in
-                    showHud("close")
+                    //showHud("close")
                     switch result {
                     case .Success(let successResult):
                         do {
@@ -123,12 +123,14 @@
                             }else{
                                 showErrorMessage(json["message"].string!)
                             }
+                            hideLoading(self)
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
+                        hideLoading(self)
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     })
@@ -178,10 +180,10 @@
         }
         
         override func validationSuccessful() {
-            showHud("open")
+            showLoading(self) //showHud("open")
             FireFlyProvider.request(.ForgotPassword(email.text!.xmlSimpleEscapeString(), "")) { (result) -> () in
                 
-                showHud("close")
+                //showHud("close")
                 switch result {
                 case .Success(let successResult):
                     do{
@@ -196,8 +198,10 @@
                     catch{
                         
                     }
+                    hideLoading(self)
                     
                 case .Failure(let failureResult):
+                    hideLoading(self)
                     showErrorMessage(failureResult.nsError.localizedDescription)
                     
                 }

@@ -382,13 +382,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud("open")
+        showLoading(self) //showHud("open")
         
         FireFlyProvider.request(.GetFlightAvailability(pnr, bookingId, signature)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    showHud("close")
+                    //showHud("close")
                     
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
@@ -404,13 +404,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         //showErrorMessage(json["message"].string!)
                         showErrorMessage(json["message"].string!)
                     }
+                    hideLoading(self)
                 }
                 catch {
                     
                 }
                 
             case .Failure(let failureResult):
-                showHud("close")
+                //showHud("close")
+                hideLoading(self)
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
@@ -423,13 +425,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud("open")
+        showLoading(self) //showHud("open")
         
         FireFlyProvider.request(.GetAvailableSeat(pnr, bookingId, signature)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    showHud("close")
+                    //showHud("close")
                     
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
@@ -446,13 +448,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         //showErrorMessage(json["message"].string!)
                         showErrorMessage(json["message"].string!)
                     }
+                    hideLoading(self)
                 }
                 catch {
                     
                 }
                 
             case .Failure(let failureResult):
-                showHud("close")
+                //showHud("close")
+                hideLoading(self)
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
@@ -466,13 +470,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud("open")
+        showLoading(self) //showHud("open")
         FireFlyProvider.request(.PaymentSelection(self.signature)) { (result) -> () in
             
             switch result {
             case .Success(let successResult):
                 do {
-                    showHud("close")
+                    //showHud("close")
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -490,13 +494,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         //showErrorMessage(json["message"].string!)
                         showErrorMessage(json["message"].string!)
                     }
+                    hideLoading(self)
                 }
                 catch {
                     
                 }
                 
             case .Failure(let failureResult):
-                showHud("close")
+                //showHud("close")
+                hideLoading(self)
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
@@ -510,12 +516,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud("open")
+        showLoading(self) //showHud("open")
         FireFlyProvider.request(.SendItinerary(pnr, bookingId, signature)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    showHud("close")
+                    hideLoading(self)
+                    //showHud("close")
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -523,7 +530,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         showToastMessage(json["message"].string!)
                         
                     }else if json["status"] == "error"{
-                        showHud("close")
+                        //showHud("close")
                         showErrorMessage(json["message"].string!)
                     }
                 }
@@ -532,7 +539,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 }
                 
             case .Failure(let failureResult):
-                showHud("close")
+                //showHud("close")
+                hideLoading(self)
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
@@ -546,7 +554,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
         
-        showHud("open")
+        showLoading(self) //showHud("open")
         FireFlyProvider.request(.ConfirmChange(pnr, bookingId, signature)) { (result) -> () in
             switch result {
             case .Success(let successResult):
@@ -555,7 +563,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
-                        showHud("close")
+                        //showHud("close")
                         
                         defaults.setObject(self.itineraryData, forKey: "manageFlight")
                         defaults.synchronize()
@@ -571,6 +579,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                             }
                             
                         }
+                        hideLoading(self)
                         
                     }else if json["status"] == "need_payment"{
                         
@@ -580,7 +589,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                             switch result {
                             case .Success(let successResult):
                                 do {
-                                    showHud("close")
+                                    //showHud("close")
                                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                     
                                     if json["status"] == "success"{
@@ -598,13 +607,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         //showErrorMessage(json["message"].string!)
                                         showErrorMessage(json["message"].string!)
                                     }
+                                    hideLoading(self)
                                 }
                                 catch {
                                     
                                 }
                                 
                             case .Failure(let failureResult):
-                                showHud("close")
+                                //showHud("close")
                                 showErrorMessage(failureResult.nsError.localizedDescription)
                             }
                             
@@ -612,7 +622,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                         
                     }else if json["status"] == "error"{
-                        showHud("close")
+                        //showHud("close")
+                        hideLoading(self)
                         //showErrorMessage(json["message"].string!)
                         showErrorMessage(json["message"].string!)
                     }
@@ -622,7 +633,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 }
                 
             case .Failure(let failureResult):
-                showHud("close")
+                //showHud("close")
+                hideLoading(self)
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
         }

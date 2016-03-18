@@ -27,5 +27,5 @@ LabelHomeBoardingPass = "BOARDING PASS";
 //Error Message
 
 LabelErrorSelectSeat = "Please select Seat First";
-LabelErrorGoingFlight = "Please select Going Flight";
-LabelErrorReturnFlight = "Please select Return Flight";
+LabelErrorGoingFlight = "Please select a fare for your going flight.";
+LabelErrorReturnFlight = "Please select a fare for your return flight.";

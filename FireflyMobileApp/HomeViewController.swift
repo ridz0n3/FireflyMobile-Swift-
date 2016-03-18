@@ -161,13 +161,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         }else if indexPath.row == 2{
             if try! LoginManager.sharedInstance.isLogin(){
                 let userinfo = defaults.objectForKey("userInfo") as! [String: String]
-                showHud("open")
+                showLoading(self) //showHud("open")
                 
                 FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]!, userinfo["password"]!, "manage_booking"), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
-                            showHud("close")
+                            //showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -186,13 +186,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
+                            hideLoading(self)
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        showHud("close")
+                        //showHud("close")
+                        hideLoading(self)
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })
@@ -207,13 +209,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if try! LoginManager.sharedInstance.isLogin(){
                 let userinfo = defaults.objectForKey("userInfo") as! [String: String]
-                showHud("open")
+                showLoading(self) //showHud("open")
                 
                 FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]!, userinfo["password"]!, "check_in"), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
-                            showHud("close")
+                            //showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -232,13 +234,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
+                            hideLoading(self)
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        showHud("close")
+                        //showHud("close")
+                        hideLoading(self)
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })
@@ -256,13 +260,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if try! LoginManager.sharedInstance.isLogin(){
                 let userinfo = defaults.objectForKey("userInfo") as! [String : String]
-                showHud("open")
+                showLoading(self) //showHud("open")
                 
                 FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]!, userinfo["password"]!, "boarding_pass"), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
-                            showHud("close")
+                            //showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -282,13 +286,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
+                            hideLoading(self)
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        showHud("close")
+                        //showHud("close")
+                        hideLoading(self)
                         //showErrorMessage(failureResult.nsError.localizedDescription)
                         let userInfo = defaults.objectForKey("userInfo") as! [String : String]
                         var userData = Results<UserList>!()

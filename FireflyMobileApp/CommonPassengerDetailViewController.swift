@@ -144,7 +144,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 let error = errorItem as! NSError
                 let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
                 
-                let errorTag = validationStatus.rowDescriptor!.tag!.componentsSeparatedByString("(")
+                //let errorTag = validationStatus.rowDescriptor!.tag!.componentsSeparatedByString("(")
                 
                 let empty = validationStatus.msg.componentsSeparatedByString("*")
                 
@@ -154,7 +154,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                     i++
                     
                 }else{
-                    if errorTag[0] == Tags.ValidationTitle ||
+                    /*if errorTag[0] == Tags.ValidationTitle ||
                         errorTag[0] == Tags.ValidationCountry || errorTag[0] == Tags.ValidationTravelDoc || errorTag[0] == Tags.ValidationTravelWith || errorTag[0] == Tags.ValidationGender{
                             let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                             
@@ -190,7 +190,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                             
                             animateCell(cell)
                         }
-                    }
+                    }*/
                     
                     j++
                 }
@@ -223,7 +223,11 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         // Date
         row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Expiration Date:*")
         row.required = true
-        //row.value = formatDate(stringToDate(date))
+        
+        if date != ""{
+            row.value = formatDate(stringToDate(date))
+        }
+        //
         self.form.addFormRow(row, afterRowTag: String(format: "%@(%@",Tags.ValidationDocumentNo, tag))
     }
     

@@ -74,7 +74,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         //row.cellConfigAtConfigure["textField.placeholder"] = "*Password"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "The password must be at least 8 characters, no more than 16 characters. The password cannot contain a period(.) comma(,) or tilde(~)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         row.required = true
         section.addFormRow(row)
         //^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$
@@ -423,9 +423,9 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                     
                     let manager = WSDLNetworkManager()
                     
-                    showHud("open")
+                    showLoading(self) //showHud("open")
                     manager.sharedClient().createRequestWithService("register", withParams: parameters, completion: { (result) -> Void in
-                        showHud("close")
+                        //showHud("close")
                         
                         if result["status"].string == "success"{
                             
@@ -447,7 +447,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                         else {
                             showErrorMessage(result["message"].string!)
                         }
-                        
+                        hideLoading(self)
                     })
                 }
         }

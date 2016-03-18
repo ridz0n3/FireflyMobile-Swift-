@@ -12,7 +12,7 @@ import SwiftValidator
 import SCLAlertView
 
 class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDelegate {
-
+    
     var alertView = SCLAlertView()
     @IBOutlet weak var borderView: UIView!
     var HUD : MBProgressHUD = MBProgressHUD()
@@ -45,7 +45,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -74,7 +74,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: tools)
     }
-
+    
     func setupMenuButton(){
         
         let tools = UIToolbar()
@@ -126,17 +126,19 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         if (defaults.objectForKey("flight") != nil){
             
             let flight = defaults.objectForKey("flight") as! [Dictionary<String,AnyObject>]
+            
             var first = flight[0]["location_code"]
             location.append(flight[0])
-            pickerRow.append(flight[0]["location"] as! String)
+            pickerRow.append("\(flight[0]["location"] as! String) (\(flight[0]["location_code"] as! String))")
             for loc in flight{
                 
-                if loc["location_code"] as! String != first as! String{
-                    location.append(loc)
-                    pickerRow.append(loc["location"] as! String)
-                    first = loc["location_code"]
+                if loc["status"] as! String == "Y"{
+                    if loc["location_code"] as! String != first as! String{
+                        location.append(loc)
+                        pickerRow.append("\(loc["location"] as! String) (\(loc["location_code"] as! String))")
+                        first = loc["location_code"]
+                    }
                 }
-                
             }
             
         }
@@ -150,12 +152,12 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
             let first = departureAirport
             
             for loc in flight{
-                
-                if loc["location_code"] as! String == first{
-                    travel.append(loc)
-                    pickerTravel.append(loc["travel_location"] as! String)
+                if loc["status"] as! String == "Y"{
+                    if loc["location_code"] as! String == first{
+                        travel.append(loc)
+                        pickerTravel.append("\(loc["travel_location"] as! String) (\(loc["travel_location_code"] as! String))")
+                    }
                 }
-                
             }
         }
         
@@ -191,17 +193,17 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     func validationFailed(errors:[UITextField:ValidationError]) {
         print("Validation FAILED!")
     }
-
+    
     
     
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
