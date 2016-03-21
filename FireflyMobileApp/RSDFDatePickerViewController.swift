@@ -57,7 +57,7 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
         if dateFormatters().stringFromDate(date) == ""{
             showErrorMessage("Please select Date")
         }else if date.compare(currentDate) == NSComparisonResult.OrderedAscending && typeDate == "return"{
-            showErrorMessage("Return Date must not before Departure Date")
+            showErrorMessage("Please make sure that your return date is not earlier than your departure date.")
         }else{
             let pageDict: Dictionary<String,String>! = [
                 "date": dateFormatters().stringFromDate(date),
@@ -116,7 +116,7 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
         if selectedDate == ""{
             showErrorMessage("Please select Date")
         }else if selectDate.compare(currentDate) == NSComparisonResult.OrderedAscending{
-            showErrorMessage("Return Date must not before Departure Date")
+            showErrorMessage("Please make sure that your return date is not earlier than your departure date.")
         }else{
             let pageDict: Dictionary<String,String>! = [
                 "date": selectedDate,
