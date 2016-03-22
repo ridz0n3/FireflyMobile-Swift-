@@ -152,7 +152,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     paragraph3.attributedText = (text as! String).html2String
                 }
                 
-                index++
+                index += 1
                 
             }
             

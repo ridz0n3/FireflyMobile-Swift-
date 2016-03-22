@@ -33,9 +33,9 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         setupLeftButton()
         stateArray = defaults.objectForKey("state") as! [Dictionary<String,AnyObject>]
         // Do any additional setup after loading the view.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "addBusiness:", name: "addBusiness", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeBusiness:", name: "removeBusiness", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectCountry:", name: "selectCountry", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonContactDetailViewController.addBusiness(_:)), name: "addBusiness", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonContactDetailViewController.removeBusiness(_:)), name: "removeBusiness", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonContactDetailViewController.selectCountry(_:)), name: "selectCountry", object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,7 +60,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         for purpose in purposeArray{
             tempArray.append(XLFormOptionsObject(value: purpose["purpose_code"], displayText: purpose["purpose_name"] as! String))
             
-            if contactData["travel_purpose"] as? String == purpose["purpose_code"] as! String{
+            if contactData["travel_purpose"] as? String == purpose["purpose_code"] as? String{
                 row.value = purpose["purpose_name"]
             }
         }

@@ -32,15 +32,15 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
     @IBOutlet weak var termContentView: UIView!
     @IBOutlet weak var termScview: UIScrollView!
     
-    var termDetail = NSDictionary()
-    var termRules = NSDictionary()
+    var termDetail = Dictionary<String,[AnyObject]>()
+    var termRules = Dictionary<String,AnyObject>()
     var checkStatus = [String]()
     var pnr = String()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
         continueBtn.layer.cornerRadius = 10
-        termRules = termDetail["rules"]![0] as! NSDictionary
+        termRules = termDetail["rules"]![0] as! Dictionary<String, AnyObject>
         
         termTableView.estimatedRowHeight = 38.0
         termTableView.rowHeight = UITableViewAutomaticDimension
@@ -178,7 +178,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         for status in checkStatus{
             
             if status == "false"{
-                statusCount++
+                statusCount += 1
             }
         }
         
@@ -247,7 +247,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         var count = 0
         for boardingInfo in boardingPassArr{
             let boardingPass = BoardingPassList()
-            count++
+            count += 1
             
             if boardingPassArr.count == count{
                 
@@ -260,8 +260,8 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                 pnr.departureDayDate = boardingInfo["DepartureDayDate"] as! String
             }
             
-            let url = NSURL(string: boardingInfo["QRCodeURL"] as! String)
-            let data = NSData(contentsOfURL: url!)
+            let url = NSURL(string: boardingInfo["QRCodeURL"] as! String)!
+            let data = NSData(contentsOfURL: url)
             
             boardingPass.name = boardingInfo["Name"] as! String
             boardingPass.departureStation = boardingInfo["DepartureStation"] as! String

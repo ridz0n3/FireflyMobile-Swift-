@@ -319,28 +319,28 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             let indexCell = NSIndexPath.init(forItem: 1, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
-            count++
+            count += 1
             
             showErrorMessage("Please choose your departure airport.")
         }else if arrival == "ARRIVAL AIRPORT"{
             let indexCell = NSIndexPath.init(forItem: 2, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
-            count++
+            count += 1
             
             showErrorMessage("Please choose your arrival airport.")
         }else if departureDateLbl == "DEPARTURE DATE"{
             let indexCell = NSIndexPath.init(forItem: 3, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
-            count++
+            count += 1
             
             showErrorMessage("Please choose your departure date.")
         }else if arrivalDateLbl == "RETURN DATE" && type == 1{
             let indexCell = NSIndexPath.init(forItem: 4, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
-            count++
+            count += 1
             
             showErrorMessage("Please choose your return date.")
         }else if arrivalDateLbl == "RETURN DATE" && type == 0{

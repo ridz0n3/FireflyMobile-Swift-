@@ -45,7 +45,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                                 Alamofire.request(.GET, imageURL!).response(completionHandler: { (request, response, data, error) -> Void in
                                     
                                     dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
-                                    i++
+                                    i += 1
                                     
                                     if i == j{
                                         
@@ -57,7 +57,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                                         hideLoading()
                                     }
                                 })
-                                j++
+                                j += 1
                             }
                         }else{
                             

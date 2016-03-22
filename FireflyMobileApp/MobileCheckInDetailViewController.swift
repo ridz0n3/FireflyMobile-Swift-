@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class MobileCheckInDetailViewController: BaseXLFormViewController {
     
-    var checkInDetail = NSDictionary()
+    var checkInDetail = Dictionary<String, AnyObject>()
     
     @IBOutlet weak var detailTableView: UITableView!
     @IBOutlet weak var checkBtn: UIButton!
@@ -36,7 +36,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         
         continueBtn.layer.cornerRadius = 10
         
-        let flightDetail = checkInDetail["flight_detail"] as! NSDictionary
+        let flightDetail = checkInDetail["flight_detail"] as! Dictionary<String, AnyObject>
         stationCode.text = "\(flightDetail["station_code"] as! String)"
         flightDate.text = "\(flightDetail["flight_date"] as! String)"
         flightNumber.text = "\(flightDetail["flight_number"] as! String)"
@@ -72,7 +72,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 arr.append("Check In")
             }else{
                 arr.append("false")
-                countNotCheckIn++
+                countNotCheckIn += 1
             }
             
             
@@ -119,7 +119,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             //row.value = passengerData["document_number"] as! String
             section.addFormRow(row)
             
-            i++
+            i += 1
         }
         
         self.form = form
@@ -134,7 +134,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             if passengerData["travel_document"] as! String == "P"{
                 addExpiredDateRow("\(j))", date: expiredDate[0])
             }
-            j++
+            j += 1
             
         }
     }
@@ -157,7 +157,8 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         
         passengerName = NSBundle.mainBundle().loadNibNamed("MobileCheckInView", owner: self, options: nil)[0] as! UIView
         
-        let passengerData = checkInDetail["passengers"]![section] as! NSDictionary
+        let passengerDataArray = checkInDetail["passengers"] as! [Dictionary<String, AnyObject>]
+        let passengerData = passengerDataArray[section] 
         name.text = "\(getTitleName(passengerData["title"] as! String)) \(passengerData["first_name"] as! String) \(passengerData["last_name"] as! String)"
         seatNo.text = passengerData["seat"]! as? String
         checkBtn.tag = section
@@ -200,7 +201,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 }
                 
             }
-            i++
+            i += 1
             
         }
         detailTableView.beginUpdates()
@@ -216,9 +217,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         for arrData in arr{
             if arrData == "true"{
                 validatedForm("\(allDataCount))")
-                checkData++
+                checkData += 1
             }
-            allDataCount++
+            allDataCount += 1
         }
         
         if checkData == 0{
@@ -233,8 +234,10 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 for data in arr{
                     if data == "true"{
                         var passengerInfo = [String:AnyObject]()
+                        var passengerArray = [Dictionary<String,[AnyObject]>]()
                         passengerInfo.updateValue("Y", forKey: "status")
-                        passengerInfo.updateValue(checkInDetail["passengers"]![count]["passenger_number"], forKey: "passenger_number")
+                        passengerArray = checkInDetail["passengers"] as! [Dictionary<String,[AnyObject]>]
+                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!, forKey: "passenger_number")
                         passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
                         passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
                         passengerInfo.updateValue(formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
@@ -255,11 +258,13 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         passenger.updateValue(passengerInfo, forKey: "\(count)")
                     }else{
                         var passengerInfo = [String:AnyObject]()
+                        var passengerArray = [Dictionary<String,[AnyObject]>]()
                         passengerInfo.updateValue("N", forKey: "status")
-                        passengerInfo.updateValue(checkInDetail["passengers"]![count]["passenger_number"], forKey: "passenger_number")
+                        passengerArray = checkInDetail["passengers"] as! [Dictionary<String,[AnyObject]>]
+                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!, forKey: "passenger_number")
                         passenger.updateValue(passengerInfo, forKey: "\(count)")
                     }
-                    count++
+                    count += 1
                 }
                 
                 let signature = checkInDetail["signature"] as! String
@@ -279,7 +284,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                                 let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                                 let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInTermVC") as! MobileCheckInTermViewController
                                 checkInDetailVC.pnr = self.pnr
-                                checkInDetailVC.termDetail = json.object as! NSDictionary
+                                checkInDetailVC.termDetail = json.object as! Dictionary<String, [AnyObject]>
                                 self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                                 
                             }else{
@@ -318,7 +323,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 //isValidate = false
                 
                 if errorTag[1] == index{
-                    count++
+                    count += 1
                     if errorTag[0] == Tags.ValidationCountry || errorTag[0] == Tags.ValidationTravelDoc {
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
@@ -401,15 +406,4 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         self.form.removeFormRowWithTag(String(format: "%@(%@",Tags.ValidationExpiredDate, newTag[1]))
         
     }
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
-    
 }

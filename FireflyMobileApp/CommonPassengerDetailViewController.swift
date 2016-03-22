@@ -199,7 +199,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
         for var i = 0; i < adultCount; i = i + 1{
             var count = i
-            count++
+            count += 1
             
             let date = formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]! as! String
             let arrangeDate = date.componentsSeparatedByString("-")
@@ -221,17 +221,17 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
             if selectDate.compare(stringToDate("\(arrangeMinAge[2])-\(arrangeMinAge[1])-\(arrangeMinAge[0])")) == NSComparisonResult.OrderedDescending{
                 //age below 2 years old
-                countAdultAge++
+                countAdultAge += 1
             }else if selectDate.compare(stringToDate("\(arrangeMaxAge[2])-\(arrangeMaxAge[1])-\(arrangeMaxAge[0])")) == NSComparisonResult.OrderedDescending{
                 //age below 12 years old
-                countMaxAdultAge++
+                countMaxAdultAge += 1
             }
         }
         
         for var i = 0; i < infantCount; i = i + 1{
             
             var count = i
-            count++
+            count += 1
             
             let date = formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String
             let arrangeDate = date.componentsSeparatedByString("-")
@@ -253,10 +253,10 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
             if selectDate.compare(stringToDate("\(arrangeMinAge[2])-\(arrangeMinAge[1])-\(arrangeMinAge[0])")) == NSComparisonResult.OrderedDescending{
                 //age below 9 days
-                countInfantAge++
+                countInfantAge += 1
             }else if selectDate.compare(stringToDate("\(arrangeMaxAge[2])-\(arrangeMaxAge[1])-\(arrangeMaxAge[0])")) == NSComparisonResult.OrderedAscending{
                 //age above 24months
-                countMaxInfantAge++
+                countMaxInfantAge += 1
             }
             
         }

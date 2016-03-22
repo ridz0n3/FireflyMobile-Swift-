@@ -71,7 +71,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
                 ssrLbl.text = info.SSR
                 
                 scrollView.addSubview(boardingPassView)
-                i++
+                i += 1
 
             }
             
@@ -102,7 +102,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
                 ssrLbl.text = info["SSR"] as? String
                 
                 scrollView.addSubview(boardingPassView)
-                i++
+                i += 1
             }
 
         }
