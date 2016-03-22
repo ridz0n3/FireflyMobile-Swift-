@@ -286,7 +286,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
         validateForm()
         
         if isValidate{
-            if checkValidation(){
+            //if checkValidation(){
                 let params = getFormData()
                 
                 showLoading(self) //showHud("open")
@@ -323,7 +323,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })
-            }
+            //}
         }
         
     }

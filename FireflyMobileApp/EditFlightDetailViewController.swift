@@ -19,9 +19,10 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
     var bookId = String()
     var pnr = String()
     
+    @IBOutlet weak var continueBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        continueBtn.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
     }
     

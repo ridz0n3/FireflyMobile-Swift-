@@ -345,7 +345,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         }else if countMaxAdultAge > 0 && adultCount == 1{
             showErrorMessage("There must be at least one(1) passenger above 12 years old at the date(s) of travel")
             return false
-        }else if countMaxAdultAge > 0 && adultCount > 1{
+        }else if countMaxAdultAge == adultCount{
             showErrorMessage("Passenger less than 12 years old must be accompanied by an 18 years old passenger.")
             return false
         }else if countInfantAge > 0 || countMaxInfantAge > 0{

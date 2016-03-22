@@ -15,6 +15,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     @IBOutlet weak var termCheckBox: M13Checkbox!
     @IBOutlet weak var promotionCheckBox: M13Checkbox!
     var fromLogin = Bool()
+    var dialCode = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,7 +148,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         attrString.appendAttributedString(attrText)
         row.cellConfig["textLabel.attributedText"] = attrString
         
-        row.value = NSDate()
+        //row.value = NSDate()
         row.cellConfigAtConfigure["maximumDate"] = NSDate()
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.required = true
@@ -244,7 +245,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "Mobile / Home"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "Mobile phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
+        row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
         //row.required = true
         section.addFormRow(row)
         
@@ -254,7 +255,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         //row.required = true
-        row.addValidator(XLFormRegexValidator(msg: "Alternate phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
+        row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
         section.addFormRow(row)
         
         // Fax
@@ -340,6 +341,46 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             row.required = true
             
             self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
+            /*
+            for country in countryArray{
+                if country["country_code"] as! String == (form.formRowWithTag(Tags.ValidationCountry)?.value as! XLFormOptionObject).formValue() as! String{
+                    dialCode = country["dialing_code"] as! String
+                }
+            }
+
+            self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
+            self.form.removeFormRowWithTag(Tags.ValidationAlternate)
+            self.form.removeFormRowWithTag(Tags.ValidationFax)
+            
+            // Mobile Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypePhone, title:"")
+            row.cellConfigAtConfigure["textField.placeholder"] = "Mobile / Home"
+            row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
+            row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+            row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
+            row.value = dialCode
+            //row.required = true
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationPostcode)
+            
+            // Alternate
+            row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypePhone, title:"")
+            row.cellConfigAtConfigure["textField.placeholder"] = "Alternate"
+            row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
+            row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+            //row.required = true
+            row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
+            row.value = dialCode
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationMobileHome)
+            
+            // Fax
+            row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypePhone, title:"")
+            row.cellConfigAtConfigure["textField.placeholder"] = "Fax"
+            row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
+            row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+            row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
+            row.value = dialCode
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)
+            */
         }
     }
 

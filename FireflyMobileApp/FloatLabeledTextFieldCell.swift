@@ -106,6 +106,7 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
             self.floatLabeledTextField.text = self.rowDescriptor!.noValueDisplayText
         }
         self.floatLabeledTextField.enabled = !self.rowDescriptor!.isDisabled()
+        self.floatLabeledTextField.textColor = self.rowDescriptor!.isDisabled() ? UIColor.lightGrayColor() : UIColor.blackColor()
         self.floatLabeledTextField.floatingLabelTextColor = UIColor.lightGrayColor()
         self.floatLabeledTextField.alpha = self.rowDescriptor!.isDisabled() ? 0.6 : 1.0
     }

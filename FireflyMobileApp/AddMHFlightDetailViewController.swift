@@ -48,7 +48,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         termCondition.attributedText = term.html2String
         
         var newFrame = continueView.bounds
-        newFrame.size.height = 450
+        newFrame.size.height = 490
         continueView.frame = newFrame
         
         self.flightDetailTableView.tableFooterView = continueView

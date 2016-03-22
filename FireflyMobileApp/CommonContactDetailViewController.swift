@@ -105,6 +105,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         
+        var dialCode = String()
         // Country
         row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Country:*")
         
@@ -115,6 +116,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             
             if contactData["country"] as? String == country["country_code"]  as? String{
                 row.value = country["country_name"]
+                dialCode = country["dialing_code"] as! String
             }
         }
         
@@ -125,13 +127,13 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         // Mobile Number
         row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile Number:*")
         row.required = true
-        row.addValidator(XLFormRegexValidator(msg: "Mobile phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
+        row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
         row.value = contactData["mobile_phone"]
         section.addFormRow(row)
         
         // Alternate Number
         row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Number:*")
-        row.addValidator(XLFormRegexValidator(msg: "Alternate phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
+        row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
         row.required = true
         row.value = contactData["alternate_phone"]
         section.addFormRow(row)
@@ -195,6 +197,8 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             
             if i != 0{
                 showErrorMessage(message)
+            }else{
+                showErrorMessage("Please fill all fields")
             }
         }else{
             isValidate = true
@@ -279,8 +283,51 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         
     }
     
+    var dialingCode = String()
+    
     func selectCountry(sender:NSNotification){
         country(sender.userInfo!["countryVal"]! as! String)
+        
+        self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
+        self.form.removeFormRowWithTag(Tags.ValidationAlternate)
+        
+        var row : XLFormRowDescriptor
+
+        if contactData["country"] as? String != sender.userInfo!["countryVal"]! as? String{
+            
+            // Mobile Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile Number:*")
+            row.required = true
+            row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(sender.userInfo!["dialingCode"]! as! String)[0-9]{7,}$"))
+            row.value = sender.userInfo!["dialingCode"]! as! String
+            
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationCountry)
+            
+            // Alternate Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Number:*")
+            row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(sender.userInfo!["dialingCode"]! as! String)[0-9]{7,}$"))
+            row.required = true
+            row.value = sender.userInfo!["dialingCode"]! as! String
+            
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationMobileHome)
+            
+        }else{
+            
+            // Mobile Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile Number:*")
+            row.required = true
+            row.addValidator(XLFormRegexValidator(msg: "Mobile phone must not less than 7 digits.", andRegexString: "^\(sender.userInfo!["dialingCode"]! as! String)[0-9]{7,}$"))
+            row.value = contactData["mobile_phone"]
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationCountry)
+            
+            // Alternate Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Number:*")
+            row.addValidator(XLFormRegexValidator(msg: "Alternate phone must not less than 7 digits.", andRegexString: "^\(sender.userInfo!["dialingCode"]! as! String)[0-9]{7,}$"))
+            row.required = true
+            row.value = contactData["alternate_phone"]
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationMobileHome)
+            
+        }
     }
     
     func country(countryCode:String){

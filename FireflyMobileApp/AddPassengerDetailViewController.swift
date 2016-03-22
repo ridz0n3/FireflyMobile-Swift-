@@ -281,7 +281,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         validateForm()
         
         if isValidate{
-            if checkValidation(){
+            //if checkValidation(){
                 let params = getFormData()
                 
                 if params.4{
@@ -328,7 +328,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                             showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                     })
-                }
+                //}
             }
         }
         

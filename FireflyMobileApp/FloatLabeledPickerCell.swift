@@ -206,13 +206,22 @@ class FloatLabeledPickerCell: XLFormBaseCell{
             
             txtLbl.text = data[index.integerValue]
             self.textFieldDidChange(txtLbl)
-            
+        
             if selectValue == "P"{
                 NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
             }else if selectValue == "2"{
                 NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
             }else if self.rowDescriptor?.tag == "Country"{
-                NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue])
+                var dialingCode = String()
+                for country in countryArray{
+                    
+                    if country["country_code"] as! String == selectValue{
+                        dialingCode = country["dialing_code"] as! String
+                    }
+                    
+                }
+                
+                NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue, "dialingCode" : dialingCode])
             }else if self.rowDescriptor?.tag == "Departing"{
                 NSNotificationCenter.defaultCenter().postNotificationName("refreshArrivingCode", object: nil, userInfo: ["departStationCode" : selectValue])
                 

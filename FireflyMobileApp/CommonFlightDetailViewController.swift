@@ -83,14 +83,13 @@ class CommonFlightDetailViewController: BaseViewController {
         
         if flightDetail.count != 0{
             
-            if let flightDict = flightDetail[indexPath.section].dictionary{
-                
-                return 130
-                
-            }else{
-                return 105
-            }
+            let flightDict = flightDetail[indexPath.section].dictionary
             
+            if flightDict!["flights"]?.count == 0{
+                return 105
+            }else{
+                return 130
+            }
         }else{
             return 105
         }

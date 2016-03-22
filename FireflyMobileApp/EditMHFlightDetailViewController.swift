@@ -135,7 +135,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                 let economy = flightData!["economy_class"]!.dictionary
                 let business = flightData!["business_class"]!.dictionary
                 
-                cell.flightNumber.text = String(format: "FLIGHT NO. %@", flightData!["flight_number"]!.string!)
+                cell.flightNumber.text = String(format: "FLIGHT NO. MH %@", flightData!["flight_number"]!.string!)
                 cell.departureAirportLbl.text = "\(flightDict!["departure_station_name"]!.stringValue)"
                 cell.arrivalAirportLbl.text = "\(flightDict!["arrival_station_name"]!.stringValue)"
                 cell.departureTimeLbl.text = flightData!["departure_time"]!.string
