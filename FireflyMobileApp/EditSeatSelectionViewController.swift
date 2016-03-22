@@ -21,7 +21,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
         var newSeat = [Dictionary<String,AnyObject>]()
         var seatArray = [Dictionary<String,AnyObject>]()
         var seatData = [Dictionary<String,AnyObject>]()
-        var passengersArr = [AnyObject]()
+        var passengersArr = [[Dictionary<String,AnyObject>]]()
         var countJourney = 0
         for info in journeys as! [Dictionary<String, AnyObject>]{
             

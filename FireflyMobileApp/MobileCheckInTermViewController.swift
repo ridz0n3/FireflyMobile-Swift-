@@ -32,15 +32,15 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
     @IBOutlet weak var termContentView: UIView!
     @IBOutlet weak var termScview: UIScrollView!
     
-    var termDetail = NSDictionary()
-    var termRules = NSDictionary()
+    var termDetail = Dictionary<String,[AnyObject]>()
+    var termRules = Dictionary<String,AnyObject>()
     var checkStatus = [String]()
     var pnr = String()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
         continueBtn.layer.cornerRadius = 10
-        termRules = termDetail["rules"]![0] as! NSDictionary
+        termRules = termDetail["rules"]![0] as! Dictionary<String, AnyObject>
         
         termTableView.estimatedRowHeight = 38.0
         termTableView.rowHeight = UITableViewAutomaticDimension

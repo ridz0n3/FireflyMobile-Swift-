@@ -19,7 +19,7 @@ class FloatLabeledPickerCell: XLFormBaseCell{
     var dataValue = [String]()
     var selectindex = Int()
     var selectValue = String()
-    var expireDate = NSArray()
+    var expireDate = [AnyObject]()
     var selectDateIndex = [0,0]
     
     static let kFontSize : CGFloat = 14.0
@@ -108,7 +108,8 @@ class FloatLabeledPickerCell: XLFormBaseCell{
             }
         }
         
-        expireDate = [month, year]
+        expireDate.append(month)
+        expireDate.append(year)
         
         
     }
@@ -185,7 +186,9 @@ class FloatLabeledPickerCell: XLFormBaseCell{
         let yearIndex = index[1]
         
         selectDateIndex = [monthIndex.integerValue, yearIndex.integerValue]
-        txtLbl.text = "\(expireDate[0][monthIndex.integerValue])/\(expireDate[1][yearIndex.integerValue])"
+        let expireDateMonthArray = expireDate[0] as! [Int]
+        let expireDateYearArray = expireDate[1] as! [Int]
+        txtLbl.text = "\(expireDateMonthArray[monthIndex.integerValue])/\(expireDateYearArray[yearIndex.integerValue])"
         self.textFieldDidChange(txtLbl)
         
         

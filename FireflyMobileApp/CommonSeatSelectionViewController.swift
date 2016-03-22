@@ -19,7 +19,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
     var isEdit = Bool()
     
     var details = NSMutableArray()
-    var passenger = NSArray()
+    var passenger = [AnyObject]()
     var journeys = [AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +38,10 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
-        if details.count == 2{
+        if details.count == 2 {
             return 3
-        }else{
+        }
+        else{
             return 2
         }
         
@@ -140,12 +141,13 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         if indexPath.section == 0 {
             let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
             
-            var passengerDetail = NSDictionary()
+            var passengerDetail = Dictionary<String, AnyObject>()
             
             if isEdit{
-                passengerDetail = passenger[0][indexPath.row] as! NSDictionary
+                let passengerDetailArray = passenger[0] as! [Dictionary<String, AnyObject>]
+                passengerDetail = passengerDetailArray[indexPath.row]
             }else{
-                passengerDetail = passenger[indexPath.row] as! NSDictionary
+                passengerDetail = passenger[indexPath.row] as! Dictionary<String, AnyObject>
             }
             
             let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
@@ -196,12 +198,13 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         }else if (indexPath.section == 1 && details.count == 2){
             let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
             
-            var passengerDetail = NSDictionary()
+            var passengerDetail = Dictionary<String, AnyObject>()
             
             if isEdit{
-                passengerDetail = passenger[1][indexPath.row] as! NSDictionary
+                let passengerArray = passenger[1] as! [Dictionary<String, AnyObject>]
+                passengerDetail = passengerArray[indexPath.row]
             }else{
-                passengerDetail = passenger[indexPath.row] as! NSDictionary
+                passengerDetail = passenger[indexPath.row] as! Dictionary<String, AnyObject>
             }
             
             let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
@@ -305,9 +308,12 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         var seatCols = [Dictionary<String, AnyObject>]()
         
         if selectIndex != 0 && selectIndex != 1{
-            seatCols = details[0]["seat_info"]!![indexPath.row] as! [Dictionary<String, AnyObject>]
-        }else{
-            seatCols = details[selectIndex]["seat_info"]!![indexPath.row] as! [Dictionary<String, AnyObject>]
+            let tempSeat = details[0]["seatInfo"] as! [[Dictionary<String, AnyObject>]]
+            seatCols = tempSeat[indexPath.row]
+        }
+        else{
+            let tempSeat = details[selectIndex]["seatInfo"] as! [[Dictionary<String, AnyObject>]]
+            seatCols = tempSeat[indexPath.row]
         }
         
         
@@ -494,6 +500,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             section = sectionSelect.section
         }
         
+        let seatRowArray = details[section]["seat_info"] 
         let seatRow = details[section]["seat_info"]!![sender.tag] as! NSArray
         
         let seatDetail = seatRow[0] as! NSDictionary
@@ -555,15 +562,5 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         self.seatSelect(seatDetail, btn: sender)
         
     }
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
     
 }

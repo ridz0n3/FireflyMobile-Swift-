@@ -14,7 +14,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         journeys = defaults.objectForKey("journey") as! [AnyObject]
-        passenger = defaults.objectForKey("passenger") as! NSArray
+        passenger = defaults.objectForKey("passenger") as! [[Dictionary<String, AnyObject>]]
         
         var newSeat = [Dictionary<String, AnyObject>]()
         var seatArray = [Dictionary<String, AnyObject>]()

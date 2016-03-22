@@ -33,7 +33,7 @@ class MobileCheckinViewController: CommonSearchDetailViewController {
                         if  json["status"].string == "success"{
                             let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                             let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInDetailVC") as! MobileCheckInDetailViewController
-                            checkInDetailVC.checkInDetail = json.object as! NSDictionary
+                            checkInDetailVC.checkInDetail = json.object as! NSDictionary as! Dictionary<String, AnyObject>
                             checkInDetailVC.pnr = pnr
                             self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                         }else{
