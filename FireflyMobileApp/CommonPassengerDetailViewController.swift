@@ -53,7 +53,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
     }
     
-    func getFormData()->([String:AnyObject], [String:AnyObject], String, String, Bool){
+    func getFormData()->([String:AnyObject], [String:AnyObject], String, String, Bool, Bool){
         var passenger = [String:AnyObject]()
         var passengerName = [String]()
         for var i = 0; i < adultCount; i = i + 1{
@@ -92,11 +92,14 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
         }
         
+        var travelWith = [String]()
         var infant = [String:AnyObject]()
         for var j = 0; j < infantCount; j = j + 1{
             var count = j
             count = count + 1
             var infantInfo = [String:AnyObject]()
+            
+            travelWith.append(getTravelWithCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationTravelWith, count)] as! String, travelArr: adultArray))
             
             infantInfo.updateValue(getTravelWithCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationTravelWith, count)] as! String, travelArr: adultArray), forKey: "traveling_with")
             infantInfo.updateValue(getGenderCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationGender, count)] as! String, genderArr: genderArray), forKey: "gender")
@@ -141,7 +144,17 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
         }
         
-        return (passenger, infant, bookId, signature, nameDuplicate)
+        var checkTravelWith = Bool()
+        if travelWith.count != 0{
+            
+            let a = Array(Set(travelWith))
+            
+            if a.count == travelWith.count{
+                checkTravelWith = true
+            }
+            
+        }
+        return (passenger, infant, bookId, signature, nameDuplicate, checkTravelWith)
     }
     
     override func validateForm() {

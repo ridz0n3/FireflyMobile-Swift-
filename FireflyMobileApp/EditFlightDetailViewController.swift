@@ -103,9 +103,18 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                         flightAvailable = false
                         
                     }else{
-                        cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
-                        cell.checkFlight.hidden = false
-                        flightAvailable = true
+                        if flightBasic!["discount"]?.floatValue == 0{
+                            cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
+                            cell.checkFlight.hidden = true
+                            cell.strikeDegree.hidden = true
+                            flightAvailable = true
+                        }else{
+                            cell.promoPriceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
+                            cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["before_discount_fare"]?.floatValue)!)
+                            cell.strikeDegree.hidden = false
+                            cell.checkFlight.hidden = false
+                            flightAvailable = true
+                        }
                     }
                 }else{
                     

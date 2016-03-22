@@ -286,6 +286,8 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 if params.4{
                     showErrorMessage("Passenger name is duplicated.")
+                }else if !params.5 && params.1.count != 0{
+                    showErrorMessage("You can only assign one infant to one guest.")
                 }else{
                     showLoading(self) //showHud("open")
                     

@@ -15,6 +15,9 @@ class CommonFlightDetailViewController: BaseViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var flightDetailTableView: UITableView!
     @IBOutlet weak var continueView: UIView!
+    @IBOutlet weak var fareRule: UITextView!
+    @IBOutlet weak var termCondition: UITextView!
+    @IBOutlet weak var termCheckBox: M13Checkbox!
     
     var selectedGoingFlight = NSNumber()
     var selectedGoingCell:NSNumber? = nil
@@ -40,9 +43,11 @@ class CommonFlightDetailViewController: BaseViewController {
         isGoingSelected = false
         isReturnSelected = false
         flightAvailable = true
+        
         if flightDetail.count == 0{
             self.continueView.hidden = true
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -76,7 +81,20 @@ class CommonFlightDetailViewController: BaseViewController {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-        return 107
+        if flightDetail.count != 0{
+            
+            if let flightDict = flightDetail[indexPath.section].dictionary{
+                
+                return 130
+                
+            }else{
+                return 105
+            }
+            
+        }else{
+            return 105
+        }
+        
         
     }
     
@@ -116,9 +134,20 @@ class CommonFlightDetailViewController: BaseViewController {
                         flightAvailable = false
                         
                     }else{
-                        cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
-                        cell.checkFlight.hidden = false
-                        flightAvailable = true
+                        if flightBasic!["discount"]?.floatValue == 0{
+                            cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
+                            cell.checkFlight.hidden = true
+                            cell.strikeDegree.hidden = true
+                            flightAvailable = true
+                        }else{
+                            cell.promoPriceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
+                            cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["before_discount_fare"]?.floatValue)!)
+                            cell.strikeDegree.hidden = false
+                            cell.checkFlight.hidden = false
+                            flightAvailable = true
+                        }
+                        
+                        
                     }
                 }else{
                     

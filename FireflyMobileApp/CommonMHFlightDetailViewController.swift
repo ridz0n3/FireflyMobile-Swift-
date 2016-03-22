@@ -8,12 +8,16 @@
 
 import UIKit
 import SwiftyJSON
+import M13Checkbox
 
 class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var flightDetailTableView: UITableView!
     @IBOutlet weak var continueView: UIView!
+    @IBOutlet weak var fareRule: UITextView!
+    @IBOutlet weak var termCondition: UITextView!
+    @IBOutlet weak var termCheckBox: M13Checkbox!
     
     var infant = String()
     var adult = String()

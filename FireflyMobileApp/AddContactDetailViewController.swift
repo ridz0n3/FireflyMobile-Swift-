@@ -56,7 +56,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "postcode" : "",
                 "state" : "",
                 "title" : "\(userInfo["title"]!)",
-                "travel_purpose" : "Leisure"]
+                "travel_purpose" : "1"]
             checkPassenger.checkState = M13CheckboxState.Checked
             isLogin = true
             
@@ -82,7 +82,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "postcode" : "",
                 "state" : "",
                 "title" : "\(tempData["title"]!)",
-                "travel_purpose" : "Leisure"]
+                "travel_purpose" : "1"]
             
         }
         
@@ -319,7 +319,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "postcode" : "",
                 "state" : "",
                 "title" : "",
-                "travel_purpose" : "Leisure"]
+                "travel_purpose" : "1"]
             
             initializeForm()
             
@@ -375,7 +375,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     "postcode" : "",
                     "state" : "",
                     "title" : "\(userInfo["title"]!)",
-                    "travel_purpose" : "Leisure"]
+                    "travel_purpose" : "1"]
             }else{
                 
                 contactData = ["address1" : "" ,
@@ -392,7 +392,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     "postcode" : "",
                     "state" : "",
                     "title" : "\(tempData["title"]!)",
-                    "travel_purpose" : "Leisure"]
+                    "travel_purpose" : "1"]
                 
             }
             
@@ -412,7 +412,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "postcode" : "",
                 "state" : "",
                 "title" : "\(tempData["title"]!)",
-                "travel_purpose" : "Leisure"]
+                "travel_purpose" : "1"]
             
         }
         

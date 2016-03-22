@@ -9,6 +9,7 @@
 import UIKit
 import SCLAlertView
 import SwiftyJSON
+import M13Checkbox
 
 class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
 
@@ -39,6 +40,18 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let rule = "<b>FlyBasic</b><ol><li>This fare is capacity controlled. Seats offered at this fare are limited and may not be available on all flights. All fares are subject to change until purchased.</li><li>Name Change is not permitted.</li><li>Date Change is permitted with payment of fee and fare difference more than 2 hours prior to departure.</li><li>Route Change is not permitted.</li><li>Refund is not permitted. Reservations cannot be cancelled once confirmed.</li><li>For full set of applicable fees, taxes and surcharges, please visit our 'Fees' webpage.</li><li>For general term and conditions, please refer to Firefly General Conditions of Carriage.</li></ol>"
+        
+        let term = "I confirm, understand and accept Firefly's General Conditions of Carriage. Fare Rules and confirm that the passenger(s) in my reservation does not require Special Assistance and are not categorised as Unaccompanied Minor(s)."
+        
+        fareRule.attributedText = rule.html2String
+        termCondition.attributedText = term.html2String
+        
+        var newFrame = continueView.bounds
+        newFrame.size.height = 450
+        continueView.frame = newFrame
+        
+        self.flightDetailTableView.tableFooterView = continueView
         // Do any additional setup after loading the view.
     }
 
@@ -69,6 +82,8 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             showErrorMessage("LabelErrorGoingFlight".localized)
         }else if isReturn && checkReturnIndex == ""{
             showErrorMessage("LabelErrorReturnFlight".localized)
+        }else if termCheckBox.checkState == M13CheckboxState.Checked{
+            showErrorMessage("You must agree to the terms and conditions.")
         }else{
             
             if defaults.objectForKey("type") as! Int == 1{

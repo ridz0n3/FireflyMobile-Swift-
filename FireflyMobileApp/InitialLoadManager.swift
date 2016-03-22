@@ -20,7 +20,7 @@ class InitialLoadManager {
         if (defaults.objectForKey("dataVersion") != nil){
             existDataVersion = defaults.objectForKey("dataVersion") as! String
         }else{
-            existDataVersion = ""
+            existDataVersion = "0"
         }
         var username = String()
         var password = String()

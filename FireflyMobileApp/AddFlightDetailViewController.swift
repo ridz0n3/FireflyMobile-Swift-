@@ -16,6 +16,18 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let rule = "<b>FlyBasic</b><ol><li>This fare is capacity controlled. Seats offered at this fare are limited and may not be available on all flights. All fares are subject to change until purchased.</li><li>Name Change is not permitted.</li><li>Date Change is permitted with payment of fee and fare difference more than 2 hours prior to departure.</li><li>Route Change is not permitted.</li><li>Refund is not permitted. Reservations cannot be cancelled once confirmed.</li><li>For full set of applicable fees, taxes and surcharges, please visit our 'Fees' webpage.</li><li>For general term and conditions, please refer to Firefly General Conditions of Carriage.</li></ol>"
+        
+        let term = "I confirm, understand and accept Firefly's General Conditions of Carriage. Fare Rules and confirm that the passenger(s) in my reservation does not require Special Assistance and are not categorised as Unaccompanied Minor(s)."
+        
+        fareRule.attributedText = rule.html2String
+        termCondition.attributedText = term.html2String
+        
+        var newFrame = continueView.bounds
+        newFrame.size.height = 490
+        continueView.frame = newFrame
+        
+        self.flightDetailTableView.tableFooterView = continueView
         // Do any additional setup after loading the view.
     }
     
@@ -48,6 +60,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             showErrorMessage("LabelErrorReturnFlight".localized)
         }else if planGo == "flex_class" && flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["status"].string == "sold out"{
             showErrorMessage("LabelErrorGoingFlight".localized)
+        }else if termCheckBox.checkState == M13CheckboxState.Unchecked{
+            showErrorMessage("You must agree to the terms and conditions.")
         }else{
             
             var isType1 = false
@@ -120,7 +134,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                                     //showErrorMessage(json["message"].string!)
                                     showErrorMessage(json["message"].string!)
                                 }
-                                hideLoading(self)
+                                //hideLoading(self)
                             }
                             catch {
                                 
@@ -187,14 +201,15 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             
             let username: String = email.text!
             
-            showLoading(self) //showHud("open")
+            //showLoading(self) //
+            showHud("open")
             
             FireFlyProvider.request(.Login(username, encPassword), completion: { (result) -> () in
                 
                 switch result {
                 case .Success(let successResult):
                     do {
-                        hideLoading(self)
+                        //hideLoading(self)
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if  json["status"].string == "success"{
@@ -252,8 +267,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             switch result {
             case .Success(let successResult):
                 do {
-                    //showHud("close")
-                   // hideLoading(self)
+                    showHud("close")
+                    //hideLoading(self)
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -272,8 +287,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                 }
                 
             case .Failure(let failureResult):
-                //showHud("close")
-                hideLoading(self)
+                showHud("close")
+                //hideLoading(self)
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
