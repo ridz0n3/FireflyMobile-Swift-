@@ -286,6 +286,17 @@ func showErrorMessage(message : String){
     
 }
 
+func showRetryMessage(message : String){
+    
+    let errorView = SCLAlertView()
+    errorView.addButton("Retry") { () -> Void in
+        InitialLoadManager.sharedInstance.load()
+    }
+    errorView.showCloseButton = false
+    errorView.showError("Error!", subTitle:message, colorStyle: 0xEC581A)
+    
+}
+
 func showToastMessage(message:String){
     
     let messageView = SCLAlertView()

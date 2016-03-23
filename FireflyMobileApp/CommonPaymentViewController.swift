@@ -52,7 +52,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
             
             if channel["channel_type"] as! Int == 1{
                 
-                let img = UIImageView(frame: CGRectMake(xchannelPosition, 309, 68, 42))
+                let img = UIImageView(frame: CGRectMake(xchannelPosition, 309, 78, 52))
                 img.image = UIImage(data: data!)
                 img.contentMode = .ScaleAspectFit
                 headerView.addSubview(img)
@@ -63,8 +63,8 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 
             }else if channel["channel_type"] as! Int == 2{
                 
-                let img = UIImageView(frame: CGRectMake(41, yonlinePosition, 68, 42))
-                img.contentMode = .ScaleToFill
+                let img = UIImageView(frame: CGRectMake(41, yonlinePosition, 78, 52))
+                img.contentMode = .ScaleAspectFit
                 img.image = UIImage(data: data!)
                 headerView.addSubview(img)
                 

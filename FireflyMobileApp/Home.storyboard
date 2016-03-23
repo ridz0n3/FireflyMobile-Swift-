@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -47,8 +48,32 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="315"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zqs-Zn-1uT">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="zqs-Zn-1uT">
                                                     <rect key="frame" x="8" y="8" width="584" height="299"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="zqs-Zn-1uT" secondAttribute="height" multiplier="1:1" constant="400" id="JH0-aX-OAp"/>
+                                                    </constraints>
+                                                    <variation key="heightClass=compact">
+                                                        <mask key="constraints">
+                                                            <exclude reference="JH0-aX-OAp"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=regular">
+                                                        <mask key="constraints">
+                                                            <exclude reference="JH0-aX-OAp"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="8" width="384" height="299"/>
+                                                        <mask key="constraints">
+                                                            <exclude reference="JH0-aX-OAp"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <variation key="heightClass=compact-widthClass=compact">
+                                                        <mask key="constraints">
+                                                            <exclude reference="JH0-aX-OAp"/>
+                                                        </mask>
+                                                    </variation>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,6 +93,11 @@
                                                     <exclude reference="CVG-vk-W1p"/>
                                                     <exclude reference="NEl-qv-KWf"/>
                                                     <exclude reference="bl3-4I-XSv"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="zqs-Zn-1uT"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
@@ -321,6 +351,7 @@
         <image name="instagram" width="200" height="200"/>
         <image name="logo" width="600" height="240"/>
         <image name="tempHeader" width="750" height="194"/>
+        <image name="test" width="2880" height="1920"/>
         <image name="twitter" width="200" height="200"/>
     </resources>
 </document>

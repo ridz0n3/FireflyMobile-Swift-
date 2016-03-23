@@ -81,11 +81,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.row == 0
         {
-            if self.view.frame.size.height < self.view.frame.size.width {
-                return self.view.frame.size.width - 236
-            }else{
-                return self.view.frame.size.height - 236
-            }
+            return self.view.frame.size.width
+            
         }
         else if indexPath.row == 5 {
             

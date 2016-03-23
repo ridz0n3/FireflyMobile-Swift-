@@ -104,7 +104,13 @@ class InitialLoadManager {
                     
                 }//
             case .Failure(let failureResult):
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                
+                if failureResult.nsError.code == -1001 || failureResult.nsError.code == -1009{
+                    showRetryMessage(failureResult.nsError.localizedDescription)
+                }else{
+                    showErrorMessage(failureResult.nsError.localizedDescription)
+                }
+                
             }
         }
 

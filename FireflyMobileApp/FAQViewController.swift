@@ -25,16 +25,18 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         }else{
             setupMenuButton()
         }
-        
+        webView.delegate = self
         webView.scrollView.delegate = self
         webView.scrollView.showsHorizontalScrollIndicator = false
-        showLoading(self) //showHud("open")
+        //showLoading(self) //
+        showHud("open")
         
         FireFlyProvider.request(.GetTerm) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    //showHud("close")
+                    
+                    //
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -45,19 +47,21 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                             self.webView.loadRequest(request)
                         }
                     }else if json["status"] == "error"{
+                        //hideLoading(self)
+                        showHud("close")
                         //showErrorMessage(json["message"].string!)
                         showErrorMessage(json["message"].string!)
                         
                     }
-                    hideLoading(self)
+                    
                 }
                 catch {
                     
                 }
             case .Failure(let failureResult):
-                hideLoading(self)
+                //hideLoading(self)
                 showErrorMessage(failureResult.nsError.localizedDescription)
-                //showHud("close")
+                showHud("close")
             }
         }
         
@@ -69,14 +73,18 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         // Dispose of any resources that can be recreated.
     }
     
+    func webViewDidStartLoad(webView: UIWebView) {
+        //showLoading(self)
+    }
+    
     func webViewDidFinishLoad(webView: UIWebView) {
         webView.sizeToFit()
-        //showHud("close")
-        hideLoading(self)
+        showHud("close")
+        //hideLoading(self)
     }
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        //showHud("close")
-        hideLoading(self)
+        showHud("close")
+        //hideLoading(self)
     }
     
     
