@@ -126,7 +126,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
                     })
                     
                     message += "\(validationStatus.msg),\n"
-                    i++
+                    i += 1
                 }
                 self.animateCell(cell)
             }

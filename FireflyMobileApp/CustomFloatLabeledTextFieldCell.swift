@@ -176,7 +176,7 @@ class CustomFloatLabeledTextFieldCell: XLFormBaseCell {
                 }
             }
             
-            i++
+            i += 1
         }
     }
     

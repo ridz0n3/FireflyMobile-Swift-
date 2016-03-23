@@ -174,7 +174,7 @@ class FloatLabeledPickerCell: XLFormBaseCell{
                 }
             }
             
-            i++
+            i += 1
         }
     }
     

@@ -34,7 +34,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         for adult in 1...adultCount{
             
             var i = adult
-            i--
+            i -= 1
             
             let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(adult)"]
             adultArray.append(adultData)

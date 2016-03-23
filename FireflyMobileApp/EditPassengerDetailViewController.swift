@@ -50,7 +50,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
         for adult in 1...adultCount{
             
             var i = adult
-            i--
+            i -= 1
             
             let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(adult)"]
             adultArray.append(adultData)
@@ -146,7 +146,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             for infant in 1...infantCount{
                 
                 var j = infant
-                j--
+                j -= 1
                 
                 let infantDict:NSDictionary = infantDetails[j] as NSDictionary
                 
@@ -256,7 +256,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
         
         for adult in 1...adultCount{
             var i = adult
-            i--
+            i -= 1
             
             let expiredDate = (adultDetails[i]["expiration_date"] as! String).componentsSeparatedByString("T")
             if adultDetails[i]["travel_document"] as! String == "P"{
@@ -268,7 +268,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
         if infantCount != 0{
             for infant in 1...infantCount{
                 var i = infant
-                i--
+                i -= 1
                 
                 let expiredDate = (infantDetails[i]["expiration_date"] as! String).componentsSeparatedByString("T")
                 

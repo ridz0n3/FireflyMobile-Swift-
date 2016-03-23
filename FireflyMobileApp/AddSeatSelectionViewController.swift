@@ -43,7 +43,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     seatArray.append(newSeat[0])
                     newSeat.removeAtIndex(0)
-                    seatIndex++
+                    seatIndex += 1
                     
                 }
             }

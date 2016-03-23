@@ -239,7 +239,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 if empty.count == 1{
                     
                     message += "\(validationStatus.msg),\n"
-                    i++
+                    i += 1
                     
                 }else{
                     if errorTag == Tags.ValidationCardType ||

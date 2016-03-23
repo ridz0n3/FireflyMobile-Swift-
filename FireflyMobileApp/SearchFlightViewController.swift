@@ -319,35 +319,35 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             let indexCell = NSIndexPath.init(forItem: 2, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
-            count++
+            count += 1
         }
         
         if departure == "DEPARTURE AIRPORT"{
             let indexCell = NSIndexPath.init(forItem: 1, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
-            count++
+            count += 1
         }
         
         if departureDateLbl == "DEPARTURE DATE"{
             let indexCell = NSIndexPath.init(forItem: 3, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
-            count++
+            count += 1
         }
         
         if arrivalDateLbl == "RETURN DATE" && type == 1{
             let indexCell = NSIndexPath.init(forItem: 4, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
-            count++
+            count += 1
         }else if arrivalDateLbl == "RETURN DATE" && type == 0{
             arrivalDateLbl = ""
         }
         
         if cell2.adultCount.text == "0"{
             animateCell(cell2)
-            count++
+            count += 1
         }
         
         if count == 0{

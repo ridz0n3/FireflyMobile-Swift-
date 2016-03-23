@@ -161,7 +161,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                 if empty.count == 1{
                     
                     message += "\(validationStatus.msg),\n"
-                    i++
+                    i += 1
                     
                 }else{
                     if validationStatus.rowDescriptor!.tag == Tags.ValidationTitle ||

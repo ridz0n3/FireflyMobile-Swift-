@@ -345,7 +345,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                 
             }
             
-            index++
+            index += 1
         }
         
         return cell
@@ -422,13 +422,13 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             
             
             if sectionIndex != details.count - 1{
-                sectionIndex++
+                sectionIndex += 1
                 rowIndex = 0
             }
             
             sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
         }else{
-            rowIndex++
+            rowIndex += 1
             sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
             
         }
@@ -454,7 +454,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                     
                     if tempSeat["\(i)"] != nil{
                         if tempSeat["\(i)"]!["seat_number"] == seatDetail["seat_number"] as! String{
-                            indexSameSeat++
+                            indexSameSeat += 1
                         }
                     }
                     

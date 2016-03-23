@@ -49,7 +49,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     seatArray.append(newSeat[0])
                     newSeat.removeAtIndex(0)
-                    seatIndex++
+                    seatIndex += 1
                     
                 }
             }
@@ -76,7 +76,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     }
                     
                 }
-                i++
+                i += 1
                 
             }
             
@@ -89,7 +89,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             data.setValue(seat, forKey: "seat_info")
             
             details.addObject(data)
-            countJourney++
+            countJourney += 1
             
         }
         

@@ -72,7 +72,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 arr.append("Check In")
             }else{
                 arr.append("false")
-                countNotCheckIn++
+                countNotCheckIn += 1
             }
             
             
@@ -119,7 +119,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             //row.value = passengerData["document_number"] as! String
             section.addFormRow(row)
             
-            i++
+            i += 1
         }
         
         self.form = form
@@ -134,7 +134,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             if passengerData["travel_document"] as! String == "P"{
                 addExpiredDateRow("\(j))", date: expiredDate[0])
             }
-            j++
+            j += 1
             
         }
     }
@@ -201,7 +201,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 }
                 
             }
-            i++
+            i += 1
             
         }
         detailTableView.beginUpdates()
@@ -217,9 +217,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         for arrData in arr{
             if arrData == "true"{
                 validatedForm("\(allDataCount))")
-                checkData++
+                checkData += 1
             }
-            allDataCount++
+            allDataCount += 1
         }
         
         if checkData == 0{
@@ -264,7 +264,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         passengerInfo.updateValue(passengerArray[count]["passenger_number"]!, forKey: "passenger_number")
                         passenger.updateValue(passengerInfo, forKey: "\(count)")
                     }
-                    count++
+                    count += 1
                 }
                 
                 let signature = checkInDetail["signature"] as! String
@@ -323,7 +323,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 //isValidate = false
                 
                 if errorTag[1] == index{
-                    count++
+                    count += 1
                     if errorTag[0] == Tags.ValidationCountry || errorTag[0] == Tags.ValidationTravelDoc {
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         

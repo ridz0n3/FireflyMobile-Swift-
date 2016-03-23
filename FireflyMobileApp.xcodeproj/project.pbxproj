@@ -770,7 +770,7 @@
 				TargetAttributes = {
 					7E1F77D81BF96E6C00F55C46 = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = QR72H43V32;
+						DevelopmentTeam = 6S847MQDY3;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1160,8 +1160,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: wan muzaffar Wan Hashim (TE5258J47C)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: wan muzaffar Wan Hashim (TE5258J47C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

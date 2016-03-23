@@ -48,7 +48,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                         if data.departureStationCode == bookingList["departure_station_code"] as! String{
                     
                             boardingPass = data.boardingPass
-                            check++
+                            check += 1
                             
                         }
                         
@@ -96,7 +96,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                             Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
                                 
                                 dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
-                                i++
+                                i += 1
                                 
                                 if i == j{
                                     //showHud("close")
@@ -108,7 +108,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                                     hideLoading(self)
                                 }
                             })
-                            j++
+                            j += 1
                         }
                     }else{
                         //showHud("close")
@@ -145,7 +145,7 @@ class LoginBoardingPassViewController: CommonListViewController {
         var count = 0
         for boardingInfo in boardingPassArr{
             let boardingPass = BoardingPassList()
-            count++
+            count += 1
             
             if boardingPassArr.count == count{
                 

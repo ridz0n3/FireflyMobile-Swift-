@@ -178,7 +178,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         for status in checkStatus{
             
             if status == "false"{
-                statusCount++
+                statusCount += 1
             }
         }
         
@@ -245,7 +245,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         var count = 0
         for boardingInfo in boardingPassArr{
             let boardingPass = BoardingPassList()
-            count++
+            count += 1
             
             if boardingPassArr.count == count{
                 
