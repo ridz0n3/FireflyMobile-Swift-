@@ -276,7 +276,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card No"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+        //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
         section.addFormRow(row)
         
         self.form = form
