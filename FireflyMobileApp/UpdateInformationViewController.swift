@@ -9,6 +9,7 @@
 import UIKit
 import XLForm
 import M13Checkbox
+import SwiftyJSON
 
 class UpdateInformationViewController: BaseXLFormViewController {
     
@@ -606,62 +607,78 @@ class UpdateInformationViewController: BaseXLFormViewController {
             encNewPassword = ""
         }
         
-        var parameters:[String:AnyObject] = [String:AnyObject]()
+        let username = userInfo["username"]! as! String
+        let password = encOldPassword
+        let newPassword = encNewPassword
+        let title = (formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String
+        let firstName = formValues()[Tags.ValidationFirstName]! as! String
+        let lastName = formValues()[Tags.ValidationLastName]! as! String
+        let dob = formatDate(formValues()[Tags.ValidationDate]! as! NSDate)
+        let address1 = formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString()
+        let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString()
+        let address3 = ""
+        let country = (formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String
+        let city = formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString()
+        let state = (formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String
+        let postcode = formValues()[Tags.ValidationPostcode]! as! String
+        let mobilePhone = formValues()[Tags.ValidationMobileHome]! as! String
+        let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate])! as! String
+        let fax = nullIfEmpty(formValues()[Tags.ValidationFax])! as! String
+        let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])! as! String
+        let signature = defaults.objectForKey("signatureLoad")! as! String
+        let newsletter = userInfo["newsletter"] as! String
         
-        parameters.updateValue(userInfo["username"]!, forKey: "username")
-        parameters.updateValue(encOldPassword, forKey: "password")
-        parameters.updateValue(encNewPassword, forKey: "new_password")
-        parameters.updateValue((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData(), forKey: "title")
-        parameters.updateValue(formValues()[Tags.ValidationFirstName]!, forKey: "first_name")
-        parameters.updateValue(formValues()[Tags.ValidationLastName]!, forKey: "last_name")
-        parameters.updateValue(formatDate(formValues()[Tags.ValidationDate]! as! NSDate), forKey: "dob")
-        parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString(), forKey: "address_1")
-        parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString(), forKey: "address_2")
-        parameters.updateValue("", forKey: "address_3")
-        parameters.updateValue((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData(), forKey: "country")
-        parameters.updateValue(formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString(), forKey: "city")
-        parameters.updateValue((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData(), forKey: "state")
-        parameters.updateValue(formValues()[Tags.ValidationPostcode]!, forKey: "postcode")
-        parameters.updateValue(formValues()[Tags.ValidationMobileHome]!, forKey: "mobile_phone")
-        parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate])!, forKey: "alternate_phone")
-        parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
-        parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])!, forKey: "bonuslink")
-        parameters.updateValue(defaults.objectForKey("signatureLoad")! , forKey: "signature")
-        parameters.updateValue(userInfo["newsletter"] as! String, forKey: "newsletter")
         
-        let manager = WSDLNetworkManager()
-        
-        showLoading(self) //showHud("open")
-        manager.sharedClient().createRequestWithService("updateProfile", withParams: parameters, completion: { (result) -> Void in
-            //showHud("close")
+        showLoading(self)
+        //showHud("open")
+        FireFlyProvider.request(.UpdateUserProfile(username, password, newPassword, title, firstName, lastName, dob, address1, address2, address3, country, city, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
             
-            if result["status"].string == "success"{
-                showToastMessage("Successfully change information")
-                defaults.setObject(result["user_info"].dictionaryObject, forKey: "userInfo")
-                defaults.synchronize()
-                
-                NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
-                
-                let storyBoard = UIStoryboard(name: "Home", bundle: nil)
-                let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
-                self.navigationController!.pushViewController(homeVC, animated: true)
-            }else if result["status"].string == "error"{
-                showErrorMessage(result["message"].string!)
-            }else if result["status"].string == "401"{
-                showErrorMessage(result["message"].string!)
-                InitialLoadManager.sharedInstance.load()
-            }else if result["status"].string == "error_validation"{
-                
-                var str = String()
-                for (_, value) in result["message"].dictionary!{
+            switch result {
+            case .Success(let successResult):
+                do {
+                    //hideAlert(self)
+                    ////showHud("close")
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
-                    str += "\(value[0])\n"
+                    if json["status"] == "success"{
+                        showToastMessage("Successfully change information")
+                        defaults.setObject(json["user_info"].dictionaryObject, forKey: "userInfo")
+                        defaults.synchronize()
+                        
+                        NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
+                        
+                        let storyBoard = UIStoryboard(name: "Home", bundle: nil)
+                        let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+                        self.navigationController!.pushViewController(homeVC, animated: true)
+                    }else if json["status"] == "error"{
+                        //showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                    }else if json["status"].string == "error_validation"{
+                        
+                        var str = String()
+                        for (_, value) in json["message"].dictionary!{
+                            
+                            str += "\(value[0])\n"
+                        }
+                        
+                        showErrorMessage(str)
+                        
+                    }
+                    hideLoading(self)
+                }
+                catch {
+                    
                 }
                 
-                showErrorMessage(str)
-                
+            case .Failure(let failureResult):
+                //showHud("close")
+                hideLoading(self)
+                showErrorMessage(failureResult.nsError.localizedDescription)
             }
-            hideLoading(self)
+            
             
         })
         

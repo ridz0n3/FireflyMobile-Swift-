@@ -41,7 +41,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         
         var tempArray:[AnyObject] = [AnyObject]()
         for arrivingStation in travel{
-            tempArray.append(XLFormOptionsObject(value: arrivingStation["location_code"], displayText: arrivingStation["travel_location"] as! String))
+            tempArray.append(XLFormOptionsObject(value: arrivingStation["travel_location_code"], displayText: arrivingStation["travel_location"] as! String))
         }
         row.selectorOptions = tempArray
         row.required = true

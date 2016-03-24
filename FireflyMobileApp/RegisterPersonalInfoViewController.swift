@@ -9,9 +9,10 @@
 import UIKit
 import XLForm
 import M13Checkbox
+import SwiftyJSON
 
 class RegisterPersonalInfoViewController: BaseXLFormViewController {
-
+    
     @IBOutlet weak var termCheckBox: M13Checkbox!
     @IBOutlet weak var promotionCheckBox: M13Checkbox!
     var fromLogin = Bool()
@@ -30,7 +31,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         initializeForm()
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -139,7 +140,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.required = true
         row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         section.addFormRow(row)
-    
+        
         // Date
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeDate, title:"*Date of Birth")
         
@@ -294,7 +295,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         let index = UInt(section)
         
         sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
-
+        
         return sectionView
     }
     
@@ -347,7 +348,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                     dialCode = country["dialing_code"] as! String
                 }
             }
-
+            
             self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
             
             // Mobile Number
@@ -383,11 +384,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             
         }
     }
-
-    @IBAction func continueButtonPressed(sender: AnyObject) {
-
-        validateForm()
     
+    @IBAction func continueButtonPressed(sender: AnyObject) {
+        
+        validateForm()
+        
         //promotionCheckBox.checkState.
         if isValidate {
             
@@ -403,94 +404,108 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             
             
             if formValues()[Tags.ValidationPassword]! as! String != formValues()[Tags.ValidationConfirmPassword]! as! String {
-            
+                
                 let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
                 let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
                 
                 animateCell(cell)
                 showErrorMessage("Confirm password incorrect")
             }
-			else if ((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String == "") {
+            else if ((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String == "") {
                 showErrorMessage("Title can't empty")
             }
-			else if ((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String == "") {
+            else if ((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String == "") {
                 showErrorMessage("Country can't empty")
             }
-			else if ((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String == "") {
+            else if ((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String == "") {
                 showErrorMessage("State can't empty")
             }
-			else if minDate.compare(formValues()[Tags.ValidationDate] as! NSDate) == NSComparisonResult.OrderedAscending {
+            else if minDate.compare(formValues()[Tags.ValidationDate] as! NSDate) == NSComparisonResult.OrderedAscending {
                 showErrorMessage("User must age 18 and above to register")
             }
-			else if termCheckBox.checkState.rawValue == 0 {
+            else if termCheckBox.checkState.rawValue == 0 {
                 showErrorMessage("Please check term and condition checkbox")
             }
-			else{
+            else{
                 
                 let enc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationPassword]! as! String, key: key, iv: iv)
-                    var parameters:[String:AnyObject] = [String:AnyObject]()
-                    
-                    parameters.updateValue(formValues()[Tags.ValidationUsername]!.xmlSimpleEscapeString(), forKey: "username")
-                    parameters.updateValue(enc, forKey: "password")
-                    parameters.updateValue((formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData(), forKey: "title")
-                    parameters.updateValue(formValues()[Tags.ValidationFirstName]!.xmlSimpleEscapeString(), forKey: "first_name")
-                    parameters.updateValue(formValues()[Tags.ValidationLastName]!.xmlSimpleEscapeString(), forKey: "last_name")
-                    parameters.updateValue(formatDate(formValues()[Tags.ValidationDate]! as! NSDate), forKey: "dob")
-                    parameters.updateValue(formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString(), forKey: "address_1")
                 
-                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString(), forKey: "address_2")
-                
-                    parameters.updateValue("", forKey: "address_3")
-                    parameters.updateValue((formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData(), forKey: "country")
-                    parameters.updateValue(formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString(), forKey: "city")
-                    parameters.updateValue((formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData(), forKey: "state")
-                    parameters.updateValue(formValues()[Tags.ValidationPostcode]!, forKey: "postcode")
-                    parameters.updateValue(formValues()[Tags.ValidationMobileHome]!, forKey: "mobile_phone")
-
-                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationAlternate]!)!, forKey: "alternate_phone")
-                
-                parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])!, forKey: "bonuslink")
+                let username = formValues()[Tags.ValidationUsername]!.xmlSimpleEscapeString()
+                let password = enc
+                let title = (formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String
+                let firstName = formValues()[Tags.ValidationFirstName]! as! String
+                let lastName = formValues()[Tags.ValidationLastName]! as! String
+                let dob = formatDate(formValues()[Tags.ValidationDate]! as! NSDate)
+                let address1 = formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString()
+                let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString()
+                let address3 = ""
+                let country = (formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String
+                let city = formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString()
+                let state = (formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String
+                let postcode = formValues()[Tags.ValidationPostcode]! as! String
+                let mobilePhone = formValues()[Tags.ValidationMobileHome]! as! String
+                let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate])! as! String
+                let fax = nullIfEmpty(formValues()[Tags.ValidationFax])! as! String
+                let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])! as! String
+                let signature = ""
+                var newsletter = ""
                 
                 if promotionCheckBox.checkState.rawValue == 0 {
-                    parameters.updateValue("N", forKey: "newsletter")
+                    newsletter = "N"
                 }
                 else {
-                    parameters.updateValue("Y", forKey: "newsletter")
+                    newsletter = "Y"
                 }
                 
-                    parameters.updateValue(nullIfEmpty(formValues()[Tags.ValidationFax])!, forKey: "fax")
-                
-                    parameters.updateValue("", forKey: "signature")
+                showLoading(self)
+                //showHud("open")
+                FireFlyProvider.request(.RegisterUser(username, password, title, firstName, lastName, dob, address1, address2, address3, country, city, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
                     
-                    let manager = WSDLNetworkManager()
-                    
-                    showLoading(self) //showHud("open")
-                    manager.sharedClient().createRequestWithService("register", withParams: parameters, completion: { (result) -> Void in
-                        //showHud("close")
-                        
-                        if result["status"].string == "success"{
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            //hideAlert(self)
+                            ////showHud("close")
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
-                            let storyBoard = UIStoryboard(name: "Login", bundle: nil)
-                            let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
-                            self.navigationController!.pushViewController(loginVC, animated: true)
-                        }
-                        else if result["status"].string == "error_validation"{
-                            
-                            var str = String()
-                            for (_, value) in result["message"].dictionary!{
+                            if json["status"] == "success"{
                                 
-                                str += "\(value[0])\n"
+                                let storyBoard = UIStoryboard(name: "Login", bundle: nil)
+                                let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
+                                self.navigationController!.pushViewController(loginVC, animated: true)
+                                
+                            }else if json["status"] == "error"{
+                                //showErrorMessage(json["message"].string!)
+                                showErrorMessage(json["message"].string!)
+                            }else if json["status"].string == "401"{
+                                showErrorMessage(json["message"].string!)
+                                InitialLoadManager.sharedInstance.load()
+                            }else if json["status"].string == "error_validation"{
+                                
+                                var str = String()
+                                for (_, value) in json["message"].dictionary!{
+                                    
+                                    str += "\(value[0])\n"
+                                }
+                                
+                                showErrorMessage(str)
+                                
                             }
-                            
-                            showErrorMessage(str)
+                            hideLoading(self)
+                        }
+                        catch {
                             
                         }
-                        else {
-                            showErrorMessage(result["message"].string!)
-                        }
+                        
+                    case .Failure(let failureResult):
+                        //showHud("close")
                         hideLoading(self)
-                    })
-                }
+                        showErrorMessage(failureResult.nsError.localizedDescription)
+                    }
+                    
+                    
+                })
+            }
         }
     }
 }

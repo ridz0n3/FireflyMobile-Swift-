@@ -58,7 +58,7 @@
             // username
             row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeText, title:"")
             attrString = NSMutableAttributedString(string: "*", attributes: star)
-            attrString.appendAttributedString(NSAttributedString(string: "Enter Email"))
+            attrString.appendAttributedString(NSAttributedString(string: "USER ID (Email)"))
             row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
             row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
             row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue

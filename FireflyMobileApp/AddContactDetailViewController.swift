@@ -129,11 +129,13 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     str += "\(separate[1])"
                     
                     paragraph1.attributedText = str.html2String
-                    
+                    paragraph1.font = UIFont(name: "System Semibold", size: 14)
                 }else if index == 2{
                     paragraph2.attributedText = (text as! String).html2String
+                    paragraph2.font = UIFont(name: "System Semibold", size: 14)
                 }else{
                     paragraph3.attributedText = (text as! String).html2String
+                    paragraph3.font = UIFont(name: "System Semibold", size: 14)
                 }
                 
                 index++

@@ -25,7 +25,7 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         }else{
             setupMenuButton()
         }
-        webView.delegate = self
+        //webView.delegate = self
         webView.scrollView.delegate = self
         webView.scrollView.showsHorizontalScrollIndicator = false
         //showLoading(self) //
@@ -35,7 +35,7 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
             switch result {
             case .Success(let successResult):
                 do {
-                    
+                    showHud("close")
                     //
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     

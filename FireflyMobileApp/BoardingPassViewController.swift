@@ -17,11 +17,16 @@ class BoardingPassViewController: CommonSearchDetailViewController {
         validateForm()
         
         if isValidate{
+            
+            let deptArr = (self.formValues()[Tags.ValidationDeparting] as! String).componentsSeparatedByString(" (")
+            
+            let arrivalArr = (self.formValues()[Tags.ValidationArriving] as! String).componentsSeparatedByString(" (")
+            
             let signature = defaults.objectForKey("signatureLoad") as! String
             let pnr = self.formValues()[Tags.ValidationConfirmationNumber] as! String
-            let departure_station_code = getStationCode(self.formValues()[Tags.ValidationDeparting] as! String, locArr: location, direction : "Departing")
+            let departure_station_code = getStationCode(deptArr[0], locArr: location, direction : "Departing")
             //self.formValues()[Tags.ValidationDeparting] as! String
-            let arrival_station_code = getStationCode(self.formValues()[Tags.ValidationArriving] as! String, locArr: travel, direction : "Arriving")
+            let arrival_station_code = getStationCode(arrivalArr[0], locArr: travel, direction : "Arriving")
             showLoading(self) //showHud("open")
             FireFlyProvider.request(.RetrieveBoardingPass(signature, pnr, departure_station_code, arrival_station_code, ""), completion: { (result) -> () in
                 

@@ -55,7 +55,7 @@ class ManageFlightViewController: BaseXLFormViewController {
         //Username
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Contact Email:*")
         row.required = true
-        row.addValidator(XLFormValidator.emailValidator())
+        //row.addValidator(XLFormValidator.emailValidator())
         //row.value = "y4pcsf"
         section.addFormRow(row)
         

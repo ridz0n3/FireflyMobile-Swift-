@@ -54,6 +54,8 @@ public enum FireFlyAPI {
     case CheckInConfirmation(String, String, String, String, AnyObject)
     case RetrieveBoardingPass(String, String, String, String, String)
     case GetAbout
+    case UpdateUserProfile(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
+    case RegisterUser(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
 }
 
 
@@ -70,7 +72,7 @@ extension FireFlyAPI : TargetType {
     /*   var base: String { return AppSetup.sharedState.useStaging ? "https://stagingapi.artsy.net" : "https://api.artsy.net" } */
     var base: String {
         //return "http://fyapidev.me-tech.com.my/"
-        return kStageURL//"http://fyapistage.me-tech.com.my/"
+        return kProductionURL//"http://fyapistage.me-tech.com.my/"
     }
     
     public var baseURL: NSURL { return NSURL(string: base)! }
@@ -137,11 +139,15 @@ extension FireFlyAPI : TargetType {
             return "api/getBoardingPass"
         case GetAbout:
             return "api/getAboutUS"
+        case .UpdateUserProfile:
+            return "api/updateProfile"
+        case .RegisterUser:
+            return "api/register"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass:
+        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass, .UpdateUserProfile, .RegisterUser:
             return .POST
         case .GetTerm, .GetAbout:
             return .GET
@@ -259,6 +265,10 @@ extension FireFlyAPI : TargetType {
             ]
         case .RetrieveBoardingPass(let signature, let pnr, let departureCode, let arrivalCode, let userId):
             return ["signature" : signature, "pnr" : pnr, "departure_station_code" : departureCode, "arrival_station_code" : arrivalCode, "user_id" : userId]
+        case .UpdateUserProfile(let username, let password, let new_password, let title, let first_name, let last_name, let dob, let address_1, let address_2, let address_3, let country, let city, let state, let postcode, let mobile_phone, let alternate_phone, let fax, let bonuslink, let signature, let newsletter) :
+            return ["username" : username, "password" : password, "new_password" : new_password, "title" : title, "first_name" : first_name, "last_name" : last_name, "dob" : dob, "address_1" : address_1, "address_2" : address_2, "address_3" : address_3, "country" : country, "city" : city, "state" : state, "postcode" : postcode, "mobile_phone" : mobile_phone, "alternate_phone" : alternate_phone, "fax" : fax, "bonuslink" : bonuslink, "signature" : signature, "newsletter" : newsletter]
+        case .RegisterUser(let username, let password, let title, let first_name, let last_name, let dob, let address_1, let address_2, let address_3, let country, let city, let state, let postcode, let mobile_phone, let alternate_phone, let fax, let bonuslink, let signature, let newsletter) :
+            return ["username" : username, "password" : password, "title" : title, "first_name" : first_name, "last_name" : last_name, "dob" : dob, "address_1" : address_1, "address_2" : address_2, "address_3" : address_3, "country" : country, "city" : city, "state" : state, "postcode" : postcode, "mobile_phone" : mobile_phone, "alternate_phone" : alternate_phone, "fax" : fax, "bonuslink" : bonuslink, "signature" : signature, "newsletter" : newsletter]
         default:
         return nil
         }

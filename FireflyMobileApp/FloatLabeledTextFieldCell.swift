@@ -169,7 +169,13 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
         let doc = self.rowDescriptor?.tag?.componentsSeparatedByString("(")
-        if self.rowDescriptor?.tag == Tags.ValidationCcvNumber{
+        if self.rowDescriptor?.tag == Tags.ValidationConfirmationNumber{
+            let maxLength = 6
+            let currentString: NSString = textField.text!
+            let newString: NSString =
+            currentString.stringByReplacingCharactersInRange(range, withString: string)
+            return newString.length <= maxLength
+        }else if self.rowDescriptor?.tag == Tags.ValidationCcvNumber{
             let maxLength = 4
             let currentString: NSString = textField.text!
             let newString: NSString =

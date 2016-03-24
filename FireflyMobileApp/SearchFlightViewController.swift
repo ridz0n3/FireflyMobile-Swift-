@@ -240,7 +240,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             }else{
                 
                 defaults.setObject(cell2.adultCount.text!, forKey: "adult")
-                defaults.setObject(cell2.infantCount.text!, forKey: "infant")
+                defaults.setObject(cell2.infantCount.text!, forKey: "infants")
                 defaults.setObject(type, forKey: "type")
                 defaults.synchronize()
                 

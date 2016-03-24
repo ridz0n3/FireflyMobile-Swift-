@@ -43,13 +43,13 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         //current password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Current Password:*")
         row.required = true
-        row.addValidator(XLFormRegexValidator(msg: "The password must be at least 8 characters, no more than 16 characters. The password cannot contain a period(.) comma(,) or tilde(~)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         section.addFormRow(row)
         
         //new password
         row = XLFormRowDescriptor(tag: Tags.ValidationNewPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"New Password:*")
         row.required = true
-        row.addValidator(XLFormRegexValidator(msg: "The password must be at least 8 characters, no more than 16 characters. The password cannot contain a period(.) comma(,) or tilde(~)", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
+        row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         section.addFormRow(row)
         
         //confirm password
@@ -160,22 +160,42 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         
         if array.count != 0{
             isValidate = false
+            var i = 0
+            var j = 0
+            var message = String()
             
             for errorItem in array {
                 
                 let error = errorItem as! NSError
                 let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
                 
-                let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                
-                if self.tableView.cellForRowAtIndexPath(index) != nil{
-                    let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
+                let empty = validationStatus.msg.componentsSeparatedByString("*")
+                if empty.count == 1{
                     
-                    let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                    cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
+                    message += "\(validationStatus.msg),\n"
+                    i++
                     
-                    animateCell(cell)
+                }else{
+                    let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                    
+                    if self.tableView.cellForRowAtIndexPath(index) != nil{
+                        let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
+                        
+                        let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                        cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
+                        
+                        animateCell(cell)
+                    }
+                    
+                    j++
                 }
+                
+            }
+            
+            if i != 0{
+                showErrorMessage(message)
+            }else if j != 0{
+                showErrorMessage("Please fill all fields")
             }
         }else{
             isValidate = true

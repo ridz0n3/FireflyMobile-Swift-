@@ -18,7 +18,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         
         adultArray = [Dictionary<String,AnyObject>]()
         adultCount = (defaults.objectForKey("adult")?.integerValue)!
-        infantCount = (defaults.objectForKey("infant")?.integerValue)!
+        infantCount = (defaults.objectForKey("infants")?.integerValue)!
         
         initializeForm()
     }

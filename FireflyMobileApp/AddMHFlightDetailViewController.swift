@@ -45,7 +45,9 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         let term = "I confirm, understand and accept Firefly's General Conditions of Carriage. Fare Rules and confirm that the passenger(s) in my reservation does not require Special Assistance and are not categorised as Unaccompanied Minor(s)."
         
         fareRule.attributedText = rule.html2String
+        fareRule.font = UIFont(name: "System Semibold", size: 14)
         termCondition.attributedText = term.html2String
+        termCondition.font = UIFont(name: "System Semibold", size: 14)
         
         var newFrame = continueView.bounds
         newFrame.size.height = 490
@@ -125,7 +127,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             arrival_station = flightDetail[0]["arrival_station_code"].string!
             departure_date = formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"))
             adult = defaults.objectForKey("adult")! as! String
-            infant = defaults.objectForKey("infant")! as! String
+            infant = defaults.objectForKey("infants")! as! String
             flight_number_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["flight_number"].string!
             departure_time_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["departure_time"].string!
             arrival_time_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["arrival_time"].string!

@@ -48,7 +48,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="315"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test" translatesAutoresizingMaskIntoConstraints="NO" id="zqs-Zn-1uT">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zqs-Zn-1uT">
                                                     <rect key="frame" x="8" y="8" width="584" height="299"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="zqs-Zn-1uT" secondAttribute="height" multiplier="1:1" constant="400" id="JH0-aX-OAp"/>
@@ -235,7 +235,7 @@
                                             <constraints>
                                                 <constraint firstItem="RRr-kI-Vqf" firstAttribute="top" secondItem="9Ky-y7-BIN" secondAttribute="top" constant="8" id="78s-nc-YrX"/>
                                                 <constraint firstItem="RRr-kI-Vqf" firstAttribute="leading" secondItem="jfC-7b-MHl" secondAttribute="trailing" constant="8" id="Jj8-fG-Y5E"/>
-                                                <constraint firstItem="jfC-7b-MHl" firstAttribute="centerX" secondItem="9Ky-y7-BIN" secondAttribute="centerX" id="uPV-5c-MrQ"/>
+                                                <constraint firstItem="jfC-7b-MHl" firstAttribute="centerX" secondItem="9Ky-y7-BIN" secondAttribute="centerX" constant="-10" id="uPV-5c-MrQ"/>
                                                 <constraint firstItem="jfC-7b-MHl" firstAttribute="top" secondItem="9Ky-y7-BIN" secondAttribute="topMargin" id="yAC-UN-tjh"/>
                                                 <constraint firstItem="i8J-0N-TeV" firstAttribute="top" secondItem="9Ky-y7-BIN" secondAttribute="top" constant="8" id="zoA-Kx-3XT"/>
                                                 <constraint firstItem="jfC-7b-MHl" firstAttribute="leading" secondItem="i8J-0N-TeV" secondAttribute="trailing" constant="8" id="zvh-77-2Xc"/>
@@ -351,7 +351,6 @@
         <image name="instagram" width="200" height="200"/>
         <image name="logo" width="600" height="240"/>
         <image name="tempHeader" width="750" height="194"/>
-        <image name="test" width="2880" height="1920"/>
         <image name="twitter" width="200" height="200"/>
     </resources>
 </document>

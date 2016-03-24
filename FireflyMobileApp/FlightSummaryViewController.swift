@@ -236,19 +236,19 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
         if section == 0{
-            sectionView.sectionLbl.text = "Itinerary Information"
+            sectionView.sectionLbl.text = "ITINERARY INFORMATION"
         }else if section == 1{
-            sectionView.sectionLbl.text = "Flight Details"
+            sectionView.sectionLbl.text = "FLIGHT DETAILS"
         }else if section == 2{
-            sectionView.sectionLbl.text = "Price Details"
+            sectionView.sectionLbl.text = "PRICE DETAILS"
         }else if section == 6{
-            sectionView.sectionLbl.text = "Insurance Details"
+            sectionView.sectionLbl.text = "INSURANCE DETAILS"
         }else if section == 7{
-            sectionView.sectionLbl.text = "Contact Information"
+            sectionView.sectionLbl.text = "CONTACT INFORMATION"
         }else if section == 8{
-            sectionView.sectionLbl.text = "Passenger Information"
+            sectionView.sectionLbl.text = "PASSENGER INFORMATION"
         }else if section == 9{
-            sectionView.sectionLbl.text = "Payment Details"
+            sectionView.sectionLbl.text = "PAYMENT DETAILS"
         }
         
         

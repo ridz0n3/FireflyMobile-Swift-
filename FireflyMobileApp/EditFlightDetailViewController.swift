@@ -67,19 +67,19 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
             return cell
         }else{
-            
             let flightDict = flightDetail[indexPath.section].dictionary
             
-            if flightDict!["flights"]?.count == 0{
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
-                return cell
-            }else if indexPath.section == 0 && goingData["status"] as! String == "N"{
+            if indexPath.section == 0 && goingData["status"] as! String == "N"{
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoSelectCell", forIndexPath: indexPath)
                 return cell
             }else if indexPath.section == 1 && returnData["status"] as! String == "N"{
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoSelectCell", forIndexPath: indexPath)
                 return cell
+            }else if flightDict!["flights"]?.count == 0{
+                let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
+                return cell
             }else{
+                
                 let cell = self.flightDetailTableView.dequeueReusableCellWithIdentifier("flightCell", forIndexPath: indexPath) as! CustomFlightDetailTableViewCell
                 
                 let flightDict = flightDetail[indexPath.section].dictionary
