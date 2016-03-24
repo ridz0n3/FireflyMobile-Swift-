@@ -358,7 +358,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
             row.value = dialCode
             //row.required = true
-            self.form.addFormRow(row, beforeRowTag: Tags.ValidationPostcode)//(row, afterRowTag: Tags.ValidationPostcode)
+            self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)//(row, afterRowTag: Tags.ValidationPostcode)
             
             self.form.removeFormRowWithTag(Tags.ValidationAlternate)
             self.form.removeFormRowWithTag(Tags.ValidationFax)

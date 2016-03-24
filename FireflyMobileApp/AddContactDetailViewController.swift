@@ -293,8 +293,6 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     
                 })
             }
-        }else{
-            showErrorMessage("Please fill all fields")
         }
     }
     

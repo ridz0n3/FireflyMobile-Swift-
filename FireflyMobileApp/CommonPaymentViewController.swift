@@ -41,7 +41,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
     
     func rearrangePaymentType(){
         
-        var xchannelPosition : CGFloat = 41
+        var xchannelPosition : CGFloat = 44
         var yonlinePosition : CGFloat = 362
         //var xcashPosition : CGFloat = 41
         
@@ -52,18 +52,18 @@ class CommonPaymentViewController: BaseXLFormViewController {
             
             if channel["channel_type"] as! Int == 1{
                 
-                let img = UIImageView(frame: CGRectMake(xchannelPosition, 309, 78, 52))
+                let img = UIImageView(frame: CGRectMake(xchannelPosition, 299, 138, 62))
                 img.image = UIImage(data: data!)
                 img.contentMode = .ScaleAspectFit
                 headerView.addSubview(img)
                 
-                xchannelPosition = xchannelPosition + 70
+                //xchannelPosition = xchannelPosition + 70
                 
                 cardType.append(channel)
                 
             }else if channel["channel_type"] as! Int == 2{
                 
-                let img = UIImageView(frame: CGRectMake(41, yonlinePosition, 78, 52))
+                let img = UIImageView(frame: CGRectMake(44, yonlinePosition, 78, 52))
                 img.contentMode = .ScaleAspectFit
                 img.image = UIImage(data: data!)
                 headerView.addSubview(img)

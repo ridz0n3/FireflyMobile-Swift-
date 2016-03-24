@@ -21,7 +21,7 @@ class FloateLabeledDatePickerCell: XLFormBaseCell {
     
     lazy var floatLabeledTextField: JVFloatLabeledTextField  = {
         let result  = JVFloatLabeledTextField(frame: CGRect.zero)
-        result.background = UIImage(named: "dot_date")
+        result.background = UIImage(named: "txtField")
         result.translatesAutoresizingMaskIntoConstraints = false
         result.font = UIFont.systemFontOfSize(kFontSize)
         result.floatingLabel.font = UIFont.boldSystemFontOfSize(kFontSize)
