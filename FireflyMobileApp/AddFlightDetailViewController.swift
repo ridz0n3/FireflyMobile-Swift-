@@ -118,8 +118,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                 fare_sell_key_1 = flightDetail[0]["flights"][selectedGoingFlight.integerValue][planGo]["fare_sell_key"].string!
                 
                 if try! LoginManager.sharedInstance.isLogin(){
-                    showLoading(self)
-                    //showHud("open")
+                    showLoading()
                     sentData()
                 }else{
                     
@@ -173,15 +172,13 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             
             let username: String = email.text!
             
-            showLoading(self) //
-            //showHud("open")
-            
+            showLoading()
             FireFlyProvider.request(.Login(username, encPassword), completion: { (result) -> () in
                 
                 switch result {
                 case .Success(let successResult):
                     do {
-                        //hideLoading(self)
+                        //hideLoading()
                         let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                         
                         if  json["status"].string == "success"{
@@ -194,8 +191,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                             
                            self.sentData()
                         }else{
-                            //showHud("close")
-                            hideLoading(self)
+                            
+                            hideLoading()
                             self.reloadAlertView(json["message"].string!)
                         }
                     }
@@ -204,8 +201,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    //showHud("close")
-                    hideLoading(self)
+                    
+                    hideLoading()
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 //var success = error == nil
@@ -226,8 +223,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         alert.addButton("Login", target: self, selector: "loginBtnPressed:")
         //alert.showCloseButton = false
         alert.addButton("Continue as guest") {
-            //showHud("open")
-            showLoading(self)
+            showLoading()
             self.sentData()
         }
         alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
@@ -240,7 +236,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             switch result {
             case .Success(let successResult):
                 do {
-                    //showHud("close")
+                    
                     
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
@@ -250,18 +246,18 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                         let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
                         self.navigationController!.pushViewController(personalDetailVC, animated: true)
                     }else if json["status"] == "error"{
-                        //showErrorMessage(json["message"].string!)
+                        
                         showErrorMessage(json["message"].string!)
                     }
-                    hideLoading(self)
+                    hideLoading()
                 }
                 catch {
                     
                 }
                 
             case .Failure(let failureResult):
-                //showHud("close")
-                hideLoading(self)
+                
+                hideLoading()
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             

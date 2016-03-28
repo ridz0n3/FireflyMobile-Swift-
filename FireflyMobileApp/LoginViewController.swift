@@ -93,11 +93,11 @@
                 
                 let username: String = (self.formValues()["Email"]! as! String).xmlSimpleEscapeString()
                 
-                showLoading(self) //showHud("open")
+                showLoading() 
                 
                 
                 FireFlyProvider.request(.Login(username, encPassword), completion: { (result) -> () in
-                    //showHud("close")
+                    
                     switch result {
                     case .Success(let successResult):
                         do {
@@ -114,7 +114,7 @@
                                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                                 self.navigationController!.pushViewController(homeVC, animated: true)
                             }else if json["status"].string == "change_password" {
-                                ////showErrorMessage(json["message"].string!)
+                                
                                 
                                 showInfo(json["message"].string!)
                                 let storyBoard = UIStoryboard(name: "Login", bundle: nil)
@@ -123,14 +123,14 @@
                             }else{
                                 showErrorMessage(json["message"].string!)
                             }
-                            hideLoading(self)
+                            hideLoading()
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        hideLoading(self)
+                        hideLoading()
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     })
@@ -180,10 +180,10 @@
         }
         
         override func validationSuccessful() {
-            showLoading(self) //showHud("open")
+            showLoading() 
             FireFlyProvider.request(.ForgotPassword(email.text!.xmlSimpleEscapeString(), "")) { (result) -> () in
                 
-                //showHud("close")
+                
                 switch result {
                 case .Success(let successResult):
                     do{
@@ -198,10 +198,10 @@
                     catch{
                         
                     }
-                    hideLoading(self)
+                    hideLoading()
                     
                 case .Failure(let failureResult):
-                    hideLoading(self)
+                    hideLoading()
                     showErrorMessage(failureResult.nsError.localizedDescription)
                     
                 }

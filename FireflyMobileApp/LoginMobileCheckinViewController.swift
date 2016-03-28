@@ -14,10 +14,10 @@ class LoginMobileCheckinViewController: CommonListViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let bookingList = listBooking[indexPath.row] as! NSDictionary
-        showLoading(self) //showHud("open")
+        showLoading() 
         
         FireFlyProvider.request(.CheckIn(signature, bookingList["pnr"] as! String, userId, bookingList["departure_station_code"] as! String, bookingList["arrival_station_code"] as! String)) { (result) -> () in
-            //showHud("close")
+            
             switch result {
             case .Success(let successResult):
                 do {
@@ -31,17 +31,17 @@ class LoginMobileCheckinViewController: CommonListViewController {
                         self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                         
                     }else{
-                        //showErrorMessage(json["message"].string!)
+                        
                                 showErrorMessage(json["message"].string!)
                     }
-                    hideLoading(self)
+                    hideLoading()
                 }
                 catch {
                     
                 }
                 
             case .Failure(let failureResult):
-                hideLoading(self)
+                hideLoading()
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             

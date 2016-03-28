@@ -137,14 +137,14 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                         }
                     }
                     
-                    showLoading(self) //showHud("open")
+                    showLoading() 
                     
                     FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
                             do {
-                                //showHud("close")
+                                
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "success"{
@@ -156,18 +156,18 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else if json["status"] == "error"{
-                                    //showErrorMessage(json["message"].string!)
+                                    
                                     showErrorMessage(json["message"].string!)
                                 }
-                                hideLoading(self)
+                                hideLoading()
                             }
                             catch {
                                 
                             }
                             
                         case .Failure(let failureResult):
-                            //showHud("close")
-                            hideLoading(self)
+                            
+                            hideLoading()
                             showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         
@@ -203,14 +203,14 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     returnSeatSelection.addObject(tempDict)
                     
-                    showLoading(self) //showHud("open")
+                    showLoading() 
                     
                     FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
                             do {
-                                //showHud("close")
+                                
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "success"{
@@ -221,18 +221,18 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else if json["status"] == "error"{
-                                    //showErrorMessage(json["message"].string!)
+                                    
                                     showErrorMessage(json["message"].string!)
                                 }
-                                hideLoading(self)
+                                hideLoading()
                             }
                             catch {
                                 
                             }
                             
                         case .Failure(let failureResult):
-                            //showHud("close")
-                            hideLoading(self)
+                            
+                            hideLoading()
                             showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         

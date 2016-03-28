@@ -26,6 +26,8 @@ class SideMenuTableViewController: BaseViewController {
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshSideMenu:", name: "reloadSideMenu", object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logoutSession:", name: "logout", object: nil)
+        
         if try! LoginManager.sharedInstance.isLogin(){
             hideRow = true
         }
@@ -42,6 +44,13 @@ class SideMenuTableViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func logoutSession(sender : NSNotificationCenter){
+        
+        self.hideRow = false
+        self.sideMenuTableView.reloadData()
+        self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
+        
+    }
     // MARK: - Table view data source
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -142,11 +151,7 @@ class SideMenuTableViewController: BaseViewController {
         }else if (indexPath.row == 4) {
             
             let storyboard = UIStoryboard(name: "About", bundle: nil)
-            //let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
             let aboutVC = storyboard.instantiateViewControllerWithIdentifier("AboutVC")
-            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC")
-            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("PasswordExpiredVC")
-            //let homeVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC")
             controllers.append(aboutVC)
             
         }else if (indexPath.row == 5) {
@@ -159,43 +164,7 @@ class SideMenuTableViewController: BaseViewController {
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC")
             controllers.append(homeVC)
-            
-            let signature = defaults.objectForKey("signatureLoad") as! String
-            showLoading(self) //showHud("open")
-            FireFlyProvider.request(.Logout(signature), completion: { (result) -> () in
-                //showHud("close")
-                switch result {
-                case .Success(let successResult):
-                    do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                        if  json["status"].string == "success"{
-                            //
-                            self.hideRow = false
-                            self.sideMenuTableView.reloadData()
-                            defaults.setObject("", forKey: "userInfo")
-                            defaults.synchronize()
-                            
-                            InitialLoadManager.sharedInstance.load()
-                            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
-                        }else if json["status"].string == "401"{
-                            showErrorMessage(json["message"].string!)
-                            InitialLoadManager.sharedInstance.load()
-                        }else{
-                            ////showErrorMessage(json["message"].string!)
-                                showErrorMessage(json["message"].string!)
-                        }
-                        hideLoading(self)
-                    }
-                    catch {
-                        
-                    }
-                    
-                case .Failure(let failureResult):
-                    hideLoading(self)
-                    showErrorMessage(failureResult.nsError.localizedDescription)
-                }
-
-            })
+            LogoutManager.sharedInstance.logout()
         }
         
         if (controllers.count != 0){

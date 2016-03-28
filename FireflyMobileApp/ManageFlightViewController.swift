@@ -72,9 +72,9 @@ class ManageFlightViewController: BaseXLFormViewController {
             
             let pnr = self.formValues()[Tags.ValidationConfirmationNumber] as! String
             let username = self.formValues()[Tags.ValidationEmail] as! String
-            showLoading(self) //showHud("open")
+            showLoading() 
             FireFlyProvider.request(.RetrieveBooking("", pnr, username, ""), completion: { (result) -> () in
-                //showHud("close")
+                
                 switch result {
                 case .Success(let successResult):
                     do {
@@ -90,17 +90,17 @@ class ManageFlightViewController: BaseXLFormViewController {
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else{
-                            //showErrorMessage(json["message"].string!)
+                            
                                 showErrorMessage(json["message"].string!)
                         }
-                        hideLoading(self)
+                        hideLoading()
                     }
                     catch {
                         
                     }
                     
                 case .Failure(let failureResult):
-                    hideLoading(self)
+                    hideLoading()
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 

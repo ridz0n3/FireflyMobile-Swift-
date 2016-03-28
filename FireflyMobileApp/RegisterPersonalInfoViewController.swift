@@ -52,7 +52,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Basic Information - Section
         section = XLFormSectionDescriptor()
-        section = XLFormSectionDescriptor.formSectionWithTitle("Basic Information")
+        section = XLFormSectionDescriptor.formSectionWithTitle("LabelBasic".localized)
         //section.hidden = "$\(Tags.Button1).value contains 'hide'"
         form.addFormSection(section)
         
@@ -93,7 +93,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor()
-        section.title = "Personal Information"
+        section.title = "LabelPersonal".localized
         //section.hidden = "$\(Tags.Button1).value contains 'hide'"
         form.addFormSection(section)
         
@@ -157,7 +157,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Basic Information - Section
         section = XLFormSectionDescriptor()
-        section.title = "Address Information"
+        section.title = "LabelAddress".localized
         //section.hidden = "$\(Tags.Button2).value contains 'hide'"
         form.addFormSection(section)
         
@@ -237,7 +237,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Contact Information - Section
         section = XLFormSectionDescriptor()
-        section.title = "Contact Information"
+        section.title = "LabelContact".localized
         //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
         
@@ -268,16 +268,15 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // BonusLink - Section
         section = XLFormSectionDescriptor()
-        section.title = "Loyalty Programme"
+        section.title = "LabelLoyalty".localized
         //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
         
         // BonusLink
         row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card No"
+        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card No : e.g. 6018XXXXXXXXXXXX"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
         section.addFormRow(row)
         
         self.form = form
@@ -457,15 +456,12 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                     newsletter = "Y"
                 }
                 
-                showLoading(self)
-                //showHud("open")
+                showLoading()
                 FireFlyProvider.request(.RegisterUser(username, password, title, firstName, lastName, dob, address1, address2, address3, country, city, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            //hideAlert(self)
-                            ////showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -475,7 +471,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                                 self.navigationController!.pushViewController(loginVC, animated: true)
                                 
                             }else if json["status"] == "error"{
-                                //showErrorMessage(json["message"].string!)
+                                
                                 showErrorMessage(json["message"].string!)
                             }else if json["status"].string == "401"{
                                 showErrorMessage(json["message"].string!)
@@ -491,15 +487,15 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                                 showErrorMessage(str)
                                 
                             }
-                            hideLoading(self)
+                            hideLoading()
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        //showHud("close")
-                        hideLoading(self)
+                        
+                        hideLoading()
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     

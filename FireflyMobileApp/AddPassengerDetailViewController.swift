@@ -119,7 +119,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Enrich Loyalty No
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No:")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No: e.g. 6018XXXXXXXXXXXX")
                 //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                 row.value = "\(userInfo["bonuslink"]!)"
                 section.addFormRow(row)
@@ -185,7 +185,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Enrich Loyalty No
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No:")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No: e.g. 6018XXXXXXXXXXXX")
                 //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                 section.addFormRow(row)
             }
@@ -289,14 +289,13 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 }else if !params.5 && params.1.count != 0{
                     showErrorMessage("You can only assign one infant to one guest.")
                 }else{
-                    showLoading(self) //showHud("open")
-                    
+                    showLoading() 
                     FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
                             do {
-                                //showHud("close")
+                                
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "success"{
@@ -313,18 +312,18 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                     let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
                                     self.navigationController!.pushViewController(contactDetailVC, animated: true)
                                 }else if json["status"] == "error"{
-                                    //showErrorMessage(json["message"].string!)
+                                    
                                     showErrorMessage(json["message"].string!)
                                 }
-                                hideLoading(self)
+                                hideLoading()
                             }
                             catch {
                                 
                             }
                             
                         case .Failure(let failureResult):
-                            //showHud("close")
-                            hideLoading(self)
+                            
+                            hideLoading()
                             
                             showErrorMessage(failureResult.nsError.localizedDescription)
                         }

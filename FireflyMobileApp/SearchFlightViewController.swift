@@ -254,15 +254,12 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                     
                 }
                 
-                showLoading(self)
-                //showHud("open")
+                showLoading()
                 FireFlyProvider.request(.SearchFlight(type, location[departureSelected]["location_code"]! as! String, travel[arrivalSelected]["travel_location_code"]! as! String, departureText, arrivalText, cell2.adultCount.text!, cell2.infantCount.text!, username, password), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            //hideAlert(self)
-                            ////showHud("close")
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -286,19 +283,19 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                                 }
                                 
                             }else if json["status"] == "error"{
-                                //showErrorMessage(json["message"].string!)
+                                
                                 showErrorMessage(json["message"].string!)
                             }
                             
-                            hideLoading(self)
+                            hideLoading()
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        //showHud("close")
-                        hideLoading(self)
+                        
+                        hideLoading()
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     

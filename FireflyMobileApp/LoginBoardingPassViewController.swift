@@ -75,7 +75,7 @@ class LoginBoardingPassViewController: CommonListViewController {
     
     func sentData(bookingList : NSDictionary){
         
-        showLoading(self) //showHud("open")
+        showLoading() 
         FireFlyProvider.request(.RetrieveBoardingPass(signature, bookingList["pnr"] as! String, bookingList["departure_station_code"] as! String, bookingList["arrival_station_code"] as! String, userId), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):
@@ -99,21 +99,21 @@ class LoginBoardingPassViewController: CommonListViewController {
                                 i++
                                 
                                 if i == j{
-                                    //showHud("close")
+                                    
                                     let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                                     let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
                                     boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayValue
                                     boardingPassDetailVC.imgDict = dict
                                     self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-                                    hideLoading(self)
+                                    hideLoading()
                                 }
                             })
                             j++
                         }
                     }else{
-                        //showHud("close")
-                        hideLoading(self)
-                        //showErrorMessage(json["message"].string!)
+                        
+                        hideLoading()
+                        
                         showErrorMessage(json["message"].string!)
                     }
                 }
@@ -122,8 +122,8 @@ class LoginBoardingPassViewController: CommonListViewController {
                 }
                 
             case .Failure(let failureResult):
-                //showHud("close")
-                hideLoading(self)
+                
+                hideLoading()
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             

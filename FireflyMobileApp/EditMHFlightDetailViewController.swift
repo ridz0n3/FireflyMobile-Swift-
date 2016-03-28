@@ -330,12 +330,12 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
     }
     
     func sentData(){
-        showLoading(self) //showHud("open")
+        showLoading() 
         FireFlyProvider.request(.SelectChangeFlight(pnr, bookId, signature, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, status_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, status_2, departure_station, arrival_station), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    //showHud("close")
+                    
                     
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
@@ -346,18 +346,18 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                         manageFlightVC.itineraryData = json.object as! NSDictionary
                         self.navigationController!.pushViewController(manageFlightVC, animated: true)
                     }else if json["status"] == "error"{
-                        //showErrorMessage(json["message"].string!)
+                        
                         showErrorMessage(json["message"].string!)
                     }
-                    hideLoading(self)
+                    hideLoading()
                 }
                 catch {
                     
                 }
                 
             case .Failure(let failureResult):
-                //showHud("close")
-                hideLoading(self)
+                
+                hideLoading()
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             

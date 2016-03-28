@@ -16,6 +16,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     @IBOutlet weak var chooseSeatBtn: UIButton!
     @IBOutlet weak var paymentBtn: UIButton!
     @IBOutlet weak var checkPassenger: M13Checkbox!
+    var isOnePassenger = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +32,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         }
         
         var isLogin = Bool()
-        var isOnePassenger = Bool()
+        
         if try! LoginManager.sharedInstance.isLogin(){
             
             if let passData = defaults.objectForKey("passengerData") as? NSDictionary{
@@ -83,31 +84,21 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "state" : "",
                 "title" : "\(tempData["title"]!)",
                 "travel_purpose" : "1"]
-            
+            checkPassenger.checkState = M13CheckboxState.Checked
         }
         
         if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
             
             views.hidden = true
             var newFrame = footerView.bounds
-            
-            if isOnePassenger{
-                newFrame.size.height = 98
-            }else{
-                newFrame.size.height = 136
-            }
+            newFrame.size.height = 136
             
             footerView.frame = newFrame
             
         }else{
             
             var newFrame = footerView.bounds
-            
-            if isOnePassenger{
-                newFrame.size.height = 710
-            }else{
-                newFrame.size.height = 738
-            }
+            newFrame.size.height = 748
             
             footerView.frame = newFrame
             
@@ -185,14 +176,13 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             if insuranceData == ""{
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
-                showLoading(self) //showHud("open")
-                
+                showLoading() 
                 FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "N"), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            //showHud("close")
+                            
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -205,15 +195,15 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                             }else if json["status"] == "error"{
                                 showErrorMessage(json["message"].string!)
                             }
-                            hideLoading(self)
+                            hideLoading()
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        //showHud("close")
-                        hideLoading(self)
+                        
+                        hideLoading()
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     
@@ -260,13 +250,13 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             if insuranceData == ""{
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
-                showLoading(self) //showHud("open")
+                showLoading() 
                 FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "Y" ), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            //showHud("close")
+                            
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
@@ -278,18 +268,18 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                                 let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC") as! AddSeatSelectionViewController
                                 self.navigationController!.pushViewController(chooseSeatVC, animated: true)
                             }else if json["status"] == "error"{
-                                //showErrorMessage(json["message"].string!)
+                                
                                 showErrorMessage(json["message"].string!)
                             }
-                            hideLoading(self)
+                            hideLoading()
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        //showHud("close")
-                        hideLoading(self)
+                        
+                        hideLoading()
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     
@@ -325,8 +315,73 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             checkPassenger.checkState = M13CheckboxState.Checked
             getPassengerData()
             
-            let picker = ActionSheetStringPicker(title: "", rows: passengerArray, initialSelection: passengerSelected, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: sender)
-            picker.showActionSheetPicker()
+            if isOnePassenger{
+                
+                let tempData = passengerData[0]
+                if let userInfo = defaults.objectForKey("userInfo") as? NSDictionary{
+                    
+                    if userInfo["first_name"] as! String == tempData["first_name"] as! String{
+                        contactData = ["address1" : "" ,
+                            "address2" : "",
+                            "address3" : "",
+                            "alternate_phone" : "\(userInfo["contact_alternate_phone"]!)",
+                            "city" : "",
+                            "company_name" : "",
+                            "country" : "\(userInfo["contact_country"]!)",
+                            "email" : "\(userInfo["contact_email"]!)",
+                            "first_name" : "\(userInfo["first_name"]!)",
+                            "last_name" : "\(userInfo["last_name"]!)",
+                            "mobile_phone" : "\(userInfo["contact_mobile_phone"]!)",
+                            "postcode" : "",
+                            "state" : "",
+                            "title" : "\(userInfo["title"]!)",
+                            "travel_purpose" : "1"]
+                    }else{
+                        
+                        contactData = ["address1" : "" ,
+                            "address2" : "",
+                            "address3" : "",
+                            "alternate_phone" : "",
+                            "city" : "",
+                            "company_name" : "",
+                            "country" : "\(tempData["issuing_country"]!)",
+                            "email" : "",
+                            "first_name" : "\(tempData["first_name"]!)",
+                            "last_name" : "\(tempData["last_name"]!)",
+                            "mobile_phone" : "",
+                            "postcode" : "",
+                            "state" : "",
+                            "title" : "\(tempData["title"]!)",
+                            "travel_purpose" : "1"]
+                        
+                    }
+                    
+                }else{
+                    
+                    contactData = ["address1" : "" ,
+                        "address2" : "",
+                        "address3" : "",
+                        "alternate_phone" : "",
+                        "city" : "",
+                        "company_name" : "",
+                        "country" : "\(tempData["issuing_country"]!)",
+                        "email" : "",
+                        "first_name" : "\(tempData["first_name"]!)",
+                        "last_name" : "\(tempData["last_name"]!)",
+                        "mobile_phone" : "",
+                        "postcode" : "",
+                        "state" : "",
+                        "title" : "\(tempData["title"]!)",
+                        "travel_purpose" : "1"]
+                    
+                }
+                initializeForm()
+                
+            }else{
+                let picker = ActionSheetStringPicker(title: "", rows: passengerArray, initialSelection: passengerSelected, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: sender)
+                picker.showActionSheetPicker()
+            }
+            
             
         }
         
@@ -337,7 +392,6 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     var passengerArray = [String]()
     
     func getPassengerData(){
-        
         if let passenger = defaults.objectForKey("passengerData") as? NSDictionary{
             passengerData = [NSDictionary]()
             passengerArray = [String]()
@@ -413,9 +467,6 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "travel_purpose" : "1"]
             
         }
-        
-        
-        
         initializeForm()
     }
     /*

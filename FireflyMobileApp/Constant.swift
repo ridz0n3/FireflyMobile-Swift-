@@ -315,17 +315,22 @@ func showInfo(message:String){
 
 var viewsController = UIViewController()
 
-func showLoading(vc : UIViewController){
-    viewsController = vc
+func showLoading(){
+    
+    let appDelegate = UIApplication.sharedApplication().keyWindow
+    let root = appDelegate?.rootViewController
+    viewsController = root!
+    
     let storyboard = UIStoryboard(name: "Loading", bundle: nil)
     let loadingVC = storyboard.instantiateViewControllerWithIdentifier("LoadingVC") as! LoadingViewController
     loadingVC.view.backgroundColor = UIColor.clearColor()
-    viewsController.navigationController!.presentViewController(loadingVC, animated: true, completion: nil)
+    
+    viewsController.presentViewController(loadingVC, animated: true, completion: nil)
     
 }
 
-func hideLoading(vc : UIViewController){
+func hideLoading(){
     
-    viewsController.navigationController?.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+    viewsController.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
     
 }

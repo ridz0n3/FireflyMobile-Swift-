@@ -74,14 +74,14 @@ class EditContactDetailViewController: CommonContactDetailViewController {
             if insuranceData == ""{
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
-                showLoading(self) //showHud("open")
+                showLoading() 
                 
                 FireFlyProvider.request(.ChangeContact(booking_id, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signature, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, pnr), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
                         do {
-                            //showHud("close")
+                            
                             
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
@@ -94,18 +94,18 @@ class EditContactDetailViewController: CommonContactDetailViewController {
                                 manageFlightVC.itineraryData = json.object as! NSDictionary
                                 self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             }else if json["status"] == "error"{
-                                //showErrorMessage(json["message"].string!)
+                                
                                 showErrorMessage(json["message"].string!)
                             }
-                            hideLoading(self)
+                            hideLoading()
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        //showHud("close")
-                        hideLoading(self)
+                        
+                        hideLoading()
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     

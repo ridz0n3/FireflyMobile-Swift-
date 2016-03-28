@@ -190,9 +190,9 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             let signature = termDetail["signature"] as! String
             let passengers = termDetail["passengers"]
             
-            showLoading(self) //showHud("open")
+            showLoading() 
             FireFlyProvider.request(.CheckInConfirmation(pnr, departure_station_code, arrival_station_code, signature, passengers!), completion: { (result) -> () in
-                //showHud("close")
+                
                 switch result {
                 case .Success(let successResult):
                     do {
@@ -212,17 +212,17 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                             self.navigationController!.pushViewController(successVC, animated: true)
                             
                         }else{
-                            //showErrorMessage(json["message"].string!)
+                            
                             showErrorMessage(json["message"].string!)
                         }
-                        hideLoading(self)
+                        hideLoading()
                     }
                     catch {
                         
                     }
                     
                 case .Failure(let failureResult):
-                    hideLoading(self)
+                    hideLoading()
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
             })

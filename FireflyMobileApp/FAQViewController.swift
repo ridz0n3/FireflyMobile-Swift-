@@ -28,14 +28,13 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         //webView.delegate = self
         webView.scrollView.delegate = self
         webView.scrollView.showsHorizontalScrollIndicator = false
-        showLoading(self) //
-        //showHud("open")
         
+        //showLoading()
         FireFlyProvider.request(.GetTerm) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    //showHud("close")
+                    //hideLoading()
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -48,16 +47,15 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                     }else if json["status"] == "error"{
                         showErrorMessage(json["message"].string!)
                     }
-                    hideLoading(self)
+                    
                 }
                 catch {
                     
                 }
             case .Failure(let failureResult):
-                //hideLoading(self)
-            
+                //hideLoading()
                 showErrorMessage(failureResult.nsError.localizedDescription)
-                showHud("close")
+                
             }
         }
         
@@ -69,20 +67,15 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         // Dispose of any resources that can be recreated.
     }
     
-    func webViewDidStartLoad(webView: UIWebView) {
-        //showLoading(self)
-    }
-    
     func webViewDidFinishLoad(webView: UIWebView) {
         webView.sizeToFit()
-        showHud("close")
-        //hideLoading(self)
+        
+        hideLoading()
     }
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        showHud("close")
-        //hideLoading(self)
+        
+        hideLoading()
     }
-    
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         if (scrollView.contentOffset.x > 0)

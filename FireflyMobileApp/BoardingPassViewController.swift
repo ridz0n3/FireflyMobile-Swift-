@@ -27,7 +27,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
             let departure_station_code = getStationCode(deptArr[0], locArr: location, direction : "Departing")
             //self.formValues()[Tags.ValidationDeparting] as! String
             let arrival_station_code = getStationCode(arrivalArr[0], locArr: travel, direction : "Arriving")
-            showLoading(self) //showHud("open")
+            showLoading() 
             FireFlyProvider.request(.RetrieveBoardingPass(signature, pnr, departure_station_code, arrival_station_code, ""), completion: { (result) -> () in
                 
                 switch result {
@@ -48,21 +48,21 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                                     i++
                                     
                                     if i == j{
-                                        //showHud("close")
+                                        
                                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                                         let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
                                         boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayValue
                                         boardingPassDetailVC.imgDict = dict
                                         self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-                                        hideLoading(self)
+                                        hideLoading()
                                     }
                                 })
                                 j++
                             }
                         }else{
-                            //showHud("close")
-                            hideLoading(self)
-                            //showErrorMessage(json["message"].string!)
+                            
+                            hideLoading()
+                            
                             showErrorMessage(json["message"].string!)
                         }
                     }
@@ -71,8 +71,8 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                     }
                     
                 case .Failure(let failureResult):
-                    //showHud("close")
-                    hideLoading(self)
+                    
+                    hideLoading()
                     showErrorMessage(failureResult.nsError.localizedDescription)
                 }
                 

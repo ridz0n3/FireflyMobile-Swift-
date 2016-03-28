@@ -266,9 +266,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 let departure_station_code = checkInDetail["departure_station_code"] as! String
                 let arrival_station_code = checkInDetail["arrival_station_code"] as! String
 
-                showLoading(self) //showHud("open")
+                showLoading() 
                 FireFlyProvider.request(.CheckInPassengerList(pnr, departure_station_code, arrival_station_code, signature, passenger), completion: { (result) -> () in
-                    //showHud("close")
+                    
                     switch result {
                     case .Success(let successResult):
                         do {
@@ -283,17 +283,17 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                                 self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                                 
                             }else{
-                                //showErrorMessage(json["message"].string!)
+                                
                                 showErrorMessage(json["message"].string!)
                             }
-                            hideLoading(self)
+                            hideLoading()
                         }
                         catch {
                             
                         }
                         
                     case .Failure(let failureResult):
-                        hideLoading(self)
+                        hideLoading()
                         showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                 })

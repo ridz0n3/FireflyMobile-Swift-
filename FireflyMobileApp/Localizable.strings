@@ -29,3 +29,12 @@ LabelHomeBoardingPass = "BOARDING PASS";
 LabelErrorSelectSeat = "Please select Seat First";
 LabelErrorGoingFlight = "Please select a fare for your going flight.";
 LabelErrorReturnFlight = "Please select a fare for your return flight.";
+
+//Update Information & Registration
+
+LabelLogin = "LOGIN INFORMATION";
+LabelBasic = "BASIC INFORMATION";
+LabelPersonal = "PERSONAL INFORMATION";
+LabelAddress = "ADDRESS INFORMATION";
+LabelContact = "CONTACT INFORMATION";
+LabelLoyalty = "LOYALTY PROGRAMME";

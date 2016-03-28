@@ -18,14 +18,12 @@ class AboutViewController: BaseViewController {
         setupMenuButton()
         lineView.layer.borderWidth = 1
         
-        showLoading(self)
-        //showHud("open")
-        
+        showLoading()
         FireFlyProvider.request(.GetAbout) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    //showHud("close")
+                    
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -33,19 +31,19 @@ class AboutViewController: BaseViewController {
                         self.aboutLbl.attributedText = json["data"].string?.html2String
                         
                     }else if json["status"] == "error"{
-                        //showErrorMessage(json["message"].string!)
+                        
                         showErrorMessage(json["message"].string!)
                         
                     }
-                    hideLoading(self)
+                    hideLoading()
                 }
                 catch {
                     
                 }
             case .Failure(let failureResult):
-                hideLoading(self)
+                hideLoading()
                 showErrorMessage(failureResult.nsError.localizedDescription)
-                //showHud("close")
+                
             }
         }
         // Do any additional setup after loading the view.

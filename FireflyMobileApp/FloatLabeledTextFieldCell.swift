@@ -80,24 +80,32 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
     
     override func update() {
         super.update()
-        if self.rowDescriptor?.tag == "Password" || self.rowDescriptor?.tag == "New Password" || self.rowDescriptor?.tag == "Confirm Password"{
+        
+        let tag = self.rowDescriptor?.tag?.componentsSeparatedByString("(")
+        
+        
+        if tag![0] == "Password" || tag![0] == "New Password" || tag![0] == "Confirm Password"{
             self.floatLabeledTextField.keyboardType = .ASCIICapable
             self.floatLabeledTextField.secureTextEntry = true
-        }else if self.rowDescriptor?.tag == "Mobile/Home" || self.rowDescriptor?.tag == "Alternate" || self.rowDescriptor?.tag == "Postcode" || self.rowDescriptor?.tag == "CCV/CVC Number" || self.rowDescriptor?.tag == "Card Number" || self.rowDescriptor?.tag == "Bonuslink"{
+        }else if tag![0] == "Mobile/Home" || tag![0] == "Alternate" || tag![0] == "Postcode" || tag![0] == "CCV/CVC Number" || tag![0] == "Card Number" || tag![0] == "Bonuslink"{
             self.floatLabeledTextField.keyboardType = .PhonePad
         }
         
-        let title = self.rowDescriptor!.title?.componentsSeparatedByString(":")
-        
-        let star = [NSForegroundColorAttributeName : UIColor.redColor()]
-        var attrString = NSMutableAttributedString()
-        attrString = NSMutableAttributedString(attributedString: NSAttributedString(string: "\(title![0]):"))
-        if title?.count >= 2{
-            let attrStar = NSMutableAttributedString(string: title![1], attributes: star)
-            attrString.appendAttributedString(attrStar)
+        if tag![0] != Tags.ValidationEnrichLoyaltyNo{
+            let title = self.rowDescriptor!.title?.componentsSeparatedByString(":")
+            
+            let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+            var attrString = NSMutableAttributedString()
+            attrString = NSMutableAttributedString(attributedString: NSAttributedString(string: "\(title![0]):"))
+            if title?.count >= 2{
+                let attrStar = NSMutableAttributedString(string: title![1], attributes: star)
+                attrString.appendAttributedString(attrStar)
+            }
+            
+            self.floatLabeledTextField.attributedPlaceholder = attrString
+        }else{
+            self.floatLabeledTextField.placeholder = self.rowDescriptor!.title
         }
-        
-        self.floatLabeledTextField.attributedPlaceholder = attrString
         
         if let value: AnyObject = self.rowDescriptor!.value {
             self.floatLabeledTextField.text = value.displayText()
@@ -188,7 +196,7 @@ class FloatLabeledTextFieldCell : XLFormBaseCell {
             currentString.stringByReplacingCharactersInRange(range, withString: string)
             return newString.length <= maxLength
         }else{
-        return self.formViewController().textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
+            return self.formViewController().textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
         }
     }
     

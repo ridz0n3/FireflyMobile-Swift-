@@ -75,7 +75,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                 let newPasswordEnc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationNewPassword]! as! String, key: key, iv: iv)
                 let userId = formValues()[Tags.ValidationEmail] as! String
                 
-                showLoading(self) //showHud("open")
+                showLoading() 
                 FireFlyProvider.request(.ChangePassword(userId, currentPasswordEnc, newPasswordEnc), completion: { (result) -> () in
                     
                     switch result {
@@ -87,7 +87,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                 
                                 let info = json["user_info"].dictionaryObject
                                 FireFlyProvider.request(.Login(info!["username"] as! String, info!["password"] as! String), completion: { (result) -> () in
-                                    //showHud("close")
+                                    
                                     switch result {
                                     case .Success(let successResult):
                                         do {
@@ -104,23 +104,23 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                                                 self.navigationController!.pushViewController(homeVC, animated: true)
                                             }else if json["status"] == "change_password" {
-                                                //showErrorMessage(json["message"].string!)
+                                                
                                 showErrorMessage(json["message"].string!)
                                                 let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                                                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
                                                 self.navigationController!.pushViewController(homeVC, animated: true)
                                             }else if json["status"] == "error"{
-                                                //showErrorMessage(json["message"].string!)
+                                                
                                 showErrorMessage(json["message"].string!)
                                             }
-                                            hideLoading(self)
+                                            hideLoading()
                                         }
                                         catch {
                                             
                                         }
                                         
                                     case .Failure(let failureResult):
-                                        hideLoading(self)
+                                        hideLoading()
                                         showErrorMessage(failureResult.nsError.localizedDescription)
                                     }
                                     //var success = error == nil
@@ -129,9 +129,9 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                 
                                 
                             }else if json["status"] == "error"{
-                                //showHud("close")
-                                hideLoading(self)
-                                //showErrorMessage(json["message"].string!)
+                                
+                                hideLoading()
+                                
                                 showErrorMessage(json["message"].string!)
                             }
                         }
@@ -140,8 +140,8 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                         }
                         
                     case .Failure(let failureResult):
-                        //showHud("close")
-                        hideLoading(self)
+                        
+                        hideLoading()
                         showErrorMessage(failureResult.nsError.localizedDescription)
                         
                     }

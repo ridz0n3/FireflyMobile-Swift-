@@ -44,7 +44,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // Basic Information - Section
         section = XLFormSectionDescriptor()
-        section = XLFormSectionDescriptor.formSectionWithTitle("Login Information")
+        section = XLFormSectionDescriptor.formSectionWithTitle("LabelLogin".localized)
         //section.hidden = "$\(Tags.Button1).value contains 'hide'"
         form.addFormSection(section)
         
@@ -89,7 +89,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor()
-        section.title = "Personal Information"
+        section.title = "LabelPersonal".localized
         form.addFormSection(section)
         
         // Title
@@ -178,7 +178,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // Basic Information - Section
         section = XLFormSectionDescriptor()
-        section.title = "Address Information"
+        section.title = "LabelAddress".localized
         //section.hidden = "$\(Tags.Button2).value contains 'hide'"
         form.addFormSection(section)
         
@@ -309,13 +309,13 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // BonusLink - Section
         section = XLFormSectionDescriptor()
-        section.title = "Loyalty Programme"
+        section.title = "LabelLoyalty".localized
         //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
         
         // Mobile Number
         row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card No"
+        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card No: e.g. 6018XXXXXXXXXXXX"
         row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
         //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
@@ -629,19 +629,16 @@ class UpdateInformationViewController: BaseXLFormViewController {
         let newsletter = userInfo["newsletter"] as! String
         
         
-        showLoading(self)
-        //showHud("open")
+        showLoading()
         FireFlyProvider.request(.UpdateUserProfile(username, password, newPassword, title, firstName, lastName, dob, address1, address2, address3, country, city, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
             
             switch result {
             case .Success(let successResult):
                 do {
-                    //hideAlert(self)
-                    ////showHud("close")
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
-                        showToastMessage("Successfully change information")
+                        showToastMessage("Information successfully updated")
                         defaults.setObject(json["user_info"].dictionaryObject, forKey: "userInfo")
                         defaults.synchronize()
                         
@@ -651,7 +648,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
                         let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                         self.navigationController!.pushViewController(homeVC, animated: true)
                     }else if json["status"] == "error"{
-                        //showErrorMessage(json["message"].string!)
+                        
                         showErrorMessage(json["message"].string!)
                     }else if json["status"].string == "401"{
                         showErrorMessage(json["message"].string!)
@@ -667,15 +664,15 @@ class UpdateInformationViewController: BaseXLFormViewController {
                         showErrorMessage(str)
                         
                     }
-                    hideLoading(self)
+                    hideLoading()
                 }
                 catch {
                     
                 }
                 
             case .Failure(let failureResult):
-                //showHud("close")
-                hideLoading(self)
+                
+                hideLoading()
                 showErrorMessage(failureResult.nsError.localizedDescription)
             }
             

@@ -93,7 +93,7 @@ class InitialLoadManager {
                             self.checkForAppUpdate()
                             NSNotificationCenter.defaultCenter().postNotificationName("reloadHome", object: nil)
                         }
-                        else{
+                        else if json["status"].string == "force_logout"{
                             defaults.setObject("", forKey: "userInfo")
                             defaults.synchronize()
                             self.load()
