@@ -289,6 +289,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                                 //showErrorMessage(json["message"].string!)
                                 showErrorMessage(json["message"].string!)
                             }
+                            
                             hideLoading(self)
                         }
                         catch {
@@ -304,50 +305,45 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                     
                 })
             }
-        }else{
-            showErrorMessage("Please Select All Field")
         }
         
     }
     
     func searchFlightValidation(){
         let indexCell = NSIndexPath.init(forItem: 5, inSection: 0)
-        let cell2 = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
         
         var count = Int()
-        if arrival == "ARRIVAL AIRPORT"{
-            let indexCell = NSIndexPath.init(forItem: 2, inSection: 0)
-            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
-            animateCell(cell)
-            count++
-        }
         
         if departure == "DEPARTURE AIRPORT"{
             let indexCell = NSIndexPath.init(forItem: 1, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
             count++
-        }
-        
-        if departureDateLbl == "DEPARTURE DATE"{
+            
+            showErrorMessage("Please choose your departure airport.")
+        }else if arrival == "ARRIVAL AIRPORT"{
+            let indexCell = NSIndexPath.init(forItem: 2, inSection: 0)
+            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+            animateCell(cell)
+            count++
+            
+            showErrorMessage("Please choose your arrival airport.")
+        }else if departureDateLbl == "DEPARTURE DATE"{
             let indexCell = NSIndexPath.init(forItem: 3, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
             count++
-        }
-        
-        if arrivalDateLbl == "RETURN DATE" && type == 1{
+            
+            showErrorMessage("Please choose your departure date.")
+        }else if arrivalDateLbl == "RETURN DATE" && type == 1{
             let indexCell = NSIndexPath.init(forItem: 4, inSection: 0)
             let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
             count++
+            
+            showErrorMessage("Please choose your return date.")
         }else if arrivalDateLbl == "RETURN DATE" && type == 0{
             arrivalDateLbl = ""
-        }
-        
-        if cell2.adultCount.text == "0"{
-            animateCell(cell2)
-            count++
         }
         
         if count == 0{

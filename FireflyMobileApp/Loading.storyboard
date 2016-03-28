@@ -8,7 +8,7 @@
         <!--Loading View Controller-->
         <scene sceneID="gtg-1X-FnA">
             <objects>
-                <viewController storyboardIdentifier="LoadingVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="pWO-48-r7R" customClass="LoadingViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoadingVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="pWO-48-r7R" customClass="LoadingViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tbg-on-nv7"/>
                         <viewControllerLayoutGuide type="bottom" id="KOW-EF-UB2"/>

@@ -313,17 +313,19 @@ func showInfo(message:String){
     
 }
 
+var viewsController = UIViewController()
+
 func showLoading(vc : UIViewController){
-    
+    viewsController = vc
     let storyboard = UIStoryboard(name: "Loading", bundle: nil)
-    let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("LoadingVC") as! LoadingViewController
-    flightDetailVC.view.backgroundColor = UIColor.clearColor()
-    vc.presentViewController(flightDetailVC, animated: true, completion: nil)
+    let loadingVC = storyboard.instantiateViewControllerWithIdentifier("LoadingVC") as! LoadingViewController
+    loadingVC.view.backgroundColor = UIColor.clearColor()
+    viewsController.navigationController!.presentViewController(loadingVC, animated: true, completion: nil)
     
 }
 
 func hideLoading(vc : UIViewController){
     
-    vc.dismissViewControllerAnimated(true, completion: nil)
+    viewsController.navigationController?.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
     
 }

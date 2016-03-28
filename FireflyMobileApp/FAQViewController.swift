@@ -28,15 +28,14 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         //webView.delegate = self
         webView.scrollView.delegate = self
         webView.scrollView.showsHorizontalScrollIndicator = false
-        //showLoading(self) //
-        showHud("open")
+        showLoading(self) //
+        //showHud("open")
         
         FireFlyProvider.request(.GetTerm) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    showHud("close")
-                    //
+                    //showHud("close")
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -47,19 +46,16 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                             self.webView.loadRequest(request)
                         }
                     }else if json["status"] == "error"{
-                        //hideLoading(self)
-                        showHud("close")
-                        //showErrorMessage(json["message"].string!)
                         showErrorMessage(json["message"].string!)
-                        
                     }
-                    
+                    hideLoading(self)
                 }
                 catch {
                     
                 }
             case .Failure(let failureResult):
                 //hideLoading(self)
+            
                 showErrorMessage(failureResult.nsError.localizedDescription)
                 showHud("close")
             }

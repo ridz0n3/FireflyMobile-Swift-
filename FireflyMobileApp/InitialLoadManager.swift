@@ -88,11 +88,15 @@ class InitialLoadManager {
                             defaults.setObject(json["banner_module"].string, forKey: "module")
                             defaults.setObject(signature, forKey: "signatureLoad")
                             defaults.setObject(banner, forKey: "banner")
+                            defaults.setObject(json["data_version_mobile"].dictionaryObject, forKey: "mobileVersion")
                             defaults.synchronize()
                             self.checkForAppUpdate()
                             NSNotificationCenter.defaultCenter().postNotificationName("reloadHome", object: nil)
                         }
                         else{
+                            defaults.setObject("", forKey: "userInfo")
+                            defaults.synchronize()
+                            self.load()
                             print(String(format: "%@ \n%@", json["status"].string!, json["message"].string!))
                         }
                     }
@@ -133,7 +137,9 @@ class InitialLoadManager {
         let appVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
         let buildVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
         
-        if appVersion != "1.0"{
+        let version = defaults.objectForKey("mobileVersion") as! Dictionary<String,AnyObject>
+        
+        if appVersion != version["version"] as! String && version["force_update"] as! String == "Y"{
             
             UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
             UINavigationBar.appearance().translucent = false

@@ -14,24 +14,24 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vZU-G4-ftK">
                     <rect key="frame" x="16" y="0.0" width="568" height="88"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUBANG - PENANG" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4G-aN-rFV">
-                            <rect key="frame" x="0.0" y="8" width="568" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUBANG - PENANG" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w4G-aN-rFV">
+                            <rect key="frame" x="4" y="8" width="560" height="21"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Going Flight)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uZL-fB-RSL">
-                            <rect key="frame" x="228" y="29" width="112" height="21"/>
+                            <rect key="frame" x="228" y="32" width="112" height="16"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="112" id="7kL-w5-2G4"/>
-                                <constraint firstAttribute="height" constant="21" id="woO-BJ-cYg"/>
+                                <constraint firstAttribute="height" constant="16" id="woO-BJ-cYg"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22 JAN 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4io-nD-Br6">
-                            <rect key="frame" x="186" y="58" width="197" height="21"/>
+                            <rect key="frame" x="186" y="48" width="197" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="197" id="9nx-A2-BsB"/>
                                 <constraint firstAttribute="height" constant="21" id="jZn-WZ-dDO"/>
@@ -45,12 +45,18 @@
                     <constraints>
                         <constraint firstItem="4io-nD-Br6" firstAttribute="centerX" secondItem="vZU-G4-ftK" secondAttribute="centerX" id="5P1-Nz-tmG"/>
                         <constraint firstItem="uZL-fB-RSL" firstAttribute="centerX" secondItem="vZU-G4-ftK" secondAttribute="centerX" id="AZ5-nv-rhp"/>
-                        <constraint firstItem="uZL-fB-RSL" firstAttribute="top" secondItem="w4G-aN-rFV" secondAttribute="bottom" id="MWk-XG-8sf"/>
-                        <constraint firstItem="w4G-aN-rFV" firstAttribute="leading" secondItem="vZU-G4-ftK" secondAttribute="leading" id="QBA-9a-mXS"/>
-                        <constraint firstItem="4io-nD-Br6" firstAttribute="top" secondItem="uZL-fB-RSL" secondAttribute="bottom" constant="8" id="U5a-zF-60P"/>
+                        <constraint firstItem="uZL-fB-RSL" firstAttribute="top" secondItem="w4G-aN-rFV" secondAttribute="bottom" constant="3" id="Jmp-fQ-sSS"/>
+                        <constraint firstItem="w4G-aN-rFV" firstAttribute="leading" secondItem="vZU-G4-ftK" secondAttribute="leading" constant="4" id="QBA-9a-mXS"/>
+                        <constraint firstItem="4io-nD-Br6" firstAttribute="top" secondItem="uZL-fB-RSL" secondAttribute="bottom" id="U5a-zF-60P"/>
                         <constraint firstItem="w4G-aN-rFV" firstAttribute="top" secondItem="vZU-G4-ftK" secondAttribute="top" constant="8" id="YcF-dt-GXH"/>
-                        <constraint firstAttribute="trailing" secondItem="w4G-aN-rFV" secondAttribute="trailing" id="zQN-Bk-73e"/>
+                        <constraint firstAttribute="bottom" secondItem="4io-nD-Br6" secondAttribute="bottom" constant="6" id="thJ-fY-wcz"/>
+                        <constraint firstAttribute="trailing" secondItem="w4G-aN-rFV" secondAttribute="trailing" constant="4" id="zQN-Bk-73e"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="thJ-fY-wcz"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

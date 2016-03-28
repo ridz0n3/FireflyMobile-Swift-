@@ -88,7 +88,17 @@ class CommonFlightDetailViewController: BaseViewController {
             if flightDict!["flights"]?.count == 0{
                 return 105
             }else{
-                return 130
+                
+                let flights = flightDict!["flights"]?.array
+                let flightData = flights![indexPath.row].dictionary
+                let flightBasic = flightData!["basic_class"]!.dictionary
+                
+                if flightBasic!["discount"]?.floatValue == 0{
+                    return 105
+                }else{
+                    return 130
+                }
+                
             }
         }else{
             return 105
@@ -135,7 +145,8 @@ class CommonFlightDetailViewController: BaseViewController {
                     }else{
                         if flightBasic!["discount"]?.floatValue == 0{
                             cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
-                            cell.checkFlight.hidden = true
+                            cell.promoPriceLbl.hidden = true
+                            cell.checkFlight.hidden = false
                             cell.strikeDegree.hidden = true
                             flightAvailable = true
                         }else{
