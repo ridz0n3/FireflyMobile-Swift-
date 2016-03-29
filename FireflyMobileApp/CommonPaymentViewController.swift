@@ -219,67 +219,6 @@ class CommonPaymentViewController: BaseXLFormViewController {
         return sum % 10 == 0
     }
     
-    override func validateForm() {
-        let array = formValidationErrors()
-        
-        if array.count != 0{
-            isValidate = false
-            var i = 0
-            var message = String()
-
-            for errorItem in array {
-                
-                let error = errorItem as! NSError
-                let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
-                
-                let errorTag = validationStatus.rowDescriptor!.tag!
-                
-                let empty = validationStatus.msg.componentsSeparatedByString("*")
-                
-                if empty.count == 1{
-                    
-                    message += "\(validationStatus.msg),\n"
-                    i++
-                    
-                }else{
-                    if errorTag == Tags.ValidationCardType ||
-                        errorTag == Tags.ValidationCardExpiredDate {
-                            let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                            
-                            if self.tableView.cellForRowAtIndexPath(index) != nil{
-                                let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
-                                
-                                let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                                cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                                
-                                animateCell(cell)
-                            }
-                            
-                            
-                    }else {
-                        let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                        
-                        if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
-                            
-                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                            cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                            
-                            animateCell(cell)
-                        }
-                    }
-                    //showErrorMessage("Please fill all fields")
-                }
-            }
-            if i != 0{
-                showErrorMessage(message)
-            }
-        }else{
-            isValidate = true
-        }
-    }
-    
-    
     /*
     // MARK: - Navigation
     

@@ -110,33 +110,6 @@ class ManageFlightViewController: BaseXLFormViewController {
         
     }
     
-    override func validateForm() {
-        let array = formValidationErrors()
-        
-        if array.count != 0{
-            isValidate = false
-            
-            for errorItem in array {
-                
-                let error = errorItem as! NSError
-                let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
-                
-                
-                let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                
-                if self.tableView.cellForRowAtIndexPath(index) != nil{
-                    let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
-                    
-                    let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                    cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                    
-                    animateCell(cell)
-                }
-            }
-        }else{
-            isValidate = true
-        }
-    }
     /*
     // MARK: - Navigation
     

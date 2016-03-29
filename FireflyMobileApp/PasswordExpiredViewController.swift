@@ -94,7 +94,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                             
                                             if  json["status"] == "success"{
-                                                showToastMessage("Successfully change password")
+                                                showToastMessage("Password successfully change")
                                                 defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                                                 defaults.setObject(json["user_info"].object , forKey: "userInfo")
                                                 defaults.synchronize()
@@ -153,53 +153,6 @@ class PasswordExpiredViewController: BaseXLFormViewController {
             
         }
         
-    }
-    
-    override func validateForm() {
-        let array = formValidationErrors()
-        
-        if array.count != 0{
-            isValidate = false
-            var i = 0
-            var j = 0
-            var message = String()
-            
-            for errorItem in array {
-                
-                let error = errorItem as! NSError
-                let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
-                
-                let empty = validationStatus.msg.componentsSeparatedByString("*")
-                if empty.count == 1{
-                    
-                    message += "\(validationStatus.msg),\n"
-                    i++
-                    
-                }else{
-                    let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                    
-                    if self.tableView.cellForRowAtIndexPath(index) != nil{
-                        let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
-                        
-                        let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                        cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                        
-                        animateCell(cell)
-                    }
-                    
-                    j++
-                }
-                
-            }
-            
-            if i != 0{
-                showErrorMessage(message)
-            }else if j != 0{
-                showErrorMessage("Please fill all fields")
-            }
-        }else{
-            isValidate = true
-        }
     }
     
     /*

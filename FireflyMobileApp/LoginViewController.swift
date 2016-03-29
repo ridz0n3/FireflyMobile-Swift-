@@ -22,7 +22,7 @@
         override func viewDidLoad() {
             super.viewDidLoad()
             setupMenuButton()
-            
+            initializeForm()
             // Do any additional setup after loading the view.
         }
         
@@ -31,24 +31,11 @@
             // Dispose of any resources that can be recreated.
         }
         
-        override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-            super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-            initializeForm()
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-            initializeForm()
-        }
-        
         func initializeForm() {
             
             let form : XLFormDescriptor
             var section : XLFormSectionDescriptor
             var row : XLFormRowDescriptor
-            
-            let star = [NSForegroundColorAttributeName : UIColor.redColor()]
-            var attrString = NSMutableAttributedString()
             
             form = XLFormDescriptor(title: "")
             
@@ -56,22 +43,12 @@
             form.addFormSection(section)
             
             // username
-            row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeText, title:"")
-            attrString = NSMutableAttributedString(string: "*", attributes: star)
-            attrString.appendAttributedString(NSAttributedString(string: "USER ID (Email)"))
-            row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-            row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-            row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+            row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"User ID (Email):*")
             row.required = true
             section.addFormRow(row)
             
             // Password
-            row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
-            attrString = NSMutableAttributedString(string: "*", attributes: star)
-            attrString.appendAttributedString(NSAttributedString(string: "Password"))
-            row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-            row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-            row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+            row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Password:*")
             row.required = true
             section.addFormRow(row)
             

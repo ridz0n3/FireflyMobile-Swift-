@@ -17,14 +17,13 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9w0-qH-uXH">
                             <rect key="frame" x="0.0" y="0.0" width="568" height="35"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="9w0-qH-uXH" secondAttribute="trailing" id="FUk-JJ-mph"/>
-                        <constraint firstItem="9w0-qH-uXH" firstAttribute="centerX" secondItem="uHF-ck-KH0" secondAttribute="centerX" id="MDi-Gg-thF"/>
                         <constraint firstItem="9w0-qH-uXH" firstAttribute="top" secondItem="uHF-ck-KH0" secondAttribute="top" id="OQK-lV-u5d"/>
                         <constraint firstAttribute="bottom" secondItem="9w0-qH-uXH" secondAttribute="bottom" id="f14-Cf-jAf"/>
                         <constraint firstItem="9w0-qH-uXH" firstAttribute="leading" secondItem="uHF-ck-KH0" secondAttribute="leading" id="v1u-wI-2jc"/>
@@ -35,7 +34,6 @@
             <constraints>
                 <constraint firstItem="uHF-ck-KH0" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="413-9T-Ui1"/>
                 <constraint firstAttribute="bottom" secondItem="uHF-ck-KH0" secondAttribute="bottom" id="Nsh-Qh-anJ"/>
-                <constraint firstItem="uHF-ck-KH0" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="dda-kT-xxy"/>
                 <constraint firstAttribute="trailing" secondItem="uHF-ck-KH0" secondAttribute="trailing" constant="16" id="w0O-1b-Ngh"/>
                 <constraint firstItem="uHF-ck-KH0" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ym7-uT-b3w"/>
             </constraints>

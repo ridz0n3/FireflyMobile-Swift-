@@ -88,53 +88,6 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         
     }
 
-    override func validateForm() {
-        let array = formValidationErrors()
-        
-        if array.count != 0{
-            isValidate = false
-            
-            for errorItem in array {
-                
-                let error = errorItem as! NSError
-                let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
-                
-                let errorTag = validationStatus.rowDescriptor!.tag!
-                
-                if errorTag == Tags.ValidationArriving ||
-                    errorTag == Tags.ValidationDeparting {
-                        let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                        
-                        if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
-                            
-                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                            cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                            
-                            animateCell(cell)
-                        }
-                        
-                        
-                }else {
-                    let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
-                    
-                    if self.tableView.cellForRowAtIndexPath(index) != nil{
-                        let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
-                        
-                        let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                        cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
-                        
-                        animateCell(cell)
-                    }
-                }
-                //showErrorMessage("Please fill all fields")
-                
-            }
-        }else{
-            isValidate = true
-        }
-    }
-
     /*
     // MARK: - Navigation
 

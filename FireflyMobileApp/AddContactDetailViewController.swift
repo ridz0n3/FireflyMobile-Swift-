@@ -10,6 +10,7 @@ import UIKit
 import M13Checkbox
 import SwiftyJSON
 import ActionSheetPicker_3_0
+import SCLAlertView
 
 class AddContactDetailViewController: CommonContactDetailViewController {
     
@@ -97,8 +98,10 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
         }else{
             
+            let tap = UITapGestureRecognizer(target: self, action: "textTapped:")
+            paragraph2.addGestureRecognizer(tap)
             var newFrame = footerView.bounds
-            newFrame.size.height = 748
+            newFrame.size.height = 765
             
             footerView.frame = newFrame
             
@@ -120,13 +123,19 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     str += "\(separate[1])"
                     
                     paragraph1.attributedText = str.html2String
-                    paragraph1.font = UIFont(name: "System Semibold", size: 14)
+                    //paragraph1.font = UIFont(name: "System Semibold", size: 14)
                 }else if index == 2{
-                    paragraph2.attributedText = (text as! String).html2String
-                    paragraph2.font = UIFont(name: "System Semibold", size: 14)
+                    
+                    let myString = NSMutableAttributedString(attributedString:(text as! String).html2String)
+                    let myRange = NSRange(location: 340, length: 8) // range of "Swift"
+                    let myCustomAttribute = [ "MyCustomAttributeName": "some value"]
+                    myString.addAttributes(myCustomAttribute, range: myRange)
+                    
+                    paragraph2.attributedText = myString
+                    //paragraph2.font = UIFont(name: "System Semibold", size: 14)
                 }else{
                     paragraph3.attributedText = (text as! String).html2String
-                    paragraph3.font = UIFont(name: "System Semibold", size: 14)
+                    //paragraph3.font = UIFont(name: "System Semibold", size: 14)
                 }
                 
                 index++
@@ -139,6 +148,57 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         
         initializeForm()
     }
+    
+    func textTapped(recognizer : UITapGestureRecognizer){
+        
+        let textView = recognizer.view as! UITextView
+    // Location of the tap in text-container coordinates
+    
+        let layoutManager = textView.layoutManager
+        var location = recognizer.locationInView(textView)
+        location.x = location.x - textView.textContainerInset.left
+        location.y = location.y - textView.textContainerInset.top
+        
+        print(NSStringFromCGPoint(location))
+        
+    // Find the character that's been tapped on
+    
+        var characterIndex = Int()
+        characterIndex = layoutManager.characterIndexForPoint(location, inTextContainer: textView.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        
+        if characterIndex < textView.textStorage.length{
+            // print the character at the index
+            let myRange = NSRange(location: characterIndex, length: 1)
+            let substring = (textView.attributedText.string as NSString).substringWithRange(myRange)
+            
+            // check if the tap location has a certain attribute
+            let attributeName = "MyCustomAttributeName"
+            let attributeValue = textView.attributedText.attribute(attributeName, atIndex: characterIndex, effectiveRange: nil) as? String
+            if let value = attributeValue {
+                
+                let storyboard = UIStoryboard(name: "Insurance", bundle: nil)
+                let paymentVC = storyboard.instantiateViewControllerWithIdentifier("InsuranceVC") as! InsuranceViewController
+                self.navigationController!.presentViewController(paymentVC, animated: true, completion: nil)
+                /*
+                let errorView = SCLAlertView()
+                errorView.showCloseButton = false
+                errorView.addButton("No, Thank You", action: { () -> Void in
+                    print("no")
+                })
+                errorView.addButton("Yes, I want to be protected during my trip", action: { () -> Void in
+                    print("yes")
+                })
+                errorView.showError("Error!", subTitle:"<b>We noticed that you have opt-out from the Firefly Travel Protection plan. For your peace of mind, we strongly recommend you obtain appropriate protection for your travelling needs</b>\n\nFirefly Travel Protection protects you against unexpected events during your trip. From unfortunate accidents to lost travel documents, Firefly Travel Protection will take care of you (details).", colorStyle: 0xEC581A)
+                */
+            }
+            
+        }
+    
+    //Based on the attributes, do something
+    ///if ([attributes objectForKey:...)] //make a network call, load a cat Pic, etc
+    
+    }
+
     
     @IBAction func continuePaymentBtnPressed(sender: AnyObject) {
         validateForm()

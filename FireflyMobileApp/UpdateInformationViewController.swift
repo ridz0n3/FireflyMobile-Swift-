@@ -14,10 +14,14 @@ import SwiftyJSON
 class UpdateInformationViewController: BaseXLFormViewController {
     
     var userInfo = NSMutableDictionary()
+    var stateArray = [Dictionary<String,AnyObject>]()
+    var dialCode = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectCountry:", name: "selectCountry", object: nil)
+        stateArray = defaults.objectForKey("state") as! [Dictionary<String, AnyObject>]
         initializeForm()
         // Do any additional setup after loading the view.
     }
@@ -35,57 +39,32 @@ class UpdateInformationViewController: BaseXLFormViewController {
         var section : XLFormSectionDescriptor
         var row : XLFormRowDescriptor
         
-        let star = [NSForegroundColorAttributeName : UIColor.redColor()]
-        let text = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
-        var attrString = NSMutableAttributedString()
-        var attrText = NSMutableAttributedString()
-        
         form = XLFormDescriptor(title: "")
         
         // Basic Information - Section
         section = XLFormSectionDescriptor()
         section = XLFormSectionDescriptor.formSectionWithTitle("LabelLogin".localized)
-        //section.hidden = "$\(Tags.Button1).value contains 'hide'"
         form.addFormSection(section)
         
         // username
-        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeText, title:"")
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "Email"))
-        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-        //row.cellConfigAtConfigure["textField.placeholder"] = "*Email"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Email:*")
         row.value = userInfo["username"]
         row.disabled = true
         row.required = true
-        row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         
         // Password
-        row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Current Password"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Current Password:")
         row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
-        //row.required = true
         section.addFormRow(row)
         
         // Password
-        row = XLFormRowDescriptor(tag: Tags.ValidationNewPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "New Password"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationNewPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"New Password:")
         row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
-        //row.required = true
         section.addFormRow(row)
         
         // Confirm Password
-        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypePassword, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Confirm Password"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        //row.required = true
+        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Confirm Password")
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor()
@@ -93,18 +72,12 @@ class UpdateInformationViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // Title
-        row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Title")
-        
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrText = NSMutableAttributedString(string: "Title", attributes: text)
-        attrString.appendAttributedString(attrText)
-        row.cellConfig["textLabel.attributedText"] = attrString
-        
+        row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
         var tempArray:[AnyObject] = [AnyObject]()
         for title in titleArray{
             
             if title["title_code"] as! String == userInfo["title"] as! String{
-                row.value = XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String)
+                row.value = title["title_name"] as! String
                 tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
             }else{
                 tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
@@ -112,67 +85,30 @@ class UpdateInformationViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
-        row.cellStyle = .Value2
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        //row.title = userInfo["title"] as? String
         row.required = true
         section.addFormRow(row)
         
         // First Name/Given Name
-        row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeText, title:"")
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "First Name/Given Name"))
-        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-        //row.cellConfigAtConfigure["textField.placeholder"] = "*First Name/Given Name"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name/Given Name:*")
         row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         row.value = userInfo["contact_first_name"]
         section.addFormRow(row)
         
         // Last Name
-        row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeText, title:"")
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "Last Name/Family Name"))
-        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-        //row.cellConfigAtConfigure["textField.placeholder"] = "*Last Name"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name/Family Name:*")
         row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         row.value = userInfo["contact_last_name"]
         section.addFormRow(row)
         
         // Date
+        row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
         
-        let formater = NSDateFormatter()
-        formater.dateFormat = "yyyy-MM-dd"
-        let df = formater.dateFromString(userInfo["DOB"] as! String)
-        
-        let currentDate: NSDate = NSDate()
-        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        calendar.timeZone = NSTimeZone(name: "UTC")!
-        
-        let components: NSDateComponents = NSDateComponents()
-        components.calendar = calendar
-        
-        components.year = -18
-        let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-        
-        row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeDate, title:"*Date of Birth")
-        
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrText = NSMutableAttributedString(string: "Date of Birth", attributes: text)
-        attrString.appendAttributedString(attrText)
-        row.cellConfig["textLabel.attributedText"] = attrString
-        
-        row.value = df
-        row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
-        row.cellStyle = .Value2
-        row.cellConfigAtConfigure["maximumDate"] = minDate
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "dot_date")!)
+        let date = userInfo["DOB"] as! String
+        let arrangeDate = date.componentsSeparatedByString("-")
+
+        row.value = "\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])"
         row.required = true
         section.addFormRow(row)
         
@@ -184,33 +120,18 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         
         // Address Line 1
-        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeText, title:"")
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "Address Line 1"))
-        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-        //row.cellConfigAtConfigure["textField.placeholder"] = "*Address Line 1"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address Line 1:*")
         row.required = true
         row.value = userInfo["contact_address1"]?.xmlSimpleUnescapeString()
         section.addFormRow(row)
         
         // Address Line 2
-        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType: XLFormRowDescriptorTypeText, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Address Line 2"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address Line 2:")
         row.value = userInfo["contact_address2"]?.xmlSimpleUnescapeString()
         section.addFormRow(row)
         
         // Country
-        row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*Country")
-        
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrText = NSMutableAttributedString(string: "Country", attributes: text)
-        attrString.appendAttributedString(attrText)
-        row.cellConfig["textLabel.attributedText"] = attrString
-        
+        row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Country:*")
         var dialingCode = String()
         
         tempArray = [AnyObject]()
@@ -218,55 +139,31 @@ class UpdateInformationViewController: BaseXLFormViewController {
             
             if country["country_code"] as! String == userInfo["contact_country"] as! String{
                 dialingCode = country["dialing_code"] as! String
-                row.value = XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String)
+                row.value = country["country_name"] as! String
                 tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
             }else{
                 tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
             }
             
         }
-        row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
-        row.cellStyle = .Value2
         row.selectorOptions = tempArray
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.required = true
         section.addFormRow(row)
         
         // Town/City
-        row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType: XLFormRowDescriptorTypeText, title:"")
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "Town / City"))
-        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-        //row.cellConfigAtConfigure["textField.placeholder"] = "*Town / City"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Town / City:*")
         row.required = true
         row.value = userInfo["contact_city"]?.xmlSimpleUnescapeString()
         section.addFormRow(row)
         
         // State
-        row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
-        
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrText = NSMutableAttributedString(string: "State", attributes: text)
-        attrString.appendAttributedString(attrText)
-        row.cellConfig["textLabel.attributedText"] = attrString
-        
+        row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"State:*")
         row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
-        row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
-        row.cellStyle = .Value2
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.required = true
         section.addFormRow(row)
         
         // Postcode
-        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypePhone, title:"")
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrString.appendAttributedString(NSAttributedString(string: "Postcode"))
-        row.cellConfigAtConfigure["textField.attributedPlaceholder"] = attrString
-        //row.cellConfigAtConfigure["textField.placeholder"] = "*Postcode"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Postcode:*")
         row.required = true
         row.value = userInfo["contact_postcode"]
         section.addFormRow(row)
@@ -278,32 +175,19 @@ class UpdateInformationViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // Mobile Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Mobile / Home"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile / Home:")
         row.addValidator(XLFormRegexValidator(msg: "Mobile must start with country code and not less than 7 digits.", andRegexString: "^\(dialingCode)[0-9]{7,}$"))
-        //row.required = true
         row.value = userInfo["contact_mobile_phone"]
         section.addFormRow(row)
         
-        
         // Alternate
-        row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Alternate"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
+        row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Phone:")
         row.value = userInfo["contact_alternate_phone"]
-        //row.required = true
         row.addValidator(XLFormRegexValidator(msg: "Alternate must start with country code and not less than 7 digits.", andRegexString: "^\(dialingCode)[0-9]{7,}$"))
         section.addFormRow(row)
         
         // Fax
-        row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Fax"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        //row.addValidator(XLFormRegexValidator(msg: "Fax must start with country code and not less than 7 digits.", andRegexString: "^\(dialingCode)[0-9]{7,}$"))
+        row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Fax:")
         row.value = userInfo["contact_fax"]
         section.addFormRow(row)
         
@@ -313,12 +197,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
         //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
         
-        // Mobile Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypePhone, title:"")
-        row.cellConfigAtConfigure["textField.placeholder"] = "Bonuslink Card No: e.g. 6018XXXXXXXXXXXX"
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-        row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-        //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+        // Bonuslink Number
+        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Bonuslink Card No:")
         row.value = userInfo["bonuslink"]
         section.addFormRow(row)
         
@@ -341,24 +221,12 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         self.form.removeFormRowWithTag(Tags.ValidationState)
         var row : XLFormRowDescriptor
-        row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
-        
-        let star = [NSForegroundColorAttributeName : UIColor.redColor()]
-        let text = [NSForegroundColorAttributeName : UIColor.lightGrayColor()]
-        var attrString = NSMutableAttributedString()
-        var attrText = NSMutableAttributedString()
-        
-        attrString = NSMutableAttributedString(string: "*", attributes: star)
-        attrText = NSMutableAttributedString(string: "State", attributes: text)
-        attrString.appendAttributedString(attrText)
-        row.cellConfig["textLabel.attributedText"] = attrString
-        
+        row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"State:*")
         var tempArray:[AnyObject] = [AnyObject]()
-        
         for data in stateArr{
             
             if data["state_code"] as! String == userInfo["contact_state"] as! String{
-                row.value = XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String)
+                row.value = data["state_name"] as! String
                 tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
             }else{
                 tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
@@ -371,14 +239,114 @@ class UpdateInformationViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
-        row.cellStyle = .Value2
-        row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
         row.required = true
         
         self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
         
     }
+    
+    func selectCountry(sender:NSNotification){
+        country(sender.userInfo!["countryVal"]! as! String)
+        dialCode = sender.userInfo!["dialingCode"]! as! String
+        
+        var row : XLFormRowDescriptor
+        self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
+        
+        if userInfo["contact_country"] as? String != sender.userInfo!["countryVal"]! as? String{
+            
+            // Mobile Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile / Home:")
+            row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
+            row.value = dialCode
+            self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)//(row, afterRowTag: Tags.ValidationPostcode)
+            
+            self.form.removeFormRowWithTag(Tags.ValidationAlternate)
+            self.form.removeFormRowWithTag(Tags.ValidationFax)
+            // Alternate
+            row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Phone:")
+            row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
+            row.value = dialCode
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationMobileHome)
+            
+            // Fax
+            row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Fax:")
+            row.value = dialCode
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)
+            
+        }else{
+            
+            // Mobile Number
+            row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile / Home:")
+            row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
+            
+            if userInfo["contact_mobile_phone"] as! String == ""{
+                row.value = dialCode
+            }else{
+                row.value = userInfo["contact_mobile_phone"] as! String
+            }
+            
+            self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)//(row, afterRowTag: Tags.ValidationPostcode)
+            
+            self.form.removeFormRowWithTag(Tags.ValidationAlternate)
+            self.form.removeFormRowWithTag(Tags.ValidationFax)
+            // Alternate
+            row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Phone:")
+            row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
+            
+            if userInfo["contact_alternate_phone"] as! String == ""{
+                row.value = dialCode
+            }else{
+                row.value = userInfo["contact_alternate_phone"] as! String
+            }
+            
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationMobileHome)
+            
+            // Fax
+            row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Fax:")
+            
+            if userInfo["contact_fax"] as! String == ""{
+                row.value = dialCode
+            }else{
+                row.value = userInfo["contact_fax"] as! String
+            }
+            
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)
+            
+        }
+        
+    }
+    
+    func country(countryCode:String){
+        
+        if self.formValues()[Tags.ValidationState] != nil{
+            var stateArr = [NSDictionary]()
+            for stateData in stateArray{
+                if stateData["country_code"] as! String == countryCode{
+                    stateArr.append(stateData as NSDictionary)
+                }
+            }
+            
+            self.form.removeFormRowWithTag(Tags.ValidationState)
+            var row : XLFormRowDescriptor
+            row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"State:*")
+            
+            var tempArray:[AnyObject] = [AnyObject]()
+            if stateArr.count != 0{
+                for data in stateArr{
+                    tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
+                }
+            }
+            else {
+                tempArray.append(XLFormOptionsObject(value: "OT", displayText: "Other"))
+            }
+            
+            row.selectorOptions = tempArray
+            row.required = true
+            
+            self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
+        }
+    }
+    
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if section == 0{
@@ -396,9 +364,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
             sectionView.changePassLbl.hidden = true
         }
         
-        //sectionView.frame = CGRectMake(0, 0,self.view.frame.size.width, 44)
         sectionView.bgView.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-        
+        sectionView.sectionLbl.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         let index = UInt(section)
         
         sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
@@ -408,138 +375,12 @@ class UpdateInformationViewController: BaseXLFormViewController {
         return sectionView
     }
     
-    override func beginEditing(rowDescriptor: XLFormRowDescriptor!) {
-        rowDescriptor.cellForFormController(self).unhighlight()
-    }
-    
-    var dialCode = String()
-    
-    override func endEditing(rowDescriptor: XLFormRowDescriptor!) {
-        rowDescriptor.cellForFormController(self).unhighlight()
-        if rowDescriptor.tag == Tags.ValidationCountry{
-            var stateArr = [NSDictionary]()
-            let state = defaults.objectForKey("state") as! [Dictionary<String,AnyObject>]
-            
-            for stateData in state{
-                if stateData["country_code"] as! String == (form.formRowWithTag(Tags.ValidationCountry)?.value as! XLFormOptionObject).formValue() as! String{
-                    stateArr.append(stateData)
-                }
-            }
-            
-            self.form.removeFormRowWithTag(Tags.ValidationState)
-            var row : XLFormRowDescriptor
-            row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeSelectorPickerView, title:"*State")
-            
-            var tempArray:[AnyObject] = [AnyObject]()
-            
-            if stateArr.count != 0{
-                for data in stateArr{
-                    tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
-                }
-            }else{
-                tempArray.append(XLFormOptionsObject(value: "OT", displayText: "Others"))
-            }
-            
-            row.cellConfigAtConfigure.setObject(NSTextAlignment.Left.rawValue, forKey: "textLabel.textAlignment")
-            row.cellStyle = .Value2
-            row.selectorOptions = tempArray
-            row.value = tempArray[0]
-            row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-            row.required = true
-            
-            self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
-            
-            if userInfo["contact_country"] as! String != (form.formRowWithTag(Tags.ValidationCountry)?.value as! XLFormOptionObject).formValue() as! String{
-                for country in countryArray{
-                    if country["country_code"] as! String == (form.formRowWithTag(Tags.ValidationCountry)?.value as! XLFormOptionObject).formValue() as! String{
-                        dialCode = country["dialing_code"] as! String
-                    }
-                }
-                
-                self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
-                
-                // Mobile Number
-                row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypePhone, title:"")
-                row.cellConfigAtConfigure["textField.placeholder"] = "Mobile / Home"
-                row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-                row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-                row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
-                row.value = dialCode
-                //row.required = true
-                self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)
-                
-                self.form.removeFormRowWithTag(Tags.ValidationAlternate)
-                self.form.removeFormRowWithTag(Tags.ValidationFax)
-                
-                // Alternate
-                row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypePhone, title:"")
-                row.cellConfigAtConfigure["textField.placeholder"] = "Alternate"
-                row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-                row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-                //row.required = true
-                row.value = dialCode
-                row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
-                self.form.addFormRow(row, afterRowTag: Tags.ValidationMobileHome)
-                
-                // Fax
-                row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypePhone, title:"")
-                row.cellConfigAtConfigure["textField.placeholder"] = "Fax"
-                row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-                row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-                //row.addValidator(XLFormRegexValidator(msg: "Fax must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
-                row.value = dialCode
-                self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)
-
-            }else{
-                for country in countryArray{
-                    if country["country_code"] as! String == (form.formRowWithTag(Tags.ValidationCountry)?.value as! XLFormOptionObject).formValue() as! String{
-                        dialCode = country["dialing_code"] as! String
-                    }
-                }
-                
-                self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
-                
-                // Mobile Number
-                row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypePhone, title:"")
-                row.cellConfigAtConfigure["textField.placeholder"] = "Mobile / Home"
-                row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-                row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-                row.addValidator(XLFormRegexValidator(msg: "Mobile phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
-                //row.required = true
-                row.value = userInfo["contact_mobile_phone"]
-                self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate) //.addFormRow(row, afterRowTag: Tags.ValidationPostcode)
-                
-                self.form.removeFormRowWithTag(Tags.ValidationAlternate)
-                self.form.removeFormRowWithTag(Tags.ValidationFax)
-                
-                // Alternate
-                row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypePhone, title:"")
-                row.cellConfigAtConfigure["textField.placeholder"] = "Alternate"
-                row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-                row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-                row.value = userInfo["contact_alternate_phone"]
-                //row.required = true
-                row.addValidator(XLFormRegexValidator(msg: "Alternate phone must not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
-                self.form.addFormRow(row, afterRowTag: Tags.ValidationMobileHome)
-                
-                // Fax
-                row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypePhone, title:"")
-                row.cellConfigAtConfigure["textField.placeholder"] = "Fax"
-                row.cellConfigAtConfigure["backgroundColor"] = UIColor(patternImage: UIImage(named: "txtField")!)
-                row.cellConfigAtConfigure["textField.textAlignment"] =  NSTextAlignment.Left.rawValue
-                //row.addValidator(XLFormRegexValidator(msg: "Fax must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
-                row.value = userInfo["contact_fax"]
-                self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)
-            }
-            
-        }
-    }
-    
     @IBAction func continueButtonPressed(sender: AnyObject) {
         
         validateForm()
         
         if isValidate {
+            let currentDate: NSDate = NSDate()
             let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
             calendar.timeZone = NSTimeZone(name: "UTC")!
             
@@ -547,29 +388,35 @@ class UpdateInformationViewController: BaseXLFormViewController {
             components.calendar = calendar
             
             components.year = -18
+            let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            
+            let date = formValues()[Tags.ValidationDate]! as! String
+            let arrangeDate = date.componentsSeparatedByString("-")
+            
+            let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
             
             if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String != ""{
                 
                 if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == ""{
                     
                     let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationNewPassword)!)! as NSIndexPath
-                    let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
+                    let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
                     
                     let msg = String(format: "%@ can't be empty", Tags.ValidationNewPassword)
                     
                     let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                    cell.textField?.attributedPlaceholder = textFieldAttrib
+                    cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                     showErrorMessage(msg)
                     
                 }else if nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String == ""{
                     
                     let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
-                    let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
+                    let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
                     
                     let msg = String(format: "%@ can't be empty", Tags.ValidationConfirmPassword)
                     
                     let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                    cell.textField?.attributedPlaceholder = textFieldAttrib
+                    cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                     showErrorMessage(msg)
                     
                 }else if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String{
@@ -588,6 +435,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
                     showErrorMessage("Confirm password is incorrect")
                 }
                 
+            }else if minDate.compare(selectDate) == NSComparisonResult.OrderedAscending {
+                showErrorMessage("User must age 18 and above to register")
             }else {
                 sendInfo()
             }
@@ -607,27 +456,31 @@ class UpdateInformationViewController: BaseXLFormViewController {
             encNewPassword = ""
         }
         
+        let date = formValues()[Tags.ValidationDate]! as! String
+        let arrangeDate = date.componentsSeparatedByString("-")
+        
+        let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
+        
         let username = userInfo["username"]! as! String
         let password = encOldPassword
         let newPassword = encNewPassword
-        let title = (formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String
+        let title = getTitleCode(formValues()[Tags.ValidationTitle] as! String, titleArr: titleArray) //formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String
         let firstName = formValues()[Tags.ValidationFirstName]! as! String
         let lastName = formValues()[Tags.ValidationLastName]! as! String
-        let dob = formatDate(formValues()[Tags.ValidationDate]! as! NSDate)
+        let dob = formatDate(selectDate)
         let address1 = formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString()
         let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString()
         let address3 = ""
-        let country = (formValues()[Tags.ValidationCountry]! as! XLFormOptionsObject).valueData() as! String
+        let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)//( XLFormOptionsObject).valueData() as! String
         let city = formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString()
-        let state = (formValues()[Tags.ValidationState]! as! XLFormOptionsObject).valueData() as! String
+        let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)//( XLFormOptionsObject).valueData() as! String
         let postcode = formValues()[Tags.ValidationPostcode]! as! String
-        let mobilePhone = formValues()[Tags.ValidationMobileHome]! as! String
+        let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome]!) as! String
         let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate])! as! String
         let fax = nullIfEmpty(formValues()[Tags.ValidationFax])! as! String
         let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])! as! String
         let signature = defaults.objectForKey("signatureLoad")! as! String
         let newsletter = userInfo["newsletter"] as! String
-        
         
         showLoading()
         FireFlyProvider.request(.UpdateUserProfile(username, password, newPassword, title, firstName, lastName, dob, address1, address2, address3, country, city, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in

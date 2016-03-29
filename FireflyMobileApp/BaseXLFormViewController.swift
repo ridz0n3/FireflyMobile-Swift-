@@ -98,11 +98,8 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         let array = formValidationErrors()
         
         if array.count != 0{
-            
             isValidate = false
             var i = 0
-            var j = 0
-            var k = 0
             var message = String()
             
             for errorItem in array {
@@ -110,52 +107,69 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
                 let error = errorItem as! NSError
                 let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
                 
-                let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                let errorTag = validationStatus.rowDescriptor!.tag!.componentsSeparatedByString("(")
+                let empty = validationStatus.msg.componentsSeparatedByString("*")
                 
-                //var cell = ()
-                
-                if validationStatus.rowDescriptor!.tag == Tags.ValidationTitle{
-                    message += "Title can't be empty\n"
-                    k++
-                }else if validationStatus.rowDescriptor!.tag == Tags.ValidationDate{
-                    message += "Date of birth can't be empty\n"
-                    k++
-                }else if validationStatus.rowDescriptor!.tag == Tags.ValidationCountry{
-                    message += "Country can't be empty\n"
-                    k++
-                }else if validationStatus.rowDescriptor!.tag == Tags.ValidationState{
-                    message += "State can't be empty\n"
-                    k++
+                if empty.count == 1{
+                    
+                    message += "\(validationStatus.msg),\n"
+                    i++
+                    
                 }else{
-                    let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
-                    
-                    let msg = String(format: "%@ %@", validationStatus.rowDescriptor!.tag!, validationStatus.msg)
-                    
-                    if validationStatus.msg == " can't be empty"{
+                    if errorTag[0] == Tags.ValidationPurpose
+                        || errorTag[0] == Tags.ValidationState
+                        || errorTag[0] == Tags.ValidationCardType
+                        || errorTag[0] == Tags.ValidationCardExpiredDate
+                        || errorTag[0] == Tags.ValidationArriving
+                        || errorTag[0] == Tags.ValidationDeparting
+                        || errorTag[0] == Tags.ValidationTitle
+                        || errorTag[0] == Tags.ValidationCountry
+                        || errorTag[0] == Tags.ValidationTravelDoc
+                        || errorTag[0] == Tags.ValidationTravelWith
+                        || errorTag[0] == Tags.ValidationGender{
+                            
+                            let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                            
+                            if self.tableView.cellForRowAtIndexPath(index) != nil{
+                                let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
+                                
+                                let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                                cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
+                                
+                                animateCell(cell)
+                            }
+                            
+                            
+                    }else if errorTag[0] == Tags.ValidationDate || errorTag[0] == Tags.ValidationExpiredDate{
+                        let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
-                        let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
-                        cell.textField?.attributedPlaceholder = textFieldAttrib
-                        
+                        if self.tableView.cellForRowAtIndexPath(index) != nil{
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloateLabeledDatePickerCell
+                            
+                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                            cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
+                            
+                            animateCell(cell)
+                        }
                     }else{
+                        let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
-                        cell.backgroundColor = .orangeColor()
-                        UIView.animateWithDuration(0.3, animations: { () -> Void in
-                            cell.backgroundColor = UIColor(patternImage: UIImage(named: "txtField")!)
-                        })
-                        
-                        message += "\(validationStatus.msg)\n"
-                        i++
+                        if self.tableView.cellForRowAtIndexPath(index) != nil{
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
+                            
+                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                            cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
+                            
+                            animateCell(cell)
+                        }
                     }
-                    self.animateCell(cell)
-                    j++
                 }
-                
             }
             
             if i != 0{
                 showErrorMessage(message)
-            }else if k != 0 && j == 0{
-                showErrorMessage("Date of birth can't be empty")
+            }else{
+                showErrorMessage("Please fill all fields")
             }
         }else{
             isValidate = true

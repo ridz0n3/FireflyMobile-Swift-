@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--Insurance View Controller-->
+        <scene sceneID="KNZ-qo-Bo4">
+            <objects>
+                <viewController storyboardIdentifier="InsuranceVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="W4i-cd-KK2" customClass="InsuranceViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="wfI-pO-wBx"/>
+                        <viewControllerLayoutGuide type="bottom" id="bbf-Yd-4T3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="asi-k6-Oay">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="liq-bn-0RV">
+                                <rect key="frame" x="41" y="76" width="518" height="90"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GM5-0l-AS1">
+                                        <rect key="frame" x="8" y="8" width="502" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <attributedString key="attributedText"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kb-UD-ZK5">
+                                        <rect key="frame" x="8" y="46" width="502" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="vQj-8P-bKf"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="GM5-0l-AS1" firstAttribute="leading" secondItem="liq-bn-0RV" secondAttribute="leading" constant="8" id="14Z-eD-OUX"/>
+                                    <constraint firstAttribute="height" secondItem="GM5-0l-AS1" secondAttribute="height" constant="60" id="Beo-xx-79c"/>
+                                    <constraint firstAttribute="trailing" secondItem="3kb-UD-ZK5" secondAttribute="trailing" constant="8" id="IcN-ri-ZxE"/>
+                                    <constraint firstAttribute="trailing" secondItem="GM5-0l-AS1" secondAttribute="trailing" constant="8" id="XdR-9w-KDu"/>
+                                    <constraint firstItem="3kb-UD-ZK5" firstAttribute="top" secondItem="GM5-0l-AS1" secondAttribute="bottom" constant="8" id="Zbm-Zz-4cQ"/>
+                                    <constraint firstItem="GM5-0l-AS1" firstAttribute="top" secondItem="liq-bn-0RV" secondAttribute="top" constant="8" id="kbf-dC-YCl"/>
+                                    <constraint firstItem="3kb-UD-ZK5" firstAttribute="leading" secondItem="liq-bn-0RV" secondAttribute="leading" constant="8" id="t8d-Yj-13L"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.28999999999999998" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="liq-bn-0RV" secondAttribute="trailing" constant="41" id="7jJ-gN-T23"/>
+                            <constraint firstItem="liq-bn-0RV" firstAttribute="top" secondItem="wfI-pO-wBx" secondAttribute="bottom" constant="56" id="s7C-9C-fTy"/>
+                            <constraint firstItem="liq-bn-0RV" firstAttribute="leading" secondItem="asi-k6-Oay" secondAttribute="leading" constant="41" id="uku-ej-FyT"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="msg" destination="GM5-0l-AS1" id="rD8-mU-jlP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Zn-f3-0mG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="774" y="-21"/>
+        </scene>
+    </scenes>
+</document>

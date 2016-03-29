@@ -95,6 +95,8 @@
 		7E9DD2911C9AA9F7008E1B90 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */; };
 		7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */; };
 		7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */; };
+		7EA03FD21CA931D70089CD2A /* Insurance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EA03FD11CA931D60089CD2A /* Insurance.storyboard */; };
+		7EA03FD41CA934440089CD2A /* InsuranceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA03FD31CA934440089CD2A /* InsuranceViewController.swift */; };
 		7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */; };
 		7EA286371C4776A30004AB9A /* AddContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */; };
 		7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */; };
@@ -254,6 +256,8 @@
 		7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
 		7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoginManageFlightTableViewCell.swift; sourceTree = "<group>"; };
 		7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManageFlightViewController.swift; sourceTree = "<group>"; };
+		7EA03FD11CA931D60089CD2A /* Insurance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Insurance.storyboard; sourceTree = "<group>"; };
+		7EA03FD31CA934440089CD2A /* InsuranceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InsuranceViewController.swift; sourceTree = "<group>"; };
 		7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactDetailViewController.swift; sourceTree = "<group>"; };
@@ -349,6 +353,7 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				7EA03FD01CA931A50089CD2A /* Insurance */,
 				7E9DD2891C9AA769008E1B90 /* Loading */,
 				7EE2F9A41C99110E00499B37 /* LaunchScreen */,
 				7EE2F9A11C990F7C00499B37 /* New Update */,
@@ -590,6 +595,15 @@
 			name = Loading;
 			sourceTree = "<group>";
 		};
+		7EA03FD01CA931A50089CD2A /* Insurance */ = {
+			isa = PBXGroup;
+			children = (
+				7EA03FD11CA931D60089CD2A /* Insurance.storyboard */,
+				7EA03FD31CA934440089CD2A /* InsuranceViewController.swift */,
+			);
+			name = Insurance;
+			sourceTree = "<group>";
+		};
 		7EA286331C4774B40004AB9A /* CommonClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -825,6 +839,7 @@
 				7E1F77E71BF96E6C00F55C46 /* LaunchScreen.storyboard in Resources */,
 				7E1F77E41BF96E6C00F55C46 /* Assets.xcassets in Resources */,
 				7E9DD28D1C9AA906008E1B90 /* preloader300.gif in Resources */,
+				7EA03FD21CA931D70089CD2A /* Insurance.storyboard in Resources */,
 				7E9011481C61D1B50051F7BE /* MobileCheckInView.xib in Resources */,
 				FC4F998D1C86BB710068C5A8 /* About.storyboard in Resources */,
 				7E1F78311BF9D6A900F55C46 /* BookFlight.storyboard in Resources */,
@@ -1006,6 +1021,7 @@
 				7E9DD2911C9AA9F7008E1B90 /* LoadingViewController.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
 				7EB0DE0E1C84295D000AA6A8 /* CustomMHFlightDetailTableViewCell.swift in Sources */,
+				7EA03FD41CA934440089CD2A /* InsuranceViewController.swift in Sources */,
 				7EBE67471C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift in Sources */,
 				7E0707901C72CD14001D7328 /* PasswordExpiredViewController.swift in Sources */,
 				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
