@@ -120,6 +120,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address Line 2:")
         section.addFormRow(row)
         
+        // Address Line 3
+        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address Line 3:")
+        section.addFormRow(row)
+        
         // Country
         row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Country:*")
         
@@ -305,7 +309,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 let dob = formatDate(selectDate)
                 let address1 = formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString()
                 let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString()
-                let address3 = ""
+                let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3])!.xmlSimpleEscapeString()
                 let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)//( XLFormOptionsObject).valueData() as! String
                 let city = formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString()
                 let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)//( XLFormOptionsObject).valueData() as! String

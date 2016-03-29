@@ -384,7 +384,14 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         // Date
         row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Expiration Date:*")
         row.required = true
-        row.value = formatDate(stringToDate(date))
+        
+        if date == ""{
+            row.value =  ""
+        }else{
+            row.value =  formatDate(stringToDate(date))
+        }
+        
+        
         self.form.addFormRow(row, afterRowTag: String(format: "%@(%@",Tags.ValidationDocumentNo, tag))
     }
     

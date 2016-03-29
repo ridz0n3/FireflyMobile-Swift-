@@ -17,11 +17,18 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     @IBOutlet weak var chooseSeatBtn: UIButton!
     @IBOutlet weak var paymentBtn: UIButton!
     @IBOutlet weak var checkPassenger: M13Checkbox!
+    @IBOutlet weak var yesBtn: UIButton!
+    var isWantInsurance = Bool()
     var isOnePassenger = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshInsurance:", name: "refreshInsurance", object: nil)
+        
+        yesBtn.layer.cornerRadius = 10
+        yesBtn.layer.borderWidth = 1
+        yesBtn.layer.borderColor = UIColor.orangeColor().CGColor
         paymentBtn.layer.cornerRadius = 10
         chooseSeatBtn.layer.cornerRadius = 10
         chooseSeatBtn.layer.borderWidth = 1
@@ -90,6 +97,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         
         if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
             
+            insuranceView.hidden = true
             views.hidden = true
             var newFrame = footerView.bounds
             newFrame.size.height = 136
@@ -97,7 +105,8 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             footerView.frame = newFrame
             
         }else{
-            
+            isWantInsurance = true
+            insuranceView.hidden = true
             let tap = UITapGestureRecognizer(target: self, action: "textTapped:")
             paragraph2.addGestureRecognizer(tap)
             var newFrame = footerView.bounds
@@ -109,6 +118,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             let insuranceArr = insuranceData["html"] as! NSArray
             var index = 0
             var str = ""
+            
             for text in insuranceArr{
                 
                 if index == 0{
@@ -123,19 +133,23 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     str += "\(separate[1])"
                     
                     paragraph1.attributedText = str.html2String
-                    //paragraph1.font = UIFont(name: "System Semibold", size: 14)
                 }else if index == 2{
+                    paragraph2.attributedText = (text as! String).html2String
+                    let text3: String = paragraph2.text
+                    let range = text3.rangeOfString("[Remove]")!
+                    
+                    //the correct solution
+                    let intIndex: Int = text3.startIndex.distanceTo(range.startIndex)
                     
                     let myString = NSMutableAttributedString(attributedString:(text as! String).html2String)
-                    let myRange = NSRange(location: 340, length: 8) // range of "Swift"
+                    let myRange = NSRange(location: intIndex, length: 8)
                     let myCustomAttribute = [ "MyCustomAttributeName": "some value"]
                     myString.addAttributes(myCustomAttribute, range: myRange)
-                    
+                    myString.addAttribute(NSForegroundColorAttributeName, value: UIColor.orangeColor(), range: myRange)
+
                     paragraph2.attributedText = myString
-                    //paragraph2.font = UIFont(name: "System Semibold", size: 14)
                 }else{
                     paragraph3.attributedText = (text as! String).html2String
-                    //paragraph3.font = UIFont(name: "System Semibold", size: 14)
                 }
                 
                 index++
@@ -178,6 +192,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 
                 let storyboard = UIStoryboard(name: "Insurance", bundle: nil)
                 let paymentVC = storyboard.instantiateViewControllerWithIdentifier("InsuranceVC") as! InsuranceViewController
+                paymentVC.vc = self
                 self.navigationController!.presentViewController(paymentVC, animated: true, completion: nil)
                 /*
                 let errorView = SCLAlertView()
@@ -228,8 +243,12 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
                 insuranceData = "0"
             }else{
-                if agreeTerm.checkState.rawValue == 1{
-                    insuranceData = "\(agreeTerm.checkState.rawValue)"
+                if isWantInsurance{
+                    if agreeTerm.checkState.rawValue == 1{
+                        insuranceData = "\(agreeTerm.checkState.rawValue)"
+                    }
+                }else{
+                    insuranceData = "0"
                 }
             }
             
@@ -274,6 +293,18 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         
     }
     
+    func refreshInsurance(sender:NSNotificationCenter){
+        
+        isWantInsurance = false
+        insuranceView.hidden = false
+        views.hidden = true
+        var newFrame = footerView.bounds
+        newFrame.size.height = 330
+        
+        footerView.frame = newFrame
+        self.tableView.tableFooterView = footerView
+    }
+    
     @IBAction func continueChooseSeatBtnPressed(sender: AnyObject) {
         validateForm()
         
@@ -302,12 +333,18 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
                 insuranceData = "0"
             }else{
-                if agreeTerm.checkState.rawValue == 1{
-                    insuranceData = "\(agreeTerm.checkState.rawValue)"
+                
+                if isWantInsurance{
+                    if agreeTerm.checkState.rawValue == 1{
+                        insuranceData = "\(agreeTerm.checkState.rawValue)"
+                    }
+                }else{
+                    insuranceData = "0"
                 }
+                
             }
             
-            if insuranceData == ""{
+            if insuranceData == "" {
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
                 showLoading() 
@@ -528,6 +565,18 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
         }
         initializeForm()
+    }
+    
+    @IBAction func yesBtnPressed(sender: AnyObject) {
+        isWantInsurance = true
+        insuranceView.hidden = true
+        views.hidden = false
+        var newFrame = footerView.bounds
+        newFrame.size.height = 765
+        
+        footerView.frame = newFrame
+        self.tableView.tableFooterView = footerView
+        
     }
     /*
     // MARK: - Navigation

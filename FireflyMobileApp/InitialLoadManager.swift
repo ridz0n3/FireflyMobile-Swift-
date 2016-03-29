@@ -99,6 +99,7 @@ class InitialLoadManager {
                             self.load()
                             print(String(format: "%@ \n%@", json["status"].string!, json["message"].string!))
                         }
+                        hideLoading()
                     }
                     else{
                         print(result)

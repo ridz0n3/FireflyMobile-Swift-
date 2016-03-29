@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d0R-cN-NCL">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1500"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1550"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tempHeader" translatesAutoresizingMaskIntoConstraints="NO" id="mh2-Mz-00o">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="101"/>
@@ -37,7 +37,7 @@
                                                 </constraints>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ooa-TS-X7W">
-                                                <rect key="frame" x="8" y="109" width="584" height="1383"/>
+                                                <rect key="frame" x="8" y="109" width="584" height="1433"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="REGISTER" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSX-sZ-rW8">
                                                         <rect key="frame" x="8" y="8" width="568" height="40"/>
@@ -50,7 +50,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="C3T-MV-4Dd">
-                                                        <rect key="frame" x="0.0" y="56" width="584" height="1319"/>
+                                                        <rect key="frame" x="0.0" y="56" width="584" height="1369"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <view key="tableFooterView" contentMode="scaleToFill" id="2m3-Ap-550">
                                                             <rect key="frame" x="0.0" y="0.0" width="584" height="180"/>
@@ -146,7 +146,7 @@
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="mh2-Mz-00o" secondAttribute="trailing" id="3q7-BD-Zob"/>
                                             <constraint firstAttribute="bottom" secondItem="Ooa-TS-X7W" secondAttribute="bottom" constant="8" id="HLu-7o-zIc"/>
-                                            <constraint firstAttribute="height" constant="1500" id="Pze-7K-gAJ"/>
+                                            <constraint firstAttribute="height" constant="1550" id="Pze-7K-gAJ"/>
                                             <constraint firstAttribute="trailing" secondItem="Ooa-TS-X7W" secondAttribute="trailing" constant="8" id="YjM-sk-Rb1"/>
                                             <constraint firstItem="mh2-Mz-00o" firstAttribute="leading" secondItem="d0R-cN-NCL" secondAttribute="leading" id="Zxy-PW-byU"/>
                                             <constraint firstItem="Ooa-TS-X7W" firstAttribute="top" secondItem="mh2-Mz-00o" secondAttribute="bottom" constant="8" id="b2a-pg-4b7"/>

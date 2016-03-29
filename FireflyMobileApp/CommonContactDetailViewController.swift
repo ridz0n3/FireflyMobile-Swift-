@@ -16,6 +16,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     var stateArray = [Dictionary<String,AnyObject>]()
     var contactData = Dictionary<String,AnyObject>()
     
+    @IBOutlet weak var insuranceView: UIView!
     @IBOutlet weak var views: UIView!
     @IBOutlet weak var paragraph1: UITextView!
     @IBOutlet weak var paragraph2: UITextView!

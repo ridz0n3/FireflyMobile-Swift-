@@ -187,7 +187,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             
             cell.contactNameLbl.text = "\(getTitleName(contactInformation["title"]! as! String)) \(contactInformation["first_name"]!) \(contactInformation["last_name"]!)"
             cell.contactEmail.text = "Email : \(contactInformation["email"]!)"
-            cell.contactCountryLbl.text = "Country : \(getCountryName(contactInformation["country"]! as! String))"
+            cell.contactCountryLbl.text = "Country : \(contactInformation["country"]! as! String)"
             cell.contactMobileLbl.text = "Mobile Phone : \(contactInformation["mobile_phone"]!)"
             cell.contactAlternateLbl.text = "Alternate Phone : \(contactInformation["alternate_phone"]!)"
             

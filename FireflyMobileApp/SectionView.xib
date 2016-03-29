@@ -12,10 +12,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ofr-ig-cTo">
-                    <rect key="frame" x="16" y="0.0" width="568" height="35"/>
+                    <rect key="frame" x="8" y="0.0" width="584" height="35"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBr-zx-auT">
-                            <rect key="frame" x="0.0" y="0.0" width="568" height="33"/>
+                            <rect key="frame" x="0.0" y="0.0" width="584" height="33"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="33" id="Rdq-aL-iHZ"/>
@@ -42,11 +42,11 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="ofr-ig-cTo" secondAttribute="trailing" constant="16" id="FVc-Zb-FHy"/>
+                <constraint firstAttribute="trailing" secondItem="ofr-ig-cTo" secondAttribute="trailing" constant="8" id="FVc-Zb-FHy"/>
                 <constraint firstItem="ofr-ig-cTo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="TzH-rb-8mj"/>
                 <constraint firstItem="EjV-N1-zbN" firstAttribute="top" secondItem="ofr-ig-cTo" secondAttribute="bottom" id="VHg-md-Ijq"/>
                 <constraint firstAttribute="trailing" secondItem="EjV-N1-zbN" secondAttribute="trailing" constant="16" id="W3H-aV-mOh"/>
-                <constraint firstItem="ofr-ig-cTo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="nKl-h4-jQL"/>
+                <constraint firstItem="ofr-ig-cTo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="nKl-h4-jQL"/>
                 <constraint firstItem="EjV-N1-zbN" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="oEq-hq-f84"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

@@ -18,44 +18,69 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="liq-bn-0RV">
-                                <rect key="frame" x="41" y="76" width="518" height="90"/>
+                                <rect key="frame" x="20" y="76" width="560" height="110"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" usesAttributedText="YES" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GM5-0l-AS1">
-                                        <rect key="frame" x="8" y="8" width="502" height="30"/>
+                                        <rect key="frame" x="8" y="8" width="544" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <attributedString key="attributedText"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3kb-UD-ZK5">
-                                        <rect key="frame" x="8" y="46" width="502" height="30"/>
+                                        <rect key="frame" x="8" y="43" width="544" height="26"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="vQj-8P-bKf"/>
+                                            <constraint firstAttribute="height" constant="26" id="vQj-8P-bKf"/>
                                         </constraints>
-                                        <state key="normal" title="Button"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="No, Thank You">
+                                            <color key="titleColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="noThankBtnPressed:" destination="W4i-cd-KK2" eventType="touchUpInside" id="qgj-f5-wYz"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k8m-d8-GR4">
+                                        <rect key="frame" x="8" y="74" width="544" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="7jQ-NG-JiC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="Yes, I want to be protected during my trip">
+                                            <color key="titleColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="yesBtnPressed:" destination="W4i-cd-KK2" eventType="touchUpInside" id="Rvo-La-m1B"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="GM5-0l-AS1" firstAttribute="leading" secondItem="liq-bn-0RV" secondAttribute="leading" constant="8" id="14Z-eD-OUX"/>
-                                    <constraint firstAttribute="height" secondItem="GM5-0l-AS1" secondAttribute="height" constant="60" id="Beo-xx-79c"/>
+                                    <constraint firstItem="k8m-d8-GR4" firstAttribute="top" secondItem="3kb-UD-ZK5" secondAttribute="bottom" constant="5" id="8Dh-mx-pA7"/>
+                                    <constraint firstItem="k8m-d8-GR4" firstAttribute="leading" secondItem="liq-bn-0RV" secondAttribute="leading" constant="8" id="9iR-EC-Er3"/>
+                                    <constraint firstAttribute="height" secondItem="GM5-0l-AS1" secondAttribute="height" constant="80" id="Beo-xx-79c"/>
                                     <constraint firstAttribute="trailing" secondItem="3kb-UD-ZK5" secondAttribute="trailing" constant="8" id="IcN-ri-ZxE"/>
                                     <constraint firstAttribute="trailing" secondItem="GM5-0l-AS1" secondAttribute="trailing" constant="8" id="XdR-9w-KDu"/>
-                                    <constraint firstItem="3kb-UD-ZK5" firstAttribute="top" secondItem="GM5-0l-AS1" secondAttribute="bottom" constant="8" id="Zbm-Zz-4cQ"/>
+                                    <constraint firstItem="3kb-UD-ZK5" firstAttribute="top" secondItem="GM5-0l-AS1" secondAttribute="bottom" constant="5" id="Zbm-Zz-4cQ"/>
                                     <constraint firstItem="GM5-0l-AS1" firstAttribute="top" secondItem="liq-bn-0RV" secondAttribute="top" constant="8" id="kbf-dC-YCl"/>
                                     <constraint firstItem="3kb-UD-ZK5" firstAttribute="leading" secondItem="liq-bn-0RV" secondAttribute="leading" constant="8" id="t8d-Yj-13L"/>
+                                    <constraint firstAttribute="trailing" secondItem="k8m-d8-GR4" secondAttribute="trailing" constant="8" id="tlz-ZC-uxO"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.28999999999999998" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="liq-bn-0RV" secondAttribute="trailing" constant="41" id="7jJ-gN-T23"/>
+                            <constraint firstAttribute="trailing" secondItem="liq-bn-0RV" secondAttribute="trailing" constant="20" id="7jJ-gN-T23"/>
                             <constraint firstItem="liq-bn-0RV" firstAttribute="top" secondItem="wfI-pO-wBx" secondAttribute="bottom" constant="56" id="s7C-9C-fTy"/>
-                            <constraint firstItem="liq-bn-0RV" firstAttribute="leading" secondItem="asi-k6-Oay" secondAttribute="leading" constant="41" id="uku-ej-FyT"/>
+                            <constraint firstItem="liq-bn-0RV" firstAttribute="leading" secondItem="asi-k6-Oay" secondAttribute="leading" constant="20" id="uku-ej-FyT"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bgView" destination="liq-bn-0RV" id="rnl-YN-254"/>
                         <outlet property="msg" destination="GM5-0l-AS1" id="rD8-mU-jlP"/>
+                        <outlet property="noThankBtn" destination="3kb-UD-ZK5" id="ivZ-Gw-qj5"/>
+                        <outlet property="yesBtn" destination="k8m-d8-GR4" id="yYI-qv-xWa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Zn-f3-0mG" userLabel="First Responder" sceneMemberID="firstResponder"/>

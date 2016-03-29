@@ -31,14 +31,14 @@ class LogoutManager: NSObject {
                         InitialLoadManager.sharedInstance.load()
                         
                     }else if json["status"].string == "401"{
-                        
+                        hideLoading()
                         showErrorMessage(json["message"].string!)
                         InitialLoadManager.sharedInstance.load()
                     }else{
-                        
+                        hideLoading()
                         showErrorMessage(json["message"].string!)
                     }
-                    hideLoading()
+                    
                 }
                 catch {
                     
