@@ -72,7 +72,7 @@ extension FireFlyAPI : TargetType {
     /*   var base: String { return AppSetup.sharedState.useStaging ? "https://stagingapi.artsy.net" : "https://api.artsy.net" } */
     var base: String {
         //return kStageURL
-        return kProductionURL//"http://fyapistage.me-tech.com.my/"
+        return khttpsProductionURL
     }
     
     public var baseURL: NSURL { return NSURL(string: base)! }

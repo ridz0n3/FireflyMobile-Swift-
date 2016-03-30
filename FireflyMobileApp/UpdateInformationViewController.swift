@@ -175,7 +175,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // Contact Information - Section
         section = XLFormSectionDescriptor()
-        section.title = "Contact Information"
+        section.title = "LabelContact".localized
         //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
         
@@ -203,7 +203,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // Bonuslink Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Bonuslink Card No:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No:")
         row.value = userInfo["bonuslink"]
         section.addFormRow(row)
         

@@ -92,11 +92,12 @@
                                 self.navigationController!.pushViewController(homeVC, animated: true)
                             }else if json["status"].string == "change_password" {
                                 
-                                
                                 showInfo(json["message"].string!)
                                 let storyBoard = UIStoryboard(name: "Login", bundle: nil)
                                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
+                                homeVC.email = self.formValues()[Tags.ValidationEmail] as! String
                                 self.navigationController!.pushViewController(homeVC, animated: true)
+                                
                             }else{
                                 showErrorMessage(json["message"].string!)
                             }

@@ -17,6 +17,7 @@ let iv = "owNLfnLjPvwbQH3h" // length == 16
 let kStageURL = "http://fyapistage.me-tech.com.my/"
 let kProductionURL = "http://fyapi.me-tech.com.my/"//
 let kDevURL = "http://fyapidev.me-tech.com.my/api"
+let khttpsProductionURL = "https://m.fireflyz.com.my/fyapi/"
 let estimote_uuid = NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")
 let virtual_uuid = NSUUID(UUIDString: "8492E75F-4FD6-469D-B132-043FE94921D8")
 

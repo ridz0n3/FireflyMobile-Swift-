@@ -12,6 +12,8 @@ import SwiftyJSON
 
 class PasswordExpiredViewController: BaseXLFormViewController {
     
+    var email = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
@@ -37,6 +39,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         //email
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Email Address:*")
         row.required = true
+        row.value = email
         row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         

@@ -180,7 +180,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // BonusLink
-        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Bonuslink Card No :")
+        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No :")
         section.addFormRow(row)
         
         self.form = form
@@ -284,11 +284,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
             
             if formValues()[Tags.ValidationPassword]! as! String != formValues()[Tags.ValidationConfirmPassword]! as! String {
-                
-                let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
-                let cell = self.tableView.cellForRowAtIndexPath(index) as! XLFormTextFieldCell
-                
-                animateCell(cell)
                 showErrorMessage("Confirm password incorrect")
             }
             else if minDate.compare(selectDate) == NSComparisonResult.OrderedAscending {
