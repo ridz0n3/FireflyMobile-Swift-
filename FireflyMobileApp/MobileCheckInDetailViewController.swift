@@ -250,7 +250,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         
                         passengerInfo.updateValue(newExpDate, forKey: "expiration_date")
                         
-                        //passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "enrich_loyalty_number")
+                        passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "bonuslink")
                         
                         passenger.updateValue(passengerInfo, forKey: "\(count)")
                     }else{
