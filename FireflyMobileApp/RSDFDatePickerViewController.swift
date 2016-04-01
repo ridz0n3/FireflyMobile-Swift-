@@ -10,7 +10,7 @@ import UIKit
 import RSDayFlow
 
 class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelegate, RSDFDatePickerViewDataSource {
-
+    
     @IBOutlet weak var dateView: UIView!
     var customDatePickerView = RSDFCustomDatePickerView()
     var calendar = NSCalendar.currentCalendar()
@@ -21,28 +21,36 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
     var typeDate = String()
     var currentDate = NSDate()
     var selectDate = NSDate()
+    var isDepart = Bool()
+    var dateSelected = NSDate()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        let todayComponent = self.calendar.components(calendarUnit, fromDate: NSDate())
+        let todayComponent = self.calendar.components(calendarUnit, fromDate: currentDate)
         today = self.calendar.dateFromComponents(todayComponent)!
         
         self.view.backgroundColor = UIColor.whiteColor()// [UIColor colorWithWhite:0.8 alpha:0.3];
-        customDatePickerView = RSDFCustomDatePickerView(frame: self.view.bounds, calendar: calendar)
+        
+        if isDepart{
+            customDatePickerView = RSDFCustomDatePickerView(frame: self.view.bounds, calendar: calendar)
+        }else{
+            customDatePickerView = RSDFCustomDatePickerView(frame: self.view.bounds, calendar: calendar, startDate: currentDate, endDate: nil)
+        }
+        
         calendar.locale = NSLocale.currentLocale()
+        customDatePickerView.selectDate(dateSelected)
         customDatePickerView.delegate = self
         customDatePickerView.dataSource = self
-        customDatePickerView.autoresizingMask = UIViewAutoresizing.FlexibleHeight 
+        customDatePickerView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         customDatePickerView.pagingEnabled = true
         
-
+        
         dateView.addSubview(customDatePickerView)
         
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -66,7 +74,7 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
             NSNotificationCenter.defaultCenter().postNotificationName(typeDate, object: nil, userInfo: pageDict)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
-
+        
     }
     
     func datePickerView(view: RSDFDatePickerView!, shouldHighlightDate date: NSDate!) -> Bool {
@@ -77,7 +85,7 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
         
         return true
     }
-
+    
     func datePickerView(view: RSDFDatePickerView!, shouldSelectDate date: NSDate!) -> Bool {
         
         if todays().compare(date) == NSComparisonResult.OrderedDescending{
@@ -108,10 +116,14 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
     
     @IBAction func closedButtonPressed(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
-
+        
     }
     
     @IBAction func doneSelectedDate(sender: AnyObject) {
+        
+        let dateFormaters = NSDateFormatter()
+        dateFormaters.dateFormat = "yyyy-MM-dd"
+        selectedDate = dateFormaters.stringFromDate(dateSelected)
         
         if selectedDate == ""{
             showErrorMessage("Please select Date")
@@ -129,12 +141,12 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
     }
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

@@ -23,6 +23,8 @@ class CustomPaymentSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var taxesPrice: UILabel!
     @IBOutlet weak var detailLbl: UILabel!
     @IBOutlet weak var detailBtn: UIButton!
+    @IBOutlet weak var infantPriceLbl: UILabel!
+    @IBOutlet weak var infantLbl: UILabel!
     
     @IBOutlet weak var totalPriceLbl: UILabel!
     

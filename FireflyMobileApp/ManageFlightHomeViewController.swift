@@ -172,7 +172,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else if indexPath.section == 1{
             return 137
         }else if indexPath.section == 2{
-            return 80
+            let detail = priceDetail[indexPath.row] as NSDictionary
+            
+            if let _ = detail["infant"] as? String{
+                return 95
+            }else{
+                return 76
+            }
+            
         }else if (indexPath.section == 3 && serviceDetail.count != 0) || indexPath.section == 4{
             return 28
         }else if indexPath.section == 5{
@@ -228,6 +235,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             for (key, value) in tax! {
                 taxData += "\((key as! String).stringByReplacingOccurrencesOfString("_", withString: " ").capitalizedString): \(value as! String)\n"
+            }
+            
+            if let infant = detail["infant"] as? String{
+                cell.infantLbl.text = infant
+                cell.infantPriceLbl.text = detail["total_infant"] as? String
+            }else{
+                cell.infantPriceLbl.hidden = true
+                cell.infantLbl.hidden = true
             }
             
             cell.flightDestination.text = detail["title"] as? String

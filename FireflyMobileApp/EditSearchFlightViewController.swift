@@ -20,6 +20,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     @IBOutlet weak var checkBtn: UIButton!
     @IBOutlet weak var continueBtn: UIButton!
     
+    var departDate = NSDate()
     var arrivalDate = NSDate()
     var goingDate = String()
     var isChangeGoingDate = Bool()
@@ -112,7 +113,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                     let date = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
                     
                     let dateStr = formater.dateFromString("\(date[2])-\(date[1])-\(date[0])")
-                    arrivalDate = dateStr!
+                    departDate = dateStr!
                     nonFormatGoingDate = formater.stringFromDate(dateStr!)
                     cell.airportLbl.text = flightData["departure_date"] as? String
                     
@@ -127,7 +128,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                     let date = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
                     
                     let dateStr = formater.dateFromString("\(date[2])-\(date[1])-\(date[0])")
-                    
+                    arrivalDate = dateStr!
                     nonFormatReturnDate = formater.stringFromDate(dateStr!)
                     cell.airportLbl.text = flightData["departure_date"] as? String
                     
@@ -152,6 +153,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
             if indexPath.section == 0{
                 let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
                 let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
+                gregorianVC.dateSelected = departDate
+                gregorianVC.isDepart = true
                 gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
                 //gregorianVC.calendar.locale = NSLocale.currentLocale()
                 gregorianVC.view.backgroundColor = UIColor.orangeColor()
@@ -160,7 +163,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
             }else{
                 let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
                 let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
-                gregorianVC.currentDate = arrivalDate
+                gregorianVC.dateSelected = arrivalDate
+                gregorianVC.currentDate = departDate
                 gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
                 //gregorianVC.calendar.locale = NSLocale.currentLocale()
                 gregorianVC.view.backgroundColor = UIColor.orangeColor()
@@ -215,7 +219,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         goingDate = "\(date[2])/\(date[1])/\(date[0])"
         
         nonFormatGoingDate = notif.userInfo!["date"] as! String
-        arrivalDate = stringToDate(notif.userInfo!["date"] as! String)
+        departDate = stringToDate(notif.userInfo!["date"] as! String)
         editFlightTableView.reloadData()
         
     }
@@ -225,7 +229,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
         returnDate = "\(date[2])/\(date[1])/\(date[0])"
         nonFormatReturnDate = notif.userInfo!["date"] as! String
-        //arrivalDate = stringToDate(goingDate)
+        arrivalDate = stringToDate(nonFormatReturnDate)
         editFlightTableView.reloadData()
         
     }

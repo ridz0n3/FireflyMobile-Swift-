@@ -18,7 +18,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     var arrivalDateLbl:String = "RETURN DATE"
     var departureDateLbl:String = "DEPARTURE DATE"
     
-    var departureDate = NSDate()
+    var departDate = NSDate()
     var arrivalDate = NSDate()
     var arrivalSelected = Int()
     var departureSelected = Int()
@@ -146,6 +146,8 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
             let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
             gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            gregorianVC.isDepart = true
+            gregorianVC.dateSelected = departDate
             //gregorianVC.calendar.locale = NSLocale.currentLocale()
             gregorianVC.view.backgroundColor = UIColor.orangeColor()
             gregorianVC.typeDate = "departure"
@@ -157,7 +159,8 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             
             let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
             let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
-            gregorianVC.currentDate = arrivalDate
+            gregorianVC.currentDate = departDate
+            gregorianVC.dateSelected = arrivalDate
             gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
             //gregorianVC.calendar.locale = NSLocale.currentLocale()
             gregorianVC.view.backgroundColor = UIColor.orangeColor()
@@ -351,7 +354,6 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     }
     
     func departureDate(notif:NSNotification){
-        print(notif.userInfo!["date"])
         
         let formater = NSDateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
@@ -360,7 +362,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             arrivalDateLbl = "RETURN DATE"
         }
         
-        arrivalDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
+        departDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
         departureText = (notif.userInfo!["date"] as? String)!
         
         let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
@@ -370,10 +372,11 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     }
     
     func returnDate(notif:NSNotification){
-        print(notif.userInfo!["date"])
         
+        let formater = NSDateFormatter()
+        formater.dateFormat = "yyyy-MM-dd"
         arrivalText = (notif.userInfo!["date"] as? String)!
-        
+        arrivalDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
         let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
         arrivalDateLbl = "\(date[2])/\(date[1])/\(date[0])"
         searchFlightTableView.reloadData()
