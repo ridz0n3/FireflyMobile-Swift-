@@ -209,6 +209,8 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                             let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                             let successVC = storyboard.instantiateViewControllerWithIdentifier("SuccessCheckInVC") as! SuccessCheckInViewController
                             successVC.msg = json["html"].string!
+                            successVC.boardingList = json["boarding_pass"].arrayObject!
+                            successVC.signature = signature
                             self.navigationController!.pushViewController(successVC, animated: true)
                             
                         }else{

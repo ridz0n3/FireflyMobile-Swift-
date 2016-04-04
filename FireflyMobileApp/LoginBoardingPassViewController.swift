@@ -54,15 +54,15 @@ class LoginBoardingPassViewController: CommonListViewController {
                         
                     }
                     
-                    if check == 0{
+                    //if check == 0{
                         sentData(bookingList)
-                    }else{
+                    /*}else{
                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                         let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
                         boardingPassDetailVC.boardingList = boardingPass
                         boardingPassDetailVC.isOffline = true
                         self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-                    }
+                    }*/
                     
                 }else{
                     sentData(bookingList)
@@ -89,9 +89,9 @@ class LoginBoardingPassViewController: CommonListViewController {
                         var i = 0
                         var j = 0
                         var dict = [String:AnyObject]()
-                        for info in json["boarding_pass"].arrayValue{
+                        for info in json["boarding_pass"].arrayObject!{
                             let index = "\(j)"
-                            let imageURL = info["QRCodeURL"].stringValue
+                            let imageURL = info["QRCodeURL"] as! String
                             
                             Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
                                 
@@ -102,7 +102,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                                     
                                     let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                                     let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-                                    boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayValue
+                                    boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
                                     boardingPassDetailVC.imgDict = dict
                                     self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
                                     hideLoading()

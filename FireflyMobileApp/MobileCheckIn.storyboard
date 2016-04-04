@@ -493,18 +493,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z9k-U7-cX7">
-                                        <rect key="frame" x="16" y="56" width="552" height="217"/>
+                                        <rect key="frame" x="16" y="56" width="552" height="33"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <string key="text">Check-in is successful. Please be informed that:
-    
-Your boarding pass has been sent to ridzuan.othman@me-tech.com.my. Please print out your boarding pass or scan your QR codes at your departure airport (if applicable).
-    
-Below is the list of airports equipped with KIOSK:
-    
-    a. Subang (SZB)
-    b. Penang (PEN)
-    c. Johor Bharu(JHB)
-    d. Kota Bharu (KBR)</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
@@ -519,15 +509,30 @@ Below is the list of airports equipped with KIOSK:
                                         </state>
                                         <connections>
                                             <action selector="closeBtnPressed:" destination="RLq-X4-YA6" eventType="touchUpInside" id="z50-MT-aBq"/>
-                                            <action selector="continueBtnPressed:" destination="VoA-lx-hzP" eventType="touchUpInside" id="JYB-hk-VWj"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ADJ-tX-mMn">
+                                        <rect key="frame" x="8" y="388" width="568" height="40"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="ELK-V3-A1l"/>
+                                        </constraints>
+                                        <state key="normal" title="Boarding Pass">
+                                            <color key="titleColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="boardingPassBtnPressed:" destination="RLq-X4-YA6" eventType="touchUpInside" id="ZMX-k5-ElI"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="ADJ-tX-mMn" secondAttribute="trailing" constant="8" id="6z5-R3-zxs"/>
                                     <constraint firstItem="oBL-qw-fJU" firstAttribute="top" secondItem="vC0-vy-nAr" secondAttribute="top" constant="8" id="9Qa-W8-KTc"/>
                                     <constraint firstItem="Z9k-U7-cX7" firstAttribute="top" secondItem="oBL-qw-fJU" secondAttribute="bottom" constant="8" id="EWM-Tk-nQa"/>
+                                    <constraint firstItem="ZwK-Yc-8hH" firstAttribute="top" secondItem="ADJ-tX-mMn" secondAttribute="bottom" constant="6" id="HQp-dP-72Y"/>
                                     <constraint firstItem="ZwK-Yc-8hH" firstAttribute="leading" secondItem="vC0-vy-nAr" secondAttribute="leading" constant="8" id="OEG-Tw-UEu"/>
+                                    <constraint firstItem="ADJ-tX-mMn" firstAttribute="leading" secondItem="vC0-vy-nAr" secondAttribute="leading" constant="8" id="UYP-KE-cl3"/>
                                     <constraint firstAttribute="trailing" secondItem="Z9k-U7-cX7" secondAttribute="trailing" constant="16" id="Uwv-je-JzI"/>
                                     <constraint firstAttribute="trailing" secondItem="ZwK-Yc-8hH" secondAttribute="trailing" constant="8" id="Vae-qh-em0"/>
                                     <constraint firstAttribute="trailing" secondItem="oBL-qw-fJU" secondAttribute="trailing" constant="8" id="eU7-IP-gdH"/>
@@ -549,6 +554,7 @@ Below is the list of airports equipped with KIOSK:
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="boardingPassBtn" destination="ADJ-tX-mMn" id="5LR-ci-cJk"/>
                         <outlet property="border" destination="vC0-vy-nAr" id="yvr-Lz-x1g"/>
                         <outlet property="closeButton" destination="ZwK-Yc-8hH" id="owB-yd-V7g"/>
                         <outlet property="messageTextView" destination="Z9k-U7-cX7" id="jES-zR-U7A"/>

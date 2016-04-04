@@ -17,7 +17,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     var isOffline = Bool()
     
     @IBOutlet var boardingPassView: UIView!
-    var boardingPassData = [JSON]()
+    var boardingPassData = [AnyObject]()
     var imgDict = [String:AnyObject]()
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -90,16 +90,16 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
                 border.layer.borderWidth = 1
                 
                 img.image = imgDict["\(i)"] as? UIImage
-                pnr.text = info["RecordLocator"].string
-                nameLbl.text = info["Name"].string
-                departLbl.text = info["DepartureStation"].string
-                flightDateLbl.text = info["DepartureDate"].string
-                boardingTimeLbl.text = info["BoardingTime"].string
-                flightNoLbl.text = info["FlightNumber"].string
-                arriveLbl.text = info["ArrivalStation"].string
-                departureTimeLbl.text = info["DepartureTime"].string
-                fareLbl.text = info["Fare"].string
-                ssrLbl.text = info["SSR"].string
+                pnr.text = info["RecordLocator"] as? String
+                nameLbl.text = info["Name"] as? String
+                departLbl.text = info["DepartureStation"] as? String
+                flightDateLbl.text = info["DepartureDate"] as? String
+                boardingTimeLbl.text = info["BoardingTime"] as? String
+                flightNoLbl.text = info["FlightNumber"] as? String
+                arriveLbl.text = info["ArrivalStation"] as? String
+                departureTimeLbl.text = info["DepartureTime"] as? String
+                fareLbl.text = info["Fare"] as? String
+                ssrLbl.text = info["SSR"] as? String
                 
                 scrollView.addSubview(boardingPassView)
                 i++

@@ -173,8 +173,6 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         location.x = location.x - textView.textContainerInset.left
         location.y = location.y - textView.textContainerInset.top
         
-        print(NSStringFromCGPoint(location))
-        
     // Find the character that's been tapped on
     
         var characterIndex = Int()
@@ -194,23 +192,10 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 let paymentVC = storyboard.instantiateViewControllerWithIdentifier("InsuranceVC") as! InsuranceViewController
                 paymentVC.vc = self
                 self.navigationController!.presentViewController(paymentVC, animated: true, completion: nil)
-                /*
-                let errorView = SCLAlertView()
-                errorView.showCloseButton = false
-                errorView.addButton("No, Thank You", action: { () -> Void in
-                    print("no")
-                })
-                errorView.addButton("Yes, I want to be protected during my trip", action: { () -> Void in
-                    print("yes")
-                })
-                errorView.showError("Error!", subTitle:"<b>We noticed that you have opt-out from the Firefly Travel Protection plan. For your peace of mind, we strongly recommend you obtain appropriate protection for your travelling needs</b>\n\nFirefly Travel Protection protects you against unexpected events during your trip. From unfortunate accidents to lost travel documents, Firefly Travel Protection will take care of you (details).", colorStyle: 0xEC581A)
-                */
+               
             }
             
         }
-    
-    //Based on the attributes, do something
-    ///if ([attributes objectForKey:...)] //make a network call, load a cat Pic, etc
     
     }
 

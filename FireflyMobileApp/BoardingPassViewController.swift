@@ -43,7 +43,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                                 let index = "\(j)"
                                 let imageURL = info.dictionaryObject!["QRCodeURL"] as? String
                                 Alamofire.request(.GET, imageURL!).response(completionHandler: { (request, response, data, error) -> Void in
-                                    print(index)
+                                    
                                     dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
                                     i++
                                     
@@ -51,7 +51,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                                         
                                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                                         let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-                                        boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayValue
+                                        boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
                                         boardingPassDetailVC.imgDict = dict
                                         self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
                                         hideLoading()
