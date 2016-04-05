@@ -46,6 +46,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     var signature = String()
     var isLogin = Bool()
     var flightType = String()
+    var userId = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -578,22 +579,10 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     
                     if json["status"] == "success"{
                         
-                        
-                        defaults.setObject(self.itineraryData, forKey: "manageFlight")
-                        defaults.synchronize()
-                        
-                        let navigationArray = self.navigationController?.viewControllers
-                        
-                        for subView in navigationArray!{
-                            
-                            if subView.classForCoder == ManageFlightHomeViewController.classForCoder(){
-                                
-                                hideLoading()
-                                self.navigationController?.popToViewController(subView , animated: true)
-                                NSNotificationCenter.defaultCenter().postNotificationName("reloadHomePage", object: nil)
-                                break
-                            }
-                            
+                        if try LoginManager.sharedInstance.isLogin(){
+                            self.sentData(self.signature, pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: defaults.objectForKey("userID") as! String)
+                        }else{
+                            self.sentData("", pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: "")
                         }
                         
                         
@@ -676,6 +665,54 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         itineraryData = defaults.objectForKey("manageFlight") as! NSDictionary
         getInfo()
         flightSummarryTableView.reloadData()
+        
+    }
+    
+    func sentData(signature:String, pnr:String, userName:String, userId:String){
+        
+        FireFlyProvider.request(.RetrieveBooking(signature, pnr, userName, userId)) { (result) -> () in
+            
+            switch result {
+            case .Success(let successResult):
+                do {
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        
+                        defaults.setObject(json.object, forKey: "manageFlight")
+                        defaults.synchronize()
+                        
+                        let navigationArray = self.navigationController?.viewControllers
+                        
+                        for subView in navigationArray!{
+                            
+                            if subView.classForCoder == ManageFlightHomeViewController.classForCoder(){
+                                
+                                hideLoading()
+                                self.navigationController?.popToViewController(subView , animated: true)
+                                NSNotificationCenter.defaultCenter().postNotificationName("reloadHomePage", object: nil)
+                                break
+                            }
+                            
+                        }
+
+                    }else if json["status"].string == "error"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                    }
+                    
+                }
+                catch {
+                    
+                }
+                
+            case .Failure(let failureResult):
+                hideLoading()
+                showErrorMessage(failureResult.nsError.localizedDescription)
+            }
+            
+        }
+
         
     }
     

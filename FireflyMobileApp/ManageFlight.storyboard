@@ -637,17 +637,17 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reservation status :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hgm-33-zDr">
-                                                            <rect key="frame" x="8" y="33" width="147" height="17"/>
+                                                            <rect key="frame" x="8" y="33" width="135" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="17" id="7t7-t2-soy"/>
-                                                                <constraint firstAttribute="width" constant="147" id="kX7-dH-frW"/>
+                                                                <constraint firstAttribute="width" constant="135" id="kX7-dH-frW"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5S-4D-6FC">
-                                                            <rect key="frame" x="156" y="33" width="404" height="17"/>
+                                                            <rect key="frame" x="144" y="33" width="416" height="17"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="17" id="UUR-B2-ixy"/>
                                                             </constraints>

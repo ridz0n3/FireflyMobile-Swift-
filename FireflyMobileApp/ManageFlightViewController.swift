@@ -72,6 +72,10 @@ class ManageFlightViewController: BaseXLFormViewController {
             
             let pnr = self.formValues()[Tags.ValidationConfirmationNumber] as! String
             let username = self.formValues()[Tags.ValidationEmail] as! String
+            
+            defaults.setValue(username, forKey: "userName")
+            defaults.synchronize()
+            
             showLoading() 
             FireFlyProvider.request(.RetrieveBooking("", pnr, username, ""), completion: { (result) -> () in
                 

@@ -135,7 +135,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             // Enrich Loyalty No
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No: e.g. 6018XXXXXXXXXXXX")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
             //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
             row.value = adultDetails[i]["bonuslink"] as! String
             section.addFormRow(row)

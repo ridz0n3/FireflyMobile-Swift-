@@ -82,11 +82,9 @@ class EditContactDetailViewController: CommonContactDetailViewController {
                     case .Success(let successResult):
                         do {
                             
-                            
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
                             if json["status"] == "success"{
-                                
                                 
                                 let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
                                 let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
