@@ -14,8 +14,6 @@
 		7E11C0851C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11C0841C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift */; };
 		7E11C0871C47AC9700C67BD2 /* AddPassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11C0861C47AC9700C67BD2 /* AddPassengerDetailViewController.swift */; };
 		7E11C0891C47AEE300C67BD2 /* EditPassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */; };
-		7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */; };
-		7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */; };
 		7E1AFD5E1C7D3CF400046200 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1AFD5D1C7D3CF300046200 /* UserList.swift */; };
 		7E1AFD641C7D49CC00046200 /* BoardingPassList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1AFD631C7D49CC00046200 /* BoardingPassList.swift */; };
 		7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */; };
@@ -120,10 +118,9 @@
 		7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */; };
 		7EBCD6A41BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */; };
 		7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */; };
-		7EBE67471C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBE67461C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift */; };
 		7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */; };
 		7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */; };
-		7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */; };
+		7EC476441CB260490017535E /* CustomFloatLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC476431CB260490017535E /* CustomFloatLabelCell.swift */; };
 		7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */; };
 		7EE2F9A01C9907F600499B37 /* NewUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */; };
 		7EE2F9A31C990FA600499B37 /* NewUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EE2F9A21C990FA600499B37 /* NewUpdate.storyboard */; };
@@ -166,8 +163,6 @@
 		7E11C0841C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPassengerDetailViewController.swift; sourceTree = "<group>"; };
 		7E11C0861C47AC9700C67BD2 /* AddPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPassengerDetailViewController.swift; sourceTree = "<group>"; };
 		7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPassengerDetailViewController.swift; sourceTree = "<group>"; };
-		7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledPickerCell.swift; sourceTree = "<group>"; };
-		7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloateLabeledDatePickerCell.swift; sourceTree = "<group>"; };
 		7E1AFD5D1C7D3CF300046200 /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		7E1AFD631C7D49CC00046200 /* BoardingPassList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassList.swift; sourceTree = "<group>"; };
 		7E1F77D91BF96E6C00F55C46 /* FireflyMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireflyMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -281,10 +276,9 @@
 		7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RSDFDatePicker.storyboard; sourceTree = "<group>"; };
 		7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPersonalDetailTableViewCell.swift; sourceTree = "<group>"; };
 		7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomChooseSeatTableViewCell.swift; sourceTree = "<group>"; };
-		7EBE67461C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFloatLabeledTextFieldCell.swift; sourceTree = "<group>"; };
 		7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassengerHeader.xib; sourceTree = "<group>"; };
 		7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerHeaderView.swift; sourceTree = "<group>"; };
-		7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatLabeledTextFieldCell.swift; sourceTree = "<group>"; };
+		7EC476431CB260490017535E /* CustomFloatLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFloatLabelCell.swift; sourceTree = "<group>"; };
 		7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialLoadManager.swift; sourceTree = "<group>"; };
 		7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUpdateViewController.swift; sourceTree = "<group>"; };
 		7EE2F9A21C990FA600499B37 /* NewUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewUpdate.storyboard; sourceTree = "<group>"; };
@@ -663,10 +657,7 @@
 		7EC1DBD01C158A8800677D55 /* FloatLabel */ = {
 			isa = PBXGroup;
 			children = (
-				7EC1DBD11C158A9E00677D55 /* FloatLabeledTextFieldCell.swift */,
-				7E1275911C1691CC0050B7D3 /* FloatLabeledPickerCell.swift */,
-				7E1275951C1695910050B7D3 /* FloateLabeledDatePickerCell.swift */,
-				7EBE67461C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift */,
+				7EC476431CB260490017535E /* CustomFloatLabelCell.swift */,
 			);
 			name = FloatLabel;
 			sourceTree = "<group>";
@@ -991,7 +982,6 @@
 				7EB0DE0C1C83DFAB000AA6A8 /* MHFlightHeaderView.swift in Sources */,
 				7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */,
 				7E5C6C301C643DA5006A5927 /* MobileCheckInTermViewController.swift in Sources */,
-				7E1275921C1691CC0050B7D3 /* FloatLabeledPickerCell.swift in Sources */,
 				7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */,
 				7EBBFA101C101BC200080FFA /* RSDFDatePickerViewController.swift in Sources */,
 				7E985A0A1C4DEDDC00EBAFA5 /* AddSeatSelectionViewController.swift in Sources */,
@@ -1002,7 +992,6 @@
 				7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */,
 				7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */,
 				7E985A081C4DEAAE00EBAFA5 /* CommonSeatSelectionViewController.swift in Sources */,
-				7EC1DBD21C158A9E00677D55 /* FloatLabeledTextFieldCell.swift in Sources */,
 				9615B07C1C1137DD000B522F /* FireflyAPI.swift in Sources */,
 				96C1938E1C60904D00617C17 /* FAQViewController.swift in Sources */,
 				7E985A121C4E3B7600EBAFA5 /* EditPaymentViewController.swift in Sources */,
@@ -1022,12 +1011,11 @@
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
 				7EB0DE0E1C84295D000AA6A8 /* CustomMHFlightDetailTableViewCell.swift in Sources */,
 				7EA03FD41CA934440089CD2A /* InsuranceViewController.swift in Sources */,
-				7EBE67471C7EFB900098B38B /* CustomFloatLabeledTextFieldCell.swift in Sources */,
 				7E0707901C72CD14001D7328 /* PasswordExpiredViewController.swift in Sources */,
-				7E1275961C1695910050B7D3 /* FloateLabeledDatePickerCell.swift in Sources */,
 				7E1AFD5E1C7D3CF400046200 /* UserList.swift in Sources */,
 				7E33D8E71C87CFC900901629 /* EditMHFlightDetailViewController.swift in Sources */,
 				7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */,
+				7EC476441CB260490017535E /* CustomFloatLabelCell.swift in Sources */,
 				7E9438581C564E3F002D6792 /* EditSearchFlightViewController.swift in Sources */,
 				7E11C0891C47AEE300C67BD2 /* EditPassengerDetailViewController.swift in Sources */,
 				7E1F782A1BF9CD2800F55C46 /* RegisterPersonalInfoViewController.swift in Sources */,

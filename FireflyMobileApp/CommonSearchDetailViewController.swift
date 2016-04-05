@@ -37,7 +37,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         var row : XLFormRowDescriptor
         
         // Arriving
-        row = XLFormRowDescriptor(tag: Tags.ValidationArriving, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Arriving:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationArriving, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Arriving:*")
         
         var tempArray:[AnyObject] = [AnyObject]()
         for arrivingStation in travel{
@@ -61,14 +61,14 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         
         
         //Confirmation Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmationNumber, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Confirmation Number:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmationNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Confirmation Number:*")
         row.required = true
         //row.value = "y4pcsf"
         section.addFormRow(row)
         
         
         // Departing
-        row = XLFormRowDescriptor(tag: Tags.ValidationDeparting, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Departing:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationDeparting, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Departing:*")
         
         var tempArray:[AnyObject] = [AnyObject]()
         for departureStation in location{
@@ -79,7 +79,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         // Arriving
-        row = XLFormRowDescriptor(tag: Tags.ValidationArriving, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Arriving:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationArriving, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Arriving:*")
         row.disabled = NSNumber(bool: true)
         row.required = true
         section.addFormRow(row)

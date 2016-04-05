@@ -169,7 +169,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         var row : XLFormRowDescriptor
         
         // Date
-        row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Expiration Date:*")
+        row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Expiration Date:*")
         row.required = true
         
         if date != ""{

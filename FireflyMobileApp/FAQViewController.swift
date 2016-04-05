@@ -18,23 +18,21 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen("FAQ")
-        //If you want to implement the delegate
         
         if secondLevel {
             setupLeftButton()
         }else{
             setupMenuButton()
         }
-        //webView.delegate = self
+        webView.delegate = self
         webView.scrollView.delegate = self
         webView.scrollView.showsHorizontalScrollIndicator = false
         
-        //showLoading()
+        showLoading()
         FireFlyProvider.request(.GetTerm) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
-                    //hideLoading()
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -53,13 +51,12 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                     
                 }
             case .Failure(let failureResult):
-                //hideLoading()
+                hideLoading()
                 showErrorMessage(failureResult.nsError.localizedDescription)
                 
             }
         }
         
-        // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,12 +65,9 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
-        webView.sizeToFit()
-        
         hideLoading()
     }
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        
         hideLoading()
     }
     

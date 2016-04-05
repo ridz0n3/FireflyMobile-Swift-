@@ -47,13 +47,13 @@ class ManageFlightViewController: BaseXLFormViewController {
         
         
         //Confirmation Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmationNumber, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Confirmation Number:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmationNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Confirmation Number:*")
         row.required = true
         //row.value = "y4pcsf"
         section.addFormRow(row)
         
         //Username
-        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Contact Email:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Contact Email:*")
         row.required = true
         //row.addValidator(XLFormValidator.emailValidator())
         //row.value = "y4pcsf"

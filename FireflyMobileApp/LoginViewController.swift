@@ -43,12 +43,12 @@
             form.addFormSection(section)
             
             // username
-            row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"User ID (Email):*")
+            row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"User ID (Email):*")
             row.required = true
             section.addFormRow(row)
             
             // Password
-            row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Password:*")
+            row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Password:*")
             row.required = true
             section.addFormRow(row)
             

@@ -77,7 +77,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             
             
             // Travel Document
-            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationTravelDoc, i), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationTravelDoc, i), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Travel Document:*")
             
             var tempArray = [AnyObject]()
             for travel in travelDoc{
@@ -93,7 +93,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             section.addFormRow(row)
             
             // Country
-            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationCountry, i), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Issuing Country:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationCountry, i), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Issuing Country:*")
             
             tempArray = [AnyObject]()
             for country in countryArray{
@@ -109,13 +109,13 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             section.addFormRow(row)
             
             // Document Number
-            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationDocumentNo, i), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationDocumentNo, i), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
             row.required = true
             row.value = (passengerData["document_number"] as! String).xmlSimpleUnescapeString()
             section.addFormRow(row)
             
             // Enrich Loyalty No
-            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, i), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No:")
+            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, i), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
             //row.value = passengerData["document_number"] as! String
             section.addFormRow(row)
             
@@ -323,7 +323,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
                         if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
                             
                             let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
@@ -336,7 +336,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
                         if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloateLabeledDatePickerCell
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
                             
                             let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
@@ -347,7 +347,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
                         if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
                             
                             let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
@@ -382,7 +382,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         var row : XLFormRowDescriptor
         
         // Date
-        row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Expiration Date:*")
+        row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Expiration Date:*")
         row.required = true
         
         if date == ""{

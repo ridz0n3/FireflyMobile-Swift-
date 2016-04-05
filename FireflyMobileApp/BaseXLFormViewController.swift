@@ -131,7 +131,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
                             let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                             
                             if self.tableView.cellForRowAtIndexPath(index) != nil{
-                                let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledPickerCell
+                                let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
                                 
                                 let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                                 cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
@@ -144,7 +144,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
                         if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloateLabeledDatePickerCell
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
                             
                             let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
@@ -155,7 +155,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
                         let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
                         
                         if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! FloatLabeledTextFieldCell
+                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
                             
                             let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib

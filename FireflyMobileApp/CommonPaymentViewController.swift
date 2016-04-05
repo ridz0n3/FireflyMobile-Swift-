@@ -138,7 +138,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         // Title
-        row = XLFormRowDescriptor(tag: Tags.ValidationCardType, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Card Type:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationCardType, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Card Type:*")
         
         var tempArray = [AnyObject]()
         for cType in cardType{
@@ -150,24 +150,24 @@ class CommonPaymentViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         //card number
-        row = XLFormRowDescriptor(tag: Tags.ValidationCardNumber, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Card Number:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationCardNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Card Number:*")
         row.required = true
         section.addFormRow(row)
         
         // Title
-        row = XLFormRowDescriptor(tag: Tags.ValidationCardExpiredDate, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Expiration Date:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationCardExpiredDate, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Expiration Date:*")
         
         row.required = true
         section.addFormRow(row)
         
         //holder name
-        row = XLFormRowDescriptor(tag: Tags.ValidationHolderName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Card Holder Name:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationHolderName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Card Holder Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "Card holder name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         section.addFormRow(row)
         
         //CVV/CVC Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationCcvNumber, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"CVV/CVC Number:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationCcvNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"CVV/CVC Number:*")
         row.required = true
         section.addFormRow(row)
         

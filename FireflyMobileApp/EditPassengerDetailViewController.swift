@@ -60,7 +60,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             form.addFormSection(section)
             
             // Title
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Title:*")
             
             var tempArray:[AnyObject] = [AnyObject]()
             for title in titleArray{
@@ -75,7 +75,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             //first name
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name/Given Name:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
             //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
             row.required = true
             row.disabled = NSNumber(bool: true)
@@ -83,7 +83,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             //last name
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name/Family Name:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
             //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
             row.required = true
             row.disabled = NSNumber(bool: true)
@@ -91,13 +91,13 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             // Date
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
             row.required = true
             row.value = formatDate(stringToDate(adultDetails[i]["dob"] as! String))
             section.addFormRow(row)
             
             // Travel Document
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTravelDoc, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTravelDoc, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Travel Document:*")
             
             tempArray = [AnyObject]()
             for travel in travelDoc{
@@ -113,7 +113,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             // Country
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Issuing Country:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Issuing Country:*")
             
             tempArray = [AnyObject]()
             for country in countryArray{
@@ -129,13 +129,13 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             section.addFormRow(row)
             
             // Document Number
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
             row.required = true
             row.value = (adultDetails[i]["document_number"] as! String).xmlSimpleUnescapeString()
             section.addFormRow(row)
             
             // Enrich Loyalty No
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No: e.g. 6018XXXXXXXXXXXX")
+            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No: e.g. 6018XXXXXXXXXXXX")
             //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
             row.value = adultDetails[i]["bonuslink"] as! String
             section.addFormRow(row)
@@ -156,7 +156,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 form.addFormSection(section)
                 
                 // Title
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationTravelWith, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Traveling with:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationTravelWith, infant), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Traveling with:*")
                 
                 var tempArray:[AnyObject] = [AnyObject]()
                 for passenger in adultArray{
@@ -172,7 +172,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Gender
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationGender, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Gender:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationGender, infant), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Gender:*")
                 
                 tempArray = [AnyObject]()
                 for gender in genderArray{
@@ -188,7 +188,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // First name
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationFirstName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name/Given Name:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationFirstName, infant), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
                 row.value = infantDict["first_name"] as! String
@@ -196,7 +196,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Last Name
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationLastName, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name/Family Name:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationLastName, infant), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
                 row.value = infantDict["last_name"] as! String
@@ -204,14 +204,14 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Date
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDate, infant), rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDate, infant), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
                 row.required = true
                 row.value = formatDate(stringToDate(infantDict["dob"] as! String))
                 section.addFormRow(row)
                 
                 
                 // Travel Document
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationTravelDoc, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Travel Document:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationTravelDoc, infant), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Travel Document:*")
                 
                 tempArray = [AnyObject]()
                 for travel in travelDoc{
@@ -227,7 +227,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Country
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, infant), rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Issuing Country:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, infant), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Issuing Country:*")
                 
                 tempArray = [AnyObject]()
                 for country in countryArray{
@@ -243,7 +243,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 // Document Number
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDocumentNo, infant), rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Document No:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDocumentNo, infant), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
                 row.required = true
                 row.value = (infantDict["document_number"] as! String).xmlSimpleUnescapeString()
                 section.addFormRow(row)

@@ -55,20 +55,20 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // username
-        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Email:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Email:*")
         row.required = true
         row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         
         // Password
-        row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Password:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Password:*")
         //row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         row.required = true
         section.addFormRow(row)
         //^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$
         
         // Confirm Password
-        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Confirm Password:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Confirm Password:*")
         row.required = true
         section.addFormRow(row)
         
@@ -78,7 +78,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // Title
-        row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Title:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationTitle, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Title:*")
         var tempArray:[AnyObject] = [AnyObject]()
         for title in titleArray{
             tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
@@ -89,19 +89,19 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         // First Name/Given Name
-        row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"First Name/Given Name:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         section.addFormRow(row)
         
         // Last Name
-        row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Last Name/Family Name:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
         row.required = true
         //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         section.addFormRow(row)
         
         // Date
-        row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeFloatLabeledDatePicker, title:"Date of Birth:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
         row.required = true
         section.addFormRow(row)
         
@@ -112,20 +112,20 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // Address Line 1
-        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address Line 1:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 1:*")
         row.required = true
         section.addFormRow(row)
         
         // Address Line 2
-        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address Line 2:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 2:")
         section.addFormRow(row)
         
         // Address Line 3
-        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Address Line 3:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 3:")
         section.addFormRow(row)
         
         // Country
-        row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"Country:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationCountry, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Country:*")
         
         tempArray = [AnyObject]()
         for country in countryArray{
@@ -137,18 +137,18 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         // Town/City
-        row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Town / City:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Town / City:*")
         row.required = true
         section.addFormRow(row)
         
         // State
-        row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"State:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"State:*")
         row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
         row.required = true
         section.addFormRow(row)
         
         // Postcode
-        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Postcode:*")
+        row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Postcode:*")
         row.required = true
         section.addFormRow(row)
         
@@ -159,18 +159,18 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // Mobile Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile / Home:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Mobile / Home:")
         row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
         //row.required = true
         section.addFormRow(row)
         
         // Alternate
-        row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Phone:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Phone:")
         row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
         section.addFormRow(row)
         
         // Fax
-        row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Fax:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Fax:")
         section.addFormRow(row)
         
         // BonusLink - Section
@@ -180,7 +180,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // BonusLink
-        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"BonusLink Card No :")
+        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No :")
         section.addFormRow(row)
         
         self.form = form
@@ -211,7 +211,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
         
         // Mobile Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Mobile / Home:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Mobile / Home:")
         row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
         row.value = dialCode
         self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)//(row, afterRowTag: Tags.ValidationPostcode)
@@ -219,13 +219,13 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         self.form.removeFormRowWithTag(Tags.ValidationAlternate)
         self.form.removeFormRowWithTag(Tags.ValidationFax)
         // Alternate
-        row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Alternate Phone:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Phone:")
         row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
         row.value = dialCode
         self.form.addFormRow(row, afterRowTag: Tags.ValidationMobileHome)
         
         // Fax
-        row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeFloatLabeledTextField, title:"Fax:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Fax:")
         row.value = dialCode
         self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)
     }
@@ -242,7 +242,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             
             self.form.removeFormRowWithTag(Tags.ValidationState)
             var row : XLFormRowDescriptor
-            row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeledPicker, title:"State:*")
+            row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"State:*")
             
             var tempArray:[AnyObject] = [AnyObject]()
             if stateArr.count != 0{
@@ -305,9 +305,9 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 let address1 = formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString()
                 let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString()
                 let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3])!.xmlSimpleEscapeString()
-                let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)//( XLFormOptionsObject).valueData() as! String
+                let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
                 let city = formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString()
-                let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)//( XLFormOptionsObject).valueData() as! String
+                let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)
                 let postcode = formValues()[Tags.ValidationPostcode]! as! String
                 let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome]!) as! String
                 let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate])! as! String
