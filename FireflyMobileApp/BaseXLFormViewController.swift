@@ -23,7 +23,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         validator.styleTransformers(success:{ (validationRule) -> Void in
             
             }, error:{ (validationError) -> Void in
@@ -35,7 +35,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         })
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -175,7 +175,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
             isValidate = true
         }
     }
-
+    
     func animateCell(cell: UITableViewCell) {
         let animation = CAKeyframeAnimation()
         animation.keyPath = "position.x"
@@ -237,14 +237,18 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     }
     
     func getStateCode(stateName:String, stateArr:[Dictionary<String, AnyObject>]
-)->String{
-        var stateCode = String()
-        for stateData in stateArr{
-            if stateData["state_name"] as! String == stateName{
-                stateCode = stateData["state_code"] as! String
+        )->String{
+            var stateCode = String()
+            for stateData in stateArr{
+                    if stateData["state_name"] as! String == stateName{
+                        stateCode = stateData["state_code"] as! String
+                    }
+                }
+            if stateCode == ""{
+                stateCode = "OT"
             }
-        }
-        return stateCode
+            
+            return stateCode
     }
     
     func getTravelDocCode(docName:String, docArr:[Dictionary<String, AnyObject>])->String{
@@ -297,12 +301,12 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

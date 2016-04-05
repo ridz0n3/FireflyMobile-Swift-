@@ -79,7 +79,7 @@ class CustomFloatLabelCell: XLFormBaseCell {
         if tag![0] == "Password" || tag![0] == "New Password" || tag![0] == "Confirm Password"{
             self.floatLabeledTextField.keyboardType = .ASCIICapable
             self.floatLabeledTextField.secureTextEntry = true
-        }else if tag![0] == "Mobile/Home" || tag![0] == "Alternate" || tag![0] == "Postcode" || tag![0] == "CCV/CVC Number" || tag![0] == "Card Number" || tag![0] == "Bonuslink"{
+        }else if tag![0] == "Mobile/Home" || tag![0] == "Alternate" || tag![0] == "Postcode" || tag![0] == "CCV/CVC Number" || tag![0] == "Card Number" || tag![0] == "Bonuslink" || tag![0] == Tags.ValidationFax{
             self.floatLabeledTextField.keyboardType = .PhonePad
         }
         
