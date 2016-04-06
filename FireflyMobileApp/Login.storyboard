@@ -49,11 +49,12 @@
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Kr-y3-pCc">
                                                 <rect key="frame" x="16" y="187" width="552" height="36"/>
+                                                <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="YEp-KF-e5N"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Log in" backgroundImage="loginBtn">
+                                                <state key="normal" title="Log in">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -63,11 +64,12 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lsd-Ah-otY">
                                                 <rect key="frame" x="16" y="302" width="552" height="36"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="RKp-pe-f0z"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Register" backgroundImage="regBtn">
+                                                <state key="normal" title="Register">
                                                     <color key="titleColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -167,6 +169,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="LVX-x7-du0"/>
                     <connections>
+                        <outlet property="continueBtn" destination="9Kr-y3-pCc" id="gl9-PR-gsI"/>
+                        <outlet property="registerBtn" destination="Lsd-Ah-otY" id="sfx-qz-2vU"/>
                         <outlet property="tableView" destination="P8j-j1-KLT" id="XFR-Nf-hjt"/>
                     </connections>
                 </viewController>
@@ -249,11 +253,12 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1aU-9t-vfw">
                                             <rect key="frame" x="17" y="8" width="566" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="2xj-9I-7aQ"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Continue" backgroundImage="loginBtn">
+                                            <state key="normal" title="Continue">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -280,6 +285,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="1aU-9t-vfw" id="iru-xj-Ni2"/>
                         <outlet property="tableView" destination="7FT-xb-9Yh" id="QDJ-ES-D8h"/>
                     </connections>
                 </viewController>
@@ -289,9 +295,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="loginBtn" width="371" height="57"/>
         <image name="logo" width="600" height="240"/>
-        <image name="regBtn" width="371" height="57"/>
         <image name="tempHeader" width="750" height="194"/>
     </resources>
 </document>

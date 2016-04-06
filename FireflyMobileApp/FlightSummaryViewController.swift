@@ -25,11 +25,12 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     var priceDetail = [Dictionary<String,AnyObject>]()
     var serviceDetail = [Dictionary<String,AnyObject>]()
     
+    @IBOutlet weak var continueBtn: UIButton!
     var contacts = [NSManagedObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        continueBtn.layer.cornerRadius = 10
         setupMenuButton()
         
         let itineraryData = defaults.objectForKey("itinerary") as! NSDictionary

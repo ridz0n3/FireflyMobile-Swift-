@@ -15,12 +15,15 @@
 
     class LoginViewController: BaseXLFormViewController {
         
-        @IBOutlet var forgotPasswordView: UIView!
-        @IBOutlet weak var emailTxtField: UITextField!
-        
+        @IBOutlet weak var registerBtn: UIButton!
+        @IBOutlet weak var continueBtn: UIButton!
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            continueBtn.layer.cornerRadius = 10
+            registerBtn.layer.cornerRadius = 10
+            registerBtn.layer.borderColor = UIColor.orangeColor().CGColor
+            registerBtn.layer.borderWidth = 1
             setupMenuButton()
             initializeForm()
             // Do any additional setup after loading the view.

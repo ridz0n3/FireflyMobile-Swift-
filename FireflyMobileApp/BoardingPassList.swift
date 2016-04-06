@@ -24,17 +24,5 @@ class BoardingPassList: Object {
     dynamic var recordLocator = ""
     dynamic var arrivalStationCode = ""
     dynamic var departureStationCode = ""
-    /*
-    dynamic var arrivalDateTime = ""
-    dynamic var arrivalStationCode = ""
-    dynamic var arrivalTime = ""
-    dynamic var barCodeData = ""
-    dynamic var barCodeURL = ""
-    dynamic var boardingSequence = ""
-    dynamic var departureDateTime = ""
-    dynamic var departureDayDate = ""
-    dynamic var departureGate = ""
     
-    dynamic var seat = ""
-    */
 }

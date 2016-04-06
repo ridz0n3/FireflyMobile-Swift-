@@ -109,7 +109,6 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
         dateFormatter.calendar = calendar
         dateFormatter.locale = calendar.locale
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        //dateFormatter.dateStyle = .MediumStyle
         return dateFormatter
         
     }

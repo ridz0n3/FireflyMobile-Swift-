@@ -58,11 +58,12 @@
                                                             <subviews>
                                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWH-Ux-pbU">
                                                                     <rect key="frame" x="8" y="4" width="568" height="36"/>
+                                                                    <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="36" id="m5C-3D-ygX"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                                    <state key="normal" title="Continue" backgroundImage="loginBtn">
+                                                                    <state key="normal" title="Continue">
                                                                         <color key="titleColor" red="0.99215692280000001" green="0.99607849120000003" blue="0.99607849120000003" alpha="1" colorSpace="deviceRGB"/>
                                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                                     </state>
@@ -136,6 +137,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="iWH-Ux-pbU" id="EOl-Es-dfh"/>
                         <outlet property="tableView" destination="nEj-e8-W5V" id="Bho-1Y-y07"/>
                     </connections>
                 </viewController>
@@ -145,7 +147,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="loginBtn" width="371" height="57"/>
         <image name="logo" width="600" height="240"/>
         <image name="tempHeader" width="750" height="194"/>
     </resources>

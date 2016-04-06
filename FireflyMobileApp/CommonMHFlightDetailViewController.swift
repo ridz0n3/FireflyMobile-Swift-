@@ -19,6 +19,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
     @IBOutlet weak var termCondition: UITextView!
     @IBOutlet weak var termCheckBox: M13Checkbox!
     
+    @IBOutlet weak var continueBtn: UIButton!
     var infant = String()
     var adult = String()
     var flightDetail : Array<JSON> = []
@@ -30,7 +31,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
-        
+        continueBtn.layer.cornerRadius = 10
         if flightDetail.count == 0{
             self.continueView.hidden = true
         }

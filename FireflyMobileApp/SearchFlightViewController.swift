@@ -32,10 +32,11 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var searchFlightTableView: UITableView!
     
+    @IBOutlet weak var continueBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        continueBtn.layer.cornerRadius = 10
         self.searchFlightTableView.tableHeaderView = headerView
         
         setupLeftButton()

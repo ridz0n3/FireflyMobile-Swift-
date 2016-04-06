@@ -18,10 +18,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     var fromLogin = Bool()
     var dialCode = String()
     var stateArray = [Dictionary<String,AnyObject>]()
+    @IBOutlet weak var continueBtn: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        continueBtn.layer.cornerRadius = 10
         if fromLogin{
             setupLeftButton()
         }else{

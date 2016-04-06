@@ -44,7 +44,6 @@
 		7E4168301C718209008884DC /* BoardingPassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E41682F1C718209008884DC /* BoardingPassView.xib */; };
 		7E4168321C71828F008884DC /* BoardingPassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4168311C71828F008884DC /* BoardingPassDetailViewController.swift */; };
 		7E4168341C71C602008884DC /* SuccessCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4168331C71C601008884DC /* SuccessCheckInViewController.swift */; };
-		7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */; };
 		7E5C6C301C643DA5006A5927 /* MobileCheckInTermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C6C2F1C643DA5006A5927 /* MobileCheckInTermViewController.swift */; };
 		7E5C6C321C644307006A5927 /* MobileTermTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C6C311C644307006A5927 /* MobileTermTableViewCell.swift */; };
 		7E5C6C341C6487EA006A5927 /* Rule1View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E5C6C331C6487EA006A5927 /* Rule1View.xib */; };
@@ -199,7 +198,6 @@
 		7E41682F1C718209008884DC /* BoardingPassView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardingPassView.xib; sourceTree = "<group>"; };
 		7E4168311C71828F008884DC /* BoardingPassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassDetailViewController.swift; sourceTree = "<group>"; };
 		7E4168331C71C601008884DC /* SuccessCheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessCheckInViewController.swift; sourceTree = "<group>"; };
-		7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSDLNetworkManager.swift; sourceTree = "<group>"; };
 		7E5C6C2F1C643DA5006A5927 /* MobileCheckInTermViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileCheckInTermViewController.swift; sourceTree = "<group>"; };
 		7E5C6C311C644307006A5927 /* MobileTermTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileTermTableViewCell.swift; sourceTree = "<group>"; };
 		7E5C6C331C6487EA006A5927 /* Rule1View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Rule1View.xib; sourceTree = "<group>"; };
@@ -347,6 +345,8 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				7E1F78241BF9C1B000F55C46 /* Registration */,
+				7EB829E11C0AC23200E83320 /* Profile */,
 				7EA03FD01CA931A50089CD2A /* Insurance */,
 				7E9DD2891C9AA769008E1B90 /* Loading */,
 				7EE2F9A41C99110E00499B37 /* LaunchScreen */,
@@ -356,12 +356,10 @@
 				7EC1DBD01C158A8800677D55 /* FloatLabel */,
 				7EBBFA0E1C101B7900080FFA /* DatePicker */,
 				7EBBFA001C10115200080FFA /* CustomDatePickerView */,
-				7EB829E11C0AC23200E83320 /* Profile */,
 				7E55ADC91BFDC6B2002FAA84 /* Helper */,
 				7E69311E1BFB31EA004F1719 /* SideMenu */,
 				7E1F780A1BF9793100F55C46 /* Home */,
 				7E1F78151BF9ABCB00F55C46 /* Login */,
-				7E1F78241BF9C1B000F55C46 /* Registration */,
 				7EA286331C4774B40004AB9A /* CommonClass */,
 				7E985A051C4DE3AD00EBAFA5 /* Header */,
 				7E1F782F1BF9D67B00F55C46 /* Book Flight */,
@@ -495,7 +493,6 @@
 				7E9B2BB91C8E6AF60046EB82 /* NSString+ExtraMethod.m */,
 				7E9B2BBA1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.h */,
 				7E9B2BBB1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m */,
-				7E55ADCA1BFDC6D8002FAA84 /* WSDLNetworkManager.swift */,
 				9615B0791C0EA6B8000B522F /* EncryptManager.swift */,
 				9615B07B1C1137DD000B522F /* FireflyAPI.swift */,
 				7E9A53821C3B5D21001094F5 /* LoginManager.swift */,
@@ -990,7 +987,6 @@
 				7E367BF91C4397AF00897D7D /* ManageFlightHomeViewController.swift in Sources */,
 				7E99B8601C2A6B1400239322 /* PaymentSummaryViewController.swift in Sources */,
 				7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */,
-				7E55ADCB1BFDC6D9002FAA84 /* WSDLNetworkManager.swift in Sources */,
 				7E985A081C4DEAAE00EBAFA5 /* CommonSeatSelectionViewController.swift in Sources */,
 				9615B07C1C1137DD000B522F /* FireflyAPI.swift in Sources */,
 				96C1938E1C60904D00617C17 /* FAQViewController.swift in Sources */,

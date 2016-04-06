@@ -16,9 +16,11 @@ class UpdateInformationViewController: BaseXLFormViewController {
     var userInfo = NSMutableDictionary()
     var stateArray = [Dictionary<String,AnyObject>]()
     var dialCode = String()
+    @IBOutlet weak var continueBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        continueBtn.layer.cornerRadius = 10
         setupMenuButton()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectCountry:", name: "selectCountry", object: nil)
         stateArray = defaults.objectForKey("state") as! [Dictionary<String, AnyObject>]
@@ -55,12 +57,10 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // Password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Current Password:")
-        //row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         section.addFormRow(row)
         
         // Password
         row = XLFormRowDescriptor(tag: Tags.ValidationNewPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"New Password:")
-        //row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         section.addFormRow(row)
         
         // Confirm Password
@@ -90,14 +90,12 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // First Name/Given Name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
-        //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         row.value = userInfo["contact_first_name"]
         section.addFormRow(row)
         
         // Last Name
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
-        //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         row.value = userInfo["contact_last_name"]
         section.addFormRow(row)
@@ -115,7 +113,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         // Basic Information - Section
         section = XLFormSectionDescriptor()
         section.title = "LabelAddress".localized
-        //section.hidden = "$\(Tags.Button2).value contains 'hide'"
         form.addFormSection(section)
         
         
@@ -199,7 +196,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         // BonusLink - Section
         section = XLFormSectionDescriptor()
         section.title = "LabelLoyalty".localized
-        //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
         
         // Bonuslink Number
@@ -267,6 +263,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
             
             self.form.removeFormRowWithTag(Tags.ValidationAlternate)
             self.form.removeFormRowWithTag(Tags.ValidationFax)
+            
             // Alternate
             row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Phone:")
             row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
@@ -290,10 +287,11 @@ class UpdateInformationViewController: BaseXLFormViewController {
                 row.value = userInfo["contact_mobile_phone"] as! String
             }
             
-            self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)//(row, afterRowTag: Tags.ValidationPostcode)
+            self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)
             
             self.form.removeFormRowWithTag(Tags.ValidationAlternate)
             self.form.removeFormRowWithTag(Tags.ValidationFax)
+            
             // Alternate
             row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Phone:")
             row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
@@ -469,16 +467,16 @@ class UpdateInformationViewController: BaseXLFormViewController {
         let username = userInfo["username"]! as! String
         let password = encOldPassword
         let newPassword = encNewPassword
-        let title = getTitleCode(formValues()[Tags.ValidationTitle] as! String, titleArr: titleArray) //formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String
+        let title = getTitleCode(formValues()[Tags.ValidationTitle] as! String, titleArr: titleArray)
         let firstName = formValues()[Tags.ValidationFirstName]! as! String
         let lastName = formValues()[Tags.ValidationLastName]! as! String
         let dob = formatDate(selectDate)
         let address1 = formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString()
         let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString()
         let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3])!.xmlSimpleEscapeString()
-        let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)//( XLFormOptionsObject).valueData() as! String
+        let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
         let city = formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString()
-        let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)//( XLFormOptionsObject).valueData() as! String
+        let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)
         let postcode = formValues()[Tags.ValidationPostcode]! as! String
         let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome]!) as! String
         let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate])! as! String
@@ -506,7 +504,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
                         let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                         self.navigationController!.pushViewController(homeVC, animated: true)
                     }else if json["status"] == "error"{
-                        
                         showErrorMessage(json["message"].string!)
                     }else if json["status"].string == "401"{
                         showErrorMessage(json["message"].string!)
@@ -532,8 +529,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
                 
                 hideLoading()
                 showErrorMessage(failureResult.nsError.localizedDescription)
+                
             }
-            
             
         })
         

@@ -14,6 +14,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var continueBtn: UIButton!
     
     var adultCount = Int()
     var infantCount = Int()
@@ -24,7 +25,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        continueBtn.layer.cornerRadius = 10
         self.tableView.tableHeaderView = headerView
         self.tableView.tableFooterView = footerView
         setupLeftButton()

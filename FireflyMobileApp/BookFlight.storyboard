@@ -76,11 +76,12 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEp-vZ-bCc">
                                             <rect key="frame" x="17" y="131" width="566" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="jQJ-oC-Vrd"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Continue" backgroundImage="loginBtn">
+                                            <state key="normal" title="Continue">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -390,6 +391,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="iEp-vZ-bCc" id="vdF-3U-QS0"/>
                         <outlet property="continueView" destination="JxF-Qn-bz6" id="RnF-iV-Lya"/>
                         <outlet property="fareRule" destination="EKU-Av-kh9" id="tjT-G2-2O0"/>
                         <outlet property="flightDetailTableView" destination="6Tb-V7-gkb" id="i8M-9T-XaQ"/>
@@ -474,11 +476,12 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X9K-O1-m8H">
                                             <rect key="frame" x="17" y="7" width="566" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Hnz-89-aPZ"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Continue" backgroundImage="loginBtn">
+                                            <state key="normal" title="Continue">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -835,6 +838,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="X9K-O1-m8H" id="hFN-fu-TW8"/>
                         <outlet property="headerView" destination="pCj-xO-BeR" id="xLZ-Pf-Oah"/>
                         <outlet property="searchFlightTableView" destination="65a-Oh-gHF" id="pOe-w3-rFE"/>
                     </connections>
@@ -1249,11 +1253,12 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="noj-zo-nnP">
                                             <rect key="frame" x="17" y="8" width="566" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="c9E-be-x4V"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Continue" backgroundImage="loginBtn">
+                                            <state key="normal" title="Continue">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -1280,6 +1285,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="noj-zo-nnP" id="bwf-uB-Qd1"/>
                         <outlet property="footerView" destination="RMj-xI-X8z" id="cKd-KL-j8u"/>
                         <outlet property="headerView" destination="z5L-xD-CXd" id="uCW-6P-H9M"/>
                         <outlet property="tableView" destination="5iy-YW-l5z" id="aCp-qk-DDU"/>
@@ -2586,11 +2592,12 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beq-1c-HGA">
                                             <rect key="frame" x="17" y="7" width="566" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Xas-8l-1wj"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Close" backgroundImage="loginBtn">
+                                            <state key="normal" title="Close">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -3373,6 +3380,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="beq-1c-HGA" id="8yw-pe-6qq"/>
                         <outlet property="flightSummarryTableView" destination="TGu-s1-AoU" id="YMY-d9-aj4"/>
                     </connections>
                 </viewController>
@@ -3451,11 +3459,12 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nam-SS-8ph">
                                             <rect key="frame" x="17" y="131" width="566" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="H8j-io-6zZ"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                            <state key="normal" title="Continue" backgroundImage="loginBtn">
+                                            <state key="normal" title="Continue">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
@@ -4061,6 +4070,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="continueBtn" destination="Nam-SS-8ph" id="NtU-NY-Hkr"/>
                         <outlet property="continueView" destination="btX-N8-6Yw" id="XAl-BD-cDe"/>
                         <outlet property="fareRule" destination="h3v-QB-rp3" id="cmy-gT-Kmp"/>
                         <outlet property="flightDetailTableView" destination="izw-pu-eUi" id="9fE-jG-aci"/>
@@ -4082,7 +4092,6 @@
         <image name="book_flight5" width="684" height="53"/>
         <image name="departure_icon" width="86" height="86"/>
         <image name="dot_horizontal" width="40" height="542"/>
-        <image name="loginBtn" width="371" height="57"/>
         <image name="logo" width="600" height="240"/>
         <image name="strikeDegree" width="206" height="35"/>
         <image name="tempHeader" width="750" height="194"/>

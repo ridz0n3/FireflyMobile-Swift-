@@ -18,6 +18,7 @@ class CommonFlightDetailViewController: BaseViewController {
     @IBOutlet weak var fareRule: UITextView!
     @IBOutlet weak var termCondition: UITextView!
     @IBOutlet weak var termCheckBox: M13Checkbox!
+    @IBOutlet weak var continueBtn: UIButton!
     
     var selectedGoingFlight = NSNumber()
     var selectedGoingCell:NSNumber? = nil
@@ -35,7 +36,7 @@ class CommonFlightDetailViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        continueBtn.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
         setupLeftButton()
         
