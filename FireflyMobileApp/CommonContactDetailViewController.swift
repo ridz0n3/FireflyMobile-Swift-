@@ -317,6 +317,11 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                 }
             }
             else {
+                
+                if nilIfEmpty(contactData["state"]) as! String == "OT"{
+                    row.value = "Others"
+                }
+                
                 tempArray.append(XLFormOptionsObject(value: "OT", displayText: "Other"))
             }
             

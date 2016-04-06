@@ -239,7 +239,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         }
         
         if tempArray.count == 0{
-            row.value = XLFormOptionsObject(value: "OT", displayText: "Others")
+            row.value = "Others"
             tempArray.append(XLFormOptionsObject(value: "OT", displayText: "Others"))
         }
         

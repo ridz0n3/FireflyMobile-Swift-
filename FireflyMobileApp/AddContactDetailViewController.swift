@@ -63,7 +63,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 "last_name" : "\(userInfo["last_name"]!)",
                 "mobile_phone" : "\(userInfo["contact_mobile_phone"]!)",
                 "postcode" : "",
-                "state" : "",
+                "state" : "\(userInfo["contact_state"]!)",
                 "title" : "\(userInfo["title"]!)",
                 "travel_purpose" : "1"]
             checkPassenger.checkState = M13CheckboxState.Checked
