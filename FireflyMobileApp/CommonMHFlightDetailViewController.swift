@@ -139,7 +139,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                     cell.economyBtn.hidden = false
                     
                     cell.economyBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:2"
-                    cell.economyBtn.addTarget(self, action: "checkCategory:", forControlEvents: .TouchUpInside)
+                    cell.economyBtn.addTarget(self, action: #selector(CommonMHFlightDetailViewController.checkCategory(_:)), forControlEvents: .TouchUpInside)
                 }
                 
                 if business!["status"]?.string == "sold out"{
@@ -157,7 +157,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                     cell.businessBtn.hidden = false
                     
                     cell.businessBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:3"
-                    cell.businessBtn.addTarget(self, action: "checkCategory:", forControlEvents: .TouchUpInside)
+                    cell.businessBtn.addTarget(self, action: #selector(CommonMHFlightDetailViewController.checkCategory(_:)), forControlEvents: .TouchUpInside)
                 }
                 
                 if indexPath.section == 1{

@@ -258,8 +258,8 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                 pnr.departureDayDate = boardingInfo["DepartureDayDate"] as! String
             }
             
-            let url = NSURL(string: boardingInfo["QRCodeURL"] as! String)
-            let data = NSData(contentsOfURL: url!)
+            let url = NSURL(string: boardingInfo["QRCodeURL"] as! String)!
+            let data = NSData(contentsOfURL: url)
             
             boardingPass.name = boardingInfo["Name"] as! String
             boardingPass.departureStation = boardingInfo["DepartureStation"] as! String

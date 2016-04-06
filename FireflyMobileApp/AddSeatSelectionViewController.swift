@@ -21,7 +21,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
         var seatData = [Dictionary<String, AnyObject>]()
         for info in journeys as! [Dictionary<String, AnyObject>]{
             
-            let data = NSMutableDictionary()
+            var data = Dictionary<String,AnyObject>()
             let departureStationName = info["departure_station_name"] as! String
             let departureStation =  info["departure_station"] as! String
             let arrivalStation = info["arrival_station"] as! String
@@ -48,13 +48,13 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                 }
             }
             
-            data.setValue(departureStation, forKey: "departure_station")
-            data.setValue(departureStationName, forKey: "departure_station_name")
-            data.setValue(arrivalStation, forKey: "arrival_station")
-            data.setValue(arrivalStationName, forKey: "arrival_station_name")
-            data.setValue(seat, forKey: "seat_info")
+            data["departure_station"] = departureStation
+            data["departure_station_name"] = departureStationName
+            data["arrival_station"] = arrivalStation
+            data["arrival_station_name"] = arrivalStationName
+            data["seat_info"] = seat
             
-            details.addObject(data)
+            details.append(data)
             
         }
         // Do any additional setup after loading the view.
