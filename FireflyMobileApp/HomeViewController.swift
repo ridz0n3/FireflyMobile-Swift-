@@ -86,11 +86,11 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         }
         else if indexPath.row == 5 {
             
-            return 36
+            return 38
             
         }else {
             
-            return 50;
+            return 55
         }
     }
     
