@@ -29,12 +29,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nLg-lE-m0U">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="nLg-lE-m0U" secondAttribute="trailing" id="2tm-YG-DNR"/>
                             <constraint firstAttribute="trailing" secondItem="VTC-qU-U2R" secondAttribute="trailing" constant="20" id="4Tk-xf-KZL"/>
                             <constraint firstItem="VTC-qU-U2R" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="160" id="BHR-i7-kmk"/>
+                            <constraint firstItem="nLg-lE-m0U" firstAttribute="top" secondItem="8zr-Xy-BhG" secondAttribute="top" id="H28-Zu-Qqf"/>
+                            <constraint firstItem="nLg-lE-m0U" firstAttribute="leading" secondItem="8zr-Xy-BhG" secondAttribute="leading" id="HUS-aS-KSm"/>
                             <constraint firstAttribute="trailing" secondItem="9p2-g2-4if" secondAttribute="trailing" constant="20" id="I8s-cb-bc5"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="nLg-lE-m0U" secondAttribute="bottom" id="dEX-3f-AsF"/>
                             <constraint firstItem="VTC-qU-U2R" firstAttribute="leading" secondItem="8zr-Xy-BhG" secondAttribute="leading" constant="20" id="gkX-vg-wa3"/>
                             <constraint firstItem="9p2-g2-4if" firstAttribute="leading" secondItem="8zr-Xy-BhG" secondAttribute="leading" constant="20" symbolic="YES" id="mz4-rb-tyd"/>
                             <constraint firstAttribute="bottom" secondItem="9p2-g2-4if" secondAttribute="bottom" constant="20" id="rqb-MF-z87"/>

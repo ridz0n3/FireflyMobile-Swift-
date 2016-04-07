@@ -29,12 +29,19 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ts6-3I-9zM">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="47r-TN-d75" secondAttribute="trailing" constant="20" id="38r-V8-smH"/>
                             <constraint firstItem="7Rw-60-IE3" firstAttribute="top" secondItem="47r-TN-d75" secondAttribute="bottom" constant="20" id="FCr-rC-qI4"/>
+                            <constraint firstItem="Ts6-3I-9zM" firstAttribute="top" secondItem="0I2-LS-IdB" secondAttribute="top" id="Lja-NA-LCg"/>
                             <constraint firstAttribute="trailing" secondItem="a7Y-m5-fqO" secondAttribute="trailing" constant="20" id="PNV-RN-Dea"/>
+                            <constraint firstAttribute="trailing" secondItem="Ts6-3I-9zM" secondAttribute="trailing" id="e2I-Jh-G7v"/>
+                            <constraint firstItem="Ts6-3I-9zM" firstAttribute="leading" secondItem="0I2-LS-IdB" secondAttribute="leading" id="g9s-Uh-75u"/>
+                            <constraint firstItem="7Rw-60-IE3" firstAttribute="top" secondItem="Ts6-3I-9zM" secondAttribute="bottom" id="jAD-By-SCB"/>
                             <constraint firstItem="47r-TN-d75" firstAttribute="leading" secondItem="0I2-LS-IdB" secondAttribute="leading" constant="20" id="oi0-wM-scd"/>
                             <constraint firstItem="a7Y-m5-fqO" firstAttribute="leading" secondItem="0I2-LS-IdB" secondAttribute="leading" constant="20" id="tAA-Pl-cO0"/>
                             <constraint firstItem="a7Y-m5-fqO" firstAttribute="top" secondItem="KiK-yJ-Tp7" secondAttribute="bottom" constant="160" id="yRD-aa-gg5"/>
