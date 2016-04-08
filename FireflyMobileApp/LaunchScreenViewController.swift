@@ -11,11 +11,17 @@ import MBProgressHUD
 
 class LaunchScreenViewController: UIViewController, MBProgressHUDDelegate {
 
+    @IBOutlet weak var loading: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        loadingNotification.color = UIColor.clearColor()
+        //let loadingNotification = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        //loadingNotification.color = UIColor.clearColor()
+        
+        let loadingGif = UIImage.gifWithName("preloader")
+        let imageView = UIImageView(image: loadingGif)
+        imageView.frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
+        loading.addSubview(imageView)
         InitialLoadManager.sharedInstance.load()
         // Do any additional setup after loading the view.
     }

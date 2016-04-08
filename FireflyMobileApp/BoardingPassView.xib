@@ -49,7 +49,7 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qrCode" translatesAutoresizingMaskIntoConstraints="NO" id="1yB-tw-MEn">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1yB-tw-MEn">
                             <rect key="frame" x="2" y="2" width="106" height="106"/>
                         </imageView>
                     </subviews>
@@ -281,7 +281,4 @@
             </constraints>
         </view>
     </objects>
-    <resources>
-        <image name="qrCode" width="467" height="460"/>
-    </resources>
 </document>
