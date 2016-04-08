@@ -12,7 +12,13 @@ import Alamofire
 
 class BoardingPassViewController: CommonSearchDetailViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.boardingPassScreen)
+    }
+    
     @IBAction func ContinueBtnPressed(sender: AnyObject) {
+        
         
         validateForm()
         

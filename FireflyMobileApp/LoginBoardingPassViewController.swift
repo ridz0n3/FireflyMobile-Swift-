@@ -14,6 +14,10 @@ import Realm
 
 class LoginBoardingPassViewController: CommonListViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.loginBoardingPassScreen)
+    }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if isOffline{

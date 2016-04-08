@@ -26,6 +26,7 @@
             registerBtn.layer.borderWidth = 1
             setupMenuButton()
             initializeForm()
+            AnalyticsManager.sharedInstance.logScreen(GAConstants.loginScreen)
             // Do any additional setup after loading the view.
         }
         

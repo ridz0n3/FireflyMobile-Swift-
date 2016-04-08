@@ -33,7 +33,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
-        
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.mobileCheckInDetailScreen)
         continueBtn.layer.cornerRadius = 10
         
         let flightDetail = checkInDetail["flight_detail"] as! Dictionary<String, AnyObject>
@@ -44,8 +44,8 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         // Do any additional setup after loading the view.
         initializeForm()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "addExpiredDate:", name: "expiredDate", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeExpiredDate:", name: "removeExpiredDate", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MobileCheckInDetailViewController.addExpiredDate(_:)), name: "expiredDate", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MobileCheckInDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -163,7 +163,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         seatNo.text = passengerData["seat"]! as? String
         checkBtn.tag = section
         
-        checkBtn.addTarget(self, action: "check:", forControlEvents: .TouchUpInside)
+        checkBtn.addTarget(self, action: #selector(MobileCheckInDetailViewController.check(_:)), forControlEvents: .TouchUpInside)
         
         if passengerData["status"] as! String == "Checked In"{
             checkBox.hidden = true

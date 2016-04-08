@@ -38,6 +38,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
     var pnr = String()
     override func viewDidLoad() {
         super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.mobileCheckInTermScreen)
         setupLeftButton()
         continueBtn.layer.cornerRadius = 10
         termRules = termDetail["rules"]![0] as! Dictionary<String, AnyObject>

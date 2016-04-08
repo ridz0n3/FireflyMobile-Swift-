@@ -33,6 +33,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectCountry:", name: "selectCountry", object: nil)
         
         initializeForm()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.registerScreen)
         // Do any additional setup after loading the view.
     }
     

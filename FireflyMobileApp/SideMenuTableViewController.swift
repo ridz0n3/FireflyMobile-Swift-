@@ -23,7 +23,7 @@ class SideMenuTableViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshSideMenu:", name: "reloadSideMenu", object: nil)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "logoutSession:", name: "logout", object: nil)

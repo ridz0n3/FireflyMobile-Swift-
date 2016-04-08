@@ -13,6 +13,7 @@ class SendItineraryViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.sendItineraryScreen)
 
         // Do any additional setup after loading the view.
     }

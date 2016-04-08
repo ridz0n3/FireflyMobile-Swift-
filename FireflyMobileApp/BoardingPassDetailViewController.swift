@@ -39,6 +39,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.boardingPassDetailScreen)
         //1
         self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
         let scrollViewWidth:CGFloat = self.scrollView.frame.width

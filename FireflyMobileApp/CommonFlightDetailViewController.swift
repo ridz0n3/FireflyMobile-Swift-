@@ -112,6 +112,7 @@ class CommonFlightDetailViewController: BaseViewController {
         
         if flightDetail.count == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("NoFyFlightCell", forIndexPath: indexPath)
+            AnalyticsManager.sharedInstance.logScreen(GAConstants.flightDetailsScreen)
             return cell
         }else{
             

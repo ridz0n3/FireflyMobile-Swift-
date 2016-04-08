@@ -21,6 +21,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         infantCount = (defaults.objectForKey("infants")?.integerValue)!
         
         initializeForm()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.passengerDetailsScreen)
     }
 
     func initializeForm() {

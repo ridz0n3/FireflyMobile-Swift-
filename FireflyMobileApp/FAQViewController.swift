@@ -17,7 +17,8 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AnalyticsManager.sharedInstance.logScreen("FAQ")
+        //AnalyticsManager.sharedInstance.logScreen("FAQ")
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.faqScreen)
         
         if secondLevel {
             setupLeftButton()

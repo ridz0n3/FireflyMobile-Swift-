@@ -305,21 +305,28 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         
         let cell = self.seatTableView.dequeueReusableCellWithIdentifier("seatRowCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
         
-        var seatCols = [[String : String]]()
+        var seatCols = [AnyObject]()
         
         if selectIndex != 0 && selectIndex != 1{
-            let tempSeat = details[0]["seatInfo"] as! [String : String]
-            seatCols.append(tempSeat)
+            let temp = details[0]["seat_info"] as! [AnyObject]
+            seatCols = temp[indexPath.row] as! [AnyObject]
+            //seatCols = details[0]["seat_info"] as! [[String : String]]
+            //seatCols.append(tempSeat)
         }
         else{
-            let tempSeat = details[selectIndex]["seatInfo"] as! [String : String]
-            seatCols.append(tempSeat)
+            let temp = details[selectIndex]["seat_info"] as! [AnyObject]
+            seatCols = temp[indexPath.row] as! [AnyObject]
+            //print(seatInfo[0]["seat_type"])
+            //["seat_info"] as! [AnyObject]
+            //seatCols.append(temp)
+            //seatCols = details[selectIndex]["seat_info"] as! [[String : String]]
+           // seatCols.append(temp)
         }
         
         
-        if seatCols[0]["seat_type"] == "preferred"{
+        if seatCols[0]["seat_type"] as! String == "preferred"{
             cell.rowView.backgroundColor =  UIColor(red: 255/255, green: 255/255, blue: 0/255, alpha: 1.0)
-        }else if seatCols[0]["seat_type"]  == "standard"{
+        }else if seatCols[0]["seat_type"] as! String  == "standard"{
             cell.rowView.backgroundColor = UIColor(red: 255/255, green: 165/255, blue: 0/255, alpha: 1.0)
         }else{
             cell.rowView.backgroundColor = UIColor(red: 149/255, green: 201/255, blue: 74/255, alpha: 1.0)
@@ -330,18 +337,18 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             
             if index == 0{
                
-                self.cellConfig(cell.lbla, btn: cell.colABtn, view: cell.colAView, seatDetail: seatDetail , row: indexPath.row, action: #selector(CommonSeatSelectionViewController.selectColASeat(_:)))
+                self.cellConfig(cell.lbla, btn: cell.colABtn, view: cell.colAView, seatDetail: seatDetail as! Dictionary<String, String> , row: indexPath.row, action: #selector(CommonSeatSelectionViewController.selectColASeat(_:)))
                 
             }else if index == 1{
                 
-                self.cellConfig(cell.lblC, btn: cell.colCBtn, view: cell.colCView, seatDetail: seatDetail , row: indexPath.row, action: #selector(CommonSeatSelectionViewController.selectColCSeat(_:)))
+                self.cellConfig(cell.lblC, btn: cell.colCBtn, view: cell.colCView, seatDetail: seatDetail as! Dictionary<String, String> , row: indexPath.row, action: #selector(CommonSeatSelectionViewController.selectColCSeat(_:)))
                 
             }else if index == 2{
                 
-                self.cellConfig(cell.lblD, btn: cell.colDBtn, view: cell.colDView, seatDetail: seatDetail , row: indexPath.row, action: #selector(CommonSeatSelectionViewController.selectColDSeat(_:)))
+                self.cellConfig(cell.lblD, btn: cell.colDBtn, view: cell.colDView, seatDetail: seatDetail as! Dictionary<String, String> , row: indexPath.row, action: #selector(CommonSeatSelectionViewController.selectColDSeat(_:)))
             }else{
                 
-                self.cellConfig(cell.lblF, btn: cell.colFBtn, view: cell.colFView, seatDetail: seatDetail , row: indexPath.row, action: #selector(CommonSeatSelectionViewController.selectColFSeat(_:)))
+                self.cellConfig(cell.lblF, btn: cell.colFBtn, view: cell.colFView, seatDetail: seatDetail as! Dictionary<String, String> , row: indexPath.row, action: #selector(CommonSeatSelectionViewController.selectColFSeat(_:)))
                 
             }
             

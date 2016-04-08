@@ -40,7 +40,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.editMhFlightDetailScreen)
         checkGoingIndexPath = NSIndexPath(forRow: 0, inSection: 0)
         checkReturnIndexPath = NSIndexPath(forRow: 0, inSection: 1)
         // Do any additional setup after loading the view.

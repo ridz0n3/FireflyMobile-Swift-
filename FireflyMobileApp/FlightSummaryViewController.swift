@@ -30,6 +30,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.flightSummaryScreen)
         continueBtn.layer.cornerRadius = 10
         setupMenuButton()
         

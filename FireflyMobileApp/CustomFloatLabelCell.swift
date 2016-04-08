@@ -21,7 +21,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
     var dataValue = [String]()
     var selectindex = Int()
     var selectValue = String()
-    var expireDate = NSArray()
+    var expireDate = [[String]]()
     var selectDateIndex = [0,0]
     
     //date picker
@@ -247,6 +247,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
         let yearIndex = index[1]
         
         selectDateIndex = [monthIndex.integerValue, yearIndex.integerValue]
+        
         txtLbl.text = "\(expireDate[0][monthIndex.integerValue])/\(expireDate[1][yearIndex.integerValue])"
         self.textFieldDidChange(txtLbl)
         
@@ -297,20 +298,20 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
         let currentYear = formater.stringFromDate(NSDate())
         var yearInc = Int(currentYear)
         
-        let year = NSMutableArray()
+        var year = [String]()
         for _ in 0...10{
             
-            year.addObject("\(yearInc!)")
+            year.append("\(yearInc!)")
             yearInc = yearInc! + 1
             
         }
         
-        let month = NSMutableArray()
+        var month = [String]()
         for i in 1...12{
             if i < 10{
-                month.addObject("0\(i)")
+                month.append("0\(i)")
             }else{
-                month.addObject("\(i)")
+                month.append("\(i)")
             }
         }
         

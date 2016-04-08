@@ -78,7 +78,51 @@ internal struct Tags {
 }
 
 struct GAConstants {
+    
     static let homeScreen = "Home";
+    static let aboutUsScreen = "About Us";
+    static let loginScreen = "Login";
+    static let registerScreen = "Register";
+    static let faqScreen = "FAQ";
+    static let sideMenuScreen = "Side Menu";
+    static let updateInformationScreen = "Update Information";
+    static let searchFlightScreen = "Book Flight: Search Flight";
+    static let flightDetailsScreen = "Book Flight: Flight Details";
+    static let mhFlightDetailsScreen = "Book Flight: Flight Details(MH)";
+    static let passengerDetailsScreen = "Book Flight: Personal Details(Passenger Details)";
+    static let contactDetailsScreen = "Book Flight: Personal Details(Contact Details)";
+    static let seatSelectionScreen = "Book Flight: Choose Seat";
+    static let paymentSummaryScreen = "Book Flight: Payment Details(Payment Summary)";
+    static let addPaymentScreen = "Book Flight: Payment Details(Add Payment)";
+    static let paymentWebScreen = "Book Flight: Payment Details(Payment Web)";
+    static let flightSummaryScreen = "Book Flight: Flight Summary";
+    static let loginManageFlightScreen = "Manage Flight: Login Manage Flight";
+    static let manageFlightScreen = "Manage Flight: Manage Flight";
+    static let manageFlightHomeScreen = "Manage Flight: Manage Flight Home";
+    static let editContactDetailScreen = "Edit Contact Detail";
+    static let editPassengerDetailScreen = "Edit Passenger Detail";
+    static let editSearchFlightScreen = "Edit Search Flight";
+    static let editFlightDetailScreen = "Edit Flight Detail";
+    static let editMhFlightDetailScreen = "Edit MH Flight Detail";
+    static let editSeatSelectionScreen = "Edit Seat Selection";
+    static let editPaymentScreen = "Edit Payment Screen";
+    static let sendItineraryScreen = "Send Itinerary";
+    static let mobileCheckInDetailScreen = "Mobile Check In Detail";
+    static let loginMobileCheckInScreen = "Login Mobile Check In";
+    static let mobileCheckInScreen = "Mobile Check-In";
+    static let mobileCheckInTermScreen = "Mobile Check In Term";
+    static let successCheckInViewScreen = "Success Check In View";
+    static let loginBoardingPassScreen = "Login Boarding Pass";
+    static let boardingPassScreen = "Boarding Pass";
+    static let boardingPassDetailScreen = "Boarding Pass Detail";
+    static let facebookScreen = "Facebook Page";
+    static let instagramScreen = "Instagram Page";
+    static let twitterScreen = "Twitter Page";
+    //static let aboutUsScreen = "About Us";
+    //static let aboutUsScreen = "About Us";
+    //static let aboutUsScreen = "About Us";
+    //static let aboutUsScreen = "About Us";
+    
 }
 
 extension UIViewController: UITextFieldDelegate{

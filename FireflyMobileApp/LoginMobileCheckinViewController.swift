@@ -10,7 +10,12 @@ import UIKit
 import SwiftyJSON
 
 class LoginMobileCheckinViewController: CommonListViewController {
-    
+ 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.loginMobileCheckInScreen)
+    }
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         let bookingList = listBooking[indexPath.row] as! NSDictionary
@@ -19,6 +24,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
         FireFlyProvider.request(.CheckIn(signature, bookingList["pnr"] as! String, userId, bookingList["departure_station_code"] as! String, bookingList["arrival_station_code"] as! String)) { (result) -> () in
             
             switch result {
+                
             case .Success(let successResult):
                 do {
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))

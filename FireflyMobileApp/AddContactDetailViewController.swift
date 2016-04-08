@@ -23,7 +23,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.contactDetailsScreen)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshInsurance:", name: "refreshInsurance", object: nil)
         
         yesBtn.layer.cornerRadius = 10

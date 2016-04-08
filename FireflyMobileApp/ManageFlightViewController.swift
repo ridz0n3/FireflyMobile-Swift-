@@ -16,6 +16,7 @@ class ManageFlightViewController: BaseXLFormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.manageFlightScreen)
         continueBtn.layer.cornerRadius = 10.0
         // Do any additional setup after loading the view.
     }

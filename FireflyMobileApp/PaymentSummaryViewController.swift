@@ -21,7 +21,8 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     @IBOutlet weak var continueBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.paymentSummaryScreen)
+
         continueBtn.layer.cornerRadius = 10
         
         setupLeftButton()

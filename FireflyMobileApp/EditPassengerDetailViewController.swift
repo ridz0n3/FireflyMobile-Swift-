@@ -20,7 +20,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.editPassengerDetailScreen)
         for data in passengerInformation{
             
             if data["type"] as! String == "Adult"{

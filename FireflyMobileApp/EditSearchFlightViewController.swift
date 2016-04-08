@@ -41,6 +41,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.editSearchFlightScreen)
         setupLeftButton()
         
         continueBtn.layer.cornerRadius = 10.0

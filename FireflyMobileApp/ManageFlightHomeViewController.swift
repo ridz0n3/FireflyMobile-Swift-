@@ -50,7 +50,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.manageFlightHomeScreen)
         if isLogin{
             setupLeftButton()
         }else{

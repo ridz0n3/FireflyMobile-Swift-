@@ -26,7 +26,7 @@ class SuccessCheckInViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
-        
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.successCheckInViewScreen)
         boardingPassBtn.layer.borderWidth = 1
         boardingPassBtn.layer.cornerRadius = 10
         boardingPassBtn.layer.borderColor = UIColor.orangeColor().CGColor

@@ -21,6 +21,7 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.editFlightDetailScreen)
         // Do any additional setup after loading the view.
     }
     

@@ -17,6 +17,7 @@ class EditContactDetailViewController: CommonContactDetailViewController {
     var insuranceDetails = [String: AnyObject]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.editContactDetailScreen)
         continueBtn.layer.cornerRadius = 10
         
         itineraryData = defaults.objectForKey("manageFlight") as! [String : AnyObject]

@@ -98,10 +98,12 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     
     func menuTapped(sender: UIBarButtonItem){
         self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.sideMenuScreen)
     }
     
     func backButtonPressed(sender: UIBarButtonItem){
         self.navigationController?.popViewControllerAnimated(true)
+        
     }
     
     func actionPickerCancelled(sender:AnyObject){

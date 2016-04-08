@@ -13,6 +13,7 @@ class AddPaymentViewController: CommonPaymentViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.addPaymentScreen)
         totalDueLbl.text = String(format: "%.2f MYR", totalDue)//"\(totalDue) MYR"
         
     }

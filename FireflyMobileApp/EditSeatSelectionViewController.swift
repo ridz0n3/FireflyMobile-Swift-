@@ -17,7 +17,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.editSeatSelectionScreen)
         var newSeat = [Dictionary<String,AnyObject>]()
         var seatArray = [Dictionary<String,AnyObject>]()
         var seatData = [Dictionary<String,AnyObject>]()

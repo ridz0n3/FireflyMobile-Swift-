@@ -12,6 +12,11 @@ import XLForm
 
 class MobileCheckinViewController: CommonSearchDetailViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.mobileCheckInScreen)
+    }
+    
     @IBAction func continueButtonPressed(sender: AnyObject) {
         
         validateForm()

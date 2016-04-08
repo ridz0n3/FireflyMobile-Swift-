@@ -46,6 +46,7 @@ class AboutViewController: BaseViewController {
                 
             }
         }
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.aboutUsScreen)
         // Do any additional setup after loading the view.
     }
 

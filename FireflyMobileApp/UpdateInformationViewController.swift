@@ -25,6 +25,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectCountry:", name: "selectCountry", object: nil)
         stateArray = defaults.objectForKey("state") as! [Dictionary<String, AnyObject>]
         initializeForm()
+        
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.updateInformationScreen)
         // Do any additional setup after loading the view.
     }
     
