@@ -76,7 +76,6 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             
             //first name
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
-            //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
             row.required = true
             row.disabled = NSNumber(bool: true)
             row.value = adultDetails[i]["first_name"] as! String
@@ -84,7 +83,6 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             
             //last name
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
-            //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
             row.required = true
             row.disabled = NSNumber(bool: true)
             row.value = adultDetails[i]["last_name"] as! String

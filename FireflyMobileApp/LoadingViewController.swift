@@ -16,7 +16,7 @@ class LoadingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let loadingGif = UIImage.gifWithName("preloader300")
+        let loadingGif = UIImage.gifWithName("preloader")
         let imageView = UIImageView(image: loadingGif)
         imageView.frame = CGRect(x: 0.0, y: 0.0, width: 200.0, height: 200.0)
         bgView.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 255/255, alpha: 0.7)
