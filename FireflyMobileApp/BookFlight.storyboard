@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1713" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -2587,7 +2587,7 @@
                                     </variation>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="HYN-td-wuw">
-                                    <rect key="frame" x="0.0" y="914" width="600" height="53"/>
+                                    <rect key="frame" x="0.0" y="1008" width="600" height="53"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="beq-1c-HGA">
@@ -2613,15 +2613,101 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItineraryCell" rowHeight="83" id="0Aq-vP-Fmq" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="149" width="600" height="83"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FlightDetailCell" rowHeight="161" id="EPw-Sq-E2s" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="147" width="600" height="161"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EPw-Sq-E2s" id="Cnx-OD-jWm">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="161"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Si8-xR-YEe">
+                                                    <rect key="frame" x="16" y="0.0" width="568" height="160"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Going Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofg-u5-XCp">
+                                                            <rect key="frame" x="8" y="8" width="552" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday, 23 Dec 2015" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwy-gx-Z3g">
+                                                            <rect key="frame" x="8" y="37" width="552" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subang (SZB) to Alor Setar (AOR)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTK-WE-hBI">
+                                                            <rect key="frame" x="8" y="62" width="552" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flight FY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm3-yQ-cXD">
+                                                            <rect key="frame" x="8" y="87" width="552" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time 5:15PM to 6:25PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdA-3c-Ezx">
+                                                            <rect key="frame" x="8" y="135" width="552" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Operated by Malaysia Airlines" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rST-WW-OBp">
+                                                            <rect key="frame" x="8" y="112" width="552" height="17"/>
+                                                            <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="ofg-u5-XCp" firstAttribute="top" secondItem="Si8-xR-YEe" secondAttribute="top" constant="8" id="14C-iu-aJJ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="iwy-gx-Z3g" secondAttribute="trailing" constant="8" id="2gz-p6-SOQ"/>
+                                                        <constraint firstAttribute="bottom" secondItem="FdA-3c-Ezx" secondAttribute="bottom" constant="8" id="2lc-qR-e5p"/>
+                                                        <constraint firstAttribute="trailing" secondItem="rST-WW-OBp" secondAttribute="trailing" constant="8" id="62Q-Li-WQM"/>
+                                                        <constraint firstAttribute="trailing" secondItem="WTK-WE-hBI" secondAttribute="trailing" constant="8" id="DWp-4a-RkJ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ofg-u5-XCp" secondAttribute="trailing" constant="8" id="FBz-PN-SNx"/>
+                                                        <constraint firstItem="pm3-yQ-cXD" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="Gx0-Nl-OSl"/>
+                                                        <constraint firstAttribute="trailing" secondItem="FdA-3c-Ezx" secondAttribute="trailing" constant="8" id="Igw-nr-nV3"/>
+                                                        <constraint firstItem="WTK-WE-hBI" firstAttribute="top" secondItem="iwy-gx-Z3g" secondAttribute="bottom" constant="8" id="SEE-Gg-Dpj"/>
+                                                        <constraint firstItem="rST-WW-OBp" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="UZM-fd-41I"/>
+                                                        <constraint firstItem="rST-WW-OBp" firstAttribute="top" secondItem="pm3-yQ-cXD" secondAttribute="bottom" constant="8" id="Vj7-kn-tu9"/>
+                                                        <constraint firstAttribute="trailing" secondItem="pm3-yQ-cXD" secondAttribute="trailing" constant="8" id="WV6-Mr-hJY"/>
+                                                        <constraint firstItem="pm3-yQ-cXD" firstAttribute="top" secondItem="WTK-WE-hBI" secondAttribute="bottom" constant="8" id="XqE-iP-ubL"/>
+                                                        <constraint firstItem="ofg-u5-XCp" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="Yc9-6r-LD5"/>
+                                                        <constraint firstItem="iwy-gx-Z3g" firstAttribute="top" secondItem="ofg-u5-XCp" secondAttribute="bottom" constant="8" id="Yxf-6t-1us"/>
+                                                        <constraint firstItem="FdA-3c-Ezx" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="qK1-Iw-2jI"/>
+                                                        <constraint firstItem="WTK-WE-hBI" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="qRQ-Nl-9Ou"/>
+                                                        <constraint firstItem="iwy-gx-Z3g" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="sik-dN-6AL"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Si8-xR-YEe" firstAttribute="leading" secondItem="Cnx-OD-jWm" secondAttribute="leading" constant="16" id="D1D-JI-EKP"/>
+                                                <constraint firstAttribute="bottom" secondItem="Si8-xR-YEe" secondAttribute="bottom" constant="1" id="TA0-C1-rXe"/>
+                                                <constraint firstAttribute="trailing" secondItem="Si8-xR-YEe" secondAttribute="trailing" constant="16" id="aOl-OA-CRI"/>
+                                                <constraint firstItem="Si8-xR-YEe" firstAttribute="top" secondItem="Cnx-OD-jWm" secondAttribute="top" id="ffO-st-A0y"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dateLbl" destination="iwy-gx-Z3g" id="Gsk-xk-7o1"/>
+                                            <outlet property="destinationLbl" destination="WTK-WE-hBI" id="atd-dX-OpQ"/>
+                                            <outlet property="flightNumberLbl" destination="pm3-yQ-cXD" id="VmY-CW-l7m"/>
+                                            <outlet property="operatedMH" destination="rST-WW-OBp" id="KBh-Br-wyg"/>
+                                            <outlet property="timeLbl" destination="FdA-3c-Ezx" id="2BQ-52-gMd"/>
+                                            <outlet property="wayLbl" destination="ofg-u5-XCp" id="YVV-hd-gsc"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItineraryCell" rowHeight="153" id="0Aq-vP-Fmq" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="310" width="600" height="153"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Aq-vP-Fmq" id="M5d-9V-6bR">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="83"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="153"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BPy-8A-1wB">
-                                                    <rect key="frame" x="16" y="0.0" width="568" height="83"/>
+                                                    <rect key="frame" x="16" y="0.0" width="568" height="153"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Confirmation number :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EDW-iE-fYH">
                                                             <rect key="frame" x="8" y="8" width="159" height="17"/>
@@ -2670,6 +2756,13 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1f4-oB-Otp">
+                                                            <rect key="frame" x="8" y="94" width="552" height="51"/>
+                                                            <string key="text">Kindly ensure email itinerary is received. If you don't receive email itinerary within 30 minutes, please contact our call centre +603 7845 4543 for assistance.</string>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -2678,6 +2771,7 @@
                                                         <constraint firstItem="yZd-sb-KBj" firstAttribute="top" secondItem="RiP-gG-xLy" secondAttribute="bottom" constant="8" id="7X8-Je-7KS"/>
                                                         <constraint firstItem="RiP-gG-xLy" firstAttribute="leading" secondItem="BPy-8A-1wB" secondAttribute="leading" constant="8" id="BHD-Sj-Kuy"/>
                                                         <constraint firstItem="gIo-Hj-3q5" firstAttribute="leading" secondItem="EDW-iE-fYH" secondAttribute="trailing" constant="-4" id="D9Y-ed-Ip1"/>
+                                                        <constraint firstAttribute="trailing" secondItem="1f4-oB-Otp" secondAttribute="trailing" constant="8" id="HEF-VD-vfJ"/>
                                                         <constraint firstItem="qSu-Mk-1nk" firstAttribute="leading" secondItem="RiP-gG-xLy" secondAttribute="trailing" constant="1" id="Mce-gh-g3t"/>
                                                         <constraint firstAttribute="trailing" secondItem="qSu-Mk-1nk" secondAttribute="trailing" constant="8" id="Pj4-Mo-DM9"/>
                                                         <constraint firstItem="qSu-Mk-1nk" firstAttribute="leading" secondItem="RiP-gG-xLy" secondAttribute="trailing" constant="1" id="YD6-3a-MAV"/>
@@ -2686,10 +2780,11 @@
                                                         <constraint firstItem="qSu-Mk-1nk" firstAttribute="top" secondItem="gIo-Hj-3q5" secondAttribute="bottom" constant="8" id="eaf-6s-yRu"/>
                                                         <constraint firstItem="yZd-sb-KBj" firstAttribute="top" secondItem="qSu-Mk-1nk" secondAttribute="bottom" constant="8" id="ggs-Sd-npM"/>
                                                         <constraint firstItem="gIo-Hj-3q5" firstAttribute="top" secondItem="BPy-8A-1wB" secondAttribute="top" constant="8" id="hK1-Y3-1hT"/>
-                                                        <constraint firstAttribute="bottom" secondItem="yZd-sb-KBj" secondAttribute="bottom" constant="8" id="hzq-2J-64d"/>
                                                         <constraint firstItem="EDW-iE-fYH" firstAttribute="top" secondItem="BPy-8A-1wB" secondAttribute="top" constant="8" id="lxB-yh-Yso"/>
                                                         <constraint firstAttribute="trailing" secondItem="gIo-Hj-3q5" secondAttribute="trailing" constant="8" id="maO-Ol-4I8"/>
+                                                        <constraint firstAttribute="bottom" secondItem="1f4-oB-Otp" secondAttribute="bottom" constant="8" id="po3-oO-glA"/>
                                                         <constraint firstItem="RiP-gG-xLy" firstAttribute="top" secondItem="gIo-Hj-3q5" secondAttribute="bottom" constant="8" id="ti0-Tp-irX"/>
+                                                        <constraint firstItem="1f4-oB-Otp" firstAttribute="leading" secondItem="BPy-8A-1wB" secondAttribute="leading" constant="8" id="zQ9-oW-M36"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -2697,6 +2792,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="BPy-8A-1wB" secondAttribute="trailing" constant="16" id="078-3W-kjV"/>
                                                 <constraint firstItem="BPy-8A-1wB" firstAttribute="leading" secondItem="M5d-9V-6bR" secondAttribute="leading" constant="16" id="OB6-Yu-fkb"/>
                                                 <constraint firstItem="BPy-8A-1wB" firstAttribute="top" secondItem="M5d-9V-6bR" secondAttribute="top" id="bWa-1H-BCh"/>
+                                                <constraint firstAttribute="bottom" secondItem="BPy-8A-1wB" secondAttribute="bottom" id="m0q-yn-lDw"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -2706,7 +2802,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TotalCell" rowHeight="42" id="wls-8m-7Im" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="232" width="600" height="42"/>
+                                        <rect key="frame" x="0.0" y="463" width="600" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wls-8m-7Im" id="Zi2-Ge-P0V">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="42"/>
@@ -2747,7 +2843,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FeeCell" rowHeight="29" id="nht-1K-kka" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="274" width="600" height="29"/>
+                                        <rect key="frame" x="0.0" y="505" width="600" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nht-1K-kka" id="oI4-1v-tYr">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="29"/>
@@ -2801,7 +2897,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PriceDetailCell" rowHeight="95" id="B68-yM-ObO" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="303" width="600" height="95"/>
+                                        <rect key="frame" x="0.0" y="534" width="600" height="95"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="B68-yM-ObO" id="ko6-5B-rpD">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="95"/>
@@ -2944,7 +3040,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ServiceFeeCell" rowHeight="29" id="EtW-x8-tQS" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="398" width="600" height="29"/>
+                                        <rect key="frame" x="0.0" y="629" width="600" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EtW-x8-tQS" id="AnV-L4-Q3B">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="29"/>
@@ -2981,7 +3077,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PassengerDetailCell" rowHeight="30" id="UMh-z7-7a1" userLabel="PassengerDetailCell" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="427" width="600" height="30"/>
+                                        <rect key="frame" x="0.0" y="658" width="600" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UMh-z7-7a1" id="j16-rQ-90p">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
@@ -3020,7 +3116,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CardDetailCell" rowHeight="45" id="4rH-pb-5VA" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="457" width="600" height="45"/>
+                                        <rect key="frame" x="0.0" y="688" width="600" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4rH-pb-5VA" id="lLg-4J-45m">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="45"/>
@@ -3078,7 +3174,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PaymentDetailCell" rowHeight="81" id="GfQ-vP-k4Q" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="502" width="600" height="81"/>
+                                        <rect key="frame" x="0.0" y="733" width="600" height="81"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GfQ-vP-k4Q" id="URe-LI-7Lu">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="81"/>
@@ -3140,84 +3236,8 @@
                                             <outlet property="totalPaidLbl" destination="oJC-1J-VMX" id="fsj-lk-jp3"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FlightDetailCell" rowHeight="137" id="EPw-Sq-E2s" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="583" width="600" height="137"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EPw-Sq-E2s" id="Cnx-OD-jWm">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="137"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Si8-xR-YEe">
-                                                    <rect key="frame" x="16" y="0.0" width="568" height="136"/>
-                                                    <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Going Out" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ofg-u5-XCp">
-                                                            <rect key="frame" x="8" y="8" width="552" height="21"/>
-                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wednesday, 23 Dec 2015" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iwy-gx-Z3g">
-                                                            <rect key="frame" x="8" y="37" width="552" height="17"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subang (SZB) to Alor Setar (AOR)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTK-WE-hBI">
-                                                            <rect key="frame" x="8" y="62" width="552" height="17"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flight FY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm3-yQ-cXD">
-                                                            <rect key="frame" x="8" y="87" width="552" height="17"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time 5:15PM to 6:25PM" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FdA-3c-Ezx">
-                                                            <rect key="frame" x="8" y="112" width="552" height="17"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
-                                                    </subviews>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstItem="ofg-u5-XCp" firstAttribute="top" secondItem="Si8-xR-YEe" secondAttribute="top" constant="8" id="14C-iu-aJJ"/>
-                                                        <constraint firstAttribute="trailing" secondItem="iwy-gx-Z3g" secondAttribute="trailing" constant="8" id="2gz-p6-SOQ"/>
-                                                        <constraint firstAttribute="bottom" secondItem="FdA-3c-Ezx" secondAttribute="bottom" constant="7" id="2lc-qR-e5p"/>
-                                                        <constraint firstAttribute="trailing" secondItem="WTK-WE-hBI" secondAttribute="trailing" constant="8" id="DWp-4a-RkJ"/>
-                                                        <constraint firstAttribute="trailing" secondItem="ofg-u5-XCp" secondAttribute="trailing" constant="8" id="FBz-PN-SNx"/>
-                                                        <constraint firstItem="pm3-yQ-cXD" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="Gx0-Nl-OSl"/>
-                                                        <constraint firstAttribute="trailing" secondItem="FdA-3c-Ezx" secondAttribute="trailing" constant="8" id="Igw-nr-nV3"/>
-                                                        <constraint firstItem="WTK-WE-hBI" firstAttribute="top" secondItem="iwy-gx-Z3g" secondAttribute="bottom" constant="8" id="SEE-Gg-Dpj"/>
-                                                        <constraint firstAttribute="trailing" secondItem="pm3-yQ-cXD" secondAttribute="trailing" constant="8" id="WV6-Mr-hJY"/>
-                                                        <constraint firstItem="pm3-yQ-cXD" firstAttribute="top" secondItem="WTK-WE-hBI" secondAttribute="bottom" constant="8" id="XqE-iP-ubL"/>
-                                                        <constraint firstItem="ofg-u5-XCp" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="Yc9-6r-LD5"/>
-                                                        <constraint firstItem="iwy-gx-Z3g" firstAttribute="top" secondItem="ofg-u5-XCp" secondAttribute="bottom" constant="8" id="Yxf-6t-1us"/>
-                                                        <constraint firstItem="FdA-3c-Ezx" firstAttribute="top" secondItem="pm3-yQ-cXD" secondAttribute="bottom" constant="8" id="avQ-9Q-L4v"/>
-                                                        <constraint firstItem="FdA-3c-Ezx" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="qK1-Iw-2jI"/>
-                                                        <constraint firstItem="WTK-WE-hBI" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="qRQ-Nl-9Ou"/>
-                                                        <constraint firstItem="iwy-gx-Z3g" firstAttribute="leading" secondItem="Si8-xR-YEe" secondAttribute="leading" constant="8" id="sik-dN-6AL"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Si8-xR-YEe" firstAttribute="leading" secondItem="Cnx-OD-jWm" secondAttribute="leading" constant="16" id="D1D-JI-EKP"/>
-                                                <constraint firstAttribute="trailing" secondItem="Si8-xR-YEe" secondAttribute="trailing" constant="16" id="aOl-OA-CRI"/>
-                                                <constraint firstItem="Si8-xR-YEe" firstAttribute="top" secondItem="Cnx-OD-jWm" secondAttribute="top" id="ffO-st-A0y"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="dateLbl" destination="iwy-gx-Z3g" id="Gsk-xk-7o1"/>
-                                            <outlet property="destinationLbl" destination="WTK-WE-hBI" id="atd-dX-OpQ"/>
-                                            <outlet property="flightNumberLbl" destination="pm3-yQ-cXD" id="VmY-CW-l7m"/>
-                                            <outlet property="timeLbl" destination="FdA-3c-Ezx" id="2BQ-52-gMd"/>
-                                            <outlet property="wayLbl" destination="ofg-u5-XCp" id="YVV-hd-gsc"/>
-                                        </connections>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InsuranceCell" rowHeight="58" id="45f-Lb-fRo" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="720" width="600" height="58"/>
+                                        <rect key="frame" x="0.0" y="814" width="600" height="58"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="45f-Lb-fRo" id="31o-3A-md7">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="58"/>
@@ -3276,7 +3296,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactDetailCell" rowHeight="136" id="hhI-rf-vMZ" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="778" width="600" height="136"/>
+                                        <rect key="frame" x="0.0" y="872" width="600" height="136"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hhI-rf-vMZ" id="yKy-7l-vCh">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="136"/>
