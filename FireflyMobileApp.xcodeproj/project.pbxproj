@@ -60,6 +60,7 @@
 		7E69311D1BFB2F38004F1719 /* BoardingPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */; };
 		7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */; };
 		7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */; };
+		7E72B0471CB4FF67005FD33A /* preloader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7E72B0461CB4FF67005FD33A /* preloader.gif */; };
 		7E75373B1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */; };
 		7E75373D1C5F42CC0068D49D /* MobileCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */; };
 		7E79055A1CA5280C00790364 /* LogoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7905591CA5280B00790364 /* LogoutManager.swift */; };
@@ -214,6 +215,7 @@
 		7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassViewController.swift; sourceTree = "<group>"; };
 		7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
+		7E72B0461CB4FF67005FD33A /* preloader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = preloader.gif; sourceTree = "<group>"; };
 		7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginMobileCheckinViewController.swift; sourceTree = "<group>"; };
 		7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileCheckinViewController.swift; sourceTree = "<group>"; };
 		7E7905591CA5280B00790364 /* LogoutManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogoutManager.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 		7E9DD2891C9AA769008E1B90 /* Loading */ = {
 			isa = PBXGroup;
 			children = (
+				7E72B0461CB4FF67005FD33A /* preloader.gif */,
 				7E9DD28C1C9AA906008E1B90 /* preloader300.gif */,
 				7E9DD28A1C9AA7C8008E1B90 /* Loading.storyboard */,
 				7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */,
@@ -841,6 +844,7 @@
 				7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */,
 				961C57211C7EA849000910B7 /* Localizable.strings in Resources */,
 				7EE2F9A31C990FA600499B37 /* NewUpdate.storyboard in Resources */,
+				7E72B0471CB4FF67005FD33A /* preloader.gif in Resources */,
 				7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */,
 				7E1F78281BF9C50400F55C46 /* Register.storyboard in Resources */,
 				7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */,

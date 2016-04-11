@@ -106,7 +106,8 @@ class InitialLoadManager {
                     }
                 }
                 catch {
-                    
+                    print("fail")
+                    self.load()
                 }//
             case .Failure(let failureResult):
                 
