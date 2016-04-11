@@ -15,6 +15,7 @@ class CustomPaymentSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var destinationLbl: UILabel!
     @IBOutlet weak var flightNumberLbl: UILabel!
     @IBOutlet weak var timeLbl: UILabel!
+    @IBOutlet weak var operatedMH: UILabel!
     
     @IBOutlet weak var flightDestination: UILabel!
     @IBOutlet weak var guestLbl: UILabel!

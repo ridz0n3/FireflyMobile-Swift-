@@ -509,8 +509,6 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
             section = sectionSelect.section
         }
         
-        _ = details[section]["seat_info"]
-        
         let seatRowTemp = details[section]["seat_info"] as! [[Dictionary<String,AnyObject>]]
         let seatRow = seatRowTemp[sender.tag]
         

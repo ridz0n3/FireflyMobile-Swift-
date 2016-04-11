@@ -84,9 +84,9 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if indexPath.section == 0{
-            return 83
+            return 170//83
         }else if indexPath.section == 1{
-            return 137
+            return 137//167
         }else if indexPath.section == 2{
             let detail = priceDetail[indexPath.row] as NSDictionary
             
@@ -131,6 +131,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }else if indexPath.section == 1{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
+            cell.operatedMH.hidden = true
             cell.wayLbl.text = flightDetail[indexPath.row]["type"] as? String
             cell.dateLbl.text = flightDetail[indexPath.row]["date"] as? String
             cell.destinationLbl.text = flightDetail[indexPath.row]["station"] as? String

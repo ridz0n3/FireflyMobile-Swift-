@@ -234,10 +234,10 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 for data in arr{
                     if data == "true"{
                         var passengerInfo = [String:AnyObject]()
-                        var passengerArray = [Dictionary<String,[AnyObject]>]()
+                        var passengerArray = [AnyObject]()
                         passengerInfo.updateValue("Y", forKey: "status")
-                        passengerArray = checkInDetail["passengers"] as! [Dictionary<String,[AnyObject]>]
-                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!, forKey: "passenger_number")
+                        passengerArray = checkInDetail["passengers"] as! [AnyObject]
+                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!!, forKey: "passenger_number")
                         passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
                         passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
                         passengerInfo.updateValue(formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
@@ -284,7 +284,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                                 let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                                 let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInTermVC") as! MobileCheckInTermViewController
                                 checkInDetailVC.pnr = self.pnr
-                                checkInDetailVC.termDetail = json.object as! Dictionary<String, [AnyObject]>
+                                checkInDetailVC.termDetail = json.object as! Dictionary<String, AnyObject> 
                                 self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                                 
                             }else{
