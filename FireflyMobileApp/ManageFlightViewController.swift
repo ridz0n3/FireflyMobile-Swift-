@@ -97,8 +97,11 @@ class ManageFlightViewController: BaseXLFormViewController {
                         }else{
                             
                                 showErrorMessage(json["message"].string!)
+                            
+                            
                         }
                         hideLoading()
+                        
                     }
                     catch {
                         
@@ -107,6 +110,8 @@ class ManageFlightViewController: BaseXLFormViewController {
                 case .Failure(let failureResult):
                     hideLoading()
                     showErrorMessage(failureResult.nsError.localizedDescription)
+                    
+                    
                 }
                 
             })

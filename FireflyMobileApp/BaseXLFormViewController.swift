@@ -99,6 +99,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         
         if array.count != 0{
             isValidate = false
+            //AnalyticsManager.sharedInstance.logScreen(GAConstants.manageFlightErrorScreen)
             var i = 0
             var message = String()
             

@@ -216,6 +216,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
     
     func reloadAlertView(msg : String){
         
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.loginPopupScreen)
         let alert = SCLAlertView()
         email = alert.addTextField("Enter email")
         email.text = tempEmail
@@ -229,6 +230,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             self.sentData()
         }
         alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
+        
         
     }
     

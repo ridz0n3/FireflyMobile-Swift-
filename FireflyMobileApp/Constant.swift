@@ -118,8 +118,8 @@ struct GAConstants {
     static let facebookScreen = "Facebook Page";
     static let instagramScreen = "Instagram Page";
     static let twitterScreen = "Twitter Page";
-    //static let aboutUsScreen = "About Us";
-    //static let aboutUsScreen = "About Us";
+    static let loginPopupScreen = "Book Flight: Flight Details(Login Popup)";
+    //static let manageFlightErrorScreen = "Manage Flight: Manage Flight(Error Popup)";
     //static let aboutUsScreen = "About Us";
     //static let aboutUsScreen = "About Us";
     

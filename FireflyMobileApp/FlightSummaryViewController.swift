@@ -280,6 +280,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         
         SCLAlertView().showSuccess("Taxes/Fees", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
         
+        
     }
 
     @IBAction func continueBtnPressed(sender: AnyObject) {
@@ -287,6 +288,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         for views in (self.navigationController?.viewControllers)!{
             if views.classForCoder == HomeViewController.classForCoder(){
                 self.navigationController?.popToViewController(views, animated: true)
+                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
             }
         }
         
