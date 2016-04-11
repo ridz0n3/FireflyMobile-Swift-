@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '1A8850E4FB0D1C9432386CDC'
+               BlueprintIdentifier = 'A946EA03EF4E1794CCA70112'
                BlueprintName = 'Pods-FireflyMobileApp'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_FireflyMobileApp.framework'>
