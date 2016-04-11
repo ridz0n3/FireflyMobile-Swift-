@@ -2798,6 +2798,7 @@
                                         <connections>
                                             <outlet property="bookDateLbl" destination="yZd-sb-KBj" id="kGW-Hz-zr9"/>
                                             <outlet property="confirmationLbl" destination="gIo-Hj-3q5" id="tCn-D6-OUB"/>
+                                            <outlet property="customerServiceLbl" destination="1f4-oB-Otp" id="ueO-Ac-ti2"/>
                                             <outlet property="reservationLbl" destination="qSu-Mk-1nk" id="ZqK-A2-Hm4"/>
                                         </connections>
                                     </tableViewCell>

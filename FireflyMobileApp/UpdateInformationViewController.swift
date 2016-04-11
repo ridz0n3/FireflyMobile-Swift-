@@ -22,7 +22,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
         setupMenuButton()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectCountry:", name: "selectCountry", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpdateInformationViewController.selectCountry(_:)), name: "selectCountry", object: nil)
         stateArray = defaults.objectForKey("state") as! [Dictionary<String, AnyObject>]
         initializeForm()
         

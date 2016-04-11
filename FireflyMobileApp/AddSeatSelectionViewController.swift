@@ -15,7 +15,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.seatSelectionScreen)
         journeys = defaults.objectForKey("journey") as! [AnyObject]
-        passenger = defaults.objectForKey("passenger") as! [[Dictionary<String, AnyObject>]]
+        passenger = defaults.objectForKey("passenger") as! [AnyObject]
         
         var newSeat = [Dictionary<String, AnyObject>]()
         var seatArray = [Dictionary<String, AnyObject>]()

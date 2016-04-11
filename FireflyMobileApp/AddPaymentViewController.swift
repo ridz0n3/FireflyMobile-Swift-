@@ -53,7 +53,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "Redirect"{
-                                    
+                                    hideLoading()
                                     let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
                                     
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)

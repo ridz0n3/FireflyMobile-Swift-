@@ -30,8 +30,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         self.tableView.tableFooterView = footerView
         setupLeftButton()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "addExpiredDate:", name: "expiredDate", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "removeExpiredDate:", name: "removeExpiredDate", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonPassengerDetailViewController.addExpiredDate(_:)), name: "expiredDate", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonPassengerDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -137,6 +137,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
         let firstPassenger = passengerName[0]
         var nameDuplicate = Bool()
+        
+        //for i in 1...passengerName.count-1{
         for var i = 1; i < passengerName.count; i = i + 1{
             
             if passengerName[i] == firstPassenger{

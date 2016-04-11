@@ -237,7 +237,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
     func saveBoardingPass(boardingPassArr : [AnyObject], pnrStr : String){
         
         let userInfo = defaults.objectForKey("userInfo")
-        var userList = Results<UserList>!()
+        var userList : Results<UserList>! = nil
         userList = realm.objects(UserList)
         
         let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)

@@ -128,11 +128,11 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
             getExpiredData()
             let labelParagraphStyle = NSMutableParagraphStyle()
             labelParagraphStyle.alignment = .Center
-            ActionSheetMultipleStringPicker.showPickerWithTitle("", rows: expireDate as [AnyObject], initialSelection: selectDateIndex as [AnyObject], target: self, successAction: Selector("expiredDateSelected:element:"), cancelAction: nil, origin: textField)
+            ActionSheetMultipleStringPicker.showPickerWithTitle("", rows: expireDate as [AnyObject], initialSelection: selectDateIndex as [AnyObject], target: self, successAction: #selector(CustomFloatLabelCell.expiredDateSelected(_:element:)), cancelAction: nil, origin: textField)
             return false
         }else if tag![0] == Tags.ValidationDate || tag![0] == Tags.ValidationExpiredDate{
             textFieldBefore.endEditing(true)
-            let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date , selectedDate: selectDate, target: self, action: "datePicked:element:", origin: textField)
+            let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date , selectedDate: selectDate, target: self, action: #selector(CustomFloatLabelCell.datePicked(_:element:)), origin: textField)
             
             let str = self.rowDescriptor?.tag?.componentsSeparatedByString("(")
             
@@ -159,7 +159,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
             retrieveData()
             let labelParagraphStyle = NSMutableParagraphStyle()
             labelParagraphStyle.alignment = .Center
-            let picker = ActionSheetStringPicker(title: "", rows: data, initialSelection: selectindex, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: textField)
+            let picker = ActionSheetStringPicker(title: "", rows: data, initialSelection: selectindex, target: self, successAction: #selector(CustomFloatLabelCell.objectSelected(_:element:)), cancelAction: "actionPickerCancelled:", origin: textField)
             picker.pickerTextAttributes = [NSFontAttributeName : UIFont.systemFontOfSize(25), NSParagraphStyleAttributeName : labelParagraphStyle]
             picker.showActionSheetPicker()
             return false
@@ -235,7 +235,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
                 }
             }
             
-            i++
+            i += 1
         }
     }
     
