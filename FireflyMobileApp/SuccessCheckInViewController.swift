@@ -58,7 +58,7 @@ class SuccessCheckInViewController: BaseViewController {
         if try! LoginManager.sharedInstance.isLogin(){
             
             let userInfo = defaults.objectForKey("userInfo")
-            var userList = Results<UserList>!()
+            var userList : Results<UserList>! = nil
             userList = realm.objects(UserList)
             
             let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
@@ -67,7 +67,7 @@ class SuccessCheckInViewController: BaseViewController {
                 let mainPNR = mainUser[0].pnr.filter("pnr == %@", boardingList[0]["RecordLocator"] as! String)
                 
                 if mainPNR.count != 0{
-                    var boardingPass = List<BoardingPassList>!()
+                    var boardingPass : List<BoardingPassList>! = nil
                     for data in mainPNR{
                         
                         if data.departureStationCode == boardingList[0]["DepartureStationCode"] as! String{
@@ -98,7 +98,7 @@ class SuccessCheckInViewController: BaseViewController {
                 Alamofire.request(.GET, imageURL!).response(completionHandler: { (request, response, data, error) -> Void in
                     
                     dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
-                    i++
+                    i += 1
                     
                     if i == j{
                         
@@ -110,7 +110,7 @@ class SuccessCheckInViewController: BaseViewController {
                         hideLoading()
                     }
                 })
-                j++
+                j += 1
             }
             
         }

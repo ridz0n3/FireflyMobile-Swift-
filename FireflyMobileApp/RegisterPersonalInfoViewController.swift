@@ -30,7 +30,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         }
         
         stateArray = defaults.objectForKey("state") as! [Dictionary<String, AnyObject>]
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "selectCountry:", name: "selectCountry", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RegisterPersonalInfoViewController.selectCountry(_:)), name: "selectCountry", object: nil)
         
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.registerScreen)

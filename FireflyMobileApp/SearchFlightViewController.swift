@@ -42,8 +42,8 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         setupLeftButton()
         getDepartureAirport("search")
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "departureDate:", name: "departure", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "returnDate:", name: "return", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.departureDate(_:)), name: "departure", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.returnDate(_:)), name: "return", object: nil)
         
         AnalyticsManager.sharedInstance.logScreen(GAConstants.searchFlightScreen)
         // Do any additional setup after loading the view.
@@ -82,8 +82,8 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             
             let cell = self.searchFlightTableView.dequeueReusableCellWithIdentifier("ButtonCell", forIndexPath: indexPath) as! CustomSearchFlightTableViewCell
             
-            cell.returnBtn.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
-            cell.oneWayBtn.addTarget(self, action: "btnClick:", forControlEvents: .TouchUpInside)
+            cell.returnBtn.addTarget(self, action: #selector(SearchFlightViewController.btnClick(_:)), forControlEvents: .TouchUpInside)
+            cell.oneWayBtn.addTarget(self, action: #selector(SearchFlightViewController.btnClick(_:)), forControlEvents: .TouchUpInside)
             
             return cell
         }else if indexPath.row == 5 {
@@ -131,14 +131,14 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
         if indexPath.row == 1{
             let sender = cell.airportLbl as UILabel
-            let picker = ActionSheetStringPicker(title: "", rows: pickerRow, initialSelection: departureSelected, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: sender)
+            let picker = ActionSheetStringPicker(title: "", rows: pickerRow, initialSelection: departureSelected, target: self, successAction: #selector(SearchFlightViewController.objectSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
             picker.showActionSheetPicker()
             
         }else if indexPath.row == 2{
             
             if pickerTravel.count != 0{
                 let sender = cell.airportLbl as UILabel
-                let picker = ActionSheetStringPicker(title: "", rows: pickerTravel, initialSelection: arrivalSelected, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: sender)
+                let picker = ActionSheetStringPicker(title: "", rows: pickerTravel, initialSelection: arrivalSelected, target: self, successAction: #selector(SearchFlightViewController.objectSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
                 picker.showActionSheetPicker()
                 
             }
@@ -312,7 +312,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     }
     
     func searchFlightValidation(){
-        let indexCell = NSIndexPath.init(forItem: 5, inSection: 0)
+        _ = NSIndexPath.init(forItem: 5, inSection: 0)
         
         var count = Int()
         

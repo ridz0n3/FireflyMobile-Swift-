@@ -41,7 +41,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
     
     func rearrangePaymentType(){
         
-        var xchannelPosition : CGFloat = 44
+        let xchannelPosition : CGFloat = 44
         var yonlinePosition : CGFloat = 362
         //var xcashPosition : CGFloat = 41
         

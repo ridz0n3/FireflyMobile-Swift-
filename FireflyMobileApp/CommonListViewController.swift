@@ -15,7 +15,7 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
     @IBOutlet weak var LoginMobileCheckinTableView: UITableView!
     
     var isOffline = Bool()
-    var pnrList = Results<PNRList>!()
+    var pnrList : Results<PNRList>! = nil
     
     var userId = String()
     var signature = String()

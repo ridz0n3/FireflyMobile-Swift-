@@ -212,7 +212,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         password = alert.addTextField("Password")
         password.secureTextEntry = true
         password.text = tempPassword
-        alert.addButton("Login", target: self, selector: "loginBtnPressed:")
+        alert.addButton("Login", target: self, selector: #selector(AddMHFlightDetailViewController.loginBtnPressed(_:)))
         //alert.showCloseButton = false
         alert.addButton("Continue as guest") {
             showLoading()

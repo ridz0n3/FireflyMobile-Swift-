@@ -22,7 +22,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshTable:", name: "reloadHome", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.refreshTable(_:)), name: "reloadHome", object: nil)
         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
         
         // Do any additional setup after loading the view.
@@ -112,13 +112,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         else if indexPath.row == 5{
             let cell = tableView.dequeueReusableCellWithIdentifier("SocialCell", forIndexPath: indexPath)
             let facebookView = cell.viewWithTag(1)
-            let facebookSelected = UITapGestureRecognizer(target: self, action: "facebookSelected:")
+            let facebookSelected = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.facebookSelected(_:)))
             facebookView?.addGestureRecognizer(facebookSelected)
-            let twitterSelected = UITapGestureRecognizer(target: self, action: "twitterSelected:")
+            let twitterSelected = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.twitterSelected(_:)))
             let twitterView = cell.viewWithTag(2)
             twitterView?.addGestureRecognizer(twitterSelected)
             let instaView = cell.viewWithTag(3)
-            let instaSelected = UITapGestureRecognizer(target: self, action: "instaSelected:")
+            let instaSelected = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.instaSelected(_:)))
             instaView?.addGestureRecognizer(instaSelected)
             return cell
         }
@@ -292,12 +292,12 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .Failure:
                         
                         hideLoading()
                         //showErrorMessage(failureResult.nsError.localizedDescription)
                         let userInfo = defaults.objectForKey("userInfo") as! [String : String]
-                        var userData = Results<UserList>!()
+                        var userData : Results<UserList>! = nil
                         userData = realm.objects(UserList)
                         let mainUser = userData.filter("userId == %@", userInfo["username"]!)
                         

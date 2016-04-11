@@ -13,7 +13,7 @@ import RealmSwift
 
 class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate {
 
-    var boardingList = List<BoardingPassList>!()
+    var boardingList = List<BoardingPassList>()
     var isOffline = Bool()
     
     @IBOutlet var boardingPassView: UIView!

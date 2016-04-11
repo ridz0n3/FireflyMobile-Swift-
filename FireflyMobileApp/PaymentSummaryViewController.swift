@@ -122,7 +122,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             cell.guestLbl.text = detail["guest"] as? String
             cell.taxesPrice.text = detail["total_taxes_or_fees"] as? String
             
-            cell.detailBtn.addTarget(self, action: "detailBtnPressed:", forControlEvents: .TouchUpInside)
+            cell.detailBtn.addTarget(self, action: #selector(PaymentSummaryViewController.detailBtnPressed(_:)), forControlEvents: .TouchUpInside)
             cell.detailBtn.accessibilityHint = taxData
             
             return cell

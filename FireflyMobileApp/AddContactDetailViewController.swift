@@ -24,7 +24,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.contactDetailsScreen)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshInsurance:", name: "refreshInsurance", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddContactDetailViewController.refreshInsurance(_:)), name: "refreshInsurance", object: nil)
         
         yesBtn.layer.cornerRadius = 10
         yesBtn.layer.borderWidth = 1
@@ -107,7 +107,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         }else{
             isWantInsurance = true
             insuranceView.hidden = true
-            let tap = UITapGestureRecognizer(target: self, action: "textTapped:")
+            let tap = UITapGestureRecognizer(target: self, action: #selector(AddContactDetailViewController.textTapped(_:)))
             paragraph2.addGestureRecognizer(tap)
             var newFrame = footerView.bounds
             newFrame.size.height = 765
@@ -460,7 +460,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 initializeForm()
                 
             }else{
-                let picker = ActionSheetStringPicker(title: "", rows: passengerArray, initialSelection: passengerSelected, target: self, successAction: Selector("objectSelected:element:"), cancelAction: "actionPickerCancelled:", origin: sender)
+                let picker = ActionSheetStringPicker(title: "", rows: passengerArray, initialSelection: passengerSelected, target: self, successAction: #selector(AddContactDetailViewController.objectSelected(_:element:)), cancelAction: #selector(self.actionSheetCancel(_:)), origin: sender)
                 picker.showActionSheetPicker()
             }
             

@@ -84,7 +84,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if indexPath.section == 0{
-            return 170//83
+            return 83//170//83
         }else if indexPath.section == 1{
             return 137//167
         }else if indexPath.section == 2{
@@ -126,7 +126,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             cell.confirmationLbl.text = "\(itineraryInformation["pnr"]!)"
             cell.reservationLbl.text = "\(itineraryInformation["booking_status"]!)"
             cell.bookDateLbl.text = "Booking Date : \(itineraryInformation["booking_date"]!)"
-            
+            cell.customerServiceLbl.hidden = true
             return cell
         }else if indexPath.section == 1{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
@@ -166,7 +166,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             cell.guestLbl.text = detail["guest"] as? String
             cell.taxesPrice.text = detail["total_taxes_or_fees"] as? String
             
-            cell.detailBtn.addTarget(self, action: "detailBtnPressed:", forControlEvents: .TouchUpInside)
+            cell.detailBtn.addTarget(self, action: #selector(FlightSummaryViewController.detailBtnPressed(_:)), forControlEvents: .TouchUpInside)
             cell.detailBtn.accessibilityHint = taxData
             
             return cell
