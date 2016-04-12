@@ -46,8 +46,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
         continueBtn.layer.cornerRadius = 10.0
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "departureDate:", name: "departure", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "returnDate:", name: "return", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditSearchFlightViewController.departureDate(_:)), name: "departure", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditSearchFlightViewController.returnDate(_:)), name: "return", object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -205,7 +205,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
             }
         }
         
-        checkBtn.addTarget(self, action: "checkSection:", forControlEvents: .TouchUpInside)
+        checkBtn.addTarget(self, action: #selector(EditSearchFlightViewController.checkSection(_:)), forControlEvents: .TouchUpInside)
         return sectionHeader
         
     }

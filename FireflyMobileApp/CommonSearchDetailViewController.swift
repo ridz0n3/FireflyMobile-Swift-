@@ -20,7 +20,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         getDepartureAirport("checkIn")
         initializeForm()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshArrivingCode:", name: "refreshArrivingCode", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonSearchDetailViewController.refreshArrivingCode(_:)), name: "refreshArrivingCode", object: nil)
         // Do any additional setup after loading the view.
     }
 

@@ -116,7 +116,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
         flightSummarryTableView.tableHeaderView = headerView
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshHomePage", name: "reloadHomePage", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ManageFlightHomeViewController.refreshHomePage), name: "reloadHomePage", object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -251,7 +251,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             cell.guestLbl.text = detail["guest"] as? String
             cell.taxesPrice.text = detail["total_taxes_or_fees"] as? String
             
-            cell.detailBtn.addTarget(self, action: "detailBtnPressed:", forControlEvents: .TouchUpInside)
+            cell.detailBtn.addTarget(self, action: #selector(ManageFlightHomeViewController.detailBtnPressed(_:)), forControlEvents: .TouchUpInside)
             cell.detailBtn.accessibilityHint = taxData
             
             return cell

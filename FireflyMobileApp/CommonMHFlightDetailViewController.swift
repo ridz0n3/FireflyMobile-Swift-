@@ -120,7 +120,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                     cell.economyPromoBtn.hidden = false
                     
                     cell.economyPromoBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:1"
-                    cell.economyPromoBtn.addTarget(self, action: "checkCategory:", forControlEvents: .TouchUpInside)
+                    cell.economyPromoBtn.addTarget(self, action: #selector(CommonMHFlightDetailViewController.checkCategory(_:)), forControlEvents: .TouchUpInside)
                     
                 }
                 

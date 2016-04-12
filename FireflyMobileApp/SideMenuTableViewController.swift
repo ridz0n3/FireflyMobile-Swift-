@@ -24,9 +24,9 @@ class SideMenuTableViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "refreshSideMenu:", name: "reloadSideMenu", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuTableViewController.refreshSideMenu(_:)), name: "reloadSideMenu", object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "logoutSession:", name: "logout", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuTableViewController.logoutSession(_:)), name: "logout", object: nil)
         
         if try! LoginManager.sharedInstance.isLogin(){
             hideRow = true

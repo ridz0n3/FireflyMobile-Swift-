@@ -52,10 +52,10 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
         let image2 = UIImage(named: "back")! .imageWithRenderingMode(.AlwaysOriginal)
         
-        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: "menuTapped:")
+        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseXLFormViewController.menuTapped(_:)))
         menuButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
         
-        let backButton = UIBarButtonItem(image: image2, style: .Plain, target: self, action: "backButtonPressed:")
+        let backButton = UIBarButtonItem(image: image2, style: .Plain, target: self, action: #selector(BaseXLFormViewController.backButtonPressed(_:)))
         backButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
         
         
@@ -76,7 +76,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         
         let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
         
-        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: "menuTapped:")
+        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseXLFormViewController.menuTapped(_:)))
         menuButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
         
         let buttons:[UIBarButtonItem] = [menuButton];
@@ -114,7 +114,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
                 if empty.count == 1{
                     
                     message += "\(validationStatus.msg),\n"
-                    i++
+                    i += 1
                     
                 }else{
                     if errorTag[0] == Tags.ValidationPurpose

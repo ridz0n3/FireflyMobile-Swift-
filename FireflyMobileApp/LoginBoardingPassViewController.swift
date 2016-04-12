@@ -45,7 +45,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                 
                 if mainPNR.count != 0{
                     
-                    var check = 0
+                   /* var check = 0
                     var boardingPass = List<BoardingPassList>!()
                     for data in mainPNR{
                         
@@ -56,7 +56,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                             
                         }
                         
-                    }
+                    }*/
                     
                     //if check == 0{
                         sentData(bookingList)

@@ -47,12 +47,13 @@ class CustomPaymentSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var totalPaidLbl: UILabel!
     @IBOutlet weak var totalDueLbl: UILabel!
     @IBOutlet weak var paymentTotalPriceLbl: UILabel!
+    @IBOutlet weak var serviceLbl: UILabel!
     
     @IBOutlet weak var cardTypeLbl: UILabel!
     @IBOutlet weak var cardPayLbl: UILabel!
     @IBOutlet weak var cardStatusLbl: UILabel!
     
-    @IBOutlet weak var serviceLbl: UILabel!
+    @IBOutlet weak var customerServiceLbl: UILabel!
     @IBOutlet weak var servicePriceLbl: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

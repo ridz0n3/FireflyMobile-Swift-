@@ -62,10 +62,10 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
         let image2 = UIImage(named: "back")! .imageWithRenderingMode(.AlwaysOriginal)
         
-        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: "menuTapped:")
+        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseViewController.menuTapped(_:)))
         menuButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
         
-        let backButton = UIBarButtonItem(image: image2, style: .Plain, target: self, action: "backButtonPressed:")
+        let backButton = UIBarButtonItem(image: image2, style: .Plain, target: self, action: #selector(BaseViewController.backButtonPressed(_:)))
         backButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
         
         
@@ -86,7 +86,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         
         let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
         
-        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: "menuTapped:")
+        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseViewController.menuTapped(_:)))
         menuButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
         
         let buttons:[UIBarButtonItem] = [menuButton];

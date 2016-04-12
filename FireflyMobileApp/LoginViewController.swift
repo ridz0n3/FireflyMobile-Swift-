@@ -134,7 +134,7 @@
             let alert = SCLAlertView()
             email = alert.addTextField("Enter email")
             email.text = tempEmail
-            alert.addButton("Submit", target: self, selector: "loginBtnPressed")
+            alert.addButton("Submit", target: self, selector: #selector(LoginViewController.loginBtnPressed))
             alert.showEdit("Forgot Password", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
             
         }
@@ -143,7 +143,7 @@
             
             let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
             
-            let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+            _ = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
             
             if email.text == ""{
                 reloadAlertView("Please fill all field")
