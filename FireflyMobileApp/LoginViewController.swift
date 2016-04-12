@@ -123,6 +123,7 @@
         @IBAction func forgotPasswordButtonPressed(sender: AnyObject) {
             
             reloadAlertView("USER ID (Email):*")
+            AnalyticsManager.sharedInstance.logScreen(GAConstants.forgotPasswordPopupScreen)
         }
         
         var email = UITextField()

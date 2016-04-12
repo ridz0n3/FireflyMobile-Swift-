@@ -120,6 +120,8 @@ struct GAConstants {
     static let twitterScreen = "Twitter Page";
     static let loginPopupScreen = "Book Flight: Flight Details(Login Popup)";
     //static let manageFlightErrorScreen = "Manage Flight: Manage Flight(Error Popup)";
+    static let passwordExpiredScreen = "Login: Password Expired";
+    static let forgotPasswordPopupScreen = "Login: Forgot Password Popup";
     //static let aboutUsScreen = "About Us";
     //static let aboutUsScreen = "About Us";
     
