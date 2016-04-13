@@ -58,7 +58,7 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
     
     var count = 0
     func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-       showLoading()
+        showLoading()
     }
     
     func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {

@@ -149,17 +149,12 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
     }
 
     func loginBtnPressed(sender : SCLAlertView){
-        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
-        
-        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         
         tempEmail = email.text!
         tempPassword = password.text!
         
         if email.text == "" || password.text == ""{
             reloadAlertView("Please fill all field")
-        }else if !emailTest.evaluateWithObject(self.email.text){
-            reloadAlertView("Email is invalid")
         }else{
             let encPassword = try! EncryptManager.sharedInstance.aesEncrypt(password.text!, key: key, iv: iv)
             

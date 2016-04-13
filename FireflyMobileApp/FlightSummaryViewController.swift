@@ -28,8 +28,16 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     @IBOutlet weak var continueBtn: UIButton!
     var contacts = [NSManagedObject]()
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        flightSummarryTableView.estimatedRowHeight = 80
+        flightSummarryTableView.rowHeight = UITableViewAutomaticDimension
+        
         AnalyticsManager.sharedInstance.logScreen(GAConstants.flightSummaryScreen)
         continueBtn.layer.cornerRadius = 10
         setupMenuButton()
@@ -95,8 +103,10 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             }else{
                 return 76
             }
-        }else if (indexPath.section == 3 && serviceDetail.count != 0) || indexPath.section == 4{
+        }else if (indexPath.section == 3 && serviceDetail.count != 0){
             return 29
+        }else if indexPath.section == 4{
+            return UITableViewAutomaticDimension
         }else if indexPath.section == 5{
             return 42
         }else if (indexPath.section == 6 && insuranceDetails["status"] as! String != "N"){
@@ -118,6 +128,16 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if indexPath.section == 1{
+            
+            
+            
+        }
+        
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if indexPath.section == 0{
@@ -131,6 +151,16 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }else if indexPath.section == 1{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
+            if itineraryInformation["booking_status"]! as! String == "Unconfirmed"{
+            
+            cell.unconfirmedStatus.alpha = 1.0
+            UIView.animateWithDuration(0.32, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse, .Repeat], animations: {
+                cell.unconfirmedStatus.alpha = 0.0
+                }, completion: nil)
+            
+            }else{
+                cell.unconfirmedStatus.hidden = true
+            }
             cell.operatedMH.hidden = true
             cell.wayLbl.text = flightDetail[indexPath.row]["type"] as? String
             cell.dateLbl.text = flightDetail[indexPath.row]["date"] as? String

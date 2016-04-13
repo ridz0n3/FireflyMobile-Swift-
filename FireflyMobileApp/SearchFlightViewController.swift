@@ -25,7 +25,6 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     
     var departureText = String()
     var arrivalText = String()
-    
     var type : Int = 1
     var validate : Bool = false
     
@@ -73,6 +72,10 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         }else{
             return 50
         }
+        
+    }
+    
+    func toogleAlpha(){
         
     }
     

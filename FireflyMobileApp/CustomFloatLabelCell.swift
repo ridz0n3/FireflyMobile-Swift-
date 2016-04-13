@@ -132,6 +132,17 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
             return false
         }else if tag![0] == Tags.ValidationDate || tag![0] == Tags.ValidationExpiredDate{
             textFieldBefore.endEditing(true)
+            
+            if let date = self.rowDescriptor?.value{
+                let dateArr = (date as! String).componentsSeparatedByString("-")
+                let arrangeDate = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
+                
+                let formater = NSDateFormatter()
+                formater.dateFormat = "yyyy-MM-dd"
+                
+                selectDate = formater.dateFromString(arrangeDate)!
+            }
+            
             let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date , selectedDate: selectDate, target: self, action: #selector(CustomFloatLabelCell.datePicked(_:element:)), origin: textField)
             
             let str = self.rowDescriptor?.tag?.componentsSeparatedByString("(")

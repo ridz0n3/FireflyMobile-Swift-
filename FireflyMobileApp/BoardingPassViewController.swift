@@ -73,6 +73,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                         }
                     }
                     catch {
+                        hideLoading()
                         showErrorMessage("We are unable to locate the itinerary. Please verify the information is correct and try again.")
                     }
                     

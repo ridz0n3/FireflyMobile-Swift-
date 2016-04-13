@@ -25,6 +25,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     @IBOutlet weak var flightSummarryTableView: UITableView!
     @IBOutlet weak var confirmBtn: UIButton!
     @IBOutlet weak var cancelBtn: UIButton!
+    @IBOutlet weak var ssrBtn: UIButton!
     
     var contacts = [NSManagedObject]()
     var totalDueStr = Double()
@@ -47,9 +48,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     var isLogin = Bool()
     var flightType = String()
     var userId = String()
+    var ssr = [AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        flightSummarryTableView.estimatedRowHeight = 80
+        flightSummarryTableView.rowHeight = UITableViewAutomaticDimension
+        
         AnalyticsManager.sharedInstance.logScreen(GAConstants.manageFlightHomeScreen)
         if isLogin{
             setupLeftButton()
@@ -97,6 +103,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             addPaymentBtn.layer.borderWidth = 0.5
             addPaymentBtn.layer.cornerRadius = 10.0
             
+            ssrBtn.layer.borderWidth = 0.5
+            ssrBtn.layer.cornerRadius = 10.0
+            
             getInfo()
             
             if totalDue == "0.00 MYR"{
@@ -111,6 +120,11 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 var newFrame = headerView.frame
                 newFrame.size.height = newFrame.size.height - 42
                 headerView.frame = newFrame
+            }else{
+                ssrBtn.hidden = true
+                var newFrame = headerView.frame
+                newFrame.size.height = newFrame.size.height - 42
+                headerView.frame = newFrame
             }
         }
         
@@ -122,6 +136,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     
     func getInfo(){
         
+        ssr = itineraryData["special_services_request"] as! [AnyObject]
         flightDetail = itineraryData["flight_details"] as! [Dictionary<String,AnyObject>]
         priceDetail = itineraryData["price_details"] as! [Dictionary<String,AnyObject>]
         totalPrice = itineraryData["total_price"] as! String
@@ -145,11 +160,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 10
+        
+        return 12
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         
         if section == 1{
             return flightDetail.count
@@ -157,9 +173,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             return priceDetail.count
         }else if section == 4{
             return serviceDetail.count
-        }else if section == 8{
+        }else if section == 7{
+            let ssrPassenger = ssr[0]["passenger"] as! [AnyObject]
+            return ssrPassenger.count + 1
+        }else if (section == 8 && ssr.count == 2){
+            let ssrPassenger = ssr[1]["passenger"] as! [AnyObject]
+            return ssrPassenger.count + 1
+        }else if section == 10{
             return passengerInformation.count
-        }else if section == 9{
+        }else if section == 11{
             return paymentDetails.count + 1
         }else{
             return 1
@@ -171,7 +193,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         if indexPath.section == 0{
             return 83
         }else if indexPath.section == 1{
-            return 137
+            if flightType == "MH"{
+                return 177
+            }else{
+                return 137//137
+            }
+            
         }else if indexPath.section == 2{
             let detail = priceDetail[indexPath.row] as NSDictionary
             
@@ -181,17 +208,23 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 return 76
             }
             
-        }else if (indexPath.section == 3 && serviceDetail.count != 0) || indexPath.section == 4{
+        }else if (indexPath.section == 3 && serviceDetail.count != 0){
             return 28
+        }else if indexPath.section == 4{
+            return UITableViewAutomaticDimension
         }else if indexPath.section == 5{
             return 42
         }else if (indexPath.section == 6 && insuranceDetails["status"] as! String != "N"){
             return 59
         }else if indexPath.section == 7{
-            return 136
-        }else if indexPath.section == 8{
-            return 30
+            return UITableViewAutomaticDimension
+        }else if (indexPath.section == 8 && ssr.count == 2){
+            return UITableViewAutomaticDimension
         }else if indexPath.section == 9{
+            return 136
+        }else if indexPath.section == 10{
+            return 30
+        }else if indexPath.section == 11{
             
             if indexPath.row == paymentDetails.count{
                 return 80
@@ -216,6 +249,10 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             return cell
         }else if indexPath.section == 1{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            
+            if flightType != "MH"{
+                cell.operatedMH.hidden = true
+            }
             
             cell.wayLbl.text = flightDetail[indexPath.row]["type"] as? String
             cell.dateLbl.text = flightDetail[indexPath.row]["date"] as? String
@@ -285,6 +322,68 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             return cell
         }else if indexPath.section == 7{
+            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("SSRCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            
+            let index = indexPath.row
+            let ssrPassenger = ssr[0]
+            
+            if index == 0{
+                cell.ssrPassengerName.text = ssrPassenger["type"] as? String
+                cell.ssrPassengerName.font = UIFont.boldSystemFontOfSize(15.0)
+            }else{
+                let passengerInfo = ssrPassenger["passenger"] as! [AnyObject]
+                
+                var ssr = ""
+                
+                if passengerInfo[index - 1].count != 1{
+                    
+                    for ssrList in passengerInfo[index - 1]["list_ssr"] as! [AnyObject]{
+                        ssr += "\(ssrList["ssr_name"] as! String)\n"
+                    }
+                    
+                }
+                let myAttribute = [NSFontAttributeName: UIFont.boldSystemFontOfSize(14.0) ]
+                let myString = NSMutableAttributedString(string: "Name :", attributes: myAttribute )
+                let attrString = NSAttributedString(string: " \(passengerInfo[index - 1]["name"] as! String)\n\(ssr)")
+                myString.appendAttributedString(attrString)
+                
+                cell.ssrPassengerName.attributedText = myString
+            }
+            
+            return cell
+        }else if (indexPath.section == 8 && ssr.count == 2){
+            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("SSRCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            
+            let index = indexPath.row
+            let ssrPassenger = ssr[1]
+            
+            if index == 0{
+                cell.ssrPassengerName.text = ssrPassenger["type"] as? String
+                cell.ssrPassengerName.font = UIFont.boldSystemFontOfSize(15.0)
+            }else{
+                let passengerInfo = ssrPassenger["passenger"] as! [AnyObject]
+                
+                var ssr = ""
+                
+                if passengerInfo[index - 1].count != 1{
+                    
+                    for ssrList in passengerInfo[index - 1]["list_ssr"] as! [AnyObject]{
+                        ssr += "\(ssrList["ssr_name"] as! String)\n"
+                    }
+                    
+                }
+                
+                let myAttribute = [NSFontAttributeName: UIFont.boldSystemFontOfSize(14.0) ]
+                let myString = NSMutableAttributedString(string: "Name :", attributes: myAttribute )
+                let attrString = NSAttributedString(string: " \(passengerInfo[index - 1]["name"] as! String)\n\(ssr)")
+                myString.appendAttributedString(attrString)
+                
+                cell.ssrPassengerName.attributedText = myString
+
+            }
+            
+            return cell
+        }else if indexPath.section == 9{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("ContactDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
             cell.contactNameLbl.text = "\(getTitleName(contactInformation["title"]! as! String)) \(contactInformation["first_name"]!) \(contactInformation["last_name"]!)"
@@ -294,7 +393,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             cell.contactAlternateLbl.text = "Alternate Phone : \(contactInformation["alternate_phone"]!)"
             
             return cell
-        }else if indexPath.section == 8{
+        }else if indexPath.section == 10{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PassengerDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             let passengerDetail = passengerInformation[indexPath.row] as NSDictionary
             
@@ -321,15 +420,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 cell.cardTypeLbl.text = "\(cardData["payment_method"]!)"
                 return cell
             }
-            
-            
-            
         }
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        if section == 0 || section == 1 || section == 2 || (section == 6 && insuranceDetails["status"] as! String != "N") || section == 7 || section == 8 || section == 9{
+        if section == 0 || section == 1 || section == 2 || (section == 6 && insuranceDetails["status"] as! String != "N") || section == 7 || section == 9 || section == 10 || section == 11{
             return 35
         }else{
             return 0
@@ -352,10 +448,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else if section == 6{
             sectionView.sectionLbl.text = "INSURANCE DETAILS"
         }else if section == 7{
-            sectionView.sectionLbl.text = "CONTACT INFORMATION"
-        }else if section == 8{
-            sectionView.sectionLbl.text = "PASSENGER INFORMATION"
+            sectionView.sectionLbl.text = "SPECIAL SERVICES REQUEST"
         }else if section == 9{
+            sectionView.sectionLbl.text = "CONTACT INFORMATION"
+        }else if section == 10{
+            sectionView.sectionLbl.text = "PASSENGER INFORMATION"
+        }else if section == 11{
             sectionView.sectionLbl.text = "PAYMENT DETAILS"
         }
         

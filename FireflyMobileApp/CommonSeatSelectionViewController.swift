@@ -25,6 +25,10 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
         setupLeftButton()
+        
+        seatTableView.estimatedRowHeight = 80
+        seatTableView.rowHeight = UITableViewAutomaticDimension
+        
         sectionSelect = NSIndexPath(forRow: 0, inSection: 0)
         // Do any additional setup after loading the view.
     }
@@ -72,7 +76,7 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 40
+        return UITableViewAutomaticDimension
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

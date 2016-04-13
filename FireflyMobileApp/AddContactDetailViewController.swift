@@ -23,6 +23,9 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //flightType = defaults.objectForKey("flightType") as! String
+        
         AnalyticsManager.sharedInstance.logScreen(GAConstants.contactDetailsScreen)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddContactDetailViewController.refreshInsurance(_:)), name: "refreshInsurance", object: nil)
         
