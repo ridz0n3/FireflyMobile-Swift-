@@ -20,6 +20,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         setupMenuButton()
         continueBtn.layer.cornerRadius = 10
         initializeForm()
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.passwordExpiredScreen)
         // Do any additional setup after loading the view.
     }
     
