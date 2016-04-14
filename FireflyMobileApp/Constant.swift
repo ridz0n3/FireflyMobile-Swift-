@@ -94,8 +94,8 @@ struct GAConstants {
     static let seatSelectionScreen = "Book Flight: Choose Seat";
     static let paymentSummaryScreen = "Book Flight: Payment Details(Payment Summary)";
     static let addPaymentScreen = "Book Flight: Payment Details(Add Payment)";
-    static let paymentWebScreen = "Book Flight: Payment Details(Payment Web)";
-    static let flightSummaryScreen = "Book Flight: Flight Summary";
+    static let paymentBookWebScreen = "Book Flight: Payment Details(Payment Web)";
+    static let flightBookingSummaryScreen = "Book Flight: Flight Summary";
     static let loginManageFlightScreen = "Manage Flight: Login Manage Flight";
     static let manageFlightScreen = "Manage Flight: Manage Flight";
     static let manageFlightHomeScreen = "Manage Flight: Manage Flight Home";
@@ -121,6 +121,10 @@ struct GAConstants {
     static let loginPopupScreen = "Book Flight: Flight Details(Login Popup)";
     //static let manageFlightErrorScreen = "Manage Flight: Manage Flight(Error Popup)";
     static let passwordExpiredScreen = "Login: Password Expired";
+    static let paymentManageWebScreen = "Manage Flight: Payment Details(Payment Web)";
+    static let flightManagingSummaryScreen = "Manage Flight: Flight Summary";
+    //static let aboutUsScreen = "About Us";
+    //static let aboutUsScreen = "About Us";
     //static let aboutUsScreen = "About Us";
     
 }

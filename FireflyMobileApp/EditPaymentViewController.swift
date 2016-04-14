@@ -13,6 +13,7 @@ class EditPaymentViewController: CommonPaymentViewController {
 
     var bookingId = String()
     var signature = String()
+    var manage = String()
     
     var totalDueStr = Double()
     override func viewDidLoad() {
@@ -70,6 +71,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
                                     manageFlightVC.urlString = urlString
                                     manageFlightVC.signature = self.signature
+                                    manageFlightVC.manage = "manage"
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
                                 }else{

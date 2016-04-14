@@ -24,6 +24,8 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     var totalPaid = String()
     var priceDetail = [Dictionary<String,AnyObject>]()
     var serviceDetail = [Dictionary<String,AnyObject>]()
+    //var booking = String()
+    //var managing = String()
     
     @IBOutlet weak var continueBtn: UIButton!
     var contacts = [NSManagedObject]()
@@ -38,7 +40,12 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         flightSummarryTableView.estimatedRowHeight = 80
         flightSummarryTableView.rowHeight = UITableViewAutomaticDimension
         
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.flightSummaryScreen)
+        /*if booking == "booking"{
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.flightBookingSummaryScreen)
+        }
+        else if managing == "managing"{
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.flightManagingSummaryScreen)
+        }*/
         continueBtn.layer.cornerRadius = 10
         setupMenuButton()
         
