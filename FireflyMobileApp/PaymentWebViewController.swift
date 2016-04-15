@@ -19,6 +19,7 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
     var webView: WKWebView?
     var urlString = String()
     var signature = String()
+    var module = String()
     
     override func loadView() {
         super.loadView()
@@ -40,6 +41,13 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if module == "Booking"{
+            //ga booking
+        }else if module == "Manage"{
+            //ga manage
+        }
+        
         AnalyticsManager.sharedInstance.logScreen(GAConstants.paymentWebScreen)
         if paymentType == "CI" || paymentType == "PX"{
             setupLeftButton()

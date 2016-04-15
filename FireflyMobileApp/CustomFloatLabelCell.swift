@@ -164,7 +164,8 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
             || tag![0] == Tags.ValidationCountry
             || tag![0] == Tags.ValidationTravelDoc
             || tag![0] == Tags.ValidationTravelWith
-            || tag![0] == Tags.ValidationGender{
+            || tag![0] == Tags.ValidationGender
+            || tag![0] == Tags.ValidationSSRList{
             
             textFieldBefore.endEditing(true)
             retrieveData()

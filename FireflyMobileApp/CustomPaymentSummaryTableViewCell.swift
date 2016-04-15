@@ -57,7 +57,6 @@ class CustomPaymentSummaryTableViewCell: UITableViewCell {
     @IBOutlet weak var servicePriceLbl: UILabel!
     
     @IBOutlet weak var ssrPassengerName: UILabel!
-    @IBOutlet weak var ssrName: UILabel!
     @IBOutlet weak var unconfirmedStatus: UILabel!
     
     

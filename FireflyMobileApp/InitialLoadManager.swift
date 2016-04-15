@@ -106,8 +106,7 @@ class InitialLoadManager {
                     }
                 }
                 catch {
-                    print("fail")
-                    self.load()
+                    showRetryMessage("Unable to connect the server")
                 }//
             case .Failure(let failureResult):
                 

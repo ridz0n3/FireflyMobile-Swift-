@@ -274,15 +274,15 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                                 defaults.setObject(json["signature"].string, forKey: "signature")
                                 defaults.synchronize()
                                 
-                                if json["type"].string == "MH"{
-                                    defaults.setValue(json["type"].string, forKey: "flightType")
+                                if json["flight_type"].string == "MH"{
+                                    defaults.setValue(json["flight_type"].string, forKey: "flightType")
                                     defaults.synchronize()
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("MHFlightDetailVC") as! AddMHFlightDetailViewController
                                     flightDetailVC.flightDetail = json["journeys"].arrayValue
                                     self.navigationController!.pushViewController(flightDetailVC, animated: true)
                                 }else{
-                                    defaults.setValue(json["type"].string, forKey: "flightType")
+                                    defaults.setValue(json["flight_type"].string, forKey: "flightType")
                                     defaults.synchronize()
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("FlightDetailVC") as! AddFlightDetailViewController

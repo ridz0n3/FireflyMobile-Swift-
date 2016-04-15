@@ -193,12 +193,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         if indexPath.section == 0{
             return 83
         }else if indexPath.section == 1{
-            if flightType == "MH"{
-                return 177
-            }else{
-                return 137//137
-            }
-            
+            return UITableViewAutomaticDimension
         }else if indexPath.section == 2{
             let detail = priceDetail[indexPath.row] as NSDictionary
             
@@ -250,15 +245,20 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else if indexPath.section == 1{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
-            if flightType != "MH"{
-                cell.operatedMH.hidden = true
+            let str = "\(flightDetail[indexPath.row]["date"] as! String)\n\(flightDetail[indexPath.row]["station"] as! String)\n\(flightDetail[indexPath.row]["flight_number"] as! String)\n"
+            
+            let attrString = NSMutableAttributedString(string: str)
+            if flightDetail[indexPath.row]["flight_note"] != nil{
+                
+                let myAttribute = [NSFontAttributeName: UIFont.italicSystemFontOfSize(14.0)]
+                let myString = NSMutableAttributedString(string: "\(flightDetail[indexPath.row]["flight_note"] as! String)\n", attributes: myAttribute )
+                attrString.appendAttributedString(myString)
+                
             }
             
+            attrString.appendAttributedString(NSAttributedString(string: flightDetail[indexPath.row]["time"] as! String))
             cell.wayLbl.text = flightDetail[indexPath.row]["type"] as? String
-            cell.dateLbl.text = flightDetail[indexPath.row]["date"] as? String
-            cell.destinationLbl.text = flightDetail[indexPath.row]["station"] as? String
-            cell.flightNumberLbl.text = flightDetail[indexPath.row]["flight_number"] as? String
-            cell.timeLbl.text = flightDetail[indexPath.row]["time"] as? String
+            cell.dateLbl.attributedText = attrString
             
             return cell
         }else if indexPath.section == 2{
@@ -814,5 +814,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
+    @IBAction func ssrBtnPressed(sender: AnyObject) {
+        
+        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+        let ssrVC = storyboard.instantiateViewControllerWithIdentifier("EditSSRVC") as! EditSSRViewController
+        self.navigationController!.pushViewController(ssrVC, animated: true)
+        
+    }
     
 }

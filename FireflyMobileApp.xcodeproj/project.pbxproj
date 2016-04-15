@@ -121,6 +121,7 @@
 		7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */; };
 		7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */; };
 		7EC476441CB260490017535E /* CustomFloatLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC476431CB260490017535E /* CustomFloatLabelCell.swift */; };
+		7EC5A2271CBF828600234D85 /* EditSSRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC5A2261CBF828600234D85 /* EditSSRViewController.swift */; };
 		7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */; };
 		7EE2F9A01C9907F600499B37 /* NewUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */; };
 		7EE2F9A31C990FA600499B37 /* NewUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EE2F9A21C990FA600499B37 /* NewUpdate.storyboard */; };
@@ -279,6 +280,7 @@
 		7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PassengerHeader.xib; sourceTree = "<group>"; };
 		7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassengerHeaderView.swift; sourceTree = "<group>"; };
 		7EC476431CB260490017535E /* CustomFloatLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFloatLabelCell.swift; sourceTree = "<group>"; };
+		7EC5A2261CBF828600234D85 /* EditSSRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSSRViewController.swift; sourceTree = "<group>"; };
 		7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialLoadManager.swift; sourceTree = "<group>"; };
 		7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUpdateViewController.swift; sourceTree = "<group>"; };
 		7EE2F9A21C990FA600499B37 /* NewUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewUpdate.storyboard; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 				7E985A0B1C4DF11900EBAFA5 /* EditSeatSelectionViewController.swift */,
 				7E985A111C4E3B7600EBAFA5 /* EditPaymentViewController.swift */,
 				7E69310C1BFB195D004F1719 /* SendItineraryViewController.swift */,
+				7EC5A2261CBF828600234D85 /* EditSSRViewController.swift */,
 			);
 			name = "Manage Flight";
 			sourceTree = "<group>";
@@ -933,6 +936,7 @@
 				7E0707921C72ED36001D7328 /* CommonListViewController.swift in Sources */,
 				7E20F90D1BFA02E90020AB0C /* CustomFlightDetailTableViewCell.swift in Sources */,
 				7E985A101C4E38D000EBAFA5 /* AddPaymentViewController.swift in Sources */,
+				7EC5A2271CBF828600234D85 /* EditSSRViewController.swift in Sources */,
 				7E1F781A1BF9B60800F55C46 /* LoginViewController.swift in Sources */,
 				7E86C25E1C828D2100C6547B /* AddMHFlightDetailViewController.swift in Sources */,
 				7EBBFA0B1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift in Sources */,

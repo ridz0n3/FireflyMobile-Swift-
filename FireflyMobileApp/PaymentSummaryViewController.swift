@@ -20,6 +20,9 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     
     @IBOutlet weak var continueBtn: UIButton!
     override func viewDidLoad() {
+        
+        paymentTableView.estimatedRowHeight = 80
+        paymentTableView.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.paymentSummaryScreen)
 
@@ -65,7 +68,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if indexPath.section == 0{
-            return 137
+            return UITableViewAutomaticDimension
         }else if indexPath.section == 1{
             let detail = priceDetail[indexPath.row] as NSDictionary
             
@@ -89,11 +92,20 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         if indexPath.section == 0{
             let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
+            let str = "\(flightDetail[indexPath.row]["date"] as! String)\n\(flightDetail[indexPath.row]["station"] as! String)\n\(flightDetail[indexPath.row]["flight_number"] as! String)\n"
+            
+            let attrString = NSMutableAttributedString(string: str)
+            if flightDetail[indexPath.row]["flight_note"] != nil{
+                
+                let myAttribute = [NSFontAttributeName: UIFont.italicSystemFontOfSize(14.0)]
+                let myString = NSMutableAttributedString(string: "\(flightDetail[indexPath.row]["flight_note"] as! String)\n", attributes: myAttribute )
+                attrString.appendAttributedString(myString)
+                
+            }
+            
+            attrString.appendAttributedString(NSAttributedString(string: flightDetail[indexPath.row]["time"] as! String))
             cell.wayLbl.text = flightDetail[indexPath.row]["type"] as? String
-            cell.dateLbl.text = flightDetail[indexPath.row]["date"] as? String
-            cell.destinationLbl.text = flightDetail[indexPath.row]["station"] as? String
-            cell.flightNumberLbl.text = flightDetail[indexPath.row]["flight_number"] as? String
-            cell.timeLbl.text = flightDetail[indexPath.row]["time"] as? String
+            cell.dateLbl.attributedText = attrString
             
             return cell
             

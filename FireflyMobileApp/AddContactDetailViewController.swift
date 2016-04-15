@@ -24,7 +24,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //flightType = defaults.objectForKey("flightType") as! String
+        flightType = defaults.objectForKey("flightType") as! String
         
         AnalyticsManager.sharedInstance.logScreen(GAConstants.contactDetailsScreen)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddContactDetailViewController.refreshInsurance(_:)), name: "refreshInsurance", object: nil)
@@ -208,6 +208,60 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         
         if isValidate{
             
+            let goingSSRDict = NSMutableArray()
+            let returnSSRDict = NSMutableArray()
+            
+            if flightType == "MH"{
+                
+                var i = 0
+                for ssrInfo in meals{
+                    
+                    let mealList = ssrInfo["list_meal"] as! [AnyObject]
+                    let passengerList = ssrInfo["passenger"] as! [AnyObject]
+                    var tempDict = [AnyObject]()
+                    
+                    for passengerInfo in passengerList{
+                        
+                        let passengerDict = NSMutableDictionary()
+                        for mealsInfo in mealList{
+                        
+                            if formValues()["\(Tags.ValidationSSRList)(\(i)\(passengerInfo["passenger_number"] as! Int))"] as! String == mealsInfo["name"] as! String{
+                                
+                                passengerDict.setValue("\(passengerInfo["passenger_number"] as! Int)", forKey: "passenger_number")
+                                passengerDict.setValue(mealsInfo["meal_code"] as! String, forKey: "meal_code")
+                                break
+                                
+                            }
+                        
+                        }
+                        
+                        tempDict.append(passengerDict)
+                    }
+                    
+                    if i == 0{
+                        goingSSRDict.addObject(tempDict)
+                    }else{
+                        returnSSRDict.addObject(tempDict)
+                    }
+                    
+                    i += 1
+                    
+                }
+                
+                if meals.count == 1{
+                    let tempDict = [AnyObject]()
+                    returnSSRDict.addObject(tempDict)
+                }
+                
+                
+            }else{
+                let tempDict = [AnyObject]()
+                
+                goingSSRDict.addObject(tempDict)
+                returnSSRDict.addObject(tempDict)
+            }
+            
+            
             let purposeData = getPurpose(formValues()[Tags.ValidationPurpose]! as! String, purposeArr: purposeArray)
             let titleData = getTitleCode(formValues()[Tags.ValidationTitle]! as! String, titleArr: titleArray)
             let firstNameData = formValues()[Tags.ValidationFirstName]!  as! String
@@ -244,7 +298,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
                 showLoading() 
-                FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "N"), completion: { (result) -> () in
+                FireFlyProvider.request(.ContactDetail(flightType, bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "N", goingSSRDict[0], returnSSRDict[0]), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
@@ -332,11 +386,19 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 
             }
             
+            let goingSSRDict = NSMutableArray()
+            let returnSSRDict = NSMutableArray()
+            
+            let tempDict = [AnyObject]()
+            
+            goingSSRDict.addObject(tempDict)
+            returnSSRDict.addObject(tempDict)
+            
             if insuranceData == "" {
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
                 showLoading() 
-                FireFlyProvider.request(.ContactDetail(bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "Y" ), completion: { (result) -> () in
+                FireFlyProvider.request(.ContactDetail("FY",bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "Y", goingSSRDict[0], returnSSRDict[0] ), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):

@@ -28,8 +28,13 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     var titleArray = defaults.objectForKey("title") as! [Dictionary<String,AnyObject>]
     var countryArray = defaults.objectForKey("country") as! [Dictionary<String,AnyObject>]
     var flightType = String()
+    var meals = [AnyObject]()
     
     override func viewDidLoad() {
+        
+        self.tableView.estimatedRowHeight = 80
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        
         super.viewDidLoad()
         setupLeftButton()
         stateArray = defaults.objectForKey("state") as! [Dictionary<String,AnyObject>]
@@ -53,20 +58,47 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         form = XLFormDescriptor(title: "")
         
         if flightType == "MH"{
+            
             section = XLFormSectionDescriptor()
             section = XLFormSectionDescriptor.formSectionWithTitle("SPECIAL MEALS REQUEST")
             form.addFormSection(section)
             
-            //first name
-            row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
-            row.required = true
-            row.value = contactData["first_name"]
-            section.addFormRow(row)
+            var i = 0
+            for mealInfo in meals{
+                
+                section = XLFormSectionDescriptor()
+                section = XLFormSectionDescriptor.formSectionWithTitle(mealInfo["destination_name"] as? String)
+                form.addFormSection(section)
+                
+                let mealList = mealInfo["list_meal"] as! [AnyObject]
+                let passengerList = mealInfo["passenger"] as! [AnyObject]
+                
+                for passengerInfo in passengerList{
+                    
+                    // Meals
+                    row = XLFormRowDescriptor(tag: "\(Tags.ValidationSSRList)(\(i)\(passengerInfo["passenger_number"] as! Int))", rowType:XLFormRowDescriptorTypeFloatLabeled, title:passengerInfo["name"] as? String)
+                    
+                    var tempArray:[AnyObject] = [AnyObject]()
+                    for mealsDetail in mealList{
+                        tempArray.append(XLFormOptionsObject(value: mealsDetail["meal_code"], displayText: mealsDetail["name"] as! String))
+                        
+                        if mealsDetail["meal_code"] as! String == ""{
+                            row.value = mealsDetail["name"] as! String
+                        }
+                    }
+                    
+                    row.selectorOptions = tempArray
+                    section.addFormRow(row)
+                    
+                }
+                i += 1
+            }
+            
         }
         
         
         section = XLFormSectionDescriptor()
-        section = XLFormSectionDescriptor.formSectionWithTitle("CONTACT DETAILS")
+        section = XLFormSectionDescriptor.formSectionWithTitle("CONTACT DETAIL")
         form.addFormSection(section)
         
         // Purpose
@@ -349,20 +381,76 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        
+        if flightType == "MH"{
+            
+            if meals.count == 2{
+                if section == 1 || section == 2{
+                    return UITableViewAutomaticDimension
+                    
+                }else{
+                    return 35
+                }
+                
+            }else{
+                if section == 1{
+                    return UITableViewAutomaticDimension
+                    
+                }else{
+                    return 35
+                }
+            }
+            
+        }else{
+            return 35
+        }
+        
+        
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
         
-        sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-        
         let index = UInt(section)
-        
         sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
-        sectionView.sectionLbl.textColor = UIColor.whiteColor()
-        sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+        
+        if flightType == "MH"{
+            
+            if meals.count == 2{
+                if index == 1 || index == 2{
+                    sectionView.views.backgroundColor = UIColor.whiteColor()
+                    sectionView.sectionLbl.textColor = UIColor.blackColor()
+                    sectionView.sectionLbl.font = UIFont.boldSystemFontOfSize(12.0)
+                    sectionView.sectionLbl.textAlignment = NSTextAlignment.Left
+                    
+                }else{
+                    sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+                    sectionView.sectionLbl.textColor = UIColor.whiteColor()
+                    sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+                }
+
+            }else{
+                if index == 1{
+                    sectionView.views.backgroundColor = UIColor.whiteColor()
+                    sectionView.sectionLbl.textColor = UIColor.blackColor()
+                    sectionView.sectionLbl.font = UIFont.boldSystemFontOfSize(12.0)
+                    sectionView.sectionLbl.textAlignment = NSTextAlignment.Left
+                    
+                }else{
+                    sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+                    sectionView.sectionLbl.textColor = UIColor.whiteColor()
+                    sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+                }
+            }
+            
+        }else{
+            sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+
+            sectionView.sectionLbl.textColor = UIColor.whiteColor()
+            sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+        }
+        
         
         return sectionView
         

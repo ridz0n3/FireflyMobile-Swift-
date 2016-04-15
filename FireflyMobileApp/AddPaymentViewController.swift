@@ -58,6 +58,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                                     
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                                    manageFlightVC.module = "Booking"
                                     manageFlightVC.paymentType = "Card"
                                     manageFlightVC.urlString = urlString
                                     manageFlightVC.signature = defaults.objectForKey("signature") as! String

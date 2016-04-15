@@ -290,8 +290,11 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 }else if !params.5 && params.1.count != 0{
                     showErrorMessage("You can only assign one infant to one guest.")
                 }else{
+                    
+                    let flightType = defaults.objectForKey("flightType") as! String
+                    
                     showLoading() 
-                    FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3), completion: { (result) -> () in
+                    FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
@@ -311,6 +314,11 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                     
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
+                                    
+                                    if let meal = json["meal"].arrayObject{
+                                        contactDetailVC.meals = meal
+                                    }
+                                    
                                     self.navigationController!.pushViewController(contactDetailVC, animated: true)
                                 }else if json["status"] == "error"{
                                     
