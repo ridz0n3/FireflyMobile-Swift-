@@ -124,7 +124,7 @@ struct GAConstants {
     static let passwordExpiredScreen = "Login: Password Expired";
     static let paymentManageWebScreen = "Manage Flight: Payment Details(Payment Web)";
     static let flightManagingSummaryScreen = "Manage Flight: Flight Summary";
-    //static let aboutUsScreen = "About Us";
+    static let addPaymentManageScreen = "Manage Flight: Payment Details(Add Payment)";
     //static let aboutUsScreen = "About Us";
     //static let aboutUsScreen = "About Us";
     
