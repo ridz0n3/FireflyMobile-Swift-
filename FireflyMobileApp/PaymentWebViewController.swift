@@ -19,7 +19,8 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
     var webView: WKWebView?
     var urlString = String()
     var signature = String()
-    var module = String()
+    var book = String()
+    var manage = String()
     
     override func loadView() {
         super.loadView()
@@ -42,13 +43,14 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if module == "Booking"{
-            //ga booking
-        }else if module == "Manage"{
-            //ga manage
+        if book == "book"{
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.paymentBookWebScreen)
+        }
+            
+        else if manage == "manage"{
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.paymentManageWebScreen)
         }
         
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.paymentWebScreen)
         if paymentType == "CI" || paymentType == "PX"{
             setupLeftButton()
         }else{
@@ -127,6 +129,14 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                             let flightSummaryFlightVC = storyboard.instantiateViewControllerWithIdentifier("FlightSummaryVC") as! FlightSummaryViewController
                             self.navigationController!.pushViewController(flightSummaryFlightVC, animated: true)
+                            
+                            if self.book == "book"{
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.flightBookingSummaryScreen)
+                            }
+                                
+                            else if self.manage == "manage"{
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.flightManagingSummaryScreen)
+                            }
                             
                         }else if json["status"] == "error"{
                             
