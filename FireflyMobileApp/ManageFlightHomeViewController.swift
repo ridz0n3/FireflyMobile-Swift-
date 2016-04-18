@@ -625,6 +625,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     
     @IBAction func SendItineraryBtnPressed(sender: AnyObject) {
         
+        //AnalyticsManager.sharedInstance.logScreen(GAConstants.sendItineraryScreen)
         pnr = itineraryInformation["pnr"] as! String
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
@@ -640,6 +641,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     
                     if json["status"] == "success"{
                         
+                        AnalyticsManager.sharedInstance.logScreen(GAConstants.sendItineraryScreen)
                         showToastMessage(json["message"].string!)
                         
                     }else if json["status"] == "error"{
