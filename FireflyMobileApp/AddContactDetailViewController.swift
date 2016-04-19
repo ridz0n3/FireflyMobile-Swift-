@@ -408,11 +408,11 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                             
                             if json["status"] == "success"{
                                 
-                                defaults.setObject(json["journeys"].arrayObject, forKey: "journey")
-                                defaults.setObject(json["passengers"].arrayObject, forKey: "passenger")
-                                defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                 let chooseSeatVC = storyboard.instantiateViewControllerWithIdentifier("SeatSelectionVC") as! AddSeatSelectionViewController
+                                chooseSeatVC.journeys = json["journeys"].arrayObject!
+                                chooseSeatVC.seatFare = json["seat_fare"].arrayObject!
+                                chooseSeatVC.passenger = json["passengers"].arrayObject!
                                 self.navigationController!.pushViewController(chooseSeatVC, animated: true)
                             }else if json["status"] == "error"{
                                 

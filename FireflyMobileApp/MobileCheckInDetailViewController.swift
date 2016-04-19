@@ -36,6 +36,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         AnalyticsManager.sharedInstance.logScreen(GAConstants.mobileCheckInDetailScreen)
         continueBtn.layer.cornerRadius = 10
         
+        detailTableView.estimatedRowHeight = 80
+        detailTableView.rowHeight = UITableViewAutomaticDimension
+        
         let flightDetail = checkInDetail["flight_detail"] as! Dictionary<String, AnyObject>
         stationCode.text = "\(flightDetail["station_code"] as! String)"
         flightDate.text = "\(flightDetail["flight_date"] as! String)"
@@ -258,10 +261,10 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         passenger.updateValue(passengerInfo, forKey: "\(count)")
                     }else{
                         var passengerInfo = [String:AnyObject]()
-                        var passengerArray = [Dictionary<String,[AnyObject]>]()
+                        var passengerArray = [AnyObject]()
                         passengerInfo.updateValue("N", forKey: "status")
-                        passengerArray = checkInDetail["passengers"] as! [Dictionary<String,[AnyObject]>]
-                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!, forKey: "passenger_number")
+                        passengerArray = checkInDetail["passengers"] as! [AnyObject]
+                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!!, forKey: "passenger_number")
                         passenger.updateValue(passengerInfo, forKey: "\(count)")
                     }
                     count += 1

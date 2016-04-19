@@ -49,6 +49,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     var flightType = String()
     var userId = String()
     var ssr = [AnyObject]()
+    var isAvailable = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,11 +121,30 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 var newFrame = headerView.frame
                 newFrame.size.height = newFrame.size.height - 42
                 headerView.frame = newFrame
+                
+                if !isAvailable{
+                    changeFlightBtn.hidden = true
+                    
+                    var newFrame = headerView.frame
+                    newFrame.size.height = newFrame.size.height - 42
+                    headerView.frame = newFrame
+                    
+                }
             }else{
                 ssrBtn.hidden = true
                 var newFrame = headerView.frame
                 newFrame.size.height = newFrame.size.height - 42
                 headerView.frame = newFrame
+                
+                if !isAvailable{
+                    changeSeatBtn.hidden = true
+                    changeFlightBtn.hidden = true
+                    
+                    var newFrame = headerView.frame
+                    newFrame.size.height = newFrame.size.height - 84
+                    headerView.frame = newFrame
+                    
+                }
             }
         }
         
@@ -151,6 +171,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         let service = priceDetail.last
         priceDetail.removeLast()
         serviceDetail = service!["services"] as! [Dictionary<String,AnyObject>]
+        
+        for data in flightDetail{
+            
+            if data["flight_status"] as! String == "available"{
+                isAvailable = true
+            }
+            
+        }
         
     }
     
@@ -545,7 +573,6 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             case .Success(let successResult):
                 do {
                     
-                    
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -553,6 +580,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         let changeSeatVC = storyboard.instantiateViewControllerWithIdentifier("EditSeatSelectionVC") as! EditSeatSelectionViewController
                         changeSeatVC.isEdit = true
                         changeSeatVC.pnr = self.pnr
+                        changeSeatVC.seatFare = json["seat_fare"].arrayObject!
                         changeSeatVC.bookId = "\(self.bookingId)"
                         changeSeatVC.signature = self.signature
                         changeSeatVC.journeys = json["journeys"].arrayObject!

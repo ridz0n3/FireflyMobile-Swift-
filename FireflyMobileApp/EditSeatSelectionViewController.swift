@@ -105,105 +105,312 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
-        
-        if seatDict.count == 0 || seatDict.count != details.count{
-            showErrorMessage("LabelErrorSelectSeat".localized)
-        }else{
-            if seatDict.count == 2{
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.section == 0 {
+            let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
+            
+            var passengerDetail = Dictionary<String, AnyObject>()
+            
+            if isEdit{
+                let passengerDetailArray = passenger[0] as! [Dictionary<String, AnyObject>]
+                passengerDetail = passengerDetailArray[indexPath.row]
+            }else{
+                passengerDetail = passenger[indexPath.row] as! Dictionary<String, AnyObject>
+            }
+            
+            let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
+            
+            if journeys[indexPath.section]["flight_status"] as! String != "departed"{
                 
-                if seatDict["0"]!.count == 0 || seatDict["1"]!.count == 0{
-                    showErrorMessage("LabelErrorSelectSeat".localized)
-                }else{
+                if passengerDetail["checked_in"] as! String != "Y"{
                     
-                    let goingSeatSelection = NSMutableArray()
-                    let returnSeatSelection = NSMutableArray()
-                    for i in 0...seatDict.count-1{
-                        let newSeat = NSMutableDictionary()
-                        
-                        for j in 0...seatDict["\(i)"]!.count-1{
-                            let newDetail = NSMutableDictionary()
-                            newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["seat_number"], forKey: "seat_number")
-                            newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["compartment_designator"], forKey: "compartment_designator")
-                            
-                            newSeat.setValue(newDetail, forKeyPath: "\(j)")
-                            
-                        }
-                        
-                        if i == 0{
-                            goingSeatSelection.addObject(newSeat)
-                        }else{
-                            returnSeatSelection.addObject(newSeat)
-                        }
+                    if !isSelect{
+                        sectionSelect = NSIndexPath(forRow: indexPath.row, inSection: indexPath.section)
+                        isSelect = true
                     }
                     
-                    showLoading() 
+                    if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
+                        cell.rowView.backgroundColor = UIColor.yellowColor()
+                    }else{
+                        cell.rowView.backgroundColor = UIColor.clearColor()
+                    }
                     
-                    FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
-                        
-                        switch result {
-                        case .Success(let successResult):
-                            do {
-                                
-                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                                
-                                if json["status"] == "success"{
-                                    //
-                                    let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                    let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
-                                    manageFlightVC.isConfirm = true
-                                    manageFlightVC.itineraryData = json.object as! NSDictionary
-                                    self.navigationController!.pushViewController(manageFlightVC, animated: true)
-                                    
-                                }else if json["status"] == "error"{
-                                    
-                                    showErrorMessage(json["message"].string!)
-                                }
-                                hideLoading()
-                            }
-                            catch {
-                                
-                            }
-                            
-                        case .Failure(let failureResult):
-                            
-                            hideLoading()
-                            showErrorMessage(failureResult.nsError.localizedDescription)
-                        }
-                        
-                    })
-                    
+                    cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
+                    cell.removeSeat.addTarget(self, action: #selector(CommonSeatSelectionViewController.removeSeat(_:)), forControlEvents: .TouchUpInside)
+                }else{
+                    cell.removeSeat.hidden = true
                 }
                 
             }else{
                 
-                if seatDict["0"]!.count == 0{
-                    showErrorMessage("LabelErrorSelectSeat".localized)
+                cell.removeSeat.hidden = true
+                
+                if details.count == 2 && !selectChange{
+                    sectionSelect = NSIndexPath(forRow: 0, inSection: indexPath.section + 1)
+                }else if details.count == 1 && !selectChange{
+                    sectionSelect = NSIndexPath(forRow: 0, inSection: 90)
+                }
+            }
+            
+            if seatDict.count != 0{
+                
+                if seatDict["\(indexPath.section)"] != nil{
+                    
+                    let tempSeat = seatDict["\(indexPath.section)"] as! [String:AnyObject]
+                    
+                    if tempSeat["\(indexPath.row)"] != nil{
+                        let data = tempSeat["\(indexPath.row)"] as! NSDictionary
+                        cell.seatNumber.text = data["seat_number"] as? String
+                        
+                    }else{
+                        cell.seatNumber.text = ""
+                    }
+                    
                 }else{
+                    cell.seatNumber.text = ""
+                }
+                
+            }else{
+                cell.seatNumber.text = ""
+            }
+            
+            cell.seatNumber.layer.cornerRadius = 10
+            cell.seatNumber.layer.borderWidth = 1
+            cell.seatNumber.layer.borderColor = UIColor.blackColor().CGColor
+            cell.passengerName.text = passengerName
+            
+            return cell
+        }else if (indexPath.section == 1 && details.count == 2){
+            let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
+            
+            var passengerDetail = Dictionary<String, AnyObject>()
+            
+            if isEdit{
+                let passengerArray = passenger[1] as! [Dictionary<String, AnyObject>]
+                passengerDetail = passengerArray[indexPath.row]
+            }else{
+                passengerDetail = passenger[indexPath.row] as! Dictionary<String, AnyObject>
+            }
+            
+            let passengerName = "\(passengerDetail["title"]!). \(passengerDetail["first_name"]!) \(passengerDetail["last_name"]!)"
+            
+            if journeys[indexPath.section]["flight_status"] as! String != "departed"{
+                
+                if passengerDetail["checked_in"] as! String != "Y"{
                     
-                    let goingSeatSelection = NSMutableArray()
-                    let tempDict = NSMutableDictionary()
-                    let returnSeatSelection = NSMutableArray()
+                    if !isSelect{
+                        sectionSelect = NSIndexPath(forRow: indexPath.row, inSection: indexPath.section)
+                        isSelect = true
+                    }
                     
-                    for i in 0...seatDict.count-1{
-                        let newSeat = NSMutableDictionary()
-                        let newDetail = NSMutableDictionary()
-                        for j in 0...seatDict["\(i)"]!.count-1{
+                    if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
+                        cell.rowView.backgroundColor = UIColor.yellowColor()
+                    }else{
+                        cell.rowView.backgroundColor = UIColor.clearColor()
+                    }
+                    
+                    cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
+                    cell.removeSeat.addTarget(self, action: #selector(CommonSeatSelectionViewController.removeSeat(_:)), forControlEvents: .TouchUpInside)
+                }else{
+                    cell.removeSeat.hidden = true
+                }
+                
+            }else{
+                cell.removeSeat.hidden = true
+                
+                if details.count == 2 && !selectChange{
+                    sectionSelect = NSIndexPath(forRow: 0, inSection: 90)
+                }
+            }
+            
+            if seatDict.count != 0{
+                
+                if seatDict["\(indexPath.section)"] != nil{
+                    if seatDict["\(indexPath.section)"] != nil{
+                        
+                        let tempSeat = seatDict["\(indexPath.section)"] as! Dictionary<String, AnyObject>
+                        
+                        if tempSeat["\(indexPath.row)"] != nil{
                             
-                            newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["seat_number"], forKey: "seat_number")
-                            newDetail.setValue(seatDict["\(i)"]!["\(j)"]!!["compartment_designator"], forKey: "compartment_designator")
+                            let data = tempSeat["\(indexPath.row)"] as! Dictionary<String, AnyObject>
+                            cell.seatNumber.text = data["seat_number"] as? String
                             
-                            newSeat.setValue(newDetail, forKeyPath: "\(j)")
+                        }else{
+                            cell.seatNumber.text = ""
+                        }
+                        
+                    }else{
+                        cell.seatNumber.text = ""
+                    }
+                }else{
+                    cell.seatNumber.text = ""
+                }
+                
+                
+            }else{
+                cell.seatNumber.text = ""
+            }
+            
+            cell.seatNumber.layer.cornerRadius = 10
+            cell.seatNumber.layer.borderWidth = 1
+            cell.seatNumber.layer.borderColor = UIColor.blackColor().CGColor
+            cell.passengerName.text = passengerName
+            cell.removeSeat.tag = indexPath.row
+            
+            
+            return cell
+        }else{
+            
+            var cell = CustomSeatSelectionTableViewCell()
+            
+            if details.count == 2{
+                cell = cellConfiguration(indexPath, selectIndex: sectionSelect.section)
+            }else{
+                cell = cellConfiguration(indexPath, selectIndex: 0)
+            }
+            
+            return cell
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if details.count == 2{
+            if indexPath.section != 2{
+                
+                if journeys[indexPath.section]["flight_status"] as! String != "departed"{
+                    
+                    let passengerInfo = journeys[indexPath.section]["passengers"] as! [AnyObject]
+                    let passengerData = passengerInfo[indexPath.row]
+                    
+                    if passengerData["checked_in"] as! String != "Y"{
+                        selectChange = true
+                        let cell = self.seatTableView.cellForRowAtIndexPath(indexPath) as! CustomSeatSelectionTableViewCell
+                        cell.rowView.backgroundColor = UIColor.yellowColor()
+                        sectionSelect = indexPath
+                        self.seatTableView.reloadData()
+                    }else{
+                        showErrorMessage("Departed flight cannot be changed.")
+                    }
+                    
+                }else{
+                    showErrorMessage("Departed flight cannot be changed.")
+                }
+            }
+        }else{
+            if indexPath.section != 1{
+                
+                if journeys[indexPath.section]["flight_status"] as! String != "departed"{
+                    let cell = self.seatTableView.cellForRowAtIndexPath(indexPath) as! CustomSeatSelectionTableViewCell
+                    cell.rowView.backgroundColor = UIColor.yellowColor()
+                    sectionSelect = indexPath
+                    self.seatTableView.reloadData()
+                }else{
+                    showErrorMessage("Departed flight cannot be changed.")
+                }
+            }
+        }
+        
+    }
+    
+    @IBAction func continueBtnPressed(sender: AnyObject) {
+        
+        if journeys.count == 2{
+            
+            let goingSeatSelection = NSMutableArray()
+            let returnSeatSelection = NSMutableArray()
+            let tempDict = NSMutableDictionary()
+            
+            for (keys, data) in seatDict{
+                let newSeat = NSMutableDictionary()
+                for (passengerKey, passengerDetail) in data as! NSDictionary{
+                    newSeat.setValue(passengerDetail, forKey: passengerKey as! String)
+                }
+                
+                if keys == "0"{
+                    goingSeatSelection.addObject(newSeat)
+                }else{
+                    returnSeatSelection.addObject(newSeat)
+                }
+                
+            }
+            
+            if goingSeatSelection.count == 0{
+                goingSeatSelection.addObject(tempDict)
+            }else if returnSeatSelection.count == 0{
+                returnSeatSelection.addObject(tempDict)
+            }
+            
+            if isSelect{
+                showLoading()
+                
+                FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
+                    
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            
+                            if json["status"] == "success"{
+                                //
+                                let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                                let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                                manageFlightVC.isConfirm = true
+                                manageFlightVC.itineraryData = json.object as! NSDictionary
+                                self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                                
+                            }else if json["status"] == "error"{
+                                
+                                showErrorMessage(json["message"].string!)
+                            }
+                            hideLoading()
+                        }
+                        catch {
                             
                         }
                         
-                        goingSeatSelection.addObject(newSeat)
+                    case .Failure(let failureResult):
                         
+                        hideLoading()
+                        showErrorMessage(failureResult.nsError.localizedDescription)
                     }
                     
-                    returnSeatSelection.addObject(tempDict)
+                })
+                
+            }else{
+                showErrorMessage("Departed flight cannot be changed.")
+            }
+            
+        }else{
+            
+            let goingSeatSelection = NSMutableArray()
+            let tempDict = NSMutableDictionary()
+            let returnSeatSelection = NSMutableArray()
+            
+            if seatDict.count != 0{
+                
+                for (_, data) in seatDict{
                     
-                    showLoading() 
+                    let newSeat = NSMutableDictionary()
+                    
+                    for (passengerKey, passengerDetail) in data as! NSDictionary{
+                        
+                        newSeat.setValue(passengerDetail, forKey: passengerKey as! String)
+                        
+                    }
+                    goingSeatSelection.addObject(newSeat)
+                    
+                }
+                
+                if goingSeatSelection.count == 0{
+                    goingSeatSelection.addObject(tempDict)
+                }
+                
+                returnSeatSelection.addObject(tempDict)
+                
+                if isSelect{
+                    showLoading()
                     
                     FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
                         
@@ -237,20 +444,21 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                         }
                         
                     })
-                    
+                }else{
+                    showErrorMessage("Departed flight cannot be changed.")
                 }
             }
         }
     }
     
     /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
 }

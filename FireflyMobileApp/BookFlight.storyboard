@@ -1785,7 +1785,10 @@
                     </view>
                     <connections>
                         <outlet property="continueBtn" destination="YaN-tA-wi7" id="cjs-BW-ckL"/>
+                        <outlet property="desiredSeatLbl" destination="3OH-oN-Qav" id="J1a-1f-wa2"/>
+                        <outlet property="preferedSeatLbl" destination="wZI-dQ-LLu" id="cEH-r1-UqZ"/>
                         <outlet property="seatTableView" destination="Sg3-Qh-xlI" id="qbc-Li-7St"/>
+                        <outlet property="stdSeatLbl" destination="Idx-lI-6u8" id="QUf-Nv-Anl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WwM-wP-fRD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2597,7 +2600,7 @@
                                         <rect key="frame" x="0.0" y="149" width="600" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KIv-DU-73w" id="QjC-mD-2GR">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="20"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HSz-cH-cOF">

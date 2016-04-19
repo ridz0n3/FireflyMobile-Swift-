@@ -1967,7 +1967,7 @@
                                                 <constraint firstAttribute="height" constant="35" id="Pjq-wg-ec3"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEAT SELECTION (Optional)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wd6-Kp-0dq">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SEAT SELECTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wd6-Kp-0dq">
                                             <rect key="frame" x="16" y="199" width="568" height="40"/>
                                             <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <color key="tintColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
@@ -2412,7 +2412,10 @@
                     </view>
                     <connections>
                         <outlet property="continueBtn" destination="ocf-U6-K4B" id="NZj-Jx-6Ua"/>
+                        <outlet property="desiredSeatLbl" destination="JYy-lI-ht4" id="IeM-fw-3F4"/>
+                        <outlet property="preferedSeatLbl" destination="4SH-Jw-Uw6" id="5eh-Ot-jHI"/>
                         <outlet property="seatTableView" destination="RFZ-Bz-u3K" id="fvb-F3-ZiN"/>
+                        <outlet property="stdSeatLbl" destination="wOl-7W-9sk" id="PCD-sF-XLA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kej-eZ-6zW" userLabel="First Responder" sceneMemberID="firstResponder"/>
