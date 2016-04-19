@@ -56,6 +56,10 @@ public enum FireFlyAPI {
     case GetAbout
     case UpdateUserProfile(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     case RegisterUser(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
+    case RetrieveSSRList(String)
+    case ChangeSSR(String, String, String, String, AnyObject)
+    case ChangeSSR2Way(String, String, String, AnyObject, AnyObject)
+    
 }
 
 
@@ -143,11 +147,17 @@ extension FireFlyAPI : TargetType {
             return "api/updateProfile"
         case .RegisterUser:
             return "api/register"
+        case .RetrieveSSRList:
+            return "api/getMealSSR"
+        case .ChangeSSR:
+            return "api/changeSSR"
+        case .ChangeSSR2Way:
+            return "api/changeSSR"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass, .UpdateUserProfile, .RegisterUser:
+        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass, .UpdateUserProfile, .RegisterUser, .RetrieveSSRList, .ChangeSSR, .ChangeSSR2Way:
             return .POST
         case .GetTerm, .GetAbout:
             return .GET
@@ -269,6 +279,12 @@ extension FireFlyAPI : TargetType {
             return ["username" : username, "password" : password, "new_password" : new_password, "title" : title, "first_name" : first_name, "last_name" : last_name, "dob" : dob, "address_1" : address_1, "address_2" : address_2, "address_3" : address_3, "country" : country, "city" : city, "state" : state, "postcode" : postcode, "mobile_phone" : mobile_phone, "alternate_phone" : alternate_phone, "fax" : fax, "bonuslink" : bonuslink, "signature" : signature, "newsletter" : newsletter]
         case .RegisterUser(let username, let password, let title, let first_name, let last_name, let dob, let address_1, let address_2, let address_3, let country, let city, let state, let postcode, let mobile_phone, let alternate_phone, let fax, let bonuslink, let signature, let newsletter) :
             return ["username" : username, "password" : password, "title" : title, "first_name" : first_name, "last_name" : last_name, "dob" : dob, "address_1" : address_1, "address_2" : address_2, "address_3" : address_3, "country" : country, "city" : city, "state" : state, "postcode" : postcode, "mobile_phone" : mobile_phone, "alternate_phone" : alternate_phone, "fax" : fax, "bonuslink" : bonuslink, "signature" : signature, "newsletter" : newsletter]
+        case .RetrieveSSRList(let signature) :
+            return ["signature" : signature]
+        case .ChangeSSR(let pnr, let booking_id, let signature, let type, let detailSSR) :
+            return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature, type : detailSSR]
+        case .ChangeSSR2Way(let pnr, let booking_id, let signature, let goingSSR, let returnSSR) :
+            return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature, "going_flight" : goingSSR, "return_flight" : returnSSR]
         default:
         return nil
         }

@@ -124,9 +124,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 
                 if !isAvailable{
                     changeFlightBtn.hidden = true
-                    
+                    ssrBtn.hidden = true
                     var newFrame = headerView.frame
-                    newFrame.size.height = newFrame.size.height - 42
+                    newFrame.size.height = newFrame.size.height - 88
                     headerView.frame = newFrame
                     
                 }
@@ -141,7 +141,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     changeFlightBtn.hidden = true
                     
                     var newFrame = headerView.frame
-                    newFrame.size.height = newFrame.size.height - 84
+                    newFrame.size.height = newFrame.size.height - 88
                     headerView.frame = newFrame
                     
                 }
@@ -219,7 +219,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         if indexPath.section == 0{
-            return 83
+            return UITableViewAutomaticDimension
         }else if indexPath.section == 1{
             return UITableViewAutomaticDimension
         }else if indexPath.section == 2{
@@ -267,7 +267,19 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             cell.confirmationLbl.text = "\(itineraryInformation["pnr"]!)"
             cell.reservationLbl.text = "\(itineraryInformation["booking_status"]!)"
-            cell.bookDateLbl.text = "Booking Date : \(itineraryInformation["booking_date"]!)"
+            
+            let str = "Booking Date : \(itineraryInformation["booking_date"]!)"
+            
+            let attrStr = NSMutableAttributedString(string: str)
+            if itineraryInformation["itinerary_note"] != nil{
+                
+                let myAttribute = [NSFontAttributeName: UIFont.boldSystemFontOfSize(14.0)]
+                let myString = NSMutableAttributedString(string: "\n\n\(itineraryInformation["itinerary_note"]!)", attributes: myAttribute )
+                attrStr.appendAttributedString(myString)
+                
+            }
+            
+            cell.bookDateLbl.attributedText = attrStr
             
             return cell
         }else if indexPath.section == 1{
@@ -846,9 +858,43 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     
     @IBAction func ssrBtnPressed(sender: AnyObject) {
         
-        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        let ssrVC = storyboard.instantiateViewControllerWithIdentifier("EditSSRVC") as! EditSSRViewController
-        self.navigationController!.pushViewController(ssrVC, animated: true)
+        pnr = itineraryInformation["pnr"] as! String
+        bookingId = "\(itineraryData["booking_id"]!)"
+        signature = itineraryData["signature"] as! String
+        
+        showLoading()
+        FireFlyProvider.request(.RetrieveSSRList(signature)) { (result) in
+            switch result {
+            case .Success(let successResult):
+                do {
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        
+                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                        let ssrVC = storyboard.instantiateViewControllerWithIdentifier("EditSSRVC") as! EditSSRViewController
+                        ssrVC.pnr = self.pnr
+                        ssrVC.bookingId = self.bookingId
+                        ssrVC.signature = self.signature
+                        ssrVC.meals = json["meal"].arrayObject!
+                        self.navigationController!.pushViewController(ssrVC, animated: true)
+                        hideLoading()
+                    }else if json["status"].string == "error"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                    }
+                    
+                }
+                catch {
+                    
+                }
+                
+            case .Failure(let failureResult):
+                hideLoading()
+                showErrorMessage(failureResult.nsError.localizedDescription)
+            }
+
+        }
         
     }
     
