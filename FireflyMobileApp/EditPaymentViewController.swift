@@ -18,7 +18,7 @@ class EditPaymentViewController: CommonPaymentViewController {
     var totalDueStr = Double()
     override func viewDidLoad() {
         super.viewDidLoad()
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.editPaymentScreen)
+        AnalyticsManager.sharedInstance.logScreen(GAConstants.addPaymentManageScreen)
         totalDueLbl.text = String(format: "%.2f MYR", totalDueStr)
         // Do any additional setup after loading the view.
     }

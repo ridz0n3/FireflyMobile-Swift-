@@ -211,7 +211,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
     
     func reloadAlertView(msg : String){
         
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.loginPopupScreen)
+        //AnalyticsManager.sharedInstance.logScreen(GAConstants.loginPopupScreen)
         let alert = SCLAlertView()
         email = alert.addTextField("Enter email")
         email.text = tempEmail

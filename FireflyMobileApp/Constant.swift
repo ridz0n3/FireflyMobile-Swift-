@@ -109,7 +109,7 @@ struct GAConstants {
     static let editPaymentScreen = "Edit Payment Screen";
     static let sendItineraryScreen = "Send Itinerary";
     static let mobileCheckInDetailScreen = "Mobile Check In Detail";
-    static let loginMobileCheckInScreen = "Login Mobile Check In";
+    static let loginMobileCheckInScreen = "Login Mobile Check-In";
     static let mobileCheckInScreen = "Mobile Check-In";
     static let mobileCheckInTermScreen = "Mobile Check In Term";
     static let successCheckInViewScreen = "Success Check In View";
@@ -124,7 +124,7 @@ struct GAConstants {
     static let passwordExpiredScreen = "Login: Password Expired";
     static let paymentManageWebScreen = "Manage Flight: Payment Details(Payment Web)";
     static let flightManagingSummaryScreen = "Manage Flight: Flight Summary";
-    //static let aboutUsScreen = "About Us";
+    static let addPaymentManageScreen = "Manage Flight: Payment Details(Add Payment)";
     //static let aboutUsScreen = "About Us";
     //static let aboutUsScreen = "About Us";
     

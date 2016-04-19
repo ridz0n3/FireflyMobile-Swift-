@@ -35,7 +35,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     //TODO: Get the URL from Backend
     func facebookSelected(sender: UIGestureRecognizer) {
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.facebookScreen)
+        //AnalyticsManager.sharedInstance.logScreen(GAConstants.facebookScreen)
         let facebookHooks = "fb://profile/\(defaults.objectForKey("facebook") as! String)"
         let facebookURL = NSURL(string: facebookHooks)
         if UIApplication.sharedApplication().canOpenURL(facebookURL!)
@@ -49,7 +49,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func instaSelected(sender: UIGestureRecognizer) {
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.instagramScreen)
+        //AnalyticsManager.sharedInstance.logScreen(GAConstants.instagramScreen)
         let instagramHooks = "instagram://user?username=\(defaults.objectForKey("instagram") as! String)"
         let instagramUrl = NSURL(string: instagramHooks)
         if UIApplication.sharedApplication().canOpenURL(instagramUrl!)
@@ -63,7 +63,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func twitterSelected(sender: UIGestureRecognizer) {
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.twitterScreen)
+        //AnalyticsManager.sharedInstance.logScreen(GAConstants.twitterScreen)
         let twitterHooks = "twitter:///user?screen_name=\(defaults.objectForKey("twitter") as! String)"
         let twitterUrl = NSURL(string: twitterHooks)
         if UIApplication.sharedApplication().canOpenURL(twitterUrl!)
