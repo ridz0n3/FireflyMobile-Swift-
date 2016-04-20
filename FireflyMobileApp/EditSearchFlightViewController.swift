@@ -189,6 +189,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
         sectionHeader.frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
         checkBox.uncheckedColor = UIColor.whiteColor()
+        checkBox.strokeColor = UIColor.orangeColor()
+        checkBox.checkColor = UIColor.orangeColor()
         checkBtn.tag = section
         if (section == 1) {
             wayLbl.text = "RETURN FLIGHT"
@@ -318,7 +320,6 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                     switch result {
                     case .Success(let successResult):
                         do {
-                            
                             
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             

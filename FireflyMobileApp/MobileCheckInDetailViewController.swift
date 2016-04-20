@@ -165,6 +165,8 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         name.text = "\(getTitleName(passengerData["title"] as! String)) \(passengerData["first_name"] as! String) \(passengerData["last_name"] as! String)"
         seatNo.text = passengerData["seat"]! as? String
         checkBtn.tag = section
+        checkBox.strokeColor = UIColor.orangeColor()
+        checkBox.checkColor = UIColor.orangeColor()
         
         checkBtn.addTarget(self, action: #selector(MobileCheckInDetailViewController.check(_:)), forControlEvents: .TouchUpInside)
         

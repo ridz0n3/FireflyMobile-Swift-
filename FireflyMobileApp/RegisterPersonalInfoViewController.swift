@@ -29,6 +29,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             setupMenuButton()
         }
         
+        termCheckBox.strokeColor = UIColor.orangeColor()
+        termCheckBox.checkColor = UIColor.orangeColor()
+        promotionCheckBox.strokeColor = UIColor.orangeColor()
+        promotionCheckBox.checkColor = UIColor.orangeColor()
+        
         stateArray = defaults.objectForKey("state") as! [Dictionary<String, AnyObject>]
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RegisterPersonalInfoViewController.selectCountry(_:)), name: "selectCountry", object: nil)
         

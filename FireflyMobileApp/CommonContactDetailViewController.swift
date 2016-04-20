@@ -32,6 +32,8 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     
     override func viewDidLoad() {
         
+        agreeTerm.strokeColor = UIColor.orangeColor()
+        agreeTerm.checkColor = UIColor.orangeColor()
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableViewAutomaticDimension
         

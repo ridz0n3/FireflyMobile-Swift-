@@ -25,6 +25,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         fareRule.font = UIFont(name: "System Semibold", size: 14)
         termCondition.attributedText = term.html2String
         termCondition.font = UIFont(name: "System Semibold", size: 14)
+        termCheckBox.strokeColor = UIColor.orangeColor()
+        termCheckBox.checkColor = UIColor.orangeColor()
         
         var newFrame = continueView.bounds
         newFrame.size.height = 490

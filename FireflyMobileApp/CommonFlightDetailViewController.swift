@@ -137,6 +137,8 @@ class CommonFlightDetailViewController: BaseViewController {
                 cell.arrivalTimeLbl.text = flightData!["arrival_time"]!.string
                 cell.checkFlight.tag = indexPath.row
                 
+                cell.checkFlight.strokeColor = UIColor.orangeColor()
+                cell.checkFlight.checkColor = UIColor.orangeColor()
                 if (planGoing == 1 && indexPath.section == 0) || (planReturn == 4 && indexPath.section == 1){
                     if flightBasic!["status"]!.string == "sold out"{
                         cell.priceLbl.text = "SOLD OUT"

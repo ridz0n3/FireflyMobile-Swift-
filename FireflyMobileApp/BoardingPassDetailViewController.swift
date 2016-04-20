@@ -40,6 +40,21 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         super.viewDidLoad()
         setupLeftButton()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.boardingPassDetailScreen)
+        loadBoardingPass()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BoardingPassDetailViewController.refreshBoardingPass(_:)), name: "reloadBoardingPass", object: nil)
+    }
+
+    func refreshBoardingPass(notif : NSNotification){
+        
+        boardingPassData = notif.object!["boardingPassData"] as! [AnyObject]
+        imgDict = notif.object!["imgDict"] as! [String:AnyObject]
+        isOffline = false
+        loadBoardingPass()
+        
+    }
+    
+    func loadBoardingPass(){
         //1
         self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
         let scrollViewWidth:CGFloat = self.scrollView.frame.width
@@ -73,7 +88,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
                 
                 scrollView.addSubview(boardingPassView)
                 i += 1
-
+                
             }
             
         }else{
@@ -105,7 +120,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
                 scrollView.addSubview(boardingPassView)
                 i += 1
             }
-
+            
         }
         
         
@@ -115,7 +130,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         self.pageControl.currentPage = 0
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

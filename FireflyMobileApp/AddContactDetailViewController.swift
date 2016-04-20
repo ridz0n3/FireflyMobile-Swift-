@@ -24,6 +24,9 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        checkPassenger.strokeColor = UIColor.orangeColor()
+        checkPassenger.checkColor = UIColor.orangeColor()
+        
         flightType = defaults.objectForKey("flightType") as! String
         
         AnalyticsManager.sharedInstance.logScreen(GAConstants.contactDetailsScreen)

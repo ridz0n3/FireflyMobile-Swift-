@@ -31,6 +31,16 @@ class CommonPaymentViewController: BaseXLFormViewController {
         continueBtn.layer.cornerRadius = 10
         setupLeftButton()
         creditCardCheckBox.checkState = M13CheckboxState.Checked
+        
+        creditCardCheckBox.strokeColor = UIColor.orangeColor()
+        creditCardCheckBox.checkColor = UIColor.orangeColor()
+        maybank2uCheckBox.strokeColor = UIColor.orangeColor()
+        maybank2uCheckBox.checkColor = UIColor.orangeColor()
+        cimbCheckBox.strokeColor = UIColor.orangeColor()
+        cimbCheckBox.checkColor = UIColor.orangeColor()
+        fpxCheckBox.strokeColor = UIColor.orangeColor()
+        fpxCheckBox.checkColor = UIColor.orangeColor()
+        
         paymentMethod = "Card"
         
         rearrangePaymentType()

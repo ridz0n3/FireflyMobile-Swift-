@@ -198,15 +198,28 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                     cell.businessBtn.addTarget(self, action: #selector(CommonMHFlightDetailViewController.checkCategory(_:)), forControlEvents: .TouchUpInside)
                 }
 
+                cell.economyPromoCheckBox.strokeColor = UIColor.orangeColor()
+                cell.economyPromoCheckBox.checkColor = UIColor.orangeColor()
+                cell.economyCheckBox.strokeColor = UIColor.orangeColor()
+                cell.businessCheckBox.strokeColor = UIColor.orangeColor()
+                cell.economyCheckBox.checkColor = UIColor.orangeColor()
+                cell.businessCheckBox.checkColor = UIColor.orangeColor()
+                
                 if indexPath.section == 1{
                     cell.flightIcon.image = UIImage(named: "arrival_icon")
                     if checkReturnIndexPath.section == 1{
                         if checkReturnIndexPath.row == indexPath.row{
                             if checkReturnIndex == "1"{
                                 cell.economyPromoCheckBox.checkState = .Checked
+                                cell.economyCheckBox.checkState = .Unchecked
+                                cell.businessCheckBox.checkState = .Unchecked
                             }else if checkReturnIndex == "2"{
+                                cell.economyPromoCheckBox.checkState = .Unchecked
                                 cell.economyCheckBox.checkState = .Checked
+                                cell.businessCheckBox.checkState = .Unchecked
                             }else if checkReturnIndex == "3"{
+                                cell.economyPromoCheckBox.checkState = .Unchecked
+                                cell.economyCheckBox.checkState = .Unchecked
                                 cell.businessCheckBox.checkState = .Checked
                             }
                         }else{
@@ -225,9 +238,15 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                         if checkGoingIndexPath.row == indexPath.row{
                             if checkGoingIndex == "1"{
                                 cell.economyPromoCheckBox.checkState = .Checked
+                                cell.economyCheckBox.checkState = .Unchecked
+                                cell.businessCheckBox.checkState = .Unchecked
                             }else if checkGoingIndex == "2"{
+                                cell.economyPromoCheckBox.checkState = .Unchecked
                                 cell.economyCheckBox.checkState = .Checked
+                                cell.businessCheckBox.checkState = .Unchecked
                             }else if checkGoingIndex == "3"{
+                                cell.economyPromoCheckBox.checkState = .Unchecked
+                                cell.economyCheckBox.checkState = .Unchecked
                                 cell.businessCheckBox.checkState = .Checked
                             }
                         }else{

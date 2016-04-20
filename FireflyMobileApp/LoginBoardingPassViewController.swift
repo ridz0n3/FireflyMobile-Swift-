@@ -14,6 +14,8 @@ import Realm
 
 class LoginBoardingPassViewController: CommonListViewController {
     
+    var isCheck = Bool()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.loginBoardingPassScreen)
@@ -45,7 +47,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                 
                 if mainPNR.count != 0{
                     
-                   /* var check = 0
+                    var check = 0
                     var boardingPass = List<BoardingPassList>!()
                     for data in mainPNR{
                         
@@ -56,22 +58,30 @@ class LoginBoardingPassViewController: CommonListViewController {
                             
                         }
                         
-                    }*/
+                    }
                     
-                    //if check == 0{
+                    if check == 0{
+                        isCheck = true
+                        showLoading()
                         sentData(bookingList)
-                    /*}else{
+                    }else{
+                        isCheck = false
+                        sentData(bookingList)
                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                         let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
                         boardingPassDetailVC.boardingList = boardingPass
                         boardingPassDetailVC.isOffline = true
                         self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-                    }*/
+                    }
                     
                 }else{
+                    isCheck = true
+                    showLoading()
                     sentData(bookingList)
                 }
             }else{
+                isCheck = true
+                showLoading()
                 sentData(bookingList)
             }
         }
@@ -79,7 +89,7 @@ class LoginBoardingPassViewController: CommonListViewController {
     
     func sentData(bookingList : NSDictionary){
         
-        showLoading() 
+        //showLoading()
         FireFlyProvider.request(.RetrieveBoardingPass(signature, bookingList["pnr"] as! String, bookingList["departure_station_code"] as! String, bookingList["arrival_station_code"] as! String, userId), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):
@@ -104,12 +114,18 @@ class LoginBoardingPassViewController: CommonListViewController {
                                 
                                 if i == j{
                                     
-                                    let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                                    let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-                                    boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
-                                    boardingPassDetailVC.imgDict = dict
-                                    self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-                                    hideLoading()
+                                    if self.isCheck{
+                                        let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
+                                        let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
+                                        boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
+                                        boardingPassDetailVC.imgDict = dict
+                                        self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
+                                        hideLoading()
+                                    }else{
+                                        let info = ["boardingPassData" : json["boarding_pass"].arrayObject!, "imgDict" : dict]
+                                        NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPass", object: info)
+                                    }
+                                    
                                 }
                             })
                             j += 1

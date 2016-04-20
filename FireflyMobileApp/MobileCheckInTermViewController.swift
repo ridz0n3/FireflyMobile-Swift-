@@ -68,7 +68,8 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         cell.termText.text = rules["text"] as? String
         cell.termCheck.tag = indexPath.row
         cell.termCheck.userInteractionEnabled = false
-        
+        cell.termCheck.strokeColor = UIColor.orangeColor()
+        cell.termCheck.checkColor = UIColor.orangeColor()
         if checkStatus.count != termRules.count{
             checkStatus.append("false")
         }else{
