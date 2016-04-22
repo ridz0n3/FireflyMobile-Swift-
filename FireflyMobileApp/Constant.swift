@@ -256,6 +256,9 @@ var pickerTravel = [String]()
 
 func getDepartureAirport(module : String){
     
+    location = [NSDictionary]()
+    pickerRow = [String]()
+    
     if (defaults.objectForKey("flight") != nil){
         let flight = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
         var first = flight[0]["location_code"]

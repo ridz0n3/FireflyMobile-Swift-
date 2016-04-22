@@ -70,7 +70,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         // Departing
         row = XLFormRowDescriptor(tag: Tags.ValidationDeparting, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Departing:*")
         
-        var tempArray:[AnyObject] = [AnyObject]()
+        var tempArray = [AnyObject]()
         for departureStation in location{
             tempArray.append(XLFormOptionsObject(value: departureStation["location_code"], displayText: departureStation["location"] as! String))
         }

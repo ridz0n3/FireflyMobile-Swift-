@@ -49,7 +49,12 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         super.viewDidLoad()
         setupLeftButton()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.boardingPassDetailScreen)
-        loadBoardingPass()
+        
+        if boardingPassData.count == 0{
+            loadBoardingPass()
+        }else{
+            notLogin()
+        }
         loadingIndicator.hidden = load
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BoardingPassDetailViewController.refreshBoardingPass(_:)), name: "reloadBoardingPass", object: nil)
     }
@@ -97,6 +102,49 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
             
         }
 
+        pageControl.numberOfPages = numberOfView
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width * CGFloat(numberOfView), scrollViewHeight)
+        self.scrollView.delegate = self
+        self.pageControl.currentPage = 0
+        
+    }
+    
+    func notLogin(){
+        
+        //1
+        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+        let scrollViewWidth:CGFloat = self.scrollView.frame.width
+        let scrollViewHeight:CGFloat = self.scrollView.frame.width
+        
+        let numberOfView = boardingPassData.count
+        var i = 0
+        for info in boardingPassData{
+            
+            let new = CGFloat(i)
+            let xOrigin = new * self.view.frame.size.width
+            boardingPassView = NSBundle.mainBundle().loadNibNamed("BoardingPassView", owner: self, options: nil)[0] as! UIView
+            boardingPassView.frame = CGRectMake(xOrigin+5, 0,scrollViewWidth-10, self.scrollView.frame.height - 8)
+            boardingPassView.layer.borderWidth = 1
+            
+            border.layer.cornerRadius = 5
+            border.layer.borderWidth = 1
+            
+            img.image = imgDict["\(i)"] as? UIImage
+            pnr.text = info["RecordLocator"] as? String
+            nameLbl.text = info["Name"] as? String
+            departLbl.text = info["DepartureStation"] as? String
+            flightDateLbl.text = info["DepartureDate"] as? String
+            boardingTimeLbl.text = info["BoardingTime"] as? String
+            flightNoLbl.text = info["FlightNumber"] as? String
+            arriveLbl.text = info["ArrivalStation"] as? String
+            departureTimeLbl.text = info["DepartureTime"] as? String
+            fareLbl.text = info["Fare"] as? String
+            ssrLbl.text = info["SSR"] as? String
+            
+            scrollView.addSubview(boardingPassView)
+            i += 1
+        }
+        
         pageControl.numberOfPages = numberOfView
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width * CGFloat(numberOfView), scrollViewHeight)
         self.scrollView.delegate = self

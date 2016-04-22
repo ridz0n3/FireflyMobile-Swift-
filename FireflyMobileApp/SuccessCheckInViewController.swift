@@ -82,7 +82,7 @@ class SuccessCheckInViewController: BaseViewController {
                     let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                     let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
                     boardingPassDetailVC.boardingList = boardingPass
-                    boardingPassDetailVC.isOffline = true
+                    boardingPassDetailVC.load = true
                     self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
                     
                 }
@@ -105,6 +105,7 @@ class SuccessCheckInViewController: BaseViewController {
                         
                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                         let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
+                        boardingPassDetailVC.load = true
                         boardingPassDetailVC.boardingPassData = self.boardingList
                         boardingPassDetailVC.imgDict = dict
                         self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)

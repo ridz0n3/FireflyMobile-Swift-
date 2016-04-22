@@ -57,6 +57,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                                         
                                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                                         let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
+                                        boardingPassDetailVC.load = true
                                         boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
                                         boardingPassDetailVC.imgDict = dict
                                         self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
