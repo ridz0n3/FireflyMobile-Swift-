@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
         */
         let config = RLMRealmConfiguration.defaultConfiguration()
-        config.schemaVersion = 8
+        config.schemaVersion = 10
         config.migrationBlock = { (migration, oldSchemaVersion) in
             // nothing to do
         }

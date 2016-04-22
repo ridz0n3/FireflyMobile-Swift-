@@ -259,7 +259,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                 pnr.departureStationCode = boardingInfo["DepartureStationCode"] as! String
                 pnr.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
                 pnr.departureDateTime = formater.dateFromString(boardingInfo["DepartureDateTime"] as! String)!
-                pnr.departureDayDate = boardingInfo["DepartureDayDate"] as! String
+                pnr.departureDayDate = boardingInfo["DepartureDate"] as! String
             }
             
             let url = NSURL(string: boardingInfo["QRCodeURL"] as! String)!
@@ -297,7 +297,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                 
                 for pnrData in mainPNR{
                     
-                    if pnrData.departureDateTime.compare(pnr.departureDateTime) == NSComparisonResult.OrderedSame{
+                    if (pnrData.pnr == pnr.pnr) && (pnrData.departureStationCode == pnr.departureStationCode){
                         realm.beginWrite()
                         realm.delete(pnrData)
                         try! realm.commitWrite()

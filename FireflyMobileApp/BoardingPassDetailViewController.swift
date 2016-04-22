@@ -10,16 +10,19 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import RealmSwift
+import Realm
 
 class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate {
-
+    
     var boardingList = List<BoardingPassList>()
     var isOffline = Bool()
     
     @IBOutlet var boardingPassView: UIView!
     var boardingPassData = [AnyObject]()
     var imgDict = [String:AnyObject]()
-    
+    var pnrNumber = String()
+    var arrival = String()
+
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
@@ -44,13 +47,16 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BoardingPassDetailViewController.refreshBoardingPass(_:)), name: "reloadBoardingPass", object: nil)
     }
-
+    
     func refreshBoardingPass(notif : NSNotification){
         
-        boardingPassData = notif.object!["boardingPassData"] as! [AnyObject]
-        imgDict = notif.object!["imgDict"] as! [String:AnyObject]
-        isOffline = false
-        loadBoardingPass()
+        boardingPassData = notif.userInfo!["boardingPassData"] as! [AnyObject]
+        imgDict = notif.userInfo!["imgDict"] as! [String:AnyObject]
+        
+        if (pnrNumber == boardingPassData[0]["RecordLocator"]) && (arrival == boardingPassData[0]["ArrivalStationCode"]){
+            isOffline = false
+            loadBoardingPass()
+        }
         
     }
     
@@ -74,6 +80,8 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
                 border.layer.cornerRadius = 5
                 border.layer.borderWidth = 1
                 
+                arrival = info.arrivalStationCode
+                pnrNumber = info.recordLocator
                 img.image = UIImage(data: info.QRCodeURL)
                 pnr.text = info.recordLocator
                 nameLbl.text = info.name
@@ -146,13 +154,13 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

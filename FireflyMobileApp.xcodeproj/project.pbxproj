@@ -44,6 +44,7 @@
 		7E4168301C718209008884DC /* BoardingPassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E41682F1C718209008884DC /* BoardingPassView.xib */; };
 		7E4168321C71828F008884DC /* BoardingPassDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4168311C71828F008884DC /* BoardingPassDetailViewController.swift */; };
 		7E4168341C71C602008884DC /* SuccessCheckInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4168331C71C601008884DC /* SuccessCheckInViewController.swift */; };
+		7E5537D21CC7709A00A4D629 /* CheckInList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5537D11CC7709A00A4D629 /* CheckInList.swift */; };
 		7E5C6C301C643DA5006A5927 /* MobileCheckInTermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C6C2F1C643DA5006A5927 /* MobileCheckInTermViewController.swift */; };
 		7E5C6C321C644307006A5927 /* MobileTermTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E5C6C311C644307006A5927 /* MobileTermTableViewCell.swift */; };
 		7E5C6C341C6487EA006A5927 /* Rule1View.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E5C6C331C6487EA006A5927 /* Rule1View.xib */; };
@@ -200,6 +201,7 @@
 		7E41682F1C718209008884DC /* BoardingPassView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardingPassView.xib; sourceTree = "<group>"; };
 		7E4168311C71828F008884DC /* BoardingPassDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassDetailViewController.swift; sourceTree = "<group>"; };
 		7E4168331C71C601008884DC /* SuccessCheckInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuccessCheckInViewController.swift; sourceTree = "<group>"; };
+		7E5537D11CC7709A00A4D629 /* CheckInList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckInList.swift; sourceTree = "<group>"; };
 		7E5C6C2F1C643DA5006A5927 /* MobileCheckInTermViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileCheckInTermViewController.swift; sourceTree = "<group>"; };
 		7E5C6C311C644307006A5927 /* MobileTermTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileTermTableViewCell.swift; sourceTree = "<group>"; };
 		7E5C6C331C6487EA006A5927 /* Rule1View.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Rule1View.xib; sourceTree = "<group>"; };
@@ -622,6 +624,7 @@
 				7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */,
 				7E1AFD5D1C7D3CF300046200 /* UserList.swift */,
 				7E1AFD631C7D49CC00046200 /* BoardingPassList.swift */,
+				7E5537D11CC7709A00A4D629 /* CheckInList.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -990,6 +993,7 @@
 				7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */,
 				7EBBFA101C101BC200080FFA /* RSDFDatePickerViewController.swift in Sources */,
 				7E985A0A1C4DEDDC00EBAFA5 /* AddSeatSelectionViewController.swift in Sources */,
+				7E5537D21CC7709A00A4D629 /* CheckInList.swift in Sources */,
 				7EBBFA0D1C1013B600080FFA /* RSDFCustomDatePickerDayCell.swift in Sources */,
 				7E1F78331BF9D7A200F55C46 /* SearchFlightViewController.swift in Sources */,
 				7E367BF91C4397AF00897D7D /* ManageFlightHomeViewController.swift in Sources */,

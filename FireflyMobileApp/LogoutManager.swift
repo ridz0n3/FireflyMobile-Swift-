@@ -26,6 +26,11 @@ class LogoutManager: NSObject {
                     
                     if  json["status"].string == "success"{
                     
+                        // Delete all objects from the realm
+                        try! realm.write {
+                            realm.deleteAll()
+                        }
+                        
                         defaults.setObject("", forKey: "userInfo")
                         defaults.synchronize()
                         InitialLoadManager.sharedInstance.load()

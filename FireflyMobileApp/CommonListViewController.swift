@@ -16,7 +16,10 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
     
     var isOffline = Bool()
     var pnrList : Results<PNRList>! = nil
-    
+    var checkInList : Results<CheckInList>! = nil
+    var mainUser : Results<UserList>! = nil
+
+    var module = String()
     var userId = String()
     var signature = String()
     var listBooking = NSArray()
@@ -34,11 +37,17 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if module == "checkIn"{
+            return checkInList.count
+        }else{
+            return pnrList.count
+        }
+        /*
         if isOffline{
             return pnrList.count
         }else{
             return listBooking.count
-        }
+        }*/
         
     }
     
@@ -50,17 +59,18 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
         
         let cell = LoginMobileCheckinTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
         
-        if isOffline{
-            let bookingList = pnrList[indexPath.row]
+        if module == "checkIn"{
+            let bookingList = checkInList[indexPath.row]
             
             cell.flightNumber.text = "\(bookingList.departureStationCode) - \(bookingList.arrivalStationCode)"
             cell.flightDate.text = bookingList.departureDayDate
             
         }else{
-            let bookingList = listBooking[indexPath.row] as! NSDictionary
+            let bookingList = pnrList[indexPath.row]
             
-            cell.flightNumber.text = "\(bookingList["departure_station_code"]!) - \(bookingList["arrival_station_code"]!)"
-            cell.flightDate.text = "\(bookingList["date"]!)"
+            cell.flightNumber.text = "\(bookingList.departureStationCode) - \(bookingList.arrivalStationCode)"
+            cell.flightDate.text = bookingList.departureDayDate
+            
         }
         
         

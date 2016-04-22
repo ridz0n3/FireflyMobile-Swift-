@@ -8,20 +8,46 @@
 
 import UIKit
 import SwiftyJSON
+import RealmSwift
+import Realm
 
 class LoginMobileCheckinViewController: CommonListViewController {
  
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.loginMobileCheckInScreen)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginMobileCheckinViewController.refreshCheckInList(_:)), name: "reloadCheckInList", object: nil)
+        
+        loadCheckInList()
+    }
+
+    func loadCheckInList(){
+        
+        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+        var userData : Results<UserList>! = nil
+        userData = realm.objects(UserList)
+        mainUser = userData.filter("userId == %@", userInfo["username"]!)
+        
+        if mainUser.count != 0{
+            checkInList = mainUser[0].checkinList.sorted("departureDateTime", ascending: false)
+        }
+        
+    }
+    
+    func refreshCheckInList(notif : NSNotification){
+        
+        signature = mainUser[0].signature
+        
+        loadCheckInList()
+        LoginMobileCheckinTableView.reloadData()
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let bookingList = listBooking[indexPath.row] as! NSDictionary
+        let bookingList = checkInList[indexPath.row]//listBooking[indexPath.row] as! NSDictionary
         showLoading() 
         
-        FireFlyProvider.request(.CheckIn(signature, bookingList["pnr"] as! String, userId, bookingList["departure_station_code"] as! String, bookingList["arrival_station_code"] as! String)) { (result) -> () in
+        FireFlyProvider.request(.CheckIn(signature, bookingList.pnr, userId, bookingList.departureStationCode, bookingList.arrivalStationCode)) { (result) -> () in
             
             switch result {
                 

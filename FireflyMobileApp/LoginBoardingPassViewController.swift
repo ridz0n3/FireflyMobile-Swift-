@@ -14,83 +14,58 @@ import Realm
 
 class LoginBoardingPassViewController: CommonListViewController {
     
-    var isCheck = Bool()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.loginBoardingPassScreen)
+        
+        loadBoardingPassList()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginBoardingPassViewController.refreshBoardingPassList(_:)), name: "reloadBoardingPassList", object: nil)
     }
+    
+    func loadBoardingPassList(){
+        
+        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+        var userData : Results<UserList>! = nil
+        userData = realm.objects(UserList)
+        mainUser = userData.filter("userId == %@", userInfo["username"]!)
+        
+        if mainUser.count != 0{
+            pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: false)
+        }
+        
+    }
+    
+    func refreshBoardingPassList(notif : NSNotification){
+        
+        signature = mainUser[0].signature
+        
+        loadBoardingPassList()
+        LoginMobileCheckinTableView.reloadData()
+    }
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if isOffline{
-            
-            let bookingList = pnrList[indexPath.row]
-            let boardingPass = bookingList.boardingPass
+        let listPnr = pnrList[indexPath.row]
+        let boardingPass = listPnr.boardingPass
+        
+        if boardingPass.count != 0{
             
             let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
             let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
             boardingPassDetailVC.boardingList = boardingPass
             boardingPassDetailVC.isOffline = true
             self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-            
+            checkBoardingPass(listPnr["pnr"] as! String, departCode: listPnr["departureStationCode"] as! String, arrivalCode: listPnr["arrivalStationCode"] as! String, isExist : true)
         }else{
-            let bookingList = listBooking[indexPath.row] as! NSDictionary
-            
-            let userInfo = defaults.objectForKey("userInfo")
-            var userList = Results<UserList>!()
-            userList = realm.objects(UserList)
-            
-            let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
-            
-            if mainUser.count != 0{
-                let mainPNR = mainUser[0].pnr.filter("pnr == %@", bookingList["pnr"] as! String)
-                
-                if mainPNR.count != 0{
-                    
-                    var check = 0
-                    var boardingPass = List<BoardingPassList>!()
-                    for data in mainPNR{
-                        
-                        if data.departureStationCode == bookingList["departure_station_code"] as! String{
-                    
-                            boardingPass = data.boardingPass
-                            check += 1
-                            
-                        }
-                        
-                    }
-                    
-                    if check == 0{
-                        isCheck = true
-                        showLoading()
-                        sentData(bookingList)
-                    }else{
-                        isCheck = false
-                        sentData(bookingList)
-                        let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                        let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-                        boardingPassDetailVC.boardingList = boardingPass
-                        boardingPassDetailVC.isOffline = true
-                        self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-                    }
-                    
-                }else{
-                    isCheck = true
-                    showLoading()
-                    sentData(bookingList)
-                }
-            }else{
-                isCheck = true
-                showLoading()
-                sentData(bookingList)
-            }
+            showLoading()
+            checkBoardingPass(listPnr["pnr"] as! String, departCode: listPnr["departureStationCode"] as! String, arrivalCode: listPnr["arrivalStationCode"] as! String, isExist: false)
         }
     }
     
-    func sentData(bookingList : NSDictionary){
+    func checkBoardingPass(pnr : String, departCode : String, arrivalCode : String, isExist : Bool){
         
-        //showLoading()
-        FireFlyProvider.request(.RetrieveBoardingPass(signature, bookingList["pnr"] as! String, bookingList["departure_station_code"] as! String, bookingList["arrival_station_code"] as! String, userId), completion: { (result) -> () in
+        FireFlyProvider.request(.RetrieveBoardingPass(signature, pnr, departCode, arrivalCode, userId), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
@@ -98,7 +73,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                     
                     if  json["status"].string == "success"{
                         
-                        self.saveBoardingPass(json["boarding_pass"].arrayObject!, pnrStr: bookingList["pnr"] as! String)
+                        self.saveBoardingPass(json["boarding_pass"].arrayObject!, pnrStr: pnr)
                         
                         var i = 0
                         var j = 0
@@ -114,7 +89,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                                 
                                 if i == j{
                                     
-                                    if self.isCheck{
+                                    if !isExist{
                                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                                         let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
                                         boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
@@ -123,7 +98,8 @@ class LoginBoardingPassViewController: CommonListViewController {
                                         hideLoading()
                                     }else{
                                         let info = ["boardingPassData" : json["boarding_pass"].arrayObject!, "imgDict" : dict]
-                                        NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPass", object: info)
+                                        
+                                        NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPass", object: nil, userInfo: info as [NSObject : AnyObject])
                                     }
                                     
                                 }
@@ -143,12 +119,16 @@ class LoginBoardingPassViewController: CommonListViewController {
                 
             case .Failure(let failureResult):
                 
+                
+                
+                if !isExist{
+                    showErrorMessage("Boarding Pass has not been saved")
+                }
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
             }
             
         })
-
+        
     }
     
     func saveBoardingPass(boardingPassArr : [AnyObject], pnrStr : String){
@@ -175,7 +155,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                 pnr.departureStationCode = boardingInfo["DepartureStationCode"] as! String
                 pnr.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
                 pnr.departureDateTime = formater.dateFromString(boardingInfo["DepartureDateTime"] as! String)!
-                pnr.departureDayDate = boardingInfo["DepartureDayDate"] as! String
+                pnr.departureDayDate = boardingInfo["DepartureDate"] as! String
             }
             
             let url = NSURL(string: boardingInfo["QRCodeURL"] as! String)
@@ -213,7 +193,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                 
                 for pnrData in mainPNR{
                     
-                    if pnrData.departureDateTime.compare(pnr.departureDateTime) == NSComparisonResult.OrderedSame{
+                    if (pnrData.pnr == pnr.pnr) && pnrData.departureStationCode == pnr.departureStationCode{
                         realm.beginWrite()
                         realm.delete(pnrData)
                         try! realm.commitWrite()

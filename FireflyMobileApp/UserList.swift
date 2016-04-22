@@ -11,7 +11,10 @@ import RealmSwift
 
 class UserList: Object {
     
+    dynamic var signature = ""
+    dynamic var id = ""
     dynamic var userId = ""
     let pnr = List<PNRList>()
+    let checkinList = List<CheckInList>()
     
 }
