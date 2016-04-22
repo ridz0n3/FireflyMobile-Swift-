@@ -14,10 +14,13 @@ import Realm
 
 class LoginBoardingPassViewController: CommonListViewController {
     
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    var listPnr = PNRList()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.loginBoardingPassScreen)
-        
+        loadingIndicator.hidden = indicator
         loadBoardingPassList()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginBoardingPassViewController.refreshBoardingPassList(_:)), name: "reloadBoardingPassList", object: nil)
@@ -39,22 +42,22 @@ class LoginBoardingPassViewController: CommonListViewController {
     func refreshBoardingPassList(notif : NSNotification){
         
         signature = mainUser[0].signature
-        
+        loadingIndicator.hidden = true
         loadBoardingPassList()
         LoginMobileCheckinTableView.reloadData()
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        let listPnr = pnrList[indexPath.row]
+        listPnr = pnrList[indexPath.row]
         let boardingPass = listPnr.boardingPass
         
         if boardingPass.count != 0{
             
             let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
             let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-            boardingPassDetailVC.boardingList = boardingPass
-            boardingPassDetailVC.isOffline = true
+            boardingPassDetailVC.departCode = listPnr["departureStationCode"] as! String
+            boardingPassDetailVC.pnrNumber = listPnr["pnr"] as! String
             self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
             checkBoardingPass(listPnr["pnr"] as! String, departCode: listPnr["departureStationCode"] as! String, arrivalCode: listPnr["arrivalStationCode"] as! String, isExist : true)
         }else{
@@ -75,42 +78,22 @@ class LoginBoardingPassViewController: CommonListViewController {
                         
                         self.saveBoardingPass(json["boarding_pass"].arrayObject!, pnrStr: pnr)
                         
-                        var i = 0
-                        var j = 0
-                        var dict = [String:AnyObject]()
-                        for info in json["boarding_pass"].arrayObject!{
-                            let index = "\(j)"
-                            let imageURL = info["QRCodeURL"] as! String
-                            
-                            Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
-                                
-                                dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
-                                i += 1
-                                
-                                if i == j{
-                                    
-                                    if !isExist{
-                                        let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                                        let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-                                        boardingPassDetailVC.boardingPassData = json["boarding_pass"].arrayObject!
-                                        boardingPassDetailVC.imgDict = dict
-                                        self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-                                        hideLoading()
-                                    }else{
-                                        let info = ["boardingPassData" : json["boarding_pass"].arrayObject!, "imgDict" : dict]
-                                        
-                                        NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPass", object: nil, userInfo: info as [NSObject : AnyObject])
-                                    }
-                                    
-                                }
-                            })
-                            j += 1
+                        if !isExist{
+                            let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
+                            let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
+                            boardingPassDetailVC.departCode = departCode
+                            boardingPassDetailVC.pnrNumber = pnr
+                            boardingPassDetailVC.load = true
+                            self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
+                            hideLoading()
+                        }else{
+                            NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPass", object: nil)
                         }
                     }else{
                         
                         hideLoading()
-                        
                         showErrorMessage(json["message"].string!)
+                        
                     }
                 }
                 catch {
@@ -119,10 +102,10 @@ class LoginBoardingPassViewController: CommonListViewController {
                 
             case .Failure(let failureResult):
                 
-                
-                
                 if !isExist{
                     showErrorMessage("Boarding Pass has not been saved")
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPass", object: nil)
                 }
                 hideLoading()
             }

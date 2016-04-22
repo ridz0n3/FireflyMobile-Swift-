@@ -13,11 +13,13 @@ import Realm
 
 class LoginMobileCheckinViewController: CommonListViewController {
  
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.loginMobileCheckInScreen)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginMobileCheckinViewController.refreshCheckInList(_:)), name: "reloadCheckInList", object: nil)
-        
+        loadingIndicator.hidden = indicator
         loadCheckInList()
     }
 
@@ -37,7 +39,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
     func refreshCheckInList(notif : NSNotification){
         
         signature = mainUser[0].signature
-        
+        loadingIndicator.hidden = true
         loadCheckInList()
         LoginMobileCheckinTableView.reloadData()
     }

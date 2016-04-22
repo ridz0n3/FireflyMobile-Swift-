@@ -300,6 +300,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             if !isExist{
                                 let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
                                 let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginBoardingPassVC") as! LoginBoardingPassViewController
+                                mobileCheckinVC.indicator = true
                                 mobileCheckinVC.module = "boardingPass"
                                 self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                             }else{
@@ -331,16 +332,23 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                     
                     if mainUser.count != 0{
                         
-                        let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                        let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginBoardingPassVC") as! LoginBoardingPassViewController
-                        mobileCheckinVC.module = "boardingPass"
-                        mobileCheckinVC.pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: false)
-                        self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
-                        
+                        if mainUser[0].pnr.count != 0{
+                            let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
+                            let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginBoardingPassVC") as! LoginBoardingPassViewController
+                            mobileCheckinVC.indicator = true
+                            mobileCheckinVC.module = "boardingPass"
+                            //mobileCheckinVC.pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: false)
+                            self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
+                        }else{
+                            let alert = SCLAlertView()
+                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                        }
                     }else{
                         let alert = SCLAlertView()
                         alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
                     }
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPassList", object: nil)
                 }
                 
             }
@@ -385,13 +393,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 if mainPNR.count != 0{
                     
                     for pnrData in mainPNR{
-                        let boardingPass = BoardingPassList()
+                        
                         if (pnrData.pnr == pnr.pnr) && pnrData.departureStationCode == pnr.departureStationCode{
                             
                             if pnrData.boardingPass.count != 0{
                                 
                                 for boardingInfo in pnrData.boardingPass{
-                                    
+                                    let boardingPass = BoardingPassList()
                                     boardingPass.name = boardingInfo.name
                                     boardingPass.departureStation = boardingInfo.departureStation
                                     boardingPass.arrivalStation = boardingInfo.arrivalStation
@@ -453,6 +461,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             if !isExist{
                                 let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                                 let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginMobileCheckinVC") as! LoginMobileCheckinViewController
+                                mobileCheckinVC.indicator = true
                                 mobileCheckinVC.module = "checkIn"
                                 self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                                 hideLoading()
@@ -477,7 +486,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             case .Failure(let failureResult):
                 
                 if !isExist{
+                    hideLoading()
                     showErrorMessage(failureResult.nsError.localizedDescription)
+                }else{
+                    NSNotificationCenter.defaultCenter().postNotificationName("reloadCheckInList", object: nil)
                 }
                 //
             }
@@ -490,10 +502,18 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         let userInfo = defaults.objectForKey("userInfo")
         var userList = Results<UserList>!()
         userList = realm.objects(UserList)
+        let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
+        
+        if mainUser.count != 0{
+            if mainUser[0].checkinList.count != 0{
+                realm.beginWrite()
+                realm.delete(mainUser[0].checkinList)
+                try! realm.commitWrite()
+            }
+        }
         
         for listInfo in list{
             
-            let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
             let checkIn = CheckInList()
             checkIn.pnr = listInfo["pnr"] as! String
             
@@ -518,22 +538,6 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                     realm.add(user)
                 })
             }else{
-                
-                let mainPNR = mainUser[0].checkinList.filter("pnr == %@", checkIn.pnr)
-                if mainPNR.count != 0{
-                    
-                    for pnrData in mainPNR{
-                        
-                        if (pnrData.pnr == checkIn.pnr) && pnrData.departureStationCode == checkIn.departureStationCode{
-                            
-                            realm.beginWrite()
-                            realm.delete(pnrData)
-                            try! realm.commitWrite()
-                            
-                        }
-                        
-                    }
-                }
                 
                 try! realm.write({ () -> Void in
                     mainUser[0].checkinList.append(checkIn)

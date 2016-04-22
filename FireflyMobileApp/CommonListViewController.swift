@@ -18,7 +18,7 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
     var pnrList : Results<PNRList>! = nil
     var checkInList : Results<CheckInList>! = nil
     var mainUser : Results<UserList>! = nil
-
+    var indicator = Bool()
     var module = String()
     var userId = String()
     var signature = String()
@@ -63,13 +63,13 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
             let bookingList = checkInList[indexPath.row]
             
             cell.flightNumber.text = "\(bookingList.departureStationCode) - \(bookingList.arrivalStationCode)"
-            cell.flightDate.text = bookingList.departureDayDate
+            cell.flightDate.text = bookingList.departureDayDate.capitalizedString
             
         }else{
             let bookingList = pnrList[indexPath.row]
             
             cell.flightNumber.text = "\(bookingList.departureStationCode) - \(bookingList.arrivalStationCode)"
-            cell.flightDate.text = bookingList.departureDayDate
+            cell.flightDate.text = bookingList.departureDayDate.capitalizedString
             
         }
         

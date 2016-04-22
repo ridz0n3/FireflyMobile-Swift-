@@ -85,6 +85,7 @@ class InitialLoadManager {
                             defaults.setObject(socialLink!["twitter"]?.string, forKey: "twitter")
                             defaults.setObject(socialLink!["facebookScreen"]?.string, forKey: "facebook")
                             
+                            defaults.setObject("true", forKey: "firstInstall")
                             defaults.setObject(json["banner_module"].string, forKey: "module")
                             defaults.setObject(signature, forKey: "signatureLoad")
                             defaults.setObject(banner, forKey: "banner")
@@ -110,8 +111,33 @@ class InitialLoadManager {
                 }//
             case .Failure(let failureResult):
                 
-                //if failureResult.nsError.code == -1001 || failureResult.nsError.code == -1009{
+                if let first = defaults.objectForKey("firstInstall"){
+                    UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+                    UINavigationBar.appearance().translucent = false
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    
+                    let container = storyboard.instantiateViewControllerWithIdentifier("MFSideMenuContainerViewController") as! MFSideMenuContainerViewController
+                    
+                    let viewController = UIApplication.sharedApplication().delegate as! AppDelegate
+                    
+                    viewController.window?.rootViewController = container
+                    
+                    let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("sideMenuVC") as! SideMenuTableViewController
+                    
+                    let homeStoryBoard = UIStoryboard(name: "Home", bundle: nil)
+                    let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("NavigationVC") as! UINavigationController
+                    
+                    container.leftMenuViewController = sideMenuVC
+                    container.centerViewController = navigationController
+                    
+                    container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
+                }else{
                     showRetryMessage(failureResult.nsError.localizedDescription)
+                }
+                
+                //if failureResult.nsError.code == -1001 || failureResult.nsError.code == -1009{
+                
                 //}else{
                 //    showErrorMessage(failureResult.nsError.localizedDescription)
                 //}

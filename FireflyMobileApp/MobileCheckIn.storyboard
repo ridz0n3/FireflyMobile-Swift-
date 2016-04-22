@@ -606,12 +606,22 @@
                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="Q92-aG-ec9">
+                                            <rect key="frame" x="540" y="127" width="20" height="20"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="20" id="IDn-ok-ZBp"/>
+                                                <constraint firstAttribute="height" constant="20" id="suV-zS-bqp"/>
+                                            </constraints>
+                                            <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="Q92-aG-ec9" secondAttribute="trailing" constant="40" id="FZh-U9-XfZ"/>
                                         <constraint firstItem="lyw-YK-iOa" firstAttribute="centerX" secondItem="VI3-78-nwB" secondAttribute="centerX" id="Fze-ET-7qm"/>
                                         <constraint firstAttribute="trailing" secondItem="hgZ-tE-J75" secondAttribute="trailing" id="Jp9-BR-Ire"/>
                                         <constraint firstItem="hgZ-tE-J75" firstAttribute="top" secondItem="VI3-78-nwB" secondAttribute="top" id="MtY-jZ-Zgg"/>
+                                        <constraint firstItem="Q92-aG-ec9" firstAttribute="top" secondItem="hgZ-tE-J75" secondAttribute="bottom" constant="26" id="QzT-nF-BJL"/>
                                         <constraint firstItem="hgZ-tE-J75" firstAttribute="leading" secondItem="VI3-78-nwB" secondAttribute="leading" id="ls8-1X-Fko"/>
                                         <constraint firstAttribute="trailing" secondItem="1kI-lo-2vw" secondAttribute="trailing" constant="16" id="nhZ-bD-Qbj"/>
                                         <constraint firstItem="lyw-YK-iOa" firstAttribute="top" secondItem="VI3-78-nwB" secondAttribute="top" constant="19" id="qR8-da-SIW"/>
@@ -730,6 +740,7 @@
                     </view>
                     <connections>
                         <outlet property="LoginMobileCheckinTableView" destination="vGM-OB-hdD" id="9df-vO-CmU"/>
+                        <outlet property="loadingIndicator" destination="Q92-aG-ec9" id="FaO-GK-578"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6VM-Os-P7b" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -20,9 +20,12 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     @IBOutlet var boardingPassView: UIView!
     var boardingPassData = [AnyObject]()
     var imgDict = [String:AnyObject]()
+    var load = Bool()
+    var departCode = String()
     var pnrNumber = String()
-    var arrival = String()
-
+    
+    
+    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
@@ -39,103 +42,89 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     @IBOutlet weak var fareLbl: UILabel!
     @IBOutlet weak var ssrLbl: UILabel!
     
+    var listPnr = PNRList()
+    var mainUser : Results<UserList>! = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.boardingPassDetailScreen)
         loadBoardingPass()
-        
+        loadingIndicator.hidden = load
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BoardingPassDetailViewController.refreshBoardingPass(_:)), name: "reloadBoardingPass", object: nil)
     }
     
     func refreshBoardingPass(notif : NSNotification){
         
-        boardingPassData = notif.userInfo!["boardingPassData"] as! [AnyObject]
-        imgDict = notif.userInfo!["imgDict"] as! [String:AnyObject]
-        
-        if (pnrNumber == boardingPassData[0]["RecordLocator"]) && (arrival == boardingPassData[0]["ArrivalStationCode"]){
-            isOffline = false
-            loadBoardingPass()
-        }
+        loadingIndicator.hidden = true
+        loadBoardingPass()
         
     }
     
-    func loadBoardingPass(){
+    func viewBoardingPass(){
+        
         //1
         self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
         let scrollViewWidth:CGFloat = self.scrollView.frame.width
         let scrollViewHeight:CGFloat = self.scrollView.frame.width
-        var numberOfView = Int()
         
-        if isOffline{
-            numberOfView = boardingList.count
-            var i = 0
-            for info in boardingList{
-                let new = CGFloat(i)
-                let xOrigin = new * self.view.frame.size.width
-                boardingPassView = NSBundle.mainBundle().loadNibNamed("BoardingPassView", owner: self, options: nil)[0] as! UIView
-                boardingPassView.frame = CGRectMake(xOrigin+5, 0,scrollViewWidth-10, self.scrollView.frame.height - 8)
-                boardingPassView.layer.borderWidth = 1
-                
-                border.layer.cornerRadius = 5
-                border.layer.borderWidth = 1
-                
-                arrival = info.arrivalStationCode
-                pnrNumber = info.recordLocator
-                img.image = UIImage(data: info.QRCodeURL)
-                pnr.text = info.recordLocator
-                nameLbl.text = info.name
-                departLbl.text = info.departureStation
-                flightDateLbl.text = info.departureDate
-                boardingTimeLbl.text = info.boardingTime
-                flightNoLbl.text = info.flightNumber
-                arriveLbl.text = info.arrivalStation
-                departureTimeLbl.text = info.departureTime
-                fareLbl.text = info.fare
-                ssrLbl.text = info.SSR
-                
-                scrollView.addSubview(boardingPassView)
-                i += 1
-                
-            }
+        let numberOfView = boardingList.count
+        var i = 0
+        for info in boardingList{
+            let new = CGFloat(i)
+            let xOrigin = new * self.view.frame.size.width
+            boardingPassView = NSBundle.mainBundle().loadNibNamed("BoardingPassView", owner: self, options: nil)[0] as! UIView
+            boardingPassView.frame = CGRectMake(xOrigin+5, 0,scrollViewWidth-10, self.scrollView.frame.height - 8)
+            boardingPassView.layer.borderWidth = 1
             
-        }else{
-            numberOfView = boardingPassData.count
-            var i = 0
-            for info in boardingPassData{
-                
-                let new = CGFloat(i)
-                let xOrigin = new * self.view.frame.size.width
-                boardingPassView = NSBundle.mainBundle().loadNibNamed("BoardingPassView", owner: self, options: nil)[0] as! UIView
-                boardingPassView.frame = CGRectMake(xOrigin+5, 0,scrollViewWidth-10, self.scrollView.frame.height - 8)
-                boardingPassView.layer.borderWidth = 1
-                
-                border.layer.cornerRadius = 5
-                border.layer.borderWidth = 1
-                
-                img.image = imgDict["\(i)"] as? UIImage
-                pnr.text = info["RecordLocator"] as? String
-                nameLbl.text = info["Name"] as? String
-                departLbl.text = info["DepartureStation"] as? String
-                flightDateLbl.text = info["DepartureDate"] as? String
-                boardingTimeLbl.text = info["BoardingTime"] as? String
-                flightNoLbl.text = info["FlightNumber"] as? String
-                arriveLbl.text = info["ArrivalStation"] as? String
-                departureTimeLbl.text = info["DepartureTime"] as? String
-                fareLbl.text = info["Fare"] as? String
-                ssrLbl.text = info["SSR"] as? String
-                
-                scrollView.addSubview(boardingPassView)
-                i += 1
-            }
+            border.layer.cornerRadius = 5
+            border.layer.borderWidth = 1
+            
+            img.image = UIImage(data: info.QRCodeURL)
+            pnr.text = info.recordLocator
+            nameLbl.text = info.name
+            departLbl.text = info.departureStation
+            flightDateLbl.text = info.departureDate
+            boardingTimeLbl.text = info.boardingTime
+            flightNoLbl.text = info.flightNumber
+            arriveLbl.text = info.arrivalStation
+            departureTimeLbl.text = info.departureTime
+            fareLbl.text = info.fare
+            ssrLbl.text = info.SSR
+            
+            scrollView.addSubview(boardingPassView)
+            i += 1
             
         }
-        
-        
+
         pageControl.numberOfPages = numberOfView
         self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width * CGFloat(numberOfView), scrollViewHeight)
         self.scrollView.delegate = self
         self.pageControl.currentPage = 0
+        
+    }
+    
+    func loadBoardingPass(){
+        
+        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+        var userData : Results<UserList>! = nil
+        userData = realm.objects(UserList)
+        mainUser = userData.filter("userId == %@", userInfo["username"]!)
+        
+        if mainUser.count != 0{
+            
+            let mainPNR = mainUser[0].pnr.filter("pnr == %@", pnrNumber)
+            
+            for boardingInfo in mainPNR{
+                
+                if boardingInfo.departureStationCode == departCode{
+                    boardingList = boardingInfo.boardingPass
+                }
+                
+            }
+            
+            viewBoardingPass()
+        }
         // Do any additional setup after loading the view.
     }
     
