@@ -1,110 +1,87 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Bwz-6L-7zI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="wU0-t5-Scn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Left Side Menu View Controller-->
+        <scene sceneID="deJ-Oh-BOm">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeftMenuVC" id="wU0-t5-Scn" customClass="LeftSideMenuViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="vA5-nL-wbI"/>
+                        <viewControllerLayoutGuide type="bottom" id="6jz-0l-3hj"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                    <view key="view" contentMode="scaleToFill" id="4aW-G2-ruL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-805" y="477"/>
-        </scene>
-        <!--Side Menu Container View Controller-->
-        <scene sceneID="N55-Zs-6f0">
-            <objects>
-                <viewController storyboardIdentifier="MFSideMenuContainerViewController" id="Bwz-6L-7zI" customClass="MFSideMenuContainerViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="bhr-jm-yfT"/>
-                        <viewControllerLayoutGuide type="bottom" id="6qE-IE-oCs"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="bzX-fi-3q9">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="SQ7-59-7Us" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2160" y="472"/>
-        </scene>
-        <!--Side Menu Table View Controller-->
-        <scene sceneID="sop-TD-vPY">
-            <objects>
-                <tableViewController storyboardIdentifier="sideMenuVC" id="OjG-jc-uv6" customClass="SideMenuTableViewController" customModule="FireflyMobileApp" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="jj9-Sw-1gL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="fH4-Px-DgZ" customClass="SideMenuTableViewCell" customModule="FireflyMobileApp">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fH4-Px-DgZ" id="VeK-dj-iQz">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HOME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MS4-9v-c2A">
-                                            <rect key="frame" x="46" y="9" width="252" height="26"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iJQ-Pq-f6z">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="tUo-JX-s0y" customClass="SideMenuTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tUo-JX-s0y" id="JcW-Re-zbD">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KdM-0G-iqP">
+                                                    <rect key="frame" x="8" y="8" width="28" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="28" id="g1u-O9-BlU"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clK-69-yT6">
+                                                    <rect key="frame" x="44" y="11" width="548" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="JBm-tJ-h5Y"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="252" id="8Ic-2b-IL7"/>
+                                                <constraint firstItem="clK-69-yT6" firstAttribute="top" secondItem="JcW-Re-zbD" secondAttribute="top" constant="11" id="1Bn-cO-jIg"/>
+                                                <constraint firstItem="KdM-0G-iqP" firstAttribute="top" secondItem="JcW-Re-zbD" secondAttribute="top" constant="8" id="InG-Rd-cbM"/>
+                                                <constraint firstAttribute="bottom" secondItem="KdM-0G-iqP" secondAttribute="bottom" constant="8" id="MaU-Fs-O2u"/>
+                                                <constraint firstItem="clK-69-yT6" firstAttribute="leading" secondItem="KdM-0G-iqP" secondAttribute="trailing" constant="8" id="YXI-DR-jZa"/>
+                                                <constraint firstItem="KdM-0G-iqP" firstAttribute="leading" secondItem="JcW-Re-zbD" secondAttribute="leading" constant="8" id="fmR-cf-1wW"/>
+                                                <constraint firstAttribute="trailing" secondItem="clK-69-yT6" secondAttribute="trailing" constant="8" id="mvr-Tx-rtG"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fb" translatesAutoresizingMaskIntoConstraints="NO" id="6Gn-ar-6Rz">
-                                            <rect key="frame" x="8" y="8" width="28" height="28"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="28" id="zXV-SZ-WHw"/>
-                                            </constraints>
-                                        </imageView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    <constraints>
-                                        <constraint firstItem="MS4-9v-c2A" firstAttribute="leading" secondItem="6Gn-ar-6Rz" secondAttribute="trailing" constant="10" id="NPa-Bd-OeA"/>
-                                        <constraint firstItem="MS4-9v-c2A" firstAttribute="top" secondItem="VeK-dj-iQz" secondAttribute="top" constant="9" id="dli-Y5-Anf"/>
-                                        <constraint firstItem="6Gn-ar-6Rz" firstAttribute="leading" secondItem="VeK-dj-iQz" secondAttribute="leading" constant="8" id="dy7-El-OKA"/>
-                                        <constraint firstItem="6Gn-ar-6Rz" firstAttribute="top" secondItem="VeK-dj-iQz" secondAttribute="top" constant="8" id="gv7-iU-cV6"/>
-                                        <constraint firstAttribute="bottom" secondItem="6Gn-ar-6Rz" secondAttribute="bottom" constant="8" id="oHU-zT-udy"/>
-                                        <constraint firstItem="MS4-9v-c2A" firstAttribute="leading" secondItem="6Gn-ar-6Rz" secondAttribute="trailing" constant="10" id="rGC-lh-O8W"/>
-                                        <constraint firstAttribute="bottom" secondItem="MS4-9v-c2A" secondAttribute="bottom" constant="9" id="tRD-kO-UBJ"/>
-                                    </constraints>
-                                </tableViewCellContentView>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="menuIcon" destination="KdM-0G-iqP" id="9Ka-v0-0nc"/>
+                                            <outlet property="menuLbl" destination="clK-69-yT6" id="TCy-9g-Dlr"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <outlet property="menuIcon" destination="6Gn-ar-6Rz" id="c1V-V8-Mbl"/>
-                                    <outlet property="menuLbl" destination="MS4-9v-c2A" id="idd-gg-9At"/>
+                                    <outlet property="dataSource" destination="wU0-t5-Scn" id="u1j-46-heh"/>
+                                    <outlet property="delegate" destination="wU0-t5-Scn" id="8S1-uz-lUO"/>
                                 </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="OjG-jc-uv6" id="5DK-os-JHU"/>
-                            <outlet property="delegate" destination="OjG-jc-uv6" id="7AJ-cZ-eFk"/>
-                        </connections>
-                    </tableView>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6jz-0l-3hj" firstAttribute="top" secondItem="iJQ-Pq-f6z" secondAttribute="bottom" id="9tA-GG-kP7"/>
+                            <constraint firstAttribute="trailing" secondItem="iJQ-Pq-f6z" secondAttribute="trailing" id="AOh-Q4-vE4"/>
+                            <constraint firstItem="iJQ-Pq-f6z" firstAttribute="top" secondItem="4aW-G2-ruL" secondAttribute="top" id="Ci6-QY-ezM"/>
+                            <constraint firstItem="iJQ-Pq-f6z" firstAttribute="leading" secondItem="4aW-G2-ruL" secondAttribute="leading" id="RhU-Qc-gkE"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <outlet property="sideMenuTableView" destination="jj9-Sw-1gL" id="Ode-jn-Egq"/>
+                        <outlet property="leftMenuTableView" destination="iJQ-Pq-f6z" id="8Pw-PF-5xr"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sWl-tS-05C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2ce-g1-iPI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1519" y="471"/>
+            <point key="canvasLocation" x="-2804" y="468"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="fb" width="200" height="200"/>
-    </resources>
 </document>

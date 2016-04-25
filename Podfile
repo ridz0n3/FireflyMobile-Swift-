@@ -4,7 +4,6 @@
  use_frameworks!
 
 target 'FireflyMobileApp' do
-pod 'MFSideMenu', '~> 0.5'
 pod 'MBProgressHUD', '~> 0.9'
 pod 'XLForm', '~> 3.0'
 pod 'M13Checkbox', '~> 1.1'
@@ -20,6 +19,7 @@ pod 'Moya', '~> 5.0'
 pod 'SCLAlertView'
 pod 'RealmSwift', '~> 0.98'
 pod 'Google/Analytics'
+pod 'SlideMenuControllerSwift'
 end
 
 target 'FireflyMobileAppTests' do

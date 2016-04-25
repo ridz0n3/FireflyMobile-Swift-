@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftyJSON
-import MFSideMenu
+import SlideMenuControllerSwift
 
 class InitialLoadManager {
     
@@ -115,23 +115,22 @@ class InitialLoadManager {
                     UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                     UINavigationBar.appearance().translucent = false
                     
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    
-                    let container = storyboard.instantiateViewControllerWithIdentifier("MFSideMenuContainerViewController") as! MFSideMenuContainerViewController
-                    
                     let viewController = UIApplication.sharedApplication().delegate as! AppDelegate
                     
-                    viewController.window?.rootViewController = container
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     
-                    let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("sideMenuVC") as! SideMenuTableViewController
-                    
+                    let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("LeftMenuVC") as! LeftSideMenuViewController
                     let homeStoryBoard = UIStoryboard(name: "Home", bundle: nil)
-                    let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("NavigationVC") as! UINavigationController
+                    let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                     
-                    container.leftMenuViewController = sideMenuVC
-                    container.centerViewController = navigationController
+                    let nvc: UINavigationController = UINavigationController(rootViewController: navigationController)
                     
-                    container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
+                    let slideMenuController = SlideMenuController(mainViewController:nvc, leftMenuViewController: sideMenuVC)
+                    slideMenuController.automaticallyAdjustsScrollViewInsets = true
+                    slideMenuController.delegate = navigationController
+                    viewController.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
+                    viewController.window?.rootViewController = slideMenuController
+                    viewController.window?.makeKeyAndVisible()
                 }else{
                     showRetryMessage(failureResult.nsError.localizedDescription)
                 }
@@ -187,23 +186,23 @@ class InitialLoadManager {
             UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
             UINavigationBar.appearance().translucent = false
             
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            
-            let container = storyboard.instantiateViewControllerWithIdentifier("MFSideMenuContainerViewController") as! MFSideMenuContainerViewController
-            
             let viewController = UIApplication.sharedApplication().delegate as! AppDelegate
             
-            viewController.window?.rootViewController = container
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
-            let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("sideMenuVC") as! SideMenuTableViewController
-            
+            let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("LeftMenuVC") as! LeftSideMenuViewController
             let homeStoryBoard = UIStoryboard(name: "Home", bundle: nil)
-            let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("NavigationVC") as! UINavigationController
+            let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
             
-            container.leftMenuViewController = sideMenuVC
-            container.centerViewController = navigationController
+            let nvc: UINavigationController = UINavigationController(rootViewController: navigationController)
             
-            container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
+            let slideMenuController = SlideMenuController(mainViewController:nvc, leftMenuViewController: sideMenuVC)
+            slideMenuController.automaticallyAdjustsScrollViewInsets = true
+            slideMenuController.delegate = navigationController
+            viewController.window?.backgroundColor = UIColor(red: 236.0, green: 238.0, blue: 241.0, alpha: 1.0)
+            viewController.window?.rootViewController = slideMenuController
+            viewController.window?.makeKeyAndVisible()
+            
         }
         
     }

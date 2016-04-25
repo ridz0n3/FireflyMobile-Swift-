@@ -9,7 +9,6 @@
 import UIKit
 import WebKit
 import SwiftyJSON
-import MFSideMenu
 
 class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScriptMessageHandler, UIWebViewDelegate, WKNavigationDelegate, WKUIDelegate {
     

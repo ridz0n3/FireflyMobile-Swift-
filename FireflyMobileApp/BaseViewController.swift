@@ -10,6 +10,7 @@ import UIKit
 import MBProgressHUD
 import SwiftValidator
 import SCLAlertView
+import SlideMenuControllerSwift
 
 class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDelegate {
     
@@ -97,7 +98,11 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     }
     
     func menuTapped(sender: UIBarButtonItem){
-        self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
+        self.slideMenuController()?.toggleLeft()
+        //self.slideMenuController()?.removeLeftGestures()
+        //self.slideMenuController()?.addLeftGestures()
+        
+        //self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.sideMenuScreen)
     }
     

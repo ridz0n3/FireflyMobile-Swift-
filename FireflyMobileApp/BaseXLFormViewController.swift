@@ -11,6 +11,7 @@ import MBProgressHUD
 import XLForm
 import SwiftValidator
 import SCLAlertView
+import SlideMenuControllerSwift
 
 var isValidate: Bool = false
 
@@ -87,7 +88,8 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     }
     
     func menuTapped(sender: UIBarButtonItem){
-        self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
+        //self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
+        self.slideMenuController()?.toggleLeft()
     }
     
     func backButtonPressed(sender: UIBarButtonItem){

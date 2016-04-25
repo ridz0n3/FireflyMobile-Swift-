@@ -1,20 +1,16 @@
 //
-//  SideMenuTableViewController.swift
+//  LeftSideMenuViewController.swift
 //  FireflyMobileApp
 //
-//  Created by ME-Tech Mac User 1 on 11/17/15.
-//  Copyright © 2015 Me-tech. All rights reserved.
+//  Created by ME-Tech Mac User 1 on 4/25/16.
+//  Copyright © 2016 Me-tech. All rights reserved.
 //
 
 import UIKit
-import MFSideMenu
-import SwiftyJSON
-import RealmSwift
-import Realm
 
-class SideMenuTableViewController: BaseViewController {
+class LeftSideMenuViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet var sideMenuTableView: UITableView!
+    @IBOutlet weak var leftMenuTableView: UITableView!
     var menuSections:[String] = ["LabelMenuHome".localized, "LabelMenuUpdateInformation".localized, "LabelMenuLogin".localized, "LabelMenuRegister".localized, "LabelMenuAbout".localized, "LabelMenuFAQ".localized, "LabelMenuLogout".localized]
     
     var menuIcon:[String] = ["homeIcon", "profileIcon", "loginIcon", "registerIcon", "aboutIcon", "faqIcon", "logoutIcon"]
@@ -23,38 +19,36 @@ class SideMenuTableViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LeftSideMenuViewController.refreshSideMenu(_:)), name: "reloadSideMenu", object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuTableViewController.refreshSideMenu(_:)), name: "reloadSideMenu", object: nil)
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SideMenuTableViewController.logoutSession(_:)), name: "logout", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LeftSideMenuViewController.logoutSession(_:)), name: "logout", object: nil)
         
         if try! LoginManager.sharedInstance.isLogin(){
             hideRow = true
         }
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func logoutSession(sender : NSNotificationCenter){
         
         self.hideRow = false
-        self.sideMenuTableView.reloadData()
-        self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
+        self.leftMenuTableView.reloadData()
         
     }
-    // MARK: - Table view data source
-
+    
+    func refreshSideMenu(notif:NSNotificationCenter){
+        hideRow = true
+        self.leftMenuTableView.reloadData()
+    }
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
@@ -65,15 +59,14 @@ class SideMenuTableViewController: BaseViewController {
             return 44
         }
     }
-
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return menuSections.count
     }
-
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SideMenuTableViewCell
+        
+        let cell = leftMenuTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SideMenuTableViewCell
         
         // This is how you change the background color
         cell.selectionStyle = .Default
@@ -86,7 +79,7 @@ class SideMenuTableViewController: BaseViewController {
         
         return cell
     }
-    
+
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 50
@@ -117,103 +110,55 @@ class SideMenuTableViewController: BaseViewController {
         
         return view
     }
-
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        let navigationController = self.menuContainerViewController.centerViewController as! UINavigationController
-        
-        var controllers:[UIViewController] = [UIViewController]()
+        let navigationController : UIViewController!
         
         if (indexPath.row == 0) {
             
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC")
-            controllers.append(homeVC)
+            let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+            navigationController = UINavigationController(rootViewController: homeVC)
             
         }else if (indexPath.row == 1) {
-            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
             let storyboard = UIStoryboard(name: "UpdateInformation", bundle: nil)
-            let updateVC = storyboard.instantiateViewControllerWithIdentifier("UpdateInfoVC")
-            controllers.append(updateVC)
+            let updateVC = storyboard.instantiateViewControllerWithIdentifier("UpdateInfoVC") as! UpdateInformationViewController
+            navigationController = UINavigationController(rootViewController: updateVC)
             
         }else if (indexPath.row == 2) {
             
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            let loginVC = storyboard.instantiateViewControllerWithIdentifier("LoginVC")
-            controllers.append(loginVC)
+            let loginVC = storyboard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
+            navigationController = UINavigationController(rootViewController: loginVC)
             
         }else if (indexPath.row == 3) {
             
             let storyboard = UIStoryboard(name: "Register", bundle: nil)
-            let registerVC = storyboard.instantiateViewControllerWithIdentifier("RegisterVC")
-            controllers.append(registerVC)
+            let registerVC = storyboard.instantiateViewControllerWithIdentifier("RegisterVC") as! RegisterPersonalInfoViewController
+            navigationController = UINavigationController(rootViewController: registerVC)
             
         }else if (indexPath.row == 4) {
             
             let storyboard = UIStoryboard(name: "About", bundle: nil)
-            let aboutVC = storyboard.instantiateViewControllerWithIdentifier("AboutVC")
-            controllers.append(aboutVC)
+            let aboutVC = storyboard.instantiateViewControllerWithIdentifier("AboutVC") as! AboutViewController
+            navigationController = UINavigationController(rootViewController: aboutVC)
             
         }else if (indexPath.row == 5) {
             
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            let faqVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC")
-            controllers.append(faqVC)
+            let faqVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController
+            navigationController = UINavigationController(rootViewController: faqVC)
             
         }else{
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC")
-            controllers.append(homeVC)
+            let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+            navigationController = UINavigationController(rootViewController: homeVC)
             LogoutManager.sharedInstance.logout()
         }
         
-        if (controllers.count != 0){
-            navigationController.viewControllers = controllers 
-            self.menuContainerViewController.setMenuState(MFSideMenuStateClosed, completion: nil)
-        }
+        self.slideMenuController()?.changeMainViewController(navigationController, close: true)
 
     }
-    
-    func refreshSideMenu(notif:NSNotificationCenter){
-        hideRow = true
-        self.sideMenuTableView.reloadData()
-    }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     /*
     // MARK: - Navigation
 

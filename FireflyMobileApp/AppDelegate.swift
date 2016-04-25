@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import MFSideMenu
 import XLForm
 import CoreData
 import RealmSwift

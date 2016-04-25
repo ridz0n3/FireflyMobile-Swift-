@@ -34,11 +34,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MFSideMenu.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Moya.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -74,6 +69,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SlideMenuControllerSwift.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftValidator.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -97,42 +97,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>00598B105FB286113CA0C19463F642E0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>113331C8344479FA212C61E3292ACD87</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3051B6B1C45CD91BD75E6EC65CDFB51E</key>
+		<key>1289219F3DF7456542F13593DB3F6475</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3414146751F90FE063AD8E3F5D557446</key>
+		<key>2F063F1304EF693E02C4E993190C9BC8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>36FDBC47665781EA893A4C243065D872</key>
+		<key>47DD912679D5784DF9B41F0598DDC25D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5477C511A7A3CE4551F7C618FCDEBD47</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>567645235D2E81EAF7639C2B777424B3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>69D577FF86D2C544E5DF0742D9ED1C43</key>
+		<key>4F190278EE282C6173B0274E3E9A347A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -152,17 +137,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9A923F554FE24682810ED75DC853CD39</key>
+		<key>BFCD8550445D4E8BABD01D79395BF42C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CB62FE29A25881C3E8BD2C455DF276A2</key>
+		<key>C13105C194B3CB965080C31D2940E48F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CDB9EE94B100987048CD1444C8038EA0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>CE0A701D8A271EFE0065667D13272921</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D45E86DAD1F116A3418D6B32E1DA283D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D46BA5DD3C9D12B9EE133E6A7C9DEE40</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -182,7 +182,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FA493FFCFEC44489DC8CC3C3CA807271</key>
+		<key>F9CBB8522FB1AC16268B030AAFACDECB</key>
 		<dict>
 			<key>primary</key>
 			<true/>

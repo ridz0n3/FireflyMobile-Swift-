@@ -21,7 +21,6 @@ PODS:
   - JVFloatLabeledTextField (1.1.0)
   - M13Checkbox (1.2.0)
   - MBProgressHUD (0.9.2)
-  - MFSideMenu (0.5.5)
   - Moya (5.3.0):
     - Moya/Core (= 5.3.0)
   - Moya/Core (5.3.0):
@@ -35,6 +34,7 @@ PODS:
   - Result (1.0.2)
   - RSDayFlow (1.4.1)
   - SCLAlertView (0.5.1)
+  - SlideMenuControllerSwift (2.1.1)
   - SwiftValidator (3.0.1)
   - SwiftyJSON (2.3.2)
   - TPKeyboardAvoiding (1.2.11)
@@ -48,11 +48,11 @@ DEPENDENCIES:
   - JVFloatLabeledTextField
   - M13Checkbox (~> 1.1)
   - MBProgressHUD (~> 0.9)
-  - MFSideMenu (~> 0.5)
   - Moya (~> 5.0)
   - RealmSwift (~> 0.98)
   - RSDayFlow
   - SCLAlertView
+  - SlideMenuControllerSwift
   - SwiftValidator (= 3.0.1)
   - SwiftyJSON (~> 2.3)
   - TPKeyboardAvoiding (~> 1.2.3)
@@ -71,13 +71,13 @@ SPEC CHECKSUMS:
   JVFloatLabeledTextField: ea4a3d8387ddd43724c472bb2b8ab39b79af05d4
   M13Checkbox: 741b406a1d72415e3e3af9b9b6347ff345ed2f97
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
-  MFSideMenu: 268122e6894f2747fc3a2b48578100b232506c60
   Moya: dfd9310f3dfb198927976dad445ead477ca6c2a3
   Realm: 44803f35418c5d89b27825a564247fcd190de37e
   RealmSwift: c7239c52c83f8c43525a5269ba7be1694da33afc
   Result: dd3dd71af3fa2e262f1a999e14fba2c25ec14f16
   RSDayFlow: 24e9fb2f1f2cdbcb82e33345ae7fcc55309f746c
   SCLAlertView: 3ac39a863d3e10fc165662b1228b03402297aea9
+  SlideMenuControllerSwift: 82ada9b04e03538c84d034cf1c09e5849c0113f7
   SwiftValidator: c59223144754045d7691febdc3b3ecc2e73b609c
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
   TPKeyboardAvoiding: e5ce146b313de063957bfa75a13f1e9b0ff18ab7

@@ -11,8 +11,9 @@ import Alamofire
 import SwiftyJSON
 import SCLAlertView
 import RealmSwift
+import SlideMenuControllerSwift
 
-class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, SlideMenuControllerDelegate {
     
     @IBOutlet weak var homeMenuTableView: UITableView!
     

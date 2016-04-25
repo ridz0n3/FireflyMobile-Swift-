@@ -59,7 +59,6 @@
 		7E6931121BFB1F2C004F1719 /* MobileCheckIn.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E6931111BFB1F2C004F1719 /* MobileCheckIn.storyboard */; };
 		7E69311B1BFB2F0E004F1719 /* BoardingPass.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E69311A1BFB2F0E004F1719 /* BoardingPass.storyboard */; };
 		7E69311D1BFB2F38004F1719 /* BoardingPassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */; };
-		7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */; };
 		7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */; };
 		7E72B0471CB4FF67005FD33A /* preloader.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7E72B0461CB4FF67005FD33A /* preloader.gif */; };
 		7E75373B1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */; };
@@ -99,6 +98,8 @@
 		7EA286351C4774E10004AB9A /* CommonContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */; };
 		7EA286371C4776A30004AB9A /* AddContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */; };
 		7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */; };
+		7EA3CA621CCDF3B200F4037C /* ExtensionFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA3CA611CCDF3B200F4037C /* ExtensionFile.swift */; };
+		7EA3CA661CCDF79D00F4037C /* LeftSideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA3CA651CCDF79D00F4037C /* LeftSideMenuViewController.swift */; };
 		7EA56E931C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */; };
 		7EB07AFE1C28F6640061D1C9 /* directionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7EB07AFD1C28F6640061D1C9 /* directionView.xib */; };
 		7EB07B001C28F8440061D1C9 /* DirectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */; };
@@ -216,7 +217,6 @@
 		7E6931111BFB1F2C004F1719 /* MobileCheckIn.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MobileCheckIn.storyboard; sourceTree = "<group>"; };
 		7E69311A1BFB2F0E004F1719 /* BoardingPass.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BoardingPass.storyboard; sourceTree = "<group>"; };
 		7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassViewController.swift; sourceTree = "<group>"; };
-		7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewController.swift; sourceTree = "<group>"; };
 		7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		7E72B0461CB4FF67005FD33A /* preloader.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = preloader.gif; sourceTree = "<group>"; };
 		7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginMobileCheckinViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +259,8 @@
 		7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddContactDetailViewController.swift; sourceTree = "<group>"; };
 		7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditContactDetailViewController.swift; sourceTree = "<group>"; };
+		7EA3CA611CCDF3B200F4037C /* ExtensionFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionFile.swift; sourceTree = "<group>"; };
+		7EA3CA651CCDF79D00F4037C /* LeftSideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftSideMenuViewController.swift; sourceTree = "<group>"; };
 		7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomSeatSelectionTableViewCell.swift; sourceTree = "<group>"; };
 		7EB07AFD1C28F6640061D1C9 /* directionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = directionView.xib; sourceTree = "<group>"; };
 		7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionView.swift; sourceTree = "<group>"; };
@@ -460,6 +462,7 @@
 				7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */,
 				7E290E841BFEB3D8004E50F3 /* Constant.swift */,
 				961C57201C7EA840000910B7 /* Localizable.strings */,
+				7EA3CA611CCDF3B200F4037C /* ExtensionFile.swift */,
 			);
 			name = "Support File";
 			sourceTree = "<group>";
@@ -559,7 +562,7 @@
 		7E69311E1BFB31EA004F1719 /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				7E69311F1BFB3236004F1719 /* SideMenuTableViewController.swift */,
+				7EA3CA651CCDF79D00F4037C /* LeftSideMenuViewController.swift */,
 			);
 			name = SideMenu;
 			sourceTree = "<group>";
@@ -958,10 +961,10 @@
 				7EA286371C4776A30004AB9A /* AddContactDetailViewController.swift in Sources */,
 				7E9A53831C3B5D21001094F5 /* LoginManager.swift in Sources */,
 				7E985A0E1C4E381400EBAFA5 /* CommonPaymentViewController.swift in Sources */,
-				7E6931201BFB3236004F1719 /* SideMenuTableViewController.swift in Sources */,
 				7E1F78181BF9AC3800F55C46 /* BaseViewController.swift in Sources */,
 				7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */,
 				7E9438561C564A3E002D6792 /* AddFlightDetailViewController.swift in Sources */,
+				7EA3CA621CCDF3B200F4037C /* ExtensionFile.swift in Sources */,
 				7E9B2BBC1C8E6AF60046EB82 /* NSString+ExtraMethod.m in Sources */,
 				7E69310D1BFB195D004F1719 /* SendItineraryViewController.swift in Sources */,
 				7EBBFA021C1011CA00080FFA /* RSDFCustomDatePickerView.swift in Sources */,
@@ -973,6 +976,7 @@
 				7EBBFA091C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift in Sources */,
 				7E9DD28F1C9AA9A6008E1B90 /* UIImage+Gif.swift in Sources */,
 				7E1F78111BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift in Sources */,
+				7EA3CA661CCDF79D00F4037C /* LeftSideMenuViewController.swift in Sources */,
 				7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */,
 				7E0707941C72EE77001D7328 /* LoginBoardingPassViewController.swift in Sources */,
 				7E9011461C61BD450051F7BE /* MobileCheckInDetailViewController.swift in Sources */,
