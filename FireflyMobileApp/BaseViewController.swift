@@ -8,11 +8,10 @@
 
 import UIKit
 import MBProgressHUD
-import SwiftValidator
 import SCLAlertView
 import SlideMenuControllerSwift
 
-class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDelegate {
+class BaseViewController: UIViewController, MBProgressHUDDelegate {
     
     var alertView = SCLAlertView()
     @IBOutlet weak var borderView: UIView!
@@ -21,29 +20,9 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     var travel = [NSDictionary]()
     var pickerRow = [String]()
     var pickerTravel = [String]()
-    let validator = Validator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        validator.styleTransformers(success:{ (validationRule) -> Void in
-            print("here")
-            // clear error label
-            validationRule.errorLabel?.hidden = true
-            validationRule.errorLabel?.text = ""
-            validationRule.textField.layer.borderColor = UIColor.greenColor().CGColor
-            validationRule.textField.layer.borderWidth = 0.5
-            
-            }, error:{ (validationError) -> Void in
-                print("error")
-                validationError.errorLabel?.hidden = false
-                validationError.errorLabel?.text = validationError.errorMessage
-                validationError.textField.layer.borderColor = UIColor.redColor().CGColor
-                validationError.textField.layer.borderWidth = 1.0
-        })
-        //self.borderView.layer.borderColor = UIColor.grayColor().CGColor
-        //self.borderView.layer.borderWidth = 1
-        
         // Do any additional setup after loading the view.
     }
     
@@ -53,6 +32,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     }
     
     func setupLeftButton(){
+        
         let tools = UIToolbar()
         tools.frame = CGRectMake(0, 0, 95, 44)
         tools.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
@@ -99,11 +79,6 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
     
     func menuTapped(sender: UIBarButtonItem){
         self.slideMenuController()?.toggleLeft()
-        //self.slideMenuController()?.removeLeftGestures()
-        //self.slideMenuController()?.addLeftGestures()
-        
-        //self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
-        //AnalyticsManager.sharedInstance.logScreen(GAConstants.sideMenuScreen)
     }
     
     func backButtonPressed(sender: UIBarButtonItem){
@@ -185,23 +160,6 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate, ValidationDel
         return formater.dateFromString(date)!
         
     }
-    
-    // MARK: ValidationDelegate Methods
-    
-    func validationSuccessful() {
-        print("Validation Success!")
-        let alert = UIAlertController(title: "Success", message: "You are validated!", preferredStyle: UIAlertControllerStyle.Alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-        alert.addAction(defaultAction)
-        self.presentViewController(alert, animated: true, completion: nil)
-        
-    }
-    
-    func validationFailed(errors:[UITextField:ValidationError]) {
-        print("Validation FAILED!")
-    }
-    
-    
     
     /*
     // MARK: - Navigation

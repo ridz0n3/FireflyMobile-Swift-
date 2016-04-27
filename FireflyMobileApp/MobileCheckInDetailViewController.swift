@@ -114,7 +114,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             // Document Number
             row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationDocumentNo, i), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
             row.required = true
-            row.value = (passengerData["document_number"] as! String).xmlSimpleUnescapeString()
+            //row.value = (passengerData["document_number"] as! String).xmlSimpleUnescapeString()
             section.addFormRow(row)
             
             // Enrich Loyalty No

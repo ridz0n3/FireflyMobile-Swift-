@@ -23,7 +23,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.passengerDetailsScreen)
     }
-
+    
     func initializeForm() {
         
         let form : XLFormDescriptor
@@ -96,10 +96,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 row.selectorOptions = tempArray
                 row.required = true
-                section.addFormRow(row)
+                //section.addFormRow(row)
                 
                 // Country
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Issuing Country:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Nationality:*")
                 
                 tempArray = [AnyObject]()
                 for country in countryArray{
@@ -117,7 +117,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Document Number
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
                 row.required = true
-                section.addFormRow(row)
+                //section.addFormRow(row)
                 
                 // Enrich Loyalty No
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
@@ -166,10 +166,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 row.selectorOptions = tempArray
                 row.required = true
-                section.addFormRow(row)
+                //section.addFormRow(row)
                 
                 // Country
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Issuing Country:*")
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Nationality:*")
                 
                 tempArray = [AnyObject]()
                 for country in countryArray{
@@ -183,7 +183,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Document Number
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
                 row.required = true
-                section.addFormRow(row)
+                //section.addFormRow(row)
                 
                 // Enrich Loyalty No
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
@@ -255,10 +255,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             row.selectorOptions = tempArray
             row.required = true
-            section.addFormRow(row)
+            //section.addFormRow(row)
             
             // Country
-            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, j), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Issuing Country:*")
+            row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationCountry, j), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Nationality:*")
             
             tempArray = [AnyObject]()
             for country in countryArray{
@@ -272,7 +272,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             // Document Number
             row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDocumentNo, j), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
             row.required = true
-            section.addFormRow(row)
+            //section.addFormRow(row)
         }
         
         self.form = form
@@ -282,66 +282,64 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         validateForm()
         
         if isValidate{
-            //if checkValidation(){
-                let params = getFormData()
+            let params = getFormData()
+            
+            if params.4{
+                showErrorMessage("Passenger name is duplicated.")
+            }else if !params.5 && params.1.count != 0{
+                showErrorMessage("You can only assign one infant to one guest.")
+            }else{
                 
-                if params.4{
-                    showErrorMessage("Passenger name is duplicated.")
-                }else if !params.5 && params.1.count != 0{
-                    showErrorMessage("You can only assign one infant to one guest.")
-                }else{
+                let flightType = defaults.objectForKey("flightType") as! String
+                
+                showLoading()
+                FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType), completion: { (result) -> () in
                     
-                    let flightType = defaults.objectForKey("flightType") as! String
-                    
-                    showLoading() 
-                    FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType), completion: { (result) -> () in
-                        
-                        switch result {
-                        case .Success(let successResult):
-                            do {
+                    switch result {
+                    case .Success(let successResult):
+                        do {
+                            
+                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            
+                            if json["status"] == "success"{
                                 
-                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
-                                if json["status"] == "success"{
-                                    
-                                    
-                                    if json["insurance"].dictionaryValue["status"]!.string == "N"{
-                                        defaults.setObject("", forKey: "insurance_status")
-                                    }else{
-                                        defaults.setObject(json["insurance"].object, forKey: "insurance_status")
-                                        defaults.synchronize()
-                                    }
-                                    
-                                    let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                    let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
-                                    
-                                    if let meal = json["meal"].arrayObject{
-                                        contactDetailVC.meals = meal
-                                    }
-                                    
-                                    self.navigationController!.pushViewController(contactDetailVC, animated: true)
-                                }else if json["status"] == "error"{
-                                    
-                                    showErrorMessage(json["message"].string!)
+                                if json["insurance"].dictionaryValue["status"]!.string == "N"{
+                                    defaults.setObject("", forKey: "insurance_status")
+                                }else{
+                                    defaults.setObject(json["insurance"].object, forKey: "insurance_status")
+                                    defaults.synchronize()
                                 }
-                                hideLoading()
-                            }
-                            catch {
                                 
+                                let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                                let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
+                                
+                                if let meal = json["meal"].arrayObject{
+                                    contactDetailVC.meals = meal
+                                }
+                                
+                                self.navigationController!.pushViewController(contactDetailVC, animated: true)
+                            }else if json["status"] == "error"{
+                                
+                                showErrorMessage(json["message"].string!)
                             }
-                            
-                        case .Failure(let failureResult):
-                            
                             hideLoading()
-                            
-                            showErrorMessage(failureResult.nsError.localizedDescription)
                         }
-                    })
-                //}
+                        catch {
+                            
+                        }
+                        
+                    case .Failure(let failureResult):
+                        
+                        hideLoading()
+                        
+                        showErrorMessage(failureResult.nsError.localizedDescription)
+                    }
+                })
             }
         }
         
     }
-
+    
     
 }

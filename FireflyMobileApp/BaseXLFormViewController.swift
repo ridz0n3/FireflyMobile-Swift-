@@ -9,31 +9,18 @@
 import UIKit
 import MBProgressHUD
 import XLForm
-import SwiftValidator
 import SCLAlertView
 import SlideMenuControllerSwift
 
 var isValidate: Bool = false
 
-class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, ValidationDelegate {
+class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     
     var alertView = SCLAlertView()
-    //var alertViewResponder = nil
     var HUD : MBProgressHUD = MBProgressHUD()
-    let validator = Validator()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        validator.styleTransformers(success:{ (validationRule) -> Void in
-            
-            }, error:{ (validationError) -> Void in
-                
-                validationError.textField.layer.borderColor = UIColor.redColor().CGColor
-                validationError.textField.layer.borderWidth = 1.0
-                
-                showErrorMessage(validationError.errorMessage)
-        })
         // Do any additional setup after loading the view.
     }
     
@@ -88,7 +75,6 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
     }
     
     func menuTapped(sender: UIBarButtonItem){
-        //self.menuContainerViewController.toggleLeftSideMenuCompletion(nil)
         self.slideMenuController()?.toggleLeft()
     }
     
@@ -101,7 +87,6 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         
         if array.count != 0{
             isValidate = false
-            //AnalyticsManager.sharedInstance.logScreen(GAConstants.manageFlightErrorScreen)
             var i = 0
             var message = String()
             
@@ -205,17 +190,6 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate, Val
         let formater = NSDateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
         return formater.dateFromString(date)!
-        
-    }
-    
-    // MARK: ValidationDelegate Methods
-    
-    func validationSuccessful() {
-        
-        
-    }
-    func validationFailed(errors:[UITextField:ValidationError]) {
-        //print(errors)
         
     }
     

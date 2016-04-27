@@ -9,8 +9,6 @@
 #ifndef ObjC_Header_h
 #define ObjC_Header_h
 
-#import <MFSideMenu/MFSideMenu.h>
-//#import <XLForm/XLForm.h>
 #import <MBProgressHUD/MBProgressHUD.h>
 #import <RSDayFlow/RSDFDatePickerView.h>
 #import <JVFloatLabeledTextField/JVFloatLabeledTextField.h>

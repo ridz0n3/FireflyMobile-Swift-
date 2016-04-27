@@ -161,7 +161,7 @@
             
         }
         
-        override func validationSuccessful() {
+        func validationSuccessful() {
             showLoading() 
             FireFlyProvider.request(.ForgotPassword(email.text!.xmlSimpleEscapeString(), "")) { (result) -> () in
                 
