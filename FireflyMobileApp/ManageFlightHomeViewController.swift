@@ -285,6 +285,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else if indexPath.section == 1{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
+            if flightDetail[indexPath.row]["flight_segment_status"]! as! String == "Unconfirmed"{
+                
+                cell.unconfirmedStatus.alpha = 1.0
+                UIView.animateWithDuration(0.32, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse, .Repeat], animations: {
+                    cell.unconfirmedStatus.alpha = 0.0
+                    }, completion: nil)
+                
+            }else{
+                cell.unconfirmedStatus.hidden = true
+            }
+            
             let str = "\(flightDetail[indexPath.row]["date"] as! String)\n\(flightDetail[indexPath.row]["station"] as! String)\n\(flightDetail[indexPath.row]["flight_number"] as! String)\n"
             
             let attrString = NSMutableAttributedString(string: str)
