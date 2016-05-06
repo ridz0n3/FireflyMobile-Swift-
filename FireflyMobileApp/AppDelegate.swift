@@ -11,6 +11,7 @@ import XLForm
 import CoreData
 import RealmSwift
 import Realm
+import SwiftyJSON
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,34 +27,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("LaunchScreenVC")
         self.window?.rootViewController = navigationController
         
-        /*UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-        UINavigationBar.appearance().translucent = false
-        // Override point for customization after application launch.
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
-        let container = storyboard.instantiateViewControllerWithIdentifier("MFSideMenuContainerViewController") as! MFSideMenuContainerViewController
-        
-        self.window?.rootViewController = container
-        
-        let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("sideMenuVC") as! SideMenuTableViewController
-        
-        let homeStoryBoard = UIStoryboard(name: "Home", bundle: nil)
-        let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("NavigationVC") as! UINavigationController
-        
-        container.leftMenuViewController = sideMenuVC
-        container.centerViewController = navigationController
-        
-        container.leftMenuWidth = UIScreen.mainScreen().applicationFrame.size.width - 100
-        */
         let config = RLMRealmConfiguration.defaultConfiguration()
         config.schemaVersion = 10
         config.migrationBlock = { (migration, oldSchemaVersion) in
             // nothing to do
         }
-        RLMRealmConfiguration.setDefaultConfiguration(config)
         
+        RLMRealmConfiguration.setDefaultConfiguration(config)
+        RemoteNotificationManager.sharedInstance.registerNotificationCategory()
+        RemoteNotificationManager.sharedInstance.registerGCM()
         return true
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        
+        RemoteNotificationManager.sharedInstance.getGCMToken(deviceToken)
+        
+        var newToken = deviceToken.description
+        newToken = newToken.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
+        newToken = newToken.stringByReplacingOccurrencesOfString(" ", withString: "")
+        
+    }
+    
+    func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
+        print("identifier received: \(identifier)")
+       // UIApplication.sharedApplication().openURL(NSURL(string:"prefs:root=Bluetooth")!)
+       // showErrorMessage(identifier!)
+        completionHandler()
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        print("Message: \(userInfo)")
+        
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Couldn't register: \(error)")
     }
     
     func applicationWillResignActive(application: UIApplication) {
