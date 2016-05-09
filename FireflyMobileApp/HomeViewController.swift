@@ -23,6 +23,17 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
+        
+        if defaults.objectForKey("notif") != nil{
+            if defaults.objectForKey("notif")?.classForCoder != NSString.classForCoder(){
+                let userInfo = defaults.objectForKey("notif")
+                let alert = userInfo!["aps"]!
+                let message = alert!["alert"]!!
+                
+                showNotif(message["title"] as! String, message : message["body"] as! String)
+            }
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.refreshTable(_:)), name: "reloadHome", object: nil)
         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
         

@@ -25,7 +25,7 @@ private extension String {
 
 public enum FireFlyAPI {
     case Login(String, String)
-    case Loading(String, String, String, String, String, String, String, String, String)
+    case Loading(String, String, String, String, String, String, String, String, String, String)
     case ForgotPassword(String, String)
     case ChangePassword(String, String, String)
     case PassengerDetail(AnyObject, AnyObject, String, String, String)
@@ -168,8 +168,8 @@ extension FireFlyAPI : TargetType {
         switch self {
         case .Login(let username, let password):
             return ["username": username, "password" : password]
-        case .Loading(let signature, let username, let password, let sdkVersion, let version, let deviceId, let brand, let model, let dataVersion):
-            return ["signature" : signature, "username" : username, "password" : password, "sdkVersion": sdkVersion, "version" : version, "deviceId" : deviceId, "brand" : brand, "model" : model, "dataVersion" : dataVersion]
+        case .Loading(let signature, let username, let password, let sdkVersion, let version, let deviceId, let brand, let model, let dataVersion, let gcmKey):
+            return ["signature" : signature, "username" : username, "password" : password, "sdkVersion": sdkVersion, "version" : version, "deviceId" : deviceId, "brand" : brand, "model" : model, "dataVersion" : dataVersion, "GCMKey" : gcmKey]
         case .ForgotPassword(let username, let signature):
             return ["username" : username, "signature" : signature]
         case .ChangePassword(let username, let password, let newPassword):

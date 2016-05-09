@@ -21,6 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        if (launchOptions != nil){
+            defaults.setValue(launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey] as! [NSObject:AnyObject], forKey: "notif")
+        }else{
+            defaults.setValue("", forKey: "notif")
+        }
+        
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeled] = CustomFloatLabelCell.self
         
         let homeStoryBoard = UIStoryboard(name: "SplashScreen", bundle: nil)
@@ -43,10 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         RemoteNotificationManager.sharedInstance.getGCMToken(deviceToken)
         
-        var newToken = deviceToken.description
-        newToken = newToken.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
-        newToken = newToken.stringByReplacingOccurrencesOfString(" ", withString: "")
-        
     }
     
     func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: () -> Void) {
@@ -57,12 +59,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        print("Message: \(userInfo)")
+        
+        let alert = userInfo["aps"]!
+        let message = alert["alert"]!!
+        
+        showNotif(message["title"] as! String, message : message["body"] as! String)
+        //print(message["body"] as! String)
         
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         print("Couldn't register: \(error)")
+        defaults.setValue("", forKey: "token")
+        InitialLoadManager.sharedInstance.load()
     }
     
     func applicationWillResignActive(application: UIApplication) {

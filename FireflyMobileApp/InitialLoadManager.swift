@@ -30,11 +30,11 @@ class InitialLoadManager {
             username = userinfo["username"] as! String
             password = userinfo["password"] as! String
         }
-        let deviceId = defaults.objectForKey("token") as! String//UIDevice.currentDevice().identifierForVendor?.UUIDString//
-        //print(deviceId)
+        
+        let gcmKey = defaults.objectForKey("token") as! String
         
         initializeGA()
-        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,deviceId,"Apple",UIDevice.currentDevice().modelName,existDataVersion)) { (result) -> () in
+        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,deviceId!,"Apple",UIDevice.currentDevice().modelName,existDataVersion, gcmKey)) { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
