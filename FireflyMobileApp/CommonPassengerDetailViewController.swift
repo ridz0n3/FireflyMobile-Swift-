@@ -19,7 +19,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     var adultCount = Int()
     var infantCount = Int()
     var adultArray = [Dictionary<String,AnyObject>]()
-    
+    var flightType = String()
     var adultDetails = [Dictionary<String,AnyObject>]()
     var infantDetails = [Dictionary<String,AnyObject>]()
     
@@ -89,7 +89,10 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             }
             
             adultInfo.updateValue(newExpDate, forKey: "expiration_date")
+            
+            if flightType == "FY"{
             adultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "bonuslink")
+            }
             
             passenger.updateValue(adultInfo, forKey: "\(i)")
             

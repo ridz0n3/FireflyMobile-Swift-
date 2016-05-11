@@ -103,7 +103,7 @@ class RemoteNotificationManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDel
         // token to enable reception of notifications
         GGLInstanceID.sharedInstance().startWithConfig(instanceIDConfig)
         registrationOptions = [kGGLInstanceIDRegisterAPNSOption:deviceToken,
-            kGGLInstanceIDAPNSServerTypeSandboxOption:true]
+            kGGLInstanceIDAPNSServerTypeSandboxOption:false]
         GGLInstanceID.sharedInstance().tokenWithAuthorizedEntity(gcmSenderID,
             scope: kGGLInstanceIDScopeGCM, options: registrationOptions, handler: registrationHandler)
         // [END get_gcm_reg_token]

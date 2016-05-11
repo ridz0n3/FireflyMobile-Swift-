@@ -168,13 +168,19 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }else if indexPath.section == 1{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
-            if flightDetail[indexPath.row]["flight_segment_status"]! as! String == "Unconfirmed"{
-            
-            cell.unconfirmedStatus.alpha = 1.0
-            UIView.animateWithDuration(0.32, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse, .Repeat], animations: {
-                cell.unconfirmedStatus.alpha = 0.0
-                }, completion: nil)
-            
+            if let status = flightDetail[indexPath.row]["flight_segment_status"]{
+                
+                if status as? String == "Unconfirmed"{
+                    
+                    cell.unconfirmedStatus.alpha = 1.0
+                    UIView.animateWithDuration(0.32, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse, .Repeat], animations: {
+                        cell.unconfirmedStatus.alpha = 0.0
+                        }, completion: nil)
+                    
+                }else{
+                    cell.unconfirmedStatus.hidden = true
+                }
+                
             }else{
                 cell.unconfirmedStatus.hidden = true
             }

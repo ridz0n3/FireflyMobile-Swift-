@@ -1111,8 +1111,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Wan Muzaffar Wan Hashim (8F72TYW5X5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Wan Muzaffar Wan Hashim (8F72TYW5X5)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1134,7 +1134,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "c076b167-5290-4dbb-a840-71ef18cd428c";
+				PROVISIONING_PROFILE = "7d4a6de8-e026-4c85-8770-1e575c2f41e8";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1174,7 +1174,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "c076b167-5290-4dbb-a840-71ef18cd428c";
+				PROVISIONING_PROFILE = "9d879f18-a00f-495f-8db7-3eec720a9eff";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
 				VALIDATE_PRODUCT = YES;
@@ -1199,7 +1199,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2dc3074c-2dce-4164-8187-0ae9dc091d5c";
+				PROVISIONING_PROFILE = "7d4a6de8-e026-4c85-8770-1e575c2f41e8";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1224,7 +1224,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "c076b167-5290-4dbb-a840-71ef18cd428c";
+				PROVISIONING_PROFILE = "9d879f18-a00f-495f-8db7-3eec720a9eff";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
