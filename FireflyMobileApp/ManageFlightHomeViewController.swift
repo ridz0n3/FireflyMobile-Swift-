@@ -27,6 +27,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var ssrBtn: UIButton!
     
+    var ssrAvailable = Bool()
     var contacts = [NSManagedObject]()
     var totalDueStr = Double()
     var itineraryData = NSDictionary()
@@ -117,10 +118,16 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             }
             
             if flightType == "MH"{
-                changeSeatBtn.hidden = true
-                var newFrame = headerView.frame
-                newFrame.size.height = newFrame.size.height - 42
-                headerView.frame = newFrame
+                if !ssrAvailable{
+                    ssrBtn.hidden = true
+                    var newFrame = headerView.frame
+                    newFrame.size.height = newFrame.size.height - 42
+                    headerView.frame = newFrame
+                }else{
+                    var newFrame = headerView.frame
+                    newFrame.size.height = newFrame.size.height - 42
+                    headerView.frame = newFrame
+                }
                 
                 if !isAvailable{
                     changeFlightBtn.hidden = true
@@ -131,10 +138,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     
                 }
             }else{
+                
                 ssrBtn.hidden = true
                 var newFrame = headerView.frame
                 newFrame.size.height = newFrame.size.height - 42
                 headerView.frame = newFrame
+                
                 
                 if !isAvailable{
                     changeSeatBtn.hidden = true
@@ -175,7 +184,19 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         for data in flightDetail{
             
             if data["flight_status"] as! String == "available"{
+                
                 isAvailable = true
+                
+                let formater = NSDateFormatter()
+                formater.dateFormat = "hh:mma"
+                let time1 = formater.dateFromString(data["departure_time"] as! String)
+                let time2 = formater.dateFromString(data["arrival_time"] as! String)
+                let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
+                //print(timeDifference)
+                
+                if timeDifference > 0{
+                    ssrAvailable = true
+                }
             }
             
         }

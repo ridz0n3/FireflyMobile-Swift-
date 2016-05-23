@@ -58,20 +58,20 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
             contactData = ["address1" : "" ,
-                "address2" : "",
-                "address3" : "",
-                "alternate_phone" : "\(userInfo["contact_alternate_phone"]!)",
-                "city" : "",
-                "company_name" : "",
-                "country" : "\(userInfo["contact_country"]!)",
-                "email" : "\(userInfo["contact_email"]!)",
-                "first_name" : "\(userInfo["first_name"]!)",
-                "last_name" : "\(userInfo["last_name"]!)",
-                "mobile_phone" : "\(userInfo["contact_mobile_phone"]!)",
-                "postcode" : "",
-                "state" : "\(userInfo["contact_state"]!)",
-                "title" : "\(userInfo["title"]!)",
-                "travel_purpose" : "1"]
+                           "address2" : "",
+                           "address3" : "",
+                           "alternate_phone" : "\(userInfo["contact_alternate_phone"]!)",
+                           "city" : "",
+                           "company_name" : "",
+                           "country" : "\(userInfo["contact_country"]!)",
+                           "email" : "\(userInfo["contact_email"]!)",
+                           "first_name" : "\(userInfo["first_name"]!)",
+                           "last_name" : "\(userInfo["last_name"]!)",
+                           "mobile_phone" : "\(userInfo["contact_mobile_phone"]!)",
+                           "postcode" : "",
+                           "state" : "\(userInfo["contact_state"]!)",
+                           "title" : "\(userInfo["title"]!)",
+                           "travel_purpose" : "1"]
             checkPassenger.checkState = M13CheckboxState.Checked
             isLogin = true
             
@@ -84,20 +84,20 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             let tempData = passData["0"] as! NSDictionary
             
             contactData = ["address1" : "" ,
-                "address2" : "",
-                "address3" : "",
-                "alternate_phone" : "",
-                "city" : "",
-                "company_name" : "",
-                "country" : "\(tempData["issuing_country"]!)",
-                "email" : "",
-                "first_name" : "\(tempData["first_name"]!)",
-                "last_name" : "\(tempData["last_name"]!)",
-                "mobile_phone" : "",
-                "postcode" : "",
-                "state" : "",
-                "title" : "\(tempData["title"]!)",
-                "travel_purpose" : "1"]
+                           "address2" : "",
+                           "address3" : "",
+                           "alternate_phone" : "",
+                           "city" : "",
+                           "company_name" : "",
+                           "country" : "\(tempData["issuing_country"]!)",
+                           "email" : "",
+                           "first_name" : "\(tempData["first_name"]!)",
+                           "last_name" : "\(tempData["last_name"]!)",
+                           "mobile_phone" : "",
+                           "postcode" : "",
+                           "state" : "",
+                           "title" : "\(tempData["title"]!)",
+                           "travel_purpose" : "1"]
             checkPassenger.checkState = M13CheckboxState.Checked
         }
         
@@ -152,7 +152,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     let myCustomAttribute = [ "MyCustomAttributeName": "some value"]
                     myString.addAttributes(myCustomAttribute, range: myRange)
                     myString.addAttribute(NSForegroundColorAttributeName, value: UIColor.orangeColor(), range: myRange)
-
+                    
                     paragraph2.attributedText = myString
                 }else{
                     paragraph3.attributedText = (text as! String).html2String
@@ -172,15 +172,15 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     func textTapped(recognizer : UITapGestureRecognizer){
         
         let textView = recognizer.view as! UITextView
-    // Location of the tap in text-container coordinates
-    
+        // Location of the tap in text-container coordinates
+        
         let layoutManager = textView.layoutManager
         var location = recognizer.locationInView(textView)
         location.x = location.x - textView.textContainerInset.left
         location.y = location.y - textView.textContainerInset.top
         
-    // Find the character that's been tapped on
-    
+        // Find the character that's been tapped on
+        
         var characterIndex = Int()
         characterIndex = layoutManager.characterIndexForPoint(location, inTextContainer: textView.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
         
@@ -198,13 +198,13 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 let paymentVC = storyboard.instantiateViewControllerWithIdentifier("InsuranceVC") as! InsuranceViewController
                 paymentVC.vc = self
                 self.navigationController!.presentViewController(paymentVC, animated: true, completion: nil)
-               
+                
             }
             
         }
-    
+        
     }
-
+    
     
     @IBAction func continuePaymentBtnPressed(sender: AnyObject) {
         validateForm()
@@ -216,46 +216,54 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             if flightType == "MH"{
                 
-                var i = 0
-                for ssrInfo in meals{
-                    
-                    let mealList = ssrInfo["list_meal"] as! [AnyObject]
-                    let passengerList = ssrInfo["passenger"] as! [AnyObject]
-                    var tempDict = [AnyObject]()
-                    
-                    for passengerInfo in passengerList{
+                let timeDifference = defaults.objectForKey("timeDifference") as! Int
+                
+                if timeDifference > 0{
+                    var i = 0
+                    for ssrInfo in meals{
                         
-                        let passengerDict = NSMutableDictionary()
-                        for mealsInfo in mealList{
+                        let mealList = ssrInfo["list_meal"] as! [AnyObject]
+                        let passengerList = ssrInfo["passenger"] as! [AnyObject]
+                        var tempDict = [AnyObject]()
                         
-                            if formValues()["\(Tags.ValidationSSRList)(\(i)\(passengerInfo["passenger_number"] as! Int))"] as! String == mealsInfo["name"] as! String{
+                        for passengerInfo in passengerList{
+                            
+                            let passengerDict = NSMutableDictionary()
+                            for mealsInfo in mealList{
                                 
-                                passengerDict.setValue("\(passengerInfo["passenger_number"] as! Int)", forKey: "passenger_number")
-                                passengerDict.setValue(mealsInfo["meal_code"] as! String, forKey: "meal_code")
-                                break
+                                if formValues()["\(Tags.ValidationSSRList)(\(i)\(passengerInfo["passenger_number"] as! Int))"] as! String == mealsInfo["name"] as! String{
+                                    
+                                    passengerDict.setValue("\(passengerInfo["passenger_number"] as! Int)", forKey: "passenger_number")
+                                    passengerDict.setValue(mealsInfo["meal_code"] as! String, forKey: "meal_code")
+                                    break
+                                    
+                                }
                                 
                             }
-                        
+                            
+                            tempDict.append(passengerDict)
                         }
                         
-                        tempDict.append(passengerDict)
+                        if i == 0{
+                            goingSSRDict.addObject(tempDict)
+                        }else{
+                            returnSSRDict.addObject(tempDict)
+                        }
+                        
+                        i += 1
+                        
                     }
                     
-                    if i == 0{
-                        goingSSRDict.addObject(tempDict)
-                    }else{
+                    if meals.count == 1{
+                        let tempDict = [AnyObject]()
                         returnSSRDict.addObject(tempDict)
                     }
-                    
-                    i += 1
-                    
-                }
-                
-                if meals.count == 1{
+                }else{
                     let tempDict = [AnyObject]()
+                    
+                    goingSSRDict.addObject(tempDict)
                     returnSSRDict.addObject(tempDict)
                 }
-                
                 
             }else{
                 let tempDict = [AnyObject]()
@@ -300,7 +308,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             if insuranceData == ""{
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
-                showLoading() 
+                showLoading()
                 FireFlyProvider.request(.ContactDetail(flightType, bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "N", goingSSRDict[0], returnSSRDict[0]), completion: { (result) -> () in
                     
                     switch result {
@@ -400,7 +408,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             if insuranceData == "" {
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
             }else{
-                showLoading() 
+                showLoading()
                 FireFlyProvider.request(.ContactDetail("FY",bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "Y", goingSSRDict[0], returnSSRDict[0] ), completion: { (result) -> () in
                     
                     switch result {
@@ -444,20 +452,20 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             checkPassenger.checkState = M13CheckboxState.Unchecked
             
             contactData = ["address1" : "" ,
-                "address2" : "",
-                "address3" : "",
-                "alternate_phone" : "",
-                "city" : "",
-                "company_name" : "",
-                "country" : "",
-                "email" : "",
-                "first_name" : "",
-                "last_name" : "",
-                "mobile_phone" : "",
-                "postcode" : "",
-                "state" : "",
-                "title" : "",
-                "travel_purpose" : "1"]
+                           "address2" : "",
+                           "address3" : "",
+                           "alternate_phone" : "",
+                           "city" : "",
+                           "company_name" : "",
+                           "country" : "",
+                           "email" : "",
+                           "first_name" : "",
+                           "last_name" : "",
+                           "mobile_phone" : "",
+                           "postcode" : "",
+                           "state" : "",
+                           "title" : "",
+                           "travel_purpose" : "1"]
             
             initializeForm()
             
@@ -472,57 +480,57 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     
                     if userInfo["first_name"] as! String == tempData["first_name"] as! String{
                         contactData = ["address1" : "" ,
-                            "address2" : "",
-                            "address3" : "",
-                            "alternate_phone" : "\(userInfo["contact_alternate_phone"]!)",
-                            "city" : "",
-                            "company_name" : "",
-                            "country" : "\(userInfo["contact_country"]!)",
-                            "email" : "\(userInfo["contact_email"]!)",
-                            "first_name" : "\(userInfo["first_name"]!)",
-                            "last_name" : "\(userInfo["last_name"]!)",
-                            "mobile_phone" : "\(userInfo["contact_mobile_phone"]!)",
-                            "postcode" : "",
-                            "state" : "",
-                            "title" : "\(userInfo["title"]!)",
-                            "travel_purpose" : "1"]
+                                       "address2" : "",
+                                       "address3" : "",
+                                       "alternate_phone" : "\(userInfo["contact_alternate_phone"]!)",
+                                       "city" : "",
+                                       "company_name" : "",
+                                       "country" : "\(userInfo["contact_country"]!)",
+                                       "email" : "\(userInfo["contact_email"]!)",
+                                       "first_name" : "\(userInfo["first_name"]!)",
+                                       "last_name" : "\(userInfo["last_name"]!)",
+                                       "mobile_phone" : "\(userInfo["contact_mobile_phone"]!)",
+                                       "postcode" : "",
+                                       "state" : "",
+                                       "title" : "\(userInfo["title"]!)",
+                                       "travel_purpose" : "1"]
                     }else{
                         
                         contactData = ["address1" : "" ,
-                            "address2" : "",
-                            "address3" : "",
-                            "alternate_phone" : "",
-                            "city" : "",
-                            "company_name" : "",
-                            "country" : "\(tempData["issuing_country"]!)",
-                            "email" : "",
-                            "first_name" : "\(tempData["first_name"]!)",
-                            "last_name" : "\(tempData["last_name"]!)",
-                            "mobile_phone" : "",
-                            "postcode" : "",
-                            "state" : "",
-                            "title" : "\(tempData["title"]!)",
-                            "travel_purpose" : "1"]
+                                       "address2" : "",
+                                       "address3" : "",
+                                       "alternate_phone" : "",
+                                       "city" : "",
+                                       "company_name" : "",
+                                       "country" : "\(tempData["issuing_country"]!)",
+                                       "email" : "",
+                                       "first_name" : "\(tempData["first_name"]!)",
+                                       "last_name" : "\(tempData["last_name"]!)",
+                                       "mobile_phone" : "",
+                                       "postcode" : "",
+                                       "state" : "",
+                                       "title" : "\(tempData["title"]!)",
+                                       "travel_purpose" : "1"]
                         
                     }
                     
                 }else{
                     
                     contactData = ["address1" : "" ,
-                        "address2" : "",
-                        "address3" : "",
-                        "alternate_phone" : "",
-                        "city" : "",
-                        "company_name" : "",
-                        "country" : "\(tempData["issuing_country"]!)",
-                        "email" : "",
-                        "first_name" : "\(tempData["first_name"]!)",
-                        "last_name" : "\(tempData["last_name"]!)",
-                        "mobile_phone" : "",
-                        "postcode" : "",
-                        "state" : "",
-                        "title" : "\(tempData["title"]!)",
-                        "travel_purpose" : "1"]
+                                   "address2" : "",
+                                   "address3" : "",
+                                   "alternate_phone" : "",
+                                   "city" : "",
+                                   "company_name" : "",
+                                   "country" : "\(tempData["issuing_country"]!)",
+                                   "email" : "",
+                                   "first_name" : "\(tempData["first_name"]!)",
+                                   "last_name" : "\(tempData["last_name"]!)",
+                                   "mobile_phone" : "",
+                                   "postcode" : "",
+                                   "state" : "",
+                                   "title" : "\(tempData["title"]!)",
+                                   "travel_purpose" : "1"]
                     
                 }
                 initializeForm()
@@ -564,57 +572,57 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             if userInfo["first_name"] as! String == tempData["first_name"] as! String{
                 contactData = ["address1" : "" ,
-                    "address2" : "",
-                    "address3" : "",
-                    "alternate_phone" : "\(userInfo["contact_alternate_phone"]!)",
-                    "city" : "",
-                    "company_name" : "",
-                    "country" : "\(userInfo["contact_country"]!)",
-                    "email" : "\(userInfo["contact_email"]!)",
-                    "first_name" : "\(userInfo["first_name"]!)",
-                    "last_name" : "\(userInfo["last_name"]!)",
-                    "mobile_phone" : "\(userInfo["contact_mobile_phone"]!)",
-                    "postcode" : "",
-                    "state" : "",
-                    "title" : "\(userInfo["title"]!)",
-                    "travel_purpose" : "1"]
+                               "address2" : "",
+                               "address3" : "",
+                               "alternate_phone" : "\(userInfo["contact_alternate_phone"]!)",
+                               "city" : "",
+                               "company_name" : "",
+                               "country" : "\(userInfo["contact_country"]!)",
+                               "email" : "\(userInfo["contact_email"]!)",
+                               "first_name" : "\(userInfo["first_name"]!)",
+                               "last_name" : "\(userInfo["last_name"]!)",
+                               "mobile_phone" : "\(userInfo["contact_mobile_phone"]!)",
+                               "postcode" : "",
+                               "state" : "",
+                               "title" : "\(userInfo["title"]!)",
+                               "travel_purpose" : "1"]
             }else{
                 
                 contactData = ["address1" : "" ,
-                    "address2" : "",
-                    "address3" : "",
-                    "alternate_phone" : "",
-                    "city" : "",
-                    "company_name" : "",
-                    "country" : "\(tempData["issuing_country"]!)",
-                    "email" : "",
-                    "first_name" : "\(tempData["first_name"]!)",
-                    "last_name" : "\(tempData["last_name"]!)",
-                    "mobile_phone" : "",
-                    "postcode" : "",
-                    "state" : "",
-                    "title" : "\(tempData["title"]!)",
-                    "travel_purpose" : "1"]
+                               "address2" : "",
+                               "address3" : "",
+                               "alternate_phone" : "",
+                               "city" : "",
+                               "company_name" : "",
+                               "country" : "\(tempData["issuing_country"]!)",
+                               "email" : "",
+                               "first_name" : "\(tempData["first_name"]!)",
+                               "last_name" : "\(tempData["last_name"]!)",
+                               "mobile_phone" : "",
+                               "postcode" : "",
+                               "state" : "",
+                               "title" : "\(tempData["title"]!)",
+                               "travel_purpose" : "1"]
                 
             }
             
         }else{
             
             contactData = ["address1" : "" ,
-                "address2" : "",
-                "address3" : "",
-                "alternate_phone" : "",
-                "city" : "",
-                "company_name" : "",
-                "country" : "\(tempData["issuing_country"]!)",
-                "email" : "",
-                "first_name" : "\(tempData["first_name"]!)",
-                "last_name" : "\(tempData["last_name"]!)",
-                "mobile_phone" : "",
-                "postcode" : "",
-                "state" : "",
-                "title" : "\(tempData["title"]!)",
-                "travel_purpose" : "1"]
+                           "address2" : "",
+                           "address3" : "",
+                           "alternate_phone" : "",
+                           "city" : "",
+                           "company_name" : "",
+                           "country" : "\(tempData["issuing_country"]!)",
+                           "email" : "",
+                           "first_name" : "\(tempData["first_name"]!)",
+                           "last_name" : "\(tempData["last_name"]!)",
+                           "mobile_phone" : "",
+                           "postcode" : "",
+                           "state" : "",
+                           "title" : "\(tempData["title"]!)",
+                           "travel_purpose" : "1"]
             
         }
         initializeForm()
@@ -632,13 +640,13 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         
     }
     /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     
 }
