@@ -109,6 +109,13 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
                 journey_sell_key_2 = flightDetail[1]["flights"][checkReturnIndexPath.row]["journey_sell_key"].string!
                 fare_sell_key_2 = flightDetail[1]["flights"][checkReturnIndexPath.row][planBack]["fare_sell_key"].string!
                 
+                let formater = NSDateFormatter()
+                formater.dateFormat = "hh:mm a"
+                let time1 = formater.dateFromString(departure_time_2)
+                let time2 = formater.dateFromString(arrival_time_2)
+                let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
+                //print(timeDifference)
+                
             }
             
             if checkGoingIndex == "1"{
@@ -135,6 +142,17 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             arrival_time_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["arrival_time"].string!
             journey_sell_key_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["journey_sell_key"].string!
             fare_sell_key_1 = flightDetail[0]["flights"][checkGoingIndexPath.row][planGo]["fare_sell_key"].string!
+            
+            let formater = NSDateFormatter()
+            formater.dateFormat = "hh:mm a"
+            let time1 = formater.dateFromString(departure_time_1)
+            let time2 = formater.dateFromString(arrival_time_1)
+            let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
+            
+            defaults.setValue(timeDifference, forKey: "timeDifference")
+            defaults.synchronize()
+            
+            //print(timeDifference)
             
             if try! LoginManager.sharedInstance.isLogin(){
                 showLoading()

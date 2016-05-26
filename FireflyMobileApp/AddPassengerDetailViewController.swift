@@ -17,6 +17,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         super.viewDidLoad()
         
         adultArray = [Dictionary<String,AnyObject>]()
+        flightType = defaults.objectForKey("flightType") as! String
         adultCount = (defaults.objectForKey("adult")?.integerValue)!
         infantCount = (defaults.objectForKey("infants")?.integerValue)!
         
@@ -119,11 +120,15 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 row.required = true
                 //section.addFormRow(row)
                 
+                
+                if flightType == "FY"{
+                    
                 // Enrich Loyalty No
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
                 //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                 row.value = "\(userInfo["bonuslink"]!)"
                 section.addFormRow(row)
+                }
                 
             }else{
                 // Title
@@ -185,10 +190,12 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 row.required = true
                 //section.addFormRow(row)
                 
+                if flightType == "FY"{
                 // Enrich Loyalty No
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
                 //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                 section.addFormRow(row)
+                }
             }
             
         }
@@ -289,8 +296,6 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             }else if !params.5 && params.1.count != 0{
                 showErrorMessage("You can only assign one infant to one guest.")
             }else{
-                
-                let flightType = defaults.objectForKey("flightType") as! String
                 
                 showLoading()
                 FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType), completion: { (result) -> () in

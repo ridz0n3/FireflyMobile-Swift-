@@ -27,6 +27,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     @IBOutlet weak var cancelBtn: UIButton!
     @IBOutlet weak var ssrBtn: UIButton!
     
+    var ssrAvailable = Bool()
     var contacts = [NSManagedObject]()
     var totalDueStr = Double()
     var itineraryData = NSDictionary()
@@ -117,10 +118,18 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             }
             
             if flightType == "MH"{
+                
                 changeSeatBtn.hidden = true
                 var newFrame = headerView.frame
                 newFrame.size.height = newFrame.size.height - 42
                 headerView.frame = newFrame
+
+                if !ssrAvailable{
+                    ssrBtn.hidden = true
+                    var newFrame = headerView.frame
+                    newFrame.size.height = newFrame.size.height - 42
+                    headerView.frame = newFrame
+                }
                 
                 if !isAvailable{
                     changeFlightBtn.hidden = true
@@ -131,10 +140,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     
                 }
             }else{
+                
                 ssrBtn.hidden = true
                 var newFrame = headerView.frame
                 newFrame.size.height = newFrame.size.height - 42
                 headerView.frame = newFrame
+                
                 
                 if !isAvailable{
                     changeSeatBtn.hidden = true
@@ -175,7 +186,19 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         for data in flightDetail{
             
             if data["flight_status"] as! String == "available"{
+                
                 isAvailable = true
+                
+                let formater = NSDateFormatter()
+                formater.dateFormat = "hh:mma"
+                let time1 = formater.dateFromString(data["departure_time"] as! String)
+                let time2 = formater.dateFromString(data["arrival_time"] as! String)
+                let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
+                //print(timeDifference)
+                
+                if timeDifference > 0{
+                    ssrAvailable = true
+                }
             }
             
         }
@@ -285,12 +308,18 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else if indexPath.section == 1{
             let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
             
-            if flightDetail[indexPath.row]["flight_segment_status"]! as! String == "Unconfirmed"{
+            if let status = flightDetail[indexPath.row]["flight_segment_status"]{
                 
-                cell.unconfirmedStatus.alpha = 1.0
-                UIView.animateWithDuration(0.32, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse, .Repeat], animations: {
-                    cell.unconfirmedStatus.alpha = 0.0
-                    }, completion: nil)
+                if status as? String == "Unconfirmed"{
+                    
+                    cell.unconfirmedStatus.alpha = 1.0
+                    UIView.animateWithDuration(0.32, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse, .Repeat], animations: {
+                        cell.unconfirmedStatus.alpha = 0.0
+                        }, completion: nil)
+                    
+                }else{
+                    cell.unconfirmedStatus.hidden = true
+                }
                 
             }else{
                 cell.unconfirmedStatus.hidden = true
@@ -516,8 +545,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     }
     
     func detailBtnPressed(sender:UIButton){
-        
-        SCLAlertView().showSuccess("Taxes/Fees", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
+        let newDetail = sender.accessibilityHint!.stringByReplacingOccurrencesOfString("And", withString: "&")
+        SCLAlertView().showSuccess("Taxes/Fees", subTitle: newDetail, closeButtonTitle: "Close", colorStyle:0xEC581A)
         
     }
     
@@ -534,6 +563,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         let editPassengerVC = storyboard.instantiateViewControllerWithIdentifier("EditPassengerDetailVC") as! EditPassengerDetailViewController
         editPassengerVC.passengerInformation = passengerInformation
         editPassengerVC.pnr = itineraryInformation["pnr"] as! String
+        editPassengerVC.flightType = flightType
         editPassengerVC.bookingId = "\(itineraryData["booking_id"]!)"
         editPassengerVC.signature = itineraryData["signature"] as! String
         

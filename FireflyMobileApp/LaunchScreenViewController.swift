@@ -22,7 +22,6 @@ class LaunchScreenViewController: UIViewController, MBProgressHUDDelegate {
         let imageView = UIImageView(image: loadingGif)
         imageView.frame = CGRect(x: 0.0, y: 0.0, width: 100.0, height: 100.0)
         loading.addSubview(imageView)
-        InitialLoadManager.sharedInstance.load()
         // Do any additional setup after loading the view.
     }
 

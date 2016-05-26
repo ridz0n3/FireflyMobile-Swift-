@@ -65,7 +65,7 @@ class EditSSRViewController: BaseXLFormViewController {
                     
                 }else{
                     
-                    row.value = passengerInfo["meal_name"] as! String
+                    row.value = passengerInfo["name"] as! String
                     row.disabled = true
                 }
                 section.addFormRow(row)

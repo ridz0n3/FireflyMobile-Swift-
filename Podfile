@@ -20,6 +20,7 @@ pod 'SCLAlertView'
 pod 'RealmSwift', '~> 0.98'
 pod 'Google/Analytics'
 pod 'SlideMenuControllerSwift'
+pod 'Google/CloudMessaging'
 end
 
 target 'FireflyMobileAppTests' do

@@ -65,11 +65,23 @@ Permission is granted to anyone to use this software for any purpose,including c
 - Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
 - This notice may not be removed or altered from any source or binary distribution.
 
+## GGLInstanceID
+
+Copyright 2015 Google Inc.
+
 ## Google
 
 Copyright 2015 Google Inc.
 
 ## GoogleAnalytics
+
+Copyright 2015 Google Inc.
+
+## GoogleCloudMessaging
+
+Copyright 2015 Google Inc.
+
+## GoogleIPhoneUtilities
 
 Copyright 2015 Google Inc.
 

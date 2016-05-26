@@ -132,11 +132,13 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             row.value = (adultDetails[i]["document_number"] as! String).xmlSimpleUnescapeString()
             //section.addFormRow(row)
             
+            if flightType == "FY"{
             // Enrich Loyalty No
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
             //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
             row.value = adultDetails[i]["bonuslink"] as! String
             section.addFormRow(row)
+            }
             
         }
         

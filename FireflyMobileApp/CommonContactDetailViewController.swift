@@ -61,41 +61,44 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         
         if flightType == "MH"{
             
-            section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("SPECIAL MEALS REQUEST")
-            form.addFormSection(section)
+            let timeDifference = defaults.objectForKey("timeDifference") as! Int
             
-            var i = 0
-            for mealInfo in meals{
-                
+            if timeDifference > 0{
                 section = XLFormSectionDescriptor()
-                section = XLFormSectionDescriptor.formSectionWithTitle(mealInfo["destination_name"] as? String)
+                section = XLFormSectionDescriptor.formSectionWithTitle("SPECIAL MEALS REQUEST")
                 form.addFormSection(section)
                 
-                let mealList = mealInfo["list_meal"] as! [AnyObject]
-                let passengerList = mealInfo["passenger"] as! [AnyObject]
-                
-                for passengerInfo in passengerList{
+                var i = 0
+                for mealInfo in meals{
                     
-                    // Meals
-                    row = XLFormRowDescriptor(tag: "\(Tags.ValidationSSRList)(\(i)\(passengerInfo["passenger_number"] as! Int))", rowType:XLFormRowDescriptorTypeFloatLabeled, title:passengerInfo["name"] as? String)
+                    section = XLFormSectionDescriptor()
+                    section = XLFormSectionDescriptor.formSectionWithTitle(mealInfo["destination_name"] as? String)
+                    form.addFormSection(section)
                     
-                    var tempArray:[AnyObject] = [AnyObject]()
-                    for mealsDetail in mealList{
-                        tempArray.append(XLFormOptionsObject(value: mealsDetail["meal_code"], displayText: mealsDetail["name"] as! String))
+                    let mealList = mealInfo["list_meal"] as! [AnyObject]
+                    let passengerList = mealInfo["passenger"] as! [AnyObject]
+                    
+                    for passengerInfo in passengerList{
                         
-                        if mealsDetail["meal_code"] as! String == ""{
-                            row.value = mealsDetail["name"] as! String
+                        // Meals
+                        row = XLFormRowDescriptor(tag: "\(Tags.ValidationSSRList)(\(i)\(passengerInfo["passenger_number"] as! Int))", rowType:XLFormRowDescriptorTypeFloatLabeled, title:passengerInfo["name"] as? String)
+                        
+                        var tempArray:[AnyObject] = [AnyObject]()
+                        for mealsDetail in mealList{
+                            tempArray.append(XLFormOptionsObject(value: mealsDetail["meal_code"], displayText: mealsDetail["name"] as! String))
+                            
+                            if mealsDetail["meal_code"] as! String == ""{
+                                row.value = mealsDetail["name"] as! String
+                            }
                         }
+                        
+                        row.selectorOptions = tempArray
+                        section.addFormRow(row)
+                        
                     }
-                    
-                    row.selectorOptions = tempArray
-                    section.addFormRow(row)
-                    
+                    i += 1
                 }
-                i += 1
             }
-            
         }
         
         
@@ -205,7 +208,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             addBusinessRow()
         }
     }
-        
+    
     func getPurpose(purposeName:String, purposeArr:[Dictionary<String,AnyObject>]) -> String{
         
         var purposeCode = String()
@@ -293,7 +296,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         self.form.removeFormRowWithTag(Tags.ValidationAlternate)
         
         var row : XLFormRowDescriptor
-
+        
         if contactData["country"] as? String != sender.userInfo!["countryVal"]! as? String{
             
             // Mobile Number
@@ -431,7 +434,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                     sectionView.sectionLbl.textColor = UIColor.whiteColor()
                     sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
                 }
-
+                
             }else{
                 if index == 1{
                     sectionView.views.backgroundColor = UIColor.whiteColor()
@@ -448,7 +451,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             
         }else{
             sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-
+            
             sectionView.sectionLbl.textColor = UIColor.whiteColor()
             sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
         }

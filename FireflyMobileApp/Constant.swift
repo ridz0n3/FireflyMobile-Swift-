@@ -20,7 +20,7 @@ let kDevURL = "http://fyapidev.me-tech.com.my/api"
 let khttpsProductionURL = "https://m.fireflyz.com.my/fyapi/"
 let estimote_uuid = NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")
 let virtual_uuid = NSUUID(UUIDString: "8492E75F-4FD6-469D-B132-043FE94921D8")
-
+var deviceId = UIDevice.currentDevice().identifierForVendor?.UUIDString
 
 var purposeArray:[Dictionary<String,AnyObject>] = [["purpose_code":"1","purpose_name":"Leisure"],["purpose_code":"2","purpose_name":"Business"]]
 var travelDoc : [Dictionary<String, AnyObject>] = [["doc_code":"P","doc_name":"Passport"],["doc_code":"NRIC","doc_name":"Malaysia IC"],["doc_code":"V","doc_name":"Travel VISA"]]
@@ -282,6 +282,13 @@ func showToastMessage(message:String){
     
     let messageView = SCLAlertView()
     messageView.showSuccess("Success", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close")
+    
+}
+
+func showNotif(title : String, message:String){
+    
+    let infoView = SCLAlertView()
+    infoView.showInfo(title, subTitle: message, closeButtonTitle: "Close", colorStyle: 0xEC581A)
     
 }
 

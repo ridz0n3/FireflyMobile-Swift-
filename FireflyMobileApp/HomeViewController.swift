@@ -23,6 +23,17 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMenuButton()
+        
+        if defaults.objectForKey("notif") != nil{
+            if defaults.objectForKey("notif")?.classForCoder != NSString.classForCoder(){
+                let userInfo = defaults.objectForKey("notif")
+                let alert = userInfo!["aps"]!
+                let message = alert!["alert"]!!
+                
+                showNotif(message["title"] as! String, message : message["body"] as! String)
+            }
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.refreshTable(_:)), name: "reloadHome", object: nil)
         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
         
@@ -171,13 +182,43 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             
                             let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                             
+                            var activeFlight = [AnyObject]()
+                            var notActiveFlight = [AnyObject]()
                             if json["status"] == "success"{
                                 if json["list_booking"].count != 0{
+                                    
+                                    for data in json["list_booking"].arrayObject!{
+                                        let formater = NSDateFormatter()
+                                        formater.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+                                        let newDate = formater.dateFromString(data["departure_datetime"] as! String)
+                                        let today = NSDate()
+                                        if today.compare(newDate!) == NSComparisonResult.OrderedAscending{
+                                            activeFlight.append(data)
+                                        }else{
+                                            notActiveFlight.append(data)
+                                        }
+                                    }
+                                    
+                                    var newFormatedBookingList = [String : AnyObject]()
+                                    newFormatedBookingList.updateValue(activeFlight, forKey: "Active")
+                                    newFormatedBookingList.updateValue(notActiveFlight, forKey: "notActive")
+                                    /*
+                                    if activeFlight.count != 0 && notActiveFlight.count != 0{
+                                        newFormatedBookingList.updateValue(activeFlight, forKey: "Active")
+                                        newFormatedBookingList.updateValue(notActiveFlight, forKey: "notActive")
+                                    }else if activeFlight.count != 0 && notActiveFlight.count == 0{
+                                        newFormatedBookingList.updateValue(activeFlight, forKey: "Active")
+                                    }else if activeFlight.count == 0 && notActiveFlight.count != 0{
+                                        newFormatedBookingList.updateValue(activeFlight, forKey: "notActive")
+                                    }*/
+                                    //print(newFormatedBookingList)
+                                    
                                     let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
                                     let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("LoginManageFlightVC") as! LoginManageFlightViewController
                                     manageFlightVC.userId = "\(json["user_id"])"
                                     manageFlightVC.signature = json["signature"].string!
                                     manageFlightVC.listBooking = json["list_booking"].arrayObject!
+                                    manageFlightVC.groupBookingList = newFormatedBookingList
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                 }else{
                                     let alert = SCLAlertView()
