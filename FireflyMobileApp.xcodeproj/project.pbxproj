@@ -112,6 +112,8 @@
 		7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB5B2B11BFC68EE0066D311 /* SectionView.swift */; };
 		7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */; };
 		7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */; };
+		7EBB9C821CF32FC10048689D /* CustomFlightPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EBB9C811CF32FC10048689D /* CustomFlightPicker.storyboard */; };
+		7EBB9C841CF3300F0048689D /* CustomFlightPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBB9C831CF3300F0048689D /* CustomFlightPickerViewController.swift */; };
 		7EBBFA021C1011CA00080FFA /* RSDFCustomDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA011C1011CA00080FFA /* RSDFCustomDatePickerView.swift */; };
 		7EBBFA041C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA031C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift */; };
 		7EBBFA061C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EBBFA051C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift */; };
@@ -275,6 +277,8 @@
 		7EB5B2B11BFC68EE0066D311 /* SectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionView.swift; sourceTree = "<group>"; };
 		7EB829E41C0AC2CC00E83320 /* UpdateInformation.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UpdateInformation.storyboard; sourceTree = "<group>"; };
 		7EB829E61C0AC63D00E83320 /* UpdateInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateInformationViewController.swift; sourceTree = "<group>"; };
+		7EBB9C811CF32FC10048689D /* CustomFlightPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CustomFlightPicker.storyboard; sourceTree = "<group>"; };
+		7EBB9C831CF3300F0048689D /* CustomFlightPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFlightPickerViewController.swift; sourceTree = "<group>"; };
 		7EBBFA011C1011CA00080FFA /* RSDFCustomDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerView.swift; sourceTree = "<group>"; };
 		7EBBFA031C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerDaysOfWeekView.swift; sourceTree = "<group>"; };
 		7EBBFA051C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RSDFCustomDatePickerCollectionView.swift; sourceTree = "<group>"; };
@@ -357,6 +361,7 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				7EBB9C801CF32F7D0048689D /* CustomFlightPicker */,
 				7E1F78241BF9C1B000F55C46 /* Registration */,
 				7EB829E11C0AC23200E83320 /* Profile */,
 				7EA03FD01CA931A50089CD2A /* Insurance */,
@@ -647,6 +652,15 @@
 			name = Profile;
 			sourceTree = "<group>";
 		};
+		7EBB9C801CF32F7D0048689D /* CustomFlightPicker */ = {
+			isa = PBXGroup;
+			children = (
+				7EBB9C811CF32FC10048689D /* CustomFlightPicker.storyboard */,
+				7EBB9C831CF3300F0048689D /* CustomFlightPickerViewController.swift */,
+			);
+			name = CustomFlightPicker;
+			sourceTree = "<group>";
+		};
 		7EBBFA001C10115200080FFA /* CustomDatePickerView */ = {
 			isa = PBXGroup;
 			children = (
@@ -849,6 +863,7 @@
 				7E9011481C61D1B50051F7BE /* MobileCheckInView.xib in Resources */,
 				FC4F998D1C86BB710068C5A8 /* About.storyboard in Resources */,
 				7E1F78311BF9D6A900F55C46 /* BookFlight.storyboard in Resources */,
+				7EBB9C821CF32FC10048689D /* CustomFlightPicker.storyboard in Resources */,
 				7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */,
 				7EB0DE0A1C83DD6F000AA6A8 /* MHFlightHeaderView.xib in Resources */,
 				7EE2F9A81C9916FE00499B37 /* SplashScreen.storyboard in Resources */,
@@ -1028,6 +1043,7 @@
 				7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */,
 				7E9DD2911C9AA9F7008E1B90 /* LoadingViewController.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
+				7EBB9C841CF3300F0048689D /* CustomFlightPickerViewController.swift in Sources */,
 				7EB0DE0E1C84295D000AA6A8 /* CustomMHFlightDetailTableViewCell.swift in Sources */,
 				7EA03FD41CA934440089CD2A /* InsuranceViewController.swift in Sources */,
 				7E0707901C72CD14001D7328 /* PasswordExpiredViewController.swift in Sources */,

@@ -66,9 +66,16 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                             if countJourney == 0{
                                 passengers1.updateValue(tempInfo as NSDictionary, forKey: "\(i)")
                                 seatDict.updateValue(passengers1, forKey: "\(countJourney)")
+                                
+                                seatType1.updateValue(tempInfo["seat_type"] as! String, forKey: "\(i)")
+                                seatTypeDict.updateValue(seatType1, forKey: "\(countJourney)")
                             }else{
                                 passengers2.updateValue(tempInfo as NSDictionary, forKey: "\(i)")
                                 seatDict.updateValue(passengers2, forKey: "\(countJourney)")
+                                
+                                seatType2.updateValue(tempInfo["seat_type"] as! String, forKey: "\(i)")
+                                seatTypeDict.updateValue(seatType2, forKey: "\(countJourney)")
+                                //seatTypeDict.updateValue(tempInfo["seat_type"] as! String, forKey: "\(countJourney)")
                             }
                             break
                         }
@@ -313,6 +320,9 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
         
     }
     
+    var isGoingSame = Bool()
+    var isReturnSame = Bool()
+    
     @IBAction func continueBtnPressed(sender: AnyObject) {
         
         if journeys.count == 2{
@@ -329,8 +339,22 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 
                 if keys == "0"{
                     goingSeatSelection.addObject(newSeat)
+                    
+                    if (data.count >= seatTypeDict[keys]?.count){
+                        isGoingSame = true
+                    }else{
+                        isGoingSame = false
+                    }
+                    
                 }else{
                     returnSeatSelection.addObject(newSeat)
+                    
+                    if (data.count >= seatTypeDict[keys]?.count){
+                        isReturnSame = true
+                    }else{
+                        isReturnSame = false
+                    }
+                    
                 }
                 
             }
@@ -342,45 +366,51 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             }
             
             if isSelect{
-                showLoading()
                 
-                FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
+                if isGoingSame || isReturnSame{
+                    showLoading()
                     
-                    switch result {
-                    case .Success(let successResult):
-                        do {
-                            
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
-                            
-                            if json["status"] == "success"{
-                                //
-                                let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
-                                manageFlightVC.isConfirm = true
-                                manageFlightVC.itineraryData = json.object as! NSDictionary
-                                self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                    FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
+                        
+                        switch result {
+                        case .Success(let successResult):
+                            do {
                                 
-                            }else if json["status"] == "error"{
+                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
-                                showErrorMessage(json["message"].string!)
+                                if json["status"] == "success"{
+                                    //
+                                    let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                                    let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                                    manageFlightVC.isConfirm = true
+                                    manageFlightVC.itineraryData = json.object as! NSDictionary
+                                    self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                                    
+                                }else if json["status"] == "error"{
+                                    
+                                    showErrorMessage(json["message"].string!)
+                                }
+                                hideLoading()
                             }
-                            hideLoading()
-                        }
-                        catch {
+                            catch {
+                                
+                            }
                             
+                        case .Failure(let failureResult):
+                            
+                            hideLoading()
+                            showErrorMessage(failureResult.nsError.localizedDescription)
                         }
                         
-                    case .Failure(let failureResult):
-                        
-                        hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
-                    }
-                    
-                })
+                    })
+                }else{
+                    showErrorMessage("Selected seat cannot be remove")
+                }
                 
             }else{
                 showErrorMessage("Departed flight cannot be changed.")
             }
+            
             
         }else{
             

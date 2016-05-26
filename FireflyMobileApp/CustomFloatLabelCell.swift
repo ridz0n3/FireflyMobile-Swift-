@@ -14,7 +14,8 @@ import ActionSheetPicker_3_0
 let XLFormRowDescriptorTypeFloatLabeled = "XLFormRowDescriptorTypeFloatLabeled"
 var textFieldBefore = UITextField()
 
-class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
+
+class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     //picker
     var data = [String]()
@@ -26,6 +27,62 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
     
     //date picker
     var selectDate = NSDate()
+    let pickerView = UIPickerView()
+    
+    func addToolBar(textField: UITextField){
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.Default
+        toolBar.translucent = true
+        //toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(CustomFloatLabelCell.donePressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CustomFloatLabelCell.cancelPressed))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolBar.userInteractionEnabled = true
+        toolBar.sizeToFit()
+        
+        textField.delegate = self
+        textField.inputAccessoryView = toolBar
+    }
+    func donePressed(){
+        
+        floatLabeledTextField.text = data[selectindex]
+        floatLabeledTextField.resignFirstResponder()
+        
+        if selectValue == "P"{
+            NSNotificationCenter.defaultCenter().postNotificationName("removeExpiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+        }else if selectValue == "2"{
+            NSNotificationCenter.defaultCenter().postNotificationName("removeBusiness", object: nil)
+        }
+        
+        //selectindex = selectindex
+        selectValue = dataValue[selectindex]
+        
+        if selectValue == "P"{
+            NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+        }else if selectValue == "2"{
+            NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
+        }else if self.rowDescriptor?.tag == "Country"{
+            var dialingCode = String()
+            for country in countryArray{
+                
+                if country["country_code"] as! String == selectValue{
+                    dialingCode = country["dialing_code"] as! String
+                }
+                
+            }
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue, "dialingCode" : dialingCode])
+        }else if self.rowDescriptor?.tag == "Departing"{
+            NSNotificationCenter.defaultCenter().postNotificationName("refreshArrivingCode", object: nil, userInfo: ["departStationCode" : selectValue])
+            
+        }
+        
+        //floatLabeledTextField.endEditing(true)
+    }
+    func cancelPressed(){
+        floatLabeledTextField.endEditing(true) // or do something
+    }
     
     static let kFontSize : CGFloat = 14.0
     lazy var floatLabeledTextField: JVFloatLabeledTextField  = {
@@ -57,6 +114,18 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
             self.floatLabeledTextField.secureTextEntry = true
         }else if tag![0] == "Mobile/Home" || tag![0] == "Alternate" || tag![0] == "Postcode" || tag![0] == "CCV/CVC Number" || tag![0] == "Card Number" || tag![0] == "Bonuslink" || tag![0] == Tags.ValidationFax{
             self.floatLabeledTextField.keyboardType = .PhonePad
+        }else if tag![0] == Tags.ValidationPurpose
+            || tag![0] == Tags.ValidationState
+            || tag![0] == Tags.ValidationCardType
+            || tag![0] == Tags.ValidationArriving
+            || tag![0] == Tags.ValidationDeparting
+            || tag![0] == Tags.ValidationTitle
+            || tag![0] == Tags.ValidationCountry
+            || tag![0] == Tags.ValidationTravelDoc
+            || tag![0] == Tags.ValidationTravelWith
+            || tag![0] == Tags.ValidationGender
+            || tag![0] == Tags.ValidationSSRList{
+            addToolBar(self.floatLabeledTextField)
         }
         
         if tag![0] != Tags.ValidationEnrichLoyaltyNo{
@@ -167,14 +236,20 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
             || tag![0] == Tags.ValidationGender
             || tag![0] == Tags.ValidationSSRList{
             
-            textFieldBefore.endEditing(true)
+            //textFieldBefore.endEditing(true)
             retrieveData()
+            /*
             let labelParagraphStyle = NSMutableParagraphStyle()
             labelParagraphStyle.alignment = .Center
             let picker = ActionSheetStringPicker(title: "", rows: data, initialSelection: selectindex, target: self, successAction: #selector(CustomFloatLabelCell.objectSelected(_:element:)), cancelAction: "actionPickerCancelled:", origin: textField)
             picker.pickerTextAttributes = [NSFontAttributeName : UIFont.systemFontOfSize(25), NSParagraphStyleAttributeName : labelParagraphStyle]
             picker.showActionSheetPicker()
-            return false
+            */
+            
+            pickerView.delegate = self
+            self.pickerView.selectRow(selectindex, inComponent: 0, animated: true)
+            floatLabeledTextField.inputView = pickerView
+            return true
         }else{
             textFieldBefore = textField
             return true
@@ -347,6 +422,59 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate {
         textLbl.text = formatDate(date)
         self.textFieldDidChange(textLbl)
     }
+    
+    // returns the number of 'columns' to display.
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
+        return 1
+    }
+    
+    // returns the # of rows in each component..
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        return data.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return data[row]
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        floatLabeledTextField.text = data[row]
+        floatLabeledTextField.resignFirstResponder()
+        
+        if selectValue == "P"{
+            NSNotificationCenter.defaultCenter().postNotificationName("removeExpiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+        }else if selectValue == "2"{
+            NSNotificationCenter.defaultCenter().postNotificationName("removeBusiness", object: nil)
+        }
+        
+        selectindex = row
+        selectValue = dataValue[row]
+        
+        if selectValue == "P"{
+            NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+        }else if selectValue == "2"{
+            NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
+        }else if self.rowDescriptor?.tag == "Country"{
+            var dialingCode = String()
+            for country in countryArray{
+                
+                if country["country_code"] as! String == selectValue{
+                    dialingCode = country["dialing_code"] as! String
+                }
+                
+            }
+            
+            NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue, "dialingCode" : dialingCode])
+        }else if self.rowDescriptor?.tag == "Departing"{
+            NSNotificationCenter.defaultCenter().postNotificationName("refreshArrivingCode", object: nil, userInfo: ["departStationCode" : selectValue])
+            
+        }
+
+        //textfieldBizCat.text = "\(bizCat[row])"
+        
+    }
+    
     /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

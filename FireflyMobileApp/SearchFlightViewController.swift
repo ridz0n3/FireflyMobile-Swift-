@@ -10,7 +10,7 @@ import UIKit
 import ActionSheetPicker_3_0
 import SwiftyJSON
 
-class SearchFlightViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class SearchFlightViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     var hideRow : Bool = false
     var arrival:String = "ARRIVAL AIRPORT"
@@ -44,6 +44,9 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.departureDate(_:)), name: "departure", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.returnDate(_:)), name: "return", object: nil)
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.departurePicker(_:)), name: "departureSelected", object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.arrivalPicker(_:)), name: "arrivalSelected", object: nil)
         AnalyticsManager.sharedInstance.logScreen(GAConstants.searchFlightScreen)
         // Do any additional setup after loading the view.
     }
@@ -133,16 +136,35 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexPath) as! CustomSearchFlightTableViewCell
         
         if indexPath.row == 1{
-            let sender = cell.airportLbl as UILabel
-            let picker = ActionSheetStringPicker(title: "", rows: pickerRow, initialSelection: departureSelected, target: self, successAction: #selector(SearchFlightViewController.objectSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
-            picker.showActionSheetPicker()
+            //let sender = cell.airportLbl as UILabel
             
+            /*
+            let picker = ActionSheetStringPicker(title: "", rows: pickerRow, initialSelection: departureSelected, target: self, successAction: #selector(SearchFlightViewController.objectSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
+            picker.showActionSheetPicker()*/
+            
+            let storyboard = UIStoryboard(name: "CustomFlightPicker", bundle: nil)
+            let loadingVC = storyboard.instantiateViewControllerWithIdentifier("CustomFlightPickerVC") as! CustomFlightPickerViewController
+            loadingVC.picker = pickerRow
+            loadingVC.selectPicker = departureSelected
+            loadingVC.destinationType = "departure"
+            self.navigationController?.presentViewController(loadingVC, animated: true, completion: nil)
+ 
         }else if indexPath.row == 2{
             
             if pickerTravel.count != 0{
+                
+                let storyboard = UIStoryboard(name: "CustomFlightPicker", bundle: nil)
+                let loadingVC = storyboard.instantiateViewControllerWithIdentifier("CustomFlightPickerVC") as! CustomFlightPickerViewController
+                loadingVC.picker = pickerTravel
+                loadingVC.selectPicker = arrivalSelected
+                loadingVC.destinationType = "arrival"
+                self.navigationController?.presentViewController(loadingVC, animated: true, completion: nil)
+                
+                /*
                 let sender = cell.airportLbl as UILabel
                 let picker = ActionSheetStringPicker(title: "", rows: pickerTravel, initialSelection: arrivalSelected, target: self, successAction: #selector(SearchFlightViewController.objectSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
                 picker.showActionSheetPicker()
+                */
                 
             }
             
@@ -369,9 +391,12 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
         departDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
         departureText = (notif.userInfo!["date"] as? String)!
+        arrivalText = (notif.userInfo!["date"] as? String)!
+        arrivalDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
         
         let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
         departureDateLbl = "\(date[2])/\(date[1])/\(date[0])"
+        arrivalDateLbl = "\(date[2])/\(date[1])/\(date[0])"
         searchFlightTableView.reloadData()
         
     }
@@ -385,6 +410,53 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
         arrivalDateLbl = "\(date[2])/\(date[1])/\(date[0])"
         searchFlightTableView.reloadData()
+        
+    }
+    
+    func departurePicker(notif:NSNotification){
+        let index = notif.userInfo!["index"] as! Int
+        
+        departureSelected = index
+        departure = "\(location[departureSelected]["location"] as! String) (\(location[departureSelected]["location_code"] as! String))"
+        //txtLbl.text = departure
+        arrivalSelected = 0
+        pickerTravel.removeAll()
+        travel.removeAll()
+        arrival = "ARRIVAL AIRPORT"
+        self.searchFlightTableView.reloadData()
+        getArrivalAirport((location[departureSelected]["location_code"] as? String)!, module : "search")
+        
+        
+    }
+    
+    func arrivalPicker(notif:NSNotification){
+        let index = notif.userInfo!["index"] as! Int
+        
+        arrivalSelected = index
+        arrival = "\(travel[arrivalSelected]["travel_location"] as! String) (\(travel[arrivalSelected]["travel_location_code"] as! String))"
+        self.searchFlightTableView.reloadData()
+        
+    }
+    
+    
+    // returns the number of 'columns' to display.
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
+        return 1
+    }
+    
+    // returns the # of rows in each component..
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+        return pickerRow.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerRow[row]
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        
+        //textfieldBizCat.text = "\(bizCat[row])"
         
     }
     

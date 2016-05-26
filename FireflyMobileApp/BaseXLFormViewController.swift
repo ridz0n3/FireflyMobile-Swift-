@@ -30,33 +30,46 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     }
     
     func setupLeftButton(){
+        
         let tools = UIToolbar()
-        tools.frame = CGRectMake(0, 0, 95, 44)
+        tools.frame = CGRectMake(0, 0, 45, 44)
         tools.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
         tools.backgroundColor = UIColor.clearColor()
         tools.clipsToBounds = true;
         tools.translucent = true;
         
         let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
-        let image2 = UIImage(named: "back")! .imageWithRenderingMode(.AlwaysOriginal)
+        let image2 = UIImage(named: "Back2")! .imageWithRenderingMode(.AlwaysOriginal)
         
-        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseXLFormViewController.menuTapped(_:)))
-        menuButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
+        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseViewController.menuTapped(_:)))
+        menuButton.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         
-        let backButton = UIBarButtonItem(image: image2, style: .Plain, target: self, action: #selector(BaseXLFormViewController.backButtonPressed(_:)))
+        let backButton = UIBarButtonItem(image: image2, style: .Plain, target: self, action: #selector(BaseViewController.backButtonPressed(_:)))
         backButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
         
         
-        let buttons:[UIBarButtonItem] = [menuButton, backButton];
-        tools.setItems(buttons, animated: false)
+        let buttons1:[UIBarButtonItem] = [backButton];
+        tools.setItems(buttons1, animated: false)
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: tools)
+        
+        let tools2 = UIToolbar()
+        tools2.frame = CGRectMake(0, 0, 45, 44)
+        tools2.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
+        tools2.backgroundColor = UIColor.clearColor()
+        tools2.clipsToBounds = true;
+        tools2.translucent = true;
+        
+        let buttons2:[UIBarButtonItem] = [menuButton];
+        tools2.setItems(buttons2, animated: false)
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: tools2)
     }
     
     func setupMenuButton(){
         
         let tools = UIToolbar()
-        tools.frame = CGRectMake(0, 0, 95, 44)
+        tools.frame = CGRectMake(0, 0, 45, 44)
         tools.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
         tools.backgroundColor = UIColor.clearColor()
         tools.clipsToBounds = true;
@@ -64,15 +77,17 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
         
         let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
         
-        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseXLFormViewController.menuTapped(_:)))
-        menuButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
+        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseViewController.menuTapped(_:)))
+        menuButton.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         
         let buttons:[UIBarButtonItem] = [menuButton];
         tools.setItems(buttons, animated: false)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: tools)
+        self.navigationItem.hidesBackButton = true //leftBarButtonItem = nil//UIBarButtonItem(customView: nil)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: tools)
         
     }
+
     
     func menuTapped(sender: UIBarButtonItem){
         self.slideMenuController()?.toggleLeft()

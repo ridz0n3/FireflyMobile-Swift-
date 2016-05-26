@@ -51,6 +51,11 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        customDatePickerView.scrollToDate(dateSelected, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -126,7 +131,7 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
         
         if selectedDate == ""{
             showErrorMessage("Please select Date")
-        }else if selectDate.compare(currentDate) == NSComparisonResult.OrderedAscending{
+        }else if selectDate.compare(currentDate) == NSComparisonResult.OrderedDescending && typeDate == "return"{
             showErrorMessage("Please make sure that your return date is not earlier than your departure date.")
         }else{
             let pageDict: Dictionary<String,String>! = [

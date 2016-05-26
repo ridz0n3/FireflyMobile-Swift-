@@ -118,12 +118,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             }
             
             if flightType == "MH"{
+                
+                changeSeatBtn.hidden = true
+                var newFrame = headerView.frame
+                newFrame.size.height = newFrame.size.height - 42
+                headerView.frame = newFrame
+
                 if !ssrAvailable{
                     ssrBtn.hidden = true
-                    var newFrame = headerView.frame
-                    newFrame.size.height = newFrame.size.height - 42
-                    headerView.frame = newFrame
-                }else{
                     var newFrame = headerView.frame
                     newFrame.size.height = newFrame.size.height - 42
                     headerView.frame = newFrame
@@ -543,8 +545,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     }
     
     func detailBtnPressed(sender:UIButton){
-        
-        SCLAlertView().showSuccess("Taxes/Fees", subTitle: sender.accessibilityHint!, closeButtonTitle: "Close", colorStyle:0xEC581A)
+        let newDetail = sender.accessibilityHint!.stringByReplacingOccurrencesOfString("And", withString: "&")
+        SCLAlertView().showSuccess("Taxes/Fees", subTitle: newDetail, closeButtonTitle: "Close", colorStyle:0xEC581A)
         
     }
     
