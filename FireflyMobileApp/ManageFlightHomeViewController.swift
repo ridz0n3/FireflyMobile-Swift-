@@ -761,9 +761,10 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     if json["status"] == "success"{
                         
                         if try LoginManager.sharedInstance.isLogin(){
-                            self.sentData(self.signature, pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: defaults.objectForKey("userID") as! String)
+                            let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+                            self.sentData(self.signature, pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: defaults.objectForKey("userID") as! String, customerNumber : userInfo["customer_number"] as! String)
                         }else{
-                            self.sentData("", pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: "")
+                            self.sentData("", pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: "", customerNumber : "")
                         }
                         
                         
@@ -849,9 +850,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    func sentData(signature:String, pnr:String, userName:String, userId:String){
+    func sentData(signature:String, pnr:String, userName:String, userId:String, customerNumber:String){
         
-        FireFlyProvider.request(.RetrieveBooking(signature, pnr, userName, userId)) { (result) -> () in
+        FireFlyProvider.request(.RetrieveBooking(signature, pnr, userName, userId, customerNumber)) { (result) -> () in
             
             switch result {
             case .Success(let successResult):

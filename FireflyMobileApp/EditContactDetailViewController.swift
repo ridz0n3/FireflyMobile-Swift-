@@ -77,7 +77,14 @@ class EditContactDetailViewController: CommonContactDetailViewController {
             }else{
                 showLoading() 
                 
-                FireFlyProvider.request(.ChangeContact(booking_id, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signature, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, pnr), completion: { (result) -> () in
+                var customer_number = String()
+                
+                if try! LoginManager.sharedInstance.isLogin(){
+                    let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+                    customer_number = userInfo["customer_number"] as! String
+                }
+                
+                FireFlyProvider.request(.ChangeContact(booking_id, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signature, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, pnr, customer_number), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):

@@ -28,10 +28,10 @@ class LoginBoardingPassViewController: CommonListViewController {
     
     func loadBoardingPassList(){
         
-        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+        let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
         var userData : Results<UserList>! = nil
         userData = realm.objects(UserList)
-        mainUser = userData.filter("userId == %@", userInfo["username"]!)
+        mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
         
         if mainUser.count != 0{
             pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: false)

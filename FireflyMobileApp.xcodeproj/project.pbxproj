@@ -129,7 +129,6 @@
 		7EC476441CB260490017535E /* CustomFloatLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC476431CB260490017535E /* CustomFloatLabelCell.swift */; };
 		7EC5A2271CBF828600234D85 /* EditSSRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC5A2261CBF828600234D85 /* EditSSRViewController.swift */; };
 		7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */; };
-		7ED2C5C51CDAD74F00C11D30 /* PushNotifAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED2C5C41CDAD74F00C11D30 /* PushNotifAPI.swift */; };
 		7EE2F9A01C9907F600499B37 /* NewUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */; };
 		7EE2F9A31C990FA600499B37 /* NewUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EE2F9A21C990FA600499B37 /* NewUpdate.storyboard */; };
 		7EE2F9A61C99113700499B37 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE2F9A51C99113700499B37 /* LaunchScreenViewController.swift */; };
@@ -294,7 +293,6 @@
 		7EC476431CB260490017535E /* CustomFloatLabelCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFloatLabelCell.swift; sourceTree = "<group>"; };
 		7EC5A2261CBF828600234D85 /* EditSSRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSSRViewController.swift; sourceTree = "<group>"; };
 		7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialLoadManager.swift; sourceTree = "<group>"; };
-		7ED2C5C41CDAD74F00C11D30 /* PushNotifAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotifAPI.swift; sourceTree = "<group>"; };
 		7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUpdateViewController.swift; sourceTree = "<group>"; };
 		7EE2F9A21C990FA600499B37 /* NewUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewUpdate.storyboard; sourceTree = "<group>"; };
 		7EE2F9A51C99113700499B37 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
@@ -518,7 +516,6 @@
 				96DF6A521C87DB7F005BA920 /* AnalyticsManager.swift */,
 				7E7905591CA5280B00790364 /* LogoutManager.swift */,
 				7E026E571CD9DA610069DEED /* RemoteNotificationManager.swift */,
-				7ED2C5C41CDAD74F00C11D30 /* PushNotifAPI.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -1035,7 +1032,6 @@
 				96DF6A531C87DB7F005BA920 /* AnalyticsManager.swift in Sources */,
 				7EE2F9A01C9907F600499B37 /* NewUpdateViewController.swift in Sources */,
 				7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */,
-				7ED2C5C51CDAD74F00C11D30 /* PushNotifAPI.swift in Sources */,
 				7E75373D1C5F42CC0068D49D /* MobileCheckinViewController.swift in Sources */,
 				7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */,
 				615690061C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift in Sources */,

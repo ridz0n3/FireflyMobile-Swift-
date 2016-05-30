@@ -142,13 +142,14 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
             //let bookingList = listBooking[indexPath.row] as! NSDictionary
             let userInfo = defaults.objectForKey("userInfo") as! [String:AnyObject]
             let username = userInfo["username"] as! String
+            let customerNumber = userInfo["customer_number"] as! String
             
             defaults.setValue(username, forKey: "userName")
             defaults.setValue(userId, forKey: "userID")
             defaults.synchronize()
             
             showLoading()
-            FireFlyProvider.request(.RetrieveBooking(signature, bookingList["pnr"] as! String,username, userId)) { (result) -> () in
+            FireFlyProvider.request(.RetrieveBooking(signature, bookingList["pnr"] as! String,username, userId, customerNumber)) { (result) -> () in
                 
                 switch result {
                 case .Success(let successResult):

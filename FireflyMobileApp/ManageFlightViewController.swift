@@ -78,7 +78,7 @@ class ManageFlightViewController: BaseXLFormViewController {
             defaults.synchronize()
             
             showLoading() 
-            FireFlyProvider.request(.RetrieveBooking("", pnr, username, ""), completion: { (result) -> () in
+            FireFlyProvider.request(.RetrieveBooking("", pnr, username, "", ""), completion: { (result) -> () in
                 
                 switch result {
                 case .Success(let successResult):

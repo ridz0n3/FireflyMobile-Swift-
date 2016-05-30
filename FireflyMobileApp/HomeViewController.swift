@@ -172,10 +172,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         }else if indexPath.row == 2{
             if try! LoginManager.sharedInstance.isLogin(){
-                let userinfo = defaults.objectForKey("userInfo") as! [String: String]
+                let userinfo = defaults.objectForKey("userInfo") as! NSDictionary//[String: String]
                 showLoading()
                 
-                FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]!, userinfo["password"]!, "manage_booking"), completion: { (result) -> () in
+                FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "manage_booking", userinfo["customer_number"]! as! String), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
@@ -251,10 +251,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if try! LoginManager.sharedInstance.isLogin(){
                 
-                let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+                let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
                 var userData : Results<UserList>! = nil
                 userData = realm.objects(UserList)
-                let mainUser = userData.filter("userId == %@", userInfo["username"]!)
+                let mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
                 
                 if mainUser.count != 0{
                     
@@ -290,10 +290,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if try! LoginManager.sharedInstance.isLogin(){
                 
-                let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+                let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
                 var userData : Results<UserList>! = nil
                 userData = realm.objects(UserList)
-                let mainUser = userData.filter("userId == %@", userInfo["username"]!)
+                let mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
                 
                 if mainUser.count != 0{
                     
@@ -325,9 +325,9 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func retrieveBoardingList(isExist : Bool){
-        let userinfo = defaults.objectForKey("userInfo") as! [String : String]
+        let userinfo = defaults.objectForKey("userInfo") as! NSDictionary
         //showLoading()
-        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]!, userinfo["password"]!, "boarding_pass"), completion: { (result) -> () in
+        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "boarding_pass", userinfo["customer_number"]! as! String), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
@@ -367,10 +367,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 hideLoading()
                 
                 if !isExist{
-                    let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+                    let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
                     var userData : Results<UserList>! = nil
                     userData = realm.objects(UserList)
-                    let mainUser = userData.filter("userId == %@", userInfo["username"]!)
+                    let mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
                     
                     if mainUser.count != 0{
                         
@@ -487,8 +487,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func retrieveCheckInList(isExist : Bool){
         
-        let userinfo = defaults.objectForKey("userInfo") as! [String: String]
-        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]!, userinfo["password"]!, "check_in"), completion: { (result) -> () in
+        let userinfo = defaults.objectForKey("userInfo") as! NSDictionary
+        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "check_in", userinfo["customer_number"]! as! String), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
