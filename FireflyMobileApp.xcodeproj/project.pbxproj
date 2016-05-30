@@ -40,7 +40,6 @@
 		7E20F9111BFA0A760020AB0C /* FlightHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */; };
 		7E290E851BFEB3D8004E50F3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E290E841BFEB3D8004E50F3 /* Constant.swift */; };
 		7E33D8E71C87CFC900901629 /* EditMHFlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E33D8E61C87CFC900901629 /* EditMHFlightDetailViewController.swift */; };
-		7E34DD821CDC4106004FB1DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E34DD811CDC4106004FB1DC /* GoogleService-Info.plist */; };
 		7E367BF91C4397AF00897D7D /* ManageFlightHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */; };
 		7E41682E1C71773F008884DC /* CommonSearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E41682D1C71773E008884DC /* CommonSearchDetailViewController.swift */; };
 		7E4168301C718209008884DC /* BoardingPassView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E41682F1C718209008884DC /* BoardingPassView.xib */; };
@@ -73,6 +72,7 @@
 		7E86C25E1C828D2100C6547B /* AddMHFlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E86C25D1C828D2100C6547B /* AddMHFlightDetailViewController.swift */; };
 		7E9011461C61BD450051F7BE /* MobileCheckInDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9011451C61BD450051F7BE /* MobileCheckInDetailViewController.swift */; };
 		7E9011481C61D1B50051F7BE /* MobileCheckInView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9011471C61D1B50051F7BE /* MobileCheckInView.xib */; };
+		7E9301531CFBD68D00162954 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7E9301521CFBD68D00162954 /* GoogleService-Info.plist */; };
 		7E9438541C56499F002D6792 /* CommonFlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9438531C56499F002D6792 /* CommonFlightDetailViewController.swift */; };
 		7E9438561C564A3E002D6792 /* AddFlightDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9438551C564A3E002D6792 /* AddFlightDetailViewController.swift */; };
 		7E9438581C564E3F002D6792 /* EditSearchFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9438571C564E3F002D6792 /* EditSearchFlightViewController.swift */; };
@@ -202,7 +202,6 @@
 		7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlightHeaderView.swift; sourceTree = "<group>"; };
 		7E290E841BFEB3D8004E50F3 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		7E33D8E61C87CFC900901629 /* EditMHFlightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditMHFlightDetailViewController.swift; sourceTree = "<group>"; };
-		7E34DD811CDC4106004FB1DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManageFlightHomeViewController.swift; sourceTree = "<group>"; };
 		7E41682D1C71773E008884DC /* CommonSearchDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonSearchDetailViewController.swift; sourceTree = "<group>"; };
 		7E41682F1C718209008884DC /* BoardingPassView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BoardingPassView.xib; sourceTree = "<group>"; };
@@ -236,6 +235,7 @@
 		7E86C25D1C828D2100C6547B /* AddMHFlightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMHFlightDetailViewController.swift; sourceTree = "<group>"; };
 		7E9011451C61BD450051F7BE /* MobileCheckInDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MobileCheckInDetailViewController.swift; sourceTree = "<group>"; };
 		7E9011471C61D1B50051F7BE /* MobileCheckInView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MobileCheckInView.xib; sourceTree = "<group>"; };
+		7E9301521CFBD68D00162954 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7E9438531C56499F002D6792 /* CommonFlightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonFlightDetailViewController.swift; sourceTree = "<group>"; };
 		7E9438551C564A3E002D6792 /* AddFlightDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddFlightDetailViewController.swift; sourceTree = "<group>"; };
 		7E9438571C564E3F002D6792 /* EditSearchFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSearchFlightViewController.swift; sourceTree = "<group>"; };
@@ -465,7 +465,7 @@
 		7E1F78231BF9BE8C00F55C46 /* Support File */ = {
 			isa = PBXGroup;
 			children = (
-				7E34DD811CDC4106004FB1DC /* GoogleService-Info.plist */,
+				7E9301521CFBD68D00162954 /* GoogleService-Info.plist */,
 				7E1F77E81BF96E6C00F55C46 /* Info.plist */,
 				7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */,
 				7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */,
@@ -868,7 +868,6 @@
 				7EB0DE0A1C83DD6F000AA6A8 /* MHFlightHeaderView.xib in Resources */,
 				7EE2F9A81C9916FE00499B37 /* SplashScreen.storyboard in Resources */,
 				7E1F781E1BF9B6AD00F55C46 /* Login.storyboard in Resources */,
-				7E34DD821CDC4106004FB1DC /* GoogleService-Info.plist in Resources */,
 				7E1F780E1BF979B300F55C46 /* Home.storyboard in Resources */,
 				7E5C6C361C648F96006A5927 /* Rule2View.xib in Resources */,
 				7EBBFA121C10423700080FFA /* RSDFDatePicker.storyboard in Resources */,
@@ -878,6 +877,7 @@
 				7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */,
 				7E1F78281BF9C50400F55C46 /* Register.storyboard in Resources */,
 				7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */,
+				7E9301531CFBD68D00162954 /* GoogleService-Info.plist in Resources */,
 				7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */,
 				7E5C6C341C6487EA006A5927 /* Rule1View.xib in Resources */,
 				7E6930FD1BFAFEE6004F1719 /* ManageFlight.storyboard in Resources */,
@@ -1150,7 +1150,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "7d4a6de8-e026-4c85-8770-1e575c2f41e8";
+				PROVISIONING_PROFILE = "a234a378-06d2-4941-a538-cb4b874cfc40";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1190,7 +1190,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "9d879f18-a00f-495f-8db7-3eec720a9eff";
+				PROVISIONING_PROFILE = "ee5ad5c1-68c3-4d35-9c6f-fda40f8e060f";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
 				VALIDATE_PRODUCT = YES;
@@ -1213,9 +1213,9 @@
 				);
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
+				PRODUCT_BUNDLE_IDENTIFIER = Firefly.Mobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7d4a6de8-e026-4c85-8770-1e575c2f41e8";
+				PROVISIONING_PROFILE = "a234a378-06d2-4941-a538-cb4b874cfc40";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1238,9 +1238,9 @@
 				);
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileApp";
+				PRODUCT_BUNDLE_IDENTIFIER = Firefly.Mobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "9d879f18-a00f-495f-8db7-3eec720a9eff";
+				PROVISIONING_PROFILE = "ee5ad5c1-68c3-4d35-9c6f-fda40f8e060f";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1252,7 +1252,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FireflyMobileAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileAppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = Firefly.MobileTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FireflyMobileApp.app/FireflyMobileApp";
 			};
@@ -1264,7 +1264,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				INFOPLIST_FILE = FireflyMobileAppTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileAppTests";
+				PRODUCT_BUNDLE_IDENTIFIER = Firefly.MobileTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FireflyMobileApp.app/FireflyMobileApp";
 			};
@@ -1275,7 +1275,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = FireflyMobileAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileAppUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = Firefly.MobileUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = FireflyMobileApp;
 				USES_XCTRUNNER = YES;
@@ -1287,7 +1287,7 @@
 			buildSettings = {
 				INFOPLIST_FILE = FireflyMobileAppUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.me-tech.my.FireflyMobileAppUITests";
+				PRODUCT_BUNDLE_IDENTIFIER = Firefly.MobileUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_TARGET_NAME = FireflyMobileApp;
 				USES_XCTRUNNER = YES;
