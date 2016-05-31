@@ -9,7 +9,7 @@
         <!--Boarding Pass View Controller-->
         <scene sceneID="nZW-0A-8Q4">
             <objects>
-                <viewController storyboardIdentifier="BoardingPassVC" id="Uhe-f6-QmO" customClass="BoardingPassViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BoardingPassVC" id="Uhe-f6-QmO" customClass="BoardingPassViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8hN-Jd-EA4"/>
                         <viewControllerLayoutGuide type="bottom" id="jBT-L8-faY"/>
@@ -114,7 +114,7 @@
         <!--Boarding Pass Detail View Controller-->
         <scene sceneID="l1S-iN-qyF">
             <objects>
-                <viewController storyboardIdentifier="BoardingPassDetailVC" id="BmG-Qe-dqQ" customClass="BoardingPassDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BoardingPassDetailVC" id="BmG-Qe-dqQ" customClass="BoardingPassDetailViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gTE-zT-I0q"/>
                         <viewControllerLayoutGuide type="bottom" id="fPV-Db-JFL"/>
@@ -206,7 +206,7 @@
         <!--Login Boarding Pass View Controller-->
         <scene sceneID="OqY-oa-eQT">
             <objects>
-                <viewController storyboardIdentifier="LoginBoardingPassVC" id="YY2-fc-Hdn" customClass="LoginBoardingPassViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginBoardingPassVC" id="YY2-fc-Hdn" customClass="LoginBoardingPassViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tvg-28-4fY"/>
                         <viewControllerLayoutGuide type="bottom" id="sh1-PZ-axG"/>
@@ -275,11 +275,11 @@
                                     </variation>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="95" id="o8G-bf-2Hh" customClass="CustomLoginManageFlightTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="95" id="o8G-bf-2Hh" customClass="CustomLoginManageFlightTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="192" width="600" height="95"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o8G-bf-2Hh" id="Or3-Ma-isq">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="94"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="95"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8X-nD-bOB">

@@ -8,7 +8,7 @@
         <!--Launch Screen View Controller-->
         <scene sceneID="LzL-3r-gjg">
             <objects>
-                <viewController storyboardIdentifier="LaunchScreenVC" id="J4a-me-0pH" customClass="LaunchScreenViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LaunchScreenVC" id="J4a-me-0pH" customClass="LaunchScreenViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KiK-yJ-Tp7"/>
                         <viewControllerLayoutGuide type="bottom" id="7Rw-60-IE3"/>

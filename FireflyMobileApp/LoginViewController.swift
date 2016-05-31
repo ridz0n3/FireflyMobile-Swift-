@@ -86,6 +86,10 @@
                             
                             if  json["status"].string == "success"{
                                 
+                                if json["user_info"]["username"].string == "ridz0n391@gmail.com"{
+                                    showInfo("Hi, Developer")
+                                }
+                                
                                 defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                                 defaults.setObject(json["user_info"].object , forKey: "userInfo")
                                 defaults.synchronize()

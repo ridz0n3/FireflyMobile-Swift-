@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditFlightDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditFlightDetailViewController" customModule="Firefly_Mobile" customModuleProvider="target">
             <connections>
                 <outlet property="checkBox" destination="DEU-aE-ycP" id="OJu-mc-pUF"/>
                 <outlet property="checkBtn" destination="kiE-O2-opG" id="qjY-fq-cqh"/>

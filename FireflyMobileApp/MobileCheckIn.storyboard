@@ -8,7 +8,7 @@
         <!--Mobile Check In Detail View Controller-->
         <scene sceneID="7nL-dY-a5H">
             <objects>
-                <viewController storyboardIdentifier="MobileCheckInDetailVC" id="Kd3-4b-LE9" customClass="MobileCheckInDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MobileCheckInDetailVC" id="Kd3-4b-LE9" customClass="MobileCheckInDetailViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="smF-X0-IA9"/>
                         <viewControllerLayoutGuide type="bottom" id="M1h-Ov-IZB"/>
@@ -290,7 +290,7 @@
         <!--Mobile Check In Term View Controller-->
         <scene sceneID="Otc-tN-nsY">
             <objects>
-                <viewController storyboardIdentifier="MobileCheckInTermVC" id="VoA-lx-hzP" customClass="MobileCheckInTermViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MobileCheckInTermVC" id="VoA-lx-hzP" customClass="MobileCheckInTermViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ozA-Vi-lk0"/>
                         <viewControllerLayoutGuide type="bottom" id="IIn-Bj-zLJ"/>
@@ -374,7 +374,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="oH1-nR-8KS" customClass="MobileTermTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="oH1-nR-8KS" customClass="MobileTermTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="192" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oH1-nR-8KS" id="lyI-XB-WmL">
@@ -437,7 +437,7 @@
         <!--Success Check In View Controller-->
         <scene sceneID="9De-FD-Yfv">
             <objects>
-                <viewController storyboardIdentifier="SuccessCheckInVC" id="RLq-X4-YA6" customClass="SuccessCheckInViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SuccessCheckInVC" id="RLq-X4-YA6" customClass="SuccessCheckInViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WKM-qK-hjx"/>
                         <viewControllerLayoutGuide type="bottom" id="9HQ-Xe-bEK"/>
@@ -567,7 +567,7 @@
         <!--Login Mobile Checkin View Controller-->
         <scene sceneID="unJ-0v-YzF">
             <objects>
-                <viewController storyboardIdentifier="LoginMobileCheckinVC" id="JOs-es-9XO" customClass="LoginMobileCheckinViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginMobileCheckinVC" id="JOs-es-9XO" customClass="LoginMobileCheckinViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SIB-H8-XSJ"/>
                         <viewControllerLayoutGuide type="bottom" id="VBi-wR-Rho"/>
@@ -636,7 +636,7 @@
                                     </variation>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="95" id="LJn-S0-eQS" customClass="CustomLoginManageFlightTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="95" id="LJn-S0-eQS" customClass="CustomLoginManageFlightTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="192" width="600" height="95"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LJn-S0-eQS" id="jPA-C7-Yeo">
@@ -785,7 +785,7 @@
         <!--Mobile Checkin View Controller-->
         <scene sceneID="oRB-in-ujI">
             <objects>
-                <viewController storyboardIdentifier="MobileCheckInVC" id="1mr-43-47f" customClass="MobileCheckinViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MobileCheckInVC" id="1mr-43-47f" customClass="MobileCheckinViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TnX-SF-QhV"/>
                         <viewControllerLayoutGuide type="bottom" id="6IV-R3-zg9"/>

@@ -8,7 +8,7 @@
         <!--Update Information View Controller-->
         <scene sceneID="pig-nQ-V37">
             <objects>
-                <viewController storyboardIdentifier="UpdateInfoVC" id="4Wh-cJ-Z5G" customClass="UpdateInformationViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UpdateInfoVC" id="4Wh-cJ-Z5G" customClass="UpdateInformationViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9Tx-ra-lWJ"/>
                         <viewControllerLayoutGuide type="bottom" id="yyi-gc-uTr"/>

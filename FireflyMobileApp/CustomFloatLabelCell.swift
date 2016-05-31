@@ -78,8 +78,8 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
             
         }
         
-        //floatLabeledTextField.endEditing(true)
     }
+    
     func cancelPressed(){
         floatLabeledTextField.endEditing(true) // or do something
     }
@@ -470,8 +470,6 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
             NSNotificationCenter.defaultCenter().postNotificationName("refreshArrivingCode", object: nil, userInfo: ["departStationCode" : selectValue])
             
         }
-
-        //textfieldBizCat.text = "\(bizCat[row])"
         
     }
     

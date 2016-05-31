@@ -8,7 +8,7 @@
         <!--About View Controller-->
         <scene sceneID="XQd-ma-gu5">
             <objects>
-                <viewController storyboardIdentifier="AboutVC" id="IYM-w9-9bH" customClass="AboutViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AboutVC" id="IYM-w9-9bH" customClass="AboutViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="nhV-BY-mJu"/>
                         <viewControllerLayoutGuide type="bottom" id="bpf-1i-cyO"/>

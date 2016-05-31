@@ -172,7 +172,7 @@
 		7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPassengerDetailViewController.swift; sourceTree = "<group>"; };
 		7E1AFD5D1C7D3CF300046200 /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		7E1AFD631C7D49CC00046200 /* BoardingPassList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassList.swift; sourceTree = "<group>"; };
-		7E1F77D91BF96E6C00F55C46 /* FireflyMobileApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireflyMobileApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E1F77D91BF96E6C00F55C46 /* Firefly Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Firefly Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7E1F77E11BF96E6C00F55C46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -349,7 +349,7 @@
 		7E1F77DA1BF96E6C00F55C46 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7E1F77D91BF96E6C00F55C46 /* FireflyMobileApp.app */,
+				7E1F77D91BF96E6C00F55C46 /* Firefly Mobile.app */,
 				7E1F77ED1BF96E6C00F55C46 /* FireflyMobileAppTests.xctest */,
 				7E1F77F81BF96E6C00F55C46 /* FireflyMobileAppUITests.xctest */,
 			);
@@ -754,7 +754,7 @@
 			);
 			name = FireflyMobileApp;
 			productName = FireflyMobileApp;
-			productReference = 7E1F77D91BF96E6C00F55C46 /* FireflyMobileApp.app */;
+			productReference = 7E1F77D91BF96E6C00F55C46 /* Firefly Mobile.app */;
 			productType = "com.apple.product-type.application";
 		};
 		7E1F77EC1BF96E6C00F55C46 /* FireflyMobileAppTests */ = {
@@ -1225,7 +1225,7 @@
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Firefly.Mobile;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Firefly Mobile";
 				PROVISIONING_PROFILE = "899c8833-cd9d-4d91-ba5f-ae0c0db1f68f";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1250,7 +1250,7 @@
 				INFOPLIST_FILE = FireflyMobileApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Firefly.Mobile;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Firefly Mobile";
 				PROVISIONING_PROFILE = "ee5ad5c1-68c3-4d35-9c6f-fda40f8e060f";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
