@@ -99,6 +99,8 @@ class InitialLoadManager {
                             defaults.synchronize()
                             self.load()
                             print(String(format: "%@ \n%@", json["status"].string!, json["message"].string!))
+                        }else if json["status"].string == "503"{
+                            showErrorMessage(json["message"].string!)
                         }
                         hideLoading()
                     }
