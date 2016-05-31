@@ -43,6 +43,14 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         paymentMethod = "Card"
         
+        var newFrame = headerView.frame
+        newFrame.size.height = headerView.frame.size.height - (60 * 3)
+        headerView.frame = newFrame
+        
+        maybank2uCheckBox.hidden = true
+        cimbCheckBox.hidden = true
+        fpxCheckBox.hidden = true
+        
         rearrangePaymentType()
         initializeForm()
         
@@ -53,7 +61,8 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         let xchannelPosition : CGFloat = 44
         var yonlinePosition : CGFloat = 362
-        //var xcashPosition : CGFloat = 41
+        var countType1 = Int()
+        var countType2 = Int()
         
         for channel in paymentType as! [Dictionary<String, AnyObject>]{
             
@@ -68,7 +77,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 headerView.addSubview(img)
                 
                 //xchannelPosition = xchannelPosition + 70
-                
+                countType1 += 1
                 cardType.append(channel)
                 
             }else if channel["channel_type"] as! Int == 2{
@@ -78,11 +87,29 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 img.image = UIImage(data: data!)
                 headerView.addSubview(img)
                 
-                
+                countType2 += 1
                 yonlinePosition = yonlinePosition + 53
                 
             }
         }
+        
+        if countType2 != 0{
+            
+            var newFrame = headerView.frame
+            newFrame.size.height = headerView.frame.size.height + (60 * CGFloat(countType2))
+            headerView.frame = newFrame
+            
+            for i in 0...countType2-1{
+                if i == 0{
+                    maybank2uCheckBox.hidden = false
+                }else if i == 1{
+                    cimbCheckBox.hidden = false
+                }else{
+                    fpxCheckBox.hidden = false
+                }
+            }
+        }
+        
     }
     
     
