@@ -12,13 +12,14 @@ import SwiftyJSON
 import SCLAlertView
 import RealmSwift
 import SlideMenuControllerSwift
+import Crashlytics
+
 
 class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, SlideMenuControllerDelegate {
     
     @IBOutlet weak var homeMenuTableView: UITableView!
     
     var menuTitle:[String] = ["","LabelHomeBookFlight".localized, "LabelHomeManageFlight".localized, "LabelHomeMobileCheckIn".localized, "LabelHomeBoardingPass".localized,""]
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,7 +152,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.row == 0{
-            
+            //Crashlytics.sharedInstance().crash()
             if defaults.objectForKey("module") as! String == "faq"{
                 let storyboard = UIStoryboard(name: "Home", bundle: nil)
                 let FAQVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController

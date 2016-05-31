@@ -10,6 +10,7 @@ import UIKit
 
 class CustomLoginManageFlightTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var pnrNumber: UILabel!
     @IBOutlet weak var flightNumber: UILabel!
     @IBOutlet weak var flightDate: UILabel!
     

@@ -746,6 +746,7 @@
 				7E1F77D71BF96E6C00F55C46 /* Resources */,
 				82750FE66341D77094B8D405 /* Embed Pods Frameworks */,
 				8ADDA6CE72629BC08B8BDAF3 /* Copy Pods Resources */,
+				7EBAC24F1CFD2FAB00BA78AB /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -901,6 +902,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		7EBAC24F1CFD2FAB00BA78AB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 6f38953bcf07d7c4f8dd57baf34092f3e0c08720 1d5e1d09b52223abe735d3a94348d92a0ee85d06c89cc8c131dd7b0856d89fa9";
+		};
 		82750FE66341D77094B8D405 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1146,7 +1160,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "a234a378-06d2-4941-a538-cb4b874cfc40";
+				PROVISIONING_PROFILE = "899c8833-cd9d-4d91-ba5f-ae0c0db1f68f";
 				SDKROOT = iphoneos;
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1202,6 +1216,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Nazri Hussein (X2BJKVNYHB)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1211,7 +1226,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Firefly.Mobile;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "a234a378-06d2-4941-a538-cb4b874cfc40";
+				PROVISIONING_PROFILE = "899c8833-cd9d-4d91-ba5f-ae0c0db1f68f";
 				SWIFT_OBJC_BRIDGING_HEADER = "FireflyMobileApp/ObjC-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
