@@ -74,6 +74,17 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     manageFlightVC.manage = "manage"
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
+                                }else if json["status"].string == "401"{
+                                    hideLoading()
+                                    showErrorMessage(json["message"].string!)
+                                    InitialLoadManager.sharedInstance.load()
+                                    
+                                    for views in (self.navigationController?.viewControllers)!{
+                                        if views.classForCoder == HomeViewController.classForCoder(){
+                                            self.navigationController?.popToViewController(views, animated: true)
+                                            AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                        }
+                                    }
                                 }else{
                                     
                                     hideLoading()
@@ -134,6 +145,17 @@ class EditPaymentViewController: CommonPaymentViewController {
                             }else{
                                 showErrorMessage(json["message"].string!)
                             }
+                        }else if json["status"].string == "401"{
+                            hideLoading()
+                            showErrorMessage(json["message"].string!)
+                            InitialLoadManager.sharedInstance.load()
+                            
+                            for views in (self.navigationController?.viewControllers)!{
+                                if views.classForCoder == HomeViewController.classForCoder(){
+                                    self.navigationController?.popToViewController(views, animated: true)
+                                    AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                }
+                            }
                         }
                     }
                     catch {
@@ -180,6 +202,17 @@ class EditPaymentViewController: CommonPaymentViewController {
                                 showErrorMessage(json["message"].string!)
                             }
                             
+                        }else if json["status"].string == "401"{
+                            hideLoading()
+                            showErrorMessage(json["message"].string!)
+                            InitialLoadManager.sharedInstance.load()
+                            
+                            for views in (self.navigationController?.viewControllers)!{
+                                if views.classForCoder == HomeViewController.classForCoder(){
+                                    self.navigationController?.popToViewController(views, animated: true)
+                                    AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                }
+                            }
                         }
                     }
                     catch {
@@ -224,6 +257,17 @@ class EditPaymentViewController: CommonPaymentViewController {
                                 showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
                             }else{
                                 showErrorMessage(json["message"].string!)
+                            }
+                        }else if json["status"].string == "401"{
+                            hideLoading()
+                            showErrorMessage(json["message"].string!)
+                            InitialLoadManager.sharedInstance.load()
+                            
+                            for views in (self.navigationController?.viewControllers)!{
+                                if views.classForCoder == HomeViewController.classForCoder(){
+                                    self.navigationController?.popToViewController(views, animated: true)
+                                    AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                }
                             }
                         }
                     }

@@ -303,6 +303,7 @@
                                                         <constraint firstItem="VRl-Vu-rAS" firstAttribute="top" secondItem="7YT-LL-QYX" secondAttribute="bottom" constant="-4" id="Tiq-Zr-zEV"/>
                                                         <constraint firstItem="Pn5-86-X1G" firstAttribute="top" secondItem="S1Z-92-LNP" secondAttribute="bottom" constant="-2" id="Tla-7x-JUg"/>
                                                         <constraint firstItem="7YT-LL-QYX" firstAttribute="leading" secondItem="Pn5-86-X1G" secondAttribute="trailing" constant="8" id="Txb-Rx-2O3"/>
+                                                        <constraint firstItem="Hjb-hN-DhJ" firstAttribute="top" secondItem="7YT-LL-QYX" secondAttribute="bottom" constant="-4" id="V5b-wa-il1"/>
                                                         <constraint firstItem="An0-kT-Fjm" firstAttribute="centerX" secondItem="enF-L9-dRb" secondAttribute="centerX" id="YNU-sq-SE7"/>
                                                         <constraint firstItem="Jpo-I0-QQi" firstAttribute="top" secondItem="enF-L9-dRb" secondAttribute="top" constant="8" id="gaC-jX-rAm"/>
                                                         <constraint firstItem="Hjb-hN-DhJ" firstAttribute="centerX" secondItem="enF-L9-dRb" secondAttribute="centerX" id="iMa-Wt-aC0"/>
@@ -316,6 +317,11 @@
                                                         <constraint firstAttribute="trailing" secondItem="PWn-4B-Kgj" secondAttribute="trailing" constant="30" id="yoS-4W-RWq"/>
                                                         <constraint firstItem="Pn5-86-X1G" firstAttribute="leading" secondItem="enF-L9-dRb" secondAttribute="leading" constant="30" id="zyk-TT-u4g"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="LE6-tI-Tbw"/>
+                                                        </mask>
+                                                    </variation>
                                                 </view>
                                             </subviews>
                                             <constraints>

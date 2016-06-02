@@ -215,6 +215,17 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                             successVC.signature = signature
                             self.navigationController!.pushViewController(successVC, animated: true)
                             
+                        }else if json["status"].string == "401"{
+                            hideLoading()
+                            showErrorMessage(json["message"].string!)
+                            InitialLoadManager.sharedInstance.load()
+                            
+                            for views in (self.navigationController?.viewControllers)!{
+                                if views.classForCoder == HomeViewController.classForCoder(){
+                                    self.navigationController?.popToViewController(views, animated: true)
+                                    AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                }
+                            }
                         }else{
                             
                             showErrorMessage(json["message"].string!)
