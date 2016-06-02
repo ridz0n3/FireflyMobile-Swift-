@@ -312,8 +312,8 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 var customer_number = String()
                 
                 if try! LoginManager.sharedInstance.isLogin(){
-                    let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
-                    customer_number = userInfo["customer_number"] as! String
+                    customer_number = defaults.objectForKey("customer_number") as! String
+                    //customer_number = userInfo["customer_number"] as! String
                 }
                 
                 FireFlyProvider.request(.ContactDetail(flightType, bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "N", goingSSRDict[0], returnSSRDict[0], customer_number), completion: { (result) -> () in
@@ -419,8 +419,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 var customer_number = String()
                 
                 if try! LoginManager.sharedInstance.isLogin(){
-                    let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
-                    customer_number = userInfo["customer_number"] as! String
+                    customer_number = defaults.objectForKey("customer_number") as! String
                 }
 
                 showLoading()

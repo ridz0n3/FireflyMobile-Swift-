@@ -176,7 +176,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 let userinfo = defaults.objectForKey("userInfo") as! NSDictionary//[String: String]
                 showLoading()
                 
-                FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "manage_booking", userinfo["customer_number"]! as! String), completion: { (result) -> () in
+                FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "manage_booking", defaults.objectForKey("customer_number") as! String), completion: { (result) -> () in
                     switch result {
                     case .Success(let successResult):
                         do {
@@ -191,6 +191,9 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     for data in json["list_booking"].arrayObject!{
                                         let formater = NSDateFormatter()
                                         formater.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+                                        
+                                        let twentyFour = NSLocale(localeIdentifier: "en_GB")
+                                        formater.locale = twentyFour
                                         let newDate = formater.dateFromString(data["departure_datetime"] as! String)
                                         let today = NSDate()
                                         if today.compare(newDate!) == NSComparisonResult.OrderedAscending{
@@ -328,7 +331,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     func retrieveBoardingList(isExist : Bool){
         let userinfo = defaults.objectForKey("userInfo") as! NSDictionary
         //showLoading()
-        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "boarding_pass", userinfo["customer_number"]! as! String), completion: { (result) -> () in
+        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "boarding_pass", defaults.objectForKey("customer_number") as! String), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {
@@ -489,7 +492,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     func retrieveCheckInList(isExist : Bool){
         
         let userinfo = defaults.objectForKey("userInfo") as! NSDictionary
-        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "check_in", userinfo["customer_number"]! as! String), completion: { (result) -> () in
+        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "check_in", defaults.objectForKey("customer_number") as! String), completion: { (result) -> () in
             switch result {
             case .Success(let successResult):
                 do {

@@ -142,7 +142,7 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
             //let bookingList = listBooking[indexPath.row] as! NSDictionary
             let userInfo = defaults.objectForKey("userInfo") as! [String:AnyObject]
             let username = userInfo["username"] as! String
-            let customerNumber = userInfo["customer_number"] as! String
+            let customerNumber = defaults.objectForKey("customer_number") as! String
             
             defaults.setValue(username, forKey: "userName")
             defaults.setValue(userId, forKey: "userID")

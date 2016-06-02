@@ -56,7 +56,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                                 
                                 if json["status"] == "Redirect"{
                                     hideLoading()
-                                    let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
+                                    let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                                     
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
@@ -101,7 +101,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                         
                         if json["status"] == "Redirect"{
                             
-                            let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
+                            let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                             let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
@@ -142,7 +142,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                         
                         if json["status"] == "Redirect"{
                             
-                            let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
+                            let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                             let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
@@ -183,7 +183,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                         
                         if json["status"] == "Redirect"{
                             
-                            let urlString = String(format: "%@/ios/%@", json["link"].string!,json["pass"].string!)
+                            let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                             let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController

@@ -92,6 +92,7 @@
                                 
                                 defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                                 defaults.setObject(json["user_info"].object , forKey: "userInfo")
+                                defaults.setObject(json["user_info"]["customer_number"].string, forKey: "customer_number")
                                 defaults.synchronize()
                                 
                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)

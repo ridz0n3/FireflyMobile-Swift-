@@ -255,6 +255,8 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                 
                 let formater = NSDateFormatter()
                 formater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                let twentyFour = NSLocale(localeIdentifier: "en_GB")
+                formater.locale = twentyFour
                 
                 pnr.departureStationCode = boardingInfo["DepartureStationCode"] as! String
                 pnr.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
