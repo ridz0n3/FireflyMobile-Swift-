@@ -597,6 +597,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     }else if json["status"] == "error"{
                         
                         showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
                     }
                     hideLoading()
                 }
@@ -641,6 +652,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     }else if json["status"] == "error"{
                         
                         showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
                     }
                     hideLoading()
                 }
@@ -687,6 +709,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     }else if json["status"] == "error"{
                         
                         showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
                     }
                     hideLoading()
                 }
@@ -728,6 +761,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     }else if json["status"] == "error"{
                         
                         showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
                     }
                 }
                 catch {
@@ -761,9 +805,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     if json["status"] == "success"{
                         
                         if try LoginManager.sharedInstance.isLogin(){
-                            self.sentData(self.signature, pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: defaults.objectForKey("userID") as! String)
+                            self.sentData(self.signature, pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: defaults.objectForKey("userID") as! String, customerNumber : defaults.objectForKey("customer_number") as! String)
                         }else{
-                            self.sentData("", pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: "")
+                            self.sentData("", pnr: self.pnr, userName: defaults.objectForKey("userName") as! String, userId: "", customerNumber : "")
                         }
                         
                         
@@ -792,6 +836,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                     }else if json["status"] == "error"{
                                         
                                         showErrorMessage(json["message"].string!)
+                                    }else if json["status"].string == "401"{
+                                        hideLoading()
+                                        showErrorMessage(json["message"].string!)
+                                        InitialLoadManager.sharedInstance.load()
+                                        
+                                        for views in (self.navigationController?.viewControllers)!{
+                                            if views.classForCoder == HomeViewController.classForCoder(){
+                                                self.navigationController?.popToViewController(views, animated: true)
+                                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                            }
+                                        }
                                     }
                                     hideLoading()
                                 }
@@ -812,6 +867,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         hideLoading()
                         
                         showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
                     }
                 }
                 catch {
@@ -849,9 +915,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    func sentData(signature:String, pnr:String, userName:String, userId:String){
+    func sentData(signature:String, pnr:String, userName:String, userId:String, customerNumber:String){
         
-        FireFlyProvider.request(.RetrieveBooking(signature, pnr, userName, userId)) { (result) -> () in
+        FireFlyProvider.request(.RetrieveBooking(signature, pnr, userName, userId, customerNumber)) { (result) -> () in
             
             switch result {
             case .Success(let successResult):
@@ -880,6 +946,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     }else if json["status"].string == "error"{
                         hideLoading()
                         showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
                     }
                     
                 }
@@ -923,6 +1000,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     }else if json["status"].string == "error"{
                         hideLoading()
                         showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
                     }
                     
                 }

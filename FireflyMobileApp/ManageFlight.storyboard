@@ -10,7 +10,7 @@
         <!--Send Itinerary View Controller-->
         <scene sceneID="oPU-8D-CkT">
             <objects>
-                <viewController storyboardIdentifier="SendItineraryVC" id="Ya5-wz-4Pg" customClass="SendItineraryViewController" customModule="FireflyMobileApp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SendItineraryVC" id="Ya5-wz-4Pg" customClass="SendItineraryViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YAt-iq-heM"/>
                         <viewControllerLayoutGuide type="bottom" id="kve-Qn-7uV"/>
@@ -150,7 +150,7 @@
         <!--Manage Flight View Controller-->
         <scene sceneID="qf1-4e-2yF">
             <objects>
-                <viewController storyboardIdentifier="ManageFlightVC" id="z1P-PX-HB6" customClass="ManageFlightViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ManageFlightVC" id="z1P-PX-HB6" customClass="ManageFlightViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="MSu-8U-IlM"/>
                         <viewControllerLayoutGuide type="bottom" id="AjW-Zf-iOP"/>
@@ -255,7 +255,7 @@
         <!--Manage Flight Home View Controller-->
         <scene sceneID="b34-xC-zrE">
             <objects>
-                <viewController storyboardIdentifier="ManageFlightMenuVC" id="K5D-DU-3Xq" customClass="ManageFlightHomeViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ManageFlightMenuVC" id="K5D-DU-3Xq" customClass="ManageFlightHomeViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Sx-yT-szg"/>
                         <viewControllerLayoutGuide type="bottom" id="hZa-8O-K77"/>
@@ -479,7 +479,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItineraryCell" rowHeight="83" id="evl-Ay-pIT" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ItineraryCell" rowHeight="83" id="evl-Ay-pIT" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="440" width="600" height="83"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="evl-Ay-pIT" id="lw8-xi-Mlp">
@@ -564,7 +564,7 @@
                                             <outlet property="reservationLbl" destination="r5S-4D-6FC" id="6jo-2D-85q"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FlightDetailCell" rowHeight="61" id="thP-mi-5md" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FlightDetailCell" rowHeight="61" id="thP-mi-5md" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="523" width="600" height="61"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="thP-mi-5md" id="i0g-es-3P7">
@@ -631,7 +631,7 @@
                                             <outlet property="wayLbl" destination="fZ5-Dv-ece" id="78s-Ph-Fv5"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FeeCell" rowHeight="29" id="j6m-wK-Wkv" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FeeCell" rowHeight="29" id="j6m-wK-Wkv" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="584" width="600" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j6m-wK-Wkv" id="vDb-J3-O2P">
@@ -683,7 +683,7 @@
                                             <outlet property="servicePriceLbl" destination="3y0-57-WxA" id="pFH-iL-Ijg"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ServiceFeeCell" rowHeight="29" id="clP-P6-dYB" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ServiceFeeCell" rowHeight="29" id="clP-P6-dYB" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="613" width="600" height="29"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="clP-P6-dYB" id="mDM-7i-1wC">
@@ -717,7 +717,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SSRCell" rowHeight="21" id="9py-wh-t6p" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SSRCell" rowHeight="21" id="9py-wh-t6p" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="642" width="600" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9py-wh-t6p" id="e70-Vh-UZE">
@@ -757,7 +757,7 @@
                                             <outlet property="ssrPassengerName" destination="pNx-rY-KNB" id="rDX-P5-7Gm"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PriceDetailCell" rowHeight="95" id="y68-P4-wa2" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PriceDetailCell" rowHeight="95" id="y68-P4-wa2" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="663" width="600" height="95"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y68-P4-wa2" id="5II-fU-fZZ">
@@ -900,7 +900,7 @@
                                             <outlet property="taxesPrice" destination="YYq-YB-xw5" id="hEp-p3-SJR"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PaymentDetailCell" rowHeight="81" id="fIz-D0-UCN" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PaymentDetailCell" rowHeight="81" id="fIz-D0-UCN" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="758" width="600" height="81"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fIz-D0-UCN" id="J9j-gQ-vaz">
@@ -963,7 +963,7 @@
                                             <outlet property="totalPaidLbl" destination="f3J-Ks-r19" id="pm8-UG-xFv"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InsuranceCell" rowHeight="58" id="uoY-ZF-hjM" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="InsuranceCell" rowHeight="58" id="uoY-ZF-hjM" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="839" width="600" height="58"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uoY-ZF-hjM" id="gqp-Ph-bmX">
@@ -1022,7 +1022,7 @@
                                             <outlet property="rateLbl" destination="a33-3B-yug" id="MC7-YB-jgp"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TotalCell" rowHeight="42" id="TCZ-va-LYY" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TotalCell" rowHeight="42" id="TCZ-va-LYY" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="897" width="600" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TCZ-va-LYY" id="G1T-bk-6Kc">
@@ -1062,7 +1062,7 @@
                                             <outlet property="totalPriceLbl" destination="8PW-y1-KxN" id="wpa-sd-X09"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PassengerDetailCell" rowHeight="30" id="TFc-ST-XDy" userLabel="PassengerDetailCell" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PassengerDetailCell" rowHeight="30" id="TFc-ST-XDy" userLabel="PassengerDetailCell" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="939" width="600" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TFc-ST-XDy" id="peV-Zq-moh">
@@ -1099,7 +1099,7 @@
                                             <outlet property="passengerNameLbl" destination="76U-mC-cMK" id="Ug8-CV-BtF"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactDetailCell" rowHeight="136" id="E64-YC-ec6" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactDetailCell" rowHeight="136" id="E64-YC-ec6" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="969" width="600" height="136"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="E64-YC-ec6" id="vNd-fl-eAm">
@@ -1188,7 +1188,7 @@
                                             <outlet property="contactNameLbl" destination="sgL-H7-1P3" id="gps-VZ-Qf9"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CardDetailCell" rowHeight="21" id="IPj-qT-E9M" customClass="CustomPaymentSummaryTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CardDetailCell" rowHeight="21" id="IPj-qT-E9M" customClass="CustomPaymentSummaryTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="1105" width="600" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IPj-qT-E9M" id="UJQ-Ey-dNp">
@@ -1287,7 +1287,7 @@
         <!--Login Manage Flight View Controller-->
         <scene sceneID="Ns7-3V-1Kk">
             <objects>
-                <viewController storyboardIdentifier="LoginManageFlightVC" id="oFA-zD-ZwN" customClass="LoginManageFlightViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginManageFlightVC" id="oFA-zD-ZwN" customClass="LoginManageFlightViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Fas-Gd-Ghd"/>
                         <viewControllerLayoutGuide type="bottom" id="Rqh-gg-hz5"/>
@@ -1346,7 +1346,7 @@
                                     </variation>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="57" id="3ls-68-MAM" customClass="CustomLoginManageFlightTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" rowHeight="57" id="3ls-68-MAM" customClass="CustomLoginManageFlightTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="192" width="600" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3ls-68-MAM" id="p8J-cw-bfB">
@@ -1433,7 +1433,7 @@
                                             <outlet property="flightNumber" destination="6Bh-o1-bGa" id="V8F-bM-GHA"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoUpcomingCell" rowHeight="57" id="0Ra-wi-zu0" customClass="CustomLoginManageFlightTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoUpcomingCell" rowHeight="57" id="0Ra-wi-zu0" customClass="CustomLoginManageFlightTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="249" width="600" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0Ra-wi-zu0" id="Bbr-XA-3tO">
@@ -1467,7 +1467,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoCompletedCell" rowHeight="57" id="qu1-yd-lLk" customClass="CustomLoginManageFlightTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoCompletedCell" rowHeight="57" id="qu1-yd-lLk" customClass="CustomLoginManageFlightTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="306" width="600" height="57"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qu1-yd-lLk" id="sdN-9q-72M">
@@ -1527,7 +1527,7 @@
         <!--Edit Contact Detail View Controller-->
         <scene sceneID="WIc-V2-RUK">
             <objects>
-                <viewController storyboardIdentifier="ManageContactDetailVC" id="uoZ-Qt-kCu" customClass="EditContactDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ManageContactDetailVC" id="uoZ-Qt-kCu" customClass="EditContactDetailViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ka7-6f-pWC"/>
                         <viewControllerLayoutGuide type="bottom" id="byP-Yp-fuf"/>
@@ -1728,7 +1728,7 @@
         <!--Edit Passenger Detail View Controller-->
         <scene sceneID="uHy-Sb-G0r">
             <objects>
-                <viewController storyboardIdentifier="EditPassengerDetailVC" id="Jcp-Da-vEA" customClass="EditPassengerDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditPassengerDetailVC" id="Jcp-Da-vEA" customClass="EditPassengerDetailViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0np-bK-5wp"/>
                         <viewControllerLayoutGuide type="bottom" id="dem-ur-5xo"/>
@@ -1846,7 +1846,7 @@
         <!--Edit Search Flight View Controller-->
         <scene sceneID="nhH-Ui-YT9">
             <objects>
-                <viewController storyboardIdentifier="EditSearchFlightVC" id="lZK-yL-MYE" customClass="EditSearchFlightViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditSearchFlightVC" id="lZK-yL-MYE" customClass="EditSearchFlightViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DLe-hs-TiZ"/>
                         <viewControllerLayoutGuide type="bottom" id="dzg-U5-gEG"/>
@@ -1926,7 +1926,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="airportCell" rowHeight="50" id="lnp-16-t1T" customClass="CustomSearchFlightTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="airportCell" rowHeight="50" id="lnp-16-t1T" customClass="CustomSearchFlightTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="193" width="600" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lnp-16-t1T" id="l2k-VE-TWz">
@@ -2008,7 +2008,7 @@
         <!--Edit Seat Selection View Controller-->
         <scene sceneID="Dr5-zW-ANG">
             <objects>
-                <viewController storyboardIdentifier="EditSeatSelectionVC" id="jDI-Yi-551" customClass="EditSeatSelectionViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditSeatSelectionVC" id="jDI-Yi-551" customClass="EditSeatSelectionViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RI2-Fd-C9d"/>
                         <viewControllerLayoutGuide type="bottom" id="02G-UZ-Tea"/>
@@ -2241,7 +2241,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PassengerCell" id="3ej-ce-8Yh" customClass="CustomSeatSelectionTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PassengerCell" id="3ej-ce-8Yh" customClass="CustomSeatSelectionTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="417" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3ej-ce-8Yh" id="c6c-bh-ibj">
@@ -2309,7 +2309,7 @@
                                             <outlet property="seatNumber" destination="iJo-bo-oeY" id="5cb-Jv-twp"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="seatRowCell" id="lvb-xg-zHJ" customClass="CustomSeatSelectionTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="seatRowCell" id="lvb-xg-zHJ" customClass="CustomSeatSelectionTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="461" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lvb-xg-zHJ" id="US3-qn-eiq">
@@ -2511,7 +2511,7 @@
         <!--Edit Payment View Controller-->
         <scene sceneID="NYz-i9-VLY">
             <objects>
-                <viewController storyboardIdentifier="EditPaymentVC" id="r6T-Ab-3nE" customClass="EditPaymentViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditPaymentVC" id="r6T-Ab-3nE" customClass="EditPaymentViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="w3t-IG-koJ"/>
                         <viewControllerLayoutGuide type="bottom" id="8AQ-Ro-PMp"/>
@@ -2779,7 +2779,7 @@
         <!--Edit Flight Detail View Controller-->
         <scene sceneID="Jtl-00-DzK">
             <objects>
-                <viewController storyboardIdentifier="EditFlightDetailVC" id="Qmp-YZ-hIZ" customClass="EditFlightDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditFlightDetailVC" id="Qmp-YZ-hIZ" customClass="EditFlightDetailViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ubZ-sb-pYf"/>
                         <viewControllerLayoutGuide type="bottom" id="JdF-zX-ydO"/>
@@ -2867,7 +2867,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="flightCell" rowHeight="130" id="jFU-7J-T0H" customClass="CustomFlightDetailTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="flightCell" rowHeight="130" id="jFU-7J-T0H" customClass="CustomFlightDetailTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="225" width="600" height="130"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jFU-7J-T0H" id="Z7i-PV-ZSc">
@@ -3126,7 +3126,7 @@
         <!--EditMH Flight Detail View Controller-->
         <scene sceneID="QWd-59-zbm">
             <objects>
-                <viewController storyboardIdentifier="EditMHFlightDetailVC" id="oBz-4v-tVv" customClass="EditMHFlightDetailViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditMHFlightDetailVC" id="oBz-4v-tVv" customClass="EditMHFlightDetailViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rod-sf-62h"/>
                         <viewControllerLayoutGuide type="bottom" id="YC6-iD-Ad1"/>
@@ -3215,7 +3215,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="flightCell" rowHeight="204" id="zLp-Hn-U1z" customClass="CustomMHFlightDetailTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="flightCell" rowHeight="204" id="zLp-Hn-U1z" customClass="CustomMHFlightDetailTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="225" width="600" height="204"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zLp-Hn-U1z" id="e0u-hw-X0h">
@@ -3796,7 +3796,7 @@
         <!--EditSSR View Controller-->
         <scene sceneID="ooH-M7-Ydq">
             <objects>
-                <viewController storyboardIdentifier="EditSSRVC" id="teW-ZT-Ffj" customClass="EditSSRViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EditSSRVC" id="teW-ZT-Ffj" customClass="EditSSRViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pAI-jU-4rt"/>
                         <viewControllerLayoutGuide type="bottom" id="yfx-Ss-MlY"/>

@@ -116,7 +116,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                 }else{
                     cell.economyPromoNotAvailableView.hidden = true
                     cell.economyPromoSoldView.hidden = true
-                    cell.economyPromoPriceLbl.text = String(format: "%.2f MYR", economyPromo!["fare_price"]!.floatValue)
+                    cell.economyPromoPriceLbl.text = String(format: "%@ MYR", economyPromo!["total_fare"]!.string!)
                     
                     cell.economyPromoBtn.hidden = false
                     
@@ -136,7 +136,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                 }else{
                     cell.economyNotAvailableView.hidden = true
                     cell.economySoldView.hidden = true
-                    cell.economyPriceLbl.text = String(format: "%.2f MYR", economy!["fare_price"]!.floatValue)
+                    cell.economyPriceLbl.text = String(format: "%@ MYR", economy!["total_fare"]!.string!)
                     
                     cell.economyBtn.hidden = false
                     
@@ -155,7 +155,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                 }else{
                     cell.businessNotAvailableView.hidden = true
                     cell.businessSoldView.hidden = true
-                    cell.businessPriceLbl.text = String(format: "%.2f MYR", business!["fare_price"]!.floatValue)
+                    cell.businessPriceLbl.text = String(format: "%@ MYR", business!["total_fare"]!.string!)
                     cell.businessBtn.hidden = false
                     
                     cell.businessBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:3"

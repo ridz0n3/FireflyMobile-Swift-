@@ -21,6 +21,8 @@ pod 'RealmSwift', '~> 0.98'
 pod 'Google/Analytics'
 pod 'SlideMenuControllerSwift'
 pod 'Google/CloudMessaging'
+pod 'Fabric'
+pod 'Crashlytics'
 end
 
 target 'FireflyMobileAppTests' do

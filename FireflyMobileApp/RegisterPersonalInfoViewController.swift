@@ -15,20 +15,23 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
     
     @IBOutlet weak var termCheckBox: M13Checkbox!
     @IBOutlet weak var promotionCheckBox: M13Checkbox!
+    @IBOutlet weak var continueBtn: UIButton!
+    
     var fromLogin = Bool()
     var dialCode = String()
     var stateArray = [Dictionary<String,AnyObject>]()
-    @IBOutlet weak var continueBtn: UIButton!
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
-        continueBtn.layer.cornerRadius = 10
+        
         if fromLogin{
             setupLeftButton()
         }else{
             setupMenuButton()
         }
         
+        continueBtn.layer.cornerRadius = 10
         termCheckBox.strokeColor = UIColor.orangeColor()
         termCheckBox.checkColor = UIColor.orangeColor()
         promotionCheckBox.strokeColor = UIColor.orangeColor()
@@ -40,6 +43,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.registerScreen)
         // Do any additional setup after loading the view.
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -69,10 +73,8 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Password:*")
-        //row.addValidator(XLFormRegexValidator(msg: "Password must be at least 8 characters, no more than 16 characters, must include at least one upper case letter, one lower case letter, one numeric digit, and one non-alphanumeric. The password cannot contain a period(.) comma(,) or tilde(~).", andRegexString: "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=-])(?=\\S+$).{8,16}$"))
         row.required = true
         section.addFormRow(row)
-        //^(?=.*[a-zA-Z0-9])[a-zA-Z0-9][^,.~]{8,16}$
         
         // Confirm Password
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Confirm Password:*")
@@ -81,7 +83,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         section = XLFormSectionDescriptor()
         section.title = "LabelPersonal".localized
-        //section.hidden = "$\(Tags.Button1).value contains 'hide'"
         form.addFormSection(section)
         
         // Title
@@ -97,14 +98,12 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // First Name/Given Name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
-        //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.required = true
         section.addFormRow(row)
         
         // Last Name
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
         row.required = true
-        //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         section.addFormRow(row)
         
         // Date
@@ -115,7 +114,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // Basic Information - Section
         section = XLFormSectionDescriptor()
         section.title = "LabelAddress".localized
-        //section.hidden = "$\(Tags.Button2).value contains 'hide'"
         form.addFormSection(section)
         
         // Address Line 1
@@ -162,13 +160,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // Contact Information - Section
         section = XLFormSectionDescriptor()
         section.title = "LabelContact".localized
-        //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
         
         // Mobile Number
         row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Mobile / Home:")
         row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^[0-9]{7,}$"))
-        //row.required = true
         section.addFormRow(row)
         
         // Alternate
@@ -183,7 +179,6 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // BonusLink - Section
         section = XLFormSectionDescriptor()
         section.title = "LabelLoyalty".localized
-        //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
         
         // BonusLink
@@ -191,13 +186,17 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         section.addFormRow(row)
         
         self.form = form
+        
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
         return 40
+        
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         let sectionView = NSBundle.mainBundle().loadNibNamed("SectionView", owner: self, options: nil)[0] as! SectionView
         
         sectionView.changePassLbl.hidden = true
@@ -206,9 +205,11 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
         
         return sectionView
+        
     }
     
     func selectCountry(sender:NSNotification){
+        
         country(sender.userInfo!["countryVal"]! as! String)
         
         dialCode = sender.userInfo!["dialingCode"]! as! String
@@ -235,11 +236,13 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Fax:")
         row.value = dialCode
         self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)
+        
     }
 
     func country(countryCode:String){
         
         if self.formValues()[Tags.ValidationState] != nil{
+            
             var stateArr = [NSDictionary]()
             for stateData in stateArray{
                 if stateData["country_code"] as! String == countryCode{
@@ -265,14 +268,15 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             row.required = true
             
             self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
+            
         }
+        
     }
     
     @IBAction func continueButtonPressed(sender: AnyObject) {
         
         validateForm()
         
-        //promotionCheckBox.checkState.
         if isValidate {
             
             let currentDate: NSDate = NSDate()
@@ -305,7 +309,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 
                 let username = formValues()[Tags.ValidationUsername]!.xmlSimpleEscapeString()
                 let password = enc
-                let title = getTitleCode(formValues()[Tags.ValidationTitle] as! String, titleArr: titleArray) //formValues()[Tags.ValidationTitle]! as! XLFormOptionsObject).valueData() as! String
+                let title = getTitleCode(formValues()[Tags.ValidationTitle] as! String, titleArr: titleArray)
                 let firstName = formValues()[Tags.ValidationFirstName]! as! String
                 let lastName = formValues()[Tags.ValidationLastName]! as! String
                 let dob = formatDate(selectDate)

@@ -32,20 +32,36 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashScreen" translatesAutoresizingMaskIntoConstraints="NO" id="nLg-lE-m0U">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="lBz-Xl-dRT">
+                                <rect key="frame" x="163" y="229" width="274" height="142"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="274" id="32d-QK-gsL"/>
+                                    <constraint firstAttribute="height" constant="142" id="4XL-Ey-bdT"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nLg-lE-m0U" secondAttribute="trailing" id="2tm-YG-DNR"/>
                             <constraint firstAttribute="trailing" secondItem="VTC-qU-U2R" secondAttribute="trailing" constant="20" id="4Tk-xf-KZL"/>
                             <constraint firstItem="VTC-qU-U2R" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="160" id="BHR-i7-kmk"/>
+                            <constraint firstItem="lBz-Xl-dRT" firstAttribute="centerX" secondItem="8zr-Xy-BhG" secondAttribute="centerX" id="DG4-Lt-iG2"/>
                             <constraint firstItem="nLg-lE-m0U" firstAttribute="top" secondItem="8zr-Xy-BhG" secondAttribute="top" id="H28-Zu-Qqf"/>
                             <constraint firstItem="nLg-lE-m0U" firstAttribute="leading" secondItem="8zr-Xy-BhG" secondAttribute="leading" id="HUS-aS-KSm"/>
                             <constraint firstAttribute="trailing" secondItem="9p2-g2-4if" secondAttribute="trailing" constant="20" id="I8s-cb-bc5"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="nLg-lE-m0U" secondAttribute="bottom" id="dEX-3f-AsF"/>
                             <constraint firstItem="VTC-qU-U2R" firstAttribute="leading" secondItem="8zr-Xy-BhG" secondAttribute="leading" constant="20" id="gkX-vg-wa3"/>
                             <constraint firstItem="9p2-g2-4if" firstAttribute="leading" secondItem="8zr-Xy-BhG" secondAttribute="leading" constant="20" symbolic="YES" id="mz4-rb-tyd"/>
+                            <constraint firstItem="lBz-Xl-dRT" firstAttribute="centerY" secondItem="8zr-Xy-BhG" secondAttribute="centerY" id="pDI-qE-Ic0"/>
                             <constraint firstAttribute="bottom" secondItem="9p2-g2-4if" secondAttribute="bottom" constant="20" id="rqb-MF-z87"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="9p2-g2-4if"/>
+                                <exclude reference="VTC-qU-U2R"/>
+                                <exclude reference="nLg-lE-m0U"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -54,6 +70,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="logo" width="600" height="240"/>
         <image name="splashScreen" width="640" height="1136"/>
     </resources>
 </document>

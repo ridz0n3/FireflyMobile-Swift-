@@ -77,7 +77,13 @@ class EditContactDetailViewController: CommonContactDetailViewController {
             }else{
                 showLoading() 
                 
-                FireFlyProvider.request(.ChangeContact(booking_id, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signature, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, pnr), completion: { (result) -> () in
+                var customer_number = String()
+                
+                if try! LoginManager.sharedInstance.isLogin(){
+                    customer_number = defaults.objectForKey("customer_number") as! String
+                }
+                
+                FireFlyProvider.request(.ChangeContact(booking_id, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signature, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, pnr, customer_number), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
@@ -95,6 +101,17 @@ class EditContactDetailViewController: CommonContactDetailViewController {
                             }else if json["status"] == "error"{
                                 
                                 showErrorMessage(json["message"].string!)
+                            }else if json["status"].string == "401"{
+                                hideLoading()
+                                showErrorMessage(json["message"].string!)
+                                InitialLoadManager.sharedInstance.load()
+                                
+                                for views in (self.navigationController?.viewControllers)!{
+                                    if views.classForCoder == HomeViewController.classForCoder(){
+                                        self.navigationController?.popToViewController(views, animated: true)
+                                        AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                    }
+                                }
                             }
                             hideLoading()
                         }

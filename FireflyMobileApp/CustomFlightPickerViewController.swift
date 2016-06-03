@@ -16,6 +16,7 @@ class CustomFlightPickerViewController: UIViewController, UITableViewDelegate, U
     @IBOutlet weak var pickerTableView: UITableView!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         pickerTableView.layer.cornerRadius = 10
         pickerTableView.layer.borderColor = UIColor.orangeColor().CGColor
@@ -25,25 +26,34 @@ class CustomFlightPickerViewController: UIViewController, UITableViewDelegate, U
     }
     
     override func viewDidAppear(animated: Bool) {
+        
         super.viewDidAppear(animated)
         let indexPath = NSIndexPath(forRow: selectPicker, inSection: 0)
         pickerTableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.Middle)
+        
     }
 
     override func didReceiveMemoryWarning() {
+        
         super.didReceiveMemoryWarning()
+        
         // Dispose of any resources that can be recreated.
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return picker.count
+        
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
         return 30
+        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = self.pickerTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         
         let bgColorView = UIView()
@@ -53,12 +63,12 @@ class CustomFlightPickerViewController: UIViewController, UITableViewDelegate, U
         cell.textLabel?.text = picker[indexPath.row]
         cell.textLabel?.textAlignment = NSTextAlignment.Center
         return cell
+        
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         self.dismissViewControllerAnimated(true, completion: nil)
-        
-        
         if destinationType == "departure"{
             NSNotificationCenter.defaultCenter().postNotificationName("departureSelected", object: nil, userInfo: ["index" : indexPath.row])
         }else{

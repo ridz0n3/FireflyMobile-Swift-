@@ -175,7 +175,6 @@ class UpdateInformationViewController: BaseXLFormViewController {
         // Contact Information - Section
         section = XLFormSectionDescriptor()
         section.title = "LabelContact".localized
-        //section.hidden = "$\(Tags.Button3).value contains 'hide'"
         form.addFormSection(section)
         
         // Mobile Number
@@ -249,6 +248,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
     }
     
     func selectCountry(sender:NSNotification){
+        
         country(sender.userInfo!["countryVal"]! as! String)
         dialCode = sender.userInfo!["dialingCode"]! as! String
         
