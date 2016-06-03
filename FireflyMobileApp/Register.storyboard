@@ -8,7 +8,7 @@
         <!--Register Personal Info View Controller-->
         <scene sceneID="X1N-Oq-hfa">
             <objects>
-                <viewController storyboardIdentifier="RegisterVC" id="p2o-BO-JSE" customClass="RegisterPersonalInfoViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RegisterVC" id="p2o-BO-JSE" customClass="RegisterPersonalInfoViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FsF-nI-jL1"/>
                         <viewControllerLayoutGuide type="bottom" id="dM8-sQ-Vbs"/>

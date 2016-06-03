@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1509" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--Launch Screen View Controller-->
         <scene sceneID="LzL-3r-gjg">
             <objects>
-                <viewController storyboardIdentifier="LaunchScreenVC" id="J4a-me-0pH" customClass="LaunchScreenViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LaunchScreenVC" id="J4a-me-0pH" customClass="LaunchScreenViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KiK-yJ-Tp7"/>
                         <viewControllerLayoutGuide type="bottom" id="7Rw-60-IE3"/>
@@ -39,6 +39,13 @@
                                     <constraint firstAttribute="width" constant="100" id="pny-df-nko"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="nkU-cJ-8sC">
+                                <rect key="frame" x="163" y="229" width="274" height="142"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="142" id="0Iz-3U-LX2"/>
+                                    <constraint firstAttribute="width" constant="274" id="gdi-EC-Xop"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -49,12 +56,22 @@
                             <constraint firstAttribute="trailing" secondItem="Ts6-3I-9zM" secondAttribute="trailing" id="e2I-Jh-G7v"/>
                             <constraint firstItem="Ts6-3I-9zM" firstAttribute="leading" secondItem="0I2-LS-IdB" secondAttribute="leading" id="g9s-Uh-75u"/>
                             <constraint firstItem="7Rw-60-IE3" firstAttribute="top" secondItem="Ts6-3I-9zM" secondAttribute="bottom" id="jAD-By-SCB"/>
+                            <constraint firstItem="nkU-cJ-8sC" firstAttribute="centerY" secondItem="0I2-LS-IdB" secondAttribute="centerY" id="jTX-Wh-bpw"/>
                             <constraint firstItem="qnC-ls-y86" firstAttribute="centerX" secondItem="0I2-LS-IdB" secondAttribute="centerX" id="nbR-xj-n8M"/>
                             <constraint firstItem="47r-TN-d75" firstAttribute="leading" secondItem="0I2-LS-IdB" secondAttribute="leading" constant="20" id="oi0-wM-scd"/>
                             <constraint firstItem="qnC-ls-y86" firstAttribute="centerY" secondItem="0I2-LS-IdB" secondAttribute="centerY" constant="150" id="plo-1h-UM9"/>
                             <constraint firstItem="a7Y-m5-fqO" firstAttribute="leading" secondItem="0I2-LS-IdB" secondAttribute="leading" constant="20" id="tAA-Pl-cO0"/>
+                            <constraint firstItem="nkU-cJ-8sC" firstAttribute="centerX" secondItem="0I2-LS-IdB" secondAttribute="centerX" id="xF0-SW-Ifx"/>
                             <constraint firstItem="a7Y-m5-fqO" firstAttribute="top" secondItem="KiK-yJ-Tp7" secondAttribute="bottom" constant="160" id="yRD-aa-gg5"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="a7Y-m5-fqO"/>
+                                <exclude reference="47r-TN-d75"/>
+                                <exclude reference="Ts6-3I-9zM"/>
+                                <exclude reference="qnC-ls-y86"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="5My-jP-cWA"/>
                     <connections>
@@ -67,6 +84,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="logo" width="600" height="240"/>
         <image name="splashScreen" width="640" height="1136"/>
     </resources>
 </document>

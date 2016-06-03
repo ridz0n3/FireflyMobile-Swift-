@@ -29,7 +29,7 @@ public enum FireFlyAPI {
     case ForgotPassword(String, String)
     case ChangePassword(String, String, String)
     case PassengerDetail(AnyObject, AnyObject, String, String, String)
-    case ContactDetail(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, AnyObject, AnyObject)
+    case ContactDetail(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, AnyObject, AnyObject, String)
     case SelectSeat(AnyObject, AnyObject, String, String)
     case PaymentSelection(String)
     case PaymentProcess(String, String, String, String, String, String, String, String, String, String)
@@ -37,9 +37,9 @@ public enum FireFlyAPI {
     case SelectFlight(String, String, String, Int, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     case FlightSummary(String)
     case Logout(String)
-    case RetrieveBooking(String, String, String, String)
-    case RetrieveBookingList(String, String, String)
-    case ChangeContact(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
+    case RetrieveBooking(String, String, String, String, String)
+    case RetrieveBookingList(String, String, String, String)
+    case ChangeContact(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     case EditPassengerDetail(AnyObject, AnyObject, String, String, String)
     case ConfirmChange(String, String, String)
     case GetAvailableSeat(String, String, String)
@@ -176,8 +176,8 @@ extension FireFlyAPI : TargetType {
             return ["username" : username, "password" : password, "new_password" : newPassword]
         case .PassengerDetail(let adult, let infant, let bookId, let signature, let flightType):
             return ["passengers" : adult, "infants" : infant, "booking_id" : bookId, "signature" : signature, "flight_type" : flightType]
-        case .ContactDetail(let flightType, let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature, let companyName, let address1, let address2, let address3, let city, let state, let postcode, let seatStatus, let goingFlight, let returnFlight):
-            return ["flight_type" : flightType, "booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode, "seat_selection_status" : seatStatus, "going_flight" : goingFlight, "return_flight" : returnFlight]
+        case .ContactDetail(let flightType, let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature, let companyName, let address1, let address2, let address3, let city, let state, let postcode, let seatStatus, let goingFlight, let returnFlight, let customer_number):
+            return ["flight_type" : flightType, "booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode, "seat_selection_status" : seatStatus, "going_flight" : goingFlight, "return_flight" : returnFlight, "customer_number" : customer_number]
         case .SelectSeat(let goingFlight, let returnFlight, let bookId, let signature):
             return ["going_flight" : goingFlight, "return_flight" : returnFlight, "booking_id" : bookId, "signature" : signature]
         case PaymentSelection(let signature):
@@ -211,12 +211,12 @@ extension FireFlyAPI : TargetType {
             return ["signature" : signature]
         case .Logout(let signature):
             return ["signature" : signature]
-        case .RetrieveBooking(let signature, let pnr, let email, let userId):
-            return ["signature" : signature, "pnr" : pnr, "username" : email, "user_id" : userId]
-        case .RetrieveBookingList(let email, let password, let module):
-            return ["username" : email, "password" : password, "module" : module]
-        case .ChangeContact(let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature, let companyName, let address1, let address2, let address3, let city, let state, let postcode, let pnr):
-            return ["booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode, "pnr" : pnr]
+        case .RetrieveBooking(let signature, let pnr, let email, let userId, let customer_number):
+            return ["signature" : signature, "pnr" : pnr, "username" : email, "user_id" : userId, "customer_number" : customer_number]
+        case .RetrieveBookingList(let email, let password, let module, let customer_number):
+            return ["username" : email, "password" : password, "module" : module, "customer_number" : customer_number]
+        case .ChangeContact(let bookId, let insurance, let purpose, let title, let firstName, let lastName, let email, let country, let mobile, let alternate, let signature, let companyName, let address1, let address2, let address3, let city, let state, let postcode, let pnr, let customer_number):
+            return ["booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode, "pnr" : pnr, "customer_number" : customer_number]
         case .EditPassengerDetail(let adult, let infant, let bookId, let signature, let pnr):
             return ["passengers" : adult, "infants" : infant, "booking_id" : bookId, "signature" : signature, "pnr" : pnr]
         case .ConfirmChange(let pnr, let booking_id, let signature):

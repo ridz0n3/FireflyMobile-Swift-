@@ -12,6 +12,8 @@ import CoreData
 import RealmSwift
 import Realm
 import SwiftyJSON
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // nothing to do
         }
         
+        Fabric.with([Crashlytics.self])
         RLMRealmConfiguration.setDefaultConfiguration(config)
         RemoteNotificationManager.sharedInstance.registerNotificationCategory()
         RemoteNotificationManager.sharedInstance.registerGCM()

@@ -184,11 +184,23 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                             
                             defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                             defaults.setObject(json["user_info"].object , forKey: "userInfo")
+                            defaults.setObject(json["user_info"]["customer_number"].string, forKey: "customer_number")
                             defaults.synchronize()
                             
                         NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
                             
                            self.sentData()
+                        }else if json["status"].string == "401"{
+                            hideLoading()
+                            showErrorMessage(json["message"].string!)
+                            InitialLoadManager.sharedInstance.load()
+                            
+                            for views in (self.navigationController?.viewControllers)!{
+                                if views.classForCoder == HomeViewController.classForCoder(){
+                                    self.navigationController?.popToViewController(views, animated: true)
+                                    AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                }
+                            }
                         }else{
                             
                             hideLoading()
@@ -249,6 +261,17 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                     }else if json["status"] == "error"{
                         
                         showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
                     }
                     hideLoading()
                 }

@@ -215,6 +215,17 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                             successVC.signature = signature
                             self.navigationController!.pushViewController(successVC, animated: true)
                             
+                        }else if json["status"].string == "401"{
+                            hideLoading()
+                            showErrorMessage(json["message"].string!)
+                            InitialLoadManager.sharedInstance.load()
+                            
+                            for views in (self.navigationController?.viewControllers)!{
+                                if views.classForCoder == HomeViewController.classForCoder(){
+                                    self.navigationController?.popToViewController(views, animated: true)
+                                    AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                }
+                            }
                         }else{
                             
                             showErrorMessage(json["message"].string!)
@@ -255,6 +266,8 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                 
                 let formater = NSDateFormatter()
                 formater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+                let twentyFour = NSLocale(localeIdentifier: "en_GB")
+                formater.locale = twentyFour
                 
                 pnr.departureStationCode = boardingInfo["DepartureStationCode"] as! String
                 pnr.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String

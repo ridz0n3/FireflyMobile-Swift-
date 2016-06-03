@@ -8,7 +8,7 @@
         <!--Left Side Menu View Controller-->
         <scene sceneID="deJ-Oh-BOm">
             <objects>
-                <viewController storyboardIdentifier="LeftMenuVC" id="wU0-t5-Scn" customClass="LeftSideMenuViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LeftMenuVC" id="wU0-t5-Scn" customClass="LeftSideMenuViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vA5-nL-wbI"/>
                         <viewControllerLayoutGuide type="bottom" id="6jz-0l-3hj"/>
@@ -22,7 +22,7 @@
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="tUo-JX-s0y" customClass="SideMenuTableViewCell" customModule="FireflyMobileApp" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="tUo-JX-s0y" customClass="SideMenuTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tUo-JX-s0y" id="JcW-Re-zbD">

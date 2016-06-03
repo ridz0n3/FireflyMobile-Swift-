@@ -54,9 +54,11 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
     }
     
-    func getFormData()->([String:AnyObject], [String:AnyObject], String, String, Bool, Bool){
+    func getFormData()->([AnyObject], [AnyObject], String, String, Bool, Bool){
         var passenger = [String:AnyObject]()
         var passengerName = [String]()
+        
+        var tempPassenger = [AnyObject]()
         for var i = 0; i < adultCount; i = i + 1{
             var count = i
             count = count + 1
@@ -95,11 +97,12 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             }
             
             passenger.updateValue(adultInfo, forKey: "\(i)")
-            
+            tempPassenger.append(adultInfo)
         }
         
         var travelWith = [String]()
         var infant = [String:AnyObject]()
+        var tempInfant = [AnyObject]()
         for var j = 0; j < infantCount; j = j + 1{
             var count = j
             count = count + 1
@@ -134,6 +137,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             infantInfo.updateValue(newExpDate, forKey: "expiration_date")
             
             infant.updateValue(infantInfo, forKey: "\(j)")
+            tempInfant.append(infantInfo)
         }
         
         let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
@@ -164,7 +168,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             }
             
         }
-        return (passenger, infant, bookId, signature, nameDuplicate, checkTravelWith)
+        return (tempPassenger, tempInfant, bookId, signature, nameDuplicate, checkTravelWith)
     }
     
     func addExpiredDate(sender:NSNotification){

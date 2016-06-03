@@ -25,10 +25,10 @@ class LoginMobileCheckinViewController: CommonListViewController {
 
     func loadCheckInList(){
         
-        let userInfo = defaults.objectForKey("userInfo") as! [String : String]
+        let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
         var userData : Results<UserList>! = nil
         userData = realm.objects(UserList)
-        mainUser = userData.filter("userId == %@", userInfo["username"]!)
+        mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
         
         if mainUser.count != 0{
             checkInList = mainUser[0].checkinList.sorted("departureDateTime", ascending: false)

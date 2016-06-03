@@ -389,6 +389,17 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                 }else if json["status"] == "error"{
                                     
                                     showErrorMessage(json["message"].string!)
+                                }else if json["status"].string == "401"{
+                                    hideLoading()
+                                    showErrorMessage(json["message"].string!)
+                                    InitialLoadManager.sharedInstance.load()
+                                    
+                                    for views in (self.navigationController?.viewControllers)!{
+                                        if views.classForCoder == HomeViewController.classForCoder(){
+                                            self.navigationController?.popToViewController(views, animated: true)
+                                            AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                        }
+                                    }
                                 }
                                 hideLoading()
                             }
@@ -460,6 +471,17 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                 }else if json["status"] == "error"{
                                     
                                     showErrorMessage(json["message"].string!)
+                                }else if json["status"].string == "401"{
+                                    hideLoading()
+                                    showErrorMessage(json["message"].string!)
+                                    InitialLoadManager.sharedInstance.load()
+                                    
+                                    for views in (self.navigationController?.viewControllers)!{
+                                        if views.classForCoder == HomeViewController.classForCoder(){
+                                            self.navigationController?.popToViewController(views, animated: true)
+                                            AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                        }
+                                    }
                                 }
                                 hideLoading()
                             }

@@ -52,7 +52,7 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 57
+        return 95
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -62,12 +62,13 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
         if module == "checkIn"{
             let bookingList = checkInList[indexPath.row]
             
+            cell.pnrNumber.text = "\(bookingList.pnr)"
             cell.flightNumber.text = "\(bookingList.departureStationCode) - \(bookingList.arrivalStationCode)"
             cell.flightDate.text = bookingList.departureDayDate.capitalizedString
             
         }else{
             let bookingList = pnrList[indexPath.row]
-            
+            cell.pnrNumber.text = "\(bookingList.pnr)"
             cell.flightNumber.text = "\(bookingList.departureStationCode) - \(bookingList.arrivalStationCode)"
             cell.flightDate.text = bookingList.departureDayDate.capitalizedString
             
