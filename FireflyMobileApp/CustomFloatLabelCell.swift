@@ -44,6 +44,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         textField.delegate = self
         textField.inputAccessoryView = toolBar
     }
+    
     func donePressed(){
         
         floatLabeledTextField.text = data[selectindex]

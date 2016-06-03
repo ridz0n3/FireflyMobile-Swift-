@@ -359,34 +359,34 @@
 		7E1F77DB1BF96E6C00F55C46 /* FireflyMobileApp */ = {
 			isa = PBXGroup;
 			children = (
-				7EBB9C801CF32F7D0048689D /* CustomFlightPicker */,
-				7E1F78241BF9C1B000F55C46 /* Registration */,
-				7EB829E11C0AC23200E83320 /* Profile */,
-				7EA03FD01CA931A50089CD2A /* Insurance */,
-				7E9DD2891C9AA769008E1B90 /* Loading */,
-				7EE2F9A41C99110E00499B37 /* LaunchScreen */,
-				7EE2F9A11C990F7C00499B37 /* New Update */,
 				FC4F998B1C86BA760068C5A8 /* About */,
-				7EB40EDF1C7ABB4200296137 /* Model */,
-				7EC1DBD01C158A8800677D55 /* FloatLabel */,
-				7EBBFA0E1C101B7900080FFA /* DatePicker */,
-				7EBBFA001C10115200080FFA /* CustomDatePickerView */,
-				7E55ADC91BFDC6B2002FAA84 /* Helper */,
-				7E69311E1BFB31EA004F1719 /* SideMenu */,
-				7E1F780A1BF9793100F55C46 /* Home */,
-				7E1F78151BF9ABCB00F55C46 /* Login */,
-				7EA286331C4774B40004AB9A /* CommonClass */,
-				7E985A051C4DE3AD00EBAFA5 /* Header */,
+				7E1F78161BF9ABFC00F55C46 /* BaseView */,
+				7E6931191BFB2DD6004F1719 /* Boarding Pass */,
 				7E1F782F1BF9D67B00F55C46 /* Book Flight */,
+				7EA286331C4774B40004AB9A /* CommonClass */,
+				7E1F780F1BF97D6C00F55C46 /* Custom Cell */,
+				7EBBFA001C10115200080FFA /* CustomDatePickerView */,
+				7EBB9C801CF32F7D0048689D /* CustomFlightPicker */,
+				7EBBFA0E1C101B7900080FFA /* DatePicker */,
+				7EC1DBD01C158A8800677D55 /* FloatLabel */,
+				7E985A051C4DE3AD00EBAFA5 /* Header */,
+				7E55ADC91BFDC6B2002FAA84 /* Helper */,
+				7E1F780A1BF9793100F55C46 /* Home */,
+				7EA03FD01CA931A50089CD2A /* Insurance */,
+				7EE2F9A41C99110E00499B37 /* LaunchScreen */,
+				7E9DD2891C9AA769008E1B90 /* Loading */,
+				7E1F78151BF9ABCB00F55C46 /* Login */,
 				7E6930F71BFAF994004F1719 /* Manage Flight */,
 				7E6931101BFB1F0A004F1719 /* Mobile Check-In */,
-				7E6931191BFB2DD6004F1719 /* Boarding Pass */,
-				7E1F780F1BF97D6C00F55C46 /* Custom Cell */,
-				7E1F78161BF9ABFC00F55C46 /* BaseView */,
-				7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */,
-				7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */,
-				7E1F77E01BF96E6C00F55C46 /* Main.storyboard */,
+				7EB40EDF1C7ABB4200296137 /* Model */,
+				7EE2F9A11C990F7C00499B37 /* New Update */,
+				7EB829E11C0AC23200E83320 /* Profile */,
+				7E1F78241BF9C1B000F55C46 /* Registration */,
+				7E69311E1BFB31EA004F1719 /* SideMenu */,
 				7E1F78231BF9BE8C00F55C46 /* Support File */,
+				7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */,
+				7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */,
+				7E1F77E01BF96E6C00F55C46 /* Main.storyboard */,
 			);
 			path = FireflyMobileApp;
 			sourceTree = "<group>";
@@ -412,9 +412,9 @@
 		7E1F780A1BF9793100F55C46 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				7E1F780B1BF9799900F55C46 /* HomeViewController.swift */,
 				7E1F780D1BF979B300F55C46 /* Home.storyboard */,
 				96C1938D1C60904D00617C17 /* FAQViewController.swift */,
+				7E1F780B1BF9799900F55C46 /* HomeViewController.swift */,
 			);
 			name = Home;
 			sourceTree = "<group>";
@@ -422,21 +422,21 @@
 		7E1F780F1BF97D6C00F55C46 /* Custom Cell */ = {
 			isa = PBXGroup;
 			children = (
-				7E1F78101BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift */,
-				7E1F78341BF9D81100F55C46 /* CustomSearchFlightTableViewCell.swift */,
-				7E20F90C1BFA02E90020AB0C /* CustomFlightDetailTableViewCell.swift */,
-				7EB0DE0D1C84295C000AA6A8 /* CustomMHFlightDetailTableViewCell.swift */,
-				7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */,
-				615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */,
-				7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */,
-				7E6930F51BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift */,
-				7E6931001BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift */,
 				7E6931081BFB1173004F1719 /* CustomChangeFlightTableViewCell.swift */,
-				7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */,
-				7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */,
-				7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */,
+				7EBCD6A71BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift */,
+				7E20F90C1BFA02E90020AB0C /* CustomFlightDetailTableViewCell.swift */,
+				7E1F78101BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift */,
 				7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */,
+				7E6931001BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift */,
+				7EB0DE0D1C84295C000AA6A8 /* CustomMHFlightDetailTableViewCell.swift */,
+				615690051C0EE47700E7E341 /* CustomPasswordExpiredlTableViewCell.swift */,
+				7E99B8611C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift */,
+				7E6930F51BFAD8A3004F1719 /* CustomPaymentTableViewCell.swift */,
+				7EBCD6A31BFAC4200043F28C /* CustomPersonalDetailTableViewCell.swift */,
+				7E1F78341BF9D81100F55C46 /* CustomSearchFlightTableViewCell.swift */,
+				7EA56E921C27A098002AD40C /* CustomSeatSelectionTableViewCell.swift */,
 				7E5C6C311C644307006A5927 /* MobileTermTableViewCell.swift */,
+				7E6931211BFB32FE004F1719 /* SideMenuTableViewCell.swift */,
 			);
 			name = "Custom Cell";
 			sourceTree = "<group>";
@@ -463,13 +463,13 @@
 		7E1F78231BF9BE8C00F55C46 /* Support File */ = {
 			isa = PBXGroup;
 			children = (
+				7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */,
 				7E9301521CFBD68D00162954 /* GoogleService-Info.plist */,
 				7E1F77E81BF96E6C00F55C46 /* Info.plist */,
-				7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */,
-				7E7E45BE1BFC25E6002EB3E0 /* ObjC-Header.h */,
-				7E290E841BFEB3D8004E50F3 /* Constant.swift */,
 				961C57201C7EA840000910B7 /* Localizable.strings */,
+				7E290E841BFEB3D8004E50F3 /* Constant.swift */,
 				7EA3CA611CCDF3B200F4037C /* ExtensionFile.swift */,
+				7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */,
 			);
 			name = "Support File";
 			sourceTree = "<group>";
@@ -487,16 +487,16 @@
 			isa = PBXGroup;
 			children = (
 				7E1F78301BF9D6A900F55C46 /* BookFlight.storyboard */,
-				7E1F78321BF9D7A200F55C46 /* SearchFlightViewController.swift */,
+				7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */,
 				7E9438551C564A3E002D6792 /* AddFlightDetailViewController.swift */,
 				7E86C25D1C828D2100C6547B /* AddMHFlightDetailViewController.swift */,
 				7E11C0861C47AC9700C67BD2 /* AddPassengerDetailViewController.swift */,
-				7EA286361C4776A30004AB9A /* AddContactDetailViewController.swift */,
-				7E985A091C4DEDDC00EBAFA5 /* AddSeatSelectionViewController.swift */,
-				7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */,
 				7E985A0F1C4E38D000EBAFA5 /* AddPaymentViewController.swift */,
-				7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */,
+				7E985A091C4DEDDC00EBAFA5 /* AddSeatSelectionViewController.swift */,
 				7E8262091C3CD09D0071FAAA /* FlightSummaryViewController.swift */,
+				7E99B85F1C2A6B1400239322 /* PaymentSummaryViewController.swift */,
+				7E8262071C3CCF280071FAAA /* PaymentWebViewController.swift */,
+				7E1F78321BF9D7A200F55C46 /* SearchFlightViewController.swift */,
 			);
 			name = "Book Flight";
 			sourceTree = "<group>";
@@ -504,18 +504,18 @@
 		7E55ADC91BFDC6B2002FAA84 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				7E9DD28E1C9AA9A6008E1B90 /* UIImage+Gif.swift */,
-				7E9B2BB81C8E6AF60046EB82 /* NSString+ExtraMethod.h */,
-				7E9B2BB91C8E6AF60046EB82 /* NSString+ExtraMethod.m */,
 				7E9B2BBA1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.h */,
+				7E9B2BB81C8E6AF60046EB82 /* NSString+ExtraMethod.h */,
 				7E9B2BBB1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m */,
+				7E9B2BB91C8E6AF60046EB82 /* NSString+ExtraMethod.m */,
+				96DF6A521C87DB7F005BA920 /* AnalyticsManager.swift */,
 				9615B0791C0EA6B8000B522F /* EncryptManager.swift */,
 				9615B07B1C1137DD000B522F /* FireflyAPI.swift */,
-				7E9A53821C3B5D21001094F5 /* LoginManager.swift */,
 				7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */,
-				96DF6A521C87DB7F005BA920 /* AnalyticsManager.swift */,
+				7E9A53821C3B5D21001094F5 /* LoginManager.swift */,
 				7E7905591CA5280B00790364 /* LogoutManager.swift */,
 				7E026E571CD9DA610069DEED /* RemoteNotificationManager.swift */,
+				7E9DD28E1C9AA9A6008E1B90 /* UIImage+Gif.swift */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -524,18 +524,18 @@
 			isa = PBXGroup;
 			children = (
 				7E6930FC1BFAFEE6004F1719 /* ManageFlight.storyboard */,
-				7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */,
-				7E69310E1BFB1BFA004F1719 /* ManageFlightViewController.swift */,
-				7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */,
 				7EA286381C4782D80004AB9A /* EditContactDetailViewController.swift */,
-				7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */,
-				7E9438571C564E3F002D6792 /* EditSearchFlightViewController.swift */,
 				7E9438591C564F24002D6792 /* EditFlightDetailViewController.swift */,
 				7E33D8E61C87CFC900901629 /* EditMHFlightDetailViewController.swift */,
-				7E985A0B1C4DF11900EBAFA5 /* EditSeatSelectionViewController.swift */,
+				7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */,
 				7E985A111C4E3B7600EBAFA5 /* EditPaymentViewController.swift */,
-				7E69310C1BFB195D004F1719 /* SendItineraryViewController.swift */,
+				7E9438571C564E3F002D6792 /* EditSearchFlightViewController.swift */,
+				7E985A0B1C4DF11900EBAFA5 /* EditSeatSelectionViewController.swift */,
 				7EC5A2261CBF828600234D85 /* EditSSRViewController.swift */,
+				7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */,
+				7E367BF81C4397AE00897D7D /* ManageFlightHomeViewController.swift */,
+				7E69310E1BFB1BFA004F1719 /* ManageFlightViewController.swift */,
+				7E69310C1BFB195D004F1719 /* SendItineraryViewController.swift */,
 			);
 			name = "Manage Flight";
 			sourceTree = "<group>";
@@ -545,9 +545,9 @@
 			children = (
 				7E6931111BFB1F2C004F1719 /* MobileCheckIn.storyboard */,
 				7E75373A1C5F3A1F0068D49D /* LoginMobileCheckinViewController.swift */,
-				7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */,
 				7E9011451C61BD450051F7BE /* MobileCheckInDetailViewController.swift */,
 				7E5C6C2F1C643DA5006A5927 /* MobileCheckInTermViewController.swift */,
+				7E75373C1C5F42CC0068D49D /* MobileCheckinViewController.swift */,
 				7E4168331C71C601008884DC /* SuccessCheckInViewController.swift */,
 				7E5C6C331C6487EA006A5927 /* Rule1View.xib */,
 				7E5C6C351C648F95006A5927 /* Rule2View.xib */,
@@ -559,9 +559,9 @@
 			isa = PBXGroup;
 			children = (
 				7E69311A1BFB2F0E004F1719 /* BoardingPass.storyboard */,
-				7E0707931C72EE77001D7328 /* LoginBoardingPassViewController.swift */,
-				7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */,
 				7E4168311C71828F008884DC /* BoardingPassDetailViewController.swift */,
+				7E69311C1BFB2F38004F1719 /* BoardingPassViewController.swift */,
+				7E0707931C72EE77001D7328 /* LoginBoardingPassViewController.swift */,
 				7E41682F1C718209008884DC /* BoardingPassView.xib */,
 			);
 			name = "Boarding Pass";
@@ -578,18 +578,18 @@
 		7E985A051C4DE3AD00EBAFA5 /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				7EB5B2AF1BFC68D00066D311 /* SectionView.xib */,
-				7EB5B2B11BFC68EE0066D311 /* SectionView.swift */,
-				7E6930F81BFAFE17004F1719 /* FlightHeaderView.xib */,
-				7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */,
-				7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */,
-				7EB07AFD1C28F6640061D1C9 /* directionView.xib */,
 				7EB07AFF1C28F8440061D1C9 /* DirectionView.swift */,
-				7E20F90E1BFA0A3D0020AB0C /* FlightHeader.xib */,
 				7E20F9101BFA0A760020AB0C /* FlightHeaderView.swift */,
-				7E9011471C61D1B50051F7BE /* MobileCheckInView.xib */,
-				7EB0DE091C83DD6F000AA6A8 /* MHFlightHeaderView.xib */,
 				7EB0DE0B1C83DFAB000AA6A8 /* MHFlightHeaderView.swift */,
+				7EC1DBCE1C15616C00677D55 /* PassengerHeaderView.swift */,
+				7EB5B2B11BFC68EE0066D311 /* SectionView.swift */,
+				7EB07AFD1C28F6640061D1C9 /* directionView.xib */,
+				7E20F90E1BFA0A3D0020AB0C /* FlightHeader.xib */,
+				7E6930F81BFAFE17004F1719 /* FlightHeaderView.xib */,
+				7EB0DE091C83DD6F000AA6A8 /* MHFlightHeaderView.xib */,
+				7E9011471C61D1B50051F7BE /* MobileCheckInView.xib */,
+				7EC1DBCC1C15602200677D55 /* PassengerHeader.xib */,
+				7EB5B2AF1BFC68D00066D311 /* SectionView.xib */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -618,13 +618,13 @@
 			isa = PBXGroup;
 			children = (
 				7EA286341C4774E10004AB9A /* CommonContactDetailViewController.swift */,
-				7E11C0841C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift */,
-				7E985A071C4DEAAE00EBAFA5 /* CommonSeatSelectionViewController.swift */,
-				7E985A0D1C4E381300EBAFA5 /* CommonPaymentViewController.swift */,
 				7E9438531C56499F002D6792 /* CommonFlightDetailViewController.swift */,
-				7E86C25B1C828C5700C6547B /* CommonMHFlightDetailViewController.swift */,
-				7E41682D1C71773E008884DC /* CommonSearchDetailViewController.swift */,
 				7E0707911C72ED36001D7328 /* CommonListViewController.swift */,
+				7E86C25B1C828C5700C6547B /* CommonMHFlightDetailViewController.swift */,
+				7E11C0841C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift */,
+				7E985A0D1C4E381300EBAFA5 /* CommonPaymentViewController.swift */,
+				7E41682D1C71773E008884DC /* CommonSearchDetailViewController.swift */,
+				7E985A071C4DEAAE00EBAFA5 /* CommonSeatSelectionViewController.swift */,
 			);
 			name = CommonClass;
 			sourceTree = "<group>";
@@ -632,10 +632,10 @@
 		7EB40EDF1C7ABB4200296137 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */,
-				7E1AFD5D1C7D3CF300046200 /* UserList.swift */,
 				7E1AFD631C7D49CC00046200 /* BoardingPassList.swift */,
 				7E5537D11CC7709A00A4D629 /* CheckInList.swift */,
+				7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */,
+				7E1AFD5D1C7D3CF300046200 /* UserList.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -661,12 +661,12 @@
 		7EBBFA001C10115200080FFA /* CustomDatePickerView */ = {
 			isa = PBXGroup;
 			children = (
-				7EBBFA011C1011CA00080FFA /* RSDFCustomDatePickerView.swift */,
-				7EBBFA031C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift */,
 				7EBBFA051C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift */,
 				7EBBFA081C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift */,
-				7EBBFA0A1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift */,
 				7EBBFA0C1C1013B600080FFA /* RSDFCustomDatePickerDayCell.swift */,
+				7EBBFA031C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift */,
+				7EBBFA0A1C10138300080FFA /* RSDFCustomDatePickerMonthHeader.swift */,
+				7EBBFA011C1011CA00080FFA /* RSDFCustomDatePickerView.swift */,
 			);
 			name = CustomDatePickerView;
 			sourceTree = "<group>";
@@ -674,8 +674,8 @@
 		7EBBFA0E1C101B7900080FFA /* DatePicker */ = {
 			isa = PBXGroup;
 			children = (
-				7EBBFA0F1C101BC200080FFA /* RSDFDatePickerViewController.swift */,
 				7EBBFA111C10423700080FFA /* RSDFDatePicker.storyboard */,
+				7EBBFA0F1C101BC200080FFA /* RSDFDatePickerViewController.swift */,
 			);
 			name = DatePicker;
 			sourceTree = "<group>";
@@ -691,8 +691,8 @@
 		7EE2F9A11C990F7C00499B37 /* New Update */ = {
 			isa = PBXGroup;
 			children = (
-				7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */,
 				7EE2F9A21C990FA600499B37 /* NewUpdate.storyboard */,
+				7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */,
 			);
 			name = "New Update";
 			sourceTree = "<group>";
@@ -700,9 +700,9 @@
 		7EE2F9A41C99110E00499B37 /* LaunchScreen */ = {
 			isa = PBXGroup;
 			children = (
-				7E1F77E51BF96E6C00F55C46 /* LaunchScreen.storyboard */,
-				7EE2F9A51C99113700499B37 /* LaunchScreenViewController.swift */,
 				7EE2F9A71C9916FE00499B37 /* SplashScreen.storyboard */,
+				7EE2F9A51C99113700499B37 /* LaunchScreenViewController.swift */,
+				7E1F77E51BF96E6C00F55C46 /* LaunchScreen.storyboard */,
 			);
 			name = LaunchScreen;
 			sourceTree = "<group>";
