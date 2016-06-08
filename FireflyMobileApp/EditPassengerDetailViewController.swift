@@ -30,7 +30,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             }
             
         }
-        
+        module = "editPassenger"
         adultArray = [Dictionary<String, AnyObject>]()
         
         adultCount = adultDetails.count

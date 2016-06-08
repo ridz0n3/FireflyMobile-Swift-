@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PassengerHeaderViewButton" customModule="Firefly_Mobile" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="91"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1K4-x7-yNy">
+                    <rect key="frame" x="16" y="0.0" width="568" height="35"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VYl-1M-wwL">
+                            <rect key="frame" x="8" y="0.0" width="552" height="35"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="VYl-1M-wwL" secondAttribute="bottom" id="BIn-TP-p3I"/>
+                        <constraint firstAttribute="height" constant="35" id="ETq-sZ-nMJ"/>
+                        <constraint firstItem="VYl-1M-wwL" firstAttribute="leading" secondItem="1K4-x7-yNy" secondAttribute="leading" constant="8" id="ioj-e0-5Rn"/>
+                        <constraint firstItem="VYl-1M-wwL" firstAttribute="top" secondItem="1K4-x7-yNy" secondAttribute="top" id="ogQ-c5-xBP"/>
+                        <constraint firstAttribute="trailing" secondItem="VYl-1M-wwL" secondAttribute="trailing" constant="8" id="trM-LY-DJI"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZi-H2-Qz6">
+                    <rect key="frame" x="16" y="43" width="568" height="40"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Select Family &amp; Friends">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="WZi-H2-Qz6" secondAttribute="trailing" constant="16" id="6e0-qO-oyh"/>
+                <constraint firstItem="WZi-H2-Qz6" firstAttribute="top" secondItem="1K4-x7-yNy" secondAttribute="bottom" constant="8" id="AxK-0s-Y2P"/>
+                <constraint firstAttribute="trailing" secondItem="1K4-x7-yNy" secondAttribute="trailing" constant="16" id="NWs-bD-TqM"/>
+                <constraint firstItem="1K4-x7-yNy" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="S8e-Xh-fTC"/>
+                <constraint firstAttribute="bottom" secondItem="WZi-H2-Qz6" secondAttribute="bottom" constant="8" id="UXv-6u-d5K"/>
+                <constraint firstItem="WZi-H2-Qz6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="XiT-XX-ld3"/>
+                <constraint firstItem="1K4-x7-yNy" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="d4J-Ze-b2G"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="familyButton" destination="WZi-H2-Qz6" id="rhE-lf-wa3"/>
+                <outlet property="titleLbl" destination="VYl-1M-wwL" id="BdP-qq-qBf"/>
+                <outlet property="views" destination="1K4-x7-yNy" id="7nv-YG-4V3"/>
+            </connections>
+            <point key="canvasLocation" x="199" y="206.5"/>
+        </view>
+    </objects>
+</document>

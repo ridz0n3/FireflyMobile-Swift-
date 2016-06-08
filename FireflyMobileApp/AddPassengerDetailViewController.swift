@@ -20,7 +20,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         flightType = defaults.objectForKey("flightType") as! String
         adultCount = (defaults.objectForKey("adult")?.integerValue)!
         infantCount = (defaults.objectForKey("infants")?.integerValue)!
-        
+        module = "addPassenger"
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.passengerDetailsScreen)
     }
@@ -33,6 +33,12 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         
         form = XLFormDescriptor(title: "")
         
+        if try! LoginManager.sharedInstance.isLogin(){
+            // Basic Information - Section
+            section = XLFormSectionDescriptor()
+            section = XLFormSectionDescriptor.formSectionWithTitle("Family & Friends")
+            form.addFormSection(section)
+        }
         for adult in 1...adultCount{
             
             var i = adult
@@ -44,7 +50,6 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             section = XLFormSectionDescriptor()
             section = XLFormSectionDescriptor.formSectionWithTitle("ADULT \(adult)")
             form.addFormSection(section)
-            
             
             if try! LoginManager.sharedInstance.isLogin() && adult == 1 {
                 

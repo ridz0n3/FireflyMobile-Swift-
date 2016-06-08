@@ -16,6 +16,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var continueBtn: UIButton!
     
+    var module = String()
     var adultCount = Int()
     var infantCount = Int()
     var adultArray = [Dictionary<String,AnyObject>]()
@@ -35,22 +36,51 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
+            return 91
+        }else{
+            return 35
+        }
+        
     }
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
-        
-        sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-        
-        let index = UInt(section)
-        
-        sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
-        sectionView.sectionLbl.textColor = UIColor.whiteColor()
-        sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
-        
-        return sectionView
+        if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
+            let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
+            
+            sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+            
+            let index = UInt(section)
+            
+            if index == 0{
+                sectionView.familyButton.setTitle("Manage Family & Friends", forState: .Normal)
+                sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.manageButtonClicked), forControlEvents: .TouchUpInside)
+            }else{
+                sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
+                sectionView.familyButton.accessibilityHint = form.formSectionAtIndex(index)?.title
+            }
+            
+            sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
+            sectionView.titleLbl.textColor = UIColor.whiteColor()
+            sectionView.titleLbl.textAlignment = NSTextAlignment.Center
+            sectionView.familyButton.layer.cornerRadius = 10
+            sectionView.familyButton.tag = section
+            
+            return sectionView
+        }else{
+            let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+            
+            sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+            
+            let index = UInt(section)
+            
+            sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
+            sectionView.sectionLbl.textColor = UIColor.whiteColor()
+            sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+            
+            return sectionView
+        }
         
     }
     
@@ -289,6 +319,19 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         }else{
             return true
         }
+    }
+    
+    func manageButtonClicked(){
+        
+        let storyboard = UIStoryboard(name: "FamilyAndFriend", bundle: nil)
+        let manageFamilyVC = storyboard.instantiateViewControllerWithIdentifier("FamilyListVC") as! FamilyListViewController
+        self.navigationController?.pushViewController(manageFamilyVC, animated: true)
+        
+    }
+    
+    func selectButtonClicked(sender : UIButton){
+        
+        print(sender.accessibilityHint)
     }
     
     /*
