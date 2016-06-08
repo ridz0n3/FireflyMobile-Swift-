@@ -30,6 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeled] = CustomFloatLabelCell.self
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeWeekDays] = "XLFormWeekDaysCell"
         
         let homeStoryBoard = UIStoryboard(name: "SplashScreen", bundle: nil)
         let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("LaunchScreenVC")

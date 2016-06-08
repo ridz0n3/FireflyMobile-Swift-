@@ -97,6 +97,8 @@
 		7E9DD28D1C9AA906008E1B90 /* preloader300.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7E9DD28C1C9AA906008E1B90 /* preloader300.gif */; };
 		7E9DD28F1C9AA9A6008E1B90 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9DD28E1C9AA9A6008E1B90 /* UIImage+Gif.swift */; };
 		7E9DD2911C9AA9F7008E1B90 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */; };
+		7E9E5D0F1D07FF4600EDF589 /* XLFormWeekDaysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9E5D0D1D07FF4600EDF589 /* XLFormWeekDaysCell.swift */; };
+		7E9E5D101D07FF4600EDF589 /* XLFormWeekDaysCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9E5D0E1D07FF4600EDF589 /* XLFormWeekDaysCell.xib */; };
 		7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */; };
 		7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */; };
 		7EA03FD21CA931D70089CD2A /* Insurance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EA03FD11CA931D60089CD2A /* Insurance.storyboard */; };
@@ -268,6 +270,8 @@
 		7E9DD28C1C9AA906008E1B90 /* preloader300.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = preloader300.gif; sourceTree = "<group>"; };
 		7E9DD28E1C9AA9A6008E1B90 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		7E9E5D0D1D07FF4600EDF589 /* XLFormWeekDaysCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLFormWeekDaysCell.swift; sourceTree = "<group>"; };
+		7E9E5D0E1D07FF4600EDF589 /* XLFormWeekDaysCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XLFormWeekDaysCell.xib; sourceTree = "<group>"; };
 		7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoginManageFlightTableViewCell.swift; sourceTree = "<group>"; };
 		7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManageFlightViewController.swift; sourceTree = "<group>"; };
 		7EA03FD11CA931D60089CD2A /* Insurance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Insurance.storyboard; sourceTree = "<group>"; };
@@ -712,6 +716,8 @@
 		7EC1DBD01C158A8800677D55 /* FloatLabel */ = {
 			isa = PBXGroup;
 			children = (
+				7E9E5D0D1D07FF4600EDF589 /* XLFormWeekDaysCell.swift */,
+				7E9E5D0E1D07FF4600EDF589 /* XLFormWeekDaysCell.xib */,
 				7EC476431CB260490017535E /* CustomFloatLabelCell.swift */,
 			);
 			name = FloatLabel;
@@ -911,6 +917,7 @@
 				7E5C6C341C6487EA006A5927 /* Rule1View.xib in Resources */,
 				7E6930FD1BFAFEE6004F1719 /* ManageFlight.storyboard in Resources */,
 				7E4168301C718209008884DC /* BoardingPassView.xib in Resources */,
+				7E9E5D101D07FF4600EDF589 /* XLFormWeekDaysCell.xib in Resources */,
 				7E6931121BFB1F2C004F1719 /* MobileCheckIn.storyboard in Resources */,
 				7E69311B1BFB2F0E004F1719 /* BoardingPass.storyboard in Resources */,
 			);
@@ -1094,6 +1101,7 @@
 				7EA03FD41CA934440089CD2A /* InsuranceViewController.swift in Sources */,
 				7E0707901C72CD14001D7328 /* PasswordExpiredViewController.swift in Sources */,
 				7E1AFD5E1C7D3CF400046200 /* UserList.swift in Sources */,
+				7E9E5D0F1D07FF4600EDF589 /* XLFormWeekDaysCell.swift in Sources */,
 				7E33D8E71C87CFC900901629 /* EditMHFlightDetailViewController.swift in Sources */,
 				7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */,
 				7E026E581CD9DA610069DEED /* RemoteNotificationManager.swift in Sources */,

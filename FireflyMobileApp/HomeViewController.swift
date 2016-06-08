@@ -543,7 +543,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
     }
     
-    func saveCheckInList(list : [AnyObject], userId : String, signature : String){
+    func saveCheckInList(list : NSArray, userId : String, signature : String){
         
         let userInfo = defaults.objectForKey("userInfo")
         var userList = Results<UserList>!()

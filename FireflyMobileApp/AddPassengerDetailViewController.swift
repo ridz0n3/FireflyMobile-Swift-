@@ -39,6 +39,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             section = XLFormSectionDescriptor.formSectionWithTitle("Family & Friends")
             form.addFormSection(section)
         }
+        
         for adult in 1...adultCount{
             
             var i = adult
@@ -135,6 +136,13 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 }
                 
+                // WeekDays
+                row = XLFormRowDescriptor(tag: "Tags.CustomRowWeekdays", rowType: XLFormRowDescriptorTypeWeekDays)
+                row.value =  [
+                    XLFormWeekDaysCell.kWeekDay.Sunday.description(): false
+                ]
+                section.addFormRow(row)
+                
             }else{
                 // Title
                 
@@ -201,6 +209,14 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                 section.addFormRow(row)
                 }
+                
+                // WeekDays
+                row = XLFormRowDescriptor(tag: "TagsCustomRowWeekdays", rowType: XLFormRowDescriptorTypeWeekDays)
+                row.value =  [
+                    XLFormWeekDaysCell.kWeekDay.Sunday.description(): false
+                ]
+                section.addFormRow(row)
+                
             }
             
         }
@@ -303,7 +319,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             }else{
                 
                 showLoading()
-                FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType), completion: { (result) -> () in
+                FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType, "", ""), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
