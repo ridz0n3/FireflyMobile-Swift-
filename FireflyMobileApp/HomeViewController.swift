@@ -416,6 +416,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             let formater = NSDateFormatter()
             formater.dateFormat = "yyyy-MM-dd"
+            let twentyFour = NSLocale(localeIdentifier: "en_GB")
+            formater.locale = twentyFour
             let date = (listInfo["date"] as! String).componentsSeparatedByString(" ")
             let new = "\(date[2])-\(date[1])-\(date[0])"
             let newdate = formater.dateFromString(new)
@@ -565,6 +567,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             let formater = NSDateFormatter()
             formater.dateFormat = "yyyy-MM-dd"
+            let twentyFour = NSLocale(localeIdentifier: "en_GB")
+            formater.locale = twentyFour
             let date = (listInfo["date"] as! String).componentsSeparatedByString(" ")
             let new = "\(date[2])-\(date[1])-\(date[0])"
             let newdate = formater.dateFromString(new)

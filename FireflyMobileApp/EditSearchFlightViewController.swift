@@ -76,7 +76,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
         let formater = NSDateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
-        
+        let twentyFour = NSLocale(localeIdentifier: "en_GB")
+        formater.locale = twentyFour
         if (indexPath.section == 0 && !isCheckGoing) || (indexPath.section == 1 && !isCheckReturn){
             cell.bgView.backgroundColor = UIColor.lightGrayColor()
         }else{
