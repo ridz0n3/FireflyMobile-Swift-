@@ -416,6 +416,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             let formater = NSDateFormatter()
             formater.dateFormat = "yyyy-MM-dd"
+            let twentyFour = NSLocale(localeIdentifier: "en_GB")
+            formater.locale = twentyFour
             let date = (listInfo["date"] as! String).componentsSeparatedByString(" ")
             let new = "\(date[2])-\(date[1])-\(date[0])"
             let newdate = formater.dateFromString(new)
@@ -518,6 +520,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             hideLoading()
                             let alert = SCLAlertView()
                             alert.showInfo("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                            NSNotificationCenter.defaultCenter().postNotificationName("reloadCheckInList", object: nil)
                         }
                     }else if json["status"] == "error"{
                         hideLoading()
@@ -565,6 +568,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             let formater = NSDateFormatter()
             formater.dateFormat = "yyyy-MM-dd"
+            let twentyFour = NSLocale(localeIdentifier: "en_GB")
+            formater.locale = twentyFour
             let date = (listInfo["date"] as! String).componentsSeparatedByString(" ")
             let new = "\(date[2])-\(date[1])-\(date[0])"
             let newdate = formater.dateFromString(new)

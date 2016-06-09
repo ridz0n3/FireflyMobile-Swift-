@@ -209,7 +209,8 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
                 
                 let formater = NSDateFormatter()
                 formater.dateFormat = "yyyy-MM-dd"
-                
+                let twentyFour = NSLocale(localeIdentifier: "en_GB")
+                formater.locale = twentyFour
                 selectDate = formater.dateFromString(arrangeDate)!
             }
             

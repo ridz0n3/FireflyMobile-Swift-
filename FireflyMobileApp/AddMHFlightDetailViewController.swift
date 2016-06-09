@@ -109,13 +109,6 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
                 journey_sell_key_2 = flightDetail[1]["flights"][checkReturnIndexPath.row]["journey_sell_key"].string!
                 fare_sell_key_2 = flightDetail[1]["flights"][checkReturnIndexPath.row][planBack]["fare_sell_key"].string!
                 
-                let formater = NSDateFormatter()
-                formater.dateFormat = "hh:mm a"
-                let time1 = formater.dateFromString(departure_time_2)
-                let time2 = formater.dateFromString(arrival_time_2)
-                let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
-                //print(timeDifference)
-                
             }
             
             if checkGoingIndex == "1"{
@@ -145,6 +138,8 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             
             let formater = NSDateFormatter()
             formater.dateFormat = "hh:mm a"
+            let twentyFour = NSLocale(localeIdentifier: "en_GB")
+            formater.locale = twentyFour
             let time1 = formater.dateFromString(departure_time_1)
             let time2 = formater.dateFromString(arrival_time_1)
             let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour

@@ -191,6 +191,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 
                 let formater = NSDateFormatter()
                 formater.dateFormat = "hh:mma"
+                let twentyFour = NSLocale(localeIdentifier: "en_GB")
+                formater.locale = twentyFour
                 let time1 = formater.dateFromString(data["departure_time"] as! String)
                 let time2 = formater.dateFromString(data["arrival_time"] as! String)
                 let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
