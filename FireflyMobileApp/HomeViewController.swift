@@ -517,10 +517,26 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadCheckInList", object: nil)
                             }
                         }else{
+                            
+                            if isExist{
+                                
+                                let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+                                var userData : Results<UserList>! = nil
+                                userData = realm.objects(UserList)
+                                let mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
+                                
+                                if mainUser.count != 0{
+                                    realm.beginWrite()
+                                    realm.delete(mainUser[0].checkinList)
+                                    try! realm.commitWrite()
+                                }
+                                
+                            }
+                            
                             hideLoading()
                             let alert = SCLAlertView()
                             alert.showInfo("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
-                            NSNotificationCenter.defaultCenter().postNotificationName("reloadCheckInList", object: nil)
+                        NSNotificationCenter.defaultCenter().postNotificationName("emptyCheckInList", object: nil)
                         }
                     }else if json["status"] == "error"{
                         hideLoading()

@@ -19,6 +19,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.loginMobileCheckInScreen)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginMobileCheckinViewController.refreshCheckInList(_:)), name: "reloadCheckInList", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginMobileCheckinViewController.emptyCheckInList(_:)), name: "emptyCheckInList", object: nil)
         loadingIndicator.hidden = indicator
         loadCheckInList()
     }
@@ -33,6 +34,12 @@ class LoginMobileCheckinViewController: CommonListViewController {
         if mainUser.count != 0{
             checkInList = mainUser[0].checkinList.sorted("departureDateTime", ascending: false)
         }
+        
+    }
+    
+    func emptyCheckInList(notif : NSNotification){
+        
+        self.navigationController?.popViewControllerAnimated(true)
         
     }
     
@@ -65,8 +72,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
                         self.navigationController!.pushViewController(checkInDetailVC, animated: true)
                         
                     }else{
-                        
-                                showErrorMessage(json["message"].string!)
+                        showErrorMessage(json["message"].string!)
                     }
                     hideLoading()
                 }
