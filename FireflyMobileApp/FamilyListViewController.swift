@@ -14,6 +14,9 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
     @IBOutlet weak var addAdultButton: UIButton!
     @IBOutlet weak var addInfantButton: UIButton!
     @IBOutlet weak var familyListTableView: UITableView!
+    
+    var familyAndFriend = [AnyObject]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
@@ -30,7 +33,7 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return familyAndFriend.count
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -40,7 +43,14 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = self.familyListTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomFamilyListTableViewCell
         
-        cell.nameLbl.text = "test"
+        let familyInfo = familyAndFriend[indexPath.row] as! NSDictionary
+        
+        if familyInfo["title"] as! String == ""{
+            cell.nameLbl.text = "\(familyInfo["first_name"] as! String) \(familyInfo["last_name"] as! String)"
+        }else{
+            cell.nameLbl.text = "\(familyInfo["title"] as! String) \(familyInfo["first_name"] as! String) \(familyInfo["last_name"] as! String)"
+        }
+        
         
         return cell
     }

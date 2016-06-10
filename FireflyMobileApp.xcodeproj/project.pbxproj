@@ -15,6 +15,8 @@
 		7E11C0851C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11C0841C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift */; };
 		7E11C0871C47AC9700C67BD2 /* AddPassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11C0861C47AC9700C67BD2 /* AddPassengerDetailViewController.swift */; };
 		7E11C0891C47AEE300C67BD2 /* EditPassengerDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */; };
+		7E19B37D1D09053200B8D9EF /* CustomCheckBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E19B37C1D09053200B8D9EF /* CustomCheckBoxCell.swift */; };
+		7E19B37F1D090F3800B8D9EF /* CustomCheckBoxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E19B37E1D090F3800B8D9EF /* CustomCheckBoxCell.xib */; };
 		7E1AFD5E1C7D3CF400046200 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1AFD5D1C7D3CF300046200 /* UserList.swift */; };
 		7E1AFD641C7D49CC00046200 /* BoardingPassList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1AFD631C7D49CC00046200 /* BoardingPassList.swift */; };
 		7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */; };
@@ -97,8 +99,6 @@
 		7E9DD28D1C9AA906008E1B90 /* preloader300.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7E9DD28C1C9AA906008E1B90 /* preloader300.gif */; };
 		7E9DD28F1C9AA9A6008E1B90 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9DD28E1C9AA9A6008E1B90 /* UIImage+Gif.swift */; };
 		7E9DD2911C9AA9F7008E1B90 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */; };
-		7E9E5D0F1D07FF4600EDF589 /* XLFormWeekDaysCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9E5D0D1D07FF4600EDF589 /* XLFormWeekDaysCell.swift */; };
-		7E9E5D101D07FF4600EDF589 /* XLFormWeekDaysCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E9E5D0E1D07FF4600EDF589 /* XLFormWeekDaysCell.xib */; };
 		7E9FBCEA1C5870140023095D /* CustomLoginManageFlightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */; };
 		7E9FBCEC1C5870750023095D /* LoginManageFlightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */; };
 		7EA03FD21CA931D70089CD2A /* Insurance.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EA03FD11CA931D60089CD2A /* Insurance.storyboard */; };
@@ -179,6 +179,8 @@
 		7E11C0841C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonPassengerDetailViewController.swift; sourceTree = "<group>"; };
 		7E11C0861C47AC9700C67BD2 /* AddPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddPassengerDetailViewController.swift; sourceTree = "<group>"; };
 		7E11C0881C47AEE300C67BD2 /* EditPassengerDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditPassengerDetailViewController.swift; sourceTree = "<group>"; };
+		7E19B37C1D09053200B8D9EF /* CustomCheckBoxCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCheckBoxCell.swift; sourceTree = "<group>"; };
+		7E19B37E1D090F3800B8D9EF /* CustomCheckBoxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCheckBoxCell.xib; sourceTree = "<group>"; };
 		7E1AFD5D1C7D3CF300046200 /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
 		7E1AFD631C7D49CC00046200 /* BoardingPassList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassList.swift; sourceTree = "<group>"; };
 		7E1F77D91BF96E6C00F55C46 /* Firefly Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Firefly Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -270,8 +272,6 @@
 		7E9DD28C1C9AA906008E1B90 /* preloader300.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = preloader300.gif; sourceTree = "<group>"; };
 		7E9DD28E1C9AA9A6008E1B90 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Gif.swift"; sourceTree = "<group>"; };
 		7E9DD2901C9AA9F7008E1B90 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
-		7E9E5D0D1D07FF4600EDF589 /* XLFormWeekDaysCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLFormWeekDaysCell.swift; sourceTree = "<group>"; };
-		7E9E5D0E1D07FF4600EDF589 /* XLFormWeekDaysCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = XLFormWeekDaysCell.xib; sourceTree = "<group>"; };
 		7E9FBCE91C5870140023095D /* CustomLoginManageFlightTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLoginManageFlightTableViewCell.swift; sourceTree = "<group>"; };
 		7E9FBCEB1C5870750023095D /* LoginManageFlightViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginManageFlightViewController.swift; sourceTree = "<group>"; };
 		7EA03FD11CA931D60089CD2A /* Insurance.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Insurance.storyboard; sourceTree = "<group>"; };
@@ -716,9 +716,9 @@
 		7EC1DBD01C158A8800677D55 /* FloatLabel */ = {
 			isa = PBXGroup;
 			children = (
-				7E9E5D0D1D07FF4600EDF589 /* XLFormWeekDaysCell.swift */,
-				7E9E5D0E1D07FF4600EDF589 /* XLFormWeekDaysCell.xib */,
 				7EC476431CB260490017535E /* CustomFloatLabelCell.swift */,
+				7E19B37C1D09053200B8D9EF /* CustomCheckBoxCell.swift */,
+				7E19B37E1D090F3800B8D9EF /* CustomCheckBoxCell.xib */,
 			);
 			name = FloatLabel;
 			sourceTree = "<group>";
@@ -910,6 +910,7 @@
 				7E72B0471CB4FF67005FD33A /* preloader.gif in Resources */,
 				7E6930F91BFAFE17004F1719 /* FlightHeaderView.xib in Resources */,
 				7E1F78281BF9C50400F55C46 /* Register.storyboard in Resources */,
+				7E19B37F1D090F3800B8D9EF /* CustomCheckBoxCell.xib in Resources */,
 				7EC1DBCD1C15602200677D55 /* PassengerHeader.xib in Resources */,
 				7E9301531CFBD68D00162954 /* GoogleService-Info.plist in Resources */,
 				7EB829E51C0AC2CC00E83320 /* UpdateInformation.storyboard in Resources */,
@@ -917,7 +918,6 @@
 				7E5C6C341C6487EA006A5927 /* Rule1View.xib in Resources */,
 				7E6930FD1BFAFEE6004F1719 /* ManageFlight.storyboard in Resources */,
 				7E4168301C718209008884DC /* BoardingPassView.xib in Resources */,
-				7E9E5D101D07FF4600EDF589 /* XLFormWeekDaysCell.xib in Resources */,
 				7E6931121BFB1F2C004F1719 /* MobileCheckIn.storyboard in Resources */,
 				7E69311B1BFB2F0E004F1719 /* BoardingPass.storyboard in Resources */,
 			);
@@ -1068,6 +1068,7 @@
 				7ED96FEF1D066D0C00479D7A /* CustomFamilyListTableViewCell.swift in Sources */,
 				7EB0DE0C1C83DFAB000AA6A8 /* MHFlightHeaderView.swift in Sources */,
 				7EBCD6A81BFACAF80043F28C /* CustomChooseSeatTableViewCell.swift in Sources */,
+				7E19B37D1D09053200B8D9EF /* CustomCheckBoxCell.swift in Sources */,
 				7E5C6C301C643DA5006A5927 /* MobileCheckInTermViewController.swift in Sources */,
 				7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */,
 				7EBBFA101C101BC200080FFA /* RSDFDatePickerViewController.swift in Sources */,
@@ -1101,7 +1102,6 @@
 				7EA03FD41CA934440089CD2A /* InsuranceViewController.swift in Sources */,
 				7E0707901C72CD14001D7328 /* PasswordExpiredViewController.swift in Sources */,
 				7E1AFD5E1C7D3CF400046200 /* UserList.swift in Sources */,
-				7E9E5D0F1D07FF4600EDF589 /* XLFormWeekDaysCell.swift in Sources */,
 				7E33D8E71C87CFC900901629 /* EditMHFlightDetailViewController.swift in Sources */,
 				7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */,
 				7E026E581CD9DA610069DEED /* RemoteNotificationManager.swift in Sources */,

@@ -9,6 +9,7 @@
 import UIKit
 import XLForm
 import SwiftyJSON
+import ActionSheetPicker_3_0
 
 class CommonPassengerDetailViewController: BaseXLFormViewController {
     
@@ -16,6 +17,11 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var continueBtn: UIButton!
     
+    var userInfo = NSDictionary()
+    var adultList = [AnyObject]()
+    var infantList = [AnyObject]()
+    var adultName = [String]()
+    var infantName = [String]()
     var module = String()
     var adultCount = Int()
     var infantCount = Int()
@@ -23,6 +29,10 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     var flightType = String()
     var adultDetails = [Dictionary<String,AnyObject>]()
     var infantDetails = [Dictionary<String,AnyObject>]()
+    var familyAndFriend = [AnyObject]()
+    var adultInfo = [String : AnyObject]()
+    var infantInfo = [String : AnyObject]()
+    var data = [String : AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +41,46 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         self.tableView.tableFooterView = footerView
         setupLeftButton()
         
+        if try! LoginManager.sharedInstance.isLogin(){
+            
+            userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+            
+            if familyAndFriend.count == 0{
+                data = ["title" : userInfo["title"]!,
+                        "first_name" : userInfo["first_name"]!,
+                        "last_name" : userInfo["last_name"]!,
+                        "dob" : userInfo["DOB"]!,
+                        "nationality" : userInfo["contact_country"]!,
+                        "bonuslink_card" : userInfo["bonuslink"]!]
+                adultInfo.updateValue(data, forKey: "0")
+            }else{
+                for tempInfo in familyAndFriend{
+                    
+                    if (tempInfo["title"] as! String == userInfo["title"]! as! String) && (tempInfo["first_name"] as! String == userInfo["first_name"]! as! String) && (tempInfo["last_name"] as! String == userInfo["last_name"]! as! String) {
+                        adultInfo.updateValue(tempInfo, forKey: "0")
+                    }
+                }
+            }
+            
+        }
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonPassengerDetailViewController.addExpiredDate(_:)), name: "expiredDate", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonPassengerDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
-            return 91
+            
+            if section == 0{
+                return 91
+            }else{
+                if infantList.count == 0 || adultList.count == 0{
+                    return 35
+                }else{
+                    return 91
+                }
+            }
+            
         }else{
             return 35
         }
@@ -47,27 +90,49 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
-            let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
-            
-            sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-            
             let index = UInt(section)
             
             if index == 0{
+                let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
+                
+                sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+                
                 sectionView.familyButton.setTitle("Manage Family & Friends", forState: .Normal)
                 sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.manageButtonClicked), forControlEvents: .TouchUpInside)
+                sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
+                sectionView.titleLbl.textColor = UIColor.whiteColor()
+                sectionView.titleLbl.textAlignment = NSTextAlignment.Center
+                sectionView.familyButton.layer.cornerRadius = 10
+                sectionView.familyButton.tag = section
+                
+                return sectionView
+            }else if infantList.count == 0 || adultList.count == 0{
+                let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+                
+                sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+                
+                let index = UInt(section)
+                
+                sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
+                sectionView.sectionLbl.textColor = UIColor.whiteColor()
+                sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+                
+                return sectionView
             }else{
+                let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
+                
+                sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                 sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
                 sectionView.familyButton.accessibilityHint = form.formSectionAtIndex(index)?.title
+                sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
+                sectionView.titleLbl.textColor = UIColor.whiteColor()
+                sectionView.titleLbl.textAlignment = NSTextAlignment.Center
+                sectionView.familyButton.layer.cornerRadius = 10
+                sectionView.familyButton.tag = section
+                
+                return sectionView
             }
             
-            sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
-            sectionView.titleLbl.textColor = UIColor.whiteColor()
-            sectionView.titleLbl.textAlignment = NSTextAlignment.Center
-            sectionView.familyButton.layer.cornerRadius = 10
-            sectionView.familyButton.tag = section
-            
-            return sectionView
         }else{
             let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
             
@@ -92,24 +157,24 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         for var i = 0; i < adultCount; i = i + 1{
             var count = i
             count = count + 1
-            var adultInfo = [String:AnyObject]()
+            var saveAdultInfo = [String:AnyObject]()
             
             let name = "\(formValues()[String(format: "%@(adult%i)", Tags.ValidationTitle, count)] as! String, titleArr: titleArray) \(formValues()[String(format: "%@(adult%i)", Tags.ValidationFirstName, count)]!) \(formValues()[String(format: "%@(adult%i)", Tags.ValidationLastName, count)]!))"
             passengerName.append(name)
             
-            adultInfo.updateValue(getTitleCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationTitle, count)] as! String, titleArr: titleArray), forKey: "title")
-            adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationFirstName, count)]!, forKey: "first_name")
-            adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
+            saveAdultInfo.updateValue(getTitleCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationTitle, count)] as! String, titleArr: titleArray), forKey: "title")
+            saveAdultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationFirstName, count)]!, forKey: "first_name")
+            saveAdultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
             
             let date = formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]! as! String
             var arrangeDate = date.componentsSeparatedByString("-")
             
-            adultInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])", forKey: "dob")
+            saveAdultInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])", forKey: "dob")
             //adultInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
-            adultInfo.updateValue("NRIC", forKey: "travel_document")
-            adultInfo.updateValue(getCountryCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
+            saveAdultInfo.updateValue("NRIC", forKey: "travel_document")
+            saveAdultInfo.updateValue(getCountryCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
             //adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
-            adultInfo.updateValue("", forKey: "document_number")
+            saveAdultInfo.updateValue("", forKey: "document_number")
             
             let expiredDate = nilIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationExpiredDate, count)])! as! String
             var arrangeExpDate = NSArray()
@@ -120,14 +185,30 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
             }
             
-            adultInfo.updateValue(newExpDate, forKey: "expiration_date")
+            saveAdultInfo.updateValue(newExpDate, forKey: "expiration_date")
             
             if flightType == "FY"{
-            adultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "bonuslink")
+            saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "bonuslink")
             }
             
-            passenger.updateValue(adultInfo, forKey: "\(i)")
-            tempPassenger.append(adultInfo)
+            if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
+                let status = formValues()[String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, count)] as! NSDictionary
+                if status["status"] as! Bool == false{
+                    saveAdultInfo.updateValue("N", forKey: "friend_and_family")
+                }else{
+                    saveAdultInfo.updateValue("Y", forKey: "friend_and_family")
+                    saveAdultInfo.updateValue("Adult", forKey: "passenger_type")
+                    let passengerId = adultInfo["\(i)"] as! NSDictionary
+                    
+                    if (passengerId["id"] != nil){
+                        saveAdultInfo.updateValue(passengerId["id"] as! Int, forKey: "friend_and_family_id")
+                    }
+                    
+                }
+            }
+            
+            passenger.updateValue(saveAdultInfo, forKey: "\(i)")
+            tempPassenger.append(saveAdultInfo)
         }
         
         var travelWith = [String]()
@@ -154,6 +235,16 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             infantInfo.updateValue(getCountryCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
             //infantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
             infantInfo.updateValue("", forKey: "document_number")
+            
+            if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
+                let status = formValues()[String(format: "%@(infant%i)", Tags.SaveFamilyAndFriend, count)] as! NSDictionary
+                if status["status"] as! Bool == false{
+                    infantInfo.updateValue("N", forKey: "friend_and_family")
+                }else{
+                    infantInfo.updateValue("Y", forKey: "friend_and_family")
+                    infantInfo.updateValue("Infant", forKey: "passenger_type")
+                }
+            }
             
             let expiredDate = nilIfEmpty(formValues()[String(format: "%@(infant%i)", Tags.ValidationExpiredDate, count)])! as! String
             var arrangeExpDate = NSArray()
@@ -325,15 +416,45 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
         let storyboard = UIStoryboard(name: "FamilyAndFriend", bundle: nil)
         let manageFamilyVC = storyboard.instantiateViewControllerWithIdentifier("FamilyListVC") as! FamilyListViewController
+        manageFamilyVC.familyAndFriend = familyAndFriend
         self.navigationController?.pushViewController(manageFamilyVC, animated: true)
         
     }
     
+    var infantSelect = [String : AnyObject]()
+    var adultSelect = [String : AnyObject]()
     func selectButtonClicked(sender : UIButton){
         
-        print(sender.accessibilityHint)
+        //print(sender.accessibilityHint)
+        
+        let type = (sender.accessibilityHint)!.componentsSeparatedByString(" ")
+        
+        if type[0] == "ADULT"{
+            let picker = ActionSheetStringPicker(title: "", rows: adultName, initialSelection: adultSelect["\(sender.tag)"] as! Int, target: self, successAction: #selector(self.adultSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
+            picker.showActionSheetPicker()
+        }else{
+            let picker = ActionSheetStringPicker(title: "", rows: infantName, initialSelection: infantSelect["\(sender.tag)"] as! Int, target: self, successAction: #selector(self.infantSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
+            picker.showActionSheetPicker()
+
+        }
+        
+
     }
     
+    func adultSelected(index :NSNumber, element:AnyObject){
+       
+    }
+    
+    func infantSelected(index :NSNumber, element:AnyObject){
+        
+        let btn = element as! UIButton
+        infantSelect.updateValue(Int(index), forKey: "\(btn.tag)")
+        
+    }
+    
+    func actionPickerCancelled(sender:AnyObject){
+        //do nothing
+    }
     /*
     // MARK: - Navigation
     

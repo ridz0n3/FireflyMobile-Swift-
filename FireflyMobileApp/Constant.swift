@@ -66,6 +66,7 @@ internal struct Tags {
     static var ValidationArriving = "Arriving"
     static var ValidationSSRList = "Meals"
     static var HideSection = "hide"
+    static var SaveFamilyAndFriend = "save"
     
 }
 

@@ -12,6 +12,7 @@ import XLForm
 
 class AddPassengerDetailViewController: CommonPassengerDetailViewController {
     
+    var status = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +22,33 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         adultCount = (defaults.objectForKey("adult")?.integerValue)!
         infantCount = (defaults.objectForKey("infants")?.integerValue)!
         module = "addPassenger"
+        rearrangeFamily()
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.passengerDetailsScreen)
     }
+    
+    func rearrangeFamily(){
+        
+        for familyInfo in familyAndFriend{
+            
+            if familyInfo["title"] as! String == ""{
+                infantList.append(familyInfo)
+                infantName.append("\(familyInfo["first_name"] as! String) \(familyInfo["last_name"] as! String)")
+            }else{
+                adultList.append(familyInfo)
+                adultName.append("\(familyInfo["title"] as! String) \(familyInfo["first_name"] as! String) \(familyInfo["last_name"] as! String)")
+            }
+            
+        }
+        
+    }
+    
+    let adultTempData = ["title" : "",
+                    "first_name" : "",
+                    "last_name" : "",
+                    "dob" : "",
+                    "nationality" : "",
+                    "bonuslink_card" : ""]
     
     func initializeForm() {
         
@@ -52,19 +77,18 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             section = XLFormSectionDescriptor.formSectionWithTitle("ADULT \(adult)")
             form.addFormSection(section)
             
+            adultSelect.updateValue(0, forKey: "\(adult)")
             if try! LoginManager.sharedInstance.isLogin() && adult == 1 {
                 
+                let info = adultInfo["\(i)"]!
                 // Title
-                
-                let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
-                
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Title:*")
                 
                 var tempArray:[AnyObject] = [AnyObject]()
                 for title in titleArray{
                     tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
                     
-                    if title["title_code"] as! String == userInfo["title"] as! String{
+                    if title["title_code"] as! String == info["title"] as! String{
                         row.value = title["title_name"] as! String
                     }
                 }
@@ -77,33 +101,21 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
-                row.value = "\(userInfo["first_name"]!)"
+                row.value = "\(info["first_name"]! as! String)"
                 section.addFormRow(row)
                 
                 //last name
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
-                row.value = "\(userInfo["last_name"]!)"
+                row.value = "\(info["last_name"]! as! String)"
                 section.addFormRow(row)
                 
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
-                row.value = formatDate(stringToDate(userInfo["DOB"] as! String))//"\(userInfo["DOB"]!)"
+                row.value = formatDate(stringToDate(info["dob"] as! String))//"\(userInfo["DOB"]!)"
                 row.required = true
                 section.addFormRow(row)
-                
-                // Travel Document
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTravelDoc, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Travel Document:*")
-                
-                tempArray = [AnyObject]()
-                for travel in travelDoc{
-                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
-                }
-                
-                row.selectorOptions = tempArray
-                row.required = true
-                //section.addFormRow(row)
                 
                 // Country
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Nationality:*")
@@ -112,7 +124,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 for country in countryArray{
                     tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
                     
-                    if country["country_code"] as! String == userInfo["contact_country"] as! String{
+                    if country["country_code"] as! String == info["nationality"] as! String{
                         row.value = country["country_name"] as! String
                     }
                 }
@@ -121,36 +133,42 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 row.required = true
                 section.addFormRow(row)
                 
-                // Document Number
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
-                row.required = true
-                //section.addFormRow(row)
-                
-                
                 if flightType == "FY"{
                     
                 // Enrich Loyalty No
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
                 //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
-                row.value = "\(userInfo["bonuslink"]!)"
+                row.value = "\(info["bonuslink_card"]! as! String)"
                 section.addFormRow(row)
                 }
                 
-                // WeekDays
-                row = XLFormRowDescriptor(tag: "Tags.CustomRowWeekdays", rowType: XLFormRowDescriptorTypeWeekDays)
-                row.value =  [
-                    XLFormWeekDaysCell.kWeekDay.Sunday.description(): false
-                ]
-                section.addFormRow(row)
+                if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
+                    // Save family and friend
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox)
+                    row.value =  [
+                        CustomCheckBoxCell.kSave.status.description(): false
+                    ]
+                    section.addFormRow(row)
+                }
                 
             }else{
                 // Title
+                //
+                if status != "select"{
+                    adultInfo.updateValue(adultTempData, forKey: "\(i)")
+                }
+                
+                let info = adultInfo["\(i)"]!
                 
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTitle, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Title:*")
                 
                 var tempArray:[AnyObject] = [AnyObject]()
                 for title in titleArray{
                     tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as! String))
+                    
+                    if title["title_code"] as! String == info["title"] as! String{
+                        row.value = title["title_name"] as! String
+                    }
                 }
                 
                 row.selectorOptions = tempArray
@@ -161,30 +179,23 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
+                row.value = "\(info["first_name"]! as! String)"
                 section.addFormRow(row)
                 
                 //last name
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.required = true
+                row.value = "\(info["last_name"]! as! String)"
                 section.addFormRow(row)
                 
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
                 row.required = true
-                section.addFormRow(row)
-                
-                // Travel Document
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationTravelDoc, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Travel Document:*")
-                
-                tempArray = [AnyObject]()
-                for travel in travelDoc{
-                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
+                if info["dob"] as! String != ""{
+                    row.value = formatDate(stringToDate(info["dob"] as! String))
                 }
-                
-                row.selectorOptions = tempArray
-                row.required = true
-                //section.addFormRow(row)
+                section.addFormRow(row)
                 
                 // Country
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationCountry, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Nationality:*")
@@ -192,30 +203,32 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 tempArray = [AnyObject]()
                 for country in countryArray{
                     tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
+                    
+                    if country["country_code"] as! String == info["nationality"] as! String{
+                        row.value = country["country_name"] as! String
+                    }
                 }
                 
                 row.selectorOptions = tempArray
                 row.required = true
                 section.addFormRow(row)
                 
-                // Document Number
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
-                row.required = true
-                //section.addFormRow(row)
-                
                 if flightType == "FY"{
                 // Enrich Loyalty No
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
                 //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+                row.value = "\(info["bonuslink_card"]! as! String)"
                 section.addFormRow(row)
                 }
                 
-                // WeekDays
-                row = XLFormRowDescriptor(tag: "TagsCustomRowWeekdays", rowType: XLFormRowDescriptorTypeWeekDays)
-                row.value =  [
-                    XLFormWeekDaysCell.kWeekDay.Sunday.description(): false
-                ]
-                section.addFormRow(row)
+                if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
+                    // Save family and friend
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox)
+                    row.value =  [
+                        CustomCheckBoxCell.kSave.status.description(): false
+                    ]
+                    section.addFormRow(row)
+                }
                 
             }
             
@@ -225,7 +238,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             var j = i
             j = j + 1
             
-            
+            infantSelect.updateValue(0, forKey: "\(j)")
             // Basic Information - Section
             section = XLFormSectionDescriptor()
             section = XLFormSectionDescriptor.formSectionWithTitle("INFANT \(j)")
@@ -249,6 +262,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             tempArray = [AnyObject]()
             for gender in genderArray{
                 tempArray.append(XLFormOptionsObject(value: gender["gender_code"] as! String, displayText: gender["gender_name"] as! String))
+                
             }
             
             row.selectorOptions = tempArray
@@ -301,6 +315,15 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDocumentNo, j), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
             row.required = true
             //section.addFormRow(row)
+            
+            if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
+                // Save family and friend
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.SaveFamilyAndFriend, j), rowType: XLFormRowDescriptorCheckbox)
+                row.value =  [
+                    CustomCheckBoxCell.kSave.status.description(): false
+                ]
+                section.addFormRow(row)
+            }
         }
         
         self.form = form
@@ -317,9 +340,15 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             }else if !params.5 && params.1.count != 0{
                 showErrorMessage("You can only assign one infant to one guest.")
             }else{
+                var email = String()
+                
+                if try! LoginManager.sharedInstance.isLogin(){
+                    let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+                    email = userInfo["contact_email"] as! String
+                }
                 
                 showLoading()
-                FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType, "", ""), completion: { (result) -> () in
+                FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType, email), completion: { (result) -> () in
                     
                     switch result {
                     case .Success(let successResult):
@@ -378,5 +407,13 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         
     }
     
+    override func adultSelected(index: NSNumber, element: AnyObject) {
+        status = "select"
+        let btn = element as! UIButton
+        adultSelect.updateValue(Int(index), forKey: "\(btn.tag)")
+        data = adultList[Int(index)] as! [String : AnyObject]
+        adultInfo.updateValue(data, forKey: "\(btn.tag - 1)")
+        initializeForm()
+    }
     
 }

@@ -257,6 +257,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                         defaults.setObject(json["booking_id"].int , forKey: "booking_id")
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
+                        personalDetailVC.familyAndFriend = json["family_and_friend"].arrayObject!
                         self.navigationController!.pushViewController(personalDetailVC, animated: true)
                     }else if json["status"] == "error"{
                         
