@@ -547,8 +547,19 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     }
     
     func detailBtnPressed(sender:UIButton){
+        
+        // Create custom Appearance Configuration
+        let appearance = SCLAlertView.SCLAppearance(
+            kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+            kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            showCircularIcon: true,
+            kCircleIconHeight: 40
+        )
+        let alertViewIcon = UIImage(named: "alertIcon")
+        
         let newDetail = sender.accessibilityHint!.stringByReplacingOccurrencesOfString("And", withString: "&")
-        SCLAlertView().showSuccess("Taxes/Fees", subTitle: newDetail, closeButtonTitle: "Close", colorStyle:0xEC581A)
+        SCLAlertView(appearance:appearance).showSuccess("Taxes/Fees", subTitle: newDetail, closeButtonTitle: "Close", colorStyle:0xEC581A, circleIconImage:alertViewIcon)
         
     }
     

@@ -251,7 +251,7 @@ var alertView = SCLAlertView()
 func showHud(status:String){
     
     if status == "open"{
-        alertView.showCloseButton = false
+        //alertView.showCloseButton = false
         alertView.showWait("Loading...", subTitle: "", colorStyle: 0xEC581A)
     }else{
         alertView.hideView()
@@ -261,41 +261,89 @@ func showHud(status:String){
 }
 
 func showErrorMessage(message : String){
-    
-    let errorView = SCLAlertView()
-    errorView.showError("Error!", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close")
+    // Create custom Appearance Configuration
+    let appearance = SCLAlertView.SCLAppearance(
+        kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+        kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        showCircularIcon: true,
+        kCircleIconHeight: 40
+    )
+    let alertViewIcon = UIImage(named: "alertIcon")
+    let errorView = SCLAlertView(appearance: appearance)
+    errorView.showError("Error!", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage: alertViewIcon)
     
 }
 
 func showRetryMessage(message : String){
     
-    let errorView = SCLAlertView()
+    // Create custom Appearance Configuration
+    let appearance = SCLAlertView.SCLAppearance(
+        kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+        kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        showCircularIcon: true,
+        showCloseButton:false,
+        kCircleIconHeight: 40
+    )
+    let alertViewIcon = UIImage(named: "alertIcon")
+    
+    let errorView = SCLAlertView(appearance: appearance)
     errorView.addButton("Retry") { () -> Void in
         InitialLoadManager.sharedInstance.load()
     }
-    errorView.showCloseButton = false
-    errorView.showError("Error!", subTitle:message, colorStyle: 0xEC581A)
+    //errorView.showCloseButton = false
+    errorView.showError("Error!", subTitle:message, colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
     
 }
 
 func showToastMessage(message:String){
     
-    let messageView = SCLAlertView()
-    messageView.showSuccess("Success", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close")
+    // Create custom Appearance Configuration
+    let appearance = SCLAlertView.SCLAppearance(
+        kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+        kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        showCircularIcon: true,
+        kCircleIconHeight: 40
+    )
+    let alertViewIcon = UIImage(named: "alertIcon")
+    let messageView = SCLAlertView(appearance:appearance)
+    messageView.showSuccess("Success", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage:alertViewIcon)
     
 }
 
 func showNotif(title : String, message:String){
     
-    let infoView = SCLAlertView()
-    infoView.showInfo(title, subTitle: message, closeButtonTitle: "Close", colorStyle: 0xEC581A)
+    // Create custom Appearance Configuration
+    let appearance = SCLAlertView.SCLAppearance(
+        kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+        kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        showCircularIcon: true,
+        kCircleIconHeight: 40
+    )
+    let alertViewIcon = UIImage(named: "alertIcon")
+    
+    let infoView = SCLAlertView(appearance:appearance)
+    infoView.showInfo(title, subTitle: message, closeButtonTitle: "Close", colorStyle: 0xEC581A, circleIconImage:alertViewIcon)
     
 }
 
 func showInfo(message:String){
     
-    let infoView = SCLAlertView()
-    infoView.showInfo("Info", subTitle: message, closeButtonTitle: "Okay", colorStyle: 0xEC581A)
+    // Create custom Appearance Configuration
+    let appearance = SCLAlertView.SCLAppearance(
+        kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+        kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+        showCircularIcon: true,
+        kCircleIconHeight: 40
+    )
+    let alertViewIcon = UIImage(named: "alertIcon")
+    
+    let infoView = SCLAlertView(appearance:appearance)
+    infoView.showInfo("Info", subTitle: message, closeButtonTitle: "Okay", colorStyle: 0xEC581A, circleIconImage:alertViewIcon)
     
 }
 
