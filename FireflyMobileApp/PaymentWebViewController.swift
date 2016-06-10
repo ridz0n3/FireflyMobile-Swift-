@@ -134,12 +134,10 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
                             }
                                 
                             else if self.manage == "manage"{
-                                //AnalyticsManager.sharedInstance.logScreen(GAConstants.flightManagingSummaryScreen)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.manageFlightHomeScreen)
                             }
                             
                         }else if json["status"] == "error"{
-                            
                             showErrorMessage(json["message"].string!)
                         }else if json["status"].string == "401"{
                             hideLoading()
