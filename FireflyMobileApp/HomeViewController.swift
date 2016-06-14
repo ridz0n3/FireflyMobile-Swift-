@@ -153,16 +153,19 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
         if indexPath.row == 0{
             //Crashlytics.sharedInstance().crash()
-            if defaults.objectForKey("module") as! String == "faq"{
-                let storyboard = UIStoryboard(name: "Home", bundle: nil)
-                let FAQVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController
-                FAQVC.secondLevel = true
-                self.navigationController!.pushViewController(FAQVC, animated: true)
-            }else{
-                let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                let bookFlightVC = storyboard.instantiateViewControllerWithIdentifier("BookFlightVC") as! SearchFlightViewController
-                self.navigationController!.pushViewController(bookFlightVC, animated: true)
+            if (defaults.objectForKey("module") != nil){
+                if defaults.objectForKey("module") as! String == "faq"{
+                    let storyboard = UIStoryboard(name: "Home", bundle: nil)
+                    let FAQVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController
+                    FAQVC.secondLevel = true
+                    self.navigationController!.pushViewController(FAQVC, animated: true)
+                }else{
+                    let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
+                    let bookFlightVC = storyboard.instantiateViewControllerWithIdentifier("BookFlightVC") as! SearchFlightViewController
+                    self.navigationController!.pushViewController(bookFlightVC, animated: true)
+                }
             }
+            
             
             
         }else if indexPath.row == 1{

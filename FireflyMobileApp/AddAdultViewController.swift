@@ -8,11 +8,12 @@
 
 import UIKit
 
-class AddAdultViewController: CommonAddAdultViewController {
+class AddAdultViewController: CommonAdultViewController {
 
+    @IBOutlet weak var continueBtn: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        continueBtn.layer.cornerRadius = 10
         // Do any additional setup after loading the view.
     }
 
@@ -21,6 +22,17 @@ class AddAdultViewController: CommonAddAdultViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func continueBtnPressed(sender: AnyObject) {
+        
+        validateForm()
+        
+        if isValidate{
+            
+            
+            
+        }
+        
+    }
 
     /*
     // MARK: - Navigation

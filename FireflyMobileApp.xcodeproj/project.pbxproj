@@ -137,7 +137,11 @@
 		7ECB1B331C437BCE0042456D /* InitialLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */; };
 		7ED96FEF1D066D0C00479D7A /* CustomFamilyListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED96FEE1D066D0C00479D7A /* CustomFamilyListTableViewCell.swift */; };
 		7ED96FF11D06B23C00479D7A /* AddAdultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED96FF01D06B23C00479D7A /* AddAdultViewController.swift */; };
-		7ED96FF31D06B41200479D7A /* CommonAddAdultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED96FF21D06B41200479D7A /* CommonAddAdultViewController.swift */; };
+		7ED96FF31D06B41200479D7A /* CommonAdultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ED96FF21D06B41200479D7A /* CommonAdultViewController.swift */; };
+		7EDC6BCE1D0E58FF005C59BD /* CommonInfantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC6BCD1D0E58FF005C59BD /* CommonInfantViewController.swift */; };
+		7EDC6BD01D0E597E005C59BD /* AddInfantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC6BCF1D0E597E005C59BD /* AddInfantViewController.swift */; };
+		7EDC6BD21D0E8C7B005C59BD /* FamilyAndFriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC6BD11D0E8C7B005C59BD /* FamilyAndFriendList.swift */; };
+		7EDC6BD41D0E8F83005C59BD /* FamilyAndFriendData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDC6BD31D0E8F83005C59BD /* FamilyAndFriendData.swift */; };
 		7EE2F9A01C9907F600499B37 /* NewUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */; };
 		7EE2F9A31C990FA600499B37 /* NewUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7EE2F9A21C990FA600499B37 /* NewUpdate.storyboard */; };
 		7EE2F9A61C99113700499B37 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EE2F9A51C99113700499B37 /* LaunchScreenViewController.swift */; };
@@ -310,7 +314,11 @@
 		7ECB1B321C437BCE0042456D /* InitialLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InitialLoadManager.swift; sourceTree = "<group>"; };
 		7ED96FEE1D066D0C00479D7A /* CustomFamilyListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomFamilyListTableViewCell.swift; sourceTree = "<group>"; };
 		7ED96FF01D06B23C00479D7A /* AddAdultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAdultViewController.swift; sourceTree = "<group>"; };
-		7ED96FF21D06B41200479D7A /* CommonAddAdultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAddAdultViewController.swift; sourceTree = "<group>"; };
+		7ED96FF21D06B41200479D7A /* CommonAdultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonAdultViewController.swift; sourceTree = "<group>"; };
+		7EDC6BCD1D0E58FF005C59BD /* CommonInfantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonInfantViewController.swift; sourceTree = "<group>"; };
+		7EDC6BCF1D0E597E005C59BD /* AddInfantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddInfantViewController.swift; sourceTree = "<group>"; };
+		7EDC6BD11D0E8C7B005C59BD /* FamilyAndFriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyAndFriendList.swift; sourceTree = "<group>"; };
+		7EDC6BD31D0E8F83005C59BD /* FamilyAndFriendData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FamilyAndFriendData.swift; sourceTree = "<group>"; };
 		7EE2F99F1C9907F600499B37 /* NewUpdateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewUpdateViewController.swift; sourceTree = "<group>"; };
 		7EE2F9A21C990FA600499B37 /* NewUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NewUpdate.storyboard; sourceTree = "<group>"; };
 		7EE2F9A51C99113700499B37 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
@@ -601,6 +609,7 @@
 				7E8D69D01D050B2700D3E73B /* FamilyAndFriend.storyboard */,
 				7E8D69D21D050B7500D3E73B /* FamilyListViewController.swift */,
 				7ED96FF01D06B23C00479D7A /* AddAdultViewController.swift */,
+				7EDC6BCF1D0E597E005C59BD /* AddInfantViewController.swift */,
 			);
 			name = "Family and Friend";
 			sourceTree = "<group>";
@@ -657,7 +666,8 @@
 				7E985A0D1C4E381300EBAFA5 /* CommonPaymentViewController.swift */,
 				7E41682D1C71773E008884DC /* CommonSearchDetailViewController.swift */,
 				7E985A071C4DEAAE00EBAFA5 /* CommonSeatSelectionViewController.swift */,
-				7ED96FF21D06B41200479D7A /* CommonAddAdultViewController.swift */,
+				7ED96FF21D06B41200479D7A /* CommonAdultViewController.swift */,
+				7EDC6BCD1D0E58FF005C59BD /* CommonInfantViewController.swift */,
 			);
 			name = CommonClass;
 			sourceTree = "<group>";
@@ -669,6 +679,8 @@
 				7E5537D11CC7709A00A4D629 /* CheckInList.swift */,
 				7E9C65151C7C8BEC00D2E8D1 /* PNRList.swift */,
 				7E1AFD5D1C7D3CF300046200 /* UserList.swift */,
+				7EDC6BD11D0E8C7B005C59BD /* FamilyAndFriendList.swift */,
+				7EDC6BD31D0E8F83005C59BD /* FamilyAndFriendData.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1021,7 +1033,7 @@
 				7EB5B2B21BFC68EE0066D311 /* SectionView.swift in Sources */,
 				7EB829E71C0AC63D00E83320 /* UpdateInformationViewController.swift in Sources */,
 				7EA286391C4782D80004AB9A /* EditContactDetailViewController.swift in Sources */,
-				7ED96FF31D06B41200479D7A /* CommonAddAdultViewController.swift in Sources */,
+				7ED96FF31D06B41200479D7A /* CommonAdultViewController.swift in Sources */,
 				7E20F9111BFA0A760020AB0C /* FlightHeaderView.swift in Sources */,
 				7E4168321C71828F008884DC /* BoardingPassDetailViewController.swift in Sources */,
 				7EBBFA041C1012E400080FFA /* RSDFCustomDatePickerDaysOfWeekView.swift in Sources */,
@@ -1046,6 +1058,7 @@
 				7EBBFA061C10132200080FFA /* RSDFCustomDatePickerCollectionView.swift in Sources */,
 				7E69311D1BFB2F38004F1719 /* BoardingPassViewController.swift in Sources */,
 				7EBBFA091C10134D00080FFA /* RSDFCustomDatePickerCollectionViewLayout.swift in Sources */,
+				7EDC6BD21D0E8C7B005C59BD /* FamilyAndFriendList.swift in Sources */,
 				7E9DD28F1C9AA9A6008E1B90 /* UIImage+Gif.swift in Sources */,
 				7ED96FF11D06B23C00479D7A /* AddAdultViewController.swift in Sources */,
 				7E1F78111BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift in Sources */,
@@ -1071,6 +1084,7 @@
 				7E19B37D1D09053200B8D9EF /* CustomCheckBoxCell.swift in Sources */,
 				7E5C6C301C643DA5006A5927 /* MobileCheckInTermViewController.swift in Sources */,
 				7E82620A1C3CD09D0071FAAA /* FlightSummaryViewController.swift in Sources */,
+				7EDC6BCE1D0E58FF005C59BD /* CommonInfantViewController.swift in Sources */,
 				7EBBFA101C101BC200080FFA /* RSDFDatePickerViewController.swift in Sources */,
 				7E985A0A1C4DEDDC00EBAFA5 /* AddSeatSelectionViewController.swift in Sources */,
 				7E5537D21CC7709A00A4D629 /* CheckInList.swift in Sources */,
@@ -1084,6 +1098,7 @@
 				96C1938E1C60904D00617C17 /* FAQViewController.swift in Sources */,
 				7E985A121C4E3B7600EBAFA5 /* EditPaymentViewController.swift in Sources */,
 				7E11C0851C47AA2D00C67BD2 /* CommonPassengerDetailViewController.swift in Sources */,
+				7EDC6BD41D0E8F83005C59BD /* FamilyAndFriendData.swift in Sources */,
 				7E6931011BFB02A6004F1719 /* CustomManageFlightMenuTableViewCell.swift in Sources */,
 				7EB07B001C28F8440061D1C9 /* DirectionView.swift in Sources */,
 				7E7E45C01BFC3F57002EB3E0 /* BaseXLFormViewController.swift in Sources */,
@@ -1096,6 +1111,7 @@
 				7E6931221BFB32FE004F1719 /* SideMenuTableViewCell.swift in Sources */,
 				7E99B8621C2A6C2800239322 /* CustomPaymentSummaryTableViewCell.swift in Sources */,
 				7E9DD2911C9AA9F7008E1B90 /* LoadingViewController.swift in Sources */,
+				7EDC6BD01D0E597E005C59BD /* AddInfantViewController.swift in Sources */,
 				7EC1DBCF1C15616C00677D55 /* PassengerHeaderView.swift in Sources */,
 				7EBB9C841CF3300F0048689D /* CustomFlightPickerViewController.swift in Sources */,
 				7EB0DE0E1C84295D000AA6A8 /* CustomMHFlightDetailTableViewCell.swift in Sources */,

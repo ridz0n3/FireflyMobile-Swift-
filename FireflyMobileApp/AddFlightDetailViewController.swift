@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import M13Checkbox
 import SCLAlertView
+import RealmSwift
 
 class AddFlightDetailViewController: CommonFlightDetailViewController {
     
@@ -254,6 +255,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
+                        
+                        self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
                         defaults.setObject(json["booking_id"].int , forKey: "booking_id")
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
@@ -288,6 +291,57 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             
         })
     }
+    
+    func saveFamilyAndFriend(familyAndFriendInfo : [AnyObject]){
+        
+        let userInfo = defaults.objectForKey("userInfo")
+        var userList = Results<FamilyAndFriendList>!()
+        userList = realm.objects(FamilyAndFriendList)
+        let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
+        
+        if mainUser.count != 0{
+            if mainUser[0].familyList.count != 0{
+                realm.beginWrite()
+                realm.delete(mainUser[0].familyList)
+                try! realm.commitWrite()
+            }
+        }
+        
+        for list in familyAndFriendInfo{
+            
+            let data = FamilyAndFriendData()
+            data.id = list["id"] as! Int
+            data.title = list["title"] as! String
+            data.gender = nullIfEmpty(list["gender"]) as! String
+            data.firstName = list["first_name"] as! String
+            data.lastName = list["last_name"] as! String
+            data.dob = list["dob"] as! String
+            data.country = list["nationality"] as! String
+            data.bonuslink = list["bonuslink_card"] as! String
+            data.type = list["type"] as! String
+            
+            if mainUser.count == 0{
+                let user = FamilyAndFriendList()
+                user.email = userInfo!["username"] as! String
+                user.familyList.append(data)
+                
+                try! realm.write({ () -> Void in
+                    realm.add(user)
+                })
+                
+            }else{
+                
+                try! realm.write({ () -> Void in
+                    mainUser[0].familyList.append(data)
+                    mainUser[0].email = userInfo!["username"] as! String
+                })
+                
+            }
+            
+        }
+        
+    }
+    
     /*
     // MARK: - Navigation
     

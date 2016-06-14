@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = navigationController
         
         let config = RLMRealmConfiguration.defaultConfiguration()
-        config.schemaVersion = 10
+        config.schemaVersion = 11
         config.migrationBlock = { (migration, oldSchemaVersion) in
             // nothing to do
         }

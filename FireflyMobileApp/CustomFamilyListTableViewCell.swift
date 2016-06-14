@@ -10,6 +10,8 @@ import UIKit
 
 class CustomFamilyListTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var views: UIView!
     override func awakeFromNib() {

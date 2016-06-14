@@ -58,6 +58,14 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                     
                     if (tempInfo["title"] as! String == userInfo["title"]! as! String) && (tempInfo["first_name"] as! String == userInfo["first_name"]! as! String) && (tempInfo["last_name"] as! String == userInfo["last_name"]! as! String) {
                         adultInfo.updateValue(tempInfo, forKey: "0")
+                    }else{
+                        data = ["title" : userInfo["title"]!,
+                                "first_name" : userInfo["first_name"]!,
+                                "last_name" : userInfo["last_name"]!,
+                                "dob" : userInfo["DOB"]!,
+                                "nationality" : userInfo["contact_country"]!,
+                                "bonuslink_card" : userInfo["bonuslink"]!]
+                        adultInfo.updateValue(data, forKey: "0")
                     }
                 }
             }
@@ -74,11 +82,21 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             if section == 0{
                 return 91
             }else{
-                if infantList.count == 0 || adultList.count == 0{
-                    return 35
+                
+                if section <= adultCount{
+                    if adultList.count == 0{
+                        return 35
+                    }else{
+                        return 91
+                    }
                 }else{
-                    return 91
+                    if infantList.count == 0{
+                        return 35
+                    }else{
+                        return 91
+                    }
                 }
+                
             }
             
         }else{
@@ -106,31 +124,65 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 sectionView.familyButton.tag = section
                 
                 return sectionView
-            }else if infantList.count == 0 || adultList.count == 0{
-                let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
-                
-                sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-                
-                let index = UInt(section)
-                
-                sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
-                sectionView.sectionLbl.textColor = UIColor.whiteColor()
-                sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
-                
-                return sectionView
             }else{
-                let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
                 
-                sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-                sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
-                sectionView.familyButton.accessibilityHint = form.formSectionAtIndex(index)?.title
-                sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
-                sectionView.titleLbl.textColor = UIColor.whiteColor()
-                sectionView.titleLbl.textAlignment = NSTextAlignment.Center
-                sectionView.familyButton.layer.cornerRadius = 10
-                sectionView.familyButton.tag = section
-                
-                return sectionView
+                if section <= adultCount{
+                    if adultList.count == 0{
+                        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+                        
+                        sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+                        
+                        let index = UInt(section)
+                        
+                        sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
+                        sectionView.sectionLbl.textColor = UIColor.whiteColor()
+                        sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+                        
+                        return sectionView
+                    }else{
+                        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
+                        
+                        sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+                        sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
+                        sectionView.familyButton.accessibilityHint = form.formSectionAtIndex(index)?.title
+                        sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
+                        sectionView.titleLbl.textColor = UIColor.whiteColor()
+                        sectionView.titleLbl.textAlignment = NSTextAlignment.Center
+                        sectionView.familyButton.layer.cornerRadius = 10
+                        sectionView.familyButton.tag = section
+                        
+                        return sectionView
+                    }
+                }else{
+                    
+                    if infantList.count == 0{
+                        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+                        
+                        sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+                        
+                        let index = UInt(section)
+                        
+                        sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
+                        sectionView.sectionLbl.textColor = UIColor.whiteColor()
+                        sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+                        
+                        return sectionView
+                    }else{
+                        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
+                        
+                        sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+                        sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
+                        sectionView.familyButton.accessibilityHint = form.formSectionAtIndex(index)?.title
+                        sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
+                        sectionView.titleLbl.textColor = UIColor.whiteColor()
+                        sectionView.titleLbl.textAlignment = NSTextAlignment.Center
+                        sectionView.familyButton.layer.cornerRadius = 10
+                        sectionView.familyButton.tag = section
+                        
+                        return sectionView
+                    }
+                    
+                }
             }
             
         }else{
@@ -433,7 +485,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             let picker = ActionSheetStringPicker(title: "", rows: adultName, initialSelection: adultSelect["\(sender.tag)"] as! Int, target: self, successAction: #selector(self.adultSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
             picker.showActionSheetPicker()
         }else{
-            let picker = ActionSheetStringPicker(title: "", rows: infantName, initialSelection: infantSelect["\(sender.tag)"] as! Int, target: self, successAction: #selector(self.infantSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
+            let picker = ActionSheetStringPicker(title: "", rows: infantName, initialSelection: infantSelect["\(type[1])"] as! Int, target: self, successAction: #selector(self.infantSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
             picker.showActionSheetPicker()
 
         }
