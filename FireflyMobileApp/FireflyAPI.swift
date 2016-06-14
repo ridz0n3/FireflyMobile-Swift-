@@ -59,7 +59,7 @@ public enum FireFlyAPI {
     case RetrieveSSRList(String)
     case ChangeSSR(String, String, String, String, AnyObject)
     case ChangeSSR2Way(String, String, String, AnyObject, AnyObject)
-    
+    case EditFamilyAndFriend(String, String, String, String, String, String, String, String, String, Int)
 }
 
 
@@ -153,11 +153,13 @@ extension FireFlyAPI : TargetType {
             return "api/changeSSR"
         case .ChangeSSR2Way:
             return "api/changeSSR"
+        case EditFamilyAndFriend:
+            return "api/editFamilyFriends"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass, .UpdateUserProfile, .RegisterUser, .RetrieveSSRList, .ChangeSSR, .ChangeSSR2Way:
+        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass, .UpdateUserProfile, .RegisterUser, .RetrieveSSRList, .ChangeSSR, .ChangeSSR2Way, .EditFamilyAndFriend:
             return .POST
         case .GetTerm, .GetAbout:
             return .GET
@@ -285,6 +287,17 @@ extension FireFlyAPI : TargetType {
             return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature, type : detailSSR]
         case .ChangeSSR2Way(let pnr, let booking_id, let signature, let goingSSR, let returnSSR) :
             return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature, "going_flight" : goingSSR, "return_flight" : returnSSR]
+        case .EditFamilyAndFriend(let email, let title, let gender, let firstName, let lastName, let dob, let country, let type, let bonuslink, let familyId) :
+            return ["bonuslink": bonuslink,
+                    "dob":dob,
+                    "first_name":firstName,
+                    "friend_and_family_id":familyId,
+                    "issuing_country":country,
+                    "last_name":lastName,
+                    "passenger_type":type,
+                    "title":title,
+                    "gender":gender,
+                    "user_email":email]
         default:
         return nil
         }

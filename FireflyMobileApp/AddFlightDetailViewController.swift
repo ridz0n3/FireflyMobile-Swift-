@@ -188,6 +188,9 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                             defaults.setObject(json["user_info"]["customer_number"].string, forKey: "customer_number")
                             defaults.synchronize()
                             
+                            let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+                            self.username = userInfo["username"]! as! String
+                            self.type = defaults.objectForKey("type")! as! Int
                         NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
                             
                            self.sentData()
@@ -251,7 +254,6 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             case .Success(let successResult):
                 do {
                     
-                    
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
@@ -260,7 +262,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                         defaults.setObject(json["booking_id"].int , forKey: "booking_id")
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
-                        personalDetailVC.familyAndFriend = json["family_and_friend"].arrayObject!
+                        //personalDetailVC.familyAndFriend = json["family_and_friend"].arrayObject!
                         self.navigationController!.pushViewController(personalDetailVC, animated: true)
                     }else if json["status"] == "error"{
                         

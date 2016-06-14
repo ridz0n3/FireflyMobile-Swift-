@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FamilyListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -14,12 +15,12 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
     @IBOutlet weak var addAdultButton: UIButton!
     @IBOutlet weak var addInfantButton: UIButton!
     @IBOutlet weak var familyListTableView: UITableView!
-    
+    var familyAndFriendList : List<FamilyAndFriendData>! = nil
     var familyAndFriend = [AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLeftButton()
+        setupMenuButton()
         
         familyListTableView.estimatedRowHeight = 80
         familyListTableView.rowHeight = UITableViewAutomaticDimension
@@ -27,6 +28,8 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
         addAdultButton.layer.cornerRadius = 10
         addInfantButton.layer.cornerRadius = 10
         returnPassengerButton.layer.cornerRadius = 10
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FamilyListViewController.reloadList(_:)), name: "reloadList", object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -35,19 +38,33 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
+    func reloadList(sender:NSNotification){
+        
+        let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+        var userList = Results<FamilyAndFriendList>!()
+        userList = realm.objects(FamilyAndFriendList)
+        let mainUser = userList.filter("email == %@",userInfo["username"] as! String)
+        
+        if mainUser[0].familyList.count != 0{
+            familyAndFriendList = mainUser[0].familyList
+            familyListTableView.reloadData()
+        }
+        
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if familyAndFriend.count == 0{
+        if familyAndFriendList.count == 0{
             return 1
         }else{
-            return familyAndFriend.count
+            return familyAndFriendList.count
         }
         
         
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if familyAndFriend.count == 0{
+        if familyAndFriendList.count == 0{
             return 85
         }else{
             return UITableViewAutomaticDimension
@@ -58,25 +75,25 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if familyAndFriend.count == 0{
+        if familyAndFriendList.count == 0{
             let cell = self.familyListTableView.dequeueReusableCellWithIdentifier("NoData", forIndexPath: indexPath)
             return cell
         }else{
             
             let cell = self.familyListTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomFamilyListTableViewCell
             
-            let familyInfo = familyAndFriend[indexPath.row] as! NSDictionary
-
+            let familyInfo = familyAndFriendList[indexPath.row] 
+            
             cell.deleteButton.addTarget(self, action: #selector(FamilyListViewController.deleteBtnPressed(_:)), forControlEvents: .TouchUpInside)
             cell.deleteButton.tag = indexPath.row
             
             cell.editBtn.addTarget(self, action: #selector(FamilyListViewController.editBtnPressed(_:)), forControlEvents: .TouchUpInside)
             cell.editBtn.tag = indexPath.row
             
-            if familyInfo["title"] as! String == ""{
-                cell.nameLbl.text = "\(familyInfo["first_name"] as! String) \(familyInfo["last_name"] as! String)".capitalizedString
+            if familyInfo.type == "Infant"{
+                cell.nameLbl.text = "\(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString
             }else{
-                cell.nameLbl.text = "\(familyInfo["title"] as! String) \(familyInfo["first_name"] as! String) \(familyInfo["last_name"] as! String)".capitalizedString
+                cell.nameLbl.text = "\(familyInfo.title) \(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString
             }
             
             
@@ -103,7 +120,7 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
     }
     
     @IBAction func ReturnPassengerBtnPressed(sender: AnyObject) {
-        
+        NSNotificationCenter.defaultCenter().postNotificationName("reloadPicker", object: nil)
         self.navigationController?.popViewControllerAnimated(true)
         
     }
@@ -116,14 +133,14 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
     func editBtnPressed(sender : AnyObject){
         
         let btn = sender as! UIButton
-        let familyInfo = familyAndFriend[btn.tag] as! NSDictionary
+        let familyInfo = familyAndFriendList[btn.tag]
         
-        if familyInfo["type"] as! String == "Infant"{
+        if familyInfo.type == "Infant"{
             
             let storyboard = UIStoryboard(name: "FamilyAndFriend", bundle: nil)
             let manageFamilyVC = storyboard.instantiateViewControllerWithIdentifier("AddInfantVC") as! AddInfantViewController
             manageFamilyVC.action = "edit"
-            manageFamilyVC.infantInfo = familyInfo
+            manageFamilyVC.familyAndFriendInfo = familyInfo
             self.navigationController?.pushViewController(manageFamilyVC, animated: true)
             
         }else{
@@ -131,7 +148,7 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
             let storyboard = UIStoryboard(name: "FamilyAndFriend", bundle: nil)
             let manageFamilyVC = storyboard.instantiateViewControllerWithIdentifier("AddAdultVC") as! AddAdultViewController
             manageFamilyVC.action = "edit"
-            manageFamilyVC.adultInfo = familyInfo
+            manageFamilyVC.familyAndFriendInfo = familyInfo
             self.navigationController?.pushViewController(manageFamilyVC, animated: true)
             
         }

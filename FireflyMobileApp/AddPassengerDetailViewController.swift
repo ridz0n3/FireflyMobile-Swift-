@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import XLForm
+import RealmSwift
 
 class AddPassengerDetailViewController: CommonPassengerDetailViewController {
     
@@ -22,40 +23,98 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         adultCount = (defaults.objectForKey("adult")?.integerValue)!
         infantCount = (defaults.objectForKey("infants")?.integerValue)!
         module = "addPassenger"
-        rearrangeFamily()
+        
+        loadFamilyAndFriendData()
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.passengerDetailsScreen)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddPassengerDetailViewController.reload(_:)), name: "reloadPicker", object: nil)
+    }
+    
+    func reload(sender : NSNotification){
+        loadFamilyAndFriendData()
+    }
+    
+    func loadFamilyAndFriendData(){
+        
+        if try! LoginManager.sharedInstance.isLogin(){
+            
+            let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+            var userList = Results<FamilyAndFriendList>!()
+            userList = realm.objects(FamilyAndFriendList)
+            let mainUser = userList.filter("email == %@",userInfo["username"] as! String)
+            
+            if mainUser[0].familyList.count != 0{
+                familyAndFriendList = mainUser[0].familyList
+                rearrangeFamily()
+            }
+         
+            if familyAndFriendList.count == 0{
+                data = ["title" : userInfo["title"]!,
+                        "first_name" : userInfo["first_name"]!,
+                        "last_name" : userInfo["last_name"]!,
+                        "dob" : userInfo["DOB"]!,
+                        "nationality" : userInfo["contact_country"]!,
+                        "bonuslink_card" : userInfo["bonuslink"]!]
+                adultInfo.updateValue(data, forKey: "0")
+            }else{
+                for tempInfo in familyAndFriendList{
+                    
+                    if (tempInfo.title == userInfo["title"]! as! String) && (tempInfo.firstName == userInfo["first_name"]! as! String) && (tempInfo.lastName == userInfo["last_name"]! as! String) {
+                        data = ["id" : tempInfo.id,
+                                "title" : tempInfo.title,
+                                "gender" : tempInfo.gender,
+                                "first_name" : tempInfo.firstName,
+                                "last_name" : tempInfo.lastName,
+                                "dob" : tempInfo.dob,
+                                "nationality" : tempInfo.country,
+                                "bonuslink_card" : tempInfo.bonuslink,
+                                "type" : tempInfo.type]
+                        adultInfo.updateValue(data, forKey: "0")
+                    }else{
+                        data = ["title" : userInfo["title"]!,
+                                "first_name" : userInfo["first_name"]!,
+                                "last_name" : userInfo["last_name"]!,
+                                "dob" : userInfo["DOB"]!,
+                                "nationality" : userInfo["contact_country"]!,
+                                "bonuslink_card" : userInfo["bonuslink"]!]
+                        adultInfo.updateValue(data, forKey: "0")
+                    }
+                }
+            }
+        }
+        
     }
     
     func rearrangeFamily(){
+        infantList = [AnyObject]()
+        infantName = [String]()
+
+        adultList = [AnyObject]()
+        adultName = [String]()
         
-        for familyInfo in familyAndFriend{
+        for familyInfo in familyAndFriendList{
             
-            if familyInfo["title"] as! String == ""{
+            if familyInfo.type == "Infant"{
                 infantList.append(familyInfo)
-                infantName.append("\(familyInfo["first_name"] as! String) \(familyInfo["last_name"] as! String)".capitalizedString)
+                infantName.append("\(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString)
             }else{
                 adultList.append(familyInfo)
-                adultName.append("\(familyInfo["title"] as! String) \(familyInfo["first_name"] as! String) \(familyInfo["last_name"] as! String)".capitalizedString)
+                adultName.append("\(familyInfo.title) \(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString)
             }
             
         }
         
     }
     
-    let adultTempData = ["title" : "",
-                    "first_name" : "",
-                    "last_name" : "",
-                    "dob" : "",
-                    "nationality" : "",
-                    "bonuslink_card" : ""]
-    
-    let infantTempData = ["gender" : "",
+    let tempData = ["id" : "",
+                         "title" : "",
+                         "gender" : "",
                          "first_name" : "",
                          "last_name" : "",
                          "dob" : "",
                          "nationality" : "",
-                         "bonuslink_card" : ""]
+                         "bonuslink_card" : "",
+                         "type" : ""]
     
     func initializeForm() {
         
@@ -156,7 +215,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     // Save family and friend
                     row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox)
                     row.value =  [
-                        CustomCheckBoxCell.kSave.status.description(): adultSelect["\(adult)"] as! Bool
+                        CustomCheckBoxCell.kSave.status.description(): false
                     ]
                     section.addFormRow(row)
                 }
@@ -165,7 +224,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Title
                 //
                 if status != "select"{
-                    adultInfo.updateValue(adultTempData, forKey: "\(i)")
+                    adultInfo.updateValue(tempData, forKey: "\(i)")
                 }
                 
                 let info = adultInfo["\(i)"]!
@@ -235,7 +294,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     // Save family and friend
                     row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox)
                     row.value =  [
-                        CustomCheckBoxCell.kSave.status.description(): adultSelect["\(adult)"] as! Bool
+                        CustomCheckBoxCell.kSave.status.description(): false
                     ]
                     section.addFormRow(row)
                 }
@@ -250,14 +309,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             if status != "select"{
                 infantSelect.updateValue(0, forKey: "\(j)")
+                infantInfo.updateValue(tempData, forKey: "\(j)")
             }
             
-            var info = NSDictionary()
-            if infantInfo.count != 0{
-                info = infantInfo["\(j)"] as! NSDictionary
-            }else{
-                info = infantTempData as NSDictionary
-            }
+            let info = infantInfo["\(j)"]!
             
             // Basic Information - Section
             section = XLFormSectionDescriptor()
@@ -335,7 +390,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Save family and friend
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.SaveFamilyAndFriend, j), rowType: XLFormRowDescriptorCheckbox)
                 row.value =  [
-                    CustomCheckBoxCell.kSave.status.description(): infantSelect["\(j)"] as! Bool
+                    CustomCheckBoxCell.kSave.status.description(): false
                 ]
                 section.addFormRow(row)
             }
@@ -426,7 +481,16 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         status = "select"
         let btn = element as! UIButton
         adultSelect.updateValue(Int(index), forKey: "\(btn.tag)")
-        data = adultList[Int(index)] as! [String : AnyObject]
+        let tempInfo = adultList[Int(index)] as! FamilyAndFriendData
+        data = ["id" : tempInfo.id,
+                "title" : tempInfo.title,
+                "gender" : tempInfo.gender,
+                "first_name" : tempInfo.firstName,
+                "last_name" : tempInfo.lastName,
+                "dob" : tempInfo.dob,
+                "nationality" : tempInfo.country,
+                "bonuslink_card" : tempInfo.bonuslink,
+                "type" : tempInfo.type]
         adultInfo.updateValue(data, forKey: "\(btn.tag - 1)")
         initializeForm()
     }
@@ -435,8 +499,17 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         status = "select"
         let btn = element as! UIButton
         infantSelect.updateValue(Int(index), forKey: "\(btn.tag)")
-        data = infantList[Int(index)] as! [String : AnyObject]
-        infantInfo.updateValue(data, forKey: "\(btn.tag - 1)")
+        let tempInfo = infantList[Int(index)] as! FamilyAndFriendData
+        data = ["id" : tempInfo.id,
+                "title" : tempInfo.title,
+                "gender" : tempInfo.gender,
+                "first_name" : tempInfo.firstName,
+                "last_name" : tempInfo.lastName,
+                "dob" : tempInfo.dob,
+                "nationality" : tempInfo.country,
+                "bonuslink_card" : tempInfo.bonuslink,
+                "type" : tempInfo.type]
+        infantInfo.updateValue(data, forKey: "\(btn.tag)")
         initializeForm()
     }
     

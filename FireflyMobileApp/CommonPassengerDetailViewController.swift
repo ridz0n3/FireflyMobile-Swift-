@@ -10,6 +10,7 @@ import UIKit
 import XLForm
 import SwiftyJSON
 import ActionSheetPicker_3_0
+import RealmSwift
 
 class CommonPassengerDetailViewController: BaseXLFormViewController {
     
@@ -33,6 +34,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     var adultInfo = [String : AnyObject]()
     var infantInfo = [String : AnyObject]()
     var data = [String : AnyObject]()
+    var familyAndFriendList : List<FamilyAndFriendData>! = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,37 +42,6 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         self.tableView.tableHeaderView = headerView
         self.tableView.tableFooterView = footerView
         setupLeftButton()
-        
-        if try! LoginManager.sharedInstance.isLogin(){
-            
-            userInfo = defaults.objectForKey("userInfo") as! NSDictionary
-            
-            if familyAndFriend.count == 0{
-                data = ["title" : userInfo["title"]!,
-                        "first_name" : userInfo["first_name"]!,
-                        "last_name" : userInfo["last_name"]!,
-                        "dob" : userInfo["DOB"]!,
-                        "nationality" : userInfo["contact_country"]!,
-                        "bonuslink_card" : userInfo["bonuslink"]!]
-                adultInfo.updateValue(data, forKey: "0")
-            }else{
-                for tempInfo in familyAndFriend{
-                    
-                    if (tempInfo["title"] as! String == userInfo["title"]! as! String) && (tempInfo["first_name"] as! String == userInfo["first_name"]! as! String) && (tempInfo["last_name"] as! String == userInfo["last_name"]! as! String) {
-                        adultInfo.updateValue(tempInfo, forKey: "0")
-                    }else{
-                        data = ["title" : userInfo["title"]!,
-                                "first_name" : userInfo["first_name"]!,
-                                "last_name" : userInfo["last_name"]!,
-                                "dob" : userInfo["DOB"]!,
-                                "nationality" : userInfo["contact_country"]!,
-                                "bonuslink_card" : userInfo["bonuslink"]!]
-                        adultInfo.updateValue(data, forKey: "0")
-                    }
-                }
-            }
-            
-        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonPassengerDetailViewController.addExpiredDate(_:)), name: "expiredDate", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonPassengerDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
@@ -177,7 +148,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                         sectionView.titleLbl.textColor = UIColor.whiteColor()
                         sectionView.titleLbl.textAlignment = NSTextAlignment.Center
                         sectionView.familyButton.layer.cornerRadius = 10
-                        sectionView.familyButton.tag = section
+                        let type = (form.formSectionAtIndex(index)?.title)!.componentsSeparatedByString(" ")
+                        sectionView.familyButton.tag = Int(type[1])!
                         
                         return sectionView
                     }
@@ -468,7 +440,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
         let storyboard = UIStoryboard(name: "FamilyAndFriend", bundle: nil)
         let manageFamilyVC = storyboard.instantiateViewControllerWithIdentifier("FamilyListVC") as! FamilyListViewController
-        manageFamilyVC.familyAndFriend = familyAndFriend
+        manageFamilyVC.familyAndFriendList = familyAndFriendList
         self.navigationController?.pushViewController(manageFamilyVC, animated: true)
         
     }
@@ -485,7 +457,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             let picker = ActionSheetStringPicker(title: "", rows: adultName, initialSelection: adultSelect["\(sender.tag)"] as! Int, target: self, successAction: #selector(self.adultSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
             picker.showActionSheetPicker()
         }else{
-            let picker = ActionSheetStringPicker(title: "", rows: infantName, initialSelection: infantSelect["\(type[1])"] as! Int, target: self, successAction: #selector(self.infantSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
+            let picker = ActionSheetStringPicker(title: "", rows: infantName, initialSelection: infantSelect["\(sender.tag)"] as! Int, target: self, successAction: #selector(self.infantSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
             picker.showActionSheetPicker()
 
         }
@@ -498,9 +470,6 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     }
     
     func infantSelected(index :NSNumber, element:AnyObject){
-        
-        let btn = element as! UIButton
-        infantSelect.updateValue(Int(index), forKey: "\(btn.tag)")
         
     }
     

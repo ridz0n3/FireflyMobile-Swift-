@@ -8,12 +8,13 @@
 
 import UIKit
 import XLForm
+import RealmSwift
 
 class CommonInfantViewController: BaseXLFormViewController {
 
     var action = String()
     var infantInfo = NSDictionary()
-    
+    var familyAndFriendInfo = FamilyAndFriendData()
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLeftButton()
@@ -24,6 +25,17 @@ class CommonInfantViewController: BaseXLFormViewController {
                                   "last_name" : "",
                                   "dob" : "",
                                   "nationality" : ""]
+            infantInfo = infantTempData as NSDictionary
+        }else{
+            let infantTempData = ["id" : familyAndFriendInfo.id,
+                                 "title" : familyAndFriendInfo.title,
+                                 "gender" : familyAndFriendInfo.gender,
+                                 "first_name" : familyAndFriendInfo.firstName,
+                                 "last_name" : familyAndFriendInfo.lastName,
+                                 "dob" : familyAndFriendInfo.dob,
+                                 "nationality" : familyAndFriendInfo.country,
+                                 "bonuslink_card" : familyAndFriendInfo.bonuslink,
+                                 "type" : familyAndFriendInfo.type]
             infantInfo = infantTempData as NSDictionary
         }
         initialize()
@@ -104,6 +116,55 @@ class CommonInfantViewController: BaseXLFormViewController {
         
     }
     
+    func saveFamilyAndFriend(familyAndFriendInfo : [AnyObject]){
+        
+        let userInfo = defaults.objectForKey("userInfo")
+        var userList = Results<FamilyAndFriendList>!()
+        userList = realm.objects(FamilyAndFriendList)
+        let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
+        
+        if mainUser.count != 0{
+            if mainUser[0].familyList.count != 0{
+                realm.beginWrite()
+                realm.delete(mainUser[0].familyList)
+                try! realm.commitWrite()
+            }
+        }
+        
+        for list in familyAndFriendInfo{
+            
+            let data = FamilyAndFriendData()
+            data.id = list["id"] as! Int
+            data.title = nullIfEmpty(list["title"]) as! String
+            data.gender = nullIfEmpty(list["gender"]) as! String
+            data.firstName = list["first_name"] as! String
+            data.lastName = list["last_name"] as! String
+            data.dob = list["dob"] as! String
+            data.country = list["nationality"] as! String
+            data.bonuslink = nullIfEmpty(list["bonuslink_card"]) as! String
+            data.type = list["type"] as! String
+            
+            if mainUser.count == 0{
+                let user = FamilyAndFriendList()
+                user.email = userInfo!["username"] as! String
+                user.familyList.append(data)
+                
+                try! realm.write({ () -> Void in
+                    realm.add(user)
+                })
+                
+            }else{
+                
+                try! realm.write({ () -> Void in
+                    mainUser[0].familyList.append(data)
+                    mainUser[0].email = userInfo!["username"] as! String
+                })
+                
+            }
+            
+        }
+        
+    }
     
     /*
      // MARK: - Navigation
