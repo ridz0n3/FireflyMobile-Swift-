@@ -227,7 +227,16 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
     
     func reloadAlertView(msg : String){
         
-        let alert = SCLAlertView()
+        // Create custom Appearance Configuration
+        let appearance = SCLAlertView.SCLAppearance(
+            kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+            kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            showCircularIcon: true,
+            kCircleIconHeight: 40
+        )
+        let alertViewIcon = UIImage(named: "alertIcon")
+        let alert = SCLAlertView(appearance:appearance)
         email = alert.addTextField("Enter email")
         email.text = tempEmail
         password = alert.addTextField("Password")
@@ -239,7 +248,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             showLoading()
             self.sentData()
         }
-        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
+        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage: alertViewIcon)
         
     }
     

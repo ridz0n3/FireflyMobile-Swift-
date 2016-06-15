@@ -43,12 +43,50 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             userList = realm.objects(FamilyAndFriendList)
             let mainUser = userList.filter("email == %@",userInfo["username"] as! String)
             
-            if mainUser[0].familyList.count != 0{
-                familyAndFriendList = mainUser[0].familyList
+            if mainUser.count != 0{
+                if mainUser[0].familyList.count != 0{
+                    familyAndFriendList = mainUser[0].familyList
+                    rearrangeFamily()
+                    self.tableView.reloadData()
+                }
+                
+                if familyAndFriendList.count == 0{
+                    data = ["title" : userInfo["title"]!,
+                            "first_name" : userInfo["first_name"]!,
+                            "last_name" : userInfo["last_name"]!,
+                            "dob" : userInfo["DOB"]!,
+                            "nationality" : userInfo["contact_country"]!,
+                            "bonuslink_card" : userInfo["bonuslink"]!]
+                    adultInfo.updateValue(data, forKey: "0")
+                }else{
+                    for tempInfo in familyAndFriendList{
+                        
+                        if (tempInfo.title == userInfo["title"]! as! String) && (tempInfo.firstName == userInfo["first_name"]! as! String) && (tempInfo.lastName == userInfo["last_name"]! as! String) {
+                            data = ["id" : tempInfo.id,
+                                    "title" : tempInfo.title,
+                                    "gender" : tempInfo.gender,
+                                    "first_name" : tempInfo.firstName,
+                                    "last_name" : tempInfo.lastName,
+                                    "dob" : tempInfo.dob,
+                                    "nationality" : tempInfo.country,
+                                    "bonuslink_card" : tempInfo.bonuslink,
+                                    "type" : tempInfo.type]
+                            adultInfo.updateValue(data, forKey: "0")
+                        }else{
+                            data = ["title" : userInfo["title"]!,
+                                    "first_name" : userInfo["first_name"]!,
+                                    "last_name" : userInfo["last_name"]!,
+                                    "dob" : userInfo["DOB"]!,
+                                    "nationality" : userInfo["contact_country"]!,
+                                    "bonuslink_card" : userInfo["bonuslink"]!]
+                            adultInfo.updateValue(data, forKey: "0")
+                        }
+                    }
+                }
+            }else{
+                familyAndFriendList = nil
                 rearrangeFamily()
-            }
-         
-            if familyAndFriendList.count == 0{
+                self.tableView.reloadData()
                 data = ["title" : userInfo["title"]!,
                         "first_name" : userInfo["first_name"]!,
                         "last_name" : userInfo["last_name"]!,
@@ -56,30 +94,6 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                         "nationality" : userInfo["contact_country"]!,
                         "bonuslink_card" : userInfo["bonuslink"]!]
                 adultInfo.updateValue(data, forKey: "0")
-            }else{
-                for tempInfo in familyAndFriendList{
-                    
-                    if (tempInfo.title == userInfo["title"]! as! String) && (tempInfo.firstName == userInfo["first_name"]! as! String) && (tempInfo.lastName == userInfo["last_name"]! as! String) {
-                        data = ["id" : tempInfo.id,
-                                "title" : tempInfo.title,
-                                "gender" : tempInfo.gender,
-                                "first_name" : tempInfo.firstName,
-                                "last_name" : tempInfo.lastName,
-                                "dob" : tempInfo.dob,
-                                "nationality" : tempInfo.country,
-                                "bonuslink_card" : tempInfo.bonuslink,
-                                "type" : tempInfo.type]
-                        adultInfo.updateValue(data, forKey: "0")
-                    }else{
-                        data = ["title" : userInfo["title"]!,
-                                "first_name" : userInfo["first_name"]!,
-                                "last_name" : userInfo["last_name"]!,
-                                "dob" : userInfo["DOB"]!,
-                                "nationality" : userInfo["contact_country"]!,
-                                "bonuslink_card" : userInfo["bonuslink"]!]
-                        adultInfo.updateValue(data, forKey: "0")
-                    }
-                }
             }
         }
         
@@ -88,10 +102,11 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
     func rearrangeFamily(){
         infantList = [AnyObject]()
         infantName = [String]()
-
+        
         adultList = [AnyObject]()
         adultName = [String]()
         
+        if familyAndFriendList != nil{
         for familyInfo in familyAndFriendList{
             
             if familyInfo.type == "Infant"{
@@ -103,18 +118,19 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             }
             
         }
+        }
         
     }
     
     let tempData = ["id" : "",
-                         "title" : "",
-                         "gender" : "",
-                         "first_name" : "",
-                         "last_name" : "",
-                         "dob" : "",
-                         "nationality" : "",
-                         "bonuslink_card" : "",
-                         "type" : ""]
+                    "title" : "",
+                    "gender" : "",
+                    "first_name" : "",
+                    "last_name" : "",
+                    "dob" : "",
+                    "nationality" : "",
+                    "bonuslink_card" : "",
+                    "type" : ""]
     
     func initializeForm() {
         
@@ -204,11 +220,11 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 if flightType == "FY"{
                     
-                // Enrich Loyalty No
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
-                //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
-                row.value = "\(info["bonuslink_card"]! as! String)"
-                section.addFormRow(row)
+                    // Enrich Loyalty No
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+                    //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+                    row.value = "\(info["bonuslink_card"]! as! String)"
+                    section.addFormRow(row)
                 }
                 
                 if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
@@ -283,11 +299,11 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 if flightType == "FY"{
-                // Enrich Loyalty No
-                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
-                //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
-                row.value = "\(info["bonuslink_card"]! as! String)"
-                section.addFormRow(row)
+                    // Enrich Loyalty No
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+                    //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+                    row.value = "\(info["bonuslink_card"]! as! String)"
+                    section.addFormRow(row)
                 }
                 
                 if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{

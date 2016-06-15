@@ -48,7 +48,7 @@ PODS:
     - Realm (= 0.98.6)
   - Result (1.0.2)
   - RSDayFlow (1.4.1)
-  - SCLAlertView (0.5.1)
+  - SCLAlertView (0.5.8)
   - SlideMenuControllerSwift (2.1.1)
   - SwiftValidator (3.0.1)
   - SwiftyJSON (2.3.2)
@@ -99,7 +99,7 @@ SPEC CHECKSUMS:
   RealmSwift: c7239c52c83f8c43525a5269ba7be1694da33afc
   Result: dd3dd71af3fa2e262f1a999e14fba2c25ec14f16
   RSDayFlow: 24e9fb2f1f2cdbcb82e33345ae7fcc55309f746c
-  SCLAlertView: 3ac39a863d3e10fc165662b1228b03402297aea9
+  SCLAlertView: 653e84d1f9fd95333bc54671fbadb7d0c47fce49
   SlideMenuControllerSwift: 82ada9b04e03538c84d034cf1c09e5849c0113f7
   SwiftValidator: c59223144754045d7691febdc3b3ecc2e73b609c
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a

@@ -8,6 +8,8 @@
 
 import UIKit
 import RealmSwift
+import SCLAlertView
+import SwiftyJSON
 
 class FamilyListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -45,8 +47,13 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
         userList = realm.objects(FamilyAndFriendList)
         let mainUser = userList.filter("email == %@",userInfo["username"] as! String)
         
-        if mainUser[0].familyList.count != 0{
-            familyAndFriendList = mainUser[0].familyList
+        if mainUser.count != 0{
+            if mainUser[0].familyList.count != 0{
+                familyAndFriendList = mainUser[0].familyList
+                familyListTableView.reloadData()
+            }
+        }else{
+            familyAndFriendList = nil
             familyListTableView.reloadData()
         }
         
@@ -54,49 +61,61 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if familyAndFriendList.count == 0{
-            return 1
+        if familyAndFriendList != nil{
+            if familyAndFriendList.count == 0{
+                return 1
+            }else{
+                return familyAndFriendList.count
+            }
         }else{
-            return familyAndFriendList.count
+            return 1
         }
-        
         
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if familyAndFriendList.count == 0{
-            return 85
-        }else{
-            return UITableViewAutomaticDimension
-        }
         
+        if familyAndFriendList != nil{
+            if familyAndFriendList.count == 0{
+                return 85
+            }else{
+                return UITableViewAutomaticDimension
+            }
+        }else{
+            return 85
+        }
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if familyAndFriendList.count == 0{
-            let cell = self.familyListTableView.dequeueReusableCellWithIdentifier("NoData", forIndexPath: indexPath)
-            return cell
-        }else{
-            
-            let cell = self.familyListTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomFamilyListTableViewCell
-            
-            let familyInfo = familyAndFriendList[indexPath.row] 
-            
-            cell.deleteButton.addTarget(self, action: #selector(FamilyListViewController.deleteBtnPressed(_:)), forControlEvents: .TouchUpInside)
-            cell.deleteButton.tag = indexPath.row
-            
-            cell.editBtn.addTarget(self, action: #selector(FamilyListViewController.editBtnPressed(_:)), forControlEvents: .TouchUpInside)
-            cell.editBtn.tag = indexPath.row
-            
-            if familyInfo.type == "Infant"{
-                cell.nameLbl.text = "\(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString
+        if familyAndFriendList != nil{
+            if familyAndFriendList.count == 0{
+                let cell = self.familyListTableView.dequeueReusableCellWithIdentifier("NoData", forIndexPath: indexPath)
+                return cell
             }else{
-                cell.nameLbl.text = "\(familyInfo.title) \(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString
+                
+                let cell = self.familyListTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomFamilyListTableViewCell
+                
+                let familyInfo = familyAndFriendList[indexPath.row]
+                
+                cell.deleteButton.addTarget(self, action: #selector(FamilyListViewController.deleteBtnPressed(_:)), forControlEvents: .TouchUpInside)
+                cell.deleteButton.tag = indexPath.row
+                
+                cell.editBtn.addTarget(self, action: #selector(FamilyListViewController.editBtnPressed(_:)), forControlEvents: .TouchUpInside)
+                cell.editBtn.tag = indexPath.row
+                
+                if familyInfo.type == "Infant"{
+                    cell.nameLbl.text = "\(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString
+                }else{
+                    cell.nameLbl.text = "\(familyInfo.title) \(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString
+                }
+                
+                
+                return cell
             }
-            
-            
+        }else{
+            let cell = self.familyListTableView.dequeueReusableCellWithIdentifier("NoData", forIndexPath: indexPath)
             return cell
         }
     }
@@ -125,9 +144,76 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
         
     }
     
+    var deleteTag = Int()
     func deleteBtnPressed(sender : AnyObject){
         let btn = sender as! UIButton
-        print("delete \(btn.tag)")
+        
+        deleteTag = btn.tag
+        // Create custom Appearance Configuration
+        let appearance = SCLAlertView.SCLAppearance(
+            kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+            kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            showCircularIcon: true,
+            kCircleIconHeight: 40
+        )
+        let alertViewIcon = UIImage(named: "alertIcon")
+        
+        let infoView = SCLAlertView(appearance:appearance)
+        infoView.addButton("Confirm", target: self, selector: #selector(FamilyListViewController.deleteFamily))
+        infoView.showInfo("Delete", subTitle: "Are you sure want to delete?", closeButtonTitle: "Cancel", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
+    }
+    
+    func deleteFamily(){
+        let userId = familyAndFriendList[deleteTag].id
+        let info = defaults.objectForKey("userInfo") as! NSDictionary
+        let email = info["username"] as! String
+        
+        showLoading()
+        
+        FireFlyProvider.request(.DeleteFamilyAndFriend(userId, email)) { (result) in
+            
+            switch result {
+            case .Success(let successResult):
+                do {
+                    
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        showToastMessage("User successfully deleted")
+                        self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
+                        NSNotificationCenter.defaultCenter().postNotificationName("reloadList", object: nil)
+                        
+                        // self.navigationController?.popViewControllerAnimated(true)
+                    }else if json["status"] == "error"{
+                        showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
+                    }
+                    hideLoading()
+                }
+                catch {
+                    
+                }
+                
+            case .Failure(let failureResult):
+                
+                hideLoading()
+                
+                showErrorMessage(failureResult.nsError.localizedDescription)
+            }
+            
+        }
+        
     }
     
     func editBtnPressed(sender : AnyObject){
@@ -151,6 +237,62 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
             manageFamilyVC.familyAndFriendInfo = familyInfo
             self.navigationController?.pushViewController(manageFamilyVC, animated: true)
             
+        }
+        
+    }
+    
+    func saveFamilyAndFriend(familyAndFriendInfo : [AnyObject]){
+        
+        let userInfo = defaults.objectForKey("userInfo")
+        var userList = Results<FamilyAndFriendList>!()
+        userList = realm.objects(FamilyAndFriendList)
+        let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
+        
+        if mainUser.count != 0{
+            if mainUser[0].familyList.count != 0{
+                realm.beginWrite()
+                realm.delete(mainUser[0].familyList)
+                try! realm.commitWrite()
+            }
+            
+            for list in familyAndFriendInfo{
+                
+                let data = FamilyAndFriendData()
+                data.id = list["id"] as! Int
+                data.title = list["title"] as! String
+                data.gender = nullIfEmpty(list["gender"]) as! String
+                data.firstName = list["first_name"] as! String
+                data.lastName = list["last_name"] as! String
+                data.dob = list["dob"] as! String
+                data.country = list["nationality"] as! String
+                data.bonuslink = list["bonuslink_card"] as! String
+                data.type = list["type"] as! String
+                
+                if mainUser.count == 0{
+                    let user = FamilyAndFriendList()
+                    user.email = userInfo!["username"] as! String
+                    user.familyList.append(data)
+                    
+                    try! realm.write({ () -> Void in
+                        realm.add(user)
+                    })
+                    
+                }else{
+                    
+                    try! realm.write({ () -> Void in
+                        mainUser[0].familyList.append(data)
+                        mainUser[0].email = userInfo!["username"] as! String
+                    })
+                    
+                }
+                
+            }
+            
+            if familyAndFriendInfo.count == 0{
+                realm.beginWrite()
+                realm.delete(mainUser[0])
+                try! realm.commitWrite()
+            }
         }
         
     }

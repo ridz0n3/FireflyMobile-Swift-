@@ -228,8 +228,18 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     manageFlightVC.groupBookingList = newFormatedBookingList
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                 }else{
-                                    let alert = SCLAlertView()
-                                    alert.showInfo("Manage Flight", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                                    
+                                    // Create custom Appearance Configuration
+                                    let appearance = SCLAlertView.SCLAppearance(
+                                        kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                                        kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+                                        kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                                        showCircularIcon: true,
+                                        kCircleIconHeight: 40
+                                    )
+                                    let alertViewIcon = UIImage(named: "alertIcon")
+                                    let alert = SCLAlertView(appearance:appearance)
+                                    alert.showInfo("Manage Flight", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage: alertViewIcon)
                                 }
                             }else if json["status"] == "error"{
                                 
@@ -356,8 +366,17 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPassList", object: nil)
                             }
                         }else{
-                            let alert = SCLAlertView()
-                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                            // Create custom Appearance Configuration
+                            let appearance = SCLAlertView.SCLAppearance(
+                                kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                                kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+                                kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                                showCircularIcon: true,
+                                kCircleIconHeight: 40
+                            )
+                            let alertViewIcon = UIImage(named: "alertIcon")
+                            let alert = SCLAlertView(appearance:appearance)
+                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage: alertViewIcon)
                         }
                     }else if json["status"] == "error"{
                         
@@ -389,12 +408,30 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             //mobileCheckinVC.pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: false)
                             self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                         }else{
-                            let alert = SCLAlertView()
-                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                            // Create custom Appearance Configuration
+                            let appearance = SCLAlertView.SCLAppearance(
+                                kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                                kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+                                kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                                showCircularIcon: true,
+                                kCircleIconHeight: 40
+                            )
+                            let alertViewIcon = UIImage(named: "alertIcon")
+                            let alert = SCLAlertView(appearance:appearance)
+                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage: alertViewIcon)
                         }
                     }else{
-                        let alert = SCLAlertView()
-                        alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                        // Create custom Appearance Configuration
+                        let appearance = SCLAlertView.SCLAppearance(
+                            kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                            kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+                            kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                            showCircularIcon: true,
+                            kCircleIconHeight: 40
+                        )
+                        let alertViewIcon = UIImage(named: "alertIcon")
+                        let alert = SCLAlertView(appearance:appearance)
+                        alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage:alertViewIcon)
                     }
                 }else{
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPassList", object: nil)
@@ -521,8 +558,17 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             }
                         }else{
                             hideLoading()
-                            let alert = SCLAlertView()
-                            alert.showInfo("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue")
+                            // Create custom Appearance Configuration
+                            let appearance = SCLAlertView.SCLAppearance(
+                                kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                                kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+                                kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                                showCircularIcon: true,
+                                kCircleIconHeight: 40
+                            )
+                            let alertViewIcon = UIImage(named: "alertIcon")
+                            let alert = SCLAlertView(appearance:appearance)
+                            alert.showInfo("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage: alertViewIcon)
                         }
                     }else if json["status"] == "error"{
                         hideLoading()

@@ -20,11 +20,13 @@ class CommonInfantViewController: BaseXLFormViewController {
         setupLeftButton()
         
         if action == "add"{
-            let infantTempData = ["gender" : "",
+            let infantTempData = ["id" : 0,
+                                  "gender" : "",
                                   "first_name" : "",
                                   "last_name" : "",
                                   "dob" : "",
-                                  "nationality" : ""]
+                                  "nationality" : "",
+                                  "type" : "Infant"]
             infantInfo = infantTempData as NSDictionary
         }else{
             let infantTempData = ["id" : familyAndFriendInfo.id,

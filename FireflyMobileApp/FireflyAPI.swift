@@ -60,6 +60,8 @@ public enum FireFlyAPI {
     case ChangeSSR(String, String, String, String, AnyObject)
     case ChangeSSR2Way(String, String, String, AnyObject, AnyObject)
     case EditFamilyAndFriend(String, String, String, String, String, String, String, String, String, Int)
+    case AddFamilyAndFriend(String, String, String, String, String, String, String, String, String)
+    case DeleteFamilyAndFriend(Int, String)
 }
 
 
@@ -153,13 +155,17 @@ extension FireFlyAPI : TargetType {
             return "api/changeSSR"
         case .ChangeSSR2Way:
             return "api/changeSSR"
-        case EditFamilyAndFriend:
+        case .EditFamilyAndFriend:
             return "api/editFamilyFriends"
+        case .AddFamilyAndFriend:
+            return "api/editFamilyFriends"
+        case .DeleteFamilyAndFriend:
+            return "api/deleteFamilyFriends"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass, .UpdateUserProfile, .RegisterUser, .RetrieveSSRList, .ChangeSSR, .ChangeSSR2Way, .EditFamilyAndFriend:
+        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass, .UpdateUserProfile, .RegisterUser, .RetrieveSSRList, .ChangeSSR, .ChangeSSR2Way, .EditFamilyAndFriend, .DeleteFamilyAndFriend, .AddFamilyAndFriend:
             return .POST
         case .GetTerm, .GetAbout:
             return .GET
@@ -292,6 +298,18 @@ extension FireFlyAPI : TargetType {
                     "dob":dob,
                     "first_name":firstName,
                     "friend_and_family_id":familyId,
+                    "issuing_country":country,
+                    "last_name":lastName,
+                    "passenger_type":type,
+                    "title":title,
+                    "gender":gender,
+                    "user_email":email]
+        case .DeleteFamilyAndFriend(let id, let email):
+            return ["deleteID" : id, "user_email" : email]
+        case .AddFamilyAndFriend(let email, let title, let gender, let firstName, let lastName, let dob, let country, let type, let bonuslink) :
+            return ["bonuslink": bonuslink,
+                    "dob":dob,
+                    "first_name":firstName,
                     "issuing_country":country,
                     "last_name":lastName,
                     "passenger_type":type,

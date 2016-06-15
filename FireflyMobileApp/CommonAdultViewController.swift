@@ -20,12 +20,14 @@ class CommonAdultViewController: BaseXLFormViewController {
         setupLeftButton()
         
         if action == "add"{
-            let adultTempData = ["title" : "",
+            let adultTempData = ["id" : 0,
+                                 "title" : "",
                                  "first_name" : "",
                                  "last_name" : "",
                                  "dob" : "",
                                  "nationality" : "",
-                                 "bonuslink_card" : ""]
+                                 "bonuslink_card" : "",
+                                 "type" : "Adult"]
             adultInfo = adultTempData as NSDictionary
         }else{
             let adultTempData = ["id" : familyAndFriendInfo.id,
