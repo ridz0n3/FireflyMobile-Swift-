@@ -162,6 +162,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate {
         
         let formater = NSDateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
+        
         return formater.stringFromDate(date)
         
     }

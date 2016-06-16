@@ -30,13 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeled] = CustomFloatLabelCell.self
+        XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorCheckbox] = "CustomCheckBoxCell"
         
         let homeStoryBoard = UIStoryboard(name: "SplashScreen", bundle: nil)
         let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("LaunchScreenVC")
         self.window?.rootViewController = navigationController
         
         let config = RLMRealmConfiguration.defaultConfiguration()
-        config.schemaVersion = 10
+        config.schemaVersion = 11
         config.migrationBlock = { (migration, oldSchemaVersion) in
             // nothing to do
         }

@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import M13Checkbox
 import SCLAlertView
+import RealmSwift
 
 class AddFlightDetailViewController: CommonFlightDetailViewController {
     
@@ -187,6 +188,9 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                             defaults.setObject(json["user_info"]["customer_number"].string, forKey: "customer_number")
                             defaults.synchronize()
                             
+                            let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+                            self.username = userInfo["username"]! as! String
+                            self.type = defaults.objectForKey("type")! as! Int
                         NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
                             
                            self.sentData()
@@ -225,8 +229,17 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
     
     func reloadAlertView(msg : String){
         
+        // Create custom Appearance Configuration
+        let appearance = SCLAlertView.SCLAppearance(
+            kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+            kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            showCircularIcon: true,
+            kCircleIconHeight: 40
+        )
+        let alertViewIcon = UIImage(named: "alertIcon")
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.loginPopupScreen)
-        let alert = SCLAlertView()
+        let alert = SCLAlertView(appearance:appearance)
         email = alert.addTextField("Enter email")
         email.text = tempEmail
         password = alert.addTextField("Password")
@@ -238,7 +251,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             showLoading()
             self.sentData()
         }
-        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
+        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage: alertViewIcon)
         
         
     }
@@ -250,13 +263,15 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             case .Success(let successResult):
                 do {
                     
-                    
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
+                        
+                        self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
                         defaults.setObject(json["booking_id"].int , forKey: "booking_id")
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
+                        //personalDetailVC.familyAndFriend = json["family_and_friend"].arrayObject!
                         self.navigationController!.pushViewController(personalDetailVC, animated: true)
                     }else if json["status"] == "error"{
                         
@@ -287,6 +302,61 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
             
         })
     }
+    
+    func saveFamilyAndFriend(familyAndFriendInfo : [AnyObject]){
+        
+        let userInfo = defaults.objectForKey("userInfo")
+        var userList = Results<FamilyAndFriendList>!()
+        userList = realm.objects(FamilyAndFriendList)
+        let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
+        
+        if mainUser.count != 0{
+            if mainUser[0].familyList.count != 0{
+                realm.beginWrite()
+                realm.delete(mainUser[0].familyList)
+                try! realm.commitWrite()
+            }else{
+                realm.beginWrite()
+                realm.delete(mainUser[0])
+                try! realm.commitWrite()
+            }
+        }
+        
+        for list in familyAndFriendInfo{
+            
+            let data = FamilyAndFriendData()
+            data.id = list["id"] as! Int
+            data.title = list["title"] as! String
+            data.gender = nullIfEmpty(list["gender"]) as! String
+            data.firstName = list["first_name"] as! String
+            data.lastName = list["last_name"] as! String
+            data.dob = list["dob"] as! String
+            data.country = list["nationality"] as! String
+            data.bonuslink = list["bonuslink_card"] as! String
+            data.type = list["type"] as! String
+            
+            if mainUser.count == 0{
+                let user = FamilyAndFriendList()
+                user.email = userInfo!["username"] as! String
+                user.familyList.append(data)
+                
+                try! realm.write({ () -> Void in
+                    realm.add(user)
+                })
+                
+            }else{
+                
+                try! realm.write({ () -> Void in
+                    mainUser[0].familyList.append(data)
+                    mainUser[0].email = userInfo!["username"] as! String
+                })
+                
+            }
+            
+        }
+        
+    }
+    
     /*
     // MARK: - Navigation
     
