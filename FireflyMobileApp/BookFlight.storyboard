@@ -2456,11 +2456,24 @@
                                     </variation>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="LkI-cu-6i9">
-                                    <rect key="frame" x="0.0" y="537" width="600" height="57"/>
+                                    <rect key="frame" x="0.0" y="537" width="600" height="105"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5z-NR-Uko">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uce-KO-gMQ">
                                             <rect key="frame" x="16" y="8" width="568" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Kfh-d0-XKd"/>
+                                            </constraints>
+                                            <state key="normal" title="Delete this card info">
+                                                <color key="titleColor" red="1" green="0.97396640940000001" blue="0.99092548840000005" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="deleteBtnPressed:" destination="LEw-aL-M4z" eventType="touchUpInside" id="r5y-CR-5bZ"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p5z-NR-Uko">
+                                            <rect key="frame" x="16" y="56" width="568" height="40"/>
                                             <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="r5L-Xw-Rd0"/>
@@ -2475,9 +2488,12 @@
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
+                                        <constraint firstItem="Uce-KO-gMQ" firstAttribute="top" secondItem="LkI-cu-6i9" secondAttribute="top" constant="8" id="1dV-GW-F6R"/>
                                         <constraint firstAttribute="trailing" secondItem="p5z-NR-Uko" secondAttribute="trailing" constant="16" id="E3o-qx-z9B"/>
+                                        <constraint firstAttribute="trailing" secondItem="Uce-KO-gMQ" secondAttribute="trailing" constant="16" id="PNK-Ik-BVp"/>
                                         <constraint firstItem="p5z-NR-Uko" firstAttribute="leading" secondItem="LkI-cu-6i9" secondAttribute="leading" constant="16" id="RK6-h2-GCA"/>
-                                        <constraint firstItem="p5z-NR-Uko" firstAttribute="top" secondItem="LkI-cu-6i9" secondAttribute="top" constant="8" id="ZhD-JV-gJn"/>
+                                        <constraint firstAttribute="bottom" secondItem="p5z-NR-Uko" secondAttribute="bottom" constant="9" id="V7o-0i-CCf"/>
+                                        <constraint firstItem="Uce-KO-gMQ" firstAttribute="leading" secondItem="LkI-cu-6i9" secondAttribute="leading" constant="16" id="m04-3c-gRb"/>
                                     </constraints>
                                 </view>
                             </tableView>
@@ -2494,6 +2510,8 @@
                         <outlet property="cimbCheckBox" destination="rfF-nd-z2U" id="75y-Rb-zRq"/>
                         <outlet property="continueBtn" destination="p5z-NR-Uko" id="GrU-QA-PSL"/>
                         <outlet property="creditCardCheckBox" destination="V1h-Pz-2DU" id="e8N-T2-fmb"/>
+                        <outlet property="deleteBtn" destination="Uce-KO-gMQ" id="8DB-gy-6AO"/>
+                        <outlet property="footerView" destination="LkI-cu-6i9" id="8KV-2Q-x7Y"/>
                         <outlet property="fpxCheckBox" destination="uUb-B8-2NJ" id="k9Z-PA-JLu"/>
                         <outlet property="headerView" destination="lwO-xr-gzO" id="Jpb-cs-gpU"/>
                         <outlet property="maybank2uCheckBox" destination="7dg-5Z-qM9" id="ghC-Tp-hff"/>

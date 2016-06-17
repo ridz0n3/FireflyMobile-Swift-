@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="382" height="47"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as family &amp; friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2W-Zv-Fdf">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save as family &amp; friends" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f2W-Zv-Fdf">
                         <rect key="frame" x="47" y="0.0" width="327" height="47"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -62,6 +62,7 @@
             <connections>
                 <outlet property="checkButtonButton" destination="GzM-Pq-1Fw" id="kMs-7H-BVf"/>
                 <outlet property="familySelect" destination="G0J-HM-XZS" id="gsl-Td-9uv"/>
+                <outlet property="titleLbl" destination="f2W-Zv-Fdf" id="9LV-Xb-z4W"/>
             </connections>
             <point key="canvasLocation" x="296" y="221"/>
         </tableViewCell>

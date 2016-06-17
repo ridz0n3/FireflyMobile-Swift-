@@ -229,7 +229,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
                     // Save family and friend
-                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox)
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox, title:"Save as family & friends")
                     row.value =  [
                         CustomCheckBoxCell.kSave.status.description(): false
                     ]
@@ -308,7 +308,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
                     // Save family and friend
-                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox)
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox, title:"Save as family & friends")
                     row.value =  [
                         CustomCheckBoxCell.kSave.status.description(): false
                     ]
@@ -404,7 +404,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
                 // Save family and friend
-                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.SaveFamilyAndFriend, j), rowType: XLFormRowDescriptorCheckbox)
+                row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.SaveFamilyAndFriend, j), rowType: XLFormRowDescriptorCheckbox, title:"Save as family & friends")
                 row.value =  [
                     CustomCheckBoxCell.kSave.status.description(): false
                 ]

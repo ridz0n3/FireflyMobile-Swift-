@@ -17,7 +17,9 @@ class CommonPaymentViewController: BaseXLFormViewController {
     var paymentType = [AnyObject]()
     var cardType = [Dictionary<String,AnyObject>]()
     var paymentMethod = String()
+    var cardInfo = [String : AnyObject]()
     
+    @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var totalDueLbl: UILabel!
     @IBOutlet weak var creditCardCheckBox: M13Checkbox!
@@ -25,16 +27,19 @@ class CommonPaymentViewController: BaseXLFormViewController {
     @IBOutlet weak var cimbCheckBox: M13Checkbox!
     @IBOutlet weak var fpxCheckBox: M13Checkbox!
     @IBOutlet weak var continueBtn: UIButton!
+    @IBOutlet weak var deleteBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
+        deleteBtn.layer.cornerRadius = 10
         setupLeftButton()
         creditCardCheckBox.checkState = M13CheckboxState.Checked
         
         creditCardCheckBox.strokeColor = UIColor.orangeColor()
         creditCardCheckBox.checkColor = UIColor.orangeColor()
         maybank2uCheckBox.strokeColor = UIColor.orangeColor()
+        
         maybank2uCheckBox.checkColor = UIColor.orangeColor()
         cimbCheckBox.strokeColor = UIColor.orangeColor()
         cimbCheckBox.checkColor = UIColor.orangeColor()
@@ -42,6 +47,15 @@ class CommonPaymentViewController: BaseXLFormViewController {
         fpxCheckBox.checkColor = UIColor.orangeColor()
         
         paymentMethod = "Card"
+        
+        if cardInfo["card_type"] as! String == ""{
+            
+            var newFooter = footerView.frame
+            newFooter.size.height = footerView.frame.size.height - 48
+            footerView.frame = newFooter
+            deleteBtn.hidden = true
+            
+        }
         
         var newFrame = headerView.frame
         newFrame.size.height = headerView.frame.size.height - (60 * 3)
@@ -123,6 +137,14 @@ class CommonPaymentViewController: BaseXLFormViewController {
             cimbCheckBox.checkState = M13CheckboxState.Unchecked
             fpxCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "notHide"
+            if cardInfo["card_type"] as! String != ""{
+                
+                var newFooter = footerView.frame
+                newFooter.size.height = footerView.frame.size.height + 48
+                footerView.frame = newFooter
+                deleteBtn.hidden = false
+                
+            }
             tableView.reloadData()
             paymentMethod = "Card"
         }else if btn.tag == 2{
@@ -131,6 +153,14 @@ class CommonPaymentViewController: BaseXLFormViewController {
             cimbCheckBox.checkState = M13CheckboxState.Unchecked
             fpxCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
+            if cardInfo["card_type"] as! String != ""{
+                
+                var newFooter = footerView.frame
+                newFooter.size.height = footerView.frame.size.height - 48
+                footerView.frame = newFooter
+                deleteBtn.hidden = true
+                
+            }
             tableView.reloadData()
             paymentMethod = "MU"
         }else if btn.tag == 3{
@@ -139,6 +169,14 @@ class CommonPaymentViewController: BaseXLFormViewController {
             cimbCheckBox.checkState = M13CheckboxState.Checked
             fpxCheckBox.checkState = M13CheckboxState.Unchecked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
+            if cardInfo["card_type"] as! String != ""{
+                
+                var newFooter = footerView.frame
+                newFooter.size.height = footerView.frame.size.height - 48
+                footerView.frame = newFooter
+                deleteBtn.hidden = true
+                
+            }
             tableView.reloadData()
             paymentMethod = "CI"
         }else{
@@ -147,6 +185,14 @@ class CommonPaymentViewController: BaseXLFormViewController {
             cimbCheckBox.checkState = M13CheckboxState.Unchecked
             fpxCheckBox.checkState = M13CheckboxState.Checked
             self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
+            if cardInfo["card_type"] as! String != ""{
+                
+                var newFooter = footerView.frame
+                newFooter.size.height = footerView.frame.size.height - 48
+                footerView.frame = newFooter
+                deleteBtn.hidden = true
+                
+            }
             tableView.reloadData()
             paymentMethod = "PX"
         }
@@ -180,6 +226,10 @@ class CommonPaymentViewController: BaseXLFormViewController {
         var tempArray = [AnyObject]()
         for cType in cardType{
             tempArray.append(XLFormOptionsObject(value: cType["channel_code"] as! String, displayText: cType["channel_name"] as! String))
+            
+            if cType["channel_code"] as! String == cardInfo["card_type"]! as! String{
+                row.value = cType["channel_name"] as! String
+            }
         }
         
         row.selectorOptions = tempArray
@@ -188,18 +238,23 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         //card number
         row = XLFormRowDescriptor(tag: Tags.ValidationCardNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Card Number:*")
+        row.value = cardInfo["card_number"]! as! String
         row.required = true
         section.addFormRow(row)
         
         // Title
         row = XLFormRowDescriptor(tag: Tags.ValidationCardExpiredDate, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Expiration Date:*")
         
+        if cardInfo["expiration_date_month"]! as! String != ""{
+            row.value = "\(cardInfo["expiration_date_month"]! as! String)/\(cardInfo["expiration_date_year"]! as! String)"
+        }
         row.required = true
         section.addFormRow(row)
         
         //holder name
         row = XLFormRowDescriptor(tag: Tags.ValidationHolderName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Card Holder Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "Card holder name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
+        row.value = cardInfo["card_holder_name"]! as! String
         row.required = true
         section.addFormRow(row)
         
@@ -207,6 +262,24 @@ class CommonPaymentViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationCcvNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"CVV/CVC Number:*")
         row.required = true
         section.addFormRow(row)
+        
+        if try! LoginManager.sharedInstance.isLogin(){
+            // Save family and friend
+            
+            var isSelect = Bool()
+            
+            if cardInfo["account_number_id"] as! String != ""{
+                isSelect = true
+            }else{
+                isSelect = false
+            }
+            
+            row = XLFormRowDescriptor(tag: Tags.SaveFamilyAndFriend, rowType: XLFormRowDescriptorCheckbox, title:"Add this credit card to your account for faster booking.")
+            row.value =  [
+                CustomCheckBoxCell.kSave.status.description(): isSelect
+            ]
+            section.addFormRow(row)
+        }
         
         self.form = form
     }
@@ -255,6 +328,65 @@ class CommonPaymentViewController: BaseXLFormViewController {
         }
         return sum % 10 == 0
     }
+    
+    @IBAction func deleteBtnPressed(sender: AnyObject) {
+    
+        let personID = defaults.objectForKey("personID") as! String
+        let signature = defaults.objectForKey("signature") as! String
+        
+        showLoading()
+    
+        FireFlyProvider.request(.RemoveCreditCard(personID, signature)) { (result) in
+            
+            switch result {
+            case .Success(let successResult):
+                do {
+                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    
+                    if json["status"] == "success"{
+                        showErrorMessage(json["message"].string!)
+                        self.cardInfo = ["card_type" : "",
+                                        "account_number_id" : "",
+                                        "card_holder_name" : "",
+                                        "expiration_date_month" : "",
+                                        "card_number" : "",
+                                        "expiration_date_year" : ""]
+                        self.tableView.reloadData()
+                        var newFooter = self.footerView.frame
+                        newFooter.size.height = self.footerView.frame.size.height - 48
+                        self.footerView.frame = newFooter
+                        self.deleteBtn.hidden = true
+                        self.initializeForm()
+                    }else if json["status"] == "error"{
+                        showErrorMessage(json["message"].string!)
+                    }else if json["status"].string == "401"{
+                        hideLoading()
+                        showErrorMessage(json["message"].string!)
+                        InitialLoadManager.sharedInstance.load()
+                        
+                        for views in (self.navigationController?.viewControllers)!{
+                            if views.classForCoder == HomeViewController.classForCoder(){
+                                self.navigationController?.popToViewController(views, animated: true)
+                                AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                            }
+                        }
+                    }
+                    hideLoading()
+                }
+                catch {
+                    
+                }
+                
+            case .Failure(let failureResult):
+                
+                hideLoading()
+                showErrorMessage(failureResult.nsError.localizedDescription)
+            }
+            
+        }
+        
+    }
+    
     
     /*
     // MARK: - Navigation

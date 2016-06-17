@@ -37,9 +37,9 @@ class EditPaymentViewController: CommonPaymentViewController {
             if isValidate{
                 let cardNumber = self.formValues()[Tags.ValidationCardNumber] as! String
                 
-                if !luhnCheck(cardNumber){
+                /*if !luhnCheck(cardNumber){
                     showErrorMessage("Invalid credit card")
-                }else if !checkDate(self.formValues()[Tags.ValidationCardExpiredDate] as! String){
+                }else */if !checkDate(self.formValues()[Tags.ValidationCardExpiredDate] as! String){
                     showErrorMessage("Invalid Date")
                 }else{
                     
@@ -51,10 +51,20 @@ class EditPaymentViewController: CommonPaymentViewController {
                     let issuingBank = self.formValues()[Tags.ValidationCardType] as! String
                     let expirationDateMonth = expiredDate[0]
                     let expirationDateYear = expiredDate[1]
+                    var personID = String()
+                    var accNumber = String()
                     
+                    if try! LoginManager.sharedInstance.isLogin(){
+                        let info = self.formValues()[Tags.SaveFamilyAndFriend] as! NSDictionary
+                        
+                        if info["status"] as! Bool{
+                            personID = defaults.objectForKey("personID") as! String
+                            accNumber = cardInfo["account_number_id"] as! String
+                        }
+                    }
                     
                     showLoading() 
-                    FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingId), completion: { (result) -> () in
+                    FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingId, personID, accNumber), completion: { (result) -> () in
                         
                         switch result {
                         case .Success(let successResult):
@@ -63,7 +73,6 @@ class EditPaymentViewController: CommonPaymentViewController {
                                 let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                                 
                                 if json["status"] == "Redirect"{
-                                    
                                     
                                     let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                                     
@@ -118,7 +127,7 @@ class EditPaymentViewController: CommonPaymentViewController {
         }else if paymentMethod == "MU"{
             
             showLoading() 
-            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId), completion: { (result) -> () in
+            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId, "", ""), completion: { (result) -> () in
                 
                 switch result {
                 case .Success(let successResult):
@@ -174,7 +183,7 @@ class EditPaymentViewController: CommonPaymentViewController {
         }else if paymentMethod == "CI"{
             
             showLoading() 
-            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId), completion: { (result) -> () in
+            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId, "", ""), completion: { (result) -> () in
                 
                 switch result {
                 case .Success(let successResult):
@@ -231,7 +240,7 @@ class EditPaymentViewController: CommonPaymentViewController {
         }else if paymentMethod == "PX"{
             
             showLoading() 
-            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId), completion: { (result) -> () in
+            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId, "", ""), completion: { (result) -> () in
                 
                 switch result {
                 case .Success(let successResult):
