@@ -90,6 +90,36 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate {
         
     }
     
+    func setupHomeButton(){
+        
+        let tools = UIToolbar()
+        tools.frame = CGRectMake(0, 0, 45, 44)
+        tools.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
+        tools.backgroundColor = UIColor.clearColor()
+        tools.clipsToBounds = true;
+        tools.translucent = true;
+        
+        let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
+        
+        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseViewController.menuTapped(_:)))
+        menuButton.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+        
+        let buttons:[UIBarButtonItem] = [menuButton];
+        tools.setItems(buttons, animated: false)
+        
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 10, height: 38))
+        imageView.contentMode = .ScaleAspectFit
+        let image = UIImage(named: "logo")
+        imageView.image = image
+        
+        self.navigationItem.titleView = imageView
+        
+        self.navigationItem.hidesBackButton = true//UIBarButtonItem(customView: tools)
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: tools)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: tools)
+        
+    }
+    
     func menuTapped(sender: UIBarButtonItem){
         self.slideMenuController()?.toggleLeft()
     }

@@ -29,6 +29,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     var countryArray = defaults.objectForKey("country") as! [Dictionary<String,AnyObject>]
     var flightType = String()
     var meals = [AnyObject]()
+    var ssrStatus = String()
     
     override func viewDidLoad() {
         
@@ -59,7 +60,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         
         form = XLFormDescriptor(title: "")
         
-        if flightType == "MH"{
+        if flightType == "MH" && ssrStatus == "Available"{
             
             let timeDifference = defaults.objectForKey("timeDifference") as! Int
             

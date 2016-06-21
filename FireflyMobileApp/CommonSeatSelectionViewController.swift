@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import SCLAlertView
 
 class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -387,38 +388,115 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
     
     func seatSelect(seatDetail: NSDictionary, btn: UIButton){
         
-        selectChange = true
-        var sectionIndex = Int()
-        var rowIndex = Int()
-        var countError = Int()
-        
-        if sectionSelect.section != 0 && sectionSelect.section != 1{
-            sectionIndex = 0
-            rowIndex = 0
-        }else{
-            sectionIndex = sectionSelect.section
-            rowIndex = sectionSelect.row
-        }
-        
-        
-        if seatDict.count != 0{
+        // Create custom Appearance Configuration
+        let appearance = SCLAlertView.SCLAppearance(
+            kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+            kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+            showCircularIcon: true,
+            kCircleIconHeight: 40
+        )
+        let alertViewIcon = UIImage(named: "alertIcon")
+        let messageView = SCLAlertView(appearance: appearance)
+        messageView.addButton("Ok") {
             
-            if !isFirstSelect{
-                if (seatTypeDict["\(sectionIndex)"] != nil){
-                    let passengerSection = seatTypeDict["\(sectionIndex)"] as! NSDictionary
-                    if (passengerSection["\(rowIndex)"] != nil){
-                        let passengerRow = passengerSection["\(rowIndex)"]
-                        if passengerRow as! String == "desired"{
-                            
-                            if seatDetail["seat_type"] as! String == "desired"{
-                                if seatDict["\(sectionIndex)"]?.count == passenger.count{
+            self.selectChange = true
+            var sectionIndex = Int()
+            var rowIndex = Int()
+            var countError = Int()
+            
+            if self.sectionSelect.section != 0 && self.sectionSelect.section != 1{
+                sectionIndex = 0
+                rowIndex = 0
+            }else{
+                sectionIndex = self.sectionSelect.section
+                rowIndex = self.sectionSelect.row
+            }
+            
+            
+            if self.seatDict.count != 0{
+                
+                if !self.isFirstSelect{
+                    if (self.seatTypeDict["\(sectionIndex)"] != nil){
+                        let passengerSection = self.seatTypeDict["\(sectionIndex)"] as! NSDictionary
+                        if (passengerSection["\(rowIndex)"] != nil){
+                            let passengerRow = passengerSection["\(rowIndex)"]
+                            if passengerRow as! String == "desired"{
+                                
+                                if seatDetail["seat_type"] as! String == "desired"{
+                                    if self.seatDict["\(sectionIndex)"]?.count == self.passenger.count{
+                                        
+                                        if sectionIndex == 0{
+                                            self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                            self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
+                                        }else{
+                                            self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                            self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
+                                        }
+                                        
+                                        btn.userInteractionEnabled = false
+                                        //btn.backgroundColor = UIColor.greenColor()
+                                        
+                                    }else{
+                                        if sectionIndex == 0{
+                                            self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                            self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
+                                        }else{
+                                            self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                            self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
+                                        }
+                                        
+                                        //btn.backgroundColor = UIColor.greenColor()
+                                        btn.userInteractionEnabled = false
+                                    }
+                                }else{
+                                    showErrorMessage("Seat downgrade not allowed")
+                                    countError += 1
+                                }
+                                
+                            }else if passengerRow as! String == "preferred"{
+                                
+                                if seatDetail["seat_type"] as! String == "desired" || seatDetail["seat_type"] as! String == "preferred"{
+                                    //isPreferedSelect = true
+                                    if self.seatDict["\(sectionIndex)"]?.count == self.passenger.count{
+                                        
+                                        if sectionIndex == 0{
+                                            self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                            self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
+                                        }else{
+                                            self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                            self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
+                                        }
+                                        
+                                        btn.userInteractionEnabled = false
+                                        //btn.backgroundColor = UIColor.greenColor()
+                                        
+                                    }else{
+                                        if sectionIndex == 0{
+                                            self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                            self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
+                                        }else{
+                                            self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                            self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
+                                        }
+                                        
+                                        //btn.backgroundColor = UIColor.greenColor()
+                                        btn.userInteractionEnabled = false
+                                    }
+                                }else{
+                                    showErrorMessage("Seat downgrade not allowed")
+                                    countError += 1
+                                }
+                                
+                            }else{
+                                if self.seatDict["\(sectionIndex)"]?.count == self.passenger.count{
                                     
                                     if sectionIndex == 0{
-                                        passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                        seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                                        self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                        self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                                     }else{
-                                        passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                        seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                                        self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                        self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                                     }
                                     
                                     btn.userInteractionEnabled = false
@@ -426,64 +504,27 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                                     
                                 }else{
                                     if sectionIndex == 0{
-                                        passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                        seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                                        self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                        self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                                     }else{
-                                        passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                        seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                                        self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                        self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                                     }
                                     
                                     //btn.backgroundColor = UIColor.greenColor()
                                     btn.userInteractionEnabled = false
                                 }
-                            }else{
-                                showErrorMessage("Seat downgrade not allowed")
-                                countError += 1
                             }
-                            
-                        }else if passengerRow as! String == "preferred"{
-                            
-                            if seatDetail["seat_type"] as! String == "desired" || seatDetail["seat_type"] as! String == "preferred"{
-                                //isPreferedSelect = true
-                                if seatDict["\(sectionIndex)"]?.count == passenger.count{
-                                    
-                                    if sectionIndex == 0{
-                                        passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                        seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
-                                    }else{
-                                        passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                        seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
-                                    }
-                                    
-                                    btn.userInteractionEnabled = false
-                                    //btn.backgroundColor = UIColor.greenColor()
-                                    
-                                }else{
-                                    if sectionIndex == 0{
-                                        passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                        seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
-                                    }else{
-                                        passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                        seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
-                                    }
-                                    
-                                    //btn.backgroundColor = UIColor.greenColor()
-                                    btn.userInteractionEnabled = false
-                                }
-                            }else{
-                                showErrorMessage("Seat downgrade not allowed")
-                                countError += 1
-                            }
-                            
                         }else{
-                            if seatDict["\(sectionIndex)"]?.count == passenger.count{
+                            //isStandardSelect = true
+                            if self.seatDict["\(sectionIndex)"]?.count == self.passenger.count{
                                 
                                 if sectionIndex == 0{
-                                    passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                    seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                                    self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                    self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                                 }else{
-                                    passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                    seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                                    self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                    self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                                 }
                                 
                                 btn.userInteractionEnabled = false
@@ -491,27 +532,28 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                                 
                             }else{
                                 if sectionIndex == 0{
-                                    passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                    seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                                    self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                    self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                                 }else{
-                                    passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                    seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                                    self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                    self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                                 }
                                 
                                 //btn.backgroundColor = UIColor.greenColor()
                                 btn.userInteractionEnabled = false
                             }
+                            
                         }
                     }else{
                         //isStandardSelect = true
-                        if seatDict["\(sectionIndex)"]?.count == passenger.count{
+                        if self.seatDict["\(sectionIndex)"]?.count == self.passenger.count{
                             
                             if sectionIndex == 0{
-                                passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                                self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                             }else{
-                                passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                                self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                             }
                             
                             btn.userInteractionEnabled = false
@@ -519,28 +561,27 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                             
                         }else{
                             if sectionIndex == 0{
-                                passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                                self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                             }else{
-                                passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                                self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                             }
                             
                             //btn.backgroundColor = UIColor.greenColor()
                             btn.userInteractionEnabled = false
                         }
-                        
                     }
                 }else{
                     //isStandardSelect = true
-                    if seatDict["\(sectionIndex)"]?.count == passenger.count{
+                    if self.seatDict["\(sectionIndex)"]?.count == self.passenger.count{
                         
                         if sectionIndex == 0{
-                            passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                            seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                            self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                            self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                         }else{
-                            passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                            seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                            self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                            self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                         }
                         
                         btn.userInteractionEnabled = false
@@ -548,183 +589,159 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
                         
                     }else{
                         if sectionIndex == 0{
-                            passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                            seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                            self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                            self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                         }else{
-                            passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                            seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                            self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                            self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                         }
                         
                         //btn.backgroundColor = UIColor.greenColor()
                         btn.userInteractionEnabled = false
                     }
                 }
+                
             }else{
-                //isStandardSelect = true
-                if seatDict["\(sectionIndex)"]?.count == passenger.count{
-                    
-                    if sectionIndex == 0{
-                        passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                        seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
-                    }else{
-                        passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                        seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
-                    }
-                    
-                    btn.userInteractionEnabled = false
-                    //btn.backgroundColor = UIColor.greenColor()
-                    
-                }else{
-                    if sectionIndex == 0{
-                        passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                        seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
-                    }else{
-                        passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                        seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
-                    }
-                    
-                    //btn.backgroundColor = UIColor.greenColor()
-                    btn.userInteractionEnabled = false
-                }
-            }
-            
-        }else{
-            
-            if (seatTypeDict["\(sectionIndex)"] != nil){
-                let passengerSection = seatTypeDict["\(sectionIndex)"] as! NSDictionary
-                if (passengerSection["\(rowIndex)"] != nil){
-                    let passengerRow = passengerSection["\(rowIndex)"]
-                    
-                    if passengerRow as! String == "desired"{
+                
+                if (self.seatTypeDict["\(sectionIndex)"] != nil){
+                    let passengerSection = self.seatTypeDict["\(sectionIndex)"] as! NSDictionary
+                    if (passengerSection["\(rowIndex)"] != nil){
+                        let passengerRow = passengerSection["\(rowIndex)"]
                         
-                        if seatDetail["seat_type"] as! String == "desired"{
-                            if sectionIndex == 0{
-                                passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                        if passengerRow as! String == "desired"{
+                            
+                            if seatDetail["seat_type"] as! String == "desired"{
+                                if sectionIndex == 0{
+                                    self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                    self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
+                                }else{
+                                    self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                    self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
+                                }
+                                
+                                //btn.backgroundColor = UIColor.greenColor()
+                                btn.userInteractionEnabled = false
                             }else{
-                                passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                                showErrorMessage("Seat downgrade not allowed")
+                                countError += 1
+                            }
+                        }else if passengerRow as! String == "preferred"{
+                            if seatDetail["seat_type"] as! String == "desired" || seatDetail["seat_type"] as! String == "preferred"{
+                                if sectionIndex == 0{
+                                    self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                    self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
+                                }else{
+                                    self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                    self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
+                                }
+                                
+                                //btn.backgroundColor = UIColor.greenColor()
+                                btn.userInteractionEnabled = false
+                            }else{
+                                showErrorMessage("Seat downgrade not allowed")
+                                countError += 1
+                            }
+                        }else{
+                            if sectionIndex == 0{
+                                self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
+                            }else{
+                                self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                                self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                             }
                             
                             //btn.backgroundColor = UIColor.greenColor()
                             btn.userInteractionEnabled = false
-                        }else{
-                            showErrorMessage("Seat downgrade not allowed")
-                            countError += 1
-                        }
-                    }else if passengerRow as! String == "preferred"{
-                        if seatDetail["seat_type"] as! String == "desired" || seatDetail["seat_type"] as! String == "preferred"{
-                            if sectionIndex == 0{
-                                passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
-                            }else{
-                                passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                                seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
-                            }
-                            
-                            //btn.backgroundColor = UIColor.greenColor()
-                            btn.userInteractionEnabled = false
-                        }else{
-                            showErrorMessage("Seat downgrade not allowed")
-                            countError += 1
                         }
                     }else{
                         if sectionIndex == 0{
-                            passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                            seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                            self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                            self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                         }else{
-                            passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                            seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                            self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                            self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                         }
                         
                         //btn.backgroundColor = UIColor.greenColor()
                         btn.userInteractionEnabled = false
                     }
                 }else{
+                    self.isFirstSelect = true
                     if sectionIndex == 0{
-                        passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                        seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                        self.passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
+                        self.seatDict.updateValue(self.passengers1, forKey: "\(sectionIndex)")
                     }else{
-                        passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                        seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                        self.passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
+                        self.seatDict.updateValue(self.passengers2, forKey: "\(sectionIndex)")
                     }
                     
                     //btn.backgroundColor = UIColor.greenColor()
                     btn.userInteractionEnabled = false
                 }
-            }else{
-                isFirstSelect = true
-                if sectionIndex == 0{
-                    passengers1.updateValue(seatDetail, forKey: "\(rowIndex)")
-                    seatDict.updateValue(passengers1, forKey: "\(sectionIndex)")
+                
+            }
+            
+            if countError == 0{
+                var passengerCount = 0
+                if self.isEdit{
+                    passengerCount = self.passenger[0].count
                 }else{
-                    passengers2.updateValue(seatDetail, forKey: "\(rowIndex)")
-                    seatDict.updateValue(passengers2, forKey: "\(sectionIndex)")
+                    passengerCount = self.passenger.count
                 }
                 
-                //btn.backgroundColor = UIColor.greenColor()
-                btn.userInteractionEnabled = false
-            }
-            
-        }
-        
-        if countError == 0{
-            var passengerCount = 0
-            if isEdit{
-                passengerCount = passenger[0].count
-            }else{
-                passengerCount = passenger.count
-            }
-            
-            if rowIndex == passengerCount - 1{
-                
-                if sectionIndex != details.count - 1{
-                    sectionIndex += 1
-                    rowIndex = 0
-                }
-                
-                sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
-            }else{
-                
-                rowIndex += 1
-                
-                if isEdit{
-                    let passengerInfo = journeys[sectionIndex]["passengers"] as! [AnyObject]
-                    let passengerData = passengerInfo[rowIndex]
+                if rowIndex == passengerCount - 1{
                     
-                    if passengerData["checked_in"] as! String != "Y"{
-                        sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
-                    }else{
+                    if sectionIndex != self.details.count - 1{
+                        sectionIndex += 1
+                        rowIndex = 0
+                    }
+                    
+                    self.sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
+                }else{
+                    
+                    rowIndex += 1
+                    
+                    if self.isEdit{
+                        let passengerInfo = self.journeys[sectionIndex]["passengers"] as! [AnyObject]
+                        let passengerData = passengerInfo[rowIndex]
                         
-                        rowIndex += 1
-                        if rowIndex <= passengerCount - 1{
-                            for i in rowIndex...passengerCount - 1{
-                                
-                                let isCheckSeat = checkSeat(passengerInfo[i])
-                                
-                                if !isCheckSeat{
-                                    sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
-                                    break
+                        if passengerData["checked_in"] as! String != "Y"{
+                            self.sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
+                        }else{
+                            
+                            rowIndex += 1
+                            if rowIndex <= passengerCount - 1{
+                                for i in rowIndex..<passengerCount{
+                                    
+                                    let isCheckSeat = self.checkSeat(passengerInfo[i])
+                                    
+                                    if !isCheckSeat{
+                                        self.sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
+                                        break
+                                    }
+                                    
+                                }
+                            }else{
+                                if sectionIndex != self.details.count - 1{
+                                    sectionIndex += 1
+                                    rowIndex = 0
+                                    self.sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
                                 }
                                 
                             }
-                        }else{
-                            if sectionIndex != details.count - 1{
-                                sectionIndex += 1
-                                rowIndex = 0
-                                sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
-                            }
                             
                         }
-                        
+                    }else{
+                        self.sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
                     }
-                }else{
-                    sectionSelect = NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
+                    
                 }
-                
+                self.seatTableView.reloadData()
             }
-            self.seatTableView.reloadData()
+
         }
+        messageView.showSuccess("Seat Selection", subTitle: "Seat : \(seatDetail["seat_number"] as! String)", colorStyle: 0xEC581A, closeButtonTitle: "Cancel", circleIconImage: alertViewIcon)
+
     }
     
     func checkSeat(passengerInfo : AnyObject) -> Bool{

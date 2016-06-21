@@ -132,6 +132,8 @@ class EditFlightDetailViewController: CommonFlightDetailViewController {
                     
                 }
                 
+                cell.checkFlight.strokeColor = UIColor.orangeColor()
+                cell.checkFlight.checkColor = UIColor.orangeColor()
                 if indexPath.section == 1{
                     cell.flightIcon.image = UIImage(named: "arrival_icon")
                     cell.checkFlight.userInteractionEnabled = false

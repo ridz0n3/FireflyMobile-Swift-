@@ -39,6 +39,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         if try! LoginManager.sharedInstance.isLogin(){
             
             let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+            let dateArr = (userInfo["DOB"] as! String).componentsSeparatedByString("-")
             var userList = Results<FamilyAndFriendList>!()
             userList = realm.objects(FamilyAndFriendList)
             let mainUser = userList.filter("email == %@",userInfo["username"] as! String)
@@ -54,7 +55,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     data = ["title" : userInfo["title"]!,
                             "first_name" : userInfo["first_name"]!,
                             "last_name" : userInfo["last_name"]!,
-                            "dob" : userInfo["DOB"]!,
+                            "dob" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
                             "nationality" : userInfo["contact_country"]!,
                             "bonuslink_card" : userInfo["bonuslink"]!]
                     adultInfo.updateValue(data, forKey: "0")
@@ -76,7 +77,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                             data = ["title" : userInfo["title"]!,
                                     "first_name" : userInfo["first_name"]!,
                                     "last_name" : userInfo["last_name"]!,
-                                    "dob" : userInfo["DOB"]!,
+                                    "dob" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
                                     "nationality" : userInfo["contact_country"]!,
                                     "bonuslink_card" : userInfo["bonuslink"]!]
                             adultInfo.updateValue(data, forKey: "0")
@@ -90,7 +91,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 data = ["title" : userInfo["title"]!,
                         "first_name" : userInfo["first_name"]!,
                         "last_name" : userInfo["last_name"]!,
-                        "dob" : userInfo["DOB"]!,
+                        "dob" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
                         "nationality" : userInfo["contact_country"]!,
                         "bonuslink_card" : userInfo["bonuslink"]!]
                 adultInfo.updateValue(data, forKey: "0")
@@ -319,7 +320,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
         }
         
-        for var i = 0; i < infantCount; i = i + 1{
+        for i in 0..<infantCount{
             var j = i
             j = j + 1
             
@@ -454,6 +455,9 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                 
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                 let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
+                                if let ssrStatus = json["ssr_status"].string{
+                                    contactDetailVC.ssrStatus = ssrStatus
+                                }
                                 
                                 if let meal = json["meal"].arrayObject{
                                     contactDetailVC.meals = meal

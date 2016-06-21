@@ -344,7 +344,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
                     let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
                     
                     if json["status"] == "success"{
-                        showErrorMessage(json["message"].string!)
+                        showToastMessage(json["message"].string!)
                         self.cardInfo = ["card_type" : "",
                                         "account_number_id" : "",
                                         "card_holder_name" : "",

@@ -15,8 +15,19 @@ class InitialLoadManager {
     static let sharedInstance = InitialLoadManager()
     
     func load(){
-        var existDataVersion = String()
         
+        if defaults.objectForKey("first") == nil{
+            
+            if try! LoginManager.sharedInstance.isLogin(){
+                defaults.setObject("", forKey: "userInfo")
+                defaults.setObject("Y", forKey: "first")
+                defaults.synchronize()
+
+            }
+            
+        }
+        
+        var existDataVersion = String()
         if (defaults.objectForKey("dataVersion") != nil){
             existDataVersion = defaults.objectForKey("dataVersion") as! String
         }else{
