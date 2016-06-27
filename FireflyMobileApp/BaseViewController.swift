@@ -111,12 +111,13 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate {
         imageView.contentMode = .ScaleAspectFit
         let image = UIImage(named: "logo")
         imageView.image = image
-        
         self.navigationItem.titleView = imageView
         
+        let view = UIView()
+        view.frame = CGRectMake(0, 0, 45, 44)
         self.navigationItem.hidesBackButton = true//UIBarButtonItem(customView: tools)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: tools)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: tools)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: view)
         
     }
     

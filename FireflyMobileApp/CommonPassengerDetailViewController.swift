@@ -85,7 +85,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
                 
                 sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-                
+                sectionView.familyButton.layer.borderWidth = 1
+                sectionView.familyButton.layer.borderColor = UIColor.orangeColor().CGColor
                 sectionView.familyButton.setTitle("Manage Family & Friends", forState: .Normal)
                 sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.manageButtonClicked), forControlEvents: .TouchUpInside)
                 sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
@@ -116,6 +117,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                         sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
                         sectionView.familyButton.accessibilityHint = form.formSectionAtIndex(index)?.title
+                        sectionView.familyButton.layer.borderWidth = 1
+                        sectionView.familyButton.layer.borderColor = UIColor.orangeColor().CGColor
                         sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
                         sectionView.titleLbl.textColor = UIColor.whiteColor()
                         sectionView.titleLbl.textAlignment = NSTextAlignment.Center
@@ -144,6 +147,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                         sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
                         sectionView.familyButton.accessibilityHint = form.formSectionAtIndex(index)?.title
+                        sectionView.familyButton.layer.borderWidth = 1
+                        sectionView.familyButton.layer.borderColor = UIColor.orangeColor().CGColor
                         sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
                         sectionView.titleLbl.textColor = UIColor.whiteColor()
                         sectionView.titleLbl.textAlignment = NSTextAlignment.Center

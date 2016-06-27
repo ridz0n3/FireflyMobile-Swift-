@@ -29,6 +29,10 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
         
         addAdultButton.layer.cornerRadius = 10
         addInfantButton.layer.cornerRadius = 10
+        addAdultButton.layer.borderWidth = 1
+        addInfantButton.layer.borderWidth = 1
+        addAdultButton.layer.borderColor = UIColor.orangeColor().CGColor
+        addInfantButton.layer.borderColor = UIColor.orangeColor().CGColor
         returnPassengerButton.layer.cornerRadius = 10
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(FamilyListViewController.reloadList(_:)), name: "reloadList", object: nil)
