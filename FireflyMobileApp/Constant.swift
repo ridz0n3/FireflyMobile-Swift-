@@ -16,7 +16,7 @@ let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
 let iv = "owNLfnLjPvwbQH3h" // length == 16
 let kStageURL = "http://fyapistage.me-tech.com.my/"
 let kProductionURL = "http://fyapi.me-tech.com.my/"//
-let kDevURL = "http://fyapidev.me-tech.com.my/api"
+let kDevURL = "http://fyapidev.me-tech.com.my/"
 let khttpsProductionURL = "https://m.fireflyz.com.my/"
 let estimote_uuid = NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")
 let virtual_uuid = NSUUID(UUIDString: "8492E75F-4FD6-469D-B132-043FE94921D8")
@@ -66,6 +66,7 @@ internal struct Tags {
     static var ValidationArriving = "Arriving"
     static var ValidationSSRList = "Meals"
     static var HideSection = "hide"
+    static var SaveFamilyAndFriend = "save"
     
 }
 
@@ -220,7 +221,7 @@ func getArrivalAirport(departureAirport: String, module : String){
     if (defaults.objectForKey("flight") != nil){
         
         let flight = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
-
+        
         let first = departureAirport
         
         for loc in flight{
@@ -246,21 +247,8 @@ func getArrivalAirport(departureAirport: String, module : String){
     
 }
 
-var alertView = SCLAlertView()
-
-func showHud(status:String){
-    
-    if status == "open"{
-        //alertView.showCloseButton = false
-        alertView.showWait("Loading...", subTitle: "", colorStyle: 0xEC581A)
-    }else{
-        alertView.hideView()
-        alertView = SCLAlertView()
-    }
-    
-}
-
 func showErrorMessage(message : String){
+    
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
@@ -276,23 +264,20 @@ func showErrorMessage(message : String){
 }
 
 func showRetryMessage(message : String){
-    
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         showCircularIcon: true,
-        showCloseButton:false,
+        showCloseButton: false,
         kCircleIconHeight: 40
     )
     let alertViewIcon = UIImage(named: "alertIcon")
-    
     let errorView = SCLAlertView(appearance: appearance)
     errorView.addButton("Retry") { () -> Void in
         InitialLoadManager.sharedInstance.load()
     }
-    //errorView.showCloseButton = false
     errorView.showError("Error!", subTitle:message, colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
     
 }
@@ -308,8 +293,8 @@ func showToastMessage(message:String){
         kCircleIconHeight: 40
     )
     let alertViewIcon = UIImage(named: "alertIcon")
-    let messageView = SCLAlertView(appearance:appearance)
-    messageView.showSuccess("Success", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage:alertViewIcon)
+    let messageView = SCLAlertView(appearance: appearance)
+    messageView.showSuccess("Success", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage: alertViewIcon)
     
 }
 
@@ -324,9 +309,8 @@ func showNotif(title : String, message:String){
         kCircleIconHeight: 40
     )
     let alertViewIcon = UIImage(named: "alertIcon")
-    
     let infoView = SCLAlertView(appearance:appearance)
-    infoView.showInfo(title, subTitle: message, closeButtonTitle: "Close", colorStyle: 0xEC581A, circleIconImage:alertViewIcon)
+    infoView.showInfo(title, subTitle: message, closeButtonTitle: "Close", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
     
 }
 
@@ -341,9 +325,8 @@ func showInfo(message:String){
         kCircleIconHeight: 40
     )
     let alertViewIcon = UIImage(named: "alertIcon")
-    
     let infoView = SCLAlertView(appearance:appearance)
-    infoView.showInfo("Info", subTitle: message, closeButtonTitle: "Okay", colorStyle: 0xEC581A, circleIconImage:alertViewIcon)
+    infoView.showInfo("Info", subTitle: message, closeButtonTitle: "Okay", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
     
 }
 

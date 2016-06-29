@@ -8,7 +8,7 @@
         <!--Custom Flight Picker View Controller-->
         <scene sceneID="RR1-pc-rvM">
             <objects>
-                <viewController storyboardIdentifier="CustomFlightPickerVC" modalPresentationStyle="overFullScreen" id="Hat-yC-voS" customClass="CustomFlightPickerViewController" customModule="FireflyMobileApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CustomFlightPickerVC" modalPresentationStyle="overFullScreen" id="Hat-yC-voS" customClass="CustomFlightPickerViewController" customModule="Firefly_Mobile" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mK4-5l-ZVA"/>
                         <viewControllerLayoutGuide type="bottom" id="iIF-SG-Wjw"/>

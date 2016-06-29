@@ -30,7 +30,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             }
             
         }
-        
+        module = "editPassenger"
         adultArray = [Dictionary<String, AnyObject>]()
         
         adultCount = adultDetails.count
@@ -91,7 +91,8 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             // Date
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
             row.required = true
-            row.value = formatDate(stringToDate(adultDetails[i]["dob"] as! String))
+            let dateArr = (adultDetails[i]["dob"] as! String).componentsSeparatedByString("-")
+            row.value = formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"))
             section.addFormRow(row)
             
             // Travel Document
@@ -206,7 +207,9 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDate, infant), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
                 row.required = true
-                row.value = formatDate(stringToDate(infantDict["dob"] as! String))
+                let dateArr = (infantDict["dob"] as! String).componentsSeparatedByString("-")
+                row.value = formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"))
+                //row.value = formatDate(stringToDate(infantDict["dob"] as! String))
                 section.addFormRow(row)
                 
                 

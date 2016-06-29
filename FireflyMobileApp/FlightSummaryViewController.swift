@@ -415,7 +415,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         let alertViewIcon = UIImage(named: "alertIcon")
         
         let newDetail = sender.accessibilityHint!.stringByReplacingOccurrencesOfString("And", withString: "&")
-        SCLAlertView(appearance:appearance).showSuccess("Taxes/Fees", subTitle: newDetail, closeButtonTitle: "Close", colorStyle:0xEC581A, circleIconImage:alertViewIcon)
+        SCLAlertView(appearance:appearance).showSuccess("Taxes/Fees", subTitle: newDetail, closeButtonTitle: "Close", colorStyle:0xEC581A, circleIconImage: alertViewIcon)
         
     }
 

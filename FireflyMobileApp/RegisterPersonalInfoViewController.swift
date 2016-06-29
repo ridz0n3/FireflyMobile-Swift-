@@ -290,9 +290,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
             
             let date = formValues()[Tags.ValidationDate]! as! String
-            let arrangeDate = date.componentsSeparatedByString("-")
-            
-            let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
+            let selectDate: NSDate = stringToDate(date)
             
             if formValues()[Tags.ValidationPassword]! as! String != formValues()[Tags.ValidationConfirmPassword]! as! String {
                 showErrorMessage("Confirm password incorrect")

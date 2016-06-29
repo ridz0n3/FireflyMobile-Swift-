@@ -93,6 +93,7 @@
                                 defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
                                 defaults.setObject(json["user_info"].object , forKey: "userInfo")
                                 defaults.setObject(json["user_info"]["customer_number"].string, forKey: "customer_number")
+                                defaults.setObject(json["user_info"]["personID"].string, forKey: "personID")
                                 defaults.synchronize()
                                 
                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
@@ -134,12 +135,20 @@
         var tempEmail = String()
         
         func reloadAlertView(msg : String){
-            
-            let alert = SCLAlertView()
+            // Create custom Appearance Configuration
+            let appearance = SCLAlertView.SCLAppearance(
+                kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
+                kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
+                showCircularIcon: true,
+                kCircleIconHeight: 40
+            )
+            let alertViewIcon = UIImage(named: "alertIcon")
+            let alert = SCLAlertView(appearance:appearance)
             email = alert.addTextField("Enter email")
             email.text = tempEmail
             alert.addButton("Submit", target: self, selector: #selector(LoginViewController.loginBtnPressed))
-            alert.showEdit("Forgot Password", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close")
+            alert.showEdit("Forgot Password", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage: alertViewIcon)
             
         }
         

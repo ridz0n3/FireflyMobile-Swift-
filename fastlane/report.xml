@@ -3,29 +3,27 @@
   <testsuite name="fastlane.lanes">
     
       
-      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.000822">
+      <testcase classname="fastlane.lanes" name="0: Verifying required fastlane version" time="0.010639">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.000479">
+      <testcase classname="fastlane.lanes" name="1: default_platform" time="0.00032">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: cocoapods" time="38.671785">
+      <testcase classname="fastlane.lanes" name="2: cocoapods" time="120.171743">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="3: gym" time="972.087262">
+      <testcase classname="fastlane.lanes" name="3: gym" time="1017.707141">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="4: pilot" time="719.238134">
-        
-          <failure message="/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/actions/actions_helper.rb:33:in `execute_action'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/runner.rb:182:in `block in execute_action'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/runner.rb:181:in `chdir'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/runner.rb:181:in `execute_action'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/runner.rb:107:in `trigger_action_by_name'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/fast_file.rb:140:in `method_missing'&#10;Fastfile:40:in `block (2 levels) in parsing_binding'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/lane.rb:33:in `call'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/lane.rb:33:in `call'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/runner.rb:50:in `block in execute'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/runner.rb:46:in `chdir'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/runner.rb:46:in `execute'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/lane_manager.rb:46:in `cruise_lane'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/command_line_handler.rb:30:in `handle'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/commands_generator.rb:48:in `block (2 levels) in run'&#10;/Library/Ruby/Gems/2.0.0/gems/commander-4.3.5/lib/commander/command.rb:178:in `call'&#10;/Library/Ruby/Gems/2.0.0/gems/commander-4.3.5/lib/commander/command.rb:178:in `call'&#10;/Library/Ruby/Gems/2.0.0/gems/commander-4.3.5/lib/commander/command.rb:153:in `run'&#10;/Library/Ruby/Gems/2.0.0/gems/commander-4.3.5/lib/commander/runner.rb:428:in `run_active_command'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane_core-0.46.3/lib/fastlane_core/ui/fastlane_runner.rb:26:in `run!'&#10;/Library/Ruby/Gems/2.0.0/gems/commander-4.3.5/lib/commander/delegates.rb:15:in `run!'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/commands_generator.rb:236:in `run'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/commands_generator.rb:18:in `start'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/lib/fastlane/cli_tools_distributor.rb:47:in `take_off'&#10;/Library/Ruby/Gems/2.0.0/gems/fastlane-1.94.1/bin/fastlane:5:in `&lt;top (required)&gt;'&#10;/usr/local/bin/fastlane:23:in `load'&#10;/usr/local/bin/fastlane:23:in `&lt;main&gt;'&#10;&#10;Error receiving the newly uploaded binary, please check iTunes Connect" />
+      <testcase classname="fastlane.lanes" name="4: pilot" time="2373.333824">
         
       </testcase>
     
