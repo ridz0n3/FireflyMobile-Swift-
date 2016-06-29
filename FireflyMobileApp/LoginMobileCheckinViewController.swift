@@ -31,7 +31,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
         mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
         
         if mainUser.count != 0{
-            checkInList = mainUser[0].checkinList.sorted("departureDateTime", ascending: false)
+            checkInList = mainUser[0].checkinList.sorted("departureDateTime", ascending: true)
         }
         
     }

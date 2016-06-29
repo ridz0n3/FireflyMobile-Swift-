@@ -398,7 +398,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
             let date = formValues()[Tags.ValidationDate]! as! String
             let arrangeDate = date.componentsSeparatedByString("-")
             
-            let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
+            let selectDate: NSDate = stringToDate(date)
             
             if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String != ""{
                 
@@ -464,7 +464,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         let date = formValues()[Tags.ValidationDate]! as! String
         let arrangeDate = date.componentsSeparatedByString("-")
         
-        let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
+        let selectDate: NSDate = stringToDate(date)
         
         let username = userInfo["username"]! as! String
         let password = encOldPassword

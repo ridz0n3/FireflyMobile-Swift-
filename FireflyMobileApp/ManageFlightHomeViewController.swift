@@ -117,7 +117,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 headerView.frame = newFrame
             }
             
-            if flightType == "MH"{
+            if flightType == "MH" && itineraryData["ssr_status"] as! String == "Y"{
                 
                 changeSeatBtn.hidden = true
                 var newFrame = headerView.frame
@@ -697,9 +697,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         pnr = itineraryInformation["pnr"] as! String
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
+        var personID = String()
+        
+        if try! LoginManager.sharedInstance.isLogin(){
+            personID = defaults.objectForKey("personID") as! String
+        }
         
         showLoading() 
-        FireFlyProvider.request(.PaymentSelection(self.signature)) { (result) -> () in
+        FireFlyProvider.request(.PaymentSelection(personID, self.signature)) { (result) -> () in
             
             switch result {
             case .Success(let successResult):
@@ -716,6 +721,31 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         paymentVC.totalDueStr = self.totalDueStr
                         paymentVC.bookingId = self.bookingId
                         paymentVC.signature = self.signature
+                        
+                        if try! LoginManager.sharedInstance.isLogin(){
+                            
+                            if json["fop"] != nil{
+                                paymentVC.cardInfo = json["fop"].dictionaryObject!
+                            }else{
+                                let cardInfo = ["card_type" : "",
+                                                "account_number_id" : "",
+                                                "card_holder_name" : "",
+                                                "expiration_date_month" : "",
+                                                "card_number" : "",
+                                                "expiration_date_year" : ""]
+                                paymentVC.cardInfo = cardInfo
+                            }
+                            
+                        }else{
+                            let cardInfo = ["card_type" : "",
+                                            "account_number_id" : "",
+                                            "card_holder_name" : "",
+                                            "expiration_date_month" : "",
+                                            "card_number" : "",
+                                            "expiration_date_year" : ""]
+                            paymentVC.cardInfo = cardInfo
+                        }
+                        
                         self.navigationController!.pushViewController(paymentVC, animated: true)
                         
                     }else if json["status"] == "error"{
@@ -826,7 +856,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     }else if json["status"] == "need_payment"{
                         
                         self.totalDueStr = json["total_due"].doubleValue
-                        FireFlyProvider.request(.PaymentSelection(self.signature)) { (result) -> () in
+                        var personID = String()
+                        
+                        if try! LoginManager.sharedInstance.isLogin(){
+                            personID = defaults.objectForKey("personID") as! String
+                        }
+                        
+                        FireFlyProvider.request(.PaymentSelection(personID, self.signature)) { (result) -> () in
                             
                             switch result {
                             case .Success(let successResult):
@@ -843,6 +879,31 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         paymentVC.totalDueStr = self.totalDueStr
                                         paymentVC.bookingId = self.bookingId
                                         paymentVC.signature = self.signature
+                                        
+                                        if try! LoginManager.sharedInstance.isLogin(){
+                                            
+                                            if json["fop"] != nil{
+                                                paymentVC.cardInfo = json["fop"].dictionaryObject!
+                                            }else{
+                                                let cardInfo = ["card_type" : "",
+                                                                "account_number_id" : "",
+                                                                "card_holder_name" : "",
+                                                                "expiration_date_month" : "",
+                                                                "card_number" : "",
+                                                                "expiration_date_year" : ""]
+                                                paymentVC.cardInfo = cardInfo
+                                            }
+                                            
+                                        }else{
+                                            let cardInfo = ["card_type" : "",
+                                                            "account_number_id" : "",
+                                                            "card_holder_name" : "",
+                                                            "expiration_date_month" : "",
+                                                            "card_number" : "",
+                                                            "expiration_date_year" : ""]
+                                            paymentVC.cardInfo = cardInfo
+                                        }
+                                        
                                         self.navigationController!.pushViewController(paymentVC, animated: true)
                                         
                                     }else if json["status"] == "error"{

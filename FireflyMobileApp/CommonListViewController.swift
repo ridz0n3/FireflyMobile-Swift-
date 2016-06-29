@@ -35,6 +35,10 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
         // Dispose of any resources that can be recreated.
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1//newFormatedBookingList.count
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if module == "checkIn"{

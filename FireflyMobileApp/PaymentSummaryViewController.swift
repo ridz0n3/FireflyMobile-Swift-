@@ -196,8 +196,14 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         showLoading() 
         
         let signature = defaults.objectForKey("signature") as! String
+        var personID = String()
         
-        FireFlyProvider.request(.PaymentSelection(signature)) { (result) -> () in
+        if try! LoginManager.sharedInstance.isLogin(){
+            personID = defaults.objectForKey("personID") as! String
+        }
+        
+        
+        FireFlyProvider.request(.PaymentSelection(personID, signature)) { (result) -> () in
             
             switch result {
             case .Success(let successResult):
@@ -214,6 +220,31 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                         let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! AddPaymentViewController
                         paymentVC.paymentType = paymentChannel!
                         paymentVC.totalDue = amountDue
+                        
+                        if try! LoginManager.sharedInstance.isLogin(){
+                            
+                            if json["fop"] != nil{
+                                paymentVC.cardInfo = json["fop"].dictionaryObject!
+                            }else{
+                                let cardInfo = ["card_type" : "",
+                                                "account_number_id" : "",
+                                                "card_holder_name" : "",
+                                                "expiration_date_month" : "",
+                                                "card_number" : "",
+                                                "expiration_date_year" : ""]
+                                paymentVC.cardInfo = cardInfo
+                            }
+                            
+                        }else{
+                            let cardInfo = ["card_type" : "",
+                                        "account_number_id" : "",
+                                        "card_holder_name" : "",
+                                        "expiration_date_month" : "",
+                                        "card_number" : "",
+                                        "expiration_date_year" : ""]
+                            paymentVC.cardInfo = cardInfo
+                        }
+                        
                         self.navigationController!.pushViewController(paymentVC, animated: true)
                         
                     }else if json["status"] == "error"{

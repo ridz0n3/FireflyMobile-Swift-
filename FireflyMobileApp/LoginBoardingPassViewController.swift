@@ -16,6 +16,7 @@ class LoginBoardingPassViewController: CommonListViewController {
     
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     var listPnr = PNRList()
+    var newFormatedBookingList = [String : AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,27 @@ class LoginBoardingPassViewController: CommonListViewController {
         mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
         
         if mainUser.count != 0{
-            pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: false)
+            pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: true)
+            var activeFlight = [AnyObject]()
+            var notActiveFlight = [AnyObject]()
+            for data in pnrList{
+                let formater = NSDateFormatter()
+                formater.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
+                
+                let twentyFour = NSLocale(localeIdentifier: "en_GB")
+                formater.locale = twentyFour
+                //let newDate = formater.dateFromString(data.departureDateTime as! String)
+                let today = NSDate()
+                if today.compare(data.departureDateTime) == NSComparisonResult.OrderedAscending{
+                    activeFlight.append(data)
+                }else{
+                    notActiveFlight.append(data)
+                }
+            }
+            
+            newFormatedBookingList.updateValue(activeFlight, forKey: "Active")
+            newFormatedBookingList.updateValue(notActiveFlight, forKey: "notActive")
+            print(newFormatedBookingList.count)
         }
         
     }
@@ -45,6 +66,74 @@ class LoginBoardingPassViewController: CommonListViewController {
         loadingIndicator.hidden = true
         loadBoardingPassList()
         LoginMobileCheckinTableView.reloadData()
+    }
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return newFormatedBookingList.count
+    }
+    
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0{
+            
+            if newFormatedBookingList["Active"]?.count == 0{
+                return 1
+            }else{
+                return (newFormatedBookingList["Active"]?.count)!
+            }
+            
+        }else{
+            
+            if newFormatedBookingList["notActive"]?.count == 0{
+                return 1
+            }else{
+                return (newFormatedBookingList["notActive"]?.count)!
+            }
+            
+        }
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if indexPath.section == 0{
+            
+            if newFormatedBookingList["Active"]?.count == 0{
+                let cell = LoginMobileCheckinTableView.dequeueReusableCellWithIdentifier("NoUpcomingCell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
+                
+                return cell
+            }else{
+                
+                let cell = LoginMobileCheckinTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
+                
+                let bookingList = newFormatedBookingList["Active"] as! [AnyObject]
+                let bookingData = bookingList[indexPath.row] as! PNRList
+                
+                cell.pnrNumber.text = "\(bookingData.pnr)"
+                cell.flightNumber.text = "\(bookingData.departureStationCode) - \(bookingData.arrivalStationCode)"
+                cell.flightDate.text = bookingData.departureDayDate.capitalizedString
+                
+                return cell
+            }
+            
+        }else{
+            
+            if newFormatedBookingList["notActive"]?.count == 0{
+                let cell = LoginMobileCheckinTableView.dequeueReusableCellWithIdentifier("NoCompletedCell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
+                return cell
+            }else{
+                let cell = LoginMobileCheckinTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
+                
+                let bookingList = newFormatedBookingList["notActive"] as! [AnyObject]
+                let bookingData = bookingList[indexPath.row] as! PNRList
+                
+                cell.pnrNumber.text = "\(bookingData.pnr)"
+                cell.flightNumber.text = "\(bookingData.departureStationCode) - \(bookingData.arrivalStationCode)"
+                cell.flightDate.text = bookingData.departureDayDate.capitalizedString
+                
+                return cell
+            }
+            
+        }
+        
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -64,6 +153,29 @@ class LoginBoardingPassViewController: CommonListViewController {
             showLoading()
             checkBoardingPass(listPnr["pnr"] as! String, departCode: listPnr["departureStationCode"] as! String, arrivalCode: listPnr["arrivalStationCode"] as! String, isExist: false)
         }
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+        
+        sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
+        
+        //let index = UInt(section)
+        var title = String()
+        
+        if section == 0{
+            title = "Upcoming Trips"
+        }else{
+            title = "Completed Travels"
+        }
+        
+        sectionView.sectionLbl.text = title
+        sectionView.sectionLbl.textColor = UIColor.whiteColor()
+        sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+        
+        return sectionView
+        
     }
     
     func checkBoardingPass(pnr : String, departCode : String, arrivalCode : String, isExist : Bool){

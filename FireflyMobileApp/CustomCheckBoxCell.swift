@@ -33,6 +33,7 @@ class CustomCheckBoxCell: XLFormBaseCell {
     
     @IBOutlet weak var checkButtonButton: UIButton!
     @IBOutlet weak var familySelect: M13Checkbox!
+    @IBOutlet weak var titleLbl: UILabel!
     
     //MARK: - XLFormDescriptorCell
     
@@ -44,6 +45,7 @@ class CustomCheckBoxCell: XLFormBaseCell {
     
     override func update() {
         super.update()
+        titleLbl.text = rowDescriptor.title
         updateButtons()
     }
     

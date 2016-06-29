@@ -31,8 +31,8 @@ public enum FireFlyAPI {
     case PassengerDetail(AnyObject, AnyObject, String, String, String, String)
     case ContactDetail(String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, String, AnyObject, AnyObject, String)
     case SelectSeat(AnyObject, AnyObject, String, String)
-    case PaymentSelection(String)
-    case PaymentProcess(String, String, String, String, String, String, String, String, String, String)
+    case PaymentSelection(String, String)
+    case PaymentProcess(String, String, String, String, String, String, String, String, String, String, String, String)
     case SearchFlight(Int, String, String, String, String, String, String, String, String)
     case SelectFlight(String, String, String, Int, String, String, String, String, String, String, String, String, String, String, String, String, String, String)
     case FlightSummary(String)
@@ -62,6 +62,7 @@ public enum FireFlyAPI {
     case EditFamilyAndFriend(String, String, String, String, String, String, String, String, String, Int)
     case AddFamilyAndFriend(String, String, String, String, String, String, String, String, String)
     case DeleteFamilyAndFriend(Int, String)
+    case RemoveCreditCard(String, String)
 }
 
 
@@ -161,11 +162,13 @@ extension FireFlyAPI : TargetType {
             return "api/editFamilyFriends"
         case .DeleteFamilyAndFriend:
             return "api/deleteFamilyFriends"
+        case .RemoveCreditCard:
+            return "api/removeCC"
         }
     }
     public var method: Moya.Method {
         switch self {
-        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass, .UpdateUserProfile, .RegisterUser, .RetrieveSSRList, .ChangeSSR, .ChangeSSR2Way, .EditFamilyAndFriend, .DeleteFamilyAndFriend, .AddFamilyAndFriend:
+        case .Login, .Loading, .ForgotPassword, .ChangePassword, .PassengerDetail, .ContactDetail, .SelectSeat, .PaymentSelection, .PaymentProcess, .SearchFlight, .SelectFlight, .FlightSummary, .Logout, .RetrieveBooking, .RetrieveBookingList, .ChangeContact, .EditPassengerDetail, .ConfirmChange, .GetAvailableSeat, .ChangeSeat, .SendItinerary, .GetFlightAvailability, .SearchChangeFlight, .SelectChangeFlight, .CheckIn, .CheckInPassengerList, .CheckInConfirmation, .RetrieveBoardingPass, .UpdateUserProfile, .RegisterUser, .RetrieveSSRList, .ChangeSSR, .ChangeSSR2Way, .EditFamilyAndFriend, .DeleteFamilyAndFriend, .AddFamilyAndFriend, .RemoveCreditCard:
             return .POST
         case .GetTerm, .GetAbout:
             return .GET
@@ -188,10 +191,10 @@ extension FireFlyAPI : TargetType {
             return ["flight_type" : flightType, "booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode, "seat_selection_status" : seatStatus, "going_flight" : goingFlight, "return_flight" : returnFlight, "customer_number" : customer_number]
         case .SelectSeat(let goingFlight, let returnFlight, let bookId, let signature):
             return ["going_flight" : goingFlight, "return_flight" : returnFlight, "booking_id" : bookId, "signature" : signature]
-        case PaymentSelection(let signature):
-            return ["signature" : signature]
-        case PaymentProcess(let signature, let channelType, let channelCode, let cardNumber, let expirationDateMonth, let expirationDateYear, let cardHolderName, let issuingBank, let cvv, let booking_id):
-            return ["signature" : signature, "channelType" : channelType, "channelCode" : channelCode, "cardNumber": cardNumber, "expirationDateMonth" : expirationDateMonth, "expirationDateYear" : expirationDateYear, "cardHolderName" : cardHolderName, "issuingBank" : issuingBank, "cvv" : cvv, "bookingId" : booking_id]
+        case PaymentSelection(let personID, let signature):
+            return ["personID" : personID, "signature" : signature]
+        case PaymentProcess(let signature, let channelType, let channelCode, let cardNumber, let expirationDateMonth, let expirationDateYear, let cardHolderName, let issuingBank, let cvv, let booking_id, let personID, let accountNumberID):
+            return ["signature" : signature, "channelType" : channelType, "channelCode" : channelCode, "cardNumber": cardNumber, "expirationDateMonth" : expirationDateMonth, "expirationDateYear" : expirationDateYear, "cardHolderName" : cardHolderName, "issuingBank" : issuingBank, "cvv" : cvv, "bookingId" : booking_id, "personID" : personID, "accountNumberID" : accountNumberID ]
         case .SearchFlight(let type, let departure_station, let arrival_station, let departure_date, let return_date, let adult, let infant, let username, let password):
             return ["type" : type, "departure_station" : departure_station, "arrival_station" : arrival_station, "departure_date": departure_date, "return_date" : return_date, "adult" : adult, "infant" : infant, "username" : username, "password" : password]
         case .SelectFlight(let adult, let infant, let username, let type, let departure_date, let arrival_time_1, let departure_time_1, let fare_sell_key_1, let flight_number_1, let journey_sel_key_1, let return_date, let arrival_time_2, let departure_time_2, let fare_sell_key_2, let flight_number_2, let journey_sel_key_2, let departure_station, let arrival_station):
@@ -316,6 +319,8 @@ extension FireFlyAPI : TargetType {
                     "title":title,
                     "gender":gender,
                     "user_email":email]
+        case .RemoveCreditCard(let personID, let signature):
+            return ["personID" : personID, "signature" : signature]
         default:
         return nil
         }

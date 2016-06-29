@@ -397,6 +397,74 @@
                                             <outlet property="pnrNumber" destination="Twq-fG-kwo" id="u7Y-TD-m0W"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoUpcomingCell" rowHeight="57" id="Mxc-u5-fML" customClass="CustomLoginManageFlightTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="287" width="600" height="57"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mxc-u5-fML" id="2IA-XT-I15">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9hA-Kt-dYR">
+                                                    <rect key="frame" x="16" y="0.0" width="568" height="57"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Upcoming Trips" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSm-h4-3jN">
+                                                            <rect key="frame" x="8" y="18" width="552" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="ZSm-h4-3jN" firstAttribute="leading" secondItem="9hA-Kt-dYR" secondAttribute="leading" constant="8" id="3K6-04-mo5"/>
+                                                        <constraint firstAttribute="trailing" secondItem="ZSm-h4-3jN" secondAttribute="trailing" constant="8" id="O9b-M7-u4O"/>
+                                                        <constraint firstItem="ZSm-h4-3jN" firstAttribute="top" secondItem="9hA-Kt-dYR" secondAttribute="top" constant="18" id="Zvn-fB-TAN"/>
+                                                        <constraint firstAttribute="bottom" secondItem="ZSm-h4-3jN" secondAttribute="bottom" constant="18" id="u6W-86-d4T"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="9hA-Kt-dYR" firstAttribute="leading" secondItem="2IA-XT-I15" secondAttribute="leading" constant="16" id="9OS-Vj-cwv"/>
+                                                <constraint firstAttribute="bottom" secondItem="9hA-Kt-dYR" secondAttribute="bottom" id="cqu-su-3gh"/>
+                                                <constraint firstAttribute="trailing" secondItem="9hA-Kt-dYR" secondAttribute="trailing" constant="16" id="g39-e0-ez3"/>
+                                                <constraint firstItem="9hA-Kt-dYR" firstAttribute="top" secondItem="2IA-XT-I15" secondAttribute="top" id="wRL-Th-SGB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NoCompletedCell" rowHeight="57" id="wIF-HH-IBr" customClass="CustomLoginManageFlightTableViewCell" customModule="Firefly_Mobile" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="344" width="600" height="57"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wIF-HH-IBr" id="2Rl-9t-EZ5">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="87s-cU-3Nw">
+                                                    <rect key="frame" x="16" y="0.0" width="568" height="57"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Completed Travel" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DoT-Cj-ria">
+                                                            <rect key="frame" x="8" y="18" width="552" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="DoT-Cj-ria" secondAttribute="bottom" constant="18" id="7rX-Aw-KXo"/>
+                                                        <constraint firstAttribute="trailing" secondItem="DoT-Cj-ria" secondAttribute="trailing" constant="8" id="FpH-BM-ifc"/>
+                                                        <constraint firstItem="DoT-Cj-ria" firstAttribute="top" secondItem="87s-cU-3Nw" secondAttribute="top" constant="18" id="Lvn-zz-dt6"/>
+                                                        <constraint firstItem="DoT-Cj-ria" firstAttribute="leading" secondItem="87s-cU-3Nw" secondAttribute="leading" constant="8" id="SVR-3I-vwa"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="87s-cU-3Nw" secondAttribute="trailing" constant="16" id="FO7-qM-AWL"/>
+                                                <constraint firstItem="87s-cU-3Nw" firstAttribute="leading" secondItem="2Rl-9t-EZ5" secondAttribute="leading" constant="16" id="NaM-nn-UQb"/>
+                                                <constraint firstItem="87s-cU-3Nw" firstAttribute="top" secondItem="2Rl-9t-EZ5" secondAttribute="top" id="Okj-lv-IFa"/>
+                                                <constraint firstAttribute="bottom" secondItem="87s-cU-3Nw" secondAttribute="bottom" id="cQ4-yj-fMh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="YY2-fc-Hdn" id="UHR-9b-NRa"/>

@@ -85,7 +85,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
                 
                 sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-                
+                sectionView.familyButton.layer.borderWidth = 1
+                sectionView.familyButton.layer.borderColor = UIColor.orangeColor().CGColor
                 sectionView.familyButton.setTitle("Manage Family & Friends", forState: .Normal)
                 sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.manageButtonClicked), forControlEvents: .TouchUpInside)
                 sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
@@ -116,6 +117,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                         sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
                         sectionView.familyButton.accessibilityHint = form.formSectionAtIndex(index)?.title
+                        sectionView.familyButton.layer.borderWidth = 1
+                        sectionView.familyButton.layer.borderColor = UIColor.orangeColor().CGColor
                         sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
                         sectionView.titleLbl.textColor = UIColor.whiteColor()
                         sectionView.titleLbl.textAlignment = NSTextAlignment.Center
@@ -144,6 +147,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                         sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
                         sectionView.familyButton.accessibilityHint = form.formSectionAtIndex(index)?.title
+                        sectionView.familyButton.layer.borderWidth = 1
+                        sectionView.familyButton.layer.borderColor = UIColor.orangeColor().CGColor
                         sectionView.titleLbl.text = form.formSectionAtIndex(index)?.title
                         sectionView.titleLbl.textColor = UIColor.whiteColor()
                         sectionView.titleLbl.textAlignment = NSTextAlignment.Center
@@ -178,7 +183,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         var passengerName = [String]()
         
         var tempPassenger = [AnyObject]()
-        for var i = 0; i < adultCount; i = i + 1{
+        
+        for i in 0..<adultCount{
             var count = i
             count = count + 1
             var saveAdultInfo = [String:AnyObject]()
@@ -212,7 +218,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             saveAdultInfo.updateValue(newExpDate, forKey: "expiration_date")
             
             if flightType == "FY"{
-            saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "bonuslink")
+                saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "bonuslink")
             }
             
             if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
@@ -238,7 +244,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         var travelWith = [String]()
         var infant = [String:AnyObject]()
         var tempInfant = [AnyObject]()
-        for var j = 0; j < infantCount; j = j + 1{
+        
+        for j in 0..<infantCount{
             var count = j
             count = count + 1
             var infantInfo = [String:AnyObject]()
@@ -294,13 +301,10 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         let firstPassenger = passengerName[0]
         var nameDuplicate = Bool()
         
-        //for i in 1...passengerName.count-1{
-        for var i = 1; i < passengerName.count; i = i + 1{
-            
+        for i in 1..<passengerName.count{
             if passengerName[i] == firstPassenger{
                 nameDuplicate = true
             }
-            
         }
         
         var checkTravelWith = Bool()
@@ -355,7 +359,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         calendar.timeZone = NSTimeZone(name: "UTC")!
         
-        for var i = 0; i < adultCount; i = i + 1{
+        for i in 0..<adultCount{
             var count = i
             count += 1
             
@@ -386,7 +390,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             }
         }
         
-        for var i = 0; i < infantCount; i = i + 1{
+        for i in 0..<infantCount{
             
             var count = i
             count += 1

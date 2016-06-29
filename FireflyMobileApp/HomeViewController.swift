@@ -23,7 +23,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupMenuButton()
+        setupHomeButton()
         
         if defaults.objectForKey("notif") != nil{
             if defaults.objectForKey("notif")?.classForCoder != NSString.classForCoder(){
@@ -461,7 +461,6 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             let date = (listInfo["date"] as! String).componentsSeparatedByString(" ")
             let new = "\(date[2])-\(date[1])-\(date[0])"
             let newdate = formater.dateFromString(new)
-            //print(newdate)
             
             pnr.departureStationCode = listInfo["departure_station_code"] as! String
             pnr.arrivalStationCode = listInfo["arrival_station_code"] as! String
