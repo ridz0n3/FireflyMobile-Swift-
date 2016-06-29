@@ -21,8 +21,11 @@ class InitialLoadManager {
             if try! LoginManager.sharedInstance.isLogin(){
                 defaults.setObject("", forKey: "userInfo")
                 defaults.setObject("Y", forKey: "first")
+                defaults.setObject("0", forKey: "dataVersion")
                 defaults.synchronize()
 
+            }else{
+                defaults.setObject("0", forKey: "dataVersion")
             }
             
         }

@@ -2731,12 +2731,11 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6uP-VH-jDX">
                                             <rect key="frame" x="16" y="8" width="568" height="40"/>
-                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="mkI-Hk-uUz"/>
                                             </constraints>
                                             <state key="normal" title="Delete card info">
-                                                <color key="titleColor" red="1" green="0.97396640940000001" blue="0.99092548840000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleColor" red="0.94117647059999998" green="0.42745098040000001" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <connections>
                                                 <action selector="deleteBtnPressed:" destination="r6T-Ab-3nE" eventType="touchUpInside" id="UdL-dF-fbt"/>

@@ -33,6 +33,8 @@ class CommonPaymentViewController: BaseXLFormViewController {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
         deleteBtn.layer.cornerRadius = 10
+        deleteBtn.layer.borderColor = UIColor.orangeColor().CGColor
+        deleteBtn.layer.borderWidth = 1
         setupLeftButton()
         creditCardCheckBox.checkState = M13CheckboxState.Checked
         

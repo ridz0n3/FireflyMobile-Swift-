@@ -214,7 +214,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             let goingSSRDict = NSMutableArray()
             let returnSSRDict = NSMutableArray()
             
-            if flightType == "MH" && ssrStatus == "Available"{
+            if flightType == "MH" && ssrStatus == "Y"{
                 
                 let timeDifference = defaults.objectForKey("timeDifference") as! Int
                 

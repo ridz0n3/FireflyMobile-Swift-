@@ -117,7 +117,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 headerView.frame = newFrame
             }
             
-            if flightType == "MH" && itineraryData["ssr_status"] as! String == "Available"{
+            if flightType == "MH" && itineraryData["ssr_status"] as! String == "Y"{
                 
                 changeSeatBtn.hidden = true
                 var newFrame = headerView.frame

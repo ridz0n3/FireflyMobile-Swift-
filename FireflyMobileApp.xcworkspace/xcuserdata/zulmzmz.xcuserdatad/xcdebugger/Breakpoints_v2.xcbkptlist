@@ -168,7 +168,7 @@
                   moduleName = "Firefly Mobile"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/FireflyAPI.swift"
-                  timestampString = "488688639.861372"
+                  timestampString = "488794946.382269"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "339"
@@ -183,7 +183,7 @@
                   moduleName = "Firefly Mobile"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/zulmzmz/Desktop/FireflyMobileAppSwift/FireflyMobileApp/FireflyAPI.swift"
-                  timestampString = "488688639.861579"
+                  timestampString = "488794946.382527"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "339"
@@ -302,6 +302,54 @@
             startingLineNumber = "97"
             endingLineNumber = "97"
             landmarkName = "tableView(_:cellForRowAtIndexPath:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/UpdateInformationViewController.swift"
+            timestampString = "488792671.437718"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "454"
+            endingLineNumber = "454"
+            landmarkName = "sendInfo()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/UpdateInformationViewController.swift"
+            timestampString = "488792804.681124"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
+            landmarkName = "continueButtonPressed(_:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/UpdateInformationViewController.swift"
+            timestampString = "488792865.114074"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "388"
+            endingLineNumber = "388"
+            landmarkName = "continueButtonPressed(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
