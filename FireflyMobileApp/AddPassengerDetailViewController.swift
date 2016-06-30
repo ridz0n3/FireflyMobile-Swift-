@@ -14,20 +14,30 @@ import RealmSwift
 class AddPassengerDetailViewController: CommonPassengerDetailViewController {
     
     var status = String()
+    var isContinue = Bool()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        isContinue = false
         adultArray = [Dictionary<String,AnyObject>]()
         flightType = defaults.objectForKey("flightType") as! String
         adultCount = (defaults.objectForKey("adult")?.integerValue)!
         infantCount = (defaults.objectForKey("infants")?.integerValue)!
         module = "addPassenger"
-        
         loadFamilyAndFriendData()
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.passengerDetailsScreen)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddPassengerDetailViewController.reload(_:)), name: "reloadPicker", object: nil)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if isContinue{
+            loadFamilyAndFriendData()
+            //initializeForm()
+        }
+        
     }
     
     func reload(sender : NSNotification){
@@ -51,15 +61,18 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     self.tableView.reloadData()
                 }
                 
+                if !isContinue{
                 if familyAndFriendList.count == 0{
                     data = ["title" : userInfo["title"]!,
                             "first_name" : userInfo["first_name"]!,
                             "last_name" : userInfo["last_name"]!,
-                            "dob" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
-                            "nationality" : userInfo["contact_country"]!,
-                            "bonuslink_card" : userInfo["bonuslink"]!]
+                            "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
+                            "issuing_country" : userInfo["contact_country"]!,
+                            "bonuslink" : userInfo["bonuslink"]!,
+                            "Save" : false]
                     adultInfo.updateValue(data, forKey: "0")
                 }else{
+                    var countExist = 0
                     for tempInfo in familyAndFriendList{
                         
                         if (tempInfo.title == userInfo["title"]! as! String) && (tempInfo.firstName == userInfo["first_name"]! as! String) && (tempInfo.lastName == userInfo["last_name"]! as! String) {
@@ -68,21 +81,27 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                     "gender" : tempInfo.gender,
                                     "first_name" : tempInfo.firstName,
                                     "last_name" : tempInfo.lastName,
-                                    "dob" : tempInfo.dob,
-                                    "nationality" : tempInfo.country,
-                                    "bonuslink_card" : tempInfo.bonuslink,
-                                    "type" : tempInfo.type]
+                                    "dob2" : tempInfo.dob,
+                                    "issuing_country" : tempInfo.country,
+                                    "bonuslink" : tempInfo.bonuslink,
+                                    "type" : tempInfo.type,
+                                    "Save" : false]
                             adultInfo.updateValue(data, forKey: "0")
-                        }else{
-                            data = ["title" : userInfo["title"]!,
-                                    "first_name" : userInfo["first_name"]!,
-                                    "last_name" : userInfo["last_name"]!,
-                                    "dob" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
-                                    "nationality" : userInfo["contact_country"]!,
-                                    "bonuslink_card" : userInfo["bonuslink"]!]
-                            adultInfo.updateValue(data, forKey: "0")
+                            countExist += 1
                         }
                     }
+                    
+                    if countExist == 0{
+                        data = ["title" : userInfo["title"]!,
+                                    "first_name" : userInfo["first_name"]!,
+                                    "last_name" : userInfo["last_name"]!,
+                                    "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
+                                    "issuing_country" : userInfo["contact_country"]!,
+                                    "bonuslink" : userInfo["bonuslink"]!,
+                                    "Save" : false]
+                        adultInfo.updateValue(data, forKey: "0")
+                    }
+                }
                 }
             }else{
                 familyAndFriendList = nil
@@ -91,9 +110,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 data = ["title" : userInfo["title"]!,
                         "first_name" : userInfo["first_name"]!,
                         "last_name" : userInfo["last_name"]!,
-                        "dob" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
-                        "nationality" : userInfo["contact_country"]!,
-                        "bonuslink_card" : userInfo["bonuslink"]!]
+                        "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
+                        "issuing_country" : userInfo["contact_country"]!,
+                        "bonuslink" : userInfo["bonuslink"]!,
+                        "Save" : false]
                 adultInfo.updateValue(data, forKey: "0")
             }
         }
@@ -128,10 +148,12 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     "gender" : "",
                     "first_name" : "",
                     "last_name" : "",
-                    "dob" : "",
-                    "nationality" : "",
-                    "bonuslink_card" : "",
-                    "type" : ""]
+                    "dob2" : "",
+                    "issuing_country" : "",
+                    "bonuslink" : "",
+                    "type" : "",
+                    "Save" : false,
+                    "traveling_with" : ""]
     
     func initializeForm() {
         
@@ -199,7 +221,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
-                row.value = formatDate(stringToDate(info["dob"] as! String))//"\(userInfo["DOB"]!)"
+                row.value = formatDate(stringToDate(info["dob2"] as! String))//"\(userInfo["DOB"]!)"
                 row.required = true
                 section.addFormRow(row)
                 
@@ -210,7 +232,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 for country in countryArray{
                     tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
                     
-                    if country["country_code"] as! String == info["nationality"] as! String{
+                    if country["country_code"] as! String == info["issuing_country"] as! String{
                         row.value = country["country_name"] as! String
                     }
                 }
@@ -224,7 +246,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     // Enrich Loyalty No
                     row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
                     //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
-                    row.value = "\(info["bonuslink_card"]! as! String)"
+                    row.value = "\(info["bonuslink"]! as! String)"
                     section.addFormRow(row)
                 }
                 
@@ -232,7 +254,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     // Save family and friend
                     row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox, title:"Save as family & friends")
                     row.value =  [
-                        CustomCheckBoxCell.kSave.status.description(): false
+                        CustomCheckBoxCell.kSave.status.description(): info["Save"] as! Bool
                     ]
                     section.addFormRow(row)
                 }
@@ -278,8 +300,8 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
                 row.required = true
-                if info["dob"] as! String != ""{
-                    row.value = formatDate(stringToDate(info["dob"] as! String))
+                if info["dob2"] as! String != ""{
+                    row.value = formatDate(stringToDate(info["dob2"] as! String))
                 }
                 section.addFormRow(row)
                 
@@ -290,7 +312,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 for country in countryArray{
                     tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
                     
-                    if country["country_code"] as! String == info["nationality"] as! String{
+                    if country["country_code"] as! String == info["issuing_country"] as! String{
                         row.value = country["country_name"] as! String
                     }
                 }
@@ -303,7 +325,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     // Enrich Loyalty No
                     row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
                     //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
-                    row.value = "\(info["bonuslink_card"]! as! String)"
+                    row.value = "\(info["bonuslink"]! as! String)"
                     section.addFormRow(row)
                 }
                 
@@ -311,7 +333,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     // Save family and friend
                     row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, adult), rowType: XLFormRowDescriptorCheckbox, title:"Save as family & friends")
                     row.value =  [
-                        CustomCheckBoxCell.kSave.status.description(): false
+                        CustomCheckBoxCell.kSave.status.description(): info["Save"] as! Bool
                     ]
                     section.addFormRow(row)
                 }
@@ -338,12 +360,16 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             // Title
             row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationTravelWith, j), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Traveling with:*")
-            
+            row.value = adultArray[i]["passenger_name"] as! String
             var tempArray:[AnyObject] = [AnyObject]()
             for passenger in adultArray{
                 tempArray.append(XLFormOptionsObject(value: passenger["passenger_code"], displayText: passenger["passenger_name"] as! String))
+                
+                if passenger["passenger_code"] as! String == info["traveling_with"] as! String{
+                    row.value = passenger["passenger_name"] as! String
+                }
             }
-            row.value = adultArray[i]["passenger_name"] as! String
+            
             row.selectorOptions = tempArray
             row.required = true
             section.addFormRow(row)
@@ -382,8 +408,8 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             // Date
             row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDate, j), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
             row.required = true
-            if info["dob"] as! String != ""{
-                row.value = formatDate(stringToDate(info["dob"] as! String))
+            if info["dob2"] as! String != ""{
+                row.value = formatDate(stringToDate(info["dob2"] as! String))
             }
             section.addFormRow(row)
             
@@ -394,7 +420,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             for country in countryArray{
                 tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
                 
-                if country["country_code"] as! String == info["nationality"] as! String{
+                if country["country_code"] as! String == info["issuing_country"] as! String{
                     row.value = country["country_name"] as! String
                 }
             }
@@ -407,7 +433,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Save family and friend
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.SaveFamilyAndFriend, j), rowType: XLFormRowDescriptorCheckbox, title:"Save as family & friends")
                 row.value =  [
-                    CustomCheckBoxCell.kSave.status.description(): false
+                    CustomCheckBoxCell.kSave.status.description(): info["Save"] as! Bool
                 ]
                 section.addFormRow(row)
             }
@@ -418,7 +444,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
     
     @IBAction func continueBtnPressed(sender: AnyObject) {
         validateForm()
-        
+        isContinue = true
         if isValidate{
             let params = getFormData()
             
@@ -445,7 +471,9 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                             
                             if json["status"] == "success"{
                                 
-                                
+                                if try! LoginManager.sharedInstance.isLogin(){
+                                    self.saveFamilyAndFriends(json["family_and_friend"].arrayObject!)
+                                }
                                 if json["insurance"].dictionaryValue["status"]!.string == "N"{
                                     defaults.setObject("", forKey: "insurance_status")
                                 }else{
@@ -507,10 +535,11 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 "gender" : tempInfo.gender,
                 "first_name" : tempInfo.firstName,
                 "last_name" : tempInfo.lastName,
-                "dob" : tempInfo.dob,
-                "nationality" : tempInfo.country,
-                "bonuslink_card" : tempInfo.bonuslink,
-                "type" : tempInfo.type]
+                "dob2" : tempInfo.dob,
+                "issuing_country" : tempInfo.country,
+                "bonuslink" : tempInfo.bonuslink,
+                "type" : tempInfo.type,
+                "Save" : false]
         adultInfo.updateValue(data, forKey: "\(btn.tag - 1)")
         initializeForm()
     }
@@ -525,10 +554,12 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 "gender" : tempInfo.gender,
                 "first_name" : tempInfo.firstName,
                 "last_name" : tempInfo.lastName,
-                "dob" : tempInfo.dob,
-                "nationality" : tempInfo.country,
-                "bonuslink_card" : tempInfo.bonuslink,
-                "type" : tempInfo.type]
+                "dob2" : tempInfo.dob,
+                "issuing_country" : tempInfo.country,
+                "bonuslink" : tempInfo.bonuslink,
+                "type" : tempInfo.type,
+                "traveling_with" : "",
+                "Save" : false]
         infantInfo.updateValue(data, forKey: "\(btn.tag)")
         initializeForm()
     }

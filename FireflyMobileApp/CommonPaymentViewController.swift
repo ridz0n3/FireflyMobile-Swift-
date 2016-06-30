@@ -236,12 +236,18 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         row.selectorOptions = tempArray
         row.required = true
+        if cardInfo["card_type"]! as! String != ""{
+            row.disabled = NSNumber(bool: true)
+        }
         section.addFormRow(row)
         
         //card number
         row = XLFormRowDescriptor(tag: Tags.ValidationCardNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Card Number:*")
         row.value = cardInfo["card_number"]! as! String
         row.required = true
+        if cardInfo["card_number"]! as! String != ""{
+            row.disabled = NSNumber(bool: true)
+        }
         section.addFormRow(row)
         
         // Title
@@ -249,6 +255,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         if cardInfo["expiration_date_month"]! as! String != ""{
             row.value = "\(cardInfo["expiration_date_month"]! as! String)/\(cardInfo["expiration_date_year"]! as! String)"
+            row.disabled = NSNumber(bool: true)
         }
         row.required = true
         section.addFormRow(row)
@@ -258,6 +265,9 @@ class CommonPaymentViewController: BaseXLFormViewController {
         //row.addValidator(XLFormRegexValidator(msg: "Card holder name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.value = cardInfo["card_holder_name"]! as! String
         row.required = true
+        if cardInfo["card_holder_name"]! as! String != ""{
+            row.disabled = NSNumber(bool: true)
+        }
         section.addFormRow(row)
         
         //CVV/CVC Number
