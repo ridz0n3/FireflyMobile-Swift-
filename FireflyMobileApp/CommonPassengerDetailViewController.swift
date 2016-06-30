@@ -35,6 +35,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     var infantInfo = [String : AnyObject]()
     var data = [String : AnyObject]()
     var familyAndFriendList : List<FamilyAndFriendData>! = nil
+    var saveFamilyAndFriend = [AnyObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -200,6 +201,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             var arrangeDate = date.componentsSeparatedByString("-")
             
             saveAdultInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])", forKey: "dob")
+            saveAdultInfo.updateValue(date, forKey: "dob2")
             //adultInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
             saveAdultInfo.updateValue("NRIC", forKey: "travel_document")
             saveAdultInfo.updateValue(getCountryCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
@@ -223,6 +225,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
             if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
                 let status = formValues()[String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, count)] as! NSDictionary
+                saveAdultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, count)]!["status"] as! Bool, forKey: "Save")
                 if status["status"] as! Bool == false{
                     saveAdultInfo.updateValue("N", forKey: "friend_and_family")
                 }else{
@@ -230,7 +233,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                     saveAdultInfo.updateValue("Adult", forKey: "passenger_type")
                     let passengerId = adultInfo["\(i)"] as! NSDictionary
                     
-                    if (passengerId["id"] != nil){
+                    if (passengerId["id"] != nil && passengerId["id"]?.classForCoder != NSString.classForCoder()){
                         saveAdultInfo.updateValue(passengerId["id"] as! Int, forKey: "friend_and_family_id")
                     }
                     
@@ -238,6 +241,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             }
             
             passenger.updateValue(saveAdultInfo, forKey: "\(i)")
+            adultInfo.updateValue(saveAdultInfo, forKey: "\(i)")
             tempPassenger.append(saveAdultInfo)
         }
         
@@ -248,32 +252,40 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         for j in 0..<infantCount{
             var count = j
             count = count + 1
-            var infantInfo = [String:AnyObject]()
+            var saveInfantInfo = [String:AnyObject]()
             
             travelWith.append(getTravelWithCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationTravelWith, count)] as! String, travelArr: adultArray))
             
-            infantInfo.updateValue(getTravelWithCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationTravelWith, count)] as! String, travelArr: adultArray), forKey: "traveling_with")
-            infantInfo.updateValue(getGenderCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationGender, count)] as! String, genderArr: genderArray), forKey: "gender")
-            infantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationFirstName, count)]!, forKey: "first_name")
-            infantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
+            saveInfantInfo.updateValue(getTravelWithCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationTravelWith, count)] as! String, travelArr: adultArray), forKey: "traveling_with")
+            saveInfantInfo.updateValue(getGenderCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationGender, count)] as! String, genderArr: genderArray), forKey: "gender")
+            saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationFirstName, count)]!, forKey: "first_name")
+            saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
             
             let date = formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String
             let arrangeDate = date.componentsSeparatedByString("-")
             
-            infantInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])", forKey: "dob")
+            saveInfantInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])", forKey: "dob")
+            saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String, forKey: "dob2")
             //infantInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
-            infantInfo.updateValue("NRIC", forKey: "travel_document")
-            infantInfo.updateValue(getCountryCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
+            saveInfantInfo.updateValue("NRIC", forKey: "travel_document")
+            saveInfantInfo.updateValue(getCountryCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
             //infantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
-            infantInfo.updateValue("", forKey: "document_number")
+            saveInfantInfo.updateValue("", forKey: "document_number")
             
             if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
                 let status = formValues()[String(format: "%@(infant%i)", Tags.SaveFamilyAndFriend, count)] as! NSDictionary
+                saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.SaveFamilyAndFriend, count)]!["status"] as! Bool, forKey: "Save")
                 if status["status"] as! Bool == false{
-                    infantInfo.updateValue("N", forKey: "friend_and_family")
+                    saveInfantInfo.updateValue("N", forKey: "friend_and_family")
                 }else{
-                    infantInfo.updateValue("Y", forKey: "friend_and_family")
-                    infantInfo.updateValue("Infant", forKey: "passenger_type")
+                    saveInfantInfo.updateValue("Y", forKey: "friend_and_family")
+                    saveInfantInfo.updateValue("Infant", forKey: "passenger_type")
+                    let passengerId = infantInfo["\(count)"] as! NSDictionary
+                    
+                    if (passengerId["id"] != nil && passengerId["id"]?.classForCoder != NSString.classForCoder()){
+                        saveInfantInfo.updateValue(passengerId["id"] as! Int, forKey: "friend_and_family_id")
+                    }
+
                 }
             }
             
@@ -286,10 +298,11 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
             }
             
-            infantInfo.updateValue(newExpDate, forKey: "expiration_date")
+            saveInfantInfo.updateValue(newExpDate, forKey: "expiration_date")
             
-            infant.updateValue(infantInfo, forKey: "\(j)")
-            tempInfant.append(infantInfo)
+            infant.updateValue(saveInfantInfo, forKey: "\(j)")
+            infantInfo.updateValue(saveInfantInfo, forKey: "\(j)")
+            tempInfant.append(saveInfantInfo)
         }
         
         let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
@@ -349,97 +362,6 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
     }
     
-    func checkValidation() -> Bool{
-        var countAdultAge = Int()
-        var countMaxAdultAge = Int()
-        var countInfantAge = Int()
-        var countMaxInfantAge = Int()
-        
-        let currentDate: NSDate = NSDate()
-        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-        calendar.timeZone = NSTimeZone(name: "UTC")!
-        
-        for i in 0..<adultCount{
-            var count = i
-            count += 1
-            
-            let date = formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]! as! String
-            let arrangeDate = date.componentsSeparatedByString("-")
-            
-            let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
-            
-            let component: NSDateComponents = NSDateComponents()
-            component.calendar = calendar
-            component.year = -2
-            let adultMinAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-            
-            component.year = -12
-            let adultMaxAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-            
-            let minAge = formatDate(adultMinAge)
-            var arrangeMinAge = minAge.componentsSeparatedByString("-")
-            let maxAge = formatDate(adultMaxAge)
-            var arrangeMaxAge = maxAge.componentsSeparatedByString("-")
-            
-            if selectDate.compare(stringToDate("\(arrangeMinAge[2])-\(arrangeMinAge[1])-\(arrangeMinAge[0])")) == NSComparisonResult.OrderedDescending{
-                //age below 2 years old
-                countAdultAge += 1
-            }else if selectDate.compare(stringToDate("\(arrangeMaxAge[2])-\(arrangeMaxAge[1])-\(arrangeMaxAge[0])")) == NSComparisonResult.OrderedDescending{
-                //age below 12 years old
-                countMaxAdultAge += 1
-            }
-        }
-        
-        for i in 0..<infantCount{
-            
-            var count = i
-            count += 1
-            
-            let date = formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String
-            let arrangeDate = date.componentsSeparatedByString("-")
-            
-            let selectDate: NSDate = stringToDate("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])")
-            
-            let component: NSDateComponents = NSDateComponents()
-            component.calendar = calendar
-            component.day = -9
-            let infantMinAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-            
-            component.year = -2
-            let infantMaxAge: NSDate = calendar.dateByAddingComponents(component, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
-            
-            let minAge = formatDate(infantMinAge)
-            var arrangeMinAge = minAge.componentsSeparatedByString("-")
-            let maxAge = formatDate(infantMaxAge)
-            var arrangeMaxAge = maxAge.componentsSeparatedByString("-")
-            
-            if selectDate.compare(stringToDate("\(arrangeMinAge[2])-\(arrangeMinAge[1])-\(arrangeMinAge[0])")) == NSComparisonResult.OrderedDescending{
-                //age below 9 days
-                countInfantAge += 1
-            }else if selectDate.compare(stringToDate("\(arrangeMaxAge[2])-\(arrangeMaxAge[1])-\(arrangeMaxAge[0])")) == NSComparisonResult.OrderedAscending{
-                //age above 24months
-                countMaxInfantAge += 1
-            }
-            
-        }
-        
-        if countAdultAge > 0{
-            showErrorMessage("Guest(s) must be above 2 years old at the date(s) of travel.")
-            return false
-        }else if countMaxAdultAge > 0 && adultCount == 1{
-            showErrorMessage("There must be at least one(1) passenger above 12 years old at the date(s) of travel")
-            return false
-        }else if countMaxAdultAge == adultCount{
-            showErrorMessage("Passenger less than 12 years old must be accompanied by an 18 years old passenger.")
-            return false
-        }else if countInfantAge > 0 || countMaxInfantAge > 0{
-            showErrorMessage("Infant(s) must be within the age of 9 days - 24 months at date(s) of travel.")
-            return false
-        }else{
-            return true
-        }
-    }
-    
     func manageButtonClicked(){
         
         let storyboard = UIStoryboard(name: "FamilyAndFriend", bundle: nil)
@@ -454,6 +376,44 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     func selectButtonClicked(sender : UIButton){
         
         //print(sender.accessibilityHint)
+        for i in 0..<adultCount{
+            var count = i
+            count += 1
+            var saveAdultInfo = [String:AnyObject]()
+            saveAdultInfo.updateValue(getTitleCode(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationTitle, count)]) as! String, titleArr: titleArray), forKey: "title")
+            saveAdultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationFirstName, count)]!, forKey: "first_name")
+            saveAdultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
+            
+            saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]!) as! String, forKey: "dob2")
+            saveAdultInfo.updateValue(getCountryCode(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationCountry, count)]) as! String, countryArr: countryArray), forKey: "issuing_country")
+            saveAdultInfo.updateValue("", forKey: "gender")
+            if flightType == "FY"{
+                saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "bonuslink")
+            }
+            saveAdultInfo.updateValue("Adult", forKey: "type")
+            if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
+                saveAdultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.SaveFamilyAndFriend, count)]!["status"] as! Bool, forKey: "Save")
+            }
+            adultInfo.updateValue(saveAdultInfo, forKey: "\(i)")
+        }
+        
+        for j in 0..<infantCount{
+            var count = j
+            count = count + 1
+            var saveInfantInfo = [String:AnyObject]()
+            
+            saveInfantInfo.updateValue(getTravelWithCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationTravelWith, count)] as! String, travelArr: adultArray), forKey: "traveling_with")
+            saveInfantInfo.updateValue(getGenderCode(nullIfEmpty(formValues()[String(format: "%@(infant%i)", Tags.ValidationGender, count)]) as! String, genderArr: genderArray), forKey: "gender")
+            saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationFirstName, count)]!, forKey: "first_name")
+            saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
+            saveInfantInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]!) as! String, forKey: "dob2")
+            saveInfantInfo.updateValue("NRIC", forKey: "travel_document")
+            saveInfantInfo.updateValue(getCountryCode(nullIfEmpty(formValues()[String(format: "%@(infant%i)", Tags.ValidationCountry, count)]) as! String, countryArr: countryArray), forKey: "issuing_country")
+            saveInfantInfo.updateValue("", forKey: "document_number")
+            saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.SaveFamilyAndFriend, count)]!["status"] as! Bool, forKey: "Save")
+            infantInfo.updateValue(saveInfantInfo, forKey: "\(count)")
+            
+        }
         
         let type = (sender.accessibilityHint)!.componentsSeparatedByString(" ")
         
@@ -480,6 +440,92 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     func actionPickerCancelled(sender:AnyObject){
         //do nothing
     }
+    
+    func saveFamilyAndFriends(familyAndFriendInfo : [AnyObject]){
+        
+        let userInfo = defaults.objectForKey("userInfo")
+        var userList = Results<FamilyAndFriendList>!()
+        userList = realm.objects(FamilyAndFriendList)
+        let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
+        
+        if mainUser.count != 0{
+            if mainUser[0].familyList.count != 0{
+                realm.beginWrite()
+                realm.delete(mainUser[0].familyList)
+                try! realm.commitWrite()
+            }
+        }
+        
+        for list in familyAndFriendInfo{
+            
+            let data = FamilyAndFriendData()
+            data.id = list["id"] as! Int
+            data.title = list["title"] as! String
+            data.gender = nullIfEmpty(list["gender"]) as! String
+            data.firstName = list["first_name"] as! String
+            data.lastName = list["last_name"] as! String
+            let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
+            data.dob = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
+            data.country = list["nationality"] as! String
+            data.bonuslink = list["bonuslink_card"] as! String
+            data.type = list["type"] as! String
+            
+            if mainUser.count == 0{
+                let user = FamilyAndFriendList()
+                user.email = userInfo!["username"] as! String
+                user.familyList.append(data)
+                
+                try! realm.write({ () -> Void in
+                    realm.add(user)
+                })
+                
+            }else{
+                
+                try! realm.write({ () -> Void in
+                    mainUser[0].familyList.append(data)
+                    mainUser[0].email = userInfo!["username"] as! String
+                })
+                
+            }
+            
+        }
+    }
+    /*
+     for list in saveFamilyAndFriend{
+     
+     let data = FamilyAndFriendData()
+     data.id = list["id"] as! Int
+     data.title = list["title"] as! String
+     data.gender = nullIfEmpty(list["gender"]) as! String
+     data.firstName = list["first_name"] as! String
+     data.lastName = list["last_name"] as! String
+     let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
+     data.dob = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
+     data.country = list["nationality"] as! String
+     data.bonuslink = list["bonuslink_card"] as! String
+     data.type = list["type"] as! String
+     
+     if mainUser.count == 0{
+     let user = FamilyAndFriendList()
+     user.email = userInfo!["username"] as! String
+     user.familyList.append(data)
+     
+     try! realm.write({ () -> Void in
+     realm.add(user)
+     })
+     
+     }else{
+     
+     try! realm.write({ () -> Void in
+     mainUser[0].familyList.append(data)
+     mainUser[0].email = userInfo!["username"] as! String
+     })
+     
+     }
+     
+     }
+     
+     */
     /*
     // MARK: - Navigation
     
