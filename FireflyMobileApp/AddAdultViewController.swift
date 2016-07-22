@@ -36,8 +36,8 @@ class AddAdultViewController: CommonAdultViewController {
             let lastName = formValues()[Tags.ValidationLastName] as! String
             
             let date = formValues()[Tags.ValidationDate]! as! String
-            var arrangeDate = date.componentsSeparatedByString("-")
-            let dob = "\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])"
+            //var arrangeDate = date.componentsSeparatedByString("-")
+            let dob = date//"\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])"
             
             let country = getCountryCode(formValues()[Tags.ValidationCountry] as! String, countryArr: countryArray)
             let type = adultInfo["type"] as! String

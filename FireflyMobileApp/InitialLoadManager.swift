@@ -101,6 +101,7 @@ class InitialLoadManager {
                             
                             defaults.setObject("true", forKey: "firstInstall")
                             defaults.setObject(json["banner_module"].string, forKey: "module")
+                            defaults.setObject(nilIfEmpty(json["banner_url"].string), forKey: "url")
                             defaults.setObject(signature, forKey: "signatureLoad")
                             defaults.setObject(banner, forKey: "banner")
                             defaults.setObject(json["data_version_mobile"].dictionaryObject, forKey: "mobileVersion")
@@ -115,6 +116,8 @@ class InitialLoadManager {
                             print(String(format: "%@ \n%@", json["status"].string!, json["message"].string!))
                         }else if json["status"].string == "503"{
                             showErrorMessage(json["message"].string!)
+                        }else{
+                            showRetryMessage(json["message"].string!)
                         }
                         hideLoading()
                     }

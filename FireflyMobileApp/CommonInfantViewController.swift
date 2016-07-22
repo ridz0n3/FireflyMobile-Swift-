@@ -141,8 +141,8 @@ class CommonInfantViewController: BaseXLFormViewController {
             data.gender = nullIfEmpty(list["gender"]) as! String
             data.firstName = list["first_name"] as! String
             data.lastName = list["last_name"] as! String
-            let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
-            data.dob = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
+            //let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
+            data.dob = list["dob"] as! String//"\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = nullIfEmpty(list["bonuslink_card"]) as! String
             data.type = list["type"] as! String

@@ -138,20 +138,31 @@ class LoginBoardingPassViewController: CommonListViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        listPnr = pnrList[indexPath.row]
-        let boardingPass = listPnr.boardingPass
+        var bookingList = [AnyObject]()
+        var bookingData = PNRList()
+        
+        if indexPath.section == 0{
+            bookingList = newFormatedBookingList["Active"] as! [AnyObject]
+            bookingData = bookingList[indexPath.row] as! PNRList
+        }else{
+            bookingList = newFormatedBookingList["notActive"] as! [AnyObject]
+            bookingData = bookingList[indexPath.row] as! PNRList
+        }
+        
+        //listPnr = pnrList[indexPath.row]
+        let boardingPass = bookingData.boardingPass
         
         if boardingPass.count != 0{
             
             let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
             let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
-            boardingPassDetailVC.departCode = listPnr["departureStationCode"] as! String
-            boardingPassDetailVC.pnrNumber = listPnr["pnr"] as! String
+            boardingPassDetailVC.departCode = bookingData.departureStationCode//listPnr["departureStationCode"] as! String
+            boardingPassDetailVC.pnrNumber = bookingData.pnr//listPnr["pnr"] as! String
             self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
-            checkBoardingPass(listPnr["pnr"] as! String, departCode: listPnr["departureStationCode"] as! String, arrivalCode: listPnr["arrivalStationCode"] as! String, isExist : true)
+            checkBoardingPass(bookingData.pnr, departCode: bookingData.departureStationCode, arrivalCode: bookingData.arrivalStationCode, isExist : true)
         }else{
             showLoading()
-            checkBoardingPass(listPnr["pnr"] as! String, departCode: listPnr["departureStationCode"] as! String, arrivalCode: listPnr["arrivalStationCode"] as! String, isExist: false)
+            checkBoardingPass(bookingData.pnr, departCode: bookingData.departureStationCode, arrivalCode: bookingData.arrivalStationCode, isExist : false)
         }
     }
     

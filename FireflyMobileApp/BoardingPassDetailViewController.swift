@@ -181,6 +181,13 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         // Dispose of any resources that can be recreated.
     }
     
+    
+    override func backButtonPressed(sender: UIBarButtonItem){
+        NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPassList", object: nil)
+        self.navigationController?.popViewControllerAnimated(true)
+        
+    }
+    
     //MARK: UIScrollViewDelegate
     func scrollViewDidEndDecelerating(scrollView: UIScrollView){
         // Test the offset and calculate the current page after scrolling ends
