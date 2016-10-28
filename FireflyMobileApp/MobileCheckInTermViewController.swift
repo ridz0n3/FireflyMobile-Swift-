@@ -269,7 +269,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                 let twentyFour = NSLocale(localeIdentifier: "en_GB")
                 formater.locale = twentyFour
                 
-                pnr.departureStationCode = boardingInfo["DepartureStationCode"] as! String
+                pnr.departureStationCode = nilIfEmpty(boardingInfo["DepartureStationCode"]) as! String
                 pnr.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
                 pnr.departureDateTime = formater.dateFromString(boardingInfo["DepartureDateTime"] as! String)!
                 pnr.departureDayDate = boardingInfo["DepartureDate"] as! String

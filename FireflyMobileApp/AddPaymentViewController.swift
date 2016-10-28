@@ -14,7 +14,8 @@ class AddPaymentViewController: CommonPaymentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.addPaymentScreen)
+        let flightType = defaults.objectForKey("flightType") as! String
+        AnalyticsManager.sharedInstance.logScreen("\(GAConstants.addPaymentScreen) (\(flightType))")
         totalDueLbl.text = String(format: "%.2f MYR", totalDue)//"\(totalDue) MYR"
         
     }

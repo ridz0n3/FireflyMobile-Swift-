@@ -409,9 +409,10 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         if date == ""{
             row.value =  ""
         }else{
-            row.value =  formatDate(stringToDate(date))
+            let dateArr = date.componentsSeparatedByString("-")
+            let arrangeDate = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
+            row.value =  arrangeDate
         }
-        
         
         self.form.addFormRow(row, afterRowTag: String(format: "%@(%@",Tags.ValidationDocumentNo, tag))
     }

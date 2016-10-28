@@ -11,6 +11,7 @@ import SwiftyJSON
 import M13Checkbox
 import SCLAlertView
 import RealmSwift
+import Crashlytics
 
 class AddFlightDetailViewController: CommonFlightDetailViewController {
     
@@ -34,8 +35,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         continueView.frame = newFrame
         
         self.flightDetailTableView.tableFooterView = continueView
-        
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.flightDetailsScreen)
+        let flightType = defaults.objectForKey("flightType") as! String
+        AnalyticsManager.sharedInstance.logScreen("\(GAConstants.flightDetailsScreen) (\(flightType))")
         // Do any additional setup after loading the view.
     }
     
@@ -191,7 +192,8 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
                             let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
                             self.username = userInfo["username"]! as! String
                             self.type = defaults.objectForKey("type")! as! Int
-                        NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
+                            Crashlytics.sharedInstance().setUserEmail(self.username)
+                            NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
                             
                            self.sentData()
                         }else if json["status"].string == "401"{

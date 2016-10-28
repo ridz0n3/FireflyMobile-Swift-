@@ -43,7 +43,8 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
         super.viewDidLoad()
         
         if book == "book"{
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.paymentBookWebScreen)
+            let flightType = defaults.objectForKey("flightType") as! String
+            AnalyticsManager.sharedInstance.logScreen("\(GAConstants.paymentBookWebScreen) (\(flightType))")
         }
             
         else if manage == "manage"{

@@ -95,6 +95,8 @@ class CommonInfantViewController: BaseXLFormViewController {
         row.required = true
         if infantInfo["dob"] as! String != ""{
             row.value = formatDate(stringToDate(infantInfo["dob"] as! String))
+        }else{
+            row.value = ""
         }
         section.addFormRow(row)
         

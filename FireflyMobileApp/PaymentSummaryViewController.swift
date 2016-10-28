@@ -24,7 +24,8 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         paymentTableView.estimatedRowHeight = 80
         paymentTableView.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.paymentSummaryScreen)
+        let flightType = defaults.objectForKey("flightType") as! String
+        AnalyticsManager.sharedInstance.logScreen("\(GAConstants.paymentSummaryScreen) (\(flightType))")
 
         continueBtn.layer.cornerRadius = 10
         
@@ -199,7 +200,11 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         var personID = String()
         
         if try! LoginManager.sharedInstance.isLogin(){
-            personID = defaults.objectForKey("personID") as! String
+            
+            if (defaults.objectForKey("personID") != nil){
+                personID = defaults.objectForKey("personID") as! String
+            }
+            
         }
         
         
