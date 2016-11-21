@@ -109,7 +109,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     override func update() {
         super.update()
         
-        let tag = self.rowDescriptor?.tag?.componentsSeparatedByString("(")
+        let tag = self.rowDescriptor?.tag?.components(separatedBy: "(")
         
         if tag![0] == "Password" || tag![0] == "New Password" || tag![0] == "Confirm Password"{
             self.floatLabeledTextField.keyboardType = .ASCIICapable
@@ -131,7 +131,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         }
         
         if tag![0] != Tags.ValidationEnrichLoyaltyNo{
-            let title = self.rowDescriptor!.title?.componentsSeparatedByString(":")
+            let title = self.rowDescriptor!.title?.components(separatedBy: ":")
             let star = [NSForegroundColorAttributeName : UIColor.redColor()]
             var attrString = NSMutableAttributedString()
             attrString = NSMutableAttributedString(attributedString: NSAttributedString(string: "\(title![0]):"))
@@ -192,7 +192,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     //Mark: UITextFieldDelegate
     func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
         
-        let tag = self.rowDescriptor?.tag?.componentsSeparatedByString("(")
+        let tag = self.rowDescriptor?.tag?.components(separatedBy: "(")
         
         if tag![0] == Tags.ValidationCardExpiredDate{
             textFieldBefore.endEditing(true)
@@ -208,7 +208,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
                 
                 let date = self.rowDescriptor?.value
                 let dateArr = (date as! String).stringByReplacingOccurrencesOfString("-", withString: "/")
-                // .componentsSeparatedByString("-")
+                // .components(separatedBy: "-")
                 //let arrangeDate = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
                 
                 let formater = NSDateFormatter()
@@ -222,7 +222,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
             
             if let str = self.rowDescriptor.tag{
                 
-                let strArr = str.componentsSeparatedByString("(")
+                let strArr = str.components(separatedBy: "(")
                 
                 if strArr[0] == Tags.ValidationExpiredDate{
                     datePicker.minimumDate = NSDate()
@@ -284,7 +284,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         
-        let doc = self.rowDescriptor?.tag?.componentsSeparatedByString("(")
+        let doc = self.rowDescriptor?.tag?.components(separatedBy: "(")
         if self.rowDescriptor?.tag == Tags.ValidationConfirmationNumber{
             let maxLength = 6
             let currentString: NSString = textField.text!

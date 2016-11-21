@@ -9,6 +9,6 @@
 import Foundation
 
 public protocol Rule {
-    func validate(value: String) -> Bool
+    func validate(_ value: String) -> Bool
     func errorMessage() -> String
 }

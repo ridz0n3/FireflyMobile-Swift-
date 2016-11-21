@@ -47,8 +47,8 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         // Do any additional setup after loading the view.
         initializeForm()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MobileCheckInDetailViewController.addExpiredDate(_:)), name: "expiredDate", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MobileCheckInDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MobileCheckInDetailViewController.addExpiredDate(_:)), name: "expiredDate", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MobileCheckInDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,7 +92,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             section.addFormRow(row)
             
             // Country
@@ -108,13 +108,13 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             section.addFormRow(row)
             
             // Document Number
             row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationDocumentNo, i), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
-            row.required = true
-            //row.value = (passengerData["document_number"] as! String).xmlSimpleUnescapeString()
+            row.isRequired = true
+            //row.value = (passengerData["document_number"] as! String).xmlSimpleUnescape()
             section.addFormRow(row)
             
             // Enrich Loyalty No
@@ -133,7 +133,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         var j = 0
         for passengerData in checkInDetail["passengers"] as! [Dictionary<String,AnyObject>] {
             
-            let expiredDate = (passengerData["expiration_date"] as! String).componentsSeparatedByString("T")
+            let expiredDate = (passengerData["expiration_date"] as! String).components(separatedBy: "T")
             if passengerData["travel_document"] as! String == "P"{
                 addExpiredDateRow("\(j))", date: expiredDate[0])
             }
@@ -158,7 +158,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
     
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        passengerName = NSBundle.mainBundle().loadNibNamed("MobileCheckInView", owner: self, options: nil)[0] as! UIView
+        passengerName = Bundle.main.loadNibNamed("MobileCheckInView", owner: self, options: nil)[0] as! UIView
         
         let passengerDataArray = checkInDetail["passengers"] as! [Dictionary<String, AnyObject>]
         let passengerData = passengerDataArray[section] 
@@ -252,7 +252,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         var newExpDate = String()
                         
                         if expiredDate != ""{
-                            arrangeExpDate = expiredDate.componentsSeparatedByString("-")
+                            arrangeExpDate = expiredDate.components(separatedBy: "-")
                             newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
                         }
                         
@@ -280,9 +280,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 FireFlyProvider.request(.CheckInPassengerList(pnr, departure_station_code, arrival_station_code, signature, passenger), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if  json["status"].string == "success"{
                                 
@@ -313,9 +313,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                 })
                 
@@ -335,7 +335,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 let error = errorItem as! NSError
                 let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
                 
-                let errorTag = validationStatus.rowDescriptor!.tag!.componentsSeparatedByString("(")
+                let errorTag = validationStatus.rowDescriptor!.tag!.components(separatedBy: "(")
                 //isValidate = false
                 
                 if errorTag[1] == index{
@@ -392,7 +392,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
     }
     
     func addExpiredDate(sender:NSNotification){
-        let newTag = sender.userInfo!["tag"]!.componentsSeparatedByString("(")
+        let newTag = sender.userInfo!["tag"]!.components(separatedBy: "(")
         
         addExpiredDateRow(newTag[1], date: "")
         
@@ -404,12 +404,12 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         
         // Date
         row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Expiration Date:*")
-        row.required = true
+        row.isRequired = true
         
         if date == ""{
             row.value =  ""
         }else{
-            let dateArr = date.componentsSeparatedByString("-")
+            let dateArr = date.components(separatedBy: "-")
             let arrangeDate = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             row.value =  arrangeDate
         }
@@ -419,8 +419,8 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
     
     func removeExpiredDate(sender:NSNotification){
         
-        let newTag = sender.userInfo!["tag"]!.componentsSeparatedByString("(")
-        self.form.removeFormRowWithTag(String(format: "%@(%@",Tags.ValidationExpiredDate, newTag[1]))
+        let newTag = sender.userInfo!["tag"]!.components(separatedBy: "(")
+        self.form.removeFormRow(withTag: String(format: "%@(%@",Tags.ValidationExpiredDate, newTag[1]))
         
     }
 }

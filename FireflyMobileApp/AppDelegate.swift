@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         if try! LoginManager.sharedInstance.isLogin(){
-            let userinfo = defaults.objectForKey("userInfo") as! [String: AnyObject]
+            let userinfo = defaults.object(forKey: "userInfo") as! [String: AnyObject]
             let username = userinfo["username"] as! String
             Crashlytics.sharedInstance().setUserEmail("\(username)")
         }

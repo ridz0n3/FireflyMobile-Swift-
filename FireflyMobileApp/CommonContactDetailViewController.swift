@@ -14,7 +14,7 @@ import M13Checkbox
 class CommonContactDetailViewController: BaseXLFormViewController {
     
     var stateArray = [Dictionary<String,AnyObject>]()
-    var contactData = Dictionary<String,AnyObject>()
+    var contactData = Dictionary<String,String>()
     
     @IBOutlet weak var insuranceView: UIView!
     @IBOutlet weak var views: UIView!
@@ -25,26 +25,26 @@ class CommonContactDetailViewController: BaseXLFormViewController {
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var footerView: UIView!
     
-    var titleArray = defaults.objectForKey("title") as! [Dictionary<String,AnyObject>]
-    var countryArray = defaults.objectForKey("country") as! [Dictionary<String,AnyObject>]
+    var titleArray = defaults.object(forKey: "title") as! [Dictionary<String,AnyObject>]
+    var countryArray = defaults.object(forKey: "country") as! [Dictionary<String,AnyObject>]
     var flightType = String()
     var meals = [AnyObject]()
     var ssrStatus = String()
     
     override func viewDidLoad() {
         
-        agreeTerm.strokeColor = UIColor.orangeColor()
-        agreeTerm.checkColor = UIColor.orangeColor()
+        agreeTerm.strokeColor = UIColor.orange
+        agreeTerm.checkColor = UIColor.orange
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         super.viewDidLoad()
         setupLeftButton()
-        stateArray = defaults.objectForKey("state") as! [Dictionary<String,AnyObject>]
+        stateArray = defaults.object(forKey: "state") as! [Dictionary<String,AnyObject>]
         // Do any additional setup after loading the view.
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonContactDetailViewController.addBusiness(_:)), name: "addBusiness", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonContactDetailViewController.removeBusiness(_:)), name: "removeBusiness", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonContactDetailViewController.selectCountry(_:)), name: "selectCountry", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommonContactDetailViewController.addBusiness(_:)), name: NSNotification.Name(rawValue: "addBusiness"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommonContactDetailViewController.removeBusiness(_:)), name: NSNotification.Name(rawValue: "removeBusiness"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommonContactDetailViewController.selectCountry(_:)), name: NSNotification.Name(rawValue: "selectCountry"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,18 +62,18 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         
         if flightType == "MH" && ssrStatus == "Available"{
             
-            let timeDifference = defaults.objectForKey("timeDifference") as! Int
+            let timeDifference = defaults.object(forKey: "timeDifference") as! Int
             
             if timeDifference > 0{
                 section = XLFormSectionDescriptor()
-                section = XLFormSectionDescriptor.formSectionWithTitle("SPECIAL MEALS REQUEST")
+                section = XLFormSectionDescriptor.formSection(withTitle: "SPECIAL MEALS REQUEST")
                 form.addFormSection(section)
                 
                 var i = 0
                 for mealInfo in meals{
                     
                     section = XLFormSectionDescriptor()
-                    section = XLFormSectionDescriptor.formSectionWithTitle(mealInfo["destination_name"] as? String)
+                    section = XLFormSectionDescriptor.formSection(withTitle: mealInfo["destination_name"] as? String)
                     form.addFormSection(section)
                     
                     let mealList = mealInfo["list_meal"] as! [AnyObject]
@@ -86,7 +86,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                         
                         var tempArray:[AnyObject] = [AnyObject]()
                         for mealsDetail in mealList{
-                            tempArray.append(XLFormOptionsObject(value: mealsDetail["meal_code"], displayText: mealsDetail["name"] as! String))
+                            tempArray.append(XLFormOptionsObject(value: mealsDetail["meal_code"] as! String, displayText: mealsDetail["name"] as! String))
                             
                             if mealsDetail["meal_code"] as! String == ""{
                                 row.value = mealsDetail["name"] as! String
@@ -104,23 +104,23 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         
         
         section = XLFormSectionDescriptor()
-        section = XLFormSectionDescriptor.formSectionWithTitle("CONTACT DETAIL")
+        section = XLFormSectionDescriptor.formSection(withTitle: "CONTACT DETAIL")
         form.addFormSection(section)
         
         // Purpose
         row = XLFormRowDescriptor(tag: Tags.ValidationPurpose, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Primary Purpose of Your Trip:*")
         
         var tempArray:[AnyObject] = [AnyObject]()
-        for purpose in purposeArray{
-            tempArray.append(XLFormOptionsObject(value: purpose["purpose_code"], displayText: purpose["purpose_name"] as! String))
+        for purpose in purposeArray {
+            tempArray.append(XLFormOptionsObject(value: purpose["purpose_code"], displayText: purpose["purpose_name"]!))
             
-            if contactData["travel_purpose"] as? String == purpose["purpose_code"] as? String{
+            if contactData["travel_purpose"]! == purpose["purpose_code"]!{
                 row.value = purpose["purpose_name"]
             }
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Title
@@ -130,34 +130,34 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         for title in titleArray {
             tempArray.append(XLFormOptionsObject(value: title["title_code"], displayText: title["title_name"] as? String))
             
-            if contactData["title"] as? String == title["title_code"] as? String{
+            if contactData["title"]! == title["title_code"] as? String{
                 row.value = title["title_name"]
             }
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         //first name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-        row.required = true
+        row.isRequired = true
         row.value = contactData["first_name"]
         section.addFormRow(row)
         
         //last name
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-        row.required = true
+        row.isRequired = true
         row.value = contactData["last_name"]
         section.addFormRow(row)
         
         //email
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Email Address:*")
-        row.required = true
+        row.isRequired = true
         row.value = contactData["email"]
-        row.addValidator(XLFormValidator.emailValidator())
+        row.addValidator(XLFormValidator.email())
         section.addFormRow(row)
         
         var dialCode = String()
@@ -169,32 +169,32 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         for country in countryArray{
             tempArray.append(XLFormOptionsObject(value: country["country_code"], displayText: country["country_name"] as! String))
             
-            if contactData["country"] as? String == country["country_code"]  as? String{
+            if contactData["country"]! == country["country_code"]  as? String{
                 row.value = country["country_name"]
                 dialCode = country["dialing_code"] as! String
             }
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Mobile Number
         row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Mobile Number:*")
-        row.required = true
+        row.isRequired = true
         row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
         //row.value = contactData["mobile_phone"]
-        if contactData["mobile_phone"] as! String == ""{
+        if contactData["mobile_phone"]! == ""{
             row.value = dialCode
         }else{
-            row.value = contactData["mobile_phone"] as! String
+            row.value = contactData["mobile_phone"]!
         }
         section.addFormRow(row)
         
         // Alternate Number
         row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Number:*")
         row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
-        row.required = true
+        row.isRequired = true
         //row.value = contactData["alternate_phone"]
         if contactData["alternate_phone"] as! String == ""{
             row.value = dialCode
@@ -210,7 +210,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         }
     }
     
-    func getPurpose(purposeName:String, purposeArr:[Dictionary<String,AnyObject>]) -> String{
+    func getPurpose(_ purposeName:String, purposeArr:[Dictionary<String,AnyObject>]) -> String{
         
         var purposeCode = String()
         for purposeData in purposeArr{
@@ -221,7 +221,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         return purposeCode
     }
     
-    func addBusiness(sender:NSNotification){
+    func addBusiness(_ sender:NSNotification){
         addBusinessRow()
     }
     
@@ -230,71 +230,71 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         
         // Company Name
         row = XLFormRowDescriptor(tag: Tags.ValidationCompanyName, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Company Name:*")
-        row.required = true
-        row.value = nilIfEmpty(contactData["company_name"])!.xmlSimpleUnescapeString()
+        row.isRequired = true
+        row.value = nilIfEmpty(contactData["company_name"] as AnyObject).xmlSimpleUnescape()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationEmail)
         
         // Address 1
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Address 1:*")
-        row.required = true
-        row.value = nilIfEmpty(contactData["address1"])!.xmlSimpleUnescapeString()
+        row.isRequired = true
+        row.value = nilIfEmpty(contactData["address1"] as AnyObject).xmlSimpleUnescape()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationCompanyName)
         
         // Address 2
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Address 2:*")
-        row.required = true
-        row.value = nilIfEmpty(contactData["address2"])!.xmlSimpleUnescapeString()
+        row.isRequired = true
+        row.value = nilIfEmpty(contactData["address2"] as AnyObject?).xmlSimpleUnescape()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine1)
         
         // Address 3
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Address 3:*")
-        row.required = true
-        row.value = nilIfEmpty(contactData["address3"])!.xmlSimpleUnescapeString()
+        row.isRequired = true
+        row.value = nilIfEmpty(contactData["address3"]).xmlSimpleUnescape()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine2)
         
         // City
         row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"City:*")
-        row.required = true
-        row.value = nilIfEmpty(contactData["city"])!.xmlSimpleUnescapeString()
+        row.isRequired = true
+        row.value = nilIfEmpty(contactData["city"]).xmlSimpleUnescape()
         self.form.addFormRow(row, afterRowTag: Tags.ValidationCountry)
         
         // State
         row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"State:*")
         row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
         row.value = contactData["state"]
-        row.required = true
+        row.isRequired = true
         self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
         
         // Postcode
         row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Postcode:*")
-        row.required = true
+        row.isRequired = true
         row.value = contactData["postcode"]
         self.form.addFormRow(row, afterRowTag: Tags.ValidationState)
         
-        if nullIfEmpty(self.formValues()["Country"]!) as! String != ""{
+        if nullIfEmpty(self.formValues()["Country"]! as AnyObject?) != ""{
             country(getCountryCode(self.formValues()["Country"]! as! String, countryArr: countryArray))
         }
     }
     
-    func removeBusiness(sender:NSNotification){
+    func removeBusiness(_ sender:NSNotification){
         
-        self.form.removeFormRowWithTag(Tags.ValidationCompanyName)
-        self.form.removeFormRowWithTag(Tags.ValidationAddressLine1)
-        self.form.removeFormRowWithTag(Tags.ValidationAddressLine2)
-        self.form.removeFormRowWithTag(Tags.ValidationAddressLine3)
-        self.form.removeFormRowWithTag(Tags.ValidationTownCity)
-        self.form.removeFormRowWithTag(Tags.ValidationState)
-        self.form.removeFormRowWithTag(Tags.ValidationPostcode)
+        self.form.removeFormRow(withTag: Tags.ValidationCompanyName)
+        self.form.removeFormRow(withTag: Tags.ValidationAddressLine1)
+        self.form.removeFormRow(withTag: Tags.ValidationAddressLine2)
+        self.form.removeFormRow(withTag: Tags.ValidationAddressLine3)
+        self.form.removeFormRow(withTag: Tags.ValidationTownCity)
+        self.form.removeFormRow(withTag: Tags.ValidationState)
+        self.form.removeFormRow(withTag: Tags.ValidationPostcode)
         
     }
     
     var dialingCode = String()
     
-    func selectCountry(sender:NSNotification){
+    func selectCountry(_ sender:NSNotification){
         country(sender.userInfo!["countryVal"]! as! String)
         
-        self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
-        self.form.removeFormRowWithTag(Tags.ValidationAlternate)
+        self.form.removeFormRow(withTag: Tags.ValidationMobileHome)
+        self.form.removeFormRow(withTag: Tags.ValidationAlternate)
         
         var row : XLFormRowDescriptor
         
@@ -302,7 +302,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             
             // Mobile Number
             row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Mobile Number:*")
-            row.required = true
+            row.isRequired = true
             row.addValidator(XLFormRegexValidator(msg: "Mobile phone must start with country code and not less than 7 digits.", andRegexString: "^\(sender.userInfo!["dialingCode"]! as! String)[0-9]{7,}$"))
             row.value = sender.userInfo!["dialingCode"]! as! String
             
@@ -311,7 +311,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             // Alternate Number
             row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Number:*")
             row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(sender.userInfo!["dialingCode"]! as! String)[0-9]{7,}$"))
-            row.required = true
+            row.isRequired = true
             row.value = sender.userInfo!["dialingCode"]! as! String
             
             self.form.addFormRow(row, afterRowTag: Tags.ValidationMobileHome)
@@ -320,7 +320,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             
             // Mobile Number
             row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Mobile Number:*")
-            row.required = true
+            row.isRequired = true
             row.addValidator(XLFormRegexValidator(msg: "Mobile phone must not less than 7 digits.", andRegexString: "^\(sender.userInfo!["dialingCode"]! as! String)[0-9]{7,}$"))
             
             if contactData["mobile_phone"] as! String == ""{
@@ -333,7 +333,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             // Alternate Number
             row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Number:*")
             row.addValidator(XLFormRegexValidator(msg: "Alternate phone must not less than 7 digits.", andRegexString: "^\(sender.userInfo!["dialingCode"]! as! String)[0-9]{7,}$"))
-            row.required = true
+            row.isRequired = true
             
             if contactData["alternate_phone"] as! String == ""{
                 row.value = sender.userInfo!["dialingCode"]! as! String
@@ -346,7 +346,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         }
     }
     
-    func country(countryCode:String){
+    func country(_ countryCode:String){
         if self.formValues()[Tags.ValidationState] != nil{
             var stateArr = [NSDictionary]()
             for stateData in stateArray{
@@ -355,7 +355,7 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                 }
             }
             
-            self.form.removeFormRowWithTag(Tags.ValidationState)
+            self.form.removeFormRow(withTag: Tags.ValidationState)
             var row : XLFormRowDescriptor
             row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"State:*")
             
@@ -365,14 +365,14 @@ class CommonContactDetailViewController: BaseXLFormViewController {
                     tempArray.append(XLFormOptionsObject(value: data["state_code"], displayText: data["state_name"] as! String))
                     
                     
-                    if nilIfEmpty(contactData["state"]) as! String == data["state_code"] as! String{
+                    if nilIfEmpty(contactData["state"] as AnyObject?) == data["state_code"] as! String{
                         row.value = data["state_name"]
                     }
                 }
             }
             else {
                 
-                if nilIfEmpty(contactData["state"]) as! String == "OT"{
+                if nilIfEmpty(contactData["state"] as AnyObject?) == "OT"{
                     row.value = "Others"
                 }
                 
@@ -380,14 +380,14 @@ class CommonContactDetailViewController: BaseXLFormViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             
             self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
         }
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+       
         if flightType == "MH"{
             
             if meals.count == 2{
@@ -414,47 +414,47 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)?[0] as! PassengerHeaderView
         
         let index = UInt(section)
-        sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
+        sectionView.sectionLbl.text = form.formSection(at: index)?.title
         
         if flightType == "MH"{
             
             if meals.count == 2{
                 if index == 1 || index == 2{
-                    sectionView.views.backgroundColor = UIColor.whiteColor()
-                    sectionView.sectionLbl.textColor = UIColor.blackColor()
-                    sectionView.sectionLbl.font = UIFont.boldSystemFontOfSize(12.0)
-                    sectionView.sectionLbl.textAlignment = NSTextAlignment.Left
+                    sectionView.views.backgroundColor = UIColor.white
+                    sectionView.sectionLbl.textColor = UIColor.black
+                    sectionView.sectionLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
+                    sectionView.sectionLbl.textAlignment = NSTextAlignment.left
                     
                 }else{
                     sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-                    sectionView.sectionLbl.textColor = UIColor.whiteColor()
-                    sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+                    sectionView.sectionLbl.textColor = UIColor.white
+                    sectionView.sectionLbl.textAlignment = NSTextAlignment.center
                 }
                 
             }else{
                 if index == 1{
-                    sectionView.views.backgroundColor = UIColor.whiteColor()
-                    sectionView.sectionLbl.textColor = UIColor.blackColor()
-                    sectionView.sectionLbl.font = UIFont.boldSystemFontOfSize(12.0)
-                    sectionView.sectionLbl.textAlignment = NSTextAlignment.Left
+                    sectionView.views.backgroundColor = UIColor.white
+                    sectionView.sectionLbl.textColor = UIColor.black
+                    sectionView.sectionLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
+                    sectionView.sectionLbl.textAlignment = NSTextAlignment.left
                     
                 }else{
                     sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-                    sectionView.sectionLbl.textColor = UIColor.whiteColor()
-                    sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+                    sectionView.sectionLbl.textColor = UIColor.white
+                    sectionView.sectionLbl.textAlignment = NSTextAlignment.center
                 }
             }
             
         }else{
             sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
             
-            sectionView.sectionLbl.textColor = UIColor.whiteColor()
-            sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+            sectionView.sectionLbl.textColor = UIColor.white
+            sectionView.sectionLbl.textAlignment = NSTextAlignment.center
         }
         
         

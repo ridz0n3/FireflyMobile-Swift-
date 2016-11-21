@@ -18,15 +18,15 @@ class LoginMobileCheckinViewController: CommonListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.loginMobileCheckInScreen)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginMobileCheckinViewController.refreshCheckInList(_:)), name: "reloadCheckInList", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginMobileCheckinViewController.emptyCheckInList(_:)), name: "emptyCheckInList", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginMobileCheckinViewController.refreshCheckInList(_:)), name: "reloadCheckInList", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginMobileCheckinViewController.emptyCheckInList(_:)), name: "emptyCheckInList", object: nil)
         loadingIndicator.hidden = indicator
         loadCheckInList()
     }
 
     func loadCheckInList(){
         
-        let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+        let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
         var userData : Results<UserList>! = nil
         userData = realm.objects(UserList)
         mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
@@ -60,9 +60,9 @@ class LoginMobileCheckinViewController: CommonListViewController {
             
             switch result {
                 
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if  json["status"].string == "success"{
                         let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
@@ -81,9 +81,9 @@ class LoginMobileCheckinViewController: CommonListViewController {
                     showErrorMessage("We are unable to locate the itinerary. Please verify the information is correct and try again.")
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
             }
             
         }

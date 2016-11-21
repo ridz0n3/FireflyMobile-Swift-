@@ -272,7 +272,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
         var planBack = String()
         
         let date = flightDetail[0]["departure_date"].string!
-        var dateArr = date.componentsSeparatedByString(" ")
+        var dateArr = date.components(separatedBy: " ")
         var isReturn = Bool()
         
         if flightDetail.count == 2{
@@ -287,7 +287,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
             
             if type == 1{
                 let dateReturn = flightDetail[1]["departure_date"].string!
-                var dateReturnArr = dateReturn.componentsSeparatedByString(" ")
+                var dateReturnArr = dateReturn.components(separatedBy: " ")
                 
                 if checkReturnIndex == "1"{
                     planBack = "economy_promo_class"
@@ -353,11 +353,11 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
         showLoading() 
         FireFlyProvider.request(.SelectChangeFlight(pnr, bookId, signature, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, status_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, status_2, departure_station, arrival_station), completion: { (result) -> () in
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
                     
                     
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
@@ -386,10 +386,10 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
             }
             
         })    }

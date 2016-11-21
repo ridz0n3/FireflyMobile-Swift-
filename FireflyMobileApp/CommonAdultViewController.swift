@@ -27,7 +27,7 @@ class CommonAdultViewController: BaseXLFormViewController {
                                  "dob" : "",
                                  "nationality" : "",
                                  "bonuslink_card" : "",
-                                 "type" : "Adult"]
+                                 "type" : "Adult"] as [String : Any] 
             adultInfo = adultTempData as NSDictionary
         }else{
             let adultTempData = ["id" : familyAndFriendInfo.id,
@@ -38,7 +38,7 @@ class CommonAdultViewController: BaseXLFormViewController {
                     "dob" : familyAndFriendInfo.dob,
                     "nationality" : familyAndFriendInfo.country,
                     "bonuslink_card" : familyAndFriendInfo.bonuslink,
-                    "type" : familyAndFriendInfo.type]
+                    "type" : familyAndFriendInfo.type] as [String : Any]
             adultInfo = adultTempData as NSDictionary
         }
         initialize()
@@ -74,13 +74,13 @@ class CommonAdultViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         //first name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-        row.required = true
+        row.isRequired = true
         row.value = adultInfo["first_name"] as! String
         section.addFormRow(row)
         
@@ -88,12 +88,12 @@ class CommonAdultViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.value = adultInfo["last_name"] as! String
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Date
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
-        row.required = true
+        row.isRequired = true
         if adultInfo["dob"] as! String != ""{
             row.value = formatDate(stringToDate(adultInfo["dob"] as! String))
         }else{
@@ -114,7 +114,7 @@ class CommonAdultViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Enrich Loyalty No
@@ -129,10 +129,10 @@ class CommonAdultViewController: BaseXLFormViewController {
     
     func saveFamilyAndFriend(familyAndFriendInfo : [AnyObject]){
         
-        let userInfo = defaults.objectForKey("userInfo")
-        var userList = Results<FamilyAndFriendList>!()
-        userList = realm.objects(FamilyAndFriendList)
-        let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
+        let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+        //var userList = Results<FamilyAndFriendList>!()
+        let userList = realm.objects(FamilyAndFriendList.self)
+        let mainUser = userList.filter("email == \(userInfo["username"] as! String)")
         
         if mainUser.count != 0{
             if mainUser[0].familyList.count != 0{
@@ -147,10 +147,10 @@ class CommonAdultViewController: BaseXLFormViewController {
             let data = FamilyAndFriendData()
             data.id = list["id"] as! Int
             data.title = list["title"] as! String
-            data.gender = nullIfEmpty(list["gender"]) as! String
+            data.gender = nullIfEmpty(list["gender"] as AnyObject)
             data.firstName = list["first_name"] as! String
             data.lastName = list["last_name"] as! String
-            //let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
+            //let dateArr = (list["dob"] as! String).components(separatedBy: "-")
             data.dob = list["dob"] as! String//"\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = list["bonuslink_card"] as! String
@@ -158,7 +158,7 @@ class CommonAdultViewController: BaseXLFormViewController {
             
             if mainUser.count == 0{
                 let user = FamilyAndFriendList()
-                user.email = userInfo!["username"] as! String
+                user.email = userInfo["username"] as! String
                 user.familyList.append(data)
                 
                 try! realm.write({ () -> Void in
@@ -169,7 +169,7 @@ class CommonAdultViewController: BaseXLFormViewController {
                 
                 try! realm.write({ () -> Void in
                     mainUser[0].familyList.append(data)
-                    mainUser[0].email = userInfo!["username"] as! String
+                    mainUser[0].email = userInfo["username"] as! String
                 })
                 
             }

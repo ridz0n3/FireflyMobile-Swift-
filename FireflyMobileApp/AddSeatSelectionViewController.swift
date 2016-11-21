@@ -34,7 +34,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     seatIndex = 0
                     seatArray.append(newSeat[0])
-                    seat.addObject(seatArray)
+                    seat.add(seatArray)
                     newSeat.removeAtIndex(0)
                     seatArray = [Dictionary<String, AnyObject>]()
                     
@@ -66,8 +66,8 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
     
     @IBAction func continueBtnPressed(sender: AnyObject) {
         
-        let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
-        let signature = defaults.objectForKey("signature") as! String
+        let bookId = String(format: "%i", defaults.object(forKey: "booking_id")!.integerValue)
+        let signature = defaults.object(forKey: "signature") as! String
         
         if journeys.count == 2{
             
@@ -83,27 +83,27 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     }
                     
                     if keys == "0"{
-                        goingSeatSelection.addObject(newSeat)
+                        goingSeatSelection.add(newSeat)
                     }else{
-                        returnSeatSelection.addObject(newSeat)
+                        returnSeatSelection.add(newSeat)
                     }
                     
                 }
                 
                 if goingSeatSelection.count == 0{
-                    goingSeatSelection.addObject(tempDict)
+                    goingSeatSelection.add(tempDict)
                 }else if returnSeatSelection.count == 0{
-                    returnSeatSelection.addObject(tempDict)
+                    returnSeatSelection.add(tempDict)
                 }
                 showLoading() 
                 
                 FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 
@@ -133,10 +133,10 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                     
                 })
@@ -162,24 +162,24 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                         newSeat.setValue(passengerDetail, forKey: passengerKey as! String)
                         
                     }
-                    goingSeatSelection.addObject(newSeat)
+                    goingSeatSelection.add(newSeat)
                     
                 }
                 
                 if goingSeatSelection.count == 0{
-                    goingSeatSelection.addObject(tempDict)
+                    goingSeatSelection.add(tempDict)
                 }
                 
-                returnSeatSelection.addObject(tempDict)
+                returnSeatSelection.add(tempDict)
                 showLoading() 
                 
                 FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 
@@ -210,10 +210,10 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                     
                 })
@@ -231,10 +231,10 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
         FireFlyProvider.request(.FlightSummary(signature), completion: { (result) -> () in
             
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
                     
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         
@@ -265,10 +265,10 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
             }
             
         })

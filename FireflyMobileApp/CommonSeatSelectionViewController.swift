@@ -119,18 +119,18 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
         if details.count == 2{
             
             if section == 0{
-                let view = NSBundle.mainBundle().loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
+                let view = Bundle.main.loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
                 view.direction.text = "\(details[0]["departure_station"]!) - \(details[0]["arrival_station"]!)"
                 return view
             }else{
-                let view = NSBundle.mainBundle().loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
+                let view = Bundle.main.loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
                 view.direction.text = "\(details[1]["departure_station"]!) - \(details[1]["arrival_station"]!)"
                 return view
             }
             
         }else{
             
-            let view = NSBundle.mainBundle().loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
+            let view = Bundle.main.loadNibNamed("directionView", owner: self, options: nil)[0] as! DirectionView
             view.direction.text = "\(details[0]["departure_station"]!) - \(details[0]["arrival_station"]!)"
             return view
             
@@ -274,9 +274,9 @@ class CommonSeatSelectionViewController: BaseViewController, UITableViewDelegate
     
     func removeSeat(sender:UIButton){
         
-        let indexpathArr = sender.accessibilityHint?.componentsSeparatedByString(",")
-        let section = indexpathArr![0].componentsSeparatedByString("section:")
-        let row = indexpathArr![1].componentsSeparatedByString("row:")
+        let indexpathArr = sender.accessibilityHint?.components(separatedBy: ",")
+        let section = indexpathArr![0].components(separatedBy: "section:")
+        let row = indexpathArr![1].components(separatedBy: "row:")
         
         if section[1] == "0"{
             passengers1.removeValueForKey("\(row[1])")

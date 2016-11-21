@@ -40,7 +40,7 @@ class EditSSRViewController: BaseXLFormViewController {
         for mealInfo in meals{
             
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle(mealInfo["destination_name"] as? String)
+            section = XLFormSectionDescriptor.formSection(withTitle: mealInfo["destination_name"] as? String)
             form.addFormSection(section)
             
             let passengerList = mealInfo["passenger"] as! [AnyObject]
@@ -54,9 +54,9 @@ class EditSSRViewController: BaseXLFormViewController {
                     let mealList = mealInfo["list_meal"] as! [AnyObject]
                     var tempArray:[AnyObject] = [AnyObject]()
                     for mealsDetail in mealList{
-                        tempArray.append(XLFormOptionsObject(value: mealsDetail["meal_code"], displayText: mealsDetail["name"] as! String))
+                        tempArray.append(XLFormOptionsObject(value: mealsDetail["meal_code"]!, displayText: mealsDetail["name"] as! String))
                         
-                        if mealsDetail["meal_code"] as! String == nilIfEmpty(passengerInfo["meal_code"]) as! String{
+                        if mealsDetail["meal_code"] as! String == nilIfEmpty(passengerInfo["meal_code"] as AnyObject) as! String{
                             row.value = mealsDetail["name"] as! String
                         }
                     }
@@ -78,22 +78,22 @@ class EditSSRViewController: BaseXLFormViewController {
         
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return UITableViewAutomaticDimension
         
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)?[0] as! PassengerHeaderView
         
         let index = UInt(section)
-        sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
-        sectionView.views.backgroundColor = UIColor.whiteColor()
-        sectionView.sectionLbl.textColor = UIColor.blackColor()
-        sectionView.sectionLbl.font = UIFont.boldSystemFontOfSize(12.0)
-        sectionView.sectionLbl.textAlignment = NSTextAlignment.Left
+        sectionView.sectionLbl.text = form.formSection(at: index)?.title
+        sectionView.views.backgroundColor = UIColor.white
+        sectionView.sectionLbl.textColor = UIColor.black
+        sectionView.sectionLbl.font = UIFont.boldSystemFont(ofSize: 12.0)
+        sectionView.sectionLbl.textAlignment = NSTextAlignment.left
         
         return sectionView
         
@@ -133,9 +133,9 @@ class EditSSRViewController: BaseXLFormViewController {
                 }
                 
                 if i == 0{
-                    goingSSRDict.addObject(tempDict)
+                    goingSSRDict.add(tempDict)
                 }else{
-                    returnSSRDict.addObject(tempDict)
+                    returnSSRDict.add(tempDict)
                 }
             }else{
                 departCount += 1
@@ -153,11 +153,11 @@ class EditSSRViewController: BaseXLFormViewController {
             
             if meals.count == 1{
                 
-                oneSSR("going_flight", detail: goingSSRDict[0])
+                oneSSR("going_flight", detail: goingSSRDict[0] as AnyObject)
                 
             }else{
                 
-                twoSSR(goingSSRDict[0], returnSSR: returnSSRDict[0])
+                twoSSR(goingSSRDict[0] as AnyObject, returnSSR: returnSSRDict[0] as AnyObject)
             }
             
         }else{
@@ -183,19 +183,19 @@ class EditSSRViewController: BaseXLFormViewController {
         
     }
     
-    func twoSSR(goingSSR : AnyObject, returnSSR : AnyObject){
+    func twoSSR(_ goingSSR : AnyObject, returnSSR : AnyObject){
         
         showLoading()
         FireFlyProvider.request(.ChangeSSR2Way(pnr, bookingId, signature, goingSSR, returnSSR)) { (result) in
             
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                        let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
                         manageFlightVC.isConfirm = true
                         manageFlightVC.itineraryData = json.object as! NSDictionary
                         self.navigationController!.pushViewController(manageFlightVC, animated: true)
@@ -221,28 +221,28 @@ class EditSSRViewController: BaseXLFormViewController {
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
             }
             
         }
         
     }
     
-    func oneSSR(type : String, detail : AnyObject){
+    func oneSSR(_ type : String, detail : AnyObject){
         
         showLoading()
         FireFlyProvider.request(.ChangeSSR(pnr, bookingId, signature, type, detail)) { (result) in
             
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                        let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
                         manageFlightVC.isConfirm = true
                         manageFlightVC.itineraryData = json.object as! NSDictionary
                         self.navigationController!.pushViewController(manageFlightVC, animated: true)
@@ -268,9 +268,9 @@ class EditSSRViewController: BaseXLFormViewController {
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
             }
             
         }

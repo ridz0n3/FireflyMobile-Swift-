@@ -21,10 +21,10 @@ class AboutViewController: BaseViewController {
         showLoading()
         FireFlyProvider.request(.GetAbout) { (result) -> () in
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
                     
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         
@@ -40,9 +40,9 @@ class AboutViewController: BaseViewController {
                 catch {
                     
                 }
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
                 
             }
         }

@@ -9,20 +9,20 @@
 import Foundation
 
 
-public class FullNameRule : Rule {
+open class FullNameRule : Rule {
     
-    private var message : String
+    fileprivate var message : String
     
     public init(message : String = "Please provide a first & last name"){
         self.message = message
     }
         
-    public func validate(value: String) -> Bool {
+    open func validate(_ value: String) -> Bool {
         let nameArray: [String] = value.characters.split { $0 == " " }.map { String($0) }
         return nameArray.count >= 2
     }
     
-    public func errorMessage() -> String {
+    open func errorMessage() -> String {
         return message
     }
 }

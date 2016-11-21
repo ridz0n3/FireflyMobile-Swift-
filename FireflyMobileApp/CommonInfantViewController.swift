@@ -73,26 +73,26 @@ class CommonInfantViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         //first name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.value = infantInfo["first_name"] as! String
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         //last name
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.value = infantInfo["last_name"] as! String
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Date
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
-        row.required = true
+        row.isRequired = true
         if infantInfo["dob"] as! String != ""{
             row.value = formatDate(stringToDate(infantInfo["dob"] as! String))
         }else{
@@ -113,7 +113,7 @@ class CommonInfantViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         self.form = form
@@ -122,7 +122,7 @@ class CommonInfantViewController: BaseXLFormViewController {
     
     func saveFamilyAndFriend(familyAndFriendInfo : [AnyObject]){
         
-        let userInfo = defaults.objectForKey("userInfo")
+        let userInfo = defaults.object(forKey: "userInfo")
         var userList = Results<FamilyAndFriendList>!()
         userList = realm.objects(FamilyAndFriendList)
         let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
@@ -143,7 +143,7 @@ class CommonInfantViewController: BaseXLFormViewController {
             data.gender = nullIfEmpty(list["gender"]) as! String
             data.firstName = list["first_name"] as! String
             data.lastName = list["last_name"] as! String
-            //let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
+            //let dateArr = (list["dob"] as! String).components(separatedBy: "-")
             data.dob = list["dob"] as! String//"\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = nullIfEmpty(list["bonuslink_card"]) as! String

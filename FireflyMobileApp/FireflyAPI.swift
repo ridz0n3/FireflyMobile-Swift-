@@ -12,14 +12,15 @@ import Moya
 let FireFlyProvider = MoyaProvider<FireFlyAPI>(endpointClosure: {
     (target: FireFlyAPI) -> Endpoint<FireFlyAPI> in
     
-    return Endpoint(URL: url(target), sampleResponseClosure: {.NetworkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters, parameterEncoding: target.parameterEncoding)
+    return Endpoint(URL: url(route: target), sampleResponseClosure: {.networkResponse(200, target.sampleData as Data)}, method: target.method, parameters: target.parameters)//, parameterEncoding: target.parameterEncoding)
+    
 })
 
 // MARK: - Provider support
 
 private extension String {
     var URLEscapedString: String {
-        return self.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())!
+        return self.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
     }
 }
 
@@ -66,85 +67,87 @@ public enum FireFlyAPI {
 }
 
 
-
 extension FireFlyAPI : TargetType {
     
+    public var task: Task {
+        return .request
+    }
     
-    public var parameterEncoding: Moya.ParameterEncoding {
+    /*public var parameterEncoding: Moya.ParameterEncoding {
         switch self {
         default:
             return .JSON
         }
-    }
+    }*/
     
     var base: String {
         //return kDevURL
         return khttpsProductionURL
     }
     
-    public var baseURL: NSURL { return NSURL(string: base)! }
+    public var baseURL: URL { return URL(string: base)! }
     
     public var path: String {
         switch self {
-        case GetTerm:
+        case .GetTerm:
             return "api/getTerm"
-        case Login:
+        case .Login:
             return "api/login"
-        case Loading:
+        case .Loading:
             return "api/loading"
-        case ForgotPassword:
+        case .ForgotPassword:
             return "api/forgotPassword"
-        case ChangePassword:
+        case .ChangePassword:
             return "api/changePassword"
-        case PassengerDetail:
+        case .PassengerDetail:
             return "api/passengerDetails"
-        case ContactDetail:
+        case .ContactDetail:
             return "api/contactDetails"
-        case SelectSeat:
+        case .SelectSeat:
             return "api/seatMap"
-        case PaymentSelection:
+        case .PaymentSelection:
             return "api/selectionPayment"
-        case PaymentProcess:
+        case .PaymentProcess:
             return "api/paymentProcess"
-        case SearchFlight:
+        case .SearchFlight:
             return "api/searchFlight"
-        case SelectFlight:
+        case .SelectFlight:
             return "api/selectFlight"
-        case FlightSummary:
+        case .FlightSummary:
             return "api/flightSummary"
-        case Logout:
+        case .Logout:
             return "api/logout"
-        case RetrieveBooking:
+        case .RetrieveBooking:
             return "api/retrieveBooking"
-        case RetrieveBookingList:
+        case .RetrieveBookingList:
             return "api/retrieveBookingList"
-        case ChangeContact:
+        case .ChangeContact:
             return "api/changeContact"
-        case EditPassengerDetail:
+        case .EditPassengerDetail:
             return "api/editPassengers"
-        case ConfirmChange:
+        case .ConfirmChange:
             return "api/changeConfirmation"
-        case GetAvailableSeat:
+        case .GetAvailableSeat:
             return "api/getSeatAvailability"
-        case ChangeSeat:
+        case .ChangeSeat:
             return "api/changeSeat"
-        case SendItinerary:
+        case .SendItinerary:
             return "api/sendItinerary"
-        case GetFlightAvailability:
+        case .GetFlightAvailability:
             return "api/getFlightAvailability"
-        case SearchChangeFlight:
+        case .SearchChangeFlight:
             return "api/searchChangeFlight"
-        case SelectChangeFlight:
+        case .SelectChangeFlight:
             return "api/selectChangeFlight"
-        case CheckIn:
+        case .CheckIn:
             return "api/checkIn"
-        case CheckInPassengerList:
+        case .CheckInPassengerList:
             return "api/checkInPassengerList"
-        case CheckInConfirmation:
+        case .CheckInConfirmation:
             return "api/checkInConfirmation"
-        case RetrieveBoardingPass:
+        case .RetrieveBoardingPass:
             return "api/getBoardingPass"
-        case GetAbout:
+        case .GetAbout:
             return "api/getAboutUS"
         case .UpdateUserProfile:
             return "api/updateProfile"
@@ -175,7 +178,7 @@ extension FireFlyAPI : TargetType {
         }
     }
     
-    public var parameters: [String: AnyObject]? {
+    public var parameters: [String: Any]? {
         switch self {
         case .Login(let username, let password):
             return ["username": username, "password" : password]
@@ -191,9 +194,9 @@ extension FireFlyAPI : TargetType {
             return ["flight_type" : flightType, "booking_id" : bookId, "insurance" : insurance, "contact_travel_purpose" : purpose, "contact_title" : title, "contact_first_name" : firstName, "contact_last_name": lastName, "contact_email" : email, "contact_country" : country, "contact_mobile_phone" : mobile, "contact_alternate_phone" : alternate, "signature" : signature, "contact_company_name" : companyName, "contact_address1" : address1, "contact_address2": address2, "contact_address3" : address3, "contact_city" : city, "contact_state" : state, "contact_postcode" : postcode, "seat_selection_status" : seatStatus, "going_flight" : goingFlight, "return_flight" : returnFlight, "customer_number" : customer_number]
         case .SelectSeat(let goingFlight, let returnFlight, let bookId, let signature):
             return ["going_flight" : goingFlight, "return_flight" : returnFlight, "booking_id" : bookId, "signature" : signature]
-        case PaymentSelection(let personID, let signature):
+        case .PaymentSelection(let personID, let signature):
             return ["personID" : personID, "signature" : signature]
-        case PaymentProcess(let signature, let channelType, let channelCode, let cardNumber, let expirationDateMonth, let expirationDateYear, let cardHolderName, let issuingBank, let cvv, let booking_id, let personID, let accountNumberID):
+        case .PaymentProcess(let signature, let channelType, let channelCode, let cardNumber, let expirationDateMonth, let expirationDateYear, let cardHolderName, let issuingBank, let cvv, let booking_id, let personID, let accountNumberID):
             return ["signature" : signature, "channelType" : channelType, "channelCode" : channelCode, "cardNumber": cardNumber, "expirationDateMonth" : expirationDateMonth, "expirationDateYear" : expirationDateYear, "cardHolderName" : cardHolderName, "issuingBank" : issuingBank, "cvv" : cvv, "bookingId" : booking_id, "personID" : personID, "accountNumberID" : accountNumberID ]
         case .SearchFlight(let type, let departure_station, let arrival_station, let departure_date, let return_date, let adult, let infant, let username, let password):
             return ["type" : type, "departure_station" : departure_station, "arrival_station" : arrival_station, "departure_date": departure_date, "return_date" : return_date, "adult" : adult, "infant" : infant, "username" : username, "password" : password]
@@ -325,16 +328,16 @@ extension FireFlyAPI : TargetType {
         return nil
         }
     }
-    public var sampleData: NSData {
-        return NSData.init()
+    public var sampleData: Data {
+        return NSData.init() as Data
     }
 }
 
 public func url(route: TargetType) -> String {
-    return route.baseURL.URLByAppendingPathComponent(route.path).absoluteString
+    return route.baseURL.appendingPathComponent(route.path).absoluteString
 }
 
 
 var endpointClosure = { (target: FireFlyAPI, method: Moya.Method, parameters: [String: AnyObject]) -> Endpoint<FireFlyAPI> in
-    return Endpoint(URL: url(target), sampleResponseClosure: {.NetworkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters, parameterEncoding: target.parameterEncoding)
+    return Endpoint(URL: url(route: target), sampleResponseClosure: {.networkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters)//, parameterEncoding: target.parameterEncoding)
 }

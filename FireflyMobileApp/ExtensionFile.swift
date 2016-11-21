@@ -11,21 +11,21 @@ import SlideMenuControllerSwift
 
 extension UIApplication {
     
-    class func topViewController(viewController: UIViewController? = UIApplication.sharedApplication().keyWindow?.rootViewController) -> UIViewController? {
+    class func topViewController(viewController: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
         if let nav = viewController as? UINavigationController {
-            return topViewController(nav.visibleViewController)
+            return topViewController(viewController: nav.visibleViewController)
         }
         if let tab = viewController as? UITabBarController {
             if let selected = tab.selectedViewController {
-                return topViewController(selected)
+                return topViewController(viewController: selected)
             }
         }
         if let presented = viewController?.presentedViewController {
-            return topViewController(presented)
+            return topViewController(viewController: presented)
         }
         
         if let slide = viewController as? SlideMenuController {
-            return topViewController(slide.mainViewController)
+            return topViewController(viewController: slide.mainViewController)
         }
         return viewController
     }
@@ -36,7 +36,7 @@ extension String {
         return try! NSAttributedString(data:dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!, options: [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType], documentAttributes: nil)
     }
     var localized: String {
-        return NSLocalizedString(self, tableName: nil, bundle: NSBundle.mainBundle(), value: "", comment: "")
+        return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
 }
 
@@ -71,7 +71,7 @@ public extension UIDevice {
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
         let identifier = machineMirror.children.reduce("") { identifier, element in
-            guard let value = element.value as? Int8 where value != 0 else { return identifier }
+            guard let value = element.value as? Int8 , value != 0 else { return identifier }
             return identifier + String(UnicodeScalar(UInt8(value)))
         }
         

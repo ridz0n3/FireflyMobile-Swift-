@@ -20,9 +20,9 @@ class LeftSideMenuViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LeftSideMenuViewController.refreshSideMenu(_:)), name: "reloadSideMenu", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LeftSideMenuViewController.refreshSideMenu(_:)), name: "reloadSideMenu", object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LeftSideMenuViewController.logoutSession(_:)), name: "logout", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LeftSideMenuViewController.logoutSession(_:)), name: "logout", object: nil)
         
         if try! LoginManager.sharedInstance.isLogin(){
             hideRow = true
@@ -97,7 +97,7 @@ class LeftSideMenuViewController: UIViewController, UITableViewDataSource, UITab
         
         
         if hideRow == true{
-            let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+            let userInfo = defaults.object(forKey: "userInfo") as! NSMutableDictionary
             let greetMsg = String(format: "Hi, %@", userInfo["first_name"] as! String)
             
             label.text = greetMsg

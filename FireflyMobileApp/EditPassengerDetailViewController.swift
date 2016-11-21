@@ -71,27 +71,27 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             section.addFormRow(row)
             
             //first name
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
-            row.required = true
+            row.isRequired = true
             row.disabled = NSNumber(bool: true)
             row.value = adultDetails[i]["first_name"] as! String
             section.addFormRow(row)
             
             //last name
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
-            row.required = true
+            row.isRequired = true
             row.disabled = NSNumber(bool: true)
             row.value = adultDetails[i]["last_name"] as! String
             section.addFormRow(row)
             
             // Date
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
-            row.required = true
-            let dateArr = (adultDetails[i]["dob"] as! String).componentsSeparatedByString("-")
+            row.isRequired = true
+            let dateArr = (adultDetails[i]["dob"] as! String).components(separatedBy: "-")
             row.value = formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"))
             section.addFormRow(row)
             
@@ -108,7 +108,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             //section.addFormRow(row)
             
             // Country
@@ -124,13 +124,13 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             section.addFormRow(row)
             
             // Document Number
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
-            row.required = true
-            row.value = (adultDetails[i]["document_number"] as! String).xmlSimpleUnescapeString()
+            row.isRequired = true
+            row.value = (adultDetails[i]["document_number"] as! String).xmlSimpleUnescape()
             //section.addFormRow(row)
             
             if flightType == "FY"{
@@ -169,7 +169,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 row.selectorOptions = tempArray
-                row.required = true
+                row.isRequired = true
                 section.addFormRow(row)
                 
                 // Gender
@@ -185,13 +185,13 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 row.selectorOptions = tempArray
-                row.required = true
+                row.isRequired = true
                 section.addFormRow(row)
                 
                 // First name
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationFirstName, infant), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-                row.required = true
+                row.isRequired = true
                 row.value = infantDict["first_name"] as! String
                 row.disabled = NSNumber(bool: true)
                 section.addFormRow(row)
@@ -199,15 +199,15 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Last Name
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationLastName, infant), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-                row.required = true
+                row.isRequired = true
                 row.value = infantDict["last_name"] as! String
                 row.disabled = NSNumber(bool: true)
                 section.addFormRow(row)
                 
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDate, infant), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
-                row.required = true
-                let dateArr = (infantDict["dob"] as! String).componentsSeparatedByString("-")
+                row.isRequired = true
+                let dateArr = (infantDict["dob"] as! String).components(separatedBy: "-")
                 row.value = formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"))
                 //row.value = formatDate(stringToDate(infantDict["dob"] as! String))
                 section.addFormRow(row)
@@ -226,7 +226,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 row.selectorOptions = tempArray
-                row.required = true
+                row.isRequired = true
                 //section.addFormRow(row)
                 
                 // Country
@@ -242,13 +242,13 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 row.selectorOptions = tempArray
-                row.required = true
+                row.isRequired = true
                 section.addFormRow(row)
                 
                 // Document Number
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDocumentNo, infant), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
-                row.required = true
-                row.value = (infantDict["document_number"] as! String).xmlSimpleUnescapeString()
+                row.isRequired = true
+                row.value = (infantDict["document_number"] as! String).xmlSimpleUnescape()
                 //section.addFormRow(row)
                 
             }
@@ -262,7 +262,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             var i = adult
             i -= 1
             
-            let expiredDate = (adultDetails[i]["expiration_date"] as! String).componentsSeparatedByString("T")
+            let expiredDate = (adultDetails[i]["expiration_date"] as! String).components(separatedBy: "T")
             if adultDetails[i]["travel_document"] as! String == "P"{
                 addExpiredDateRow("adult\(adult))", date: expiredDate[0])
             }
@@ -274,7 +274,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 var i = infant
                 i -= 1
                 
-                let expiredDate = (infantDetails[i]["expiration_date"] as! String).componentsSeparatedByString("T")
+                let expiredDate = (infantDetails[i]["expiration_date"] as! String).components(separatedBy: "T")
                 
                 if infantDetails[i]["travel_document"] as! String == "P"{
                     addExpiredDateRow("infant\(infant))", date: expiredDate[0])
@@ -298,10 +298,10 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 FireFlyProvider.request(.EditPassengerDetail(params.0,params.1,bookingId, signature, pnr), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 
@@ -332,10 +332,10 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                 })
             //}

@@ -22,8 +22,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
         setupMenuButton()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UpdateInformationViewController.selectCountry(_:)), name: "selectCountry", object: nil)
-        stateArray = defaults.objectForKey("state") as! [Dictionary<String, AnyObject>]
+        NotificationCenter.default.addObserver(self, selector: #selector(UpdateInformationViewController.selectCountry(_:)), name: NSNotification.Name(rawValue: "selectCountry"), object: nil)
+        stateArray = defaults.object(forKey: "state") as! [Dictionary<String, AnyObject>]
         initializeForm()
         
         AnalyticsManager.sharedInstance.logScreen(GAConstants.updateInformationScreen)
@@ -37,7 +37,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
     
     func initializeForm() {
         
-        userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+        userInfo = defaults.object(forKey: "userInfo") as! NSMutableDictionary
         
         let form : XLFormDescriptor
         var section : XLFormSectionDescriptor
@@ -47,14 +47,14 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // Basic Information - Section
         section = XLFormSectionDescriptor()
-        section = XLFormSectionDescriptor.formSectionWithTitle("LabelLogin".localized)
+        section = XLFormSectionDescriptor.formSection(withTitle: "LabelLogin".localized)
         form.addFormSection(section)
         
         // username
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Email:*")
         row.value = userInfo["username"]
         row.disabled = true
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Password
@@ -87,18 +87,18 @@ class UpdateInformationViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // First Name/Given Name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
-        row.required = true
+        row.isRequired = true
         row.value = userInfo["contact_first_name"]
         section.addFormRow(row)
         
         // Last Name
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
-        row.required = true
+        row.isRequired = true
         row.value = userInfo["contact_last_name"]
         section.addFormRow(row)
         
@@ -106,10 +106,10 @@ class UpdateInformationViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
         
         let date = userInfo["DOB"] as! String
-        let arrangeDate = date.componentsSeparatedByString("-")
+        let arrangeDate = date.components(separatedBy: "-")
 
         row.value = "\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])"
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Basic Information - Section
@@ -120,18 +120,18 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // Address Line 1
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 1:*")
-        row.required = true
-        row.value = userInfo["contact_address1"]?.xmlSimpleUnescapeString()
+        row.isRequired = true
+        row.value = (userInfo["contact_address1"] as! String).xmlSimpleUnescape()
         section.addFormRow(row)
         
         // Address Line 2
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 2:")
-        row.value = userInfo["contact_address2"]?.xmlSimpleUnescapeString()
+        row.value = (userInfo["contact_address2"] as! String).xmlSimpleUnescape()
         section.addFormRow(row)
         
         // Address Line 3
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 3:")
-        row.value = userInfo["contact_address3"]?.xmlSimpleUnescapeString()
+        row.value = (userInfo["contact_address3"] as! String).xmlSimpleUnescape()
         section.addFormRow(row)
         
         // Country
@@ -151,24 +151,24 @@ class UpdateInformationViewController: BaseXLFormViewController {
             
         }
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Town/City
         row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Town / City:*")
-        row.required = true
-        row.value = userInfo["contact_city"]?.xmlSimpleUnescapeString()
+        row.isRequired = true
+        row.value = (userInfo["contact_city"] as! String).xmlSimpleUnescape()
         section.addFormRow(row)
         
         // State
         row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"State:*")
         row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Postcode
         row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Postcode:*")
-        row.required = true
+        row.isRequired = true
         row.value = userInfo["contact_postcode"]
         section.addFormRow(row)
         
@@ -213,7 +213,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
     func checkState(){
         
         var stateArr = [NSDictionary]()
-        let state = defaults.objectForKey("state") as! [Dictionary<String,AnyObject>]
+        let state = defaults.object(forKey: "state") as! [Dictionary<String,AnyObject>]
         
         for stateData in state{
             if stateData["country_code"] as! String == userInfo["contact_country"] as! String{
@@ -221,7 +221,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
             }
         }
         
-        self.form.removeFormRowWithTag(Tags.ValidationState)
+        self.form.removeFormRow(withTag: Tags.ValidationState)
         var row : XLFormRowDescriptor
         row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"State:*")
         var tempArray:[AnyObject] = [AnyObject]()
@@ -241,19 +241,19 @@ class UpdateInformationViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         
         self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
         
     }
     
-    func selectCountry(sender:NSNotification){
+    func selectCountry(_ sender:NSNotification){
         
-        country(sender.userInfo!["countryVal"]! as! String)
+        country(countryCode: sender.userInfo!["countryVal"]! as! String)
         dialCode = sender.userInfo!["dialingCode"]! as! String
         
         var row : XLFormRowDescriptor
-        self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
+        self.form.removeFormRow(withTag: Tags.ValidationMobileHome)
         
         if userInfo["contact_country"] as? String != sender.userInfo!["countryVal"]! as? String{
             
@@ -263,8 +263,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
             row.value = dialCode
             self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)//(row, afterRowTag: Tags.ValidationPostcode)
             
-            self.form.removeFormRowWithTag(Tags.ValidationAlternate)
-            self.form.removeFormRowWithTag(Tags.ValidationFax)
+            self.form.removeFormRow(withTag: Tags.ValidationAlternate)
+            self.form.removeFormRow(withTag: Tags.ValidationFax)
             
             // Alternate
             row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Phone:")
@@ -291,8 +291,8 @@ class UpdateInformationViewController: BaseXLFormViewController {
             
             self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)
             
-            self.form.removeFormRowWithTag(Tags.ValidationAlternate)
-            self.form.removeFormRowWithTag(Tags.ValidationFax)
+            self.form.removeFormRow(withTag: Tags.ValidationAlternate)
+            self.form.removeFormRow(withTag: Tags.ValidationFax)
             
             // Alternate
             row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Phone:")
@@ -331,7 +331,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
                 }
             }
             
-            self.form.removeFormRowWithTag(Tags.ValidationState)
+            self.form.removeFormRow(withTag: Tags.ValidationState)
             var row : XLFormRowDescriptor
             row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"State:*")
             
@@ -346,13 +346,13 @@ class UpdateInformationViewController: BaseXLFormViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             
             self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
         }
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if section == 0{
             return 55
@@ -362,73 +362,75 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionView = NSBundle.mainBundle().loadNibNamed("SectionView", owner: self, options: nil)[0] as! SectionView
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let sectionView = Bundle.main.loadNibNamed("SectionView", owner: self, options: nil)?[0] as! SectionView
         
         if section != 0{
-            sectionView.changePassLbl.hidden = true
+            sectionView.changePassLbl.isHidden = true
         }
         
         sectionView.bgView.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         sectionView.sectionLbl.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         let index = UInt(section)
         
-        sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
-        sectionView.sectionLbl.textColor = UIColor.whiteColor()
-        sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+        sectionView.sectionLbl.text = form.formSection(at: index)?.title
+        sectionView.sectionLbl.textColor = UIColor.white
+        sectionView.sectionLbl.textAlignment = NSTextAlignment.center
         
         return sectionView
     }
     
-    @IBAction func continueButtonPressed(sender: AnyObject) {
+    @IBAction func continueButtonPressed(_ sender: AnyObject) {
         
         validateForm()
         
         if isValidate {
-            let currentDate: NSDate = NSDate()
-            let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-            calendar.timeZone = NSTimeZone(name: "UTC")!
+            let currentDate: Date = Date()
+            var calendar: Calendar = Calendar(identifier: .gregorian) //(identifier: NSCalendar.Identifier.gregorian)!
+            calendar.timeZone = TimeZone(identifier: "UTC")!
             
-            let components: NSDateComponents = NSDateComponents()
+            var components: DateComponents = DateComponents()
             components.calendar = calendar
             
             components.year = -18
-            let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            let minDate: Date = calendar.date(byAdding: components, to: currentDate)!
+                //.dateByAddingComponents(components, toDate: currentDate, options: NSCalendar.Options(rawValue: 0))!
             
             let date = formValues()[Tags.ValidationDate]! as! String
-            let arrangeDate = date.componentsSeparatedByString("-")
+            let arrangeDate = date.components(separatedBy: "-")
             
-            let selectDate: NSDate = stringToDate(date)
+            let selectDate: Date = stringToDate(date)
             
-            if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String != ""{
+            if nullIfEmpty(formValues()[Tags.ValidationPassword] as AnyObject) != ""{
                 
-                if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == ""{
+                if nullIfEmpty(formValues()[Tags.ValidationNewPassword] as AnyObject) == ""{
                     
-                    let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationNewPassword)!)! as NSIndexPath
-                    let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
+                    let index = form.indexPath(ofFormRow: form.formRow(withTag: Tags.ValidationNewPassword)!)! as IndexPath
+                    let cell = self.tableView.cellForRow(at: index) as! CustomFloatLabelCell
                     
                     let msg = String(format: "%@ can't be empty", Tags.ValidationNewPassword)
                     
-                    let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                    let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.red])
                     cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                     showErrorMessage(msg)
                     
-                }else if nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String == ""{
+                }else if nullIfEmpty(formValues()[Tags.ValidationConfirmPassword] as AnyObject) == ""{
                     
-                    let index = form.indexPathOfFormRow(form.formRowWithTag(Tags.ValidationConfirmPassword)!)! as NSIndexPath
-                    let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
+                    let index = form.indexPath(ofFormRow: form.formRow(withTag: Tags.ValidationConfirmPassword)!)! as IndexPath
+                    let cell = self.tableView.cellForRow(at: index) as! CustomFloatLabelCell
                     
                     let msg = String(format: "%@ can't be empty", Tags.ValidationConfirmPassword)
                     
-                    let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                    let textFieldAttrib = NSAttributedString.init(string: msg, attributes: [NSForegroundColorAttributeName : UIColor.red])
                     cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                     showErrorMessage(msg)
                     
-                }else if nullIfEmpty(formValues()[Tags.ValidationNewPassword]) as! String == nullIfEmpty(formValues()[Tags.ValidationConfirmPassword]) as! String{
+                }else if nullIfEmpty(formValues()[Tags.ValidationNewPassword] as AnyObject) == nullIfEmpty(formValues()[Tags.ValidationConfirmPassword] as AnyObject){
                     
                     let dec = try! EncryptManager.sharedInstance.aesDecrypt(userInfo["password"] as! String, key: key, iv: iv)
                     
-                    if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String == dec{
+                    if nullIfEmpty(formValues()[Tags.ValidationPassword] as AnyObject) == dec{
                         
                         sendInfo()
                         
@@ -440,7 +442,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
                     showErrorMessage("Confirm password is incorrect")
                 }
                 
-            }else if minDate.compare(selectDate) == NSComparisonResult.OrderedAscending {
+            }else if minDate.compare(selectDate) == ComparisonResult.orderedAscending {
                 showErrorMessage("User must age 18 and above to register")
             }else {
                 sendInfo()
@@ -452,19 +454,19 @@ class UpdateInformationViewController: BaseXLFormViewController {
         var encOldPassword = String()
         var encNewPassword = String()
         
-        if nullIfEmpty(formValues()[Tags.ValidationPassword]) as! String != ""{
-            encOldPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationPassword]!) as! String, key: key, iv: iv)
+        if nullIfEmpty(formValues()[Tags.ValidationPassword] as AnyObject) != ""{
+            encOldPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationPassword]! as AnyObject?), key: key, iv: iv)
             
-            encNewPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationNewPassword]!) as! String, key: key, iv: iv)
+            encNewPassword = try! EncryptManager.sharedInstance.aesEncrypt(nullIfEmpty(formValues()[Tags.ValidationNewPassword]! as AnyObject?), key: key, iv: iv)
         }else{
             encOldPassword = ""
             encNewPassword = ""
         }
         
         let date = formValues()[Tags.ValidationDate]! as! String
-        let arrangeDate = date.componentsSeparatedByString("-")
+        let arrangeDate = date.components(separatedBy: "-")
         
-        let selectDate: NSDate = stringToDate(date)
+        let selectDate: Date = stringToDate(date)
         
         let username = userInfo["username"]! as! String
         let password = encOldPassword
@@ -473,37 +475,37 @@ class UpdateInformationViewController: BaseXLFormViewController {
         let firstName = formValues()[Tags.ValidationFirstName]! as! String
         let lastName = formValues()[Tags.ValidationLastName]! as! String
         let dob = formatDate(selectDate)
-        let address1 = formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString()
-        let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString()
-        let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3])!.xmlSimpleEscapeString()
+        let address1 = (formValues()[Tags.ValidationAddressLine1]! as! String).xmlSimpleEscape()
+        let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject).xmlSimpleEscape()
+        let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject).xmlSimpleEscape()
         let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
-        let city = formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString()
+        let city = (formValues()[Tags.ValidationTownCity] as! String!).xmlSimpleEscape()
         let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)
         let postcode = formValues()[Tags.ValidationPostcode]! as! String
-        let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome]!) as! String
-        let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate])! as! String
-        let fax = nullIfEmpty(formValues()[Tags.ValidationFax])! as! String
-        let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])! as! String
-        let signature = defaults.objectForKey("signatureLoad")! as! String
+        let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome]! as AnyObject)
+        let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate] as AnyObject)
+        let fax = nullIfEmpty(formValues()[Tags.ValidationFax] as AnyObject)
+        let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo] as AnyObject)
+        let signature = defaults.object(forKey: "signatureLoad")! as! String
         let newsletter = userInfo["newsletter"] as! String
         
         showLoading()
-        FireFlyProvider.request(.UpdateUserProfile(username, password, newPassword, title, firstName, lastName, dob, address1, address2, address3, country, city, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
+        FireFlyProvider.request(.UpdateUserProfile(username, password, newPassword, title, firstName, lastName, dob, address1!, address2!, address3!, country, city!, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
             
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         showToastMessage("Information successfully updated")
-                        defaults.setObject(json["user_info"].dictionaryObject, forKey: "userInfo")
+                        defaults.set(json["user_info"].dictionaryObject, forKey: "userInfo")
                         defaults.synchronize()
                         
-                        NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSideMenu"), object: nil)
                         
                         let storyBoard = UIStoryboard(name: "Home", bundle: nil)
-                        let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+                        let homeVC = storyBoard.instantiateViewController(withIdentifier: "HomeVC") as! HomeViewController
                         self.navigationController!.pushViewController(homeVC, animated: true)
                     }else if json["status"] == "error"{
                         showErrorMessage(json["message"].string!)
@@ -527,10 +529,10 @@ class UpdateInformationViewController: BaseXLFormViewController {
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
                 
             }
             

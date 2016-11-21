@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-public class ValidationRule {
-    public var textField:UITextField
-    public var errorLabel:UILabel?
-    public var rules:[Rule] = []
+open class ValidationRule {
+    open var textField:UITextField
+    open var errorLabel:UILabel?
+    open var rules:[Rule] = []
     
     public init(textField: UITextField, rules:[Rule], errorLabel:UILabel?){
         self.textField = textField
@@ -20,7 +20,7 @@ public class ValidationRule {
         self.rules = rules
     }
     
-    public func validateField() -> ValidationError? {
+    open func validateField() -> ValidationError? {
         return rules.filter{ !$0.validate(self.textField.text ?? "") }
                     .map{ rule -> ValidationError in return ValidationError(textField: self.textField, errorLabel:self.errorLabel, error: rule.errorMessage()) }.first
     }

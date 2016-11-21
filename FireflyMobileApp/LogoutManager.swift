@@ -15,14 +15,14 @@ class LogoutManager: NSObject {
     
     func logout(){
         
-        let signature = defaults.objectForKey("signatureLoad") as! String
+        let signature = defaults.object(forKey: "signatureLoad") as! String
         showLoading()
         FireFlyProvider.request(.Logout(signature), completion: { (result) -> () in
             
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if  json["status"].string == "success"{
                     
@@ -49,9 +49,9 @@ class LogoutManager: NSObject {
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
             }
             
         })

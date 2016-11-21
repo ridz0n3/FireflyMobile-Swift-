@@ -46,8 +46,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
         continueBtn.layer.cornerRadius = 10.0
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditSearchFlightViewController.departureDate(_:)), name: "departure", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditSearchFlightViewController.returnDate(_:)), name: "return", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditSearchFlightViewController.departureDate(_:)), name: "departure", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditSearchFlightViewController.returnDate(_:)), name: "return", object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -112,7 +112,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
             if indexPath.section == 0{
                 
                 if !isChangeGoingDate{
-                    let date = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
+                    let date = (flightData["departure_date"] as! String).components(separatedBy: "/")
                     
                     let dateStr = formater.dateFromString("\(date[2])-\(date[1])-\(date[0])")
                     departDate = dateStr!
@@ -127,7 +127,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                 
             }else{
                 if !isChangeReturnDate{
-                    let date = (flightData["departure_date"] as! String).componentsSeparatedByString("/")
+                    let date = (flightData["departure_date"] as! String).components(separatedBy: "/")
                     
                     let dateStr = formater.dateFromString("\(date[2])-\(date[1])-\(date[0])")
                     arrivalDate = dateStr!
@@ -186,7 +186,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
         
-        sectionHeader = NSBundle.mainBundle().loadNibNamed("FlightHeaderView", owner: self, options: nil)[0] as! UIView
+        sectionHeader = Bundle.main.loadNibNamed("FlightHeaderView", owner: self, options: nil)[0] as! UIView
         
         sectionHeader.frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
         checkBox.uncheckedColor = UIColor.whiteColor()
@@ -219,7 +219,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     func departureDate(notif:NSNotification){
         isChangeGoingDate = true
         
-        let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
+        let date = (notif.userInfo!["date"] as? String)!.components(separatedBy: "-")
         goingDate = "\(date[2])/\(date[1])/\(date[0])"
         
         nonFormatGoingDate = notif.userInfo!["date"] as! String
@@ -230,7 +230,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     
     func returnDate(notif:NSNotification){
         isChangeReturnDate = true
-        let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
+        let date = (notif.userInfo!["date"] as? String)!.components(separatedBy: "-")
         returnDate = "\(date[2])/\(date[1])/\(date[0])"
         nonFormatReturnDate = notif.userInfo!["date"] as! String
         arrivalDate = stringToDate(nonFormatReturnDate)
@@ -266,7 +266,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     
     func getFlightName(flightCode : String) -> String{
         
-        let flightArr = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
+        let flightArr = defaults.object(forKey: "flight") as! [Dictionary<String, AnyObject>]
         var flightName = String()
         for flightData in flightArr{
             
@@ -319,10 +319,10 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                 
                 FireFlyProvider.request(.SearchChangeFlight(departure, returned, pnr, bookId, signature), completion: { (result) -> () in
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 
@@ -385,10 +385,10 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                 })
                 

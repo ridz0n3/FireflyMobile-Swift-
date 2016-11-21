@@ -42,24 +42,24 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         
         //email
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Email Address:*")
-        row.required = true
+        row.isRequired = true
         row.value = email
         row.addValidator(XLFormValidator.emailValidator())
         section.addFormRow(row)
         
         //current password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Current Password:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         //new password
         row = XLFormRowDescriptor(tag: Tags.ValidationNewPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"New Password:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         //confirm password
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Confirm Password:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         self.form = form
@@ -84,9 +84,9 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                 FireFlyProvider.request(.ChangePassword(userId, currentPasswordEnc, newPasswordEnc), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do{
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 
@@ -94,9 +94,9 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                 FireFlyProvider.request(.Login(info!["username"] as! String, info!["password"] as! String), completion: { (result) -> () in
                                     
                                     switch result {
-                                    case .Success(let successResult):
+                                    case .success(let successResult):
                                         do {
-                                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                                             
                                             if  json["status"] == "success"{
                                                 showToastMessage("Password successfully change")
@@ -126,9 +126,9 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                             
                                         }
                                         
-                                    case .Failure(let failureResult):
+                                    case .failure(let failureResult):
                                         hideLoading()
-                                        showErrorMessage(failureResult.nsError.localizedDescription)
+                                        showErrorMessage(failureResult.localizedDescription)
                                     }
                                     //var success = error == nil
                                     }
@@ -146,10 +146,10 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                         
                     }
                     

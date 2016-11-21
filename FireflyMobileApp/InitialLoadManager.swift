@@ -17,7 +17,7 @@ class InitialLoadManager {
     
     func load(){
         
-        if defaults.objectForKey("first") == nil{
+        if defaults.object(forKey: "first") == nil{
             
             if try! LoginManager.sharedInstance.isLogin(){
                 defaults.setObject("", forKey: "userInfo")
@@ -32,8 +32,8 @@ class InitialLoadManager {
         }
         
         var existDataVersion = String()
-        if (defaults.objectForKey("dataVersion") != nil){
-            existDataVersion = defaults.objectForKey("dataVersion") as! String
+        if (defaults.object(forKey: "dataVersion") != nil){
+            existDataVersion = defaults.object(forKey: "dataVersion") as! String
         }else{
             existDataVersion = "0"
         }
@@ -41,18 +41,18 @@ class InitialLoadManager {
         var password = String()
         
         if try! LoginManager.sharedInstance.isLogin(){
-            let userinfo = defaults.objectForKey("userInfo") as! [String: AnyObject]
+            let userinfo = defaults.object(forKey: "userInfo") as! [String: AnyObject]
             username = userinfo["username"] as! String
             password = userinfo["password"] as! String
             Crashlytics.sharedInstance().setUserEmail(username)
         }
         
-        let gcmKey = defaults.objectForKey("token") as! String
+        let gcmKey = defaults.object(forKey: "token") as! String
         
         initializeGA()
         FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,deviceId!,"Apple",UIDevice.currentDevice().modelName,existDataVersion, gcmKey)) { (result) -> () in
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
                     var title = NSArray()
                     var flight = NSArray()
@@ -60,13 +60,13 @@ class InitialLoadManager {
                     var state = NSArray()
                     var banner = String()
                     var signature = String()
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] != nil{
                         if json["status"].string  == "success"{
                             
-                            if (defaults.objectForKey("dataVersion") != nil){
-                                existDataVersion = defaults.objectForKey("dataVersion") as! String
+                            if (defaults.object(forKey: "dataVersion") != nil){
+                                existDataVersion = defaults.object(forKey: "dataVersion") as! String
                             }else{
                                 existDataVersion = "0"
                             }
@@ -130,9 +130,9 @@ class InitialLoadManager {
                 catch {
                     showRetryMessage("Unable to connect the server")
                 }//
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 
-                if let first = defaults.objectForKey("firstInstall"){
+                if let first = defaults.object(forKey: "firstInstall"){
                     UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                     UINavigationBar.appearance().translucent = false
                     
@@ -159,7 +159,7 @@ class InitialLoadManager {
                 //if failureResult.nsError.code == -1001 || failureResult.nsError.code == -1009{
                 
                 //}else{
-                //    showErrorMessage(failureResult.nsError.localizedDescription)
+                //    showErrorMessage(failureResult.localizedDescription)
                 //}
                 
             }
@@ -181,10 +181,10 @@ class InitialLoadManager {
     
     func checkForAppUpdate(){
         
-        let appVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
-        let buildVersion = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleVersion") as! String
+        let appVersion = Bundle.main.objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+        let buildVersion = Bundle.main.objectForInfoDictionaryKey("CFBundleVersion") as! String
         
-        let version = defaults.objectForKey("mobileVersion") as! Dictionary<String,AnyObject>
+        let version = defaults.object(forKey: "mobileVersion") as! Dictionary<String,AnyObject>
         
         if appVersion != version["version"] as! String && version["force_update"] as! String == "Y"{
             

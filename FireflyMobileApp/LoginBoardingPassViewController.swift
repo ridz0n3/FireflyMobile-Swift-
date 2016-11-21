@@ -24,12 +24,12 @@ class LoginBoardingPassViewController: CommonListViewController {
         loadingIndicator.hidden = indicator
         loadBoardingPassList()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(LoginBoardingPassViewController.refreshBoardingPassList(_:)), name: "reloadBoardingPassList", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginBoardingPassViewController.refreshBoardingPassList(_:)), name: "reloadBoardingPassList", object: nil)
     }
     
     func loadBoardingPassList(){
         
-        let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+        let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
         var userData : Results<UserList>! = nil
         userData = realm.objects(UserList)
         mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
@@ -168,7 +168,7 @@ class LoginBoardingPassViewController: CommonListViewController {
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
         
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
@@ -193,9 +193,9 @@ class LoginBoardingPassViewController: CommonListViewController {
         
         FireFlyProvider.request(.RetrieveBoardingPass(signature, pnr, departCode, arrivalCode, userId), completion: { (result) -> () in
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if  json["status"].string == "success"{
                         
@@ -223,7 +223,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 
                 if !isExist{
                     showErrorMessage("Boarding Pass has not been saved")
@@ -239,7 +239,7 @@ class LoginBoardingPassViewController: CommonListViewController {
     
     func saveBoardingPass(boardingPassArr : [AnyObject], pnrStr : String){
         
-        let userInfo = defaults.objectForKey("userInfo")
+        let userInfo = defaults.object(forKey: "userInfo")
         var userList = Results<UserList>!()
         userList = realm.objects(UserList)
         

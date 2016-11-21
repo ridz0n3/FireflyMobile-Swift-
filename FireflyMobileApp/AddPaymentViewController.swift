@@ -14,15 +14,15 @@ class AddPaymentViewController: CommonPaymentViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let flightType = defaults.objectForKey("flightType") as! String
+        let flightType = defaults.object(forKey: "flightType") as! String
         AnalyticsManager.sharedInstance.logScreen("\(GAConstants.addPaymentScreen) (\(flightType))")
         totalDueLbl.text = String(format: "%.2f MYR", totalDue)//"\(totalDue) MYR"
         
     }
     
     @IBAction func continueBtnPressed(sender: AnyObject) {
-        let signature = defaults.objectForKey("signature") as! String
-        let bookingID = "\(defaults.objectForKey("booking_id")!)"
+        let signature = defaults.object(forKey: "signature") as! String
+        let bookingID = "\(defaults.object(forKey: "booking_id")!)"
         
         if paymentMethod == "Card"{
             
@@ -41,7 +41,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                     let channelCode = getCardTypeCode(self.formValues()[Tags.ValidationCardType] as! String, cardArr: cardType)
                     let cardHolderName = self.formValues()[Tags.ValidationHolderName] as! String
                     let cvv = self.formValues()[Tags.ValidationCcvNumber] as! String
-                    let expiredDate = (self.formValues()[Tags.ValidationCardExpiredDate] as! String).componentsSeparatedByString("/")
+                    let expiredDate = (self.formValues()[Tags.ValidationCardExpiredDate] as! String).components(separatedBy: "/")
                     let issuingBank = self.formValues()[Tags.ValidationCardType] as! String
                     let expirationDateMonth = expiredDate[0]
                     let expirationDateYear = expiredDate[1]
@@ -51,7 +51,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                         let info = self.formValues()[Tags.SaveFamilyAndFriend] as! NSDictionary
                         
                         if info["status"] as! Bool{
-                            personID = defaults.objectForKey("personID") as! String
+                            personID = defaults.object(forKey: "personID") as! String
                             accNumber = cardInfo["account_number_id"] as! String
                         }
                     }
@@ -60,19 +60,19 @@ class AddPaymentViewController: CommonPaymentViewController {
                     FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingID, personID, accNumber), completion: { (result) -> () in
                         
                         switch result {
-                        case .Success(let successResult):
+                        case .success(let successResult):
                             do {
-                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                                let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                                 
                                 if json["status"] == "Redirect"{
                                     hideLoading()
                                     let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                                     
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                    let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                                    let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "PaymentWebVC") as! PaymentWebViewController
                                     manageFlightVC.paymentType = "Card"
                                     manageFlightVC.urlString = urlString
-                                    manageFlightVC.signature = defaults.objectForKey("signature") as! String
+                                    manageFlightVC.signature = defaults.object(forKey: "signature") as! String
                                     manageFlightVC.book = "book"
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
@@ -98,10 +98,10 @@ class AddPaymentViewController: CommonPaymentViewController {
                                 
                             }
                             
-                        case .Failure(let failureResult):
+                        case .failure(let failureResult):
                             
                             hideLoading()
-                            showErrorMessage(failureResult.nsError.localizedDescription)
+                            showErrorMessage(failureResult.localizedDescription)
                         }
                         
                         
@@ -116,19 +116,19 @@ class AddPaymentViewController: CommonPaymentViewController {
             FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingID, "", ""), completion: { (result) -> () in
                 
                 switch result {
-                case .Success(let successResult):
+                case .success(let successResult):
                     do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                         
                         if json["status"] == "Redirect"{
                             
                             let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                            let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "PaymentWebVC") as! PaymentWebViewController
                             manageFlightVC.paymentType = "MU"
                             manageFlightVC.urlString = urlString
-                            manageFlightVC.signature = defaults.objectForKey("signature") as! String
+                            manageFlightVC.signature = defaults.object(forKey: "signature") as! String
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
@@ -153,10 +153,10 @@ class AddPaymentViewController: CommonPaymentViewController {
                         
                     }
                     
-                case .Failure(let failureResult):
+                case .failure(let failureResult):
                     
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)
                 }
                 
                 
@@ -168,19 +168,19 @@ class AddPaymentViewController: CommonPaymentViewController {
             FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingID, "", ""), completion: { (result) -> () in
                 
                 switch result {
-                case .Success(let successResult):
+                case .success(let successResult):
                     do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                         
                         if json["status"] == "Redirect"{
                             
                             let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                            let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "PaymentWebVC") as! PaymentWebViewController
                             manageFlightVC.paymentType = "CI"
                             manageFlightVC.urlString = urlString
-                            manageFlightVC.signature = defaults.objectForKey("signature") as! String
+                            manageFlightVC.signature = defaults.object(forKey: "signature") as! String
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
@@ -205,10 +205,10 @@ class AddPaymentViewController: CommonPaymentViewController {
                         
                     }
                     
-                case .Failure(let failureResult):
+                case .failure(let failureResult):
                     
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)
                 }
                 
                 
@@ -220,19 +220,19 @@ class AddPaymentViewController: CommonPaymentViewController {
             FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingID, "", ""), completion: { (result) -> () in
                 
                 switch result {
-                case .Success(let successResult):
+                case .success(let successResult):
                     do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                         
                         if json["status"] == "Redirect"{
                             
                             let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                            let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "PaymentWebVC") as! PaymentWebViewController
                             manageFlightVC.paymentType = "PX"
                             manageFlightVC.urlString = urlString
-                            manageFlightVC.signature = defaults.objectForKey("signature") as! String
+                            manageFlightVC.signature = defaults.object(forKey: "signature") as! String
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else if json["status"] == "error"{
@@ -257,10 +257,10 @@ class AddPaymentViewController: CommonPaymentViewController {
                         
                     }
                     
-                case .Failure(let failureResult):
+                case .failure(let failureResult):
                     
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)
                 }
                 
                 

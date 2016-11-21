@@ -41,7 +41,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     seatIndex = 0
                     seatArray.append(newSeat[0])
-                    seat.addObject(seatArray)
+                    seat.add(seatArray)
                     newSeat.removeAtIndex(0)
                     seatArray = [Dictionary<String,AnyObject>]()
                     
@@ -338,7 +338,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 }
                 
                 if keys == "0"{
-                    goingSeatSelection.addObject(newSeat)
+                    goingSeatSelection.add(newSeat)
                     
                     if (data.count >= seatTypeDict[keys]?.count){
                         isGoingSame = true
@@ -347,7 +347,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     }
                     
                 }else{
-                    returnSeatSelection.addObject(newSeat)
+                    returnSeatSelection.add(newSeat)
                     
                     if (data.count >= seatTypeDict[keys]?.count){
                         isReturnSame = true
@@ -360,9 +360,9 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             }
             
             if goingSeatSelection.count == 0{
-                goingSeatSelection.addObject(tempDict)
+                goingSeatSelection.add(tempDict)
             }else if returnSeatSelection.count == 0{
-                returnSeatSelection.addObject(tempDict)
+                returnSeatSelection.add(tempDict)
             }
             
             if isSelect{
@@ -373,10 +373,10 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
-                        case .Success(let successResult):
+                        case .success(let successResult):
                             do {
                                 
-                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                                let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                                 
                                 if json["status"] == "success"{
                                     //
@@ -407,10 +407,10 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                 
                             }
                             
-                        case .Failure(let failureResult):
+                        case .failure(let failureResult):
                             
                             hideLoading()
-                            showErrorMessage(failureResult.nsError.localizedDescription)
+                            showErrorMessage(failureResult.localizedDescription)
                         }
                         
                     })
@@ -440,15 +440,15 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                         newSeat.setValue(passengerDetail, forKey: passengerKey as! String)
                         
                     }
-                    goingSeatSelection.addObject(newSeat)
+                    goingSeatSelection.add(newSeat)
                     
                 }
                 
                 if goingSeatSelection.count == 0{
-                    goingSeatSelection.addObject(tempDict)
+                    goingSeatSelection.add(tempDict)
                 }
                 
-                returnSeatSelection.addObject(tempDict)
+                returnSeatSelection.add(tempDict)
                 
                 if isSelect{
                     showLoading()
@@ -456,10 +456,10 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
-                        case .Success(let successResult):
+                        case .success(let successResult):
                             do {
                                 
-                                let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                                let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                                 
                                 if json["status"] == "success"{
                                     let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
@@ -489,10 +489,10 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                 
                             }
                             
-                        case .Failure(let failureResult):
+                        case .failure(let failureResult):
                             
                             hideLoading()
-                            showErrorMessage(failureResult.nsError.localizedDescription)
+                            showErrorMessage(failureResult.localizedDescription)
                         }
                         
                     })

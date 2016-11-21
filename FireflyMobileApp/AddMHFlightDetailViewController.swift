@@ -50,8 +50,8 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         fareRule.font = UIFont(name: "System Semibold", size: 14)
         termCondition.attributedText = term.html2String
         termCondition.font = UIFont(name: "System Semibold", size: 14)
-        termCheckBox.strokeColor = UIColor.orangeColor()
-        termCheckBox.checkColor = UIColor.orangeColor()
+        termCheckBox.strokeColor = UIColor.orange
+        termCheckBox.checkColor = UIColor.orange
         var newFrame = continueView.bounds
         newFrame.size.height = 490
         continueView.frame = newFrame
@@ -74,14 +74,14 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         
         if try! LoginManager.sharedInstance.isLogin(){
             
-            if (defaults.objectForKey("userInfo") != nil){
-                userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+            if (defaults.object(forKey: "userInfo") != nil){
+                userInfo = defaults.object(forKey: "userInfo") as! NSMutableDictionary
             }
             
         }
         
         let date = flightDetail[0]["departure_date"].string!
-        var dateArr = date.componentsSeparatedByString(" ")
+        var dateArr = date.components(separatedBy: " ")
         var isReturn = Bool()
         
         if flightDetail.count == 2{
@@ -92,13 +92,13 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             showErrorMessage("LabelErrorGoingFlight".localized)
         }else if isReturn && checkReturnIndex == ""{
             showErrorMessage("LabelErrorReturnFlight".localized)
-        }else if termCheckBox.checkState != M13CheckboxState.Checked{
+        }else if termCheckBox.checkState != M13CheckboxState.checked{
             showErrorMessage("You must agree to the terms and conditions.")
         }else{
             
-            if defaults.objectForKey("type") as! Int == 1{
+            if defaults.object(forKey: "type") as! Int == 1{
                 let dateReturn = flightDetail[1]["departure_date"].string!
-                var dateReturnArr = dateReturn.componentsSeparatedByString(" ")
+                var dateReturnArr = dateReturn.components(separatedBy : " ")
                 
                 if checkReturnIndex == "1"{
                     planBack = "economy_promo_class"
@@ -125,7 +125,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
                 planGo = "business_class"
             }
             
-            type = defaults.objectForKey("type")! as! Int
+            type = defaults.object(forKey: "type")! as! Int
             
             if userInfo["username"] != nil{
                 username = userInfo["username"]! as! String
@@ -134,21 +134,21 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             departure_station = flightDetail[0]["departure_station_code"].string!
             arrival_station = flightDetail[0]["arrival_station_code"].string!
             departure_date = formatDate(stringToDate("\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"))
-            adult = defaults.objectForKey("adult")! as! String
-            infant = defaults.objectForKey("infants")! as! String
+            adult = defaults.object(forKey: "adult")! as! String
+            infant = defaults.object(forKey: "infants")! as! String
             flight_number_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["flight_number"].string!
             departure_time_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["departure_time"].string!
             arrival_time_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["arrival_time"].string!
             journey_sell_key_1 = flightDetail[0]["flights"][checkGoingIndexPath.row]["journey_sell_key"].string!
             fare_sell_key_1 = flightDetail[0]["flights"][checkGoingIndexPath.row][planGo]["fare_sell_key"].string!
             
-            let formater = NSDateFormatter()
+            let formater = DateFormatter()
             formater.dateFormat = "hh:mm a"
-            let twentyFour = NSLocale(localeIdentifier: "en_GB")
+            let twentyFour = Locale(identifier: "en_GB")
             formater.locale = twentyFour
-            let time1 = formater.dateFromString(departure_time_1)
-            let time2 = formater.dateFromString(arrival_time_1)
-            let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
+            let time1 = formater.date(from: departure_time_1)
+            let time2 = formater.date(from: arrival_time_1)
+            let timeDifference = NSCalendar.currentCalendar.components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
             
             defaults.setValue(timeDifference, forKey: "timeDifference")
             defaults.synchronize()
@@ -168,7 +168,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         
     }
 
-    func loginBtnPressed(sender : SCLAlertView){
+    func loginBtnPressed(_ sender : SCLAlertView){
         
         tempEmail = email.text!
         tempPassword = password.text!
@@ -184,22 +184,22 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             FireFlyProvider.request(.Login(username, encPassword), completion: { (result) -> () in
                 
                 switch result {
-                case .Success(let successResult):
+                case .success(let successResult):
                     do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                         
                         if  json["status"].string == "success"{
                             
-                            defaults.setObject(json["user_info"]["signature"].string, forKey: "signature")
-                            defaults.setObject(json["user_info"].object , forKey: "userInfo")
-                            defaults.setObject(json["user_info"]["customer_number"].string, forKey: "customer_number")
-                            defaults.setObject(json["user_info"]["personID"].string, forKey: "personID")
+                            defaults.set(json["user_info"]["signature"].string, forKey: "signature")
+                            defaults.set(json["user_info"].object , forKey: "userInfo")
+                            defaults.set(json["user_info"]["customer_number"].string, forKey: "customer_number")
+                            defaults.set(json["user_info"]["personID"].string, forKey: "personID")
                             defaults.synchronize()
-                            let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+                            let userInfo = defaults.object(forKey: "userInfo") as! NSMutableDictionary
                             self.username = userInfo["username"]! as! String
-                            self.type = defaults.objectForKey("type")! as! Int
+                            self.type = defaults.object(forKey: "type")! as! Int
                             Crashlytics.sharedInstance().setUserEmail(self.username)
-                            NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSideMenu"), object: nil)
                             
                             self.sentData()
                         }else if json["status"].string == "401"{
@@ -223,10 +223,10 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
                         
                     }
                     
-                case .Failure(let failureResult):
+                case .failure(let failureResult):
                     
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)
                 }
                 //var success = error == nil
                 }
@@ -235,22 +235,22 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         
     }
     
-    func reloadAlertView(msg : String){
+    func reloadAlertView(_ msg : String){
         
         // Create custom Appearance Configuration
         let appearance = SCLAlertView.SCLAppearance(
+            kCircleHeight: 40,
             kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
             kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
             kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-            showCircularIcon: true,
-            kCircleIconHeight: 40
+            showCircularIcon: true
         )
         let alertViewIcon = UIImage(named: "alertIcon")
         let alert = SCLAlertView(appearance:appearance)
         email = alert.addTextField("Enter email")
         email.text = tempEmail
         password = alert.addTextField("Password")
-        password.secureTextEntry = true
+        password.isSecureTextEntry = true
         password.text = tempPassword
         alert.addButton("Login", target: self, selector: #selector(AddMHFlightDetailViewController.loginBtnPressed(_:)))
         //alert.showCloseButton = false
@@ -258,7 +258,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             showLoading()
             self.sentData()
         }
-        alert.showEdit("Login", subTitle: msg, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage: alertViewIcon)
+        alert.showEdit("Login", subTitle: msg, closeButtonTitle : "Close", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
         
     }
     
@@ -266,18 +266,18 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         
         FireFlyProvider.request(.SelectFlight(adult, infant, username, type, departure_date, arrival_time_1, departure_time_1, fare_sell_key_1, flight_number_1, journey_sell_key_1, return_date, arrival_time_2, departure_time_2, fare_sell_key_2, flight_number_2, journey_sell_key_2, departure_station, arrival_station), completion: { (result) -> () in
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
                     
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         if try! LoginManager.sharedInstance.isLogin(){
-                            self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
+                            self.saveFamilyAndFriend(json["family_and_friend"].arrayObject! as [AnyObject])
                         }
-                        defaults.setObject(json["booking_id"].int , forKey: "booking_id")
+                        defaults.set(json["booking_id"].int , forKey: "booking_id")
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                        let personalDetailVC = storyboard.instantiateViewControllerWithIdentifier("PassengerDetailVC") as! AddPassengerDetailViewController
+                        let personalDetailVC = storyboard.instantiateViewController(withIdentifier: "PassengerDetailVC") as! AddPassengerDetailViewController
                         self.navigationController!.pushViewController(personalDetailVC, animated: true)
                     }else if json["status"] == "error"{
                         
@@ -300,21 +300,21 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
             }
             
         })
     }
     
-    func saveFamilyAndFriend(familyAndFriendInfo : [AnyObject]){
+    func saveFamilyAndFriend(_ familyAndFriendInfo : [AnyObject]){
         
-        let userInfo = defaults.objectForKey("userInfo")
-        var userList = Results<FamilyAndFriendList>!()
-        userList = realm.objects(FamilyAndFriendList)
-        let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
+        let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+        //var userList = Results<FamilyAndFriendList>!()
+        let userList = realm.objects(FamilyAndFriendList.self)
+        let mainUser = userList.filter("email == \(userInfo["username"] as! String)")
         
         if mainUser.count != 0{
             if mainUser[0].familyList.count != 0{
@@ -333,10 +333,10 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             let data = FamilyAndFriendData()
             data.id = list["id"] as! Int
             data.title = list["title"] as! String
-            data.gender = nullIfEmpty(list["gender"]) as! String
+            data.gender = nullIfEmpty(list["gender"] as AnyObject) 
             data.firstName = list["first_name"] as! String
             data.lastName = list["last_name"] as! String
-            //let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
+            //let dateArr = (list["dob"] as! String).components(separatedBy: "-")
             data.dob = list["dob"] as! String//"\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = list["bonuslink_card"] as! String
@@ -344,7 +344,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             
             if mainUser.count == 0{
                 let user = FamilyAndFriendList()
-                user.email = userInfo!["username"] as! String
+                user.email = userInfo["username"] as! String
                 user.familyList.append(data)
                 
                 try! realm.write({ () -> Void in
@@ -355,7 +355,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
                 
                 try! realm.write({ () -> Void in
                     mainUser[0].familyList.append(data)
-                    mainUser[0].email = userInfo!["username"] as! String
+                    mainUser[0].email = userInfo["username"] as! String
                 })
                 
             }

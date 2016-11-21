@@ -44,8 +44,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         self.tableView.tableFooterView = footerView
         setupLeftButton()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonPassengerDetailViewController.addExpiredDate(_:)), name: "expiredDate", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonPassengerDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommonPassengerDetailViewController.addExpiredDate(_:)), name: "expiredDate", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommonPassengerDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -83,7 +83,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             let index = UInt(section)
             
             if index == 0{
-                let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
+                let sectionView = Bundle.main.loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
                 
                 sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                 sectionView.familyButton.layer.borderWidth = 1
@@ -101,7 +101,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 
                 if section <= adultCount{
                     if adultList.count == 0{
-                        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+                        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
                         
                         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                         
@@ -113,7 +113,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                         
                         return sectionView
                     }else{
-                        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
+                        let sectionView = Bundle.main.loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
                         
                         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                         sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
@@ -131,7 +131,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 }else{
                     
                     if infantList.count == 0{
-                        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+                        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
                         
                         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                         
@@ -143,7 +143,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                         
                         return sectionView
                     }else{
-                        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
+                        let sectionView = Bundle.main.loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
                         
                         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                         sectionView.familyButton.addTarget(self, action: #selector(CommonPassengerDetailViewController.selectButtonClicked(_:)), forControlEvents: .TouchUpInside)
@@ -154,7 +154,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                         sectionView.titleLbl.textColor = UIColor.whiteColor()
                         sectionView.titleLbl.textAlignment = NSTextAlignment.Center
                         sectionView.familyButton.layer.cornerRadius = 10
-                        let type = (form.formSectionAtIndex(index)?.title)!.componentsSeparatedByString(" ")
+                        let type = (form.formSectionAtIndex(index)?.title)!.components(separatedBy: " ")
                         sectionView.familyButton.tag = Int(type[1])!
                         
                         return sectionView
@@ -164,7 +164,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             }
             
         }else{
-            let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+            let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
             
             sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
             
@@ -198,7 +198,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             saveAdultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
             
             let date = formValues()[String(format: "%@(adult%i)", Tags.ValidationDate, count)]! as! String
-            var arrangeDate = date.componentsSeparatedByString("-")
+            var arrangeDate = date.components(separatedBy: "-")
             
             saveAdultInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])", forKey: "dob")
             saveAdultInfo.updateValue(date, forKey: "dob2")
@@ -213,7 +213,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             var newExpDate = String()
             
             if expiredDate != ""{
-                arrangeExpDate = expiredDate.componentsSeparatedByString("-")
+                arrangeExpDate = expiredDate.components(separatedBy: "-")
                 newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
             }
             
@@ -262,7 +262,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationLastName, count)]!, forKey: "last_name")
             
             let date = formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String
-            let arrangeDate = date.componentsSeparatedByString("-")
+            let arrangeDate = date.components(separatedBy: "-")
             
             saveInfantInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])", forKey: "dob")
             saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String, forKey: "dob2")
@@ -294,7 +294,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             var newExpDate = String()
             
             if expiredDate != ""{
-                arrangeExpDate = expiredDate.componentsSeparatedByString("-")
+                arrangeExpDate = expiredDate.components(separatedBy: "-")
                 newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
             }
             
@@ -305,8 +305,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             tempInfant.append(saveInfantInfo)
         }
         
-        let bookId = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
-        let signature = defaults.objectForKey("signature") as! String
+        let bookId = String(format: "%i", defaults.object(forKey: "booking_id")!.integerValue)
+        let signature = defaults.object(forKey: "signature") as! String
         defaults.setObject(infant, forKey: "infant")
         defaults.setObject(passenger, forKey: "passengerData")
         defaults.synchronize()
@@ -334,7 +334,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     }
     
     func addExpiredDate(sender:NSNotification){
-        let newTag = sender.userInfo!["tag"]!.componentsSeparatedByString("(")
+        let newTag = sender.userInfo!["tag"]!.components(separatedBy: "(")
         
         addExpiredDateRow(newTag[1], date: "")
         
@@ -346,7 +346,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
         // Date
         row = XLFormRowDescriptor(tag: String(format: "%@(%@", Tags.ValidationExpiredDate,tag), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Expiration Date:*")
-        row.required = true
+        row.isRequired = true
         
         if date != ""{
             row.value = formatDate(stringToDate(date))
@@ -357,8 +357,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     
     func removeExpiredDate(sender:NSNotification){
         
-        let newTag = sender.userInfo!["tag"]!.componentsSeparatedByString("(")
-        self.form.removeFormRowWithTag(String(format: "%@(%@",Tags.ValidationExpiredDate, newTag[1]))
+        let newTag = sender.userInfo!["tag"]!.components(separatedBy: "(")
+        self.form.removeFormRow(withTag: String(format: "%@(%@",Tags.ValidationExpiredDate, newTag[1]))
         
     }
     
@@ -415,7 +415,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
         }
         
-        let type = (sender.accessibilityHint)!.componentsSeparatedByString(" ")
+        let type = (sender.accessibilityHint)!.components(separatedBy: " ")
         
         if type[0] == "ADULT"{
             let picker = ActionSheetStringPicker(title: "", rows: adultName, initialSelection: adultSelect["\(sender.tag)"] as! Int, target: self, successAction: #selector(self.adultSelected(_:element:)), cancelAction: #selector(self.actionPickerCancelled(_:)), origin: sender)
@@ -443,7 +443,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     
     func saveFamilyAndFriends(familyAndFriendInfo : [AnyObject]){
         
-        let userInfo = defaults.objectForKey("userInfo")
+        let userInfo = defaults.object(forKey: "userInfo")
         var userList = Results<FamilyAndFriendList>!()
         userList = realm.objects(FamilyAndFriendList)
         let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
@@ -464,7 +464,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             data.gender = nullIfEmpty(list["gender"]) as! String
             data.firstName = list["first_name"] as! String
             data.lastName = list["last_name"] as! String
-            let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
+            let dateArr = (list["dob"] as! String).components(separatedBy: "-")
             data.dob = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = list["bonuslink_card"] as! String
@@ -499,7 +499,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
      data.gender = nullIfEmpty(list["gender"]) as! String
      data.firstName = list["first_name"] as! String
      data.lastName = list["last_name"] as! String
-     let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
+     let dateArr = (list["dob"] as! String).components(separatedBy: "-")
      data.dob = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
      data.country = list["nationality"] as! String
      data.bonuslink = list["bonuslink_card"] as! String

@@ -20,14 +20,14 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         super.viewDidLoad()
         isContinue = false
         adultArray = [Dictionary<String,AnyObject>]()
-        flightType = defaults.objectForKey("flightType") as! String
-        adultCount = (defaults.objectForKey("adult")?.integerValue)!
-        infantCount = (defaults.objectForKey("infants")?.integerValue)!
+        flightType = defaults.object(forKey: "flightType") as! String
+        adultCount = (defaults.object(forKey: "adult")?.integerValue)!
+        infantCount = (defaults.object(forKey: "infants")?.integerValue)!
         module = "addPassenger"
         loadFamilyAndFriendData()
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen("\(GAConstants.passengerDetailsScreen) (\(flightType))")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddPassengerDetailViewController.reload(_:)), name: "reloadPicker", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AddPassengerDetailViewController.reload(_:)), name: "reloadPicker", object: nil)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -48,8 +48,8 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         
         if try! LoginManager.sharedInstance.isLogin(){
             
-            let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
-            let dateArr = (userInfo["DOB"] as! String).componentsSeparatedByString("-")
+            let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+            let dateArr = (userInfo["DOB"] as! String).components(separatedBy: "-")
             var userList = Results<FamilyAndFriendList>!()
             userList = realm.objects(FamilyAndFriendList)
             let mainUser = userList.filter("email == %@",userInfo["username"] as! String)
@@ -200,27 +200,27 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 row.selectorOptions = tempArray
-                row.required = true
+                row.isRequired = true
                 section.addFormRow(row)
                 
                 //first name
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-                row.required = true
+                row.isRequired = true
                 row.value = "\(info["first_name"]! as! String)"
                 section.addFormRow(row)
                 
                 //last name
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-                row.required = true
+                row.isRequired = true
                 row.value = "\(info["last_name"]! as! String)"
                 section.addFormRow(row)
                 
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
                 row.value = formatDate(stringToDate(info["dob2"] as! String))//"\(userInfo["DOB"]!)"
-                row.required = true
+                row.isRequired = true
                 section.addFormRow(row)
                 
                 // Country
@@ -236,7 +236,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 row.selectorOptions = tempArray
-                row.required = true
+                row.isRequired = true
                 section.addFormRow(row)
                 
                 if flightType == "FY"{
@@ -278,26 +278,26 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 row.selectorOptions = tempArray
-                row.required = true
+                row.isRequired = true
                 section.addFormRow(row)
                 
                 //first name
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-                row.required = true
+                row.isRequired = true
                 row.value = "\(info["first_name"]! as! String)"
                 section.addFormRow(row)
                 
                 //last name
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
                 //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-                row.required = true
+                row.isRequired = true
                 row.value = "\(info["last_name"]! as! String)"
                 section.addFormRow(row)
                 
                 // Date
                 row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDate, adult), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
-                row.required = true
+                row.isRequired = true
                 if info["dob2"] as! String != ""{
                     row.value = formatDate(stringToDate(info["dob2"] as! String))
                 }
@@ -316,7 +316,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 row.selectorOptions = tempArray
-                row.required = true
+                row.isRequired = true
                 section.addFormRow(row)
                 
                 if flightType == "FY"{
@@ -369,7 +369,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             section.addFormRow(row)
             
             // Gender
@@ -386,26 +386,26 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             section.addFormRow(row)
             
             // First name
             row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationFirstName, j), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
             //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-            row.required = true
+            row.isRequired = true
             row.value = info["first_name"] as! String
             section.addFormRow(row)
             
             // Last Name
             row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationLastName, j), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
             //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
-            row.required = true
+            row.isRequired = true
             row.value = info["last_name"] as! String
             section.addFormRow(row)
             
             // Date
             row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDate, j), rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
-            row.required = true
+            row.isRequired = true
             if info["dob2"] as! String != ""{
                 row.value = formatDate(stringToDate(info["dob2"] as! String))
             }
@@ -424,7 +424,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             section.addFormRow(row)
             
             if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
@@ -454,7 +454,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 var email = String()
                 
                 if try! LoginManager.sharedInstance.isLogin(){
-                    let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+                    let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
                     email = userInfo["contact_email"] as! String
                 }
                 
@@ -462,10 +462,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType, email), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 
@@ -511,11 +511,11 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
                         
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                 })
             }

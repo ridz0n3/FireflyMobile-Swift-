@@ -35,11 +35,12 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1//newFormatedBookingList.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if module == "checkIn"{
             return checkInList.count
@@ -55,26 +56,26 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 95
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = LoginMobileCheckinTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
+        let cell = LoginMobileCheckinTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath as IndexPath) as! CustomLoginManageFlightTableViewCell
         
         if module == "checkIn"{
             let bookingList = checkInList[indexPath.row]
             
             cell.pnrNumber.text = "\(bookingList.pnr)"
             cell.flightNumber.text = "\(bookingList.departureStationCode) - \(bookingList.arrivalStationCode)"
-            cell.flightDate.text = bookingList.departureDayDate.capitalizedString
+            cell.flightDate.text = bookingList.departureDayDate.capitalized
             
         }else{
             let bookingList = pnrList[indexPath.row]
             cell.pnrNumber.text = "\(bookingList.pnr)"
             cell.flightNumber.text = "\(bookingList.departureStationCode) - \(bookingList.arrivalStationCode)"
-            cell.flightDate.text = bookingList.departureDayDate.capitalizedString
+            cell.flightDate.text = bookingList.departureDayDate.capitalized
             
         }
         
@@ -82,7 +83,7 @@ class CommonListViewController: BaseViewController, UITableViewDataSource, UITab
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
 
     /*
     // MARK: - Navigation

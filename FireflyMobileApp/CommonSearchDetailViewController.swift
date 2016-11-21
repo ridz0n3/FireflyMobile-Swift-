@@ -20,7 +20,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         getDepartureAirport("checkIn")
         initializeForm()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CommonSearchDetailViewController.refreshArrivingCode(_:)), name: "refreshArrivingCode", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommonSearchDetailViewController.refreshArrivingCode(_:)), name: NSNotification.Name(rawValue: "refreshArrivingCode"), object: nil)
         // Do any additional setup after loading the view.
     }
 
@@ -29,10 +29,10 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func refreshArrivingCode(notif : NSNotification){
+    func refreshArrivingCode(_ notif : NSNotification){
         travel = [NSDictionary]()
         getArrivalAirport(notif.userInfo!["departStationCode"] as! String, module : "checkIn")
-        self.form.removeFormRowWithTag(Tags.ValidationArriving)
+        self.form.removeFormRow(withTag: Tags.ValidationArriving)
         
         var row : XLFormRowDescriptor
         
@@ -44,7 +44,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
             tempArray.append(XLFormOptionsObject(value: arrivingStation["travel_location_code"], displayText: arrivingStation["travel_location"] as! String))
         }
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         self.form.addFormRow(row, afterRowTag: Tags.ValidationDeparting)
         
     }
@@ -62,7 +62,7 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
         
         //Confirmation Number
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmationNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Confirmation Number:*")
-        row.required = true
+        row.isRequired = true
         //row.value = "y4pcsf"
         section.addFormRow(row)
         
@@ -75,13 +75,13 @@ class CommonSearchDetailViewController: BaseXLFormViewController {
             tempArray.append(XLFormOptionsObject(value: departureStation["location_code"], displayText: departureStation["location"] as! String))
         }
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Arriving
         row = XLFormRowDescriptor(tag: Tags.ValidationArriving, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Arriving:*")
-        row.disabled = NSNumber(bool: true)
-        row.required = true
+        row.disabled = NSNumber(value: true)
+        row.isRequired = true
         section.addFormRow(row)
         
         self.form = form

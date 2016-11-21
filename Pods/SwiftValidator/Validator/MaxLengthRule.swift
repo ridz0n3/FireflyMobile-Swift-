@@ -7,23 +7,23 @@
 
 import Foundation
 
-public class MaxLengthRule: Rule {
+open class MaxLengthRule: Rule {
     
-    private var DEFAULT_LENGTH: Int = 16
-    private var message : String = "Must be at most 16 characters long"
+    fileprivate var DEFAULT_LENGTH: Int = 16
+    fileprivate var message : String = "Must be at most 16 characters long"
     
     public init(){}
     
     public init(length: Int, message : String = "Must be at most %ld characters long"){
         self.DEFAULT_LENGTH = length
-        self.message = NSString(format: message, self.DEFAULT_LENGTH) as String
+        self.message = NSString(format: message as NSString, self.DEFAULT_LENGTH) as String
     }
         
-    public func validate(value: String) -> Bool {
+    open func validate(_ value: String) -> Bool {
         return value.characters.count <= DEFAULT_LENGTH
     }
     
-    public func errorMessage() -> String {
+    open func errorMessage() -> String {
         return message
     }
 }

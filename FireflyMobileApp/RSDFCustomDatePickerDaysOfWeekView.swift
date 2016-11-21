@@ -19,12 +19,12 @@ class RSDFCustomDatePickerDaysOfWeekView: RSDFDatePickerDaysOfWeekView {
     }
     */
     
-    override func selfBackgroundColor() -> UIColor! {
+    override func selfBackgroundColor() -> UIColor {
         return UIColor(red: 244/255, green: 245/255, blue: 247/255, alpha: 1.0)
     }
     
-    override func dayOffOfWeekLabelTextColor() -> UIColor! {
-        return UIColor.blackColor()
+    override func dayOffOfWeekLabelTextColor() -> UIColor {
+        return UIColor.black
     }
 
 }

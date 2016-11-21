@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-public class ValidationError: NSObject {
-    public let textField:UITextField
-    public var errorLabel:UILabel?
-    public let errorMessage:String
+open class ValidationError: NSObject {
+    open let textField:UITextField
+    open var errorLabel:UILabel?
+    open let errorMessage:String
     
     public init(textField:UITextField, error:String){
         self.textField = textField

@@ -19,19 +19,19 @@ class RSDFCustomDatePickerMonthHeader: RSDFDatePickerMonthHeader {
     }
     */
     
-    override func selfBackgroundColor() -> UIColor! {
+    override func selfBackgroundColor() -> UIColor {
         return UIColor(red: 244/255, green: 245/255, blue: 247/255, alpha: 1.0)
     }
     
-    override func monthLabelFont() -> UIFont! {
-        return UIFont(name: "Avenir-Medium", size: 18.0)
+    override func monthLabelFont() -> UIFont {
+        return UIFont(name: "Avenir-Medium", size: 18.0)!
     }
     
-    override func monthLabelTextColor() -> UIColor! {
+    override func monthLabelTextColor() -> UIColor {
         return UIColor(red: 51/255, green: 37/255, blue: 36/255, alpha: 1.0)
     }
     
-    override func currentMonthLabelTextColor() -> UIColor! {
+    override func currentMonthLabelTextColor() -> UIColor {
         return UIColor(red: 3/255, green: 117/255, blue: 214/255, alpha: 1.0)
     }
     

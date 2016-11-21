@@ -46,7 +46,7 @@ class CommonFlightDetailViewController: BaseViewController {
         flightAvailable = true
         
         if flightDetail.count == 0{
-            self.continueView.hidden = true
+            self.continueView.isHidden = true
         }
         
     }
@@ -108,7 +108,7 @@ class CommonFlightDetailViewController: BaseViewController {
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if flightDetail.count == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("NoFyFlightCell", forIndexPath: indexPath)
@@ -182,8 +182,8 @@ class CommonFlightDetailViewController: BaseViewController {
                 if indexPath.section == 1{
                     cell.flightIcon.image = UIImage(named: "arrival_icon")
                     cell.checkFlight.userInteractionEnabled = false
-                    if NSNumber.init(integer: indexPath.row) == selectedReturnFlight{
-                        selectedReturnFlight = NSNumber.init(integer: indexPath.row)
+                    if NSNumber.init(value: indexPath.row) == selectedReturnFlight{
+                        selectedReturnFlight = NSNumber.init(value: indexPath.row)
                         cell.checkFlight.checkState = M13CheckboxState.Checked
                     }else{
                         cell.checkFlight.checkState = M13CheckboxState.Unchecked
@@ -191,8 +191,8 @@ class CommonFlightDetailViewController: BaseViewController {
                 }else{
                     cell.flightIcon.image = UIImage(named: "departure_icon")
                     cell.checkFlight.userInteractionEnabled = false
-                    if NSNumber.init(integer: indexPath.row) == selectedGoingFlight{
-                        selectedGoingFlight = NSNumber.init(integer: indexPath.row)
+                    if NSNumber.init(value: indexPath.row) == selectedGoingFlight{
+                        selectedGoingFlight = NSNumber.init(value: indexPath.row)
                         cell.checkFlight.checkState = M13CheckboxState.Checked
                     }else{
                         cell.checkFlight.checkState = M13CheckboxState.Unchecked
@@ -217,7 +217,7 @@ class CommonFlightDetailViewController: BaseViewController {
         }else{
             
             //FLIGHT HEADER WITH BASIC & PREMIER BUTTON
-            /*let flightHeader = NSBundle.mainBundle().loadNibNamed("FlightHeader", owner: self, options: nil)[0] as! FlightHeaderView
+            /*let flightHeader = Bundle.main.loadNibNamed("FlightHeader", owner: self, options: nil)[0] as! FlightHeaderView
             
             flightHeader.frame = CGRectMake(0, 0,self.view.frame.size.width, 88)
             let flightDict = flightDetail[section].dictionary
@@ -246,11 +246,11 @@ class CommonFlightDetailViewController: BaseViewController {
             flightHeader.premierBtn.addTarget(self, action: "changePlan:", forControlEvents: .TouchUpInside)
             */
             
-            let flightHeader = NSBundle.mainBundle().loadNibNamed("MHFlightHeaderView", owner: self, options: nil)[0] as! MHFlightHeaderView
+            let flightHeader = Bundle.main.loadNibNamed("MHFlightHeaderView", owner: self, options: nil)?[0] as! MHFlightHeaderView
             
             let flightDict = flightDetail[section].dictionary
             
-            flightHeader.destinationLbl.text = String(format: "%@ - %@", (flightDict!["departure_station_name"]?.string?.uppercaseString)!,flightDict!["arrival_station_name"]!.string!.uppercaseString) //"PENANG - SUBANG"
+            flightHeader.destinationLbl.text = String(format: "%@ - %@", (flightDict!["departure_station_name"]?.string?.uppercased())!,flightDict!["arrival_station_name"]!.string!.uppercased()) //"PENANG - SUBANG"
             flightHeader.directionLbl.text = String(format: "(%@)", flightDict!["type"]!.string!)// "(Return Flight)"
             flightHeader.dateLbl.text = String(format: "%@", flightDict!["departure_date"]!.string!) //"26 JAN 2015"
             
@@ -263,11 +263,11 @@ class CommonFlightDetailViewController: BaseViewController {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.section == 1{
-            selectedReturnFlight = NSNumber(integer: indexPath.row)
+            selectedReturnFlight = NSNumber(value: indexPath.row)
             self.flightDetailTableView.reloadData()
             isReturnSelected = true
         }else{
-            selectedGoingFlight = NSNumber(integer: indexPath.row)
+            selectedGoingFlight = NSNumber(value: indexPath.row)
             self.flightDetailTableView.reloadData()
             isGoingSelected = true
         }

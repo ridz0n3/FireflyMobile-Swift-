@@ -55,13 +55,13 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         }else{
             notLogin()
         }
-        loadingIndicator.hidden = load
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BoardingPassDetailViewController.refreshBoardingPass(_:)), name: "reloadBoardingPass", object: nil)
+        loadingIndicator.isHidden = load
+        NotificationCenter.default.addObserver(self, selector: #selector(BoardingPassDetailViewController.refreshBoardingPass(_:)), name: "reloadBoardingPass", object: nil)
     }
     
     func refreshBoardingPass(notif : NSNotification){
         
-        loadingIndicator.hidden = true
+        loadingIndicator.isHidden = true
         loadBoardingPass()
         
     }
@@ -78,7 +78,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         for info in boardingList{
             let new = CGFloat(i)
             let xOrigin = new * self.view.frame.size.width
-            boardingPassView = NSBundle.mainBundle().loadNibNamed("BoardingPassView", owner: self, options: nil)[0] as! UIView
+            boardingPassView = Bundle.main.loadNibNamed("BoardingPassView", owner: self, options: nil)?[0] as! UIView
             boardingPassView.frame = CGRectMake(xOrigin+5, 0,scrollViewWidth-10, self.scrollView.frame.height - 8)
             boardingPassView.layer.borderWidth = 1
             
@@ -122,7 +122,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
             
             let new = CGFloat(i)
             let xOrigin = new * self.view.frame.size.width
-            boardingPassView = NSBundle.mainBundle().loadNibNamed("BoardingPassView", owner: self, options: nil)[0] as! UIView
+            boardingPassView = Bundle.main.loadNibNamed("BoardingPassView", owner: self, options: nil)?[0] as! UIView
             boardingPassView.frame = CGRectMake(xOrigin+5, 0,scrollViewWidth-10, self.scrollView.frame.height - 8)
             boardingPassView.layer.borderWidth = 1
             
@@ -154,10 +154,10 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     
     func loadBoardingPass(){
         
-        let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
-        var userData : Results<UserList>! = nil
-        userData = realm.objects(UserList)
-        mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
+        let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+        //var userData : Results<UserList>! = nil
+        let userData = realm.objects(UserList.self)
+        mainUser = userData.filter("userId == \(userInfo["username"]! as! String)")
         
         if mainUser.count != 0{
             
@@ -182,16 +182,16 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     }
     
     
-    override func backButtonPressed(sender: UIBarButtonItem){
-        NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPassList", object: nil)
-        self.navigationController?.popViewControllerAnimated(true)
+    override func backButtonPressed(_ sender: UIBarButtonItem){
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadBoardingPassList"), object: nil)
+        self.navigationController?.popViewController(animated: true)
         
     }
     
     //MARK: UIScrollViewDelegate
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView){
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView){
         // Test the offset and calculate the current page after scrolling ends
-        let pageWidth:CGFloat = CGRectGetWidth(scrollView.frame)
+        let pageWidth:CGFloat = scrollView.frame.width
         let currentPage:CGFloat = floor((scrollView.contentOffset.x-pageWidth/2)/pageWidth)+1
         // Change the indicator
         self.pageControl.currentPage = Int(currentPage);

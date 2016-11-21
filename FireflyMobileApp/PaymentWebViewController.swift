@@ -25,7 +25,7 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
         super.loadView()
         
         let contentController = WKUserContentController()
-        contentController.addScriptMessageHandler(
+        contentController.add(
             self,
             name: "callbackHandler"
         )
@@ -43,7 +43,7 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
         super.viewDidLoad()
         
         if book == "book"{
-            let flightType = defaults.objectForKey("flightType") as! String
+            let flightType = defaults.object(forKey: "flightType") as! String
             AnalyticsManager.sharedInstance.logScreen("\(GAConstants.paymentBookWebScreen) (\(flightType))")
         }
             
@@ -58,25 +58,25 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
         }
         
         let url = NSURL(string: urlString)
-        let req = NSURLRequest(URL: url!)
+        let req = NSURLRequest(url: url! as URL)
 
         self.webView?.navigationDelegate = self
-        self.webView!.UIDelegate = self;
-        self.webView!.loadRequest(req)
+        self.webView!.uiDelegate = self;
+        self.webView!.load(req as URLRequest)
         // Do any additional setup after loading the view.
     }
     
     var count = 0
-    func webView(webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         showLoading()
     }
     
-    func webView(webView: WKWebView, didFinishNavigation navigation: WKNavigation!) {
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         webView.sizeToFit()
         hideLoading()
     }
     
-    func webView(webView: WKWebView, didFailNavigation navigation: WKNavigation!, withError error: NSError) {
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         
         hideLoading()
     }
@@ -86,16 +86,16 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
         // Dispose of any resources that can be recreated.
     }
     
-    func webView(webView: WKWebView, createWebViewWithConfiguration configuration: WKWebViewConfiguration, forNavigationAction navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         
-        let check = String(navigationAction.request.URL).componentsSeparatedByString("paymentDDProcess")
+        let check = String(describing: navigationAction.request.url).components(separatedBy: "paymentDDProcess") //.componentsSeparatedBy(by: "paymentDDProcess")
         
         if check.count == 1{
             
-            if ((navigationAction.targetFrame?.mainFrame) == nil){
+            if ((navigationAction.targetFrame?.isMainFrame) == nil){
                 
-                let url = navigationAction.request.URL
-                let app = UIApplication.sharedApplication() as UIApplication
+                let url = navigationAction.request.url
+                let app = UIApplication.shared as UIApplication
                 
                 if app.canOpenURL(url!){
                     app.openURL(url!)
@@ -105,29 +105,29 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
             }
         }else{
             showLoading() 
-            self.webView?.loadRequest(navigationAction.request)
+            self.webView?.load(navigationAction.request)
         }
         return nil;
     }
     
-    func userContentController(userContentController: WKUserContentController,didReceiveScriptMessage message: WKScriptMessage) {
+    func userContentController(_ userContentController: WKUserContentController,didReceive message: WKScriptMessage) {
         //
         if(message.name == "callbackHandler") {
             showLoading() 
             FireFlyProvider.request(.FlightSummary(signature), completion: { (result) -> () in
                 
                 switch result {
-                case .Success(let successResult):
+                case .success(let successResult):
                     do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                         
                         if json["status"] == "success"{
                             
-                            defaults.setObject(json.object, forKey: "itinerary")
+                            defaults.set(json.object, forKey: "itinerary")
                             defaults.synchronize()
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let flightSummaryFlightVC = storyboard.instantiateViewControllerWithIdentifier("FlightSummaryVC") as! FlightSummaryViewController
+                            let flightSummaryFlightVC = storyboard.instantiateViewController(withIdentifier: "FlightSummaryVC") as! FlightSummaryViewController
                             self.navigationController!.pushViewController(flightSummaryFlightVC, animated: true)
                             
                             if self.book == "book"{
@@ -158,9 +158,9 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
                         
                     }
                     
-                case .Failure(let failureResult):
+                case .failure(let failureResult):
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)// .nsError.localizedDescription)
                 }
             })
         }

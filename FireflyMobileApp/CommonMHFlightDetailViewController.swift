@@ -236,7 +236,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let flightHeader = NSBundle.mainBundle().loadNibNamed("MHFlightHeaderView", owner: self, options: nil)[0] as! MHFlightHeaderView
+        let flightHeader = Bundle.main.loadNibNamed("MHFlightHeaderView", owner: self, options: nil)[0] as! MHFlightHeaderView
         
         let flightDict = flightDetail[section].dictionary
         
@@ -249,10 +249,10 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
     }
     
     func checkCategory(sender : UIButton){
-        let index = sender.accessibilityHint?.componentsSeparatedByString(" ")
-        let section = index![0].componentsSeparatedByString(":")
-        let row = index![1].componentsSeparatedByString(":")
-        let indexCheck = index![2].componentsSeparatedByString(":")
+        let index = sender.accessibilityHint?.components(separatedBy: " ")
+        let section = index![0].components(separatedBy: ":")
+        let row = index![1].components(separatedBy: ":")
+        let indexCheck = index![2].components(separatedBy: ":")
         
         if section[1] == "0"{
             checkGoingIndex = indexCheck[1]

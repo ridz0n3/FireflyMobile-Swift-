@@ -24,40 +24,40 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        checkPassenger.strokeColor = UIColor.orangeColor()
-        checkPassenger.checkColor = UIColor.orangeColor()
-        
-        flightType = defaults.objectForKey("flightType") as! String
+        checkPassenger.strokeColor = UIColor.orange
+        checkPassenger.checkColor = UIColor.orange
+      
+        flightType = defaults.object(forKey: "flightType") as! String
         
         AnalyticsManager.sharedInstance.logScreen("\(GAConstants.contactDetailsScreen) (\(flightType))")
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddContactDetailViewController.refreshInsurance(_:)), name: "refreshInsurance", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AddContactDetailViewController.refreshInsurance(_:)), name: NSNotification.Name(rawValue: "refreshInsurance"), object: nil)
         
         yesBtn.layer.cornerRadius = 10
         yesBtn.layer.borderWidth = 1
-        yesBtn.layer.borderColor = UIColor.orangeColor().CGColor
+        yesBtn.layer.borderColor = UIColor.orange.cgColor
         paymentBtn.layer.cornerRadius = 10
         chooseSeatBtn.layer.cornerRadius = 10
         chooseSeatBtn.layer.borderWidth = 1
-        chooseSeatBtn.layer.borderColor = UIColor.orangeColor().CGColor
+        chooseSeatBtn.layer.borderColor = UIColor.orange.cgColor
         
-        if defaults.objectForKey("flightType") as! String == "MH"{
-            chooseSeatBtn.hidden = true
-            paymentBtn.setTitle("Continue", forState: UIControlState.Normal)
+        if defaults.object(forKey: "flightType") as! String == "MH"{
+            chooseSeatBtn.isHidden = true
+            paymentBtn.setTitle("Continue", for: UIControlState.normal)
         }
         
         var isLogin = Bool()
         
         if try! LoginManager.sharedInstance.isLogin(){
             
-            if let passData = defaults.objectForKey("passengerData") as? NSDictionary{
+            if let passData = defaults.object(forKey: "passengerData") as? NSDictionary{
                 
                 if passData.count == 1{
                     isOnePassenger = true
                 }
             }
             
-            let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
-            contactData = ["address1" : "" ,
+            let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+            contactData = ["address1" : "",
                            "address2" : "",
                            "address3" : "",
                            "alternate_phone" : "\(userInfo["contact_alternate_phone"]!)",
@@ -72,10 +72,10 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                            "state" : "\(userInfo["contact_state"]!)",
                            "title" : "\(userInfo["title"]!)",
                            "travel_purpose" : "1"]
-            checkPassenger.checkState = M13CheckboxState.Checked
+            checkPassenger.checkState = M13CheckboxState.checked
             isLogin = true
             
-        }else if let passData = defaults.objectForKey("passengerData") as? NSDictionary{
+        }else if let passData = defaults.object(forKey: "passengerData") as? NSDictionary{
             
             if passData.count == 1{
                 isOnePassenger = true
@@ -83,7 +83,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             let tempData = passData["0"] as! NSDictionary
             
-            contactData = ["address1" : "" ,
+            contactData = ["address1" : "",
                            "address2" : "",
                            "address3" : "",
                            "alternate_phone" : "",
@@ -98,13 +98,13 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                            "state" : "",
                            "title" : "\(tempData["title"]!)",
                            "travel_purpose" : "1"]
-            checkPassenger.checkState = M13CheckboxState.Checked
+            checkPassenger.checkState = M13CheckboxState.checked
         }
         
-        if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
+        if (defaults.object(forKey: "insurance_status") as AnyObject).classForCoder == NSString.classForCoder(){
             
-            insuranceView.hidden = true
-            views.hidden = true
+            insuranceView.isHidden = true
+            views.isHidden = true
             var newFrame = footerView.bounds
             newFrame.size.height = 136
             
@@ -112,7 +112,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
         }else{
             isWantInsurance = true
-            insuranceView.hidden = true
+            insuranceView.isHidden = true
             let tap = UITapGestureRecognizer(target: self, action: #selector(AddContactDetailViewController.textTapped(_:)))
             paragraph2.addGestureRecognizer(tap)
             var newFrame = footerView.bounds
@@ -120,7 +120,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             footerView.frame = newFrame
             
-            let insuranceData = defaults.objectForKey("insurance_status") as! NSDictionary
+            let insuranceData = defaults.object(forKey: "insurance_status") as! NSDictionary
             let insuranceArr = insuranceData["html"] as! NSArray
             var index = 0
             var str = ""
@@ -129,12 +129,12 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 
                 if index == 0{
                     
-                    let separate = text.componentsSeparatedByString("</html>")
+                    let separate = (text as AnyObject).components(separatedBy: "</html>")
                     
                     str += "\(separate[0])<br>"
                     
                 }else if index == 1{
-                    let separate = text.componentsSeparatedByString("<html>")
+                    let separate = (text as AnyObject).components(separatedBy: "<html>")
                     
                     str += "\(separate[1])"
                     
@@ -151,7 +151,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     let myRange = NSRange(location: intIndex, length: 8)
                     let myCustomAttribute = [ "MyCustomAttributeName": "some value"]
                     myString.addAttributes(myCustomAttribute, range: myRange)
-                    myString.addAttribute(NSForegroundColorAttributeName, value: UIColor.orangeColor(), range: myRange)
+                    myString.addAttribute(NSForegroundColorAttributeName, value: UIColor.orange, range: myRange)
                     
                     paragraph2.attributedText = myString
                 }else{
@@ -175,29 +175,29 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         // Location of the tap in text-container coordinates
         
         let layoutManager = textView.layoutManager
-        var location = recognizer.locationInView(textView)
+        var location = recognizer.location(in: textView)
         location.x = location.x - textView.textContainerInset.left
         location.y = location.y - textView.textContainerInset.top
         
         // Find the character that's been tapped on
         
         var characterIndex = Int()
-        characterIndex = layoutManager.characterIndexForPoint(location, inTextContainer: textView.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
+        characterIndex = layoutManager.characterIndex(for: location, in: textView.textContainer, fractionOfDistanceBetweenInsertionPoints: nil)
         
         if characterIndex < textView.textStorage.length{
             // print the character at the index
             let myRange = NSRange(location: characterIndex, length: 1)
-            let substring = (textView.attributedText.string as NSString).substringWithRange(myRange)
+            _ = (textView.attributedText.string as NSString).substring(with: myRange)
             
             // check if the tap location has a certain attribute
             let attributeName = "MyCustomAttributeName"
-            let attributeValue = textView.attributedText.attribute(attributeName, atIndex: characterIndex, effectiveRange: nil) as? String
+            let attributeValue = textView.attributedText.attribute(attributeName, at: characterIndex, effectiveRange: nil) as? String
             if let value = attributeValue {
                 
                 let storyboard = UIStoryboard(name: "Insurance", bundle: nil)
-                let paymentVC = storyboard.instantiateViewControllerWithIdentifier("InsuranceVC") as! InsuranceViewController
+                let paymentVC = storyboard.instantiateViewController(withIdentifier: "InsuranceVC") as! InsuranceViewController
                 paymentVC.vc = self
-                self.navigationController!.presentViewController(paymentVC, animated: true, completion: nil)
+                self.navigationController!.present(paymentVC, animated: true, completion: nil)
                 
             }
             
@@ -216,7 +216,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             if flightType == "MH" && ssrStatus == "Y"{
                 
-                let timeDifference = defaults.objectForKey("timeDifference") as! Int
+                let timeDifference = defaults.object(forKey: "timeDifference") as! Int
                 
                 if timeDifference > 0{
                     var i = 0
@@ -245,9 +245,9 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                         }
                         
                         if i == 0{
-                            goingSSRDict.addObject(tempDict)
+                            goingSSRDict.add(tempDict)
                         }else{
-                            returnSSRDict.addObject(tempDict)
+                            returnSSRDict.add(tempDict)
                         }
                         
                         i += 1
@@ -256,24 +256,24 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     
                     if meals.count == 1{
                         let tempDict = [AnyObject]()
-                        returnSSRDict.addObject(tempDict)
+                        returnSSRDict.add(tempDict)
                     }
                 }else{
                     let tempDict = [AnyObject]()
                     
-                    goingSSRDict.addObject(tempDict)
-                    returnSSRDict.addObject(tempDict)
+                    goingSSRDict.add(tempDict)
+                    returnSSRDict.add(tempDict)
                 }
                 
             }else{
                 let tempDict = [AnyObject]()
                 
-                goingSSRDict.addObject(tempDict)
-                returnSSRDict.addObject(tempDict)
+                goingSSRDict.add(tempDict)
+                returnSSRDict.add(tempDict)
             }
             
             
-            let purposeData = getPurpose(formValues()[Tags.ValidationPurpose]! as! String, purposeArr: purposeArray)
+            let purposeData = getPurpose(formValues()[Tags.ValidationPurpose]! as! String, purposeArr: purposeArray as [Dictionary<String, AnyObject>])
             let titleData = getTitleCode(formValues()[Tags.ValidationTitle]! as! String, titleArr: titleArray)
             let firstNameData = formValues()[Tags.ValidationFirstName]!  as! String
             let lastNameData = formValues()[Tags.ValidationLastName]! as! String
@@ -281,8 +281,8 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             let countryData = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
             let mobileData = formValues()[Tags.ValidationMobileHome]!  as! String
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate])!  as! String
-            let signatureData = defaults.objectForKey("signature")!  as! String
-            let bookIdData = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
+            let signatureData = defaults.object(forKey: "signature")!  as! String
+            let bookIdData = String(format: "%i", defaults.object(forKey: "booking_id")!.integerValue)
             let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String).xmlSimpleEscapeString()
             let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String).xmlSimpleEscapeString()
             let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String).xmlSimpleEscapeString()
@@ -293,7 +293,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             var insuranceData = ""
             
-            if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
+            if (defaults.object(forKey: "insurance_status")? as AnyObject).classForCoder == NSString.classForCoder(){
                 insuranceData = "0"
             }else{
                 if isWantInsurance{
@@ -312,17 +312,17 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 var customer_number = String()
                 
                 if try! LoginManager.sharedInstance.isLogin(){
-                    customer_number = defaults.objectForKey("customer_number") as! String
+                    customer_number = defaults.object(forKey: "customer_number") as! String
                     //customer_number = userInfo["customer_number"] as! String
                 }
                 
                 FireFlyProvider.request(.ContactDetail(flightType, bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "N", goingSSRDict[0], returnSSRDict[0], customer_number), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 
@@ -340,10 +340,10 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                     
                 })
@@ -353,11 +353,11 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         
     }
     
-    func refreshInsurance(sender:NSNotificationCenter){
+    func refreshInsurance(_ sender:NotificationCenter){
         
         isWantInsurance = false
-        insuranceView.hidden = false
-        views.hidden = true
+        insuranceView.isHidden = false
+        views.isHidden = true
         var newFrame = footerView.bounds
         newFrame.size.height = 330
         
@@ -365,21 +365,21 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         self.tableView.tableFooterView = footerView
     }
     
-    @IBAction func continueChooseSeatBtnPressed(sender: AnyObject) {
+    @IBAction func continueChooseSeatBtnPressed(_ sender: AnyObject) {
         validateForm()
         
         if isValidate{
             
-            let purposeData = getPurpose(formValues()[Tags.ValidationPurpose]! as! String, purposeArr: purposeArray)
+            let purposeData = getPurpose(formValues()[Tags.ValidationPurpose]! as! String, purposeArr: purposeArray as [Dictionary<String, AnyObject>])
             let titleData = getTitleCode(formValues()[Tags.ValidationTitle]! as! String, titleArr: titleArray)
             let firstNameData = formValues()[Tags.ValidationFirstName]!  as! String
             let lastNameData = formValues()[Tags.ValidationLastName]! as! String
             let emailData = formValues()[Tags.ValidationUsername]!  as! String
             let countryData = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
             let mobileData = formValues()[Tags.ValidationMobileHome]!  as! String
-            let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate])!  as! String
-            let signatureData = defaults.objectForKey("signature")!  as! String
-            let bookIdData = String(format: "%i", defaults.objectForKey("booking_id")!.integerValue)
+            let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate] as AnyObject)!  as! String
+            let signatureData = defaults.object(forKey: "signature")!  as! String
+            let bookIdData = String(format: "%i", (defaults.object(forKey: "booking_id")! as AnyObject).integerValue)
             let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName])!  as! String).xmlSimpleEscapeString()
             let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1])!  as! String).xmlSimpleEscapeString()
             let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2])!  as! String).xmlSimpleEscapeString()
@@ -390,7 +390,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             var insuranceData = ""
             
-            if defaults.objectForKey("insurance_status")?.classForCoder == NSString.classForCoder(){
+            if defaults.object(forKey: "insurance_status")?.classForCoder == NSString.classForCoder(){
                 insuranceData = "0"
             }else{
                 
@@ -409,8 +409,8 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             
             let tempDict = [AnyObject]()
             
-            goingSSRDict.addObject(tempDict)
-            returnSSRDict.addObject(tempDict)
+            goingSSRDict.add(tempDict)
+            returnSSRDict.add(tempDict)
             
             if insuranceData == "" {
                 showErrorMessage("To proceed, you need to agree with the Insurance Declaration.")
@@ -419,17 +419,17 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 var customer_number = String()
                 
                 if try! LoginManager.sharedInstance.isLogin(){
-                    customer_number = defaults.objectForKey("customer_number") as! String
+                    customer_number = defaults.object(forKey: "customer_number") as! String
                 }
 
                 showLoading()
                 FireFlyProvider.request(.ContactDetail("FY",bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "Y", goingSSRDict[0], returnSSRDict[0], customer_number), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 
@@ -460,10 +460,10 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                     
                 })
@@ -501,7 +501,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             if isOnePassenger{
                 
                 let tempData = passengerData[0]
-                if let userInfo = defaults.objectForKey("userInfo") as? NSDictionary{
+                if let userInfo = defaults.object(forKey: "userInfo") as? NSDictionary{
                     
                     if userInfo["first_name"] as! String == tempData["first_name"] as! String{
                         contactData = ["address1" : "" ,
@@ -575,7 +575,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     var passengerArray = [String]()
     
     func getPassengerData(){
-        if let passenger = defaults.objectForKey("passengerData") as? NSDictionary{
+        if let passenger = defaults.object(forKey: "passengerData") as? NSDictionary{
             passengerData = [NSDictionary]()
             passengerArray = [String]()
             for (_, data) in passenger{
@@ -593,7 +593,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         
         let tempData = passengerData[Int(index)]
         
-        if let userInfo = defaults.objectForKey("userInfo") as? NSDictionary{
+        if let userInfo = defaults.object(forKey: "userInfo") as? NSDictionary{
             
             if userInfo["first_name"] as! String == tempData["first_name"] as! String{
                 contactData = ["address1" : "" ,
@@ -656,7 +656,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     @IBAction func yesBtnPressed(sender: AnyObject) {
         isWantInsurance = true
         insuranceView.hidden = true
-        views.hidden = false
+        views.isHidden = false
         var newFrame = footerView.bounds
         newFrame.size.height = 765
         

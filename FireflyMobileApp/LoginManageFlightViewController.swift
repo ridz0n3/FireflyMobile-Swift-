@@ -104,7 +104,7 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
         
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
@@ -140,9 +140,9 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
             }
             
             //let bookingList = listBooking[indexPath.row] as! NSDictionary
-            let userInfo = defaults.objectForKey("userInfo") as! [String:AnyObject]
+            let userInfo = defaults.object(forKey: "userInfo") as! [String:AnyObject]
             let username = userInfo["username"] as! String
-            let customerNumber = defaults.objectForKey("customer_number") as! String
+            let customerNumber = defaults.object(forKey: "customer_number") as! String
             
             defaults.setValue(username, forKey: "userName")
             defaults.setValue(userId, forKey: "userID")
@@ -152,9 +152,9 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
             FireFlyProvider.request(.RetrieveBooking(signature, bookingList["pnr"] as! String,username, userId, customerNumber)) { (result) -> () in
                 
                 switch result {
-                case .Success(let successResult):
+                case .success(let successResult):
                     do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                         
                         if json["status"] == "success"{
                             
@@ -176,9 +176,9 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
                         
                     }
                     
-                case .Failure(let failureResult):
+                case .failure(let failureResult):
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)
                 }
                 
             }

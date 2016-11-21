@@ -11,22 +11,22 @@ import SCLAlertView
 import RealmSwift
 
 let realm = try! Realm()
-let defaults = NSUserDefaults.standardUserDefaults()
+let defaults = UserDefaults.standard
 let key = "owNLfnLjPvwbQH3hUmj5Wb7wBIv83pR7" // length == 3
 let iv = "owNLfnLjPvwbQH3h" // length == 16
 let kStageURL = "http://fyapistage.me-tech.com.my/"
 let kProductionURL = "http://fyapi.me-tech.com.my/"//
 let kDevURL = "http://fyapidev.me-tech.com.my/"
 let khttpsProductionURL = "https://m.fireflyz.com.my/"
-let estimote_uuid = NSUUID(UUIDString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")
-let virtual_uuid = NSUUID(UUIDString: "8492E75F-4FD6-469D-B132-043FE94921D8")
-var deviceId = UIDevice.currentDevice().identifierForVendor?.UUIDString
+let estimote_uuid = NSUUID(uuidString: "B9407F30-F5F8-466E-AFF9-25556B57FE6D")
+let virtual_uuid = NSUUID(uuidString: "8492E75F-4FD6-469D-B132-043FE94921D8")
+var deviceId = UIDevice.current.identifierForVendor?.uuidString
 
-var purposeArray:[Dictionary<String,AnyObject>] = [["purpose_code":"1","purpose_name":"Leisure"],["purpose_code":"2","purpose_name":"Business"]]
-var travelDoc : [Dictionary<String, AnyObject>] = [["doc_code":"P","doc_name":"Passport"],["doc_code":"NRIC","doc_name":"Malaysia IC"],["doc_code":"V","doc_name":"Travel VISA"]]
-var genderArray : [Dictionary<String, AnyObject>] = [["gender_code":"Female","gender_name":"Female"],["gender_code":"Male","gender_name":"Male"]]
-var titleArray = defaults.objectForKey("title") as! [Dictionary<String,AnyObject>]
-var countryArray = defaults.objectForKey("country") as! [Dictionary<String,AnyObject>]
+var purposeArray:[Dictionary<String,String>] = [["purpose_code":"1" ,"purpose_name":"Leisure"],["purpose_code":"2","purpose_name":"Business"]]
+var travelDoc : [Dictionary<String, String>] = [["doc_code":"P","doc_name":"Passport"],["doc_code":"NRIC","doc_name":"Malaysia IC"],["doc_code":"V","doc_name":"Travel VISA"]]
+var genderArray : [Dictionary<String, String>] = [["gender_code":"Female","gender_name":"Female"],["gender_code":"Male","gender_name":"Male"]]
+var titleArray = defaults.object(forKey: "title") as! [Dictionary<String,AnyObject>]
+var countryArray = defaults.object(forKey: "country") as! [Dictionary<String,AnyObject>]
 
 internal struct Tags {
     static let ValidationUsername = "Email"
@@ -127,25 +127,25 @@ class Constant: NSObject {
     
 }
 
-func nullIfEmpty(value : AnyObject?) -> AnyObject? {
+func nullIfEmpty(_ value : AnyObject?) -> String {
     if value is NSNull {
         return ""
     } else {
-        return value
+        return value as! String
     }
 }
 
-func nilIfEmpty(value : AnyObject?) -> AnyObject? {
+func nilIfEmpty(_ value : AnyObject?) -> String {
     if value == nil {
         return ""
     } else {
-        return value
+        return value as! String
     }
 }
 
-func getTitleName(titleCode:String) -> String{
+func getTitleName(_ titleCode:String) -> String{
     var titleName = String()
-    if (defaults.objectForKey("title") != nil){
+    if (defaults.object(forKey: "title") != nil){
         for titleData in titleArray{
             if titleData["title_code"] as! String == titleCode{
                 titleName = titleData["title_name"] as! String
@@ -158,10 +158,10 @@ func getTitleName(titleCode:String) -> String{
     return titleName
 }
 
-func getCountryName(countryCode:String) -> String{
+func getCountryName(_ countryCode:String) -> String{
     var countryName = String()
     
-    if (defaults.objectForKey("country") != nil){
+    if (defaults.object(forKey: "country") != nil){
         
         for countryData in countryArray{
             if countryData["country_code"] as! String == countryCode{
@@ -182,13 +182,13 @@ var travel = [NSDictionary]()
 var pickerRow = [String]()
 var pickerTravel = [String]()
 
-func getDepartureAirport(module : String){
+func getDepartureAirport(_ module : String){
     
     location = [NSDictionary]()
     pickerRow = [String]()
     
-    if (defaults.objectForKey("flight") != nil){
-        let flight = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
+    if (defaults.object(forKey: "flight") != nil){
+        let flight = defaults.object(forKey: "flight") as! [Dictionary<String, AnyObject>]
         var first = flight[0]["location_code"]
         location.append(flight[0] as NSDictionary)
         pickerRow.append("\(flight[0]["location"] as! String) (\(flight[0]["location_code"] as! String))")
@@ -217,11 +217,11 @@ func getDepartureAirport(module : String){
     }
 }
 
-func getArrivalAirport(departureAirport: String, module : String){
+func getArrivalAirport(_ departureAirport: String, module : String){
     
-    if (defaults.objectForKey("flight") != nil){
+    if (defaults.object(forKey: "flight") != nil){
         
-        let flight = defaults.objectForKey("flight") as! [Dictionary<String, AnyObject>]
+        let flight = defaults.object(forKey: "flight") as! [Dictionary<String, AnyObject>]
         
         let first = departureAirport
         
@@ -248,31 +248,31 @@ func getArrivalAirport(departureAirport: String, module : String){
     
 }
 
-func showErrorMessage(message : String){
+func showErrorMessage(_ message : String){
     
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
+        kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-        showCircularIcon: true,
-        kCircleIconHeight: 40
+        showCircularIcon: true
     )
     let alertViewIcon = UIImage(named: "alertIcon")
     let errorView = SCLAlertView(appearance: appearance)
-    errorView.showError("Error!", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage: alertViewIcon)
+    errorView.showError("Error!", subTitle:message, closeButtonTitle : "Close", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
     
 }
 
-func showRetryMessage(message : String){
+func showRetryMessage(_ message : String){
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
+        kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-        showCircularIcon: true,
         showCloseButton: false,
-        kCircleIconHeight: 40
+        showCircularIcon: true
     )
     let alertViewIcon = UIImage(named: "alertIcon")
     let errorView = SCLAlertView(appearance: appearance)
@@ -283,31 +283,32 @@ func showRetryMessage(message : String){
     
 }
 
-func showToastMessage(message:String){
+func showToastMessage(_ message:String){
     
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
+        kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-        showCircularIcon: true,
-        kCircleIconHeight: 40
+        showCircularIcon: true
     )
     let alertViewIcon = UIImage(named: "alertIcon")
     let messageView = SCLAlertView(appearance: appearance)
-    messageView.showSuccess("Success", subTitle:message, colorStyle: 0xEC581A, closeButtonTitle : "Close", circleIconImage: alertViewIcon)
+    messageView.showSuccess("Success", subTitle:message, closeButtonTitle : "Close", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
     
 }
 
-func showNotif(title : String, message:String){
+func showNotif(_ title : String, message:String){
     
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
+        kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-        showCircularIcon: true,
-        kCircleIconHeight: 40
+        showCircularIcon: true
+        
     )
     let alertViewIcon = UIImage(named: "alertIcon")
     let infoView = SCLAlertView(appearance:appearance)
@@ -315,15 +316,15 @@ func showNotif(title : String, message:String){
     
 }
 
-func showInfo(message:String){
+func showInfo(_ message:String){
     
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
+        kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-        showCircularIcon: true,
-        kCircleIconHeight: 40
+        showCircularIcon: true
     )
     let alertViewIcon = UIImage(named: "alertIcon")
     let infoView = SCLAlertView(appearance:appearance)
@@ -335,20 +336,20 @@ var viewsController = UIViewController()
 
 func showLoading(){
     
-    let appDelegate = UIApplication.sharedApplication().keyWindow
+    let appDelegate = UIApplication.shared.keyWindow
     let root = appDelegate?.rootViewController
     viewsController = root!
     
     let storyboard = UIStoryboard(name: "Loading", bundle: nil)
-    let loadingVC = storyboard.instantiateViewControllerWithIdentifier("LoadingVC") as! LoadingViewController
-    loadingVC.view.backgroundColor = UIColor.clearColor()
+    let loadingVC = storyboard.instantiateViewController(withIdentifier: "LoadingVC") as! LoadingViewController
+    loadingVC.view.backgroundColor = UIColor.clear
     
-    viewsController.presentViewController(loadingVC, animated: true, completion: nil)
+    viewsController.present(loadingVC, animated: true, completion: nil)
     
 }
 
 func hideLoading(){
     
-    viewsController.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+    viewsController.presentedViewController?.dismiss(animated: true, completion: nil)
     
 }

@@ -96,7 +96,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                 self.rule1Img.image = UIImage(data: data!)
             })
             
-            rule1View = NSBundle.mainBundle().loadNibNamed("Rule1View", owner: self, options: nil)[0] as! UIView
+            rule1View = Bundle.main.loadNibNamed("Rule1View", owner: self, options: nil)[0] as! UIView
             
             rule1View.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
             rule1View.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.25)
@@ -126,7 +126,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             let i = indexPath.row + 1
             let rules = termRules["rule_\(i)"] as! NSDictionary
             
-            rule2View = NSBundle.mainBundle().loadNibNamed("Rule2View", owner: self, options: nil)[0] as! UIView
+            rule2View = Bundle.main.loadNibNamed("Rule2View", owner: self, options: nil)[0] as! UIView
             
             rule2View.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)
             rule2View.backgroundColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.25)
@@ -196,9 +196,9 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             FireFlyProvider.request(.CheckInConfirmation(pnr, departure_station_code, arrival_station_code, signature, passengers!), completion: { (result) -> () in
                 
                 switch result {
-                case .Success(let successResult):
+                case .success(let successResult):
                     do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                         
                         if  json["status"].string == "success"{
                             
@@ -236,9 +236,9 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
                         
                     }
                     
-                case .Failure(let failureResult):
+                case .failure(let failureResult):
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)
                 }
             })
             
@@ -248,7 +248,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
     
     func saveBoardingPass(boardingPassArr : [AnyObject], pnrStr : String){
         
-        let userInfo = defaults.objectForKey("userInfo")
+        let userInfo = defaults.object(forKey: "userInfo")
         var userList : Results<UserList>! = nil
         userList = realm.objects(UserList)
         

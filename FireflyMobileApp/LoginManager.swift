@@ -14,9 +14,9 @@ class LoginManager {
     
     func isLogin() throws -> Bool {
         
-        if (defaults.objectForKey("userInfo") != nil){
+        if (defaults.object(forKey: "userInfo") != nil){
             
-            if defaults.objectForKey("userInfo")?.count != nil{
+            if defaults.object(forKey: "userInfo")?.count != nil{
                 return true
             }else{
                 return false

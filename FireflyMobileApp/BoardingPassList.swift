@@ -20,7 +20,7 @@ class BoardingPassList: Object {
     dynamic var fare = ""
     dynamic var flightNumber = ""
     dynamic var SSR = ""
-    dynamic var QRCodeURL = NSData()
+    dynamic var QRCodeURL = Data()
     dynamic var recordLocator = ""
     dynamic var arrivalStationCode = ""
     dynamic var departureStationCode = ""

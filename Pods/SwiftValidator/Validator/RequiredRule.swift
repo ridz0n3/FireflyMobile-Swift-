@@ -8,19 +8,19 @@
 
 import Foundation
 
-public class RequiredRule: Rule {
+open class RequiredRule: Rule {
     
-    private var message : String 
+    fileprivate var message : String 
     
     public init(message : String = "This field is required"){
         self.message = message
     }
     
-    public func validate(value: String) -> Bool {
+    open func validate(_ value: String) -> Bool {
         return !value.isEmpty
     }
     
-    public func errorMessage() -> String {
+    open func errorMessage() -> String {
         return message
     }
 }

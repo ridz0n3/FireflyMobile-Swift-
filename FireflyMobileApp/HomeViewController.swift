@@ -25,9 +25,9 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         setupHomeButton()
         
-        if defaults.objectForKey("notif") != nil{
-            if defaults.objectForKey("notif")?.classForCoder != NSString.classForCoder(){
-                let userInfo = defaults.objectForKey("notif")
+        if defaults.object(forKey: "notif") != nil{
+            if defaults.object(forKey: "notif")?.classForCoder != NSString.classForCoder(){
+                let userInfo = defaults.object(forKey: "notif")
                 let alert = userInfo!["aps"]!
                 let message = alert!["alert"]!!
                 
@@ -35,7 +35,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             }
         }
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewController.refreshTable(_:)), name: "reloadHome", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.refreshTable(_:)), name: "reloadHome", object: nil)
         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
         
         // Do any additional setup after loading the view.
@@ -50,7 +50,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     func facebookSelected(sender: UIGestureRecognizer) {
         //Crashlytics.sharedInstance().crash()
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.facebookScreen)
-        let facebookHooks = "fb://profile/\(defaults.objectForKey("facebook") as! String)"
+        let facebookHooks = "fb://profile/\(defaults.object(forKey: "facebook") as! String)"
         let facebookURL = NSURL(string: facebookHooks)
         if UIApplication.sharedApplication().canOpenURL(facebookURL!)
         {
@@ -58,13 +58,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/\(defaults.objectForKey("facebook") as! String)")!)
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/\(defaults.object(forKey: "facebook") as! String)")!)
         }
     }
     
     func instaSelected(sender: UIGestureRecognizer) {
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.instagramScreen)
-        let instagramHooks = "instagram://user?username=\(defaults.objectForKey("instagram") as! String)"
+        let instagramHooks = "instagram://user?username=\(defaults.object(forKey: "instagram") as! String)"
         let instagramUrl = NSURL(string: instagramHooks)
         if UIApplication.sharedApplication().canOpenURL(instagramUrl!)
         {
@@ -72,13 +72,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.instagram.com/\(defaults.objectForKey("instagram") as! String)")!)
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.instagram.com/\(defaults.object(forKey: "instagram") as! String)")!)
         }
     }
     
     func twitterSelected(sender: UIGestureRecognizer) {
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.twitterScreen)
-        let twitterHooks = "twitter:///user?screen_name=\(defaults.objectForKey("twitter") as! String)"
+        let twitterHooks = "twitter:///user?screen_name=\(defaults.object(forKey: "twitter") as! String)"
         let twitterUrl = NSURL(string: twitterHooks)
         if UIApplication.sharedApplication().canOpenURL(twitterUrl!)
         {
@@ -86,7 +86,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/\(defaults.objectForKey("twitter") as! String)")!)
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/\(defaults.object(forKey: "twitter") as! String)")!)
         }
     }
     
@@ -115,8 +115,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath) as! CustomHomeMenuTableViewCell
-            if (defaults.objectForKey("banner") != nil){
-                let imageURL = defaults.objectForKey("banner") as! String
+            if (defaults.object(forKey: "banner") != nil){
+                let imageURL = defaults.object(forKey: "banner") as! String
                 Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
                     cell.banner.image = UIImage(data: data!)
                 })
@@ -154,15 +154,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
         if indexPath.row == 0{
             
-            if (defaults.objectForKey("url") != nil){
+            if (defaults.object(forKey: "url") != nil){
                 
-                if defaults.objectForKey("url") as! String != ""{
+                if defaults.object(forKey: "url") as! String != ""{
                     
-                    let url = NSURL(string: defaults.objectForKey("url") as! String)!
+                    let url = NSURL(string: defaults.object(forKey: "url") as! String)!
                     UIApplication.sharedApplication().openURL(url)
                     
-                }else if (defaults.objectForKey("module") != nil){
-                    if defaults.objectForKey("module") as! String == "faq"{
+                }else if (defaults.object(forKey: "module") != nil){
+                    if defaults.object(forKey: "module") as! String == "faq"{
                         let storyboard = UIStoryboard(name: "Home", bundle: nil)
                         let FAQVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController
                         FAQVC.secondLevel = true
@@ -174,8 +174,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                     }
                 }
                 
-            }else if (defaults.objectForKey("module") != nil){
-                if defaults.objectForKey("module") as! String == "faq"{
+            }else if (defaults.object(forKey: "module") != nil){
+                if defaults.object(forKey: "module") as! String == "faq"{
                     let storyboard = UIStoryboard(name: "Home", bundle: nil)
                     let FAQVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController
                     FAQVC.secondLevel = true
@@ -197,15 +197,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
         }else if indexPath.row == 2{
             if try! LoginManager.sharedInstance.isLogin(){
-                let userinfo = defaults.objectForKey("userInfo") as! NSDictionary//[String: String]
+                let userinfo = defaults.object(forKey: "userInfo") as! NSDictionary//[String: String]
                 showLoading()
                 
-                FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "manage_booking", defaults.objectForKey("customer_number") as! String), completion: { (result) -> () in
+                FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "manage_booking", defaults.object(forKey: "customer_number") as! String), completion: { (result) -> () in
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             var activeFlight = [AnyObject]()
                             var notActiveFlight = [AnyObject]()
@@ -272,10 +272,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                 })
                 
@@ -292,7 +292,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 showLoading()
                 retrieveCheckInList(false)
                 /*
-                let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+                let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
                 var userData : Results<UserList>! = nil
                 userData = realm.objects(UserList)
                 let mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
@@ -330,7 +330,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if try! LoginManager.sharedInstance.isLogin(){
                 
-                let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+                let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
                 var userData : Results<UserList>! = nil
                 userData = realm.objects(UserList)
                 let mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
@@ -365,14 +365,14 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     func retrieveBoardingList(isExist : Bool){
-        let userinfo = defaults.objectForKey("userInfo") as! NSDictionary
+        let userinfo = defaults.object(forKey: "userInfo") as! NSDictionary
         //showLoading()
-        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "boarding_pass", defaults.objectForKey("customer_number") as! String), completion: { (result) -> () in
+        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "boarding_pass", defaults.object(forKey: "customer_number") as! String), completion: { (result) -> () in
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
                     
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         
@@ -416,7 +416,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 hideLoading()
                 
                 if !isExist{
-                    let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
+                    let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
                     var userData : Results<UserList>! = nil
                     userData = realm.objects(UserList)
                     let mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
@@ -467,7 +467,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func saveBoardingPassList(list : [AnyObject], userId : String, signature : String){
         
-        let userInfo = defaults.objectForKey("userInfo")
+        let userInfo = defaults.object(forKey: "userInfo")
         var userList = Results<UserList>!()
         userList = realm.objects(UserList)
         
@@ -481,7 +481,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             formater.dateFormat = "yyyy-MM-dd"
             let twentyFour = NSLocale(localeIdentifier: "en_GB")
             formater.locale = twentyFour
-            let date = (listInfo["date"] as! String).componentsSeparatedByString(" ")
+            let date = (listInfo["date"] as! String).components(separatedBy: " ")
             let new = "\(date[2])-\(date[1])-\(date[0])"
             let newdate = formater.dateFromString(new)
             
@@ -555,13 +555,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func retrieveCheckInList(isExist : Bool){
         
-        let userinfo = defaults.objectForKey("userInfo") as! NSDictionary
-        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "check_in", defaults.objectForKey("customer_number") as! String), completion: { (result) -> () in
+        let userinfo = defaults.object(forKey: "userInfo") as! NSDictionary
+        FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "check_in", defaults.object(forKey: "customer_number") as! String), completion: { (result) -> () in
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
                     
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         if json["list_booking"].count != 0{
@@ -581,7 +581,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                         }else{
                             hideLoading()
                             
-                            let userInfo = defaults.objectForKey("userInfo")
+                            let userInfo = defaults.object(forKey: "userInfo")
                             var userList = Results<UserList>!()
                             userList = realm.objects(UserList)
                             let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
@@ -623,11 +623,11 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 
                 if !isExist{
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)
                 }else{
                     NSNotificationCenter.defaultCenter().postNotificationName("reloadCheckInList", object: nil)
                 }
@@ -639,7 +639,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func saveCheckInList(list : NSArray, userId : String, signature : String){
         
-        let userInfo = defaults.objectForKey("userInfo")
+        let userInfo = defaults.object(forKey: "userInfo")
         var userList = Results<UserList>!()
         userList = realm.objects(UserList)
         let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
@@ -661,7 +661,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             formater.dateFormat = "yyyy-MM-dd"
             let twentyFour = NSLocale(localeIdentifier: "en_GB")
             formater.locale = twentyFour
-            let date = (listInfo["date"] as! String).componentsSeparatedByString(" ")
+            let date = (listInfo["date"] as! String).components(separatedBy: " ")
             let new = "\(date[2])-\(date[1])-\(date[0])"
             let newdate = formater.dateFromString(new)
             //print(newdate)

@@ -41,12 +41,12 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         setupLeftButton()
         getDepartureAirport("search")
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.departureDate(_:)), name: "departure", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.returnDate(_:)), name: "return", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.departureDate(_:)), name: "departure", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.returnDate(_:)), name: "return", object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.departurePicker(_:)), name: "departureSelected", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.departurePicker(_:)), name: "departureSelected", object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(SearchFlightViewController.arrivalPicker(_:)), name: "arrivalSelected", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.arrivalPicker(_:)), name: "arrivalSelected", object: nil)
         AnalyticsManager.sharedInstance.logScreen(GAConstants.searchFlightScreen)
         // Do any additional setup after loading the view.
     }
@@ -278,7 +278,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 var password = ""
                 
                 if try! LoginManager.sharedInstance.isLogin(){
-                    let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+                    let userInfo = defaults.object(forKey: "userInfo") as! NSMutableDictionary
                     username = "\(userInfo["username"] as! String)"
                     password = "\(userInfo["password"] as! String)"
                     
@@ -288,9 +288,9 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 FireFlyProvider.request(.SearchFlight(type, location[departureSelected]["location_code"]! as! String, travel[arrivalSelected]["travel_location_code"]! as! String, departureText, arrivalText, cell2.adultCount.text!, cell2.infantCount.text!, username, password), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 defaults.setObject(json["signature"].string, forKey: "signature")
@@ -335,10 +335,10 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                     
                     
@@ -406,7 +406,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         arrivalText = (notif.userInfo!["date"] as? String)!
         arrivalDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
         
-        let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
+        let date = (notif.userInfo!["date"] as? String)!.components(separatedBy: "-")
         departureDateLbl = "\(date[2])/\(date[1])/\(date[0])"
         arrivalDateLbl = "\(date[2])/\(date[1])/\(date[0])"
         searchFlightTableView.reloadData()
@@ -419,7 +419,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         formater.dateFormat = "yyyy-MM-dd"
         arrivalText = (notif.userInfo!["date"] as? String)!
         arrivalDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
-        let date = (notif.userInfo!["date"] as? String)!.componentsSeparatedByString("-")
+        let date = (notif.userInfo!["date"] as? String)!.components(separatedBy: "-")
         arrivalDateLbl = "\(date[2])/\(date[1])/\(date[0])"
         searchFlightTableView.reloadData()
         

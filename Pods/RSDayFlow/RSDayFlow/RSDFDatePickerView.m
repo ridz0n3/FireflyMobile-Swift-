@@ -96,9 +96,9 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _calendar = calendar;
         _startDate = startDate ? [self dateWithoutTimeComponents:startDate] : nil;
         _endDate = endDate ? [self dateWithoutTimeComponents:endDate] : nil;
-        _calendar = calendar;
         [self commonInitializer];
     }
     return self;
@@ -745,8 +745,17 @@ static NSString * const RSDFDatePickerViewDayCellIdentifier = @"RSDFDatePickerVi
         
         monthHeader.date = date;
         
-        NSString *monthString = [dateFormatter shortStandaloneMonthSymbols][date.month - 1];
-        monthHeader.dateLabel.text = [[NSString stringWithFormat:@"%@ %tu", monthString, date.year] uppercaseString];
+        NSString *monthString = @"";
+        switch (monthHeader.displayStyle) {
+            case RSDFMonthsDisplayStyleShortUppercase:
+                monthString = [([dateFormatter shortStandaloneMonthSymbols][date.month - 1]) uppercaseString];
+                break;
+            case RSDFMonthsDisplayStyleFull:
+                monthString = [dateFormatter monthSymbols][date.month - 1];
+                break;
+        }
+        
+        monthHeader.dateLabel.text = [NSString stringWithFormat:@"%@ %tu", monthString, date.year];
         
         RSDFDatePickerDate today = [self pickerDateFromDate:_today];
         if ( (today.month == date.month) && (today.year == date.year) ) {

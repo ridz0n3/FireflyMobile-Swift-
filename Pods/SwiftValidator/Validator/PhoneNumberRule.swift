@@ -16,9 +16,9 @@ class PhoneNumberRule: Rule {
         return "Enter a valid 10 digit phone number"
     }
     
-    func validate(value: String) -> Bool {
+    func validate(_ value: String) -> Bool {
         let phoneTest = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
-        return phoneTest.evaluateWithObject(value)
+        return phoneTest.evaluate(with: value)
     }
     
     func errorMessage() -> String {

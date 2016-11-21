@@ -11,21 +11,21 @@ import UIKit
 
 @objc public protocol ValidationDelegate {
     func validationSuccessful()
-    func validationFailed(errors: [UITextField:ValidationError])
+    func validationFailed(_ errors: [UITextField:ValidationError])
 }
 
-public class Validator {
+open class Validator {
     // dictionary to handle complex view hierarchies like dynamic tableview cells
-    public var errors = [UITextField:ValidationError]()
-    public var validations = [UITextField:ValidationRule]()
-    private var successStyleTransform:((validationRule:ValidationRule)->Void)?
-    private var errorStyleTransform:((validationError:ValidationError)->Void)?
+    open var errors = [UITextField:ValidationError]()
+    open var validations = [UITextField:ValidationRule]()
+    fileprivate var successStyleTransform:((_ validationRule:ValidationRule)->Void)?
+    fileprivate var errorStyleTransform:((_ validationError:ValidationError)->Void)?
     
     public init(){}
     
     // MARK: Private functions
     
-    private func validateAllFields() {
+    fileprivate func validateAllFields() {
         
         errors = [:]
         
@@ -35,13 +35,13 @@ public class Validator {
                 
                 // let the user transform the field if they want
                 if let transform = self.errorStyleTransform {
-                    transform(validationError: error)
+                    transform(error)
                 }
             } else {
                 // No error
                 // let the user transform the field if they want
                 if let transform = self.successStyleTransform {
-                    transform(validationRule: rule)
+                    transform(rule)
                 }
             }
         }
@@ -49,25 +49,25 @@ public class Validator {
     
     // MARK: Using Keys
     
-    public func styleTransformers(success success:((validationRule:ValidationRule)->Void)?, error:((validationError:ValidationError)->Void)?) {
+    open func styleTransformers(success:((_ validationRule:ValidationRule)->Void)?, error:((_ validationError:ValidationError)->Void)?) {
         self.successStyleTransform = success
         self.errorStyleTransform = error
     }
     
-    public func registerField(textField:UITextField, rules:[Rule]) {
+    open func registerField(_ textField:UITextField, rules:[Rule]) {
         validations[textField] = ValidationRule(textField: textField, rules: rules, errorLabel: nil)
     }
     
-    public func registerField(textField:UITextField, errorLabel:UILabel, rules:[Rule]) {
+    open func registerField(_ textField:UITextField, errorLabel:UILabel, rules:[Rule]) {
         validations[textField] = ValidationRule(textField: textField, rules:rules, errorLabel:errorLabel)
     }
     
-    public func unregisterField(textField:UITextField) {
-        validations.removeValueForKey(textField)
-        errors.removeValueForKey(textField)
+    open func unregisterField(_ textField:UITextField) {
+        validations.removeValue(forKey: textField)
+        errors.removeValue(forKey: textField)
     }
     
-    public func validate(delegate:ValidationDelegate) {
+    open func validate(_ delegate:ValidationDelegate) {
         
         self.validateAllFields()
         
@@ -78,10 +78,10 @@ public class Validator {
         }
     }
     
-    public func validate(callback:(errors:[UITextField:ValidationError])->Void) -> Void {
+    open func validate(_ callback:(_ errors:[UITextField:ValidationError])->Void) -> Void {
         
         self.validateAllFields()
         
-        callback(errors: errors)
+        callback(errors)
     }
 }

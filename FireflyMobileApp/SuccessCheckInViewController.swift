@@ -29,7 +29,7 @@ class SuccessCheckInViewController: BaseViewController {
         AnalyticsManager.sharedInstance.logScreen(GAConstants.successCheckInViewScreen)
         boardingPassBtn.layer.borderWidth = 1
         boardingPassBtn.layer.cornerRadius = 10
-        boardingPassBtn.layer.borderColor = UIColor.orangeColor().CGColor
+        boardingPassBtn.layer.borderColor = UIColor.orange.cgColor
         border.layer.borderWidth = 1
         closeButton.layer.cornerRadius = 10
         messageTextView.attributedText = msg.html2String
@@ -58,11 +58,11 @@ class SuccessCheckInViewController: BaseViewController {
         
         if try! LoginManager.sharedInstance.isLogin(){
             
-            let userInfo = defaults.objectForKey("userInfo")
-            var userList : Results<UserList>! = nil
-            userList = realm.objects(UserList)
+            let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+            //var userList : Results<UserList>! = nil
+            let userList = realm.objects(UserList.self)
             
-            let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
+            let mainUser = userList.filter("userId == \(userInfo["username"] as! String)")
             
             if mainUser.count != 0{
                 let mainPNR = mainUser[0].pnr.filter("pnr == %@", boardingList[0]["RecordLocator"] as! String)
@@ -80,7 +80,7 @@ class SuccessCheckInViewController: BaseViewController {
                     }
                     
                     let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                    let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
+                    let boardingPassDetailVC = storyboard.instantiateViewController(withIdentifier: "BoardingPassDetailVC") as! BoardingPassDetailViewController
                     boardingPassDetailVC.boardingList = boardingPass
                     boardingPassDetailVC.load = true
                     self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)

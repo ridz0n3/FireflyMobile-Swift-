@@ -29,14 +29,14 @@ class AddAdultViewController: CommonAdultViewController {
         
         if isValidate{
             
-            let userInfo = defaults.objectForKey("userInfo")
+            let userInfo = defaults.object(forKey: "userInfo")
             let email = userInfo!["username"] as! String
             let title = getTitleCode(formValues()[Tags.ValidationTitle] as! String, titleArr: titleArray)
             let firstName = formValues()[Tags.ValidationFirstName] as! String
             let lastName = formValues()[Tags.ValidationLastName] as! String
             
             let date = formValues()[Tags.ValidationDate]! as! String
-            //var arrangeDate = date.componentsSeparatedByString("-")
+            //var arrangeDate = date.components(separatedBy: "-")
             let dob = date//"\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])"
             
             let country = getCountryCode(formValues()[Tags.ValidationCountry] as! String, countryArr: countryArray)
@@ -50,10 +50,10 @@ class AddAdultViewController: CommonAdultViewController {
                 FireFlyProvider.request(.AddFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink as! String), completion: { (result) in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
@@ -81,11 +81,11 @@ class AddAdultViewController: CommonAdultViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
                         
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                     
                 })
@@ -93,10 +93,10 @@ class AddAdultViewController: CommonAdultViewController {
                 FireFlyProvider.request(.EditFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink as! String, familyId), completion: { (result) in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
                             
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
@@ -124,11 +124,11 @@ class AddAdultViewController: CommonAdultViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
                         
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                     
                 })

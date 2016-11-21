@@ -49,13 +49,13 @@ class ManageFlightViewController: BaseXLFormViewController {
         
         //Confirmation Number
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmationNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Confirmation Number:*")
-        row.required = true
+        row.isRequired = true
         //row.value = "y4pcsf"
         section.addFormRow(row)
         
         //Username
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Contact Email:*")
-        row.required = true
+        row.isRequired = true
         //row.addValidator(XLFormValidator.emailValidator())
         //row.value = "y4pcsf"
         section.addFormRow(row)
@@ -81,9 +81,9 @@ class ManageFlightViewController: BaseXLFormViewController {
             FireFlyProvider.request(.RetrieveBooking("", pnr, username, "", ""), completion: { (result) -> () in
                 
                 switch result {
-                case .Success(let successResult):
+                case .success(let successResult):
                     do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                         
                         if  json["status"].string == "success"{
                             
@@ -108,9 +108,9 @@ class ManageFlightViewController: BaseXLFormViewController {
                         showErrorMessage("We are unable to locate the itinerary. Please verify the information is correct and try again.")
                     }
                     
-                case .Failure(let failureResult):
+                case .failure(let failureResult):
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)
                     
                     
                 }

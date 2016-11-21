@@ -32,13 +32,13 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         }
         
         continueBtn.layer.cornerRadius = 10
-        termCheckBox.strokeColor = UIColor.orangeColor()
-        termCheckBox.checkColor = UIColor.orangeColor()
-        promotionCheckBox.strokeColor = UIColor.orangeColor()
-        promotionCheckBox.checkColor = UIColor.orangeColor()
+        termCheckBox.strokeColor = UIColor.orange
+        termCheckBox.checkColor = UIColor.orange
+        promotionCheckBox.strokeColor = UIColor.orange
+        promotionCheckBox.checkColor = UIColor.orange
         
-        stateArray = defaults.objectForKey("state") as! [Dictionary<String, AnyObject>]
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(RegisterPersonalInfoViewController.selectCountry(_:)), name: "selectCountry", object: nil)
+        stateArray = defaults.object(forKey: "state") as! [Dictionary<String, AnyObject>]
+        NotificationCenter.default.addObserver(self, selector: #selector(RegisterPersonalInfoViewController.selectCountry(_:)), name: NSNotification.Name(rawValue: "selectCountry"), object: nil)
         
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.registerScreen)
@@ -61,24 +61,24 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Basic Information - Section
         section = XLFormSectionDescriptor()
-        section = XLFormSectionDescriptor.formSectionWithTitle("LabelBasic".localized)
+        section = XLFormSectionDescriptor.formSection(withTitle: "LabelBasic".localized)
         //section.hidden = "$\(Tags.Button1).value contains 'hide'"
         form.addFormSection(section)
         
         // username
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Email:*")
-        row.required = true
-        row.addValidator(XLFormValidator.emailValidator())
+        row.isRequired = true
+        row.addValidator(XLFormValidator.email())
         section.addFormRow(row)
         
         // Password
         row = XLFormRowDescriptor(tag: Tags.ValidationPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Password:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Confirm Password
         row = XLFormRowDescriptor(tag: Tags.ValidationConfirmPassword, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Confirm Password:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         section = XLFormSectionDescriptor()
@@ -93,22 +93,22 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // First Name/Given Name
         row = XLFormRowDescriptor(tag: Tags.ValidationFirstName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Last Name
         row = XLFormRowDescriptor(tag: Tags.ValidationLastName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Date
         row = XLFormRowDescriptor(tag: Tags.ValidationDate, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Date of Birth:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Basic Information - Section
@@ -118,7 +118,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // Address Line 1
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 1:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Address Line 2
@@ -138,23 +138,23 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Town/City
         row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Town / City:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // State
         row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"State:*")
         row.selectorOptions = [XLFormOptionsObject(value: "", displayText: "")]
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Postcode
         row = XLFormRowDescriptor(tag: Tags.ValidationPostcode, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Postcode:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         // Contact Information - Section
@@ -189,26 +189,26 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         return 40
         
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let sectionView = NSBundle.mainBundle().loadNibNamed("SectionView", owner: self, options: nil)[0] as! SectionView
+        let sectionView = Bundle.main.loadNibNamed("SectionView", owner: self, options: nil)?[0] as! SectionView
         
-        sectionView.changePassLbl.hidden = true
+        sectionView.changePassLbl.isHidden = true
         let index = UInt(section)
         
-        sectionView.sectionLbl.text = form.formSectionAtIndex(index)?.title
+        sectionView.sectionLbl.text = form.formSection(at: index)?.title
         
         return sectionView
         
     }
     
-    func selectCountry(sender:NSNotification){
+    func selectCountry(_ sender:NSNotification){
         
         country(sender.userInfo!["countryVal"]! as! String)
         
@@ -216,7 +216,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         var row : XLFormRowDescriptor
         
-        self.form.removeFormRowWithTag(Tags.ValidationMobileHome)
+        self.form.removeFormRow(withTag: Tags.ValidationMobileHome)
         
         // Mobile Number
         row = XLFormRowDescriptor(tag: Tags.ValidationMobileHome, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Mobile / Home:")
@@ -224,8 +224,8 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         row.value = dialCode
         self.form.addFormRow(row, beforeRowTag: Tags.ValidationAlternate)//(row, afterRowTag: Tags.ValidationPostcode)
         
-        self.form.removeFormRowWithTag(Tags.ValidationAlternate)
-        self.form.removeFormRowWithTag(Tags.ValidationFax)
+        self.form.removeFormRow(withTag: Tags.ValidationAlternate)
+        self.form.removeFormRow(withTag: Tags.ValidationFax)
         // Alternate
         row = XLFormRowDescriptor(tag: Tags.ValidationAlternate, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Alternate Phone:")
         row.addValidator(XLFormRegexValidator(msg: "Alternate phone must start with country code and not less than 7 digits.", andRegexString: "^\(dialCode)[0-9]{7,}$"))
@@ -239,7 +239,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
     }
 
-    func country(countryCode:String){
+    func country(_ countryCode:String){
         
         if self.formValues()[Tags.ValidationState] != nil{
             
@@ -250,7 +250,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 }
             }
             
-            self.form.removeFormRowWithTag(Tags.ValidationState)
+            self.form.removeFormRow(withTag: Tags.ValidationState)
             var row : XLFormRowDescriptor
             row = XLFormRowDescriptor(tag: Tags.ValidationState, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"State:*")
             
@@ -265,7 +265,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
             }
             
             row.selectorOptions = tempArray
-            row.required = true
+            row.isRequired = true
             
             self.form.addFormRow(row, afterRowTag: Tags.ValidationTownCity)
             
@@ -273,29 +273,29 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
     }
     
-    @IBAction func continueButtonPressed(sender: AnyObject) {
+    @IBAction func continueButtonPressed(_ sender: AnyObject) {
         
         validateForm()
         
         if isValidate {
             
-            let currentDate: NSDate = NSDate()
-            let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-            calendar.timeZone = NSTimeZone(name: "UTC")!
+            let currentDate: Date = Date()
+            let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+            calendar.timeZone = TimeZone(identifier: "UTC")! //TimeZone(name: "UTC")!
             
-            let components: NSDateComponents = NSDateComponents()
-            components.calendar = calendar
+            var components: DateComponents = DateComponents()
+            components.calendar = calendar as Calendar
             
             components.year = -18
-            let minDate: NSDate = calendar.dateByAddingComponents(components, toDate: currentDate, options: NSCalendarOptions(rawValue: 0))!
+            let minDate: Date = calendar.date(byAdding: components, to: currentDate, options: NSCalendar.Options(rawValue: 0))!
             
             let date = formValues()[Tags.ValidationDate]! as! String
-            let selectDate: NSDate = stringToDate(date)
+            let selectDate: Date = stringToDate(date) as Date
             
             if formValues()[Tags.ValidationPassword]! as! String != formValues()[Tags.ValidationConfirmPassword]! as! String {
                 showErrorMessage("Confirm password incorrect")
             }
-            else if minDate.compare(selectDate) == NSComparisonResult.OrderedAscending {
+            else if minDate.compare(selectDate) == ComparisonResult.orderedAscending {
                 showErrorMessage("User must age 18 and above to register")
             }
             else if termCheckBox.checkState.rawValue == 0 {
@@ -305,23 +305,23 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 
                 let enc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationPassword]! as! String, key: key, iv: iv)
                 
-                let username = formValues()[Tags.ValidationUsername]!.xmlSimpleEscapeString()
+                let username = (formValues()[Tags.ValidationUsername]! as! String).xmlSimpleEscape()
                 let password = enc
                 let title = getTitleCode(formValues()[Tags.ValidationTitle] as! String, titleArr: titleArray)
                 let firstName = formValues()[Tags.ValidationFirstName]! as! String
                 let lastName = formValues()[Tags.ValidationLastName]! as! String
                 let dob = formatDate(selectDate)
-                let address1 = formValues()[Tags.ValidationAddressLine1]!.xmlSimpleEscapeString()
-                let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2])!.xmlSimpleEscapeString()
-                let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3])!.xmlSimpleEscapeString()
+                let address1 = (formValues()[Tags.ValidationAddressLine1]! as! String).xmlSimpleEscape()
+                let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject).xmlSimpleEscape()
+                let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject).xmlSimpleEscape()
                 let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
-                let city = formValues()[Tags.ValidationTownCity]!.xmlSimpleEscapeString()
+                let city = (formValues()[Tags.ValidationTownCity]! as! String).xmlSimpleEscape()
                 let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)
                 let postcode = formValues()[Tags.ValidationPostcode]! as! String
-                let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome]!) as! String
-                let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate])! as! String
-                let fax = nullIfEmpty(formValues()[Tags.ValidationFax])! as! String
-                let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])! as! String
+                let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome] as AnyObject)
+                let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate] as AnyObject)
+                let fax = nullIfEmpty(formValues()[Tags.ValidationFax] as AnyObject)
+                let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo] as AnyObject)
                 let signature = ""
                 var newsletter = ""
                 
@@ -333,17 +333,17 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 }
                 
                 showLoading()
-                FireFlyProvider.request(.RegisterUser(username, password, title, firstName, lastName, dob, address1, address2, address3, country, city, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
+                FireFlyProvider.request(.RegisterUser(username!, password, title, firstName, lastName, dob, address1!, address2!, address3!, country, city!, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
                     
                     switch result {
-                    case .Success(let successResult):
+                    case .success(let successResult):
                         do {
-                            let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
                                 
                                 let storyBoard = UIStoryboard(name: "Login", bundle: nil)
-                                let loginVC = storyBoard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
+                                let loginVC = storyBoard.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
                                 self.navigationController!.pushViewController(loginVC, animated: true)
                                 
                             }else if json["status"] == "error"{
@@ -369,10 +369,10 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                             
                         }
                         
-                    case .Failure(let failureResult):
+                    case .failure(let failureResult):
                         
                         hideLoading()
-                        showErrorMessage(failureResult.nsError.localizedDescription)
+                        showErrorMessage(failureResult.localizedDescription)
                     }
                     
                     

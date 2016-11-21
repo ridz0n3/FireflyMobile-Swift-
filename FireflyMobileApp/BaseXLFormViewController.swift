@@ -32,19 +32,19 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     func setupLeftButton(){
         
         let tools = UIToolbar()
-        tools.frame = CGRectMake(0, 0, 45, 44)
-        tools.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
-        tools.backgroundColor = UIColor.clearColor()
+        tools.frame = CGRect(x: 0, y: 0, width: 45, height: 44)
+        tools.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        tools.backgroundColor = UIColor.clear
         tools.clipsToBounds = true;
-        tools.translucent = true;
+        tools.isTranslucent = true;
         
-        let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
-        let image2 = UIImage(named: "Back2")! .imageWithRenderingMode(.AlwaysOriginal)
+        let image1 = UIImage(named: "MenuIcon")! .withRenderingMode(.alwaysOriginal)
+        let image2 = UIImage(named: "Back2")! .withRenderingMode(.alwaysOriginal)
         
-        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseViewController.menuTapped(_:)))
+        let menuButton = UIBarButtonItem(image: image1, style: .plain, target: self, action: #selector(BaseViewController.menuTapped(_:)))
         menuButton.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         
-        let backButton = UIBarButtonItem(image: image2, style: .Plain, target: self, action: #selector(BaseViewController.backButtonPressed(_:)))
+        let backButton = UIBarButtonItem(image: image2, style: .plain, target: self, action: #selector(BaseViewController.backButtonPressed(_:)))
         backButton.imageInsets = UIEdgeInsetsMake(0, -35, 0, 0)
         
         
@@ -54,11 +54,11 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: tools)
         
         let tools2 = UIToolbar()
-        tools2.frame = CGRectMake(0, 0, 45, 44)
-        tools2.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
-        tools2.backgroundColor = UIColor.clearColor()
+        tools2.frame = CGRect(x: 0, y: 0, width: 45, height: 44)
+        tools2.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        tools2.backgroundColor = UIColor.clear
         tools2.clipsToBounds = true;
-        tools2.translucent = true;
+        tools2.isTranslucent = true;
         
         let buttons2:[UIBarButtonItem] = [menuButton];
         tools2.setItems(buttons2, animated: false)
@@ -69,15 +69,15 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     func setupMenuButton(){
         
         let tools = UIToolbar()
-        tools.frame = CGRectMake(0, 0, 45, 44)
-        tools.setBackgroundImage(UIImage(), forToolbarPosition: .Any, barMetrics: .Default)
-        tools.backgroundColor = UIColor.clearColor()
+        tools.frame = CGRect(x: 0, y: 0, width: 45, height: 44)
+        tools.setBackgroundImage(UIImage(), forToolbarPosition: .any, barMetrics: .default)
+        tools.backgroundColor = UIColor.clear
         tools.clipsToBounds = true;
-        tools.translucent = true;
+        tools.isTranslucent = true;
         
-        let image1 = UIImage(named: "MenuIcon")! .imageWithRenderingMode(.AlwaysOriginal)
+        let image1 = UIImage(named: "MenuIcon")! .withRenderingMode(.alwaysOriginal)
         
-        let menuButton = UIBarButtonItem(image: image1, style: .Plain, target: self, action: #selector(BaseViewController.menuTapped(_:)))
+        let menuButton = UIBarButtonItem(image: image1, style: .plain, target: self, action: #selector(BaseViewController.menuTapped(_:)))
         menuButton.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         
         let buttons:[UIBarButtonItem] = [menuButton];
@@ -89,29 +89,29 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     }
 
     
-    func menuTapped(sender: UIBarButtonItem){
+    func menuTapped(_ sender: UIBarButtonItem){
         self.slideMenuController()?.toggleLeft()
     }
     
-    func backButtonPressed(sender: UIBarButtonItem){
-        self.navigationController?.popViewControllerAnimated(true)
+    func backButtonPressed(_ sender: UIBarButtonItem){
+        self.navigationController?.popViewController(animated: true)
     }
     
     func validateForm() {
         let array = formValidationErrors()
         
-        if array.count != 0{
+        if array?.count != 0{
             isValidate = false
             var i = 0
             var message = String()
             
-            for errorItem in array {
+            for errorItem in array! {
                 
                 let error = errorItem as! NSError
                 let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
                 
-                let errorTag = validationStatus.rowDescriptor!.tag!.componentsSeparatedByString("(")
-                let empty = validationStatus.msg.componentsSeparatedByString("*")
+                let errorTag = validationStatus.rowDescriptor!.tag!.components(separatedBy: "(")// .components(separatedBy: "(")
+                let empty = validationStatus.msg.components(separatedBy: "*")
                 
                 if empty.count == 1{
                     
@@ -131,12 +131,12 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
                         || errorTag[0] == Tags.ValidationTravelWith
                         || errorTag[0] == Tags.ValidationGender{
                             
-                            let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                            let index = self.form.indexPath(ofFormRow: validationStatus.rowDescriptor!)! as IndexPath
                             
-                            if self.tableView.cellForRowAtIndexPath(index) != nil{
-                                let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
+                            if self.tableView.cellForRow(at: index) != nil{
+                                let cell = self.tableView.cellForRow(at: index) as! CustomFloatLabelCell
                                 
-                                let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                                let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.red])
                                 cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                                 
                                 animateCell(cell)
@@ -144,23 +144,23 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
                             
                             
                     }else if errorTag[0] == Tags.ValidationDate || errorTag[0] == Tags.ValidationExpiredDate{
-                        let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                        let index = self.form.indexPath(ofFormRow: validationStatus.rowDescriptor!)! as IndexPath
                         
-                        if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
+                        if self.tableView.cellForRow(at: index) != nil{
+                            let cell = self.tableView.cellForRow(at: index) as! CustomFloatLabelCell
                             
-                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.red])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                             
                             animateCell(cell)
                         }
                     }else{
-                        let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                        let index = self.form.indexPath(ofFormRow: validationStatus.rowDescriptor!)! as IndexPath
                         
-                        if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
+                        if self.tableView.cellForRow(at: index) != nil{
+                            let cell = self.tableView.cellForRow(at: index) as! CustomFloatLabelCell
                             
-                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.red])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                             
                             animateCell(cell)
@@ -179,39 +179,39 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
         }
     }
     
-    func animateCell(cell: UITableViewCell) {
+    func animateCell(_ cell: UITableViewCell) {
         let animation = CAKeyframeAnimation()
         animation.keyPath = "position.x"
         animation.values =  [0, 20, -20, 10, 0]
-        animation.keyTimes = [0, (1 / 6.0), (3 / 6.0), (5 / 6.0), 1]
+        //animation.keyTimes = [0, (1 / 6.0), (3 / 6.0), (5 / 6.0), 1]
         animation.duration = 0.3
         animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
-        animation.additive = true
-        cell.layer.addAnimation(animation, forKey: "shake")
+        animation.isAdditive = true
+        cell.layer.add(animation, forKey: "shake")
     }
     
     
     
-    func formatDate(date:NSDate) -> String{
+    func formatDate(_ date:Date) -> String{
         
-        let formater = NSDateFormatter()
+        let formater = DateFormatter()
         formater.dateFormat = "dd-MM-yyyy"
-        return formater.stringFromDate(date)
+        return formater.string(from: date)
         
     }
     
-    func stringToDate(date:String) -> NSDate{
+    func stringToDate(_ date:String) -> Date{
         
-        let formater = NSDateFormatter()
-        formater.dateStyle = NSDateFormatterStyle.ShortStyle
+        let formater = DateFormatter()
+        formater.dateStyle = DateFormatter.Style.short
         //formater.dateFormat = "yyyy-MM-dd"
-        let twentyFour = NSLocale(localeIdentifier: "en_GB")
+        let twentyFour = Locale(identifier: "en_GB")
         formater.locale = twentyFour
-        return formater.dateFromString(date)!
+        return formater.date(from: date)!
         
     }
     
-    func getTitleCode(titleName:String, titleArr:[Dictionary<String, AnyObject>])->String{
+    func getTitleCode(_ titleName:String, titleArr:[Dictionary<String, AnyObject>])->String{
         var titleCode = String()
         for titleData in titleArr{
             if titleData["title_name"] as! String == titleName{
@@ -221,7 +221,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
         return titleCode
     }
     
-    func getCountryCode(countryName:String, countryArr:[Dictionary<String, AnyObject>])->String{
+    func getCountryCode(_ countryName:String, countryArr:[Dictionary<String, AnyObject>])->String{
         var countryCode = String()
         for countryData in countryArr{
             if countryData["country_name"] as! String == countryName{
@@ -231,7 +231,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
         return countryCode
     }
     
-    func getStateCode(stateName:String, stateArr:[Dictionary<String, AnyObject>]
+    func getStateCode(_ stateName:String, stateArr:[Dictionary<String, AnyObject>]
         )->String{
             var stateCode = String()
             for stateData in stateArr{
@@ -246,7 +246,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
             return stateCode
     }
     
-    func getTravelDocCode(docName:String, docArr:[Dictionary<String, AnyObject>])->String{
+    func getTravelDocCode(_ docName:String, docArr:[Dictionary<String, AnyObject>])->String{
         var docCode = String()
         for docData in docArr{
             if docData["doc_name"] as! String == docName{
@@ -256,7 +256,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
         return docCode
     }
     
-    func getTravelWithCode(travelName:String, travelArr:[Dictionary<String, AnyObject>])->String{
+    func getTravelWithCode(_ travelName:String, travelArr:[Dictionary<String, AnyObject>])->String{
         var travelCode = String()
         for travelData in travelArr {
             if travelData["passenger_name"] as! String == travelName{
@@ -266,7 +266,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
         return travelCode
     }
     
-    func getGenderCode(genderName:String, genderArr:[Dictionary<String, AnyObject>])->String{
+    func getGenderCode(_ genderName:String, genderArr:[Dictionary<String, AnyObject>])->String{
         var genderCode = String()
         for genderData in genderArr{
             if genderData["gender_name"] as! String == genderName{
@@ -276,7 +276,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
         return genderCode
     }
     
-    func getStationCode(stationName:String, locArr:[NSDictionary], direction : String)->String{
+    func getStationCode(_ stationName:String, locArr:[NSDictionary], direction : String)->String{
         var stationCode = String()
         for stationData in locArr{
             

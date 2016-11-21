@@ -9,21 +9,21 @@
 import Foundation
 import UIKit
 
-public class ConfirmationRule: Rule {
+open class ConfirmationRule: Rule {
     
-    private let confirmField: UITextField
-    private var message : String
+    fileprivate let confirmField: UITextField
+    fileprivate var message : String
     
     public init(confirmField: UITextField, message : String = "This field does not match"){
         self.confirmField = confirmField
         self.message = message
     }
     
-    public func validate(value: String) -> Bool {
+    open func validate(_ value: String) -> Bool {
         return confirmField.text == value
     }
     
-    public func errorMessage() -> String {
+    open func errorMessage() -> String {
         return message
     }
 }

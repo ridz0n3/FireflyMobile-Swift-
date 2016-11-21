@@ -24,14 +24,14 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         paymentTableView.estimatedRowHeight = 80
         paymentTableView.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
-        let flightType = defaults.objectForKey("flightType") as! String
+        let flightType = defaults.object(forKey: "flightType") as! String
         AnalyticsManager.sharedInstance.logScreen("\(GAConstants.paymentSummaryScreen) (\(flightType))")
 
         continueBtn.layer.cornerRadius = 10
         
         setupLeftButton()
         
-        let paymentDetail = defaults.objectForKey("itenerary") as! NSDictionary
+        let paymentDetail = defaults.object(forKey: "itenerary") as! NSDictionary
         flightDetail = paymentDetail["flight_details"] as! [Dictionary<String,AnyObject>]
         priceDetail = paymentDetail["price_details"] as! [Dictionary<String,AnyObject>]
         totalPrice = paymentDetail["total_price"] as! String
@@ -174,7 +174,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let sectionView = NSBundle.mainBundle().loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
         
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
@@ -196,13 +196,13 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         
         showLoading() 
         
-        let signature = defaults.objectForKey("signature") as! String
+        let signature = defaults.object(forKey: "signature") as! String
         var personID = String()
         
         if try! LoginManager.sharedInstance.isLogin(){
             
-            if (defaults.objectForKey("personID") != nil){
-                personID = defaults.objectForKey("personID") as! String
+            if (defaults.object(forKey: "personID") != nil){
+                personID = defaults.object(forKey: "personID") as! String
             }
             
         }
@@ -211,10 +211,10 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         FireFlyProvider.request(.PaymentSelection(personID, signature)) { (result) -> () in
             
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
                     
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         
@@ -273,10 +273,10 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
             }
             
         }

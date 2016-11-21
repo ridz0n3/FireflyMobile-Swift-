@@ -24,11 +24,11 @@ class BoardingPassViewController: CommonSearchDetailViewController {
         
         if isValidate{
             
-            let deptArr = (self.formValues()[Tags.ValidationDeparting] as! String).componentsSeparatedByString(" (")
+            let deptArr = (self.formValues()[Tags.ValidationDeparting] as! String).components(separatedBy: " (")
             
-            let arrivalArr = (self.formValues()[Tags.ValidationArriving] as! String).componentsSeparatedByString(" (")
+            let arrivalArr = (self.formValues()[Tags.ValidationArriving] as! String).components(separatedBy: " (")
             
-            let signature = defaults.objectForKey("signatureLoad") as! String
+            let signature = defaults.object(forKey: "signatureLoad") as! String
             let pnr = self.formValues()[Tags.ValidationConfirmationNumber] as! String
             let departure_station_code = getStationCode(deptArr[0], locArr: location, direction : "Departing")
             //self.formValues()[Tags.ValidationDeparting] as! String
@@ -37,9 +37,9 @@ class BoardingPassViewController: CommonSearchDetailViewController {
             FireFlyProvider.request(.RetrieveBoardingPass(signature, pnr, departure_station_code, arrival_station_code, ""), completion: { (result) -> () in
                 
                 switch result {
-                case .Success(let successResult):
+                case .success(let successResult):
                     do {
-                        let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                         
                         if  json["status"].string == "success"{
                             var i = 0
@@ -78,10 +78,10 @@ class BoardingPassViewController: CommonSearchDetailViewController {
                         showErrorMessage("We are unable to locate the itinerary. Please verify the information is correct and try again.")
                     }
                     
-                case .Failure(let failureResult):
+                case .failure(let failureResult):
                     
                     hideLoading()
-                    showErrorMessage(failureResult.nsError.localizedDescription)
+                    showErrorMessage(failureResult.localizedDescription)
                 }
                 
             })

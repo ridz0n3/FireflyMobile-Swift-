@@ -32,9 +32,9 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         showLoading()
         FireFlyProvider.request(.GetTerm) { (result) -> () in
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         print(json["url"])
@@ -51,9 +51,9 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                 catch {
                     
                 }
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
                 
             }
         }

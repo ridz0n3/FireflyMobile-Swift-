@@ -129,7 +129,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
     }
     
     
-    @IBAction func checkBtn(sender: AnyObject) {
+    @IBAction func checkBtn(_ sender: AnyObject) {
         
         let btn = sender as! UIButton
         
@@ -235,7 +235,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         }
         
         row.selectorOptions = tempArray
-        row.required = true
+        row.isRequired = true
         if cardInfo["card_type"]! as! String != ""{
             row.disabled = NSNumber(bool: true)
         }
@@ -244,7 +244,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         //card number
         row = XLFormRowDescriptor(tag: Tags.ValidationCardNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Card Number:*")
         row.value = cardInfo["card_number"]! as! String
-        row.required = true
+        row.isRequired = true
         if cardInfo["card_number"]! as! String != ""{
             row.disabled = NSNumber(bool: true)
         }
@@ -257,14 +257,14 @@ class CommonPaymentViewController: BaseXLFormViewController {
             row.value = "\(cardInfo["expiration_date_month"]! as! String)/\(cardInfo["expiration_date_year"]! as! String)"
             row.disabled = NSNumber(bool: true)
         }
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         //holder name
         row = XLFormRowDescriptor(tag: Tags.ValidationHolderName, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Card Holder Name:*")
         //row.addValidator(XLFormRegexValidator(msg: "Card holder name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
         row.value = cardInfo["card_holder_name"]! as! String
-        row.required = true
+        row.isRequired = true
         if cardInfo["card_holder_name"]! as! String != ""{
             row.disabled = NSNumber(bool: true)
         }
@@ -272,7 +272,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         //CVV/CVC Number
         row = XLFormRowDescriptor(tag: Tags.ValidationCcvNumber, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"CVV/CVC Number:*")
-        row.required = true
+        row.isRequired = true
         section.addFormRow(row)
         
         if try! LoginManager.sharedInstance.isLogin(){
@@ -296,7 +296,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         self.form = form
     }
     
-    func getCardTypeCode(cardName:String, cardArr:[Dictionary<String,AnyObject>])->String{
+    func getCardTypeCode(_ cardName:String, cardArr:[Dictionary<String,AnyObject>])->String{
         var cardCode = String()
         for cardData in cardArr{
             if cardData["channel_name"] as! String == cardName{
@@ -306,9 +306,9 @@ class CommonPaymentViewController: BaseXLFormViewController {
         return cardCode
     }
     
-    func checkDate(date:String) -> Bool{
+    func checkDate(_ date:String) -> Bool{
         
-        let currentDate = date.componentsSeparatedByString("/")
+        let currentDate = date.components(separatedBy: "/")
         
         let formatter = NSDateFormatter()
         formatter.dateFormat = "MM"
@@ -327,7 +327,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
     }
     
-    func luhnCheck(number: String) -> Bool {
+    func luhnCheck(_ number: String) -> Bool {
         var sum = 0
         let reversedCharacters = number.characters.reverse().map { String($0) }
         for (idx, element) in reversedCharacters.enumerate() {
@@ -341,19 +341,19 @@ class CommonPaymentViewController: BaseXLFormViewController {
         return sum % 10 == 0
     }
     
-    @IBAction func deleteBtnPressed(sender: AnyObject) {
+    @IBAction func deleteBtnPressed(_ sender: AnyObject) {
     
-        let personID = defaults.objectForKey("personID") as! String
-        let signature = defaults.objectForKey("signature") as! String
+        let personID = defaults.object(forKey: "personID") as! String
+        let signature = defaults.object(forKey: "signature") as! String
         
         showLoading()
     
         FireFlyProvider.request(.RemoveCreditCard(personID, signature)) { (result) in
             
             switch result {
-            case .Success(let successResult):
+            case .success(let successResult):
                 do {
-                    let json = try JSON(NSJSONSerialization.JSONObjectWithData(successResult.data, options: .MutableContainers))
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
                     if json["status"] == "success"{
                         showToastMessage(json["message"].string!)
@@ -389,10 +389,10 @@ class CommonPaymentViewController: BaseXLFormViewController {
                     
                 }
                 
-            case .Failure(let failureResult):
+            case .failure(let failureResult):
                 
                 hideLoading()
-                showErrorMessage(failureResult.nsError.localizedDescription)
+                showErrorMessage(failureResult.localizedDescription)
             }
             
         }
