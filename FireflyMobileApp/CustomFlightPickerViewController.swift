@@ -70,9 +70,9 @@ class CustomFlightPickerViewController: UIViewController, UITableViewDelegate, U
         
         self.dismissViewControllerAnimated(true, completion: nil)
         if destinationType == "departure"{
-            NSNotificationCenter.defaultCenter().postNotificationName("departureSelected", object: nil, userInfo: ["index" : indexPath.row])
+            NotificationCenter.default.post(name: "departureSelected", object: nil, userInfo: ["index" : indexPath.row])
         }else{
-            NSNotificationCenter.defaultCenter().postNotificationName("arrivalSelected", object: nil, userInfo: ["index" : indexPath.row])
+            NotificationCenter.default.post(name: "arrivalSelected", object: nil, userInfo: ["index" : indexPath.row])
         }
         
     }

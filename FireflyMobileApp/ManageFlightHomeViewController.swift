@@ -66,8 +66,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }
         
         if isConfirm{
-            confirmView.hidden = false
-            buttonView.hidden = true
+            confirmView.isHidden = false
+            buttonView.isHidden = true
             
             cancelBtn.layer.borderWidth = 0.5
             cancelBtn.layer.cornerRadius = 10.0
@@ -84,8 +84,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else{
             itineraryData = defaults.object(forKey: "manageFlight") as! NSDictionary
             
-            confirmView.hidden = true
-            buttonView.hidden = false
+            confirmView.isHidden = true
+            buttonView.isHidden = false
             
             sendItineraryBtn.layer.borderWidth = 0.5
             sendItineraryBtn.layer.cornerRadius = 10.0
@@ -111,7 +111,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             getInfo()
             
             if totalDue == "0.00 MYR"{
-                addPaymentBtn.hidden = true
+                addPaymentBtn.isHidden = true
                 var newFrame = headerView.frame
                 newFrame.size.height = newFrame.size.height - 42
                 headerView.frame = newFrame
@@ -119,21 +119,21 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             if flightType == "MH" && itineraryData["ssr_status"] as! String == "Y"{
                 
-                changeSeatBtn.hidden = true
+                changeSeatBtn.isHidden = true
                 var newFrame = headerView.frame
                 newFrame.size.height = newFrame.size.height - 42
                 headerView.frame = newFrame
 
                 if !ssrAvailable{
-                    ssrBtn.hidden = true
+                    ssrBtn.isHidden = true
                     var newFrame = headerView.frame
                     newFrame.size.height = newFrame.size.height - 42
                     headerView.frame = newFrame
                 }
                 
                 if !isAvailable{
-                    changeFlightBtn.hidden = true
-                    ssrBtn.hidden = true
+                    changeFlightBtn.isHidden = true
+                    ssrBtn.isHidden = true
                     var newFrame = headerView.frame
                     newFrame.size.height = newFrame.size.height - 88
                     headerView.frame = newFrame
@@ -141,15 +141,15 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 }
             }else{
                 
-                ssrBtn.hidden = true
+                ssrBtn.isHidden = true
                 var newFrame = headerView.frame
                 newFrame.size.height = newFrame.size.height - 42
                 headerView.frame = newFrame
                 
                 
                 if !isAvailable{
-                    changeSeatBtn.hidden = true
-                    changeFlightBtn.hidden = true
+                    changeSeatBtn.isHidden = true
+                    changeFlightBtn.isHidden = true
                     
                     var newFrame = headerView.frame
                     newFrame.size.height = newFrame.size.height - 88
@@ -320,11 +320,11 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         }, completion: nil)
                     
                 }else{
-                    cell.unconfirmedStatus.hidden = true
+                    cell.unconfirmedStatus.isHidden = true
                 }
                 
             }else{
-                cell.unconfirmedStatus.hidden = true
+                cell.unconfirmedStatus.isHidden = true
             }
             
             let str = "\(flightDetail[indexPath.row]["date"] as! String)\n\(flightDetail[indexPath.row]["station"] as! String)\n\(flightDetail[indexPath.row]["flight_number"] as! String)\n"
@@ -361,8 +361,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 cell.infantLbl.text = infant
                 cell.infantPriceLbl.text = detail["total_infant"] as? String
             }else{
-                cell.infantPriceLbl.hidden = true
-                cell.infantLbl.hidden = true
+                cell.infantPriceLbl.isHidden = true
+                cell.infantLbl.isHidden = true
             }
             
             cell.flightDestination.text = detail["title"] as? String
@@ -973,7 +973,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             if subView.classForCoder == ManageFlightHomeViewController.classForCoder(){
                 self.navigationController?.popToViewController(subView , animated: true)
-                NSNotificationCenter.defaultCenter().postNotificationName("reloadHomePage", object: nil)
+                NotificationCenter.default.post(name: "reloadHomePage", object: nil)
                 break
             }
             
@@ -1010,7 +1010,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                 
                                 hideLoading()
                                 self.navigationController?.popToViewController(subView , animated: true)
-                                NSNotificationCenter.defaultCenter().postNotificationName("reloadHomePage", object: nil)
+                                NotificationCenter.default.post(name: "reloadHomePage", object: nil)
                                 break
                             }
                             

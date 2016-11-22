@@ -56,10 +56,10 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
             notLogin()
         }
         loadingIndicator.isHidden = load
-        NotificationCenter.default.addObserver(self, selector: #selector(BoardingPassDetailViewController.refreshBoardingPass(_:)), name: "reloadBoardingPass", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BoardingPassDetailViewController.refreshBoardingPass(_:)), name: NSNotification.Name(rawValue: "reloadBoardingPass"), object: nil)
     }
     
-    func refreshBoardingPass(notif : NSNotification){
+    func refreshBoardingPass(_ notif : NSNotification){
         
         loadingIndicator.isHidden = true
         loadBoardingPass()
@@ -69,7 +69,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     func viewBoardingPass(){
         
         //1
-        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+        self.scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)//
         let scrollViewWidth:CGFloat = self.scrollView.frame.width
         let scrollViewHeight:CGFloat = self.scrollView.frame.width
         
@@ -79,7 +79,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
             let new = CGFloat(i)
             let xOrigin = new * self.view.frame.size.width
             boardingPassView = Bundle.main.loadNibNamed("BoardingPassView", owner: self, options: nil)?[0] as! UIView
-            boardingPassView.frame = CGRectMake(xOrigin+5, 0,scrollViewWidth-10, self.scrollView.frame.height - 8)
+            boardingPassView.frame = CGRect(x: xOrigin+5, y: 0, width: scrollViewWidth-10, height: self.scrollView.frame.height - 8)//
             boardingPassView.layer.borderWidth = 1
             
             border.layer.cornerRadius = 5
@@ -103,7 +103,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         }
 
         pageControl.numberOfPages = numberOfView
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width * CGFloat(numberOfView), scrollViewHeight)
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width * CGFloat(numberOfView), height: scrollViewHeight)
         self.scrollView.delegate = self
         self.pageControl.currentPage = 0
         
@@ -112,18 +112,20 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     func notLogin(){
         
         //1
-        self.scrollView.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
+        self.scrollView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         let scrollViewWidth:CGFloat = self.scrollView.frame.width
         let scrollViewHeight:CGFloat = self.scrollView.frame.width
         
         let numberOfView = boardingPassData.count
         var i = 0
-        for info in boardingPassData{
+        for tempInfo in boardingPassData{
+            
+            let info = tempInfo as! Dictionary<String, AnyObject>
             
             let new = CGFloat(i)
             let xOrigin = new * self.view.frame.size.width
             boardingPassView = Bundle.main.loadNibNamed("BoardingPassView", owner: self, options: nil)?[0] as! UIView
-            boardingPassView.frame = CGRectMake(xOrigin+5, 0,scrollViewWidth-10, self.scrollView.frame.height - 8)
+            boardingPassView.frame = CGRect(x: xOrigin+5, y: 0, width: scrollViewWidth-10, height: self.scrollView.frame.height - 8)
             boardingPassView.layer.borderWidth = 1
             
             border.layer.cornerRadius = 5
@@ -146,7 +148,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         }
         
         pageControl.numberOfPages = numberOfView
-        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width * CGFloat(numberOfView), scrollViewHeight)
+        self.scrollView.contentSize = CGSize(width: self.scrollView.frame.width * CGFloat(numberOfView), height: scrollViewHeight)
         self.scrollView.delegate = self
         self.pageControl.currentPage = 0
         

@@ -126,8 +126,8 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                 cell.infantLbl.text = infant
                 cell.infantPriceLbl.text = detail["total_infant"] as? String
             }else{
-                cell.infantPriceLbl.hidden = true
-                cell.infantLbl.hidden = true
+                cell.infantPriceLbl.isHidden = true
+                cell.infantLbl.isHidden = true
             }
             
             cell.flightDestination.text = detail["title"] as? String

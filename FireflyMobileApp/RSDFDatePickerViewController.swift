@@ -76,7 +76,7 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
                 "date": dateFormatters().stringFromDate(date),
             ]
             
-            NSNotificationCenter.defaultCenter().postNotificationName(typeDate, object: nil, userInfo: pageDict)
+            NotificationCenter.default.post(name: typeDate, object: nil, userInfo: pageDict)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
@@ -138,7 +138,7 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
                 "date": selectedDate,
             ]
             
-            NSNotificationCenter.defaultCenter().postNotificationName(typeDate, object: nil, userInfo: pageDict)
+            NotificationCenter.default.post(name: typeDate, object: nil, userInfo: pageDict)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         

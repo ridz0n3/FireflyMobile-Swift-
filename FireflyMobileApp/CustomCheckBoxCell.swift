@@ -49,13 +49,13 @@ class CustomCheckBoxCell: XLFormBaseCell {
         updateButtons()
     }
     
-    override static func formDescriptorCellHeightForRowDescriptor(rowDescriptor: XLFormRowDescriptor!) -> CGFloat {
+    override static func formDescriptorCellHeight(for rowDescriptor: XLFormRowDescriptor!) -> CGFloat {
         return 40
     }
     
     //MARK: - Action
     
-    @IBAction func dayTapped(sender: UIButton) {
+    @IBAction func dayTapped(_ sender: UIButton) {
         let checked = getCheckFormButton(sender)
         sender.selected = !sender.selected
         var newValue = rowDescriptor!.value as! Dictionary<String, Bool>
@@ -84,7 +84,7 @@ class CustomCheckBoxCell: XLFormBaseCell {
         checkButtonButton.alpha = rowDescriptor!.isDisabled() ? 0.6 : 1
     }
     
-    func getCheckFormButton(button: UIButton) -> String {
+    func getCheckFormButton(_ button: UIButton) -> String {
         switch button {
         case checkButtonButton:
             return kSave.status.description()

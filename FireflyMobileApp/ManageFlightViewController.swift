@@ -26,7 +26,7 @@ class ManageFlightViewController: BaseXLFormViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         initializeForm()
     }
@@ -87,11 +87,11 @@ class ManageFlightViewController: BaseXLFormViewController {
                         
                         if  json["status"].string == "success"{
                             
-                            defaults.setObject(json.object, forKey: "manageFlight")
+                            defaults.set(json.object, forKey: "manageFlight")
                             defaults.synchronize()
                             
                             let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                            let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             
                         }else{

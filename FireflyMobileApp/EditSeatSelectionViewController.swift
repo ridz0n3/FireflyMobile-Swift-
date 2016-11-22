@@ -42,13 +42,13 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     seatIndex = 0
                     seatArray.append(newSeat[0])
                     seat.add(seatArray)
-                    newSeat.removeAtIndex(0)
+                    newSeat.remove(at: 0)
                     seatArray = [Dictionary<String,AnyObject>]()
                     
                 }else{
                     
                     seatArray.append(newSeat[0])
-                    newSeat.removeAtIndex(0)
+                    newSeat.remove(at: 0)
                     seatIndex += 1
                     
                 }
@@ -65,16 +65,16 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                         if seatInfo["unit_designator"] as! String == tempInfo["seat_number"] as! String{
                             if countJourney == 0{
                                 passengers1.updateValue(tempInfo as NSDictionary, forKey: "\(i)")
-                                seatDict.updateValue(passengers1, forKey: "\(countJourney)")
+                                seatDict.updateValue(passengers1 as AnyObject, forKey: "\(countJourney)")
                                 
-                                seatType1.updateValue(tempInfo["seat_type"] as! String, forKey: "\(i)")
-                                seatTypeDict.updateValue(seatType1, forKey: "\(countJourney)")
+                                seatType1.updateValue(tempInfo["seat_type"] as! String as AnyObject, forKey: "\(i)")
+                                seatTypeDict.updateValue(seatType1 as AnyObject, forKey: "\(countJourney)")
                             }else{
                                 passengers2.updateValue(tempInfo as NSDictionary, forKey: "\(i)")
-                                seatDict.updateValue(passengers2, forKey: "\(countJourney)")
+                                seatDict.updateValue(passengers2 as AnyObject, forKey: "\(countJourney)")
                                 
-                                seatType2.updateValue(tempInfo["seat_type"] as! String, forKey: "\(i)")
-                                seatTypeDict.updateValue(seatType2, forKey: "\(countJourney)")
+                                seatType2.updateValue(tempInfo["seat_type"] as! String as AnyObject, forKey: "\(i)")
+                                seatTypeDict.updateValue(seatType2 as AnyObject, forKey: "\(countJourney)")
                                 //seatTypeDict.updateValue(tempInfo["seat_type"] as! String, forKey: "\(countJourney)")
                             }
                             break
@@ -89,10 +89,10 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             
             passengersArr.append(passengerInfo)
             
-            data["departure_station"] = departureStation
-            data["departure_station_name"] = departureStationName
-            data["arrival_station"] = arrivalStation
-            data["arrival_station_name"] = arrivalStationName
+            data["departure_station"] = departureStation as AnyObject?
+            data["departure_station_name"] = departureStationName as AnyObject?
+            data["arrival_station"] = arrivalStation as AnyObject?
+            data["arrival_station_name"] = arrivalStationName as AnyObject?
             data["seat_info"] = seat
             
             details.append(data)
@@ -101,7 +101,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
         }
         
         if isEdit{
-            passenger = passengersArr
+            passenger = passengersArr as [AnyObject]
         }
         
         // Do any additional setup after loading the view.
@@ -112,7 +112,8 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if indexPath.section == 0 {
             let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
             
@@ -132,7 +133,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 if passengerDetail["checked_in"] as! String != "Y"{
                     
                     if !isSelect{
-                        sectionSelect = NSIndexPath(forRow: indexPath.row, inSection: indexPath.section)
+                        sectionSelect = IndexPath(forRow: indexPath.row, inSection: indexPath.section)
                         isSelect = true
                     }
                     
@@ -145,17 +146,17 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
                     cell.removeSeat.addTarget(self, action: #selector(CommonSeatSelectionViewController.removeSeat(_:)), forControlEvents: .TouchUpInside)
                 }else{
-                    cell.removeSeat.hidden = true
+                    cell.removeSeat.isHidden = true
                 }
                 
             }else{
                 
-                cell.removeSeat.hidden = true
+                cell.removeSeat.isHidden = true
                 
                 if details.count == 2 && !selectChange{
-                    sectionSelect = NSIndexPath(forRow: 0, inSection: indexPath.section + 1)
+                    sectionSelect = IndexPath(forRow: 0, inSection: indexPath.section + 1)
                 }else if details.count == 1 && !selectChange{
-                    sectionSelect = NSIndexPath(forRow: 0, inSection: 90)
+                    sectionSelect = IndexPath(forRow: 0, inSection: 90)
                 }
             }
             
@@ -219,14 +220,14 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
                     cell.removeSeat.addTarget(self, action: #selector(CommonSeatSelectionViewController.removeSeat(_:)), forControlEvents: .TouchUpInside)
                 }else{
-                    cell.removeSeat.hidden = true
+                    cell.removeSeat.isHidden = true
                 }
                 
             }else{
-                cell.removeSeat.hidden = true
+                cell.removeSeat.isHidden = true
                 
                 if details.count == 2 && !selectChange{
-                    sectionSelect = NSIndexPath(forRow: 0, inSection: 90)
+                    sectionSelect = IndexPath(forRow: 0, inSection: 90)
                 }
             }
             
@@ -280,7 +281,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if details.count == 2{
             if indexPath.section != 2{
@@ -323,7 +324,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
     var isGoingSame = Bool()
     var isReturnSame = Bool()
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         if journeys.count == 2{
             

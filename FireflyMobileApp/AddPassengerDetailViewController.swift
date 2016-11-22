@@ -21,16 +21,16 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         isContinue = false
         adultArray = [Dictionary<String,AnyObject>]()
         flightType = defaults.object(forKey: "flightType") as! String
-        adultCount = (defaults.object(forKey: "adult")?.integerValue)!
-        infantCount = (defaults.object(forKey: "infants")?.integerValue)!
+        adultCount = ((defaults.object(forKey: "adult") as AnyObject).integerValue)!
+        infantCount = ((defaults.object(forKey: "infants") as AnyObject).integerValue)!
         module = "addPassenger"
         loadFamilyAndFriendData()
         initializeForm()
         AnalyticsManager.sharedInstance.logScreen("\(GAConstants.passengerDetailsScreen) (\(flightType))")
-        NotificationCenter.default.addObserver(self, selector: #selector(AddPassengerDetailViewController.reload(_:)), name: "reloadPicker", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AddPassengerDetailViewController.reload(_:)), name: NSNotification.Name(rawValue: "reloadPicker"), object: nil)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         if isContinue{
@@ -40,7 +40,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         
     }
     
-    func reload(sender : NSNotification){
+    func reload(_ sender : NSNotification){
         loadFamilyAndFriendData()
     }
     
@@ -50,9 +50,9 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
             let dateArr = (userInfo["DOB"] as! String).components(separatedBy: "-")
-            var userList = Results<FamilyAndFriendList>!()
-            userList = realm.objects(FamilyAndFriendList)
-            let mainUser = userList.filter("email == %@",userInfo["username"] as! String)
+            //var userList = Results<FamilyAndFriendList>!()
+            let userList = realm.objects(FamilyAndFriendList.self)
+            let mainUser = userList.filter("email == \(userInfo["username"] as! String)")
             
             if mainUser.count != 0{
                 if mainUser[0].familyList.count != 0{
@@ -62,57 +62,57 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 if !isContinue{
                     if familyAndFriendList.count == 0{
-                        data = ["title" : userInfo["title"]!,
-                                "first_name" : userInfo["first_name"]!,
-                                "last_name" : userInfo["last_name"]!,
-                                "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
-                                "issuing_country" : userInfo["contact_country"]!,
-                                "bonuslink" : userInfo["bonuslink"]!,
-                                "Save" : false]
-                        adultInfo.updateValue(data, forKey: "0")
+                        data = ["title" : userInfo["title"]! as AnyObject,
+                                "first_name" : userInfo["first_name"]! as AnyObject,
+                                "last_name" : userInfo["last_name"]! as AnyObject,
+                                "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])" as AnyObject,
+                                "issuing_country" : userInfo["contact_country"]! as AnyObject,
+                                "bonuslink" : userInfo["bonuslink"]! as AnyObject,
+                                "Save" : false as AnyObject]
+                        adultInfo.updateValue(data as AnyObject, forKey: "0")
                     }else{
                         var countExist = 0
                         for tempInfo in familyAndFriendList{
                             
                             if (tempInfo.title == userInfo["title"]! as! String) && (tempInfo.firstName == userInfo["first_name"]! as! String) && (tempInfo.lastName == userInfo["last_name"]! as! String) {
-                                data = ["id" : tempInfo.id,
-                                        "title" : tempInfo.title,
-                                        "gender" : tempInfo.gender,
-                                        "first_name" : tempInfo.firstName,
-                                        "last_name" : tempInfo.lastName,
-                                        "dob2" : tempInfo.dob,
-                                        "issuing_country" : tempInfo.country,
-                                        "bonuslink" : tempInfo.bonuslink,
-                                        "type" : tempInfo.type,
-                                        "Save" : false]
-                                adultInfo.updateValue(data, forKey: "0")
+                                data = ["id" : tempInfo.id as AnyObject,
+                                        "title" : tempInfo.title as AnyObject,
+                                        "gender" : tempInfo.gender as AnyObject,
+                                        "first_name" : tempInfo.firstName as AnyObject,
+                                        "last_name" : tempInfo.lastName as AnyObject,
+                                        "dob2" : tempInfo.dob as AnyObject,
+                                        "issuing_country" : tempInfo.country as AnyObject,
+                                        "bonuslink" : tempInfo.bonuslink as AnyObject,
+                                        "type" : tempInfo.type as AnyObject,
+                                        "Save" : false as AnyObject]
+                                adultInfo.updateValue(data as AnyObject, forKey: "0")
                                 countExist += 1
                             }
                         }
                         
                         if countExist == 0{
-                            data = ["title" : userInfo["title"]!,
-                                    "first_name" : userInfo["first_name"]!,
-                                    "last_name" : userInfo["last_name"]!,
-                                    "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
-                                    "issuing_country" : userInfo["contact_country"]!,
-                                    "bonuslink" : userInfo["bonuslink"]!,
-                                    "Save" : false]
-                            adultInfo.updateValue(data, forKey: "0")
+                            data = ["title" : userInfo["title"]! as AnyObject,
+                                    "first_name" : userInfo["first_name"]! as AnyObject,
+                                    "last_name" : userInfo["last_name"]! as AnyObject,
+                                    "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])" as AnyObject,
+                                    "issuing_country" : userInfo["contact_country"]! as AnyObject,
+                                    "bonuslink" : userInfo["bonuslink"]! as AnyObject,
+                                    "Save" : false as AnyObject]
+                            adultInfo.updateValue(data as AnyObject, forKey: "0")
                         }
                     }
                 }
             }else{
                 familyAndFriendList = nil
                 rearrangeFamily()
-                data = ["title" : userInfo["title"]!,
-                        "first_name" : userInfo["first_name"]!,
-                        "last_name" : userInfo["last_name"]!,
-                        "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
-                        "issuing_country" : userInfo["contact_country"]!,
-                        "bonuslink" : userInfo["bonuslink"]!,
-                        "Save" : false]
-                adultInfo.updateValue(data, forKey: "0")
+                data = ["title" : userInfo["title"]! as AnyObject,
+                        "first_name" : userInfo["first_name"]! as AnyObject,
+                        "last_name" : userInfo["last_name"]! as AnyObject,
+                        "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])" as AnyObject,
+                        "issuing_country" : userInfo["contact_country"]! as AnyObject,
+                        "bonuslink" : userInfo["bonuslink"]! as AnyObject,
+                        "Save" : false as AnyObject]
+                adultInfo.updateValue(data as AnyObject, forKey: "0")
             }
         }
         
@@ -130,10 +130,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 if familyInfo.type == "Infant"{
                     infantList.append(familyInfo)
-                    infantName.append("\(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString)
+                    infantName.append("\(familyInfo.firstName) \(familyInfo.lastName)".capitalized)
                 }else{
                     adultList.append(familyInfo)
-                    adultName.append("\(familyInfo.title) \(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString)
+                    adultName.append("\(familyInfo.title) \(familyInfo.firstName) \(familyInfo.lastName)".capitalized)
                 }
                 
             }
@@ -151,7 +151,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     "bonuslink" : "",
                     "type" : "",
                     "Save" : false,
-                    "traveling_with" : ""]
+                    "traveling_with" : ""] as [String : Any]
     
     func initializeForm() {
         
@@ -164,7 +164,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         if try! LoginManager.sharedInstance.isLogin(){
             // Basic Information - Section
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("Family & Friends")
+            section = XLFormSectionDescriptor.formSection(withTitle: "Family & Friends")
             form.addFormSection(section)
         }
         
@@ -175,7 +175,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             if status != "select"{
                 let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(adult)"]
-                adultArray.append(adultData)
+                adultArray.append(adultData as [String : AnyObject])
                 adultSelect.updateValue(0, forKey: "\(adult)")
             }
             // Basic Information - Section

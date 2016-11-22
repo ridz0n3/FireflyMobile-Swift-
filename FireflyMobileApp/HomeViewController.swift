@@ -386,7 +386,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                 mobileCheckinVC.module = "boardingPass"
                                 self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                             }else{
-                                NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPassList", object: nil)
+                                NotificationCenter.default.post(name: "reloadBoardingPassList", object: nil)
                             }
                         }else{
                             // Create custom Appearance Configuration
@@ -457,7 +457,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                         alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage:alertViewIcon)
                     }
                 }else{
-                    NSNotificationCenter.defaultCenter().postNotificationName("reloadBoardingPassList", object: nil)
+                    NotificationCenter.default.post(name: "reloadBoardingPassList", object: nil)
                 }
                 
             }
@@ -576,7 +576,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                 self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                                 hideLoading()
                             }else{
-                                NSNotificationCenter.defaultCenter().postNotificationName("reloadCheckInList", object: nil)
+                                NotificationCenter.default.post(name: "reloadCheckInList", object: nil)
                             }
                         }else{
                             hideLoading()
@@ -611,7 +611,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             
                             errorView.showInfo("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, circleIconImage: alertViewIcon)
                             
-                            NSNotificationCenter.defaultCenter().postNotificationName("reloadCheckInList", object: nil)
+                            NotificationCenter.default.post(name: "reloadCheckInList", object: nil)
                         }
                     }else if json["status"] == "error"{
                         hideLoading()
@@ -629,7 +629,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                     hideLoading()
                     showErrorMessage(failureResult.localizedDescription)
                 }else{
-                    NSNotificationCenter.defaultCenter().postNotificationName("reloadCheckInList", object: nil)
+                    NotificationCenter.default.post(name: "reloadCheckInList", object: nil)
                 }
                 //
             }

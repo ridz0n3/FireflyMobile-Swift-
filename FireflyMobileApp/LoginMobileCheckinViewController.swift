@@ -20,7 +20,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
         AnalyticsManager.sharedInstance.logScreen(GAConstants.loginMobileCheckInScreen)
         NotificationCenter.default.addObserver(self, selector: #selector(LoginMobileCheckinViewController.refreshCheckInList(_:)), name: "reloadCheckInList", object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(LoginMobileCheckinViewController.emptyCheckInList(_:)), name: "emptyCheckInList", object: nil)
-        loadingIndicator.hidden = indicator
+        loadingIndicator.isHidden = indicator
         loadCheckInList()
     }
 
@@ -32,26 +32,26 @@ class LoginMobileCheckinViewController: CommonListViewController {
         mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
         
         if mainUser.count != 0{
-            checkInList = mainUser[0].checkinList.sorted("departureDateTime", ascending: true)
+            checkInList = mainUser[0].checkinList.sorted(byProperty: "departureDateTime", ascending: true)
         }
         
     }
     
     func emptyCheckInList(notif : NSNotification){
         
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
         
     }
     
     func refreshCheckInList(notif : NSNotification){
         
         signature = mainUser[0].signature
-        loadingIndicator.hidden = true
+        loadingIndicator.isHidden = true
         loadCheckInList()
         LoginMobileCheckinTableView.reloadData()
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let bookingList = checkInList[indexPath.row]//listBooking[indexPath.row] as! NSDictionary
         showLoading() 
@@ -66,7 +66,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
                     
                     if  json["status"].string == "success"{
                         let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
-                        let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInDetailVC") as! MobileCheckInDetailViewController
+                        let checkInDetailVC = storyboard.instantiateViewController(withIdentifier: "MobileCheckInDetailVC") as! MobileCheckInDetailViewController
                         checkInDetailVC.checkInDetail = json.object as! NSDictionary as! [String : AnyObject]
                         checkInDetailVC.pnr = bookingList["pnr"] as! String
                         self.navigationController!.pushViewController(checkInDetailVC, animated: true)

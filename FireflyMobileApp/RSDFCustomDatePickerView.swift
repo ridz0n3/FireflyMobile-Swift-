@@ -11,23 +11,23 @@ import RSDayFlow
 
 class RSDFCustomDatePickerView: RSDFDatePickerView {
 
-    override func daysOfWeekViewClass() -> AnyClass! {
+    override func daysOfWeekViewClass() -> AnyClass {
         return RSDFDatePickerDaysOfWeekView.classForCoder()
     }
     
-    override func collectionViewClass() -> AnyClass! {
+    override func collectionViewClass() -> AnyClass {
         return RSDFCustomDatePickerCollectionView.classForCoder()
     }
     
-    override func collectionViewLayoutClass() -> AnyClass! {
+    override func collectionViewLayoutClass() -> AnyClass {
         return RSDFCustomDatePickerCollectionViewLayout.classForCoder()
     }
     
-    override func monthHeaderClass() -> AnyClass! {
+    override func monthHeaderClass() -> AnyClass {
         return RSDFCustomDatePickerMonthHeader.classForCoder()
     }
     
-    override func dayCellClass() -> AnyClass! {
+    override func dayCellClass() -> AnyClass {
         return RSDFCustomDatePickerDayCell.classForCoder()
     }
 

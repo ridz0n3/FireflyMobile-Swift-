@@ -20,9 +20,9 @@ class LeftSideMenuViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(LeftSideMenuViewController.refreshSideMenu(_:)), name: "reloadSideMenu", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LeftSideMenuViewController.refreshSideMenu(_:)), name: NSNotification.Name(rawValue: "reloadSideMenu"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(LeftSideMenuViewController.logoutSession(_:)), name: "logout", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LeftSideMenuViewController.logoutSession(_:)), name: NSNotification.Name(rawValue: "logout"), object: nil)
         
         if try! LoginManager.sharedInstance.isLogin(){
             hideRow = true
@@ -36,23 +36,23 @@ class LeftSideMenuViewController: UIViewController, UITableViewDataSource, UITab
         // Dispose of any resources that can be recreated.
     }
     
-    func logoutSession(sender : NSNotificationCenter){
+    func logoutSession(_ sender : NotificationCenter){
         
         self.hideRow = false
         self.leftMenuTableView.reloadData()
         
     }
     
-    func refreshSideMenu(notif:NSNotificationCenter){
+    func refreshSideMenu(_ notif:NotificationCenter){
         hideRow = true
         self.leftMenuTableView.reloadData()
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.row == 1 && hideRow == false) || (indexPath.row == 6 && hideRow == false) || (indexPath.row == 2 && hideRow == true) || (indexPath.row == 3 && hideRow == true){
             return 0.0
         }else {
@@ -60,16 +60,16 @@ class LeftSideMenuViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return menuSections.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = leftMenuTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! SideMenuTableViewCell
+        let cell = leftMenuTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SideMenuTableViewCell
         
         // This is how you change the background color
-        cell.selectionStyle = .Default
+        cell.selectionStyle = .default
         let bgColorView = UIView.init()
         bgColorView.backgroundColor = UIColor(red: 240/255, green: 109/255, blue: 34/255, alpha: 1.0)
         cell.selectedBackgroundView = bgColorView
@@ -80,21 +80,17 @@ class LeftSideMenuViewController: UIViewController, UITableViewDataSource, UITab
         return cell
     }
 
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let view = UIView.init(frame: CGRectMake(0, 0, tableView.frame.size.width, 50))
-        let label = UILabel.init(frame:CGRectMake(15, 0, tableView.frame.size.width, 50))
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))//CGRectMake(0, 0, tableView.frame.size.width, 50))
+        let label = UILabel.init(frame: CGRect(x: 15, y: 0, width: tableView.frame.size.width, height: 50))//CGRectMake(15, 0, , 50))
         label.font = UIFont(name: "HelveticaNeue-Light", size: 28.0)
-        label.tintColor = UIColor.whiteColor()
-        label.textColor = UIColor.whiteColor()
-        label.backgroundColor = UIColor.clearColor()
-        
-        
+        label.tintColor = UIColor.white
+        label.textColor = UIColor.white
+        label.backgroundColor = UIColor.clear
         
         if hideRow == true{
             let userInfo = defaults.object(forKey: "userInfo") as! NSMutableDictionary
@@ -106,52 +102,52 @@ class LeftSideMenuViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         view.addSubview(label)
-        view.backgroundColor = UIColor.darkGrayColor()
+        view.backgroundColor = UIColor.darkGray
         
         return view
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let navigationController : UIViewController!
         
         if (indexPath.row == 0) {
             
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+            let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeViewController
             navigationController = UINavigationController(rootViewController: homeVC)
             
         }else if (indexPath.row == 1) {
             let storyboard = UIStoryboard(name: "UpdateInformation", bundle: nil)
-            let updateVC = storyboard.instantiateViewControllerWithIdentifier("UpdateInfoVC") as! UpdateInformationViewController
+            let updateVC = storyboard.instantiateViewController(withIdentifier: "UpdateInfoVC") as! UpdateInformationViewController
             navigationController = UINavigationController(rootViewController: updateVC)
             
         }else if (indexPath.row == 2) {
             
             let storyboard = UIStoryboard(name: "Login", bundle: nil)
-            let loginVC = storyboard.instantiateViewControllerWithIdentifier("LoginVC") as! LoginViewController
+            let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginVC") as! LoginViewController
             navigationController = UINavigationController(rootViewController: loginVC)
             
         }else if (indexPath.row == 3) {
             
             let storyboard = UIStoryboard(name: "Register", bundle: nil)
-            let registerVC = storyboard.instantiateViewControllerWithIdentifier("RegisterVC") as! RegisterPersonalInfoViewController
+            let registerVC = storyboard.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterPersonalInfoViewController
             navigationController = UINavigationController(rootViewController: registerVC)
             
         }else if (indexPath.row == 4) {
             
             let storyboard = UIStoryboard(name: "About", bundle: nil)
-            let aboutVC = storyboard.instantiateViewControllerWithIdentifier("AboutVC") as! AboutViewController
+            let aboutVC = storyboard.instantiateViewController(withIdentifier: "AboutVC") as! AboutViewController
             navigationController = UINavigationController(rootViewController: aboutVC)
             
         }else if (indexPath.row == 5) {
             
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            let faqVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController
+            let faqVC = storyboard.instantiateViewController(withIdentifier: "FAQVC") as! FAQViewController
             navigationController = UINavigationController(rootViewController: faqVC)
             
         }else{
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
-            let homeVC = storyboard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+            let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeVC") as! HomeViewController
             navigationController = UINavigationController(rootViewController: homeVC)
             LogoutManager.sharedInstance.logout()
         }

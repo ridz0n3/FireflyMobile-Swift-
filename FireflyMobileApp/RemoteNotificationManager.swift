@@ -127,12 +127,12 @@ class RemoteNotificationManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDel
             InitialLoadManager.sharedInstance.load()
             //self.subscribeToTopic()
             //let userInfo = ["registrationToken": registrationToken]
-            //NSNotificationCenter.defaultCenter().postNotificationName(
+            //NotificationCenter.default.post(name: 
             //self.registrationKey, object: nil, userInfo: userInfo)
         } else {
             print("Registration to GCM failed with error: \(error.localizedDescription)")
             //let userInfo = ["error": error.localizedDescription]
-            //NSNotificationCenter.defaultCenter().postNotificationName(
+            //NotificationCenter.default.post(name: 
             //self.registrationKey, object: nil, userInfo: userInfo)
         }
     }

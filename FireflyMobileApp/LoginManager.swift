@@ -16,7 +16,7 @@ class LoginManager {
         
         if (defaults.object(forKey: "userInfo") != nil){
             
-            if defaults.object(forKey: "userInfo")?.count != nil{
+            if (defaults.object(forKey: "userInfo") as AnyObject).count != nil{
                 return true
             }else{
                 return false

@@ -77,7 +77,7 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
         
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if familyAndFriendList != nil{
             if familyAndFriendList.count == 0{
@@ -265,7 +265,7 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
                 let data = FamilyAndFriendData()
                 data.id = list["id"] as! Int
                 data.title = list["title"] as! String
-                data.gender = nullIfEmpty(list["gender"] as AnyObject) as! String
+                data.gender = nullIfEmpty(list["gender"] as AnyObject) 
                 data.firstName = list["first_name"] as! String
                 data.lastName = list["last_name"] as! String
                 data.dob = list["dob"] as! String

@@ -29,8 +29,8 @@ class AddAdultViewController: CommonAdultViewController {
         
         if isValidate{
             
-            let userInfo = defaults.object(forKey: "userInfo")
-            let email = userInfo!["username"] as! String
+            let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+            let email = userInfo["username"] as! String
             let title = getTitleCode(formValues()[Tags.ValidationTitle] as! String, titleArr: titleArray)
             let firstName = formValues()[Tags.ValidationFirstName] as! String
             let lastName = formValues()[Tags.ValidationLastName] as! String
@@ -41,13 +41,13 @@ class AddAdultViewController: CommonAdultViewController {
             
             let country = getCountryCode(formValues()[Tags.ValidationCountry] as! String, countryArr: countryArray)
             let type = adultInfo["type"] as! String
-            let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo])!
+            let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo] as AnyObject)
             let familyId = adultInfo["id"] as! Int
             
             showLoading()
             
             if action == "add"{
-                FireFlyProvider.request(.AddFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink as! String), completion: { (result) in
+                FireFlyProvider.request(.AddFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink ), completion: { (result) in
                     
                     switch result {
                     case .success(let successResult):
@@ -57,10 +57,10 @@ class AddAdultViewController: CommonAdultViewController {
                             
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
-                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
-                                NSNotificationCenter.defaultCenter().postNotificationName("reloadList", object: nil)
+                                self.saveFamilyAndFriend(familyAndFriendInfo: json["family_and_friend"].arrayObject! as [AnyObject])
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
                                 
-                                self.navigationController?.popViewControllerAnimated(true)
+                                self.navigationController?.popViewController(animated: true)
                             }else if json["status"] == "error"{
                                 showErrorMessage(json["message"].string!)
                             }else if json["status"].string == "401"{
@@ -90,7 +90,7 @@ class AddAdultViewController: CommonAdultViewController {
                     
                 })
             }else{
-                FireFlyProvider.request(.EditFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink as! String, familyId), completion: { (result) in
+                FireFlyProvider.request(.EditFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink , familyId), completion: { (result) in
                     
                     switch result {
                     case .success(let successResult):
@@ -100,10 +100,10 @@ class AddAdultViewController: CommonAdultViewController {
                             
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
-                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
-                                NSNotificationCenter.defaultCenter().postNotificationName("reloadList", object: nil)
+                                self.saveFamilyAndFriend(familyAndFriendInfo: json["family_and_friend"].arrayObject! as [AnyObject])
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
                                 
-                                self.navigationController?.popViewControllerAnimated(true)
+                                self.navigationController?.popViewController(animated: true)
                             }else if json["status"] == "error"{
                                 showErrorMessage(json["message"].string!)
                             }else if json["status"].string == "401"{

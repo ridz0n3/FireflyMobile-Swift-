@@ -58,7 +58,7 @@ class AddInfantViewController: CommonInfantViewController {
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
                                 self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
-                                NSNotificationCenter.defaultCenter().postNotificationName("reloadList", object: nil)
+                                NotificationCenter.default.post(name: "reloadList", object: nil)
                                 
                                 self.navigationController?.popViewControllerAnimated(true)
                             }else if json["status"] == "error"{
@@ -101,7 +101,7 @@ class AddInfantViewController: CommonInfantViewController {
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
                                 self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
-                                NSNotificationCenter.defaultCenter().postNotificationName("reloadList", object: nil)
+                                NotificationCenter.default.post(name: "reloadList", object: nil)
                                 
                                 self.navigationController?.popViewControllerAnimated(true)
                             }else if json["status"] == "error"{

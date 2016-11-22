@@ -198,13 +198,13 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
             if isCheckReturn{
                 checkBox.checkState = M13CheckboxState.Checked
             }else{
-                checkBox.checkState = M13CheckboxState.Unchecked
+                checkBox.checkState = M13CheckboxState.unchecked
             }
         }else{
             if isCheckGoing{
                 checkBox.checkState = M13CheckboxState.Checked
             }else{
-                checkBox.checkState = M13CheckboxState.Unchecked
+                checkBox.checkState = M13CheckboxState.unchecked
             }
         }
         

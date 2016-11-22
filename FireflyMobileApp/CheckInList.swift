@@ -14,6 +14,6 @@ class CheckInList: Object {
     dynamic var pnr = ""
     dynamic var departureStationCode = ""
     dynamic var arrivalStationCode = ""
-    dynamic var departureDateTime = NSDate()
+    dynamic var departureDateTime = Date()
     dynamic var departureDayDate = ""
 }

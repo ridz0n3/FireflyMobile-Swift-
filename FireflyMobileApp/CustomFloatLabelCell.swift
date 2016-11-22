@@ -27,19 +27,19 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     var selectDateIndex = [0,0]
     
     //date picker
-    var selectDate = NSDate()
+    var selectDate = Date()
     let pickerView = UIPickerView()
     
-    func addToolBar(textField: UITextField){
+    func addToolBar(_ textField: UITextField){
         let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.Default
-        toolBar.translucent = true
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
         //toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.Done, target: self, action: #selector(CustomFloatLabelCell.donePressed))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action: #selector(CustomFloatLabelCell.cancelPressed))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(CustomFloatLabelCell.donePressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(CustomFloatLabelCell.cancelPressed))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        toolBar.userInteractionEnabled = true
+        toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
         
         textField.delegate = self
@@ -52,18 +52,18 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         floatLabeledTextField.resignFirstResponder()
         
         if selectValue == "P"{
-            NSNotificationCenter.defaultCenter().postNotificationName("removeExpiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "removeExpiredDate"), object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
         }else if selectValue == "2"{
-            NSNotificationCenter.defaultCenter().postNotificationName("removeBusiness", object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "removeBusiness"), object: nil)
         }
         
         //selectindex = selectindex
         selectValue = dataValue[selectindex]
         
         if selectValue == "P"{
-            NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "expiredDate"), object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
         }else if selectValue == "2"{
-            NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addBusiness"), object: nil)
         }else if self.rowDescriptor?.tag == "Country"{
             var dialingCode = String()
             for country in countryArray{
@@ -74,9 +74,9 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
                 
             }
             
-            NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue, "dialingCode" : dialingCode])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selectCountry"), object: nil, userInfo: ["countryVal" : selectValue, "dialingCode" : dialingCode])
         }else if self.rowDescriptor?.tag == "Departing"{
-            NSNotificationCenter.defaultCenter().postNotificationName("refreshArrivingCode", object: nil, userInfo: ["departStationCode" : selectValue])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshArrivingCode"), object: nil, userInfo: ["departStationCode" : selectValue])
             
         }
         
@@ -91,16 +91,16 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         let result  = JVFloatLabeledTextField(frame: CGRect.zero)
         result.background = UIImage(named: "txtField")
         result.translatesAutoresizingMaskIntoConstraints = false
-        result.font = UIFont.systemFontOfSize(kFontSize)
-        result.floatingLabel.font = UIFont.boldSystemFontOfSize(kFontSize)
-        result.clearButtonMode = UITextFieldViewMode.WhileEditing
+        result.font = UIFont.systemFont(ofSize: kFontSize)
+        result.floatingLabel.font = UIFont.boldSystemFont(ofSize: kFontSize)
+        result.clearButtonMode = UITextFieldViewMode.whileEditing
         return result
     }()
     
     override func configure() {
         selectindex = 0
         super.configure()
-        self.selectionStyle = UITableViewCellSelectionStyle.None
+        self.selectionStyle = UITableViewCellSelectionStyle.none
         self.contentView.addSubview(self.floatLabeledTextField)
         self.floatLabeledTextField.delegate = self
         contentView.addConstraints(layoutConstraints())
@@ -112,10 +112,10 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         let tag = self.rowDescriptor?.tag?.components(separatedBy: "(")
         
         if tag![0] == "Password" || tag![0] == "New Password" || tag![0] == "Confirm Password"{
-            self.floatLabeledTextField.keyboardType = .ASCIICapable
-            self.floatLabeledTextField.secureTextEntry = true
+            self.floatLabeledTextField.keyboardType = .asciiCapable
+            self.floatLabeledTextField.isSecureTextEntry = true
         }else if tag![0] == "Mobile/Home" || tag![0] == "Alternate" || tag![0] == "Postcode" || tag![0] == "CCV/CVC Number" || tag![0] == "Card Number" || tag![0] == "Bonuslink" || tag![0] == Tags.ValidationFax{
-            self.floatLabeledTextField.keyboardType = .PhonePad
+            self.floatLabeledTextField.keyboardType = .phonePad
         }else if tag![0] == Tags.ValidationPurpose
             || tag![0] == Tags.ValidationState
             || tag![0] == Tags.ValidationCardType
@@ -132,12 +132,12 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         
         if tag![0] != Tags.ValidationEnrichLoyaltyNo{
             let title = self.rowDescriptor!.title?.components(separatedBy: ":")
-            let star = [NSForegroundColorAttributeName : UIColor.redColor()]
+            let star = [NSForegroundColorAttributeName : UIColor.red]
             var attrString = NSMutableAttributedString()
             attrString = NSMutableAttributedString(attributedString: NSAttributedString(string: "\(title![0]):"))
-            if title?.count >= 2{
+            if (title?.count)! >= 2{
                 let attrStar = NSMutableAttributedString(string: title![1], attributes: star)
-                attrString.appendAttributedString(attrStar)
+                attrString.append(attrStar)
             }
             
             self.floatLabeledTextField.attributedPlaceholder = attrString
@@ -145,15 +145,15 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
             self.floatLabeledTextField.placeholder = self.rowDescriptor!.title
         }
         
-        if let value: AnyObject = self.rowDescriptor!.value {
+        if let value: AnyObject = self.rowDescriptor!.value as AnyObject? {
             self.floatLabeledTextField.text = value.displayText()
         }
         else {
             self.floatLabeledTextField.text = self.rowDescriptor!.noValueDisplayText
         }
-        self.floatLabeledTextField.enabled = !self.rowDescriptor!.isDisabled()
-        self.floatLabeledTextField.textColor = self.rowDescriptor!.isDisabled() ? UIColor.lightGrayColor() : UIColor.blackColor()
-        self.floatLabeledTextField.floatingLabelTextColor = UIColor.lightGrayColor()
+        self.floatLabeledTextField.isEnabled = !self.rowDescriptor!.isDisabled()
+        self.floatLabeledTextField.textColor = self.rowDescriptor!.isDisabled() ? UIColor.lightGray : UIColor.black
+        self.floatLabeledTextField.floatingLabelTextColor = UIColor.lightGray
         self.floatLabeledTextField.alpha = self.rowDescriptor!.isDisabled() ? 0.6 : 1.0
         
     }
@@ -166,7 +166,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         return self.floatLabeledTextField.becomeFirstResponder()
     }
     
-    override static func formDescriptorCellHeightForRowDescriptor(rowDescriptor: XLFormRowDescriptor!) -> CGFloat {
+    override static func formDescriptorCellHeight(for rowDescriptor: XLFormRowDescriptor!) -> CGFloat {
         return 55
     }
     
@@ -174,12 +174,12 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     func layoutConstraints() -> [NSLayoutConstraint]{
         let views = ["floatLabeledTextField" : self.floatLabeledTextField]
         let metrics = ["hMargin": 15.0, "vMargin": 8.0]
-        var result =  NSLayoutConstraint.constraintsWithVisualFormat("H:|-(hMargin)-[floatLabeledTextField]-(hMargin)-|", options:NSLayoutFormatOptions.AlignAllCenterY, metrics:metrics, views:views)
-        result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(vMargin)-[floatLabeledTextField]-(vMargin)-|", options:NSLayoutFormatOptions.AlignAllCenterX, metrics:metrics, views:views)
+        var result =  NSLayoutConstraint.constraints(withVisualFormat: "H:|-(hMargin)-[floatLabeledTextField]-(hMargin)-|", options:NSLayoutFormatOptions.alignAllCenterY, metrics:metrics, views:views)
+        result += NSLayoutConstraint.constraints(withVisualFormat: "V:|-(vMargin)-[floatLabeledTextField]-(vMargin)-|", options:NSLayoutFormatOptions.alignAllCenterX, metrics:metrics, views:views)
         return result
     }
     
-    func textFieldDidChange(textField : UITextField) {
+    func textFieldDidChange(_ textField : UITextField) {
         if self.floatLabeledTextField == textField {
             if self.floatLabeledTextField.text!.isEmpty == false {
                 self.rowDescriptor!.value = self.floatLabeledTextField.text
@@ -190,7 +190,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     }
     
     //Mark: UITextFieldDelegate
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         
         let tag = self.rowDescriptor?.tag?.components(separatedBy: "(")
         
@@ -198,8 +198,8 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
             textFieldBefore.endEditing(true)
             getExpiredData()
             let labelParagraphStyle = NSMutableParagraphStyle()
-            labelParagraphStyle.alignment = .Center
-            ActionSheetMultipleStringPicker.showPickerWithTitle("", rows: expireDate as [AnyObject], initialSelection: selectDateIndex as [AnyObject], target: self, successAction: #selector(CustomFloatLabelCell.expiredDateSelected(_:element:)), cancelAction: nil, origin: textField)
+            labelParagraphStyle.alignment = .center
+            ActionSheetMultipleStringPicker.show(withTitle: "", rows: expireDate as [AnyObject], initialSelection: selectDateIndex as [AnyObject], target: self, successAction: #selector(CustomFloatLabelCell.expiredDateSelected(_:element:)), cancelAction: nil, origin: textField)
             return false
         }else if tag![0] == Tags.ValidationDate || tag![0] == Tags.ValidationExpiredDate{
             textFieldBefore.endEditing(true)
@@ -207,35 +207,32 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
             if self.rowDescriptor?.value as! String != ""{
                 
                 let date = self.rowDescriptor?.value
-                let dateArr = (date as! String).stringByReplacingOccurrencesOfString("-", withString: "/")
-                // .components(separatedBy: "-")
-                //let arrangeDate = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
-                
-                let formater = NSDateFormatter()
-                formater.dateStyle = NSDateFormatterStyle.ShortStyle
-                let twentyFour = NSLocale(localeIdentifier: "en_GB")
-                formater.locale = twentyFour
-                selectDate = formater.dateFromString(dateArr)!
+                let dateArr = (date as! String).replacingOccurrences(of: "-", with: "/")
+                let formater = DateFormatter()
+                formater.dateStyle = DateFormatter.Style.short
+                let twentyFour = Locale(identifier: "en_GB")
+                formater.locale = twentyFour as Locale!
+                selectDate = formater.date(from: dateArr)!
             }
             
-            let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date , selectedDate: selectDate, target: self, action: #selector(CustomFloatLabelCell.datePicked(_:element:)), origin: textField)
+            let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.date , selectedDate: selectDate, target: self, action: #selector(CustomFloatLabelCell.datePicked(_:element:)), origin: textField)
             
             if let str = self.rowDescriptor.tag{
                 
                 let strArr = str.components(separatedBy: "(")
                 
                 if strArr[0] == Tags.ValidationExpiredDate{
-                    datePicker.minimumDate = NSDate()
+                    datePicker?.minimumDate = Date()
                     CLSLogv("Log %@", getVaList([strArr[0]]))
                 }else{
-                    datePicker.maximumDate = NSDate()
+                    datePicker?.maximumDate = Date()
                 }
                 
             }
             
             
             
-            datePicker.showActionSheetPicker()
+            datePicker?.show()
             return false
         }else if tag![0] == Tags.ValidationPurpose
             || tag![0] == Tags.ValidationState
@@ -270,45 +267,45 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         
     }
     
-    func textFieldShouldClear(textField: UITextField) -> Bool {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
         return self.formViewController().textFieldShouldClear(textField)
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         return true
     }
     
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         return true
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
+    
         let doc = self.rowDescriptor?.tag?.components(separatedBy: "(")
         if self.rowDescriptor?.tag == Tags.ValidationConfirmationNumber{
             let maxLength = 6
-            let currentString: NSString = textField.text!
+            let currentString: NSString = textField.text! as NSString
             let newString: NSString =
-                currentString.stringByReplacingCharactersInRange(range, withString: string)
+                currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }else if self.rowDescriptor?.tag == Tags.ValidationCcvNumber{
             let maxLength = 4
-            let currentString: NSString = textField.text!
+            let currentString: NSString = textField.text! as NSString
             let newString: NSString =
-                currentString.stringByReplacingCharactersInRange(range, withString: string)
+                currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }else if doc![0] == Tags.ValidationDocumentNo{
             let maxLength = 20
-            let currentString: NSString = textField.text!
+            let currentString: NSString = textField.text! as NSString
             let newString: NSString =
-                currentString.stringByReplacingCharactersInRange(range, withString: string)
+                currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
         }else{
-            return self.formViewController().textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
+            return self.formViewController().textField(textField, shouldChangeCharactersIn: range, replacementString: string)
         }
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         self.textFieldDidChange(textField)
     }
     
@@ -321,17 +318,17 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         for tempData in row!{
             
             if self.rowDescriptor?.tag == Tags.ValidationDeparting || self.rowDescriptor?.tag == Tags.ValidationArriving{
-                data.append("\(tempData.formDisplayText()) (\(tempData.valueData() as! (String)))")
+                data.append("\((tempData as AnyObject).formDisplayText()) (\((tempData as AnyObject).valueData() as! (String)))")
             }else{
-                data.append(tempData.formDisplayText())
+                data.append((tempData as AnyObject).formDisplayText())
             }
             
-            dataValue.append(tempData.valueData() as! (String))
+            dataValue.append((tempData as AnyObject).valueData() as! (String))
             
             if ((self.rowDescriptor?.value) != nil){
-                if self.rowDescriptor?.value as! String == tempData.formDisplayText(){
+                if self.rowDescriptor?.value as! String == (tempData as AnyObject).formDisplayText(){
                     selectindex = i
-                    selectValue = tempData.valueData() as! (String)
+                    selectValue = (tempData as AnyObject).valueData() as! (String)
                 }
             }
             
@@ -339,16 +336,16 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         }
     }
     
-    func expiredDateSelected(index:NSArray, element:AnyObject){
+    func expiredDateSelected(_ index:NSArray, element:AnyObject){
         
         let txtLbl = element as! UITextField
         
         let monthIndex = index[0]
         let yearIndex = index[1]
         
-        selectDateIndex = [monthIndex.integerValue, yearIndex.integerValue]
+        selectDateIndex = [(monthIndex as AnyObject).integerValue, (yearIndex as AnyObject).integerValue]
         
-        txtLbl.text = "\(expireDate[0][monthIndex.integerValue])/\(expireDate[1][yearIndex.integerValue])"
+        txtLbl.text = "\(expireDate[0][(monthIndex as AnyObject).integerValue])/\(expireDate[1][(yearIndex as AnyObject).integerValue])"
         self.textFieldDidChange(txtLbl)
         
     }
@@ -358,21 +355,21 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         let txtLbl = element as! UITextField
         
         if selectValue == "P"{
-            NSNotificationCenter.defaultCenter().postNotificationName("removeExpiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "removeExpiredDate"), object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
         }else if selectValue == "2"{
-            NSNotificationCenter.defaultCenter().postNotificationName("removeBusiness", object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "removeBusiness"), object: nil)
         }
         
-        selectindex = index.integerValue
-        selectValue = dataValue[index.integerValue]
+        selectindex = index.intValue
+        selectValue = dataValue[index.intValue]
         
-        txtLbl.text = data[index.integerValue]
+        txtLbl.text = data[index.intValue]
         self.textFieldDidChange(txtLbl)
         
         if selectValue == "P"{
-            NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "expiredDate"), object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
         }else if selectValue == "2"{
-            NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addBusiness"), object: nil)
         }else if self.rowDescriptor?.tag == "Country"{
             var dialingCode = String()
             for country in countryArray{
@@ -383,9 +380,9 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
                 
             }
             
-            NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue, "dialingCode" : dialingCode])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selectCountry"), object: nil, userInfo: ["countryVal" : selectValue, "dialingCode" : dialingCode])
         }else if self.rowDescriptor?.tag == "Departing"{
-            NSNotificationCenter.defaultCenter().postNotificationName("refreshArrivingCode", object: nil, userInfo: ["departStationCode" : selectValue])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshArrivingCode"), object: nil, userInfo: ["departStationCode" : selectValue])
             
         }
         
@@ -393,9 +390,9 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     
     func getExpiredData(){
         
-        let formater = NSDateFormatter()
+        let formater = DateFormatter()
         formater.dateFormat = "yyyy"
-        let currentYear = formater.stringFromDate(NSDate())
+        let currentYear = formater.string(from: Date())
         var yearInc = Int(currentYear)
         
         var year = [String]()
@@ -420,15 +417,15 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     }
     
     //Mark : Date picker function
-    func formatDate(date:NSDate) -> String{
+    func formatDate(_ date:Date) -> String{
         
-        let formater = NSDateFormatter()
+        let formater = DateFormatter()
         formater.dateFormat = "dd-MM-yyyy"
-        return formater.stringFromDate(date)
+        return formater.string(from: date)
         
     }
     
-    func datePicked(date:NSDate, element:AnyObject){
+    func datePicked(_ date: Date, element:AnyObject){
         
         let textLbl = element as! UITextField
         selectDate = date
@@ -437,37 +434,37 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     }
     
     // returns the number of 'columns' to display.
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int{
         return 1
     }
     
     // returns the # of rows in each component..
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
         return data.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return data[row]
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
     {
         floatLabeledTextField.text = data[row]
         floatLabeledTextField.resignFirstResponder()
         
         if selectValue == "P"{
-            NSNotificationCenter.defaultCenter().postNotificationName("removeExpiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "removeExpiredDate"), object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
         }else if selectValue == "2"{
-            NSNotificationCenter.defaultCenter().postNotificationName("removeBusiness", object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "removeBusiness"), object: nil)
         }
         
         selectindex = row
         selectValue = dataValue[row]
         
         if selectValue == "P"{
-            NSNotificationCenter.defaultCenter().postNotificationName("expiredDate", object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "expiredDate"), object: nil, userInfo: ["tag" : (self.rowDescriptor?.tag)!])
         }else if selectValue == "2"{
-            NSNotificationCenter.defaultCenter().postNotificationName("addBusiness", object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "addBusiness"), object: nil)
         }else if self.rowDescriptor?.tag == "Country"{
             var dialingCode = String()
             for country in countryArray{
@@ -478,9 +475,9 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
                 
             }
             
-            NSNotificationCenter.defaultCenter().postNotificationName("selectCountry", object: nil, userInfo: ["countryVal" : selectValue, "dialingCode" : dialingCode])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "selectCountry"), object: nil, userInfo: ["countryVal" : selectValue, "dialingCode" : dialingCode])
         }else if self.rowDescriptor?.tag == "Departing"{
-            NSNotificationCenter.defaultCenter().postNotificationName("refreshArrivingCode", object: nil, userInfo: ["departStationCode" : selectValue])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshArrivingCode"), object: nil, userInfo: ["departStationCode" : selectValue])
             
         }
         

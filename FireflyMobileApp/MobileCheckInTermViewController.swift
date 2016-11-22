@@ -77,7 +77,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
             if checkStatus[indexPath.row] == "true"{
                 cell.termCheck.checkState = M13CheckboxState.Checked
             }else{
-                cell.termCheck.checkState = M13CheckboxState.Unchecked
+                cell.termCheck.checkState = M13CheckboxState.unchecked
             }
         }
         

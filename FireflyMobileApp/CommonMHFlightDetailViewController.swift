@@ -33,7 +33,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
         setupLeftButton()
         continueBtn.layer.cornerRadius = 10
         if flightDetail.count == 0{
-            self.continueView.hidden = true
+            self.continueView.isHidden = true
         }
         // Do any additional setup after loading the view.
     }
@@ -51,7 +51,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if flightDetail.count == 0{
             return 1
         }else{
@@ -76,7 +76,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if flightDetail.count == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
@@ -106,19 +106,19 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                 cell.arrivalTimeLbl.text = flightData!["arrival_time"]!.string
                 
                 if economyPromo!["status"]?.string == "sold out"{
-                    cell.economyPromoSoldView.hidden = false
-                    cell.economyPromoNotAvailableView.hidden = true
-                    cell.economyPromoBtn.hidden = true
+                    cell.economyPromoSoldView.isHidden = false
+                    cell.economyPromoNotAvailableView.isHidden = true
+                    cell.economyPromoBtn.isHidden = true
                 }else if economyPromo!["status"]?.string == "Not Available"{
-                    cell.economyPromoSoldView.hidden = true
-                    cell.economyPromoNotAvailableView.hidden = false
-                    cell.economyPromoBtn.hidden = true
+                    cell.economyPromoSoldView.isHidden = true
+                    cell.economyPromoNotAvailableView.isHidden = false
+                    cell.economyPromoBtn.isHidden = true
                 }else{
-                    cell.economyPromoNotAvailableView.hidden = true
-                    cell.economyPromoSoldView.hidden = true
+                    cell.economyPromoNotAvailableView.isHidden = true
+                    cell.economyPromoSoldView.isHidden = true
                     cell.economyPromoPriceLbl.text = String(format: "%@ MYR", economyPromo!["total_fare"]!.string!)
                     
-                    cell.economyPromoBtn.hidden = false
+                    cell.economyPromoBtn.isHidden = false
                     
                     cell.economyPromoBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:1"
                     cell.economyPromoBtn.addTarget(self, action: #selector(CommonMHFlightDetailViewController.checkCategory(_:)), forControlEvents: .TouchUpInside)
@@ -126,37 +126,37 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
                 }
                 
                 if economy!["status"]?.string == "sold out"{
-                    cell.economySoldView.hidden = false
-                    cell.economyNotAvailableView.hidden = true
-                    cell.economyBtn.hidden = true
+                    cell.economySoldView.isHidden = false
+                    cell.economyNotAvailableView.isHidden = true
+                    cell.economyBtn.isHidden = true
                 }else if economy!["status"]?.string == "Not Available"{
-                    cell.economySoldView.hidden = true
-                    cell.economyNotAvailableView.hidden = false
-                    cell.economyBtn.hidden = true
+                    cell.economySoldView.isHidden = true
+                    cell.economyNotAvailableView.isHidden = false
+                    cell.economyBtn.isHidden = true
                 }else{
-                    cell.economyNotAvailableView.hidden = true
-                    cell.economySoldView.hidden = true
+                    cell.economyNotAvailableView.isHidden = true
+                    cell.economySoldView.isHidden = true
                     cell.economyPriceLbl.text = String(format: "%@ MYR", economy!["total_fare"]!.string!)
                     
-                    cell.economyBtn.hidden = false
+                    cell.economyBtn.isHidden = false
                     
                     cell.economyBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:2"
                     cell.economyBtn.addTarget(self, action: #selector(CommonMHFlightDetailViewController.checkCategory(_:)), forControlEvents: .TouchUpInside)
                 }
                 
                 if business!["status"]?.string == "sold out"{
-                    cell.businessSoldView.hidden = false
-                    cell.businessNotAvailableView.hidden = true
-                    cell.businessBtn.hidden = true
+                    cell.businessSoldView.isHidden = false
+                    cell.businessNotAvailableView.isHidden = true
+                    cell.businessBtn.isHidden = true
                 }else if business!["status"]?.string == "Not Available"{
-                    cell.businessSoldView.hidden = true
-                    cell.businessNotAvailableView.hidden = false
-                    cell.businessBtn.hidden = true
+                    cell.businessSoldView.isHidden = true
+                    cell.businessNotAvailableView.isHidden = false
+                    cell.businessBtn.isHidden = true
                 }else{
-                    cell.businessNotAvailableView.hidden = true
-                    cell.businessSoldView.hidden = true
+                    cell.businessNotAvailableView.isHidden = true
+                    cell.businessSoldView.isHidden = true
                     cell.businessPriceLbl.text = String(format: "%@ MYR", business!["total_fare"]!.string!)
-                    cell.businessBtn.hidden = false
+                    cell.businessBtn.isHidden = false
                     
                     cell.businessBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:3"
                     cell.businessBtn.addTarget(self, action: #selector(CommonMHFlightDetailViewController.checkCategory(_:)), forControlEvents: .TouchUpInside)
@@ -236,7 +236,7 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let flightHeader = Bundle.main.loadNibNamed("MHFlightHeaderView", owner: self, options: nil)[0] as! MHFlightHeaderView
+        let flightHeader = Bundle.main.loadNibNamed("MHFlightHeaderView", owner: self, options: nil)?[0] as! MHFlightHeaderView
         
         let flightDict = flightDetail[section].dictionary
         

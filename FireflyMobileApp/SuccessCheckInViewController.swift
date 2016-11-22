@@ -96,22 +96,25 @@ class SuccessCheckInViewController: BaseViewController {
             for info in boardingList{
                 let index = "\(j)"
                 let imageURL = info["QRCodeURL"] as? String
-                Alamofire.request(.GET, imageURL!).response(completionHandler: { (request, response, data, error) -> Void in
+                
+                Alamofire.request(imageURL!).response(completionHandler: { response in
                     
-                    dict.updateValue(UIImage(data: data!)!, forKey: "\(index)")
+                    dict.updateValue(UIImage(data: response.data!)!, forKey: "\(index)")
                     i += 1
                     
                     if i == j{
                         
                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                        let boardingPassDetailVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassDetailVC") as! BoardingPassDetailViewController
+                        let boardingPassDetailVC = storyboard.instantiateViewController(withIdentifier: "BoardingPassDetailVC") as! BoardingPassDetailViewController
                         boardingPassDetailVC.load = true
                         boardingPassDetailVC.boardingPassData = self.boardingList
                         boardingPassDetailVC.imgDict = dict
                         self.navigationController!.pushViewController(boardingPassDetailVC, animated: true)
                         hideLoading()
                     }
+                    
                 })
+                
                 j += 1
             }
             

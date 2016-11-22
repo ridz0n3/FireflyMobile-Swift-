@@ -30,11 +30,12 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        
         return groupBookingList.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0{
             
@@ -56,20 +57,21 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
         //return listBooking.count
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         return 57
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0{
             
             if groupBookingList["Active"]?.count == 0{
-                let cell = loginManageFlightTableView.dequeueReusableCellWithIdentifier("NoUpcomingCell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
+                let cell = loginManageFlightTableView.dequeueReusableCell(withIdentifier: "NoUpcomingCell", for: indexPath) as! CustomLoginManageFlightTableViewCell
                 
                 return cell
             }else{
-                let cell = loginManageFlightTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
+                let cell = loginManageFlightTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomLoginManageFlightTableViewCell
                 
                 let bookingList = groupBookingList["Active"] as! [AnyObject]
                 let bookingData = bookingList[indexPath.row]
@@ -83,10 +85,10 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
         }else{
             
             if groupBookingList["notActive"]?.count == 0{
-                let cell = loginManageFlightTableView.dequeueReusableCellWithIdentifier("NoCompletedCell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
+                let cell = loginManageFlightTableView.dequeueReusableCell(withIdentifier: "NoCompletedCell", for: indexPath) as! CustomLoginManageFlightTableViewCell
                 return cell
             }else{
-                let cell = loginManageFlightTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomLoginManageFlightTableViewCell
+                let cell = loginManageFlightTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomLoginManageFlightTableViewCell
                 
                 let bookingList = groupBookingList["notActive"] as! [AnyObject]
                 let bookingData = bookingList[indexPath.row]
@@ -102,9 +104,9 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
         
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)?[0] as! PassengerHeaderView
         
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
@@ -118,14 +120,14 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
         }
         
         sectionView.sectionLbl.text = title
-        sectionView.sectionLbl.textColor = UIColor.whiteColor()
-        sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+        sectionView.sectionLbl.textColor = UIColor.white
+        sectionView.sectionLbl.textAlignment = NSTextAlignment.center
         
         return sectionView
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if groupBookingList["Active"]?.count != 0 || groupBookingList["notActive"]?.count != 0{
             
@@ -158,11 +160,11 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
                         
                         if json["status"] == "success"{
                             
-                            defaults.setObject(json.object, forKey: "manageFlight")
+                            defaults.set(json.object, forKey: "manageFlight")
                             defaults.synchronize()
                             
                             let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                            let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
                             manageFlightVC.isLogin = true
                             self.navigationController!.pushViewController(manageFlightVC, animated: true)
                             

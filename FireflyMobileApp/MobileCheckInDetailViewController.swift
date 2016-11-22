@@ -47,8 +47,8 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         // Do any additional setup after loading the view.
         initializeForm()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(MobileCheckInDetailViewController.addExpiredDate(_:)), name: "expiredDate", object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(MobileCheckInDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MobileCheckInDetailViewController.addExpiredDate(_:)), name: NSNotification.Name(rawValue: "expiredDate"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MobileCheckInDetailViewController.removeExpiredDate(_:)), name: NSNotification.Name(rawValue: "removeExpiredDate"), object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -84,9 +84,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             
             var tempArray = [AnyObject]()
             for travel in travelDoc{
-                tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
+                tempArray.append(XLFormOptionsObject(value: travel["doc_code"]!, displayText: travel["doc_name"]!))
                 
-                if passengerData["travel_document"] as? String == travel["doc_code"] as? String{
+                if passengerData["travel_document"]! as! String == travel["doc_code"]!{
                     row.value = travel["doc_name"]
                 }
             }
@@ -128,7 +128,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         self.form = form
         
         if countNotCheckIn == 0{
-            continueBtn.hidden = true
+            continueBtn.isHidden = true
         }
         var j = 0
         for passengerData in checkInDetail["passengers"] as! [Dictionary<String,AnyObject>] {
@@ -142,7 +142,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         }
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if arr[indexPath.section] == "true"{
             return 50
@@ -152,45 +152,45 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        passengerName = Bundle.main.loadNibNamed("MobileCheckInView", owner: self, options: nil)[0] as! UIView
+        passengerName = Bundle.main.loadNibNamed("MobileCheckInView", owner: self, options: nil)?[0] as! UIView
         
         let passengerDataArray = checkInDetail["passengers"] as! [Dictionary<String, AnyObject>]
         let passengerData = passengerDataArray[section] 
         name.text = "\(getTitleName(passengerData["title"] as! String)) \(passengerData["first_name"] as! String) \(passengerData["last_name"] as! String)"
         seatNo.text = passengerData["seat"]! as? String
         checkBtn.tag = section
-        checkBox.strokeColor = UIColor.orangeColor()
-        checkBox.checkColor = UIColor.orangeColor()
+        checkBox.strokeColor = UIColor.orange
+        checkBox.checkColor = UIColor.orange
         
-        checkBtn.addTarget(self, action: #selector(MobileCheckInDetailViewController.check(_:)), forControlEvents: .TouchUpInside)
+        checkBtn.addTarget(self, action: #selector(MobileCheckInDetailViewController.check(_:)), for: .touchUpInside)
         
         if passengerData["status"] as! String == "Checked In"{
-            checkBox.hidden = true
-            checkStatus.hidden = false
-            checkBtn.hidden = true
+            checkBox.isHidden = true
+            checkStatus.isHidden = false
+            checkBtn.isHidden = true
         }else{
-            checkBox.hidden = false
-            checkStatus.hidden = true
-            checkBtn.hidden = false
+            checkBox.isHidden = false
+            checkStatus.isHidden = true
+            checkBtn.isHidden = false
         }
         
         if arr[section] == "true"{
-            checkBox.checkState = M13CheckboxState.Checked
+            checkBox.checkState = M13CheckboxState.checked
         }else{
-            checkBox.checkState = M13CheckboxState.Unchecked
+            checkBox.checkState = M13CheckboxState.unchecked
         }
         
         return passengerName
         
     }
     
-    func check(sender : UIButton){
+    func check(_ sender : UIButton){
         var i = 0
         
         for arrData in arr{
@@ -198,11 +198,11 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             if i == sender.tag{
                 
                 if arrData == "true"{
-                    arr.removeAtIndex(i)
-                    arr.insert("false", atIndex: i)
+                    arr.remove(at: i)
+                    arr.insert("false", at: i)
                 }else{
-                    arr.removeAtIndex(i)
-                    arr.insert("true", atIndex: i)
+                    arr.remove(at: i)
+                    arr.insert("true", at: i)
                 }
                 
             }
@@ -215,7 +215,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         //checkBox.checkState = M13CheckboxState.Checked
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         var checkData = 0
         var allDataCount = 0
@@ -240,15 +240,16 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                     if data == "true"{
                         var passengerInfo = [String:AnyObject]()
                         var passengerArray = [AnyObject]()
-                        passengerInfo.updateValue("Y", forKey: "status")
-                        passengerArray = checkInDetail["passengers"] as! [AnyObject]
-                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!!, forKey: "passenger_number")
-                        passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
-                        passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray), forKey: "issuing_country")
-                        passengerInfo.updateValue(formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
                         
-                        let expiredDate = nilIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationExpiredDate, count)])! as! String
-                        var arrangeExpDate = NSArray()
+                        passengerInfo.updateValue("Y" as AnyObject, forKey: "status")
+                        passengerArray = checkInDetail["passengers"] as! [AnyObject]
+                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!, forKey: "passenger_number")
+                        passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc as [Dictionary<String, AnyObject>]) as AnyObject, forKey: "travel_document")
+                        passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray) as AnyObject, forKey: "issuing_country")
+                        passengerInfo.updateValue((formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]! as! String).xmlSimpleEscape() as AnyObject, forKey: "document_number")
+                        
+                        let expiredDate = nilIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationExpiredDate, count)] as AnyObject)
+                        var arrangeExpDate = [String]()
                         var newExpDate = String()
                         
                         if expiredDate != ""{
@@ -256,18 +257,18 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                             newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
                         }
                         
-                        passengerInfo.updateValue(newExpDate, forKey: "expiration_date")
+                        passengerInfo.updateValue(newExpDate as AnyObject, forKey: "expiration_date")
                         
-                        passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)])!, forKey: "bonuslink")
+                        passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
                         
-                        passenger.updateValue(passengerInfo, forKey: "\(count)")
+                        passenger.updateValue(passengerInfo as AnyObject, forKey: "\(count)")
                     }else{
                         var passengerInfo = [String:AnyObject]()
                         var passengerArray = [AnyObject]()
-                        passengerInfo.updateValue("N", forKey: "status")
+                        passengerInfo.updateValue("N" as AnyObject, forKey: "status")
                         passengerArray = checkInDetail["passengers"] as! [AnyObject]
                         passengerInfo.updateValue(passengerArray[count]["passenger_number"]!!, forKey: "passenger_number")
-                        passenger.updateValue(passengerInfo, forKey: "\(count)")
+                        passenger.updateValue(passengerInfo as AnyObject, forKey: "\(count)")
                     }
                     count += 1
                 }
@@ -277,7 +278,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 let arrival_station_code = checkInDetail["arrival_station_code"] as! String
 
                 showLoading() 
-                FireFlyProvider.request(.CheckInPassengerList(pnr, departure_station_code, arrival_station_code, signature, passenger), completion: { (result) -> () in
+                FireFlyProvider.request(.CheckInPassengerList(pnr, departure_station_code, arrival_station_code, signature, passenger as AnyObject), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):
@@ -287,7 +288,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                             if  json["status"].string == "success"{
                                 
                                 let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
-                                let checkInDetailVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInTermVC") as! MobileCheckInTermViewController
+                                let checkInDetailVC = storyboard.instantiateViewController(withIdentifier: "MobileCheckInTermVC") as! MobileCheckInTermViewController
                                 checkInDetailVC.pnr = self.pnr
                                 checkInDetailVC.termDetail = json.object as! Dictionary<String, AnyObject> 
                                 self.navigationController!.pushViewController(checkInDetailVC, animated: true)
@@ -324,13 +325,13 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         }
     }
     
-    func validatedForm(index:String) {
+    func validatedForm(_ index:String) {
         let array = formValidationErrors()
         
-        if array.count != 0{
+        if array?.count != 0{
             
             var count = 0
-            for errorItem in array {
+            for errorItem in array! {
                 
                 let error = errorItem as! NSError
                 let validationStatus : XLFormValidationStatus = error.userInfo[XLValidationStatusErrorKey] as! XLFormValidationStatus
@@ -341,12 +342,12 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 if errorTag[1] == index{
                     count += 1
                     if errorTag[0] == Tags.ValidationCountry || errorTag[0] == Tags.ValidationTravelDoc {
-                        let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                        let index = self.form.indexPath(ofFormRow: validationStatus.rowDescriptor!)! as IndexPath
                         
-                        if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
+                        if self.tableView.cellForRow(at: index) != nil{
+                            let cell = self.tableView.cellForRow(at: index) as! CustomFloatLabelCell
                             
-                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.red])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                             
                             animateCell(cell)
@@ -354,23 +355,23 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         
                         
                     }else if errorTag[0] == Tags.ValidationExpiredDate{
-                        let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                        let index = self.form.indexPath(ofFormRow: validationStatus.rowDescriptor!)! as IndexPath
                         
-                        if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
+                        if self.tableView.cellForRow(at: index) != nil{
+                            let cell = self.tableView.cellForRow(at: index) as! CustomFloatLabelCell
                             
-                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.red])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                             
                             animateCell(cell)
                         }
                     }else{
-                        let index = self.form.indexPathOfFormRow(validationStatus.rowDescriptor!)! as NSIndexPath
+                        let index = self.form.indexPath(ofFormRow: validationStatus.rowDescriptor!)! as IndexPath
                         
-                        if self.tableView.cellForRowAtIndexPath(index) != nil{
-                            let cell = self.tableView.cellForRowAtIndexPath(index) as! CustomFloatLabelCell
+                        if self.tableView.cellForRow(at: index) != nil{
+                            let cell = self.tableView.cellForRow(at: index) as! CustomFloatLabelCell
                             
-                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.redColor()])
+                            let textFieldAttrib = NSAttributedString.init(string: validationStatus.msg, attributes: [NSForegroundColorAttributeName : UIColor.red])
                             cell.floatLabeledTextField.attributedPlaceholder = textFieldAttrib
                             
                             animateCell(cell)
@@ -391,14 +392,14 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         }
     }
     
-    func addExpiredDate(sender:NSNotification){
-        let newTag = sender.userInfo!["tag"]!.components(separatedBy: "(")
+    func addExpiredDate(_ sender:NSNotification){
+        let newTag = (sender.userInfo!["tag"]! as AnyObject).components(separatedBy: "(")
         
         addExpiredDateRow(newTag[1], date: "")
         
     }
     
-    func addExpiredDateRow(tag : String, date: String){
+    func addExpiredDateRow(_ tag : String, date: String){
         
         var row : XLFormRowDescriptor
         
@@ -417,9 +418,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         self.form.addFormRow(row, afterRowTag: String(format: "%@(%@",Tags.ValidationDocumentNo, tag))
     }
     
-    func removeExpiredDate(sender:NSNotification){
+    func removeExpiredDate(_ sender:NSNotification){
         
-        let newTag = sender.userInfo!["tag"]!.components(separatedBy: "(")
+        let newTag = (sender.userInfo!["tag"]! as AnyObject).components(separatedBy: "(")
         self.form.removeFormRow(withTag: String(format: "%@(%@",Tags.ValidationExpiredDate, newTag[1]))
         
     }

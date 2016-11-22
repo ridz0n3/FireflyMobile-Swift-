@@ -33,20 +33,20 @@ class CommonPaymentViewController: BaseXLFormViewController {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
         deleteBtn.layer.cornerRadius = 10
-        deleteBtn.layer.borderColor = UIColor.orangeColor().CGColor
+        deleteBtn.layer.borderColor = UIColor.orange.cgColor
         deleteBtn.layer.borderWidth = 1
         setupLeftButton()
-        creditCardCheckBox.checkState = M13CheckboxState.Checked
+        creditCardCheckBox.checkState = M13CheckboxState.checked
         
-        creditCardCheckBox.strokeColor = UIColor.orangeColor()
-        creditCardCheckBox.checkColor = UIColor.orangeColor()
-        maybank2uCheckBox.strokeColor = UIColor.orangeColor()
+        creditCardCheckBox.strokeColor = UIColor.orange
+        creditCardCheckBox.checkColor = UIColor.orange
+        maybank2uCheckBox.strokeColor = UIColor.orange
         
-        maybank2uCheckBox.checkColor = UIColor.orangeColor()
-        cimbCheckBox.strokeColor = UIColor.orangeColor()
-        cimbCheckBox.checkColor = UIColor.orangeColor()
-        fpxCheckBox.strokeColor = UIColor.orangeColor()
-        fpxCheckBox.checkColor = UIColor.orangeColor()
+        maybank2uCheckBox.checkColor = UIColor.orange
+        cimbCheckBox.strokeColor = UIColor.orange
+        cimbCheckBox.checkColor = UIColor.orange
+        fpxCheckBox.strokeColor = UIColor.orange
+        fpxCheckBox.checkColor = UIColor.orange
         
         paymentMethod = "Card"
         
@@ -55,7 +55,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
             var newFooter = footerView.frame
             newFooter.size.height = footerView.frame.size.height - 48
             footerView.frame = newFooter
-            deleteBtn.hidden = true
+            deleteBtn.isHidden = true
             
         }
         
@@ -63,9 +63,9 @@ class CommonPaymentViewController: BaseXLFormViewController {
         newFrame.size.height = headerView.frame.size.height - (60 * 3)
         headerView.frame = newFrame
         
-        maybank2uCheckBox.hidden = true
-        cimbCheckBox.hidden = true
-        fpxCheckBox.hidden = true
+        maybank2uCheckBox.isHidden = true
+        cimbCheckBox.isHidden = true
+        fpxCheckBox.isHidden = true
         
         rearrangePaymentType()
         initializeForm()
@@ -82,14 +82,14 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         for channel in paymentType as! [Dictionary<String, AnyObject>]{
             
-            let url = NSURL(string: (channel["channel_logo"] as! String))!
-            let data = NSData(contentsOfURL: url)
+            let url = URL(string: (channel["channel_logo"] as! String))!
+            let data = try! Data(contentsOf: url)
             
             if channel["channel_type"] as! Int == 1{
                 
-                let img = UIImageView(frame: CGRectMake(xchannelPosition, 299, 138, 62))
-                img.image = UIImage(data: data!)
-                img.contentMode = .ScaleAspectFit
+                let img = UIImageView(frame: CGRect(x: xchannelPosition, y: 299, width: 138, height: 62))
+                img.image = UIImage(data: data)
+                img.contentMode = .scaleAspectFit
                 headerView.addSubview(img)
                 
                 //xchannelPosition = xchannelPosition + 70
@@ -98,9 +98,9 @@ class CommonPaymentViewController: BaseXLFormViewController {
                 
             }else if channel["channel_type"] as! Int == 2{
                 
-                let img = UIImageView(frame: CGRectMake(44, yonlinePosition, 78, 52))
-                img.contentMode = .ScaleAspectFit
-                img.image = UIImage(data: data!)
+                let img = UIImageView(frame: CGRect(x: 44, y: yonlinePosition, width: 78, height: 52))
+                img.contentMode = .scaleAspectFit
+                img.image = UIImage(data: data)
                 headerView.addSubview(img)
                 
                 countType2 += 1
@@ -117,11 +117,11 @@ class CommonPaymentViewController: BaseXLFormViewController {
             
             for i in 0...countType2-1{
                 if i == 0{
-                    maybank2uCheckBox.hidden = false
+                    maybank2uCheckBox.isHidden = false
                 }else if i == 1{
-                    cimbCheckBox.hidden = false
+                    cimbCheckBox.isHidden = false
                 }else{
-                    fpxCheckBox.hidden = false
+                    fpxCheckBox.isHidden = false
                 }
             }
         }
@@ -134,65 +134,65 @@ class CommonPaymentViewController: BaseXLFormViewController {
         let btn = sender as! UIButton
         
         if btn.tag == 1{
-            creditCardCheckBox.checkState = M13CheckboxState.Checked
-            maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
-            cimbCheckBox.checkState = M13CheckboxState.Unchecked
-            fpxCheckBox.checkState = M13CheckboxState.Unchecked
-            self.form.formRowWithTag(Tags.HideSection)?.value = "notHide"
+            creditCardCheckBox.checkState = M13CheckboxState.checked
+            maybank2uCheckBox.checkState = M13CheckboxState.unchecked
+            cimbCheckBox.checkState = M13CheckboxState.unchecked
+            fpxCheckBox.checkState = M13CheckboxState.unchecked
+            self.form.formRow(withTag: Tags.HideSection)?.value = "notHide"
             if cardInfo["card_type"] as! String != ""{
                 
                 var newFooter = footerView.frame
                 newFooter.size.height = footerView.frame.size.height + 48
                 footerView.frame = newFooter
-                deleteBtn.hidden = false
+                deleteBtn.isHidden = false
                 
             }
             tableView.reloadData()
             paymentMethod = "Card"
         }else if btn.tag == 2{
-            creditCardCheckBox.checkState = M13CheckboxState.Unchecked
-            maybank2uCheckBox.checkState = M13CheckboxState.Checked
-            cimbCheckBox.checkState = M13CheckboxState.Unchecked
-            fpxCheckBox.checkState = M13CheckboxState.Unchecked
-            self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
+            creditCardCheckBox.checkState = M13CheckboxState.unchecked
+            maybank2uCheckBox.checkState = M13CheckboxState.checked
+            cimbCheckBox.checkState = M13CheckboxState.unchecked
+            fpxCheckBox.checkState = M13CheckboxState.unchecked
+            self.form.formRow(withTag: Tags.HideSection)?.value = "hide"
             if cardInfo["card_type"] as! String != ""{
                 
                 var newFooter = footerView.frame
                 newFooter.size.height = footerView.frame.size.height - 48
                 footerView.frame = newFooter
-                deleteBtn.hidden = true
+                deleteBtn.isHidden = true
                 
             }
             tableView.reloadData()
             paymentMethod = "MU"
         }else if btn.tag == 3{
-            creditCardCheckBox.checkState = M13CheckboxState.Unchecked
-            maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
-            cimbCheckBox.checkState = M13CheckboxState.Checked
-            fpxCheckBox.checkState = M13CheckboxState.Unchecked
-            self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
+            creditCardCheckBox.checkState = M13CheckboxState.unchecked
+            maybank2uCheckBox.checkState = M13CheckboxState.unchecked
+            cimbCheckBox.checkState = M13CheckboxState.checked
+            fpxCheckBox.checkState = M13CheckboxState.unchecked
+            self.form.formRow(withTag: Tags.HideSection)?.value = "hide"
             if cardInfo["card_type"] as! String != ""{
                 
                 var newFooter = footerView.frame
                 newFooter.size.height = footerView.frame.size.height - 48
                 footerView.frame = newFooter
-                deleteBtn.hidden = true
+                deleteBtn.isHidden = true
                 
             }
             tableView.reloadData()
             paymentMethod = "CI"
         }else{
-            creditCardCheckBox.checkState = M13CheckboxState.Unchecked
-            maybank2uCheckBox.checkState = M13CheckboxState.Unchecked
-            cimbCheckBox.checkState = M13CheckboxState.Unchecked
-            fpxCheckBox.checkState = M13CheckboxState.Checked
-            self.form.formRowWithTag(Tags.HideSection)?.value = "hide"
+            creditCardCheckBox.checkState = M13CheckboxState.unchecked
+            maybank2uCheckBox.checkState = M13CheckboxState.unchecked
+            cimbCheckBox.checkState = M13CheckboxState.unchecked
+            fpxCheckBox.checkState = M13CheckboxState.checked
+            self.form.formRow(withTag: Tags.HideSection)?.value = "hide"
             if cardInfo["card_type"] as! String != ""{
                 
                 var newFooter = footerView.frame
                 newFooter.size.height = footerView.frame.size.height - 48
                 footerView.frame = newFooter
-                deleteBtn.hidden = true
+                deleteBtn.isHidden = true
                 
             }
             tableView.reloadData()
@@ -237,7 +237,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         row.selectorOptions = tempArray
         row.isRequired = true
         if cardInfo["card_type"]! as! String != ""{
-            row.disabled = NSNumber(bool: true)
+            row.disabled = NSNumber(value: true)
         }
         section.addFormRow(row)
         
@@ -246,7 +246,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         row.value = cardInfo["card_number"]! as! String
         row.isRequired = true
         if cardInfo["card_number"]! as! String != ""{
-            row.disabled = NSNumber(bool: true)
+            row.disabled = NSNumber(value: true)
         }
         section.addFormRow(row)
         
@@ -255,7 +255,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         if cardInfo["expiration_date_month"]! as! String != ""{
             row.value = "\(cardInfo["expiration_date_month"]! as! String)/\(cardInfo["expiration_date_year"]! as! String)"
-            row.disabled = NSNumber(bool: true)
+            row.disabled = NSNumber(value: true)
         }
         row.isRequired = true
         section.addFormRow(row)
@@ -266,7 +266,7 @@ class CommonPaymentViewController: BaseXLFormViewController {
         row.value = cardInfo["card_holder_name"]! as! String
         row.isRequired = true
         if cardInfo["card_holder_name"]! as! String != ""{
-            row.disabled = NSNumber(bool: true)
+            row.disabled = NSNumber(value: true)
         }
         section.addFormRow(row)
         
@@ -310,15 +310,15 @@ class CommonPaymentViewController: BaseXLFormViewController {
         
         let currentDate = date.components(separatedBy: "/")
         
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "MM"
-        let monthString = formatter.stringFromDate(NSDate())
+        let monthString = formatter.string(from: Date())
         formatter.dateFormat = "yyyy"
-        let yearString = formatter.stringFromDate(NSDate())
+        let yearString = formatter.string(from: Date())
         
         
         if currentDate[1] == yearString{
-            if Int(currentDate[0]) <= Int(monthString){
+            if Int(currentDate[0])! <= Int(monthString)!{
                 return false
             }
         }
@@ -329,8 +329,8 @@ class CommonPaymentViewController: BaseXLFormViewController {
     
     func luhnCheck(_ number: String) -> Bool {
         var sum = 0
-        let reversedCharacters = number.characters.reverse().map { String($0) }
-        for (idx, element) in reversedCharacters.enumerate() {
+        let reversedCharacters = number.characters.reversed().map { String($0) }
+        for (idx, element) in reversedCharacters.enumerated() {
             guard let digit = Int(element) else { return false }
             switch ((idx % 2 == 1), digit) {
             case (true, 9): sum += 9
@@ -357,17 +357,17 @@ class CommonPaymentViewController: BaseXLFormViewController {
                     
                     if json["status"] == "success"{
                         showToastMessage(json["message"].string!)
-                        self.cardInfo = ["card_type" : "",
-                                        "account_number_id" : "",
-                                        "card_holder_name" : "",
-                                        "expiration_date_month" : "",
-                                        "card_number" : "",
-                                        "expiration_date_year" : ""]
+                        self.cardInfo = ["card_type" : "" as AnyObject,
+                                        "account_number_id" : "" as AnyObject,
+                                        "card_holder_name" : "" as AnyObject,
+                                        "expiration_date_month" : "" as AnyObject,
+                                        "card_number" : "" as AnyObject,
+                                        "expiration_date_year" : "" as AnyObject]
                         self.tableView.reloadData()
                         var newFooter = self.footerView.frame
                         newFooter.size.height = self.footerView.frame.size.height - 48
                         self.footerView.frame = newFooter
-                        self.deleteBtn.hidden = true
+                        self.deleteBtn.isHidden = true
                         self.initializeForm()
                     }else if json["status"] == "error"{
                         showErrorMessage(json["message"].string!)

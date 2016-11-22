@@ -398,7 +398,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
                 //.dateByAddingComponents(components, toDate: currentDate, options: NSCalendar.Options(rawValue: 0))!
             
             let date = formValues()[Tags.ValidationDate]! as! String
-            let arrangeDate = date.components(separatedBy: "-")
+            _ = date.components(separatedBy: "-")
             
             let selectDate: Date = stringToDate(date)
             
@@ -464,7 +464,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         }
         
         let date = formValues()[Tags.ValidationDate]! as! String
-        let arrangeDate = date.components(separatedBy: "-")
+        _ = date.components(separatedBy: "-")
         
         let selectDate: Date = stringToDate(date)
         

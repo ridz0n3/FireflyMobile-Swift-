@@ -56,7 +56,7 @@ class EditSSRViewController: BaseXLFormViewController {
                     for mealsDetail in mealList{
                         tempArray.append(XLFormOptionsObject(value: mealsDetail["meal_code"]!, displayText: mealsDetail["name"] as! String))
                         
-                        if mealsDetail["meal_code"] as! String == nilIfEmpty(passengerInfo["meal_code"] as AnyObject) as! String{
+                        if mealsDetail["meal_code"] as! String == nilIfEmpty(passengerInfo["meal_code"] as AnyObject) {
                             row.value = mealsDetail["name"] as! String
                         }
                     }

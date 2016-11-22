@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import M13Checkbox
 
-class CommonFlightDetailViewController: BaseViewController {
+class CommonFlightDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var flightDetailTableView: UITableView!
@@ -56,7 +56,8 @@ class CommonFlightDetailViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         
         if flightDetail.count == 0{
             return 1
@@ -66,7 +67,7 @@ class CommonFlightDetailViewController: BaseViewController {
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if flightDetail.count == 0{
             return 1
         }else{
@@ -80,8 +81,8 @@ class CommonFlightDetailViewController: BaseViewController {
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+       
         if flightDetail.count != 0{
             
             let flightDict = flightDetail[indexPath.section].dictionary
@@ -108,10 +109,10 @@ class CommonFlightDetailViewController: BaseViewController {
         
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if flightDetail.count == 0{
-            let cell = tableView.dequeueReusableCellWithIdentifier("NoFyFlightCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NoFyFlightCell", for: indexPath)
             
             return cell
         }else{
@@ -119,10 +120,10 @@ class CommonFlightDetailViewController: BaseViewController {
             let flightDict = flightDetail[indexPath.section].dictionary
             
             if flightDict!["flights"]?.count == 0{
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoFyFlightCell", forIndexPath: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NoFyFlightCell", for: indexPath)
                 return cell
             }else{
-                let cell = self.flightDetailTableView.dequeueReusableCellWithIdentifier("fyFlightCell", forIndexPath: indexPath) as! CustomFlightDetailTableViewCell
+                let cell = self.flightDetailTableView.dequeueReusableCell(withIdentifier: "fyFlightCell", for: indexPath) as! CustomFlightDetailTableViewCell
                 
                 let flightDict = flightDetail[indexPath.section].dictionary
                 let flights = flightDict!["flights"]?.array
@@ -137,28 +138,28 @@ class CommonFlightDetailViewController: BaseViewController {
                 cell.arrivalTimeLbl.text = flightData!["arrival_time"]!.string
                 cell.checkFlight.tag = indexPath.row
                 
-                cell.checkFlight.strokeColor = UIColor.orangeColor()
-                cell.checkFlight.checkColor = UIColor.orangeColor()
+                cell.checkFlight.strokeColor = UIColor.orange
+                cell.checkFlight.checkColor = UIColor.orange
                 if (planGoing == 1 && indexPath.section == 0) || (planReturn == 4 && indexPath.section == 1){
                     if flightBasic!["status"]!.string == "sold out"{
                         cell.priceLbl.text = "SOLD OUT"
-                        cell.checkFlight.hidden = true
-                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
+                        cell.checkFlight.isHidden = true
+                        cell.checkFlight.checkState = M13CheckboxState.unchecked
                         flightAvailable = false
                         
                     }else{
                         if flightBasic!["discount"]?.floatValue == 0{
                             cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
-                            cell.promoPriceLbl.hidden = true
-                            cell.checkFlight.hidden = false
-                            cell.strikeDegree.hidden = true
+                            cell.promoPriceLbl.isHidden = true
+                            cell.checkFlight.isHidden = false
+                            cell.strikeDegree.isHidden = true
                             flightAvailable = true
                         }else{
                             cell.promoPriceLbl.text = String(format: "%.2f MYR", (flightBasic!["total_fare"]?.floatValue)!)
                             cell.priceLbl.text = String(format: "%.2f MYR", (flightBasic!["before_discount_fare"]?.floatValue)!)
-                            cell.promoPriceLbl.hidden = false
-                            cell.strikeDegree.hidden = false
-                            cell.checkFlight.hidden = false
+                            cell.promoPriceLbl.isHidden = false
+                            cell.strikeDegree.isHidden = false
+                            cell.checkFlight.isHidden = false
                             flightAvailable = true
                         }
                         
@@ -168,34 +169,34 @@ class CommonFlightDetailViewController: BaseViewController {
                     
                     if flightFlex!["status"]!.string == "sold out"{
                         cell.priceLbl.text = "SOLD OUT"
-                        cell.checkFlight.hidden = true
-                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
+                        cell.checkFlight.isHidden = true
+                        cell.checkFlight.checkState = M13CheckboxState.unchecked
                         flightAvailable = false
                         
                     }else{
                         cell.priceLbl.text = String(format: "%.2f MYR", (flightFlex!["total_fare"]?.floatValue)!)
-                        cell.checkFlight.hidden = false
+                        cell.checkFlight.isHidden = false
                     }
                     
                 }
                 
                 if indexPath.section == 1{
                     cell.flightIcon.image = UIImage(named: "arrival_icon")
-                    cell.checkFlight.userInteractionEnabled = false
+                    cell.checkFlight.isUserInteractionEnabled = false
                     if NSNumber.init(value: indexPath.row) == selectedReturnFlight{
                         selectedReturnFlight = NSNumber.init(value: indexPath.row)
-                        cell.checkFlight.checkState = M13CheckboxState.Checked
+                        cell.checkFlight.checkState = M13CheckboxState.checked
                     }else{
-                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
+                        cell.checkFlight.checkState = M13CheckboxState.unchecked
                     }
                 }else{
                     cell.flightIcon.image = UIImage(named: "departure_icon")
-                    cell.checkFlight.userInteractionEnabled = false
+                    cell.checkFlight.isUserInteractionEnabled = false
                     if NSNumber.init(value: indexPath.row) == selectedGoingFlight{
                         selectedGoingFlight = NSNumber.init(value: indexPath.row)
-                        cell.checkFlight.checkState = M13CheckboxState.Checked
+                        cell.checkFlight.checkState = M13CheckboxState.checked
                     }else{
-                        cell.checkFlight.checkState = M13CheckboxState.Unchecked
+                        cell.checkFlight.checkState = M13CheckboxState.unchecked
                     }
                 }
                 return cell
@@ -203,7 +204,7 @@ class CommonFlightDetailViewController: BaseViewController {
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if flightDetail.count == 0{
             return 0
         }else{
@@ -211,7 +212,7 @@ class CommonFlightDetailViewController: BaseViewController {
         }
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if flightDetail.count == 0{
             return nil
         }else{
@@ -254,13 +255,12 @@ class CommonFlightDetailViewController: BaseViewController {
             flightHeader.directionLbl.text = String(format: "(%@)", flightDict!["type"]!.string!)// "(Return Flight)"
             flightHeader.dateLbl.text = String(format: "%@", flightDict!["departure_date"]!.string!) //"26 JAN 2015"
             
-            flightHeader.frame = CGRectMake(0, 0,self.view.frame.size.width, 88)
-            
+            flightHeader.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 88)
             return flightHeader
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.section == 1{
             selectedReturnFlight = NSNumber(value: indexPath.row)
@@ -273,7 +273,7 @@ class CommonFlightDetailViewController: BaseViewController {
         }
     }
     
-    func changePlan(sender:UIButton){
+    func changePlan(_ sender:UIButton){
         
         let buttonTouch = sender
         print(buttonTouch.tag)

@@ -106,7 +106,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                                 defaults.synchronize()
                                                 Crashlytics.sharedInstance().setUserEmail(json["user_info"]["username"].string)
                                                 
-                                                NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
+                                                NotificationCenter.default.post(name: "reloadSideMenu", object: nil)
                                                 let storyBoard = UIStoryboard(name: "Home", bundle: nil)
                                                 let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
                                                 self.navigationController!.pushViewController(homeVC, animated: true)

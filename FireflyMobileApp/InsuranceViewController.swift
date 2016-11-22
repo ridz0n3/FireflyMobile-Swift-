@@ -44,7 +44,7 @@ class InsuranceViewController: UIViewController {
     
     @IBAction func noThankBtnPressed(sender: AnyObject) {
         
-        NSNotificationCenter.defaultCenter().postNotificationName("refreshInsurance", object: nil)
+        NotificationCenter.default.post(name: "refreshInsurance", object: nil)
         vc.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
         
     }

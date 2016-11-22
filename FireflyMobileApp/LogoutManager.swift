@@ -31,7 +31,7 @@ class LogoutManager: NSObject {
                             realm.deleteAll()
                         }*/
                         
-                        defaults.setObject("", forKey: "userInfo")
+                        defaults.set("", forKey: "userInfo")
                         defaults.synchronize()
                         InitialLoadManager.sharedInstance.load()
                         

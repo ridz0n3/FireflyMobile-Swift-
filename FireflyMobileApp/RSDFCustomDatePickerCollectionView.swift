@@ -11,8 +11,8 @@ import RSDayFlow
 
 class RSDFCustomDatePickerCollectionView: RSDFDatePickerCollectionView {
 
-    override func selfBackgroundColor() -> UIColor! {
-        return UIColor.clearColor()
+    override func selfBackgroundColor() -> UIColor {
+        return UIColor.clear
     }
     /*
     // Only override drawRect: if you perform custom drawing.

@@ -48,7 +48,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(CommonPassengerDetailViewController.removeExpiredDate(_:)), name: "removeExpiredDate", object: nil)
     }
     
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
             
             if section == 0{
@@ -77,13 +77,13 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
     }
     
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
             let index = UInt(section)
             
             if index == 0{
-                let sectionView = Bundle.main.loadNibNamed("PassengerHeaderView", owner: self, options: nil)[0] as! PassengerHeaderViewButton
+                let sectionView = Bundle.main.loadNibNamed("PassengerHeaderView", owner: self, options: nil)?[0] as! PassengerHeaderViewButton
                 
                 sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
                 sectionView.familyButton.layer.borderWidth = 1

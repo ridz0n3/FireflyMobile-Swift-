@@ -109,7 +109,7 @@ class InitialLoadManager {
                             defaults.setObject(json["data_version_mobile"].dictionaryObject, forKey: "mobileVersion")
                             defaults.synchronize()
                             self.checkForAppUpdate()
-                            NSNotificationCenter.defaultCenter().postNotificationName("reloadHome", object: nil)
+                            NotificationCenter.default.post(name: "reloadHome", object: nil)
                         }
                         else if json["status"].string == "force_logout"{
                             defaults.setObject("", forKey: "userInfo")
