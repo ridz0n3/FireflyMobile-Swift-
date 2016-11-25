@@ -149,7 +149,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             let time1 = formater.date(from: departure_time_1)
             let time2 = formater.date(from: arrival_time_1)
             let unitFlags = Set<Calendar.Component>([.hour])
-            let timeDifference = Calendar.current.dateComponents(unitFlags, from: time1!, to: time2!) //NSCalendar.currentCalendar.components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
+            let timeDifference = Calendar.current.dateComponents(unitFlags, from: time1!, to: time2!).hour //NSCalendar.currentCalendar.components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
             
             defaults.setValue(timeDifference, forKey: "timeDifference")
             defaults.synchronize()
@@ -210,7 +210,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
                             
                             for views in (self.navigationController?.viewControllers)!{
                                 if views.classForCoder == HomeViewController.classForCoder(){
-                                    self.navigationController?.popToViewController(views, animated: true)
+                                    _ = self.navigationController?.popToViewController(views, animated: true)
                                     AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                 }
                             }
@@ -290,7 +290,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }

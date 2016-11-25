@@ -48,12 +48,11 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0{
             return flightDetail.count
         }else if section == 1{
@@ -66,8 +65,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
             return UITableViewAutomaticDimension
         }else if indexPath.section == 1{
@@ -88,23 +86,22 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
-            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = self.paymentTableView.dequeueReusableCell(withIdentifier: "FlightDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             let str = "\(flightDetail[indexPath.row]["date"] as! String)\n\(flightDetail[indexPath.row]["station"] as! String)\n\(flightDetail[indexPath.row]["flight_number"] as! String)\n"
             
             let attrString = NSMutableAttributedString(string: str)
             if flightDetail[indexPath.row]["flight_note"] != nil{
                 
-                let myAttribute = [NSFontAttributeName: UIFont.italicSystemFontOfSize(14.0)]
+                let myAttribute = [NSFontAttributeName: UIFont.italicSystemFont(ofSize: 14.0)]
                 let myString = NSMutableAttributedString(string: "\(flightDetail[indexPath.row]["flight_note"] as! String)\n", attributes: myAttribute )
-                attrString.appendAttributedString(myString)
+                attrString.append(myString)
                 
             }
             
-            attrString.appendAttributedString(NSAttributedString(string: flightDetail[indexPath.row]["time"] as! String))
+            attrString.append(NSAttributedString(string: flightDetail[indexPath.row]["time"] as! String))
             cell.wayLbl.text = flightDetail[indexPath.row]["type"] as? String
             cell.dateLbl.attributedText = attrString
             
@@ -113,13 +110,13 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         }else if indexPath.section == 1{
             let detail = priceDetail[indexPath.row] as NSDictionary
             
-            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("PriceDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = self.paymentTableView.dequeueReusableCell(withIdentifier: "PriceDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             let tax = detail["taxes_or_fees"] as? NSDictionary
             var taxData = String()
             
             for (key, value) in tax! {
-                 taxData += "\((key as! String).stringByReplacingOccurrencesOfString("_", withString: " ").capitalizedString): \(value as! String)\n"
+                 taxData += "\((key as! String).replacingOccurrences(of: "_", with: " ").capitalized): \(value as! String)\n"
             }
             
             if let infant = detail["infant"] as? String{
@@ -135,16 +132,16 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             cell.guestLbl.text = detail["guest"] as? String
             cell.taxesPrice.text = detail["total_taxes_or_fees"] as? String
             
-            cell.detailBtn.addTarget(self, action: #selector(PaymentSummaryViewController.detailBtnPressed(_:)), forControlEvents: .TouchUpInside)
+            cell.detailBtn.addTarget(self, action: #selector(PaymentSummaryViewController.detailBtnPressed(_:)), for: .touchUpInside)
             cell.detailBtn.accessibilityHint = taxData
             
             return cell
         }else if indexPath.section == 2{
-            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("ServiceFeeCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = self.paymentTableView.dequeueReusableCell(withIdentifier: "ServiceFeeCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             return cell
         }else if indexPath.section == 3{
-            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("FeeCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = self.paymentTableView.dequeueReusableCell(withIdentifier: "FeeCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             if serviceDetail.count != 0{
                 cell.serviceLbl.text = serviceDetail[indexPath.row]["service_name"] as? String
@@ -153,7 +150,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
             
             return cell
         }else{
-            let cell = self.paymentTableView.dequeueReusableCellWithIdentifier("TotalCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = self.paymentTableView.dequeueReusableCell(withIdentifier: "TotalCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             cell.totalPriceLbl.text = totalPrice
             
@@ -162,8 +159,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 || section == 1{
             return 35
         }else{
@@ -172,9 +168,8 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
 
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)?[0] as! PassengerHeaderView
         
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
@@ -185,14 +180,14 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         }
         
         
-        sectionView.sectionLbl.textColor = UIColor.whiteColor()
-        sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+        sectionView.sectionLbl.textColor = UIColor.white
+        sectionView.sectionLbl.textAlignment = NSTextAlignment.center
         
         return sectionView
         
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         showLoading() 
         
@@ -222,14 +217,14 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                         let paymentChannel = json["payment_channel"].arrayObject
                         
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentVC") as! AddPaymentViewController
-                        paymentVC.paymentType = paymentChannel!
+                        let paymentVC = storyboard.instantiateViewController(withIdentifier: "PaymentVC") as! AddPaymentViewController
+                        paymentVC.paymentType = paymentChannel! as [AnyObject]
                         paymentVC.totalDue = amountDue
                         
                         if try! LoginManager.sharedInstance.isLogin(){
                             
                             if json["fop"] != nil{
-                                paymentVC.cardInfo = json["fop"].dictionaryObject!
+                                paymentVC.cardInfo = json["fop"].dictionaryObject! as [String : AnyObject]
                             }else{
                                 let cardInfo = ["card_type" : "",
                                                 "account_number_id" : "",
@@ -237,7 +232,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                                                 "expiration_date_month" : "",
                                                 "card_number" : "",
                                                 "expiration_date_year" : ""]
-                                paymentVC.cardInfo = cardInfo
+                                paymentVC.cardInfo = cardInfo as [String : AnyObject]
                             }
                             
                         }else{
@@ -247,7 +242,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                                         "expiration_date_month" : "",
                                         "card_number" : "",
                                         "expiration_date_year" : ""]
-                            paymentVC.cardInfo = cardInfo
+                            paymentVC.cardInfo = cardInfo as [String : AnyObject]
                         }
                         
                         self.navigationController!.pushViewController(paymentVC, animated: true)
@@ -262,7 +257,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }
@@ -283,18 +278,18 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
         
     }
     
-    func detailBtnPressed(sender:UIButton){
+    func detailBtnPressed(_ sender:UIButton){
         
         // Create custom Appearance Configuration
         let appearance = SCLAlertView.SCLAppearance(
+            kCircleIconHeight: 40,
             kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
             kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
             kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-            showCircularIcon: true,
-            kCircleIconHeight: 40
+            showCircularIcon: true
         )
         let alertViewIcon = UIImage(named: "alertIcon")
-        let newDetail = sender.accessibilityHint!.stringByReplacingOccurrencesOfString("And", withString: "&")
+        let newDetail = sender.accessibilityHint!.replacingOccurrences(of: "And", with: "&")//.stringByReplacingOccurrencesOfString("And", withString: "&")
         SCLAlertView(appearance:appearance).showSuccess("Taxes/Fees", subTitle: newDetail, closeButtonTitle: "Close", colorStyle:0xEC581A, circleIconImage: alertViewIcon)
         
     }

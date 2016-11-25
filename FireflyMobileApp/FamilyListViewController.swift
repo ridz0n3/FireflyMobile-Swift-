@@ -144,7 +144,7 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
     
     @IBAction func ReturnPassengerBtnPressed(_ sender: AnyObject) {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPicker"), object: nil)
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
         
     }
     
@@ -199,7 +199,7 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }

@@ -48,11 +48,11 @@ class EditContactDetailViewController: CommonContactDetailViewController {
             let countryData = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
             let mobileData = formValues()[Tags.ValidationMobileHome]!  as! String
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate] as AnyObject)  
-            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName] as AnyObject)).xmlSimpleEscape()
-            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1] as AnyObject)).xmlSimpleEscape()
-            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject)).xmlSimpleEscape()
-            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject)).xmlSimpleEscape()
-            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity] as AnyObject)).xmlSimpleEscape()
+            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName] as AnyObject)).xmlSimpleEscape
+            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1] as AnyObject)).xmlSimpleEscape
+            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject)).xmlSimpleEscape
+            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject)).xmlSimpleEscape
+            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity] as AnyObject)).xmlSimpleEscape
             let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState] as AnyObject) , stateArr: stateArray)
             let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode] as AnyObject)  
             
@@ -83,7 +83,7 @@ class EditContactDetailViewController: CommonContactDetailViewController {
                     customer_number = defaults.object(forKey: "customer_number") as! String
                 }
                 
-                FireFlyProvider.request(.ChangeContact(booking_id, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signature, companyNameData!, address1Data!, address2Data!, address3Data!, cityData!, stateData, postcodeData, pnr, customer_number), completion: { (result) -> () in
+                FireFlyProvider.request(.ChangeContact(booking_id, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signature, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, pnr, customer_number), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):
@@ -108,7 +108,7 @@ class EditContactDetailViewController: CommonContactDetailViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }
@@ -132,11 +132,11 @@ class EditContactDetailViewController: CommonContactDetailViewController {
     }
     
     func firstButton(){
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func updateButton(){
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     /*
     // MARK: - Navigation

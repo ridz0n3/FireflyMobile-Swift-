@@ -39,8 +39,8 @@ class CustomCheckBoxCell: XLFormBaseCell {
     
     override func configure() {
         super.configure()
-        familySelect.strokeColor = UIColor.orangeColor()
-        familySelect.checkColor = UIColor.orangeColor()
+        familySelect.strokeColor = UIColor.orange
+        familySelect.checkColor = UIColor.orange
     }
     
     override func update() {
@@ -57,15 +57,15 @@ class CustomCheckBoxCell: XLFormBaseCell {
     
     @IBAction func dayTapped(_ sender: UIButton) {
         let checked = getCheckFormButton(sender)
-        sender.selected = !sender.selected
+        sender.isSelected = !sender.isSelected
         var newValue = rowDescriptor!.value as! Dictionary<String, Bool>
-        newValue[checked] = sender.selected
+        newValue[checked] = sender.isSelected
         rowDescriptor!.value = newValue
         
         if newValue[checked] == false{
-            familySelect.checkState = .Unchecked
+            familySelect.checkState = .unchecked
         }else{
-            familySelect.checkState = .Checked
+            familySelect.checkState = .checked
         }
     }
     
@@ -75,12 +75,12 @@ class CustomCheckBoxCell: XLFormBaseCell {
         var value = rowDescriptor!.value as! Dictionary<String, Bool>
         
         if value[kSave.status.description()]! == false{
-            familySelect.checkState = .Unchecked
+            familySelect.checkState = .unchecked
         }else{
-            familySelect.checkState = .Checked
+            familySelect.checkState = .checked
         }
         
-        checkButtonButton.selected = value[kSave.status.description()]!
+        checkButtonButton.isSelected = value[kSave.status.description()]!
         checkButtonButton.alpha = rowDescriptor!.isDisabled() ? 0.6 : 1
     }
     

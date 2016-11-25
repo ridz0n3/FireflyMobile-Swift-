@@ -218,17 +218,17 @@ class CommonFlightDetailViewController: BaseViewController, UITableViewDelegate,
         }else{
             
             //FLIGHT HEADER WITH BASIC & PREMIER BUTTON
-            /*let flightHeader = Bundle.main.loadNibNamed("FlightHeader", owner: self, options: nil)[0] as! FlightHeaderView
+            /*let flightHeader = Bundle.main.loadNibNamed("FlightHeader", owner: self, options: nil)?[0] as! FlightHeaderView
             
             flightHeader.frame = CGRectMake(0, 0,self.view.frame.size.width, 88)
             let flightDict = flightDetail[section].dictionary
             
             if (planGoing == 1 && section == 0) || (planReturn == 4 && section == 1){
-                flightHeader.basicBtn.backgroundColor = UIColor.whiteColor()
+                flightHeader.basicBtn.backgroundColor = UIColor.white
                 flightHeader.premierBtn.backgroundColor = UIColor.lightGrayColor()
             }else if (planGoing == 2 && section == 0) || (planReturn == 5 && section == 1){
                 flightHeader.basicBtn.backgroundColor = UIColor.lightGrayColor()
-                flightHeader.premierBtn.backgroundColor = UIColor.whiteColor()
+                flightHeader.premierBtn.backgroundColor = UIColor.white
             }
             
             flightHeader.destinationLbl.text = String(format: "%@ - %@", (flightDict!["departure_station_name"]?.string?.uppercaseString)!,flightDict!["arrival_station_name"]!.string!.uppercaseString) //"PENANG - SUBANG"

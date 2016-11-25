@@ -34,7 +34,7 @@ class AddInfantViewController: CommonInfantViewController {
             let title = ""
             let firstName = formValues()[Tags.ValidationFirstName] as! String
             let lastName = formValues()[Tags.ValidationLastName] as! String
-            let gender = getGenderCode(formValues()[Tags.ValidationGender] as! String, genderArr: genderArray)
+            let gender = getGenderCode(formValues()[Tags.ValidationGender] as! String, genderArr: genderArray as [Dictionary<String, AnyObject>])
             let date = formValues()[Tags.ValidationDate]! as! String
             //var arrangeDate = date.components(separatedBy: "-")
             let dob = date//"\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])"
@@ -70,7 +70,7 @@ class AddInfantViewController: CommonInfantViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }
@@ -113,7 +113,7 @@ class AddInfantViewController: CommonInfantViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }

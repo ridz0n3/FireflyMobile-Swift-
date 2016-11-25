@@ -45,7 +45,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             paymentBtn.setTitle("Continue", for: UIControlState.normal)
         }
         
-        var isLogin = Bool()
+        //var isLogin = Bool()
         
         if try! LoginManager.sharedInstance.isLogin(){
             
@@ -73,7 +73,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                            "title" : "\(userInfo["title"]!)",
                            "travel_purpose" : "1"]
             checkPassenger.checkState = M13CheckboxState.checked
-            isLogin = true
+            //isLogin = true
             
         }else if let passData = defaults.object(forKey: "passengerData") as? NSDictionary{
             
@@ -283,11 +283,11 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate] as AnyObject)  
             let signatureData = defaults.object(forKey: "signature")!  as! String
             let bookIdData = String(format: "%i", (defaults.object(forKey: "booking_id")! as AnyObject).integerValue)
-            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName] as AnyObject)  ).xmlSimpleEscape()
-            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1] as AnyObject)  ).xmlSimpleEscape()
-            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject)  ).xmlSimpleEscape()
-            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject)  ).xmlSimpleEscape()
-            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity] as AnyObject)  ).xmlSimpleEscape()
+            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName] as AnyObject)  ).xmlSimpleEscape
+            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1] as AnyObject)  ).xmlSimpleEscape
+            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject)  ).xmlSimpleEscape
+            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject)  ).xmlSimpleEscape
+            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity] as AnyObject)  ).xmlSimpleEscape
             let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState] as AnyObject) , stateArr: stateArray)
             let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode] as AnyObject)  
             
@@ -316,7 +316,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                     //customer_number = userInfo["customer_number"] as! String
                 }
                 
-                FireFlyProvider.request(.ContactDetail(flightType, bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData!, address1Data!, address2Data!, address3Data!, cityData!, stateData, postcodeData, "N", goingSSRDict[0] as AnyObject, returnSSRDict[0] as AnyObject, customer_number), completion: { (result) -> () in
+                FireFlyProvider.request(.ContactDetail(flightType, bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "N", goingSSRDict[0] as AnyObject, returnSSRDict[0] as AnyObject, customer_number), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):
@@ -380,11 +380,11 @@ class AddContactDetailViewController: CommonContactDetailViewController {
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate] as AnyObject)  
             let signatureData = defaults.object(forKey: "signature")!  as! String
             let bookIdData = String(format: "%i", (defaults.object(forKey: "booking_id")! as AnyObject).integerValue)
-            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName] as AnyObject)  ).xmlSimpleEscape()
-            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1] as AnyObject)  ).xmlSimpleEscape()
-            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject)  ).xmlSimpleEscape()
-            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject)  ).xmlSimpleEscape()
-            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity] as AnyObject)  ).xmlSimpleEscape()
+            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName] as AnyObject)  ).xmlSimpleEscape
+            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1] as AnyObject)  ).xmlSimpleEscape
+            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject)  ).xmlSimpleEscape
+            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject)  ).xmlSimpleEscape
+            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity] as AnyObject)  ).xmlSimpleEscape
             let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState] as AnyObject) , stateArr: stateArray)
             let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode] as AnyObject)  
             
@@ -423,7 +423,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                 }
 
                 showLoading()
-                FireFlyProvider.request(.ContactDetail("FY",bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData!, address1Data!, address2Data!, address3Data!, cityData!, stateData, postcodeData, "Y", goingSSRDict[0] as AnyObject, returnSSRDict[0] as AnyObject, customer_number), completion: { (result) -> () in
+                FireFlyProvider.request(.ContactDetail("FY",bookIdData, insuranceData, purposeData, titleData, firstNameData , lastNameData , emailData , countryData, mobileData, alternateData , signatureData, companyNameData, address1Data, address2Data, address3Data, cityData, stateData, postcodeData, "Y", goingSSRDict[0] as AnyObject, returnSSRDict[0] as AnyObject, customer_number), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):
@@ -449,7 +449,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }

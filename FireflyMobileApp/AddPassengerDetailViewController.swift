@@ -176,11 +176,11 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             if status != "select"{
                 let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(adult)"]
                 adultArray.append(adultData as [String : AnyObject])
-                adultSelect.updateValue(0, forKey: "\(adult)")
+                adultSelect.updateValue(0 as AnyObject, forKey: "\(adult)")
             }
             // Basic Information - Section
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("ADULT \(adult)")
+            section = XLFormSectionDescriptor.formSection(withTitle: "ADULT \(adult)")
             form.addFormSection(section)
             
             
@@ -261,7 +261,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Title
                 //
                 if status != "select"{
-                    adultInfo.updateValue(tempData, forKey: "\(i)")
+                    adultInfo.updateValue(tempData as AnyObject, forKey: "\(i)")
                 }
                 
                 let info = adultInfo["\(i)"]!
@@ -345,15 +345,15 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             j = j + 1
             
             if status != "select"{
-                infantSelect.updateValue(0, forKey: "\(j)")
-                infantInfo.updateValue(tempData, forKey: "\(j)")
+                infantSelect.updateValue(0 as AnyObject, forKey: "\(j)")
+                infantInfo.updateValue(tempData as AnyObject, forKey: "\(j)")
             }
             
             let info = infantInfo["\(j)"]!
             
             // Basic Information - Section
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("INFANT \(j)")
+            section = XLFormSectionDescriptor.formSection(withTitle: "INFANT \(j)")
             form.addFormSection(section)
             
             // Title
@@ -377,10 +377,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             
             tempArray = [AnyObject]()
             for gender in genderArray{
-                tempArray.append(XLFormOptionsObject(value: gender["gender_code"] as! String, displayText: gender["gender_name"] as! String))
+                tempArray.append(XLFormOptionsObject(value: gender["gender_code"]!, displayText: gender["gender_name"]!))
                 
-                if gender["gender_code"] as! String == info["gender"] as! String{
-                    row.value = gender["gender_name"] as! String
+                if gender["gender_code"]! == info["gender"] as! String{
+                    row.value = gender["gender_name"]!
                 }
                 
             }
@@ -440,7 +440,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         self.form = form
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         validateForm()
         isContinue = true
         if isValidate{
@@ -459,7 +459,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 showLoading()
-                FireFlyProvider.request(.PassengerDetail(params.0,params.1,params.2, params.3, flightType, email), completion: { (result) -> () in
+                FireFlyProvider.request(.PassengerDetail(params.0 as AnyObject,params.1 as AnyObject,params.2, params.3, flightType, email), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):
@@ -470,23 +470,23 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                             if json["status"] == "success"{
                                 
                                 if try! LoginManager.sharedInstance.isLogin(){
-                                    self.saveFamilyAndFriends(json["family_and_friend"].arrayObject!)
+                                    self.saveFamilyAndFriends(json["family_and_friend"].arrayObject! as [AnyObject])
                                 }
                                 if json["insurance"].dictionaryValue["status"]!.string == "N"{
-                                    defaults.setObject("", forKey: "insurance_status")
+                                    defaults.set("", forKey: "insurance_status")
                                 }else{
-                                    defaults.setObject(json["insurance"].object, forKey: "insurance_status")
+                                    defaults.set(json["insurance"].object, forKey: "insurance_status")
                                     defaults.synchronize()
                                 }
                                 
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                let contactDetailVC = storyboard.instantiateViewControllerWithIdentifier("ContactDetailVC") as! AddContactDetailViewController
+                                let contactDetailVC = storyboard.instantiateViewController(withIdentifier: "ContactDetailVC") as! AddContactDetailViewController
                                 if let ssrStatus = json["ssr_status"].string{
                                     contactDetailVC.ssrStatus = ssrStatus
                                 }
                                 
                                 if let meal = json["meal"].arrayObject{
-                                    contactDetailVC.meals = meal
+                                    contactDetailVC.meals = meal as [AnyObject]
                                 }
                                 
                                 self.navigationController!.pushViewController(contactDetailVC, animated: true)
@@ -500,7 +500,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }
@@ -523,42 +523,42 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         
     }
     
-    override func adultSelected(index: NSNumber, element: AnyObject) {
+    override func adultSelected(_ index: NSNumber, element: AnyObject) {
         status = "select"
         let btn = element as! UIButton
-        adultSelect.updateValue(Int(index), forKey: "\(btn.tag)")
+        adultSelect.updateValue(Int(index) as AnyObject, forKey: "\(btn.tag)")
         let tempInfo = adultList[Int(index)] as! FamilyAndFriendData
-        data = ["id" : tempInfo.id,
-                "title" : tempInfo.title,
-                "gender" : tempInfo.gender,
-                "first_name" : tempInfo.firstName,
-                "last_name" : tempInfo.lastName,
-                "dob2" : tempInfo.dob,
-                "issuing_country" : tempInfo.country,
-                "bonuslink" : tempInfo.bonuslink,
-                "type" : tempInfo.type,
-                "Save" : false]
-        adultInfo.updateValue(data, forKey: "\(btn.tag - 1)")
+        data = ["id" : tempInfo.id as AnyObject,
+                "title" : tempInfo.title as AnyObject,
+                "gender" : tempInfo.gender as AnyObject,
+                "first_name" : tempInfo.firstName as AnyObject,
+                "last_name" : tempInfo.lastName as AnyObject,
+                "dob2" : tempInfo.dob as AnyObject,
+                "issuing_country" : tempInfo.country as AnyObject,
+                "bonuslink" : tempInfo.bonuslink as AnyObject,
+                "type" : tempInfo.type as AnyObject,
+                "Save" : false as AnyObject]
+        adultInfo.updateValue(data as AnyObject, forKey: "\(btn.tag - 1)")
         initializeForm()
     }
     
-    override func infantSelected(index: NSNumber, element: AnyObject) {
+    override func infantSelected(_ index: NSNumber, element: AnyObject) {
         status = "select"
         let btn = element as! UIButton
-        infantSelect.updateValue(Int(index), forKey: "\(btn.tag)")
+        infantSelect.updateValue(Int(index) as AnyObject, forKey: "\(btn.tag)")
         let tempInfo = infantList[Int(index)] as! FamilyAndFriendData
-        data = ["id" : tempInfo.id,
-                "title" : tempInfo.title,
-                "gender" : tempInfo.gender,
-                "first_name" : tempInfo.firstName,
-                "last_name" : tempInfo.lastName,
-                "dob2" : tempInfo.dob,
-                "issuing_country" : tempInfo.country,
-                "bonuslink" : tempInfo.bonuslink,
-                "type" : tempInfo.type,
-                "traveling_with" : "",
-                "Save" : false]
-        infantInfo.updateValue(data, forKey: "\(btn.tag)")
+        data = ["id" : tempInfo.id as AnyObject,
+                "title" : tempInfo.title as AnyObject,
+                "gender" : tempInfo.gender as AnyObject,
+                "first_name" : tempInfo.firstName as AnyObject,
+                "last_name" : tempInfo.lastName as AnyObject,
+                "dob2" : tempInfo.dob as AnyObject,
+                "issuing_country" : tempInfo.country as AnyObject,
+                "bonuslink" : tempInfo.bonuslink as AnyObject,
+                "type" : tempInfo.type as AnyObject,
+                "traveling_with" : "" as AnyObject,
+                "Save" : false as AnyObject]
+        infantInfo.updateValue(data as AnyObject, forKey: "\(btn.tag)")
         initializeForm()
     }
     

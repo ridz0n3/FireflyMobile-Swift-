@@ -53,10 +53,10 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             i -= 1
             
             let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(adult)"]
-            adultArray.append(adultData)
+            adultArray.append(adultData as [String : AnyObject])
 
             section = XLFormSectionDescriptor()
-            section = XLFormSectionDescriptor.formSectionWithTitle("ADULT \(adult)")
+            section = XLFormSectionDescriptor.formSection(withTitle: "ADULT \(adult)")
             form.addFormSection(section)
             
             // Title
@@ -77,14 +77,14 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             //first name
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationFirstName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"First Name/Given Name:*")
             row.isRequired = true
-            row.disabled = NSNumber(bool: true)
+            row.disabled = NSNumber(value: true)
             row.value = adultDetails[i]["first_name"] as! String
             section.addFormRow(row)
             
             //last name
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationLastName, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Last Name/Family Name:*")
             row.isRequired = true
-            row.disabled = NSNumber(bool: true)
+            row.disabled = NSNumber(value: true)
             row.value = adultDetails[i]["last_name"] as! String
             section.addFormRow(row)
             
@@ -130,7 +130,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             // Document Number
             row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationDocumentNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
             row.isRequired = true
-            row.value = (adultDetails[i]["document_number"] as! String).xmlSimpleUnescape()
+            row.value = (adultDetails[i]["document_number"] as! String).xmlSimpleUnescape
             //section.addFormRow(row)
             
             if flightType == "FY"{
@@ -153,7 +153,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 // Basic Information - Section
                 section = XLFormSectionDescriptor()
-                section = XLFormSectionDescriptor.formSectionWithTitle("INFANT \(infant)")
+                section = XLFormSectionDescriptor.formSection(withTitle: "INFANT \(infant)")
                 form.addFormSection(section)
                 
                 // Title
@@ -193,7 +193,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 //row.addValidator(XLFormRegexValidator(msg: "First name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.isRequired = true
                 row.value = infantDict["first_name"] as! String
-                row.disabled = NSNumber(bool: true)
+                row.disabled = NSNumber(value: true)
                 section.addFormRow(row)
                 
                 // Last Name
@@ -201,7 +201,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 //row.addValidator(XLFormRegexValidator(msg: "Last name is invalid.", andRegexString: "^[a-zA-Z ]{0,}$"))
                 row.isRequired = true
                 row.value = infantDict["last_name"] as! String
-                row.disabled = NSNumber(bool: true)
+                row.disabled = NSNumber(value: true)
                 section.addFormRow(row)
                 
                 // Date
@@ -248,7 +248,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 // Document Number
                 row = XLFormRowDescriptor(tag: String(format: "%@(infant%i)", Tags.ValidationDocumentNo, infant), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
                 row.isRequired = true
-                row.value = (infantDict["document_number"] as! String).xmlSimpleUnescape()
+                row.value = (infantDict["document_number"] as! String).xmlSimpleUnescape
                 //section.addFormRow(row)
                 
             }
@@ -295,7 +295,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 showLoading() 
                 
-                FireFlyProvider.request(.EditPassengerDetail(params.0,params.1,bookingId, signature, pnr), completion: { (result) -> () in
+                FireFlyProvider.request(.EditPassengerDetail(params.0 as AnyObject,params.1,bookingId, signature, pnr), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):
@@ -307,7 +307,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                                 
                                 
                                 let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                                let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
                                 manageFlightVC.isConfirm = true
                                 manageFlightVC.itineraryData = json.object as! NSDictionary
                                 self.navigationController!.pushViewController(manageFlightVC, animated: true)
@@ -321,7 +321,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }

@@ -121,17 +121,17 @@ class UpdateInformationViewController: BaseXLFormViewController {
         // Address Line 1
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 1:*")
         row.isRequired = true
-        row.value = (userInfo["contact_address1"] as! String).xmlSimpleUnescape()
+        row.value = (userInfo["contact_address1"] as! String).xmlSimpleUnescape
         section.addFormRow(row)
         
         // Address Line 2
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 2:")
-        row.value = (userInfo["contact_address2"] as! String).xmlSimpleUnescape()
+        row.value = (userInfo["contact_address2"] as! String).xmlSimpleUnescape
         section.addFormRow(row)
         
         // Address Line 3
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Address Line 3:")
-        row.value = (userInfo["contact_address3"] as! String).xmlSimpleUnescape()
+        row.value = (userInfo["contact_address3"] as! String).xmlSimpleUnescape
         section.addFormRow(row)
         
         // Country
@@ -157,7 +157,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         // Town/City
         row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Town / City:*")
         row.isRequired = true
-        row.value = (userInfo["contact_city"] as! String).xmlSimpleUnescape()
+        row.value = (userInfo["contact_city"] as! String).xmlSimpleUnescape
         section.addFormRow(row)
         
         // State
@@ -475,11 +475,11 @@ class UpdateInformationViewController: BaseXLFormViewController {
         let firstName = formValues()[Tags.ValidationFirstName]! as! String
         let lastName = formValues()[Tags.ValidationLastName]! as! String
         let dob = formatDate(selectDate)
-        let address1 = (formValues()[Tags.ValidationAddressLine1]! as! String).xmlSimpleEscape()
-        let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject).xmlSimpleEscape()
-        let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject).xmlSimpleEscape()
+        let address1 = (formValues()[Tags.ValidationAddressLine1]! as! String).xmlSimpleEscape
+        let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject).xmlSimpleEscape
+        let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject).xmlSimpleEscape
         let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
-        let city = (formValues()[Tags.ValidationTownCity] as! String!).xmlSimpleEscape()
+        let city = (formValues()[Tags.ValidationTownCity] as! String!).xmlSimpleEscape
         let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)
         let postcode = formValues()[Tags.ValidationPostcode]! as! String
         let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome]! as AnyObject)
@@ -490,7 +490,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         let newsletter = userInfo["newsletter"] as! String
         
         showLoading()
-        FireFlyProvider.request(.UpdateUserProfile(username, password, newPassword, title, firstName, lastName, dob, address1!, address2!, address3!, country, city!, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
+        FireFlyProvider.request(.UpdateUserProfile(username, password, newPassword, title, firstName, lastName, dob, address1, address2, address3, country, city, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
             
             switch result {
             case .success(let successResult):

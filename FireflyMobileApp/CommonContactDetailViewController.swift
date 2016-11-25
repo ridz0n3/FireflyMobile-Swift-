@@ -231,31 +231,31 @@ class CommonContactDetailViewController: BaseXLFormViewController {
         // Company Name
         row = XLFormRowDescriptor(tag: Tags.ValidationCompanyName, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Company Name:*")
         row.isRequired = true
-        row.value = nilIfEmpty(contactData["company_name"] as AnyObject).xmlSimpleUnescape()
+        row.value = nilIfEmpty(contactData["company_name"] as AnyObject).xmlSimpleUnescape
         self.form.addFormRow(row, afterRowTag: Tags.ValidationEmail)
         
         // Address 1
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine1, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Address 1:*")
         row.isRequired = true
-        row.value = nilIfEmpty(contactData["address1"] as AnyObject).xmlSimpleUnescape()
+        row.value = nilIfEmpty(contactData["address1"] as AnyObject).xmlSimpleUnescape
         self.form.addFormRow(row, afterRowTag: Tags.ValidationCompanyName)
         
         // Address 2
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine2, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Address 2:*")
         row.isRequired = true
-        row.value = nilIfEmpty(contactData["address2"] as AnyObject?).xmlSimpleUnescape()
+        row.value = nilIfEmpty(contactData["address2"] as AnyObject?).xmlSimpleUnescape
         self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine1)
         
         // Address 3
         row = XLFormRowDescriptor(tag: Tags.ValidationAddressLine3, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"Address 3:*")
         row.isRequired = true
-        row.value = nilIfEmpty(contactData["address3"] as AnyObject?).xmlSimpleUnescape()
+        row.value = nilIfEmpty(contactData["address3"] as AnyObject?).xmlSimpleUnescape
         self.form.addFormRow(row, afterRowTag: Tags.ValidationAddressLine2)
         
         // City
         row = XLFormRowDescriptor(tag: Tags.ValidationTownCity, rowType:XLFormRowDescriptorTypeFloatLabeled, title:"City:*")
         row.isRequired = true
-        row.value = nilIfEmpty(contactData["city"] as AnyObject?).xmlSimpleUnescape()
+        row.value = nilIfEmpty(contactData["city"] as AnyObject?).xmlSimpleUnescape
         self.form.addFormRow(row, afterRowTag: Tags.ValidationCountry)
         
         // State

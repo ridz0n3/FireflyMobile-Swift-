@@ -161,7 +161,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
         flightSummarryTableView.tableHeaderView = headerView
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ManageFlightHomeViewController.refreshHomePage), name: "reloadHomePage", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ManageFlightHomeViewController.refreshHomePage), name: NSNotification.Name(rawValue: "reloadHomePage"), object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -189,16 +189,18 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                 
                 isAvailable = true
                 
-                let formater = NSDateFormatter()
+                let formater = DateFormatter()
                 formater.dateFormat = "hh:mma"
-                let twentyFour = NSLocale(localeIdentifier: "en_GB")
+                let twentyFour = Locale(identifier: "en_GB")
                 formater.locale = twentyFour
-                let time1 = formater.dateFromString(data["departure_time"] as! String)
-                let time2 = formater.dateFromString(data["arrival_time"] as! String)
-                let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
+                let time1 = formater.date(from: data["departure_time"] as! String)
+                let time2 = formater.date(from: data["arrival_time"] as! String)
+                let unitFlags = Set<Calendar.Component>([.hour])
+                let timeDifference = Calendar.current.dateComponents(unitFlags, from: time1!, to: time2!).hour
+                //let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
                 //print(timeDifference)
                 
-                if timeDifference > 0{
+                if timeDifference! > 0{
                     ssrAvailable = true
                 }
             }
@@ -212,13 +214,12 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 12
         
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 1{
             return flightDetail.count
@@ -241,8 +242,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0{
             return UITableViewAutomaticDimension
         }else if indexPath.section == 1{
@@ -285,10 +285,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0{
-            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("ItineraryCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "ItineraryCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             cell.confirmationLbl.text = "\(itineraryInformation["pnr"]!)"
             cell.reservationLbl.text = "\(itineraryInformation["booking_status"]!)"
@@ -298,9 +297,9 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             let attrStr = NSMutableAttributedString(string: str)
             if itineraryInformation["itinerary_note"] != nil{
                 
-                let myAttribute = [NSFontAttributeName: UIFont.boldSystemFontOfSize(14.0)]
+                let myAttribute = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14.0)]
                 let myString = NSMutableAttributedString(string: "\n\n\(itineraryInformation["itinerary_note"]!)", attributes: myAttribute )
-                attrStr.appendAttributedString(myString)
+                attrStr.append(myString)
                 
             }
             
@@ -308,14 +307,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             return cell
         }else if indexPath.section == 1{
-            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("FlightDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "FlightDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             if let status = flightDetail[indexPath.row]["flight_segment_status"]{
                 
                 if status as? String == "Unconfirmed"{
                     
                     cell.unconfirmedStatus.alpha = 1.0
-                    UIView.animateWithDuration(0.32, delay: 0.0, options: [.CurveEaseInOut, .Autoreverse, .Repeat], animations: {
+                    UIView.animate(withDuration: 0.32, delay: 0.0, options: [.curveEaseInOut, .autoreverse, .repeat], animations: {
                         cell.unconfirmedStatus.alpha = 0.0
                         }, completion: nil)
                     
@@ -332,13 +331,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             let attrString = NSMutableAttributedString(string: str)
             if flightDetail[indexPath.row]["flight_note"] != nil{
                 
-                let myAttribute = [NSFontAttributeName: UIFont.italicSystemFontOfSize(14.0)]
+                let myAttribute = [NSFontAttributeName: UIFont.italicSystemFont(ofSize: 14.0)]
                 let myString = NSMutableAttributedString(string: "\(flightDetail[indexPath.row]["flight_note"] as! String)\n", attributes: myAttribute )
-                attrString.appendAttributedString(myString)
+                attrString.append(myString)
                 
             }
             
-            attrString.appendAttributedString(NSAttributedString(string: flightDetail[indexPath.row]["time"] as! String))
+            attrString.append(NSAttributedString(string: flightDetail[indexPath.row]["time"] as! String))
             cell.wayLbl.text = flightDetail[indexPath.row]["type"] as? String
             cell.dateLbl.attributedText = attrString
             
@@ -347,14 +346,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             let detail = priceDetail[indexPath.row] as NSDictionary
             
-            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PriceDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "PriceDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             let tax = detail["taxes_or_fees"] as? NSDictionary
             
             var taxData = String()
             
             for (key, value) in tax! {
-                taxData += "\((key as! String).stringByReplacingOccurrencesOfString("_", withString: " ").capitalizedString): \(value as! String)\n"
+                taxData += "\((key as! String).replacingOccurrences(of: "_", with: " ").capitalized): \(value as! String)\n"
             }
             
             if let infant = detail["infant"] as? String{
@@ -370,17 +369,17 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             cell.guestLbl.text = detail["guest"] as? String
             cell.taxesPrice.text = detail["total_taxes_or_fees"] as? String
             
-            cell.detailBtn.addTarget(self, action: #selector(ManageFlightHomeViewController.detailBtnPressed(_:)), forControlEvents: .TouchUpInside)
+            cell.detailBtn.addTarget(self, action: #selector(ManageFlightHomeViewController.detailBtnPressed(_:)), for: .touchUpInside)
             cell.detailBtn.accessibilityHint = taxData
             
             return cell
             
         }else if indexPath.section == 3{
-            let cell = self.flightSummarryTableView.dequeueReusableCellWithIdentifier("ServiceFeeCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = self.flightSummarryTableView.dequeueReusableCell(withIdentifier: "ServiceFeeCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             return cell
         }else if indexPath.section == 4{
-            let cell = self.flightSummarryTableView.dequeueReusableCellWithIdentifier("FeeCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = self.flightSummarryTableView.dequeueReusableCell(withIdentifier: "FeeCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             if serviceDetail.count != 0{
                 cell.serviceLbl.text = serviceDetail[indexPath.row]["service_name"] as? String
@@ -389,13 +388,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             return cell
         }else if indexPath.section == 5{
-            let cell = self.flightSummarryTableView.dequeueReusableCellWithIdentifier("TotalCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = self.flightSummarryTableView.dequeueReusableCell(withIdentifier: "TotalCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             cell.totalPriceLbl.text = totalPrice
             
             return cell
         }else if indexPath.section == 6{
-            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("InsuranceCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "InsuranceCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             if insuranceDetails["status"] as! String == "Y"{
                 cell.confNumberLbl.text = "\(insuranceDetails["conf_number"]!)"
@@ -404,14 +403,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             return cell
         }else if indexPath.section == 7{
-            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("SSRCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "SSRCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             let index = indexPath.row
             let ssrPassenger = ssr[0]
             
             if index == 0{
                 cell.ssrPassengerName.text = ssrPassenger["type"] as? String
-                cell.ssrPassengerName.font = UIFont.boldSystemFontOfSize(15.0)
+                cell.ssrPassengerName.font = UIFont.boldSystemFont(ofSize: 15.0)
             }else{
                 let passengerInfo = ssrPassenger["passenger"] as! [AnyObject]
                 
@@ -424,24 +423,24 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     }
                     
                 }
-                let myAttribute = [NSFontAttributeName: UIFont.boldSystemFontOfSize(14.0) ]
+                let myAttribute = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14.0) ]
                 let myString = NSMutableAttributedString(string: "Name :", attributes: myAttribute )
                 let attrString = NSAttributedString(string: " \(passengerInfo[index - 1]["name"] as! String)\n\(ssr)")
-                myString.appendAttributedString(attrString)
+                myString.append(attrString)
                 
                 cell.ssrPassengerName.attributedText = myString
             }
             
             return cell
         }else if (indexPath.section == 8 && ssr.count == 2){
-            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("SSRCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "SSRCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             let index = indexPath.row
             let ssrPassenger = ssr[1]
             
             if index == 0{
                 cell.ssrPassengerName.text = ssrPassenger["type"] as? String
-                cell.ssrPassengerName.font = UIFont.boldSystemFontOfSize(15.0)
+                cell.ssrPassengerName.font = UIFont.boldSystemFont(ofSize: 15.0)
             }else{
                 let passengerInfo = ssrPassenger["passenger"] as! [AnyObject]
                 
@@ -455,10 +454,10 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     
                 }
                 
-                let myAttribute = [NSFontAttributeName: UIFont.boldSystemFontOfSize(14.0) ]
+                let myAttribute = [NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14.0) ]
                 let myString = NSMutableAttributedString(string: "Name :", attributes: myAttribute )
                 let attrString = NSAttributedString(string: " \(passengerInfo[index - 1]["name"] as! String)\n\(ssr)")
-                myString.appendAttributedString(attrString)
+                myString.append(attrString)
                 
                 cell.ssrPassengerName.attributedText = myString
 
@@ -466,7 +465,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             return cell
         }else if indexPath.section == 9{
-            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("ContactDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "ContactDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
             cell.contactNameLbl.text = "\(getTitleName(contactInformation["title"]! as! String)) \(contactInformation["first_name"]!) \(contactInformation["last_name"]!)"
             cell.contactEmail.text = "Email : \(contactInformation["email"]!)"
@@ -476,7 +475,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             return cell
         }else if indexPath.section == 10{
-            let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PassengerDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+            let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "PassengerDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             let passengerDetail = passengerInformation[indexPath.row] as NSDictionary
             
             if passengerDetail["type"] as! String == "Infant"{
@@ -489,13 +488,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }else {
             
             if indexPath.row == paymentDetails.count{
-                let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("PaymentDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+                let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "PaymentDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
                 cell.totalDueLbl.text = "Total Due : \(totalDue)"
                 cell.totalPaidLbl.text = "Total Paid : \(totalPaid)"
                 cell.paymentTotalPriceLbl.text = "Total Price : \(totalPrice)"
                 return cell
             }else{
-                let cell = flightSummarryTableView.dequeueReusableCellWithIdentifier("CardDetailCell", forIndexPath: indexPath) as! CustomPaymentSummaryTableViewCell
+                let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "CardDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
                 let cardData = paymentDetails[indexPath.row] as NSDictionary
                 cell.cardPayLbl.text = "\(cardData["payment_amount"]!)"
                 cell.cardStatusLbl.text = "\(cardData["payment_status"]!)"
@@ -505,8 +504,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 || section == 1 || section == 2 || (section == 6 && insuranceDetails["status"] as! String != "N") || section == 7 || section == 9 || section == 10 || section == 11{
             return 35
         }else{
@@ -515,9 +513,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)[0] as! PassengerHeaderView
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)?[0] as! PassengerHeaderView
         
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
         
@@ -539,40 +536,40 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             sectionView.sectionLbl.text = "PAYMENT DETAILS"
         }
         
-        sectionView.sectionLbl.textColor = UIColor.whiteColor()
-        sectionView.sectionLbl.textAlignment = NSTextAlignment.Center
+        sectionView.sectionLbl.textColor = UIColor.white
+        sectionView.sectionLbl.textAlignment = NSTextAlignment.center
         
         return sectionView
         
     }
     
-    func detailBtnPressed(sender:UIButton){
+    func detailBtnPressed(_ sender:UIButton){
 
         // Create custom Appearance Configuration
         let appearance = SCLAlertView.SCLAppearance(
+            kCircleIconHeight: 40,
             kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
             kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
             kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-            showCircularIcon: true,
-            kCircleIconHeight: 40
+            showCircularIcon: true
         )
         let alertViewIcon = UIImage(named: "alertIcon")
-        let newDetail = sender.accessibilityHint!.stringByReplacingOccurrencesOfString("And", withString: "&")
+        let newDetail = sender.accessibilityHint!.replacingOccurrences(of: "And", with:"&")//stringByReplacingOccurrencesOfString("And", withString: "&")
         SCLAlertView(appearance:appearance).showSuccess("Taxes/Fees", subTitle: newDetail, closeButtonTitle: "Close", colorStyle:0xEC581A, circleIconImage: alertViewIcon)
         
     }
     
-    @IBAction func changeContactBtnPressed(sender: AnyObject) {
+    @IBAction func changeContactBtnPressed(_ sender: AnyObject) {
         
         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageContactDetailVC") as! EditContactDetailViewController
+        let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageContactDetailVC") as! EditContactDetailViewController
         self.navigationController!.pushViewController(manageFlightVC, animated: true)
         
     }
     
-    @IBAction func EditPassengerBtnPressed(sender: AnyObject) {
+    @IBAction func EditPassengerBtnPressed(_ sender: AnyObject) {
         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-        let editPassengerVC = storyboard.instantiateViewControllerWithIdentifier("EditPassengerDetailVC") as! EditPassengerDetailViewController
+        let editPassengerVC = storyboard.instantiateViewController(withIdentifier: "EditPassengerDetailVC") as! EditPassengerDetailViewController
         editPassengerVC.passengerInformation = passengerInformation
         editPassengerVC.pnr = itineraryInformation["pnr"] as! String
         editPassengerVC.flightType = flightType
@@ -582,7 +579,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         self.navigationController!.pushViewController(editPassengerVC, animated: true)
     }
     
-    @IBAction func ChangeFlightBtnPressed(sender: AnyObject) {
+    @IBAction func ChangeFlightBtnPressed(_ sender: AnyObject) {
         
         pnr = itineraryInformation["pnr"] as! String
         bookingId = "\(itineraryData["booking_id"]!)"
@@ -600,8 +597,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     
                     if json["status"] == "success"{
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditSearchFlightVC") as! EditSearchFlightViewController
-                        changeFlightVC.flightDetail = json["journeys"].arrayObject!
+                        let changeFlightVC = storyboard.instantiateViewController(withIdentifier: "EditSearchFlightVC") as! EditSearchFlightViewController
+                        changeFlightVC.flightDetail = json["journeys"].arrayObject! as NSArray
                         changeFlightVC.pnr = self.pnr
                         changeFlightVC.bookId = "\(self.bookingId)"
                         changeFlightVC.signature = self.signature
@@ -616,7 +613,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }
@@ -637,7 +634,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    @IBAction func ChangeSeatBtnPressed(sender: AnyObject) {
+    @IBAction func ChangeSeatBtnPressed(_ sender: AnyObject) {
         pnr = itineraryInformation["pnr"] as! String
         bookingId = "\(itineraryData["booking_id"]!)"
         signature = itineraryData["signature"] as! String
@@ -653,13 +650,13 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     
                     if json["status"] == "success"{
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let changeSeatVC = storyboard.instantiateViewControllerWithIdentifier("EditSeatSelectionVC") as! EditSeatSelectionViewController
+                        let changeSeatVC = storyboard.instantiateViewController(withIdentifier: "EditSeatSelectionVC") as! EditSeatSelectionViewController
                         changeSeatVC.isEdit = true
                         changeSeatVC.pnr = self.pnr
-                        changeSeatVC.seatFare = json["seat_fare"].arrayObject!
+                        changeSeatVC.seatFare = json["seat_fare"].arrayObject! as [AnyObject]
                         changeSeatVC.bookId = "\(self.bookingId)"
                         changeSeatVC.signature = self.signature
-                        changeSeatVC.journeys = json["journeys"].arrayObject!
+                        changeSeatVC.journeys = json["journeys"].arrayObject! as [AnyObject]
                         self.navigationController!.pushViewController(changeSeatVC, animated: true)
                     }else if json["status"] == "error"{
                         
@@ -671,7 +668,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }
@@ -692,7 +689,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    @IBAction func AddPaymentBtnPressed(sender: AnyObject) {
+    @IBAction func AddPaymentBtnPressed(_ sender: AnyObject) {
         
         pnr = itineraryInformation["pnr"] as! String
         bookingId = "\(itineraryData["booking_id"]!)"
@@ -716,8 +713,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         self.totalDueStr = json["amount_due"].doubleValue
                         let paymentChannel = json["payment_channel"].arrayObject
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
-                        paymentVC.paymentType = paymentChannel!
+                        let paymentVC = storyboard.instantiateViewController(withIdentifier: "EditPaymentVC") as! EditPaymentViewController
+                        paymentVC.paymentType = paymentChannel! as [AnyObject]
                         paymentVC.totalDueStr = self.totalDueStr
                         paymentVC.bookingId = self.bookingId
                         paymentVC.signature = self.signature
@@ -725,7 +722,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         if try! LoginManager.sharedInstance.isLogin(){
                             
                             if json["fop"] != nil{
-                                paymentVC.cardInfo = json["fop"].dictionaryObject!
+                                paymentVC.cardInfo = json["fop"].dictionaryObject! as [String : AnyObject]
                             }else{
                                 let cardInfo = ["card_type" : "",
                                                 "account_number_id" : "",
@@ -733,7 +730,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                                 "expiration_date_month" : "",
                                                 "card_number" : "",
                                                 "expiration_date_year" : ""]
-                                paymentVC.cardInfo = cardInfo
+                                paymentVC.cardInfo = cardInfo as [String : AnyObject]
                             }
                             
                         }else{
@@ -743,7 +740,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                             "expiration_date_month" : "",
                                             "card_number" : "",
                                             "expiration_date_year" : ""]
-                            paymentVC.cardInfo = cardInfo
+                            paymentVC.cardInfo = cardInfo as [String : AnyObject]
                         }
                         
                         self.navigationController!.pushViewController(paymentVC, animated: true)
@@ -758,7 +755,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }
@@ -779,7 +776,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    @IBAction func SendItineraryBtnPressed(sender: AnyObject) {
+    @IBAction func SendItineraryBtnPressed(_ sender: AnyObject) {
         
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.sendItineraryScreen)
         pnr = itineraryInformation["pnr"] as! String
@@ -810,7 +807,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }
@@ -830,7 +827,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    @IBAction func confirmBtnPressed(sender: AnyObject) {
+    @IBAction func confirmBtnPressed(_ sender: AnyObject) {
         
         pnr = itineraryInformation["pnr"] as! String
         bookingId = "\(itineraryData["booking_id"]!)"
@@ -874,8 +871,8 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         
                                         let paymentChannel = json["payment_channel"].arrayObject
                                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("EditPaymentVC") as! EditPaymentViewController
-                                        paymentVC.paymentType = paymentChannel!
+                                        let paymentVC = storyboard.instantiateViewController(withIdentifier: "EditPaymentVC") as! EditPaymentViewController
+                                        paymentVC.paymentType = paymentChannel! as [AnyObject]
                                         paymentVC.totalDueStr = self.totalDueStr
                                         paymentVC.bookingId = self.bookingId
                                         paymentVC.signature = self.signature
@@ -883,7 +880,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         if try! LoginManager.sharedInstance.isLogin(){
                                             
                                             if json["fop"] != nil{
-                                                paymentVC.cardInfo = json["fop"].dictionaryObject!
+                                                paymentVC.cardInfo = json["fop"].dictionaryObject! as [String : AnyObject]
                                             }else{
                                                 let cardInfo = ["card_type" : "",
                                                                 "account_number_id" : "",
@@ -891,7 +888,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                                                 "expiration_date_month" : "",
                                                                 "card_number" : "",
                                                                 "expiration_date_year" : ""]
-                                                paymentVC.cardInfo = cardInfo
+                                                paymentVC.cardInfo = cardInfo as [String : AnyObject]
                                             }
                                             
                                         }else{
@@ -901,7 +898,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                                             "expiration_date_month" : "",
                                                             "card_number" : "",
                                                             "expiration_date_year" : ""]
-                                            paymentVC.cardInfo = cardInfo
+                                            paymentVC.cardInfo = cardInfo as [String : AnyObject]
                                         }
                                         
                                         self.navigationController!.pushViewController(paymentVC, animated: true)
@@ -916,7 +913,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                         
                                         for views in (self.navigationController?.viewControllers)!{
                                             if views.classForCoder == HomeViewController.classForCoder(){
-                                                self.navigationController?.popToViewController(views, animated: true)
+                                                _ = self.navigationController?.popToViewController(views, animated: true)
                                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                             }
                                         }
@@ -947,7 +944,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }
@@ -966,14 +963,14 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    @IBAction func cancelBtnPressed(sender: AnyObject) {
+    @IBAction func cancelBtnPressed(_ sender: AnyObject) {
         let navigationArray = self.navigationController?.viewControllers
         
         for subView in navigationArray!{
             
             if subView.classForCoder == ManageFlightHomeViewController.classForCoder(){
                 self.navigationController?.popToViewController(subView , animated: true)
-                NotificationCenter.default.post(name: "reloadHomePage", object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHomePage"), object: nil)
                 break
             }
             
@@ -988,7 +985,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    func sentData(signature:String, pnr:String, userName:String, userId:String, customerNumber:String){
+    func sentData(_ signature:String, pnr:String, userName:String, userId:String, customerNumber:String){
         
         FireFlyProvider.request(.RetrieveBooking(signature, pnr, userName, userId, customerNumber)) { (result) -> () in
             
@@ -999,7 +996,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     
                     if json["status"] == "success"{
                         
-                        defaults.setObject(json.object, forKey: "manageFlight")
+                        defaults.set(json.object, forKey: "manageFlight")
                         defaults.synchronize()
                         
                         let navigationArray = self.navigationController?.viewControllers
@@ -1010,7 +1007,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                                 
                                 hideLoading()
                                 self.navigationController?.popToViewController(subView , animated: true)
-                                NotificationCenter.default.post(name: "reloadHomePage", object: nil)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHomePage"), object: nil)
                                 break
                             }
                             
@@ -1026,7 +1023,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }
@@ -1047,7 +1044,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
         
     }
     
-    @IBAction func ssrBtnPressed(sender: AnyObject) {
+    @IBAction func ssrBtnPressed(_ sender: AnyObject) {
         
         pnr = itineraryInformation["pnr"] as! String
         bookingId = "\(itineraryData["booking_id"]!)"
@@ -1063,11 +1060,11 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                     if json["status"] == "success"{
                         
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let ssrVC = storyboard.instantiateViewControllerWithIdentifier("EditSSRVC") as! EditSSRViewController
+                        let ssrVC = storyboard.instantiateViewController(withIdentifier: "EditSSRVC") as! EditSSRViewController
                         ssrVC.pnr = self.pnr
                         ssrVC.bookingId = self.bookingId
                         ssrVC.signature = self.signature
-                        ssrVC.meals = json["meal"].arrayObject!
+                        ssrVC.meals = json["meal"].arrayObject! as [AnyObject]
                         self.navigationController!.pushViewController(ssrVC, animated: true)
                         hideLoading()
                     }else if json["status"].string == "error"{
@@ -1080,7 +1077,7 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }

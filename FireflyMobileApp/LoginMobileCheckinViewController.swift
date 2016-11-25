@@ -18,8 +18,8 @@ class LoginMobileCheckinViewController: CommonListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.loginMobileCheckInScreen)
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginMobileCheckinViewController.refreshCheckInList(_:)), name: "reloadCheckInList", object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(LoginMobileCheckinViewController.emptyCheckInList(_:)), name: "emptyCheckInList", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginMobileCheckinViewController.refreshCheckInList(_:)), name: NSNotification.Name(rawValue: "reloadCheckInList"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(LoginMobileCheckinViewController.emptyCheckInList(_:)), name: NSNotification.Name(rawValue: "emptyCheckInList"), object: nil)
         loadingIndicator.isHidden = indicator
         loadCheckInList()
     }
@@ -28,7 +28,7 @@ class LoginMobileCheckinViewController: CommonListViewController {
         
         let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
         var userData : Results<UserList>! = nil
-        userData = realm.objects(UserList)
+        userData = realm.objects(UserList.self)
         mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
         
         if mainUser.count != 0{
@@ -37,13 +37,13 @@ class LoginMobileCheckinViewController: CommonListViewController {
         
     }
     
-    func emptyCheckInList(notif : NSNotification){
+    func emptyCheckInList(_ notif : NSNotification){
         
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
         
     }
     
-    func refreshCheckInList(notif : NSNotification){
+    func refreshCheckInList(_ notif : NSNotification){
         
         signature = mainUser[0].signature
         loadingIndicator.isHidden = true

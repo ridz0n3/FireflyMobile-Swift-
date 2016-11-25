@@ -38,6 +38,14 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, tableName: nil, bundle: Bundle.main, value: "", comment: "")
     }
+    
+    var xmlSimpleEscape: String {
+        return self.replacingOccurrences(of: "&", with: "&amp;").replacingOccurrences(of: "\\", with: "&quot;").replacingOccurrences(of: "'", with: "&#x27;").replacingOccurrences(of: "'", with: "&#x39;").replacingOccurrences(of: "'", with: "&#x92;").replacingOccurrences(of: "'", with: "&#x96;").replacingOccurrences(of: ">", with: "&gt;").replacingOccurrences(of: "<", with: "&lt;")
+    }
+    
+    var xmlSimpleUnescape: String {
+        return self.replacingOccurrences(of: "&amp;", with: "&").replacingOccurrences(of: "&quot;", with: "\\").replacingOccurrences(of: "&#x27;", with: "'").replacingOccurrences(of: "&#x39;", with: "'").replacingOccurrences(of: "&#x92;", with: "'").replacingOccurrences(of: "&#x96;", with: "").replacingOccurrences(of: "&gt;", with: ">").replacingOccurrences(of: "&lt;", with: "<")
+    }
 }
 
 extension UIViewController: UITextFieldDelegate{

@@ -20,8 +20,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     @IBOutlet weak var checkBtn: UIButton!
     @IBOutlet weak var continueBtn: UIButton!
     
-    var departDate = NSDate()
-    var arrivalDate = NSDate()
+    var departDate = Date()
+    var arrivalDate = Date()
     var goingDate = String()
     var isChangeGoingDate = Bool()
     var returnDate = String()
@@ -46,8 +46,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
         continueBtn.layer.cornerRadius = 10.0
         
-        NotificationCenter.default.addObserver(self, selector: #selector(EditSearchFlightViewController.departureDate(_:)), name: "departure", object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(EditSearchFlightViewController.returnDate(_:)), name: "return", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditSearchFlightViewController.departureDate(_:)), name: NSNotification.Name(rawValue: "departure"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditSearchFlightViewController.returnDate(_:)), name: NSNotification.Name(rawValue: "return"), object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -56,32 +56,32 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return flightDetail.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = editFlightTableView.dequeueReusableCellWithIdentifier("airportCell", forIndexPath: indexPath) as! CustomSearchFlightTableViewCell
+        let cell = editFlightTableView.dequeueReusableCell(withIdentifier: "airportCell", for: indexPath) as! CustomSearchFlightTableViewCell
         
         let flightData = flightDetail[indexPath.section] as! NSDictionary
         
-        let formater = NSDateFormatter()
+        let formater = DateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
         let twentyFour = NSLocale(localeIdentifier: "en_GB")
-        formater.locale = twentyFour
+        formater.locale = twentyFour as Locale!
         if (indexPath.section == 0 && !isCheckGoing) || (indexPath.section == 1 && !isCheckReturn){
-            cell.bgView.backgroundColor = UIColor.lightGrayColor()
+            cell.bgView.backgroundColor = UIColor.lightGray
         }else{
-            cell.bgView.backgroundColor = UIColor.whiteColor()
+            cell.bgView.backgroundColor = UIColor.white
         }
         
         if indexPath.row == 0{
@@ -114,31 +114,31 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                 if !isChangeGoingDate{
                     let date = (flightData["departure_date"] as! String).components(separatedBy: "/")
                     
-                    let dateStr = formater.dateFromString("\(date[2])-\(date[1])-\(date[0])")
+                    let dateStr = formater.date(from: "\(date[2])-\(date[1])-\(date[0])")
                     departDate = dateStr!
-                    nonFormatGoingDate = formater.stringFromDate(dateStr!)
+                    nonFormatGoingDate = formater.string(from: dateStr!)
                     cell.airportLbl.text = flightData["departure_date"] as? String
                     
                 }else{
                     cell.airportLbl.text = goingDate
                 }
                 
-                cell.userInteractionEnabled = isCheckGoing
+                cell.isUserInteractionEnabled = isCheckGoing
                 
             }else{
                 if !isChangeReturnDate{
                     let date = (flightData["departure_date"] as! String).components(separatedBy: "/")
                     
-                    let dateStr = formater.dateFromString("\(date[2])-\(date[1])-\(date[0])")
+                    let dateStr = formater.date(from: "\(date[2])-\(date[1])-\(date[0])")
                     arrivalDate = dateStr!
-                    nonFormatReturnDate = formater.stringFromDate(dateStr!)
+                    nonFormatReturnDate = formater.string(from: dateStr!)
                     cell.airportLbl.text = flightData["departure_date"] as? String
                     
                 }else{
                     cell.airportLbl.text = returnDate
                 }
                 
-                cell.userInteractionEnabled = isCheckReturn
+                cell.isUserInteractionEnabled = isCheckReturn
             }
             
             cell.airportLbl.tag = indexPath.row
@@ -148,30 +148,30 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.row == 2{
             
             if indexPath.section == 0{
                 let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
-                let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
+                let gregorianVC = storyBoard.instantiateViewController(withIdentifier: "DatePickerVC") as! RSDFDatePickerViewController
                 gregorianVC.dateSelected = departDate
                 gregorianVC.isDepart = true
-                gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)//(calendarIdentifier: NSCalendarIdentifierGregorian)!
                 //gregorianVC.calendar.locale = NSLocale.currentLocale()
-                gregorianVC.view.backgroundColor = UIColor.orangeColor()
+                gregorianVC.view.backgroundColor = UIColor.orange
                 gregorianVC.typeDate = "departure"
-                self.presentViewController(gregorianVC, animated: true, completion: nil)
+                self.present(gregorianVC, animated: true, completion: nil)
             }else{
                 let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
-                let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
+                let gregorianVC = storyBoard.instantiateViewController(withIdentifier: "DatePickerVC") as! RSDFDatePickerViewController
                 gregorianVC.dateSelected = arrivalDate
                 gregorianVC.currentDate = departDate
-                gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)
                 //gregorianVC.calendar.locale = NSLocale.currentLocale()
-                gregorianVC.view.backgroundColor = UIColor.orangeColor()
+                gregorianVC.view.backgroundColor = UIColor.orange
                 gregorianVC.typeDate = "return"
-                self.presentViewController(gregorianVC, animated: true, completion: nil)
+                self.present(gregorianVC, animated: true, completion: nil)
             }
             
             
@@ -180,35 +180,35 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?{
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        sectionHeader = Bundle.main.loadNibNamed("FlightHeaderView", owner: self, options: nil)[0] as! UIView
+        sectionHeader = Bundle.main.loadNibNamed("FlightHeaderView", owner: self, options: nil)?[0] as! UIView
         
-        sectionHeader.frame = CGRectMake(0, 0, self.view.frame.size.width, 50);
-        checkBox.uncheckedColor = UIColor.whiteColor()
-        checkBox.strokeColor = UIColor.orangeColor()
-        checkBox.checkColor = UIColor.orangeColor()
+        sectionHeader.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 50);
+        checkBox.uncheckedColor = UIColor.white
+        checkBox.strokeColor = UIColor.orange
+        checkBox.checkColor = UIColor.orange
         checkBtn.tag = section
         if (section == 1) {
             wayLbl.text = "RETURN FLIGHT"
             if isCheckReturn{
-                checkBox.checkState = M13CheckboxState.Checked
+                checkBox.checkState = M13CheckboxState.checked
             }else{
                 checkBox.checkState = M13CheckboxState.unchecked
             }
         }else{
             if isCheckGoing{
-                checkBox.checkState = M13CheckboxState.Checked
+                checkBox.checkState = M13CheckboxState.checked
             }else{
                 checkBox.checkState = M13CheckboxState.unchecked
             }
         }
         
-        checkBtn.addTarget(self, action: #selector(EditSearchFlightViewController.checkSection(_:)), forControlEvents: .TouchUpInside)
+        checkBtn.addTarget(self, action: #selector(EditSearchFlightViewController.checkSection(_:)), for: .touchUpInside)
         return sectionHeader
         
     }
@@ -216,7 +216,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
     var nonFormatGoingDate = String()
     var nonFormatReturnDate = String()
     
-    func departureDate(notif:NSNotification){
+    func departureDate(_ notif:NSNotification){
         isChangeGoingDate = true
         
         let date = (notif.userInfo!["date"] as? String)!.components(separatedBy: "-")
@@ -228,7 +228,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
     }
     
-    func returnDate(notif:NSNotification){
+    func returnDate(_ notif:NSNotification){
         isChangeReturnDate = true
         let date = (notif.userInfo!["date"] as? String)!.components(separatedBy: "-")
         returnDate = "\(date[2])/\(date[1])/\(date[0])"
@@ -238,7 +238,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
     }
     
-    func checkSection(sender:UIButton){
+    func checkSection(_ sender:UIButton){
         
         let detail = flightDetail[sender.tag] as! [String: String]
         
@@ -264,7 +264,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
     }
     
-    func getFlightName(flightCode : String) -> String{
+    func getFlightName(_ flightCode : String) -> String{
         
         let flightArr = defaults.object(forKey: "flight") as! [Dictionary<String, AnyObject>]
         var flightName = String()
@@ -281,7 +281,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
         
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         if !isCheckGoing && !isCheckReturn{
             showErrorMessage("Please select at least one flight to proceed.")
@@ -301,7 +301,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                 let gDate = stringToDate(nonFormatGoingDate)
                 let rDate = stringToDate(nonFormatReturnDate)
                 
-                if gDate.compare(rDate) == NSComparisonResult.OrderedDescending{
+                if gDate.compare(rDate) == ComparisonResult.orderedDescending{
                     showErrorMessage("Please make sure that your return date is not earlier than your departure date.")
                     isValid = false
                 }
@@ -329,14 +329,14 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                                 if json["flight_type"].string == "MH"{
                                     
                                     let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                    let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditMHFlightDetailVC") as! EditMHFlightDetailViewController
+                                    let changeFlightVC = storyboard.instantiateViewController(withIdentifier: "EditMHFlightDetailVC") as! EditMHFlightDetailViewController
                                     changeFlightVC.flightDetail = json["journeys"].arrayValue
                                     
                                     if json["type"] == 1{
-                                        changeFlightVC.returnData = json["return_flight"].dictionaryObject!
+                                        changeFlightVC.returnData = json["return_flight"].dictionaryObject! as NSDictionary
                                     }
                                     changeFlightVC.type = json["type"].int!
-                                    changeFlightVC.goingData = json["going_flight"].dictionaryObject!
+                                    changeFlightVC.goingData = json["going_flight"].dictionaryObject! as NSDictionary
                                     changeFlightVC.signature = json["signature"].string!
                                     
                                     changeFlightVC.pnr = self.pnr
@@ -347,14 +347,14 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                                 }else{
                                     
                                     let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                    let changeFlightVC = storyboard.instantiateViewControllerWithIdentifier("EditFlightDetailVC") as! EditFlightDetailViewController
+                                    let changeFlightVC = storyboard.instantiateViewController(withIdentifier: "EditFlightDetailVC") as! EditFlightDetailViewController
                                     changeFlightVC.flightDetail = json["journeys"].arrayValue
                                     
                                     if json["type"] == 1{
-                                        changeFlightVC.returnData = json["return_flight"].dictionaryObject!
+                                        changeFlightVC.returnData = json["return_flight"].dictionaryObject! as NSDictionary
                                     }
                                     changeFlightVC.type = json["type"].int!
-                                    changeFlightVC.goingData = json["going_flight"].dictionaryObject!
+                                    changeFlightVC.goingData = json["going_flight"].dictionaryObject! as NSDictionary
                                     changeFlightVC.signature = json["signature"].string!
                                     
                                     changeFlightVC.pnr = self.pnr
@@ -374,7 +374,7 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }

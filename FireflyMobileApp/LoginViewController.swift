@@ -73,7 +73,7 @@
                 let password = self.formValues()["Password"] as! String
                 let encPassword = try! EncryptManager.sharedInstance.aesEncrypt(password, key: key, iv: iv)
                 
-                let username: String = (self.formValues()["Email"]! as! String).xmlSimpleEscape()
+                let username: String = (self.formValues()["Email"]! as! String).xmlSimpleEscape
                 
                 showLoading() 
                 
@@ -179,7 +179,7 @@
         
         func validationSuccessful() {
             showLoading() 
-            FireFlyProvider.request(.ForgotPassword(email.text!.xmlSimpleEscape(), "")) { (result) -> () in
+            FireFlyProvider.request(.ForgotPassword(email.text!.xmlSimpleEscape, "")) { (result) -> () in
                 
                 
                 switch result {

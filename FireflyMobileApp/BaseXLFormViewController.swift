@@ -94,7 +94,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
     }
     
     func backButtonPressed(_ sender: UIBarButtonItem){
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     func validateForm() {

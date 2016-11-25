@@ -26,7 +26,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         setupHomeButton()
         
         if defaults.object(forKey: "notif") != nil{
-            if defaults.object(forKey: "notif")?.classForCoder != NSString.classForCoder(){
+            if (defaults.object(forKey: "notif") as AnyObject).classForCoder != NSString.classForCoder(){
                 let userInfo = defaults.object(forKey: "notif")
                 let alert = userInfo!["aps"]!
                 let message = alert!["alert"]!!
@@ -47,26 +47,26 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     //TODO: Get the URL from Backend
-    func facebookSelected(sender: UIGestureRecognizer) {
+    func facebookSelected(_ sender: UIGestureRecognizer) {
         //Crashlytics.sharedInstance().crash()
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.facebookScreen)
         let facebookHooks = "fb://profile/\(defaults.object(forKey: "facebook") as! String)"
-        let facebookURL = NSURL(string: facebookHooks)
-        if UIApplication.sharedApplication().canOpenURL(facebookURL!)
+        let facebookURL = URL(string: facebookHooks)
+        if UIApplication.sharedApplication.canOpenURL(facebookURL!)
         {
-            UIApplication.sharedApplication().openURL(facebookURL!)
+            UIApplication.sharedApplication.openURL(facebookURL!)
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.facebook.com/\(defaults.object(forKey: "facebook") as! String)")!)
+            UIApplication.sharedApplication.openURL(NSURL(string: "https://www.facebook.com/\(defaults.object(forKey: "facebook") as! String)")!)
         }
     }
     
-    func instaSelected(sender: UIGestureRecognizer) {
+    func instaSelected(_ sender: UIGestureRecognizer) {
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.instagramScreen)
         let instagramHooks = "instagram://user?username=\(defaults.object(forKey: "instagram") as! String)"
-        let instagramUrl = NSURL(string: instagramHooks)
-        if UIApplication.sharedApplication().canOpenURL(instagramUrl!)
+        let instagramUrl = URL(string: instagramHooks)
+        if UIApplication.sharedApplication.canOpenURL(instagramUrl!)
         {
             UIApplication.sharedApplication().openURL(instagramUrl!)
             
@@ -76,10 +76,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         }
     }
     
-    func twitterSelected(sender: UIGestureRecognizer) {
+    func twitterSelected(_ sender: UIGestureRecognizer) {
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.twitterScreen)
         let twitterHooks = "twitter:///user?screen_name=\(defaults.object(forKey: "twitter") as! String)"
-        let twitterUrl = NSURL(string: twitterHooks)
+        let twitterUrl = URL(string: twitterHooks)
         if UIApplication.sharedApplication().canOpenURL(twitterUrl!)
         {
             UIApplication.sharedApplication().openURL(twitterUrl!)
@@ -91,11 +91,11 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0
         {
             return self.view.frame.size.width
@@ -111,7 +111,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0{
             let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath) as! CustomHomeMenuTableViewCell
@@ -150,7 +150,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if indexPath.row == 0{
             
@@ -159,17 +159,17 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 if defaults.object(forKey: "url") as! String != ""{
                     
                     let url = NSURL(string: defaults.object(forKey: "url") as! String)!
-                    UIApplication.sharedApplication().openURL(url)
+                    UIApplication.sharedApplication.openURL(url)
                     
                 }else if (defaults.object(forKey: "module") != nil){
                     if defaults.object(forKey: "module") as! String == "faq"{
                         let storyboard = UIStoryboard(name: "Home", bundle: nil)
-                        let FAQVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController
+                        let FAQVC = storyboard.instantiateViewController(withIdentifier: "FAQVC") as! FAQViewController
                         FAQVC.secondLevel = true
                         self.navigationController!.pushViewController(FAQVC, animated: true)
                     }else{
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                        let bookFlightVC = storyboard.instantiateViewControllerWithIdentifier("BookFlightVC") as! SearchFlightViewController
+                        let bookFlightVC = storyboard.instantiateViewController(withIdentifier: "BookFlightVC") as! SearchFlightViewController
                         self.navigationController!.pushViewController(bookFlightVC, animated: true)
                     }
                 }
@@ -177,12 +177,12 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             }else if (defaults.object(forKey: "module") != nil){
                 if defaults.object(forKey: "module") as! String == "faq"{
                     let storyboard = UIStoryboard(name: "Home", bundle: nil)
-                    let FAQVC = storyboard.instantiateViewControllerWithIdentifier("FAQVC") as! FAQViewController
+                    let FAQVC = storyboard.instantiateViewController(withIdentifier: "FAQVC") as! FAQViewController
                     FAQVC.secondLevel = true
                     self.navigationController!.pushViewController(FAQVC, animated: true)
                 }else{
                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                    let bookFlightVC = storyboard.instantiateViewControllerWithIdentifier("BookFlightVC") as! SearchFlightViewController
+                    let bookFlightVC = storyboard.instantiateViewController(withIdentifier: "BookFlightVC") as! SearchFlightViewController
                     self.navigationController!.pushViewController(bookFlightVC, animated: true)
                 }
             }
@@ -192,7 +192,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         }else if indexPath.row == 1{
             
             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-            let bookFlightVC = storyboard.instantiateViewControllerWithIdentifier("BookFlightVC") as! SearchFlightViewController
+            let bookFlightVC = storyboard.instantiateViewController(withIdentifier: "BookFlightVC") as! SearchFlightViewController
             self.navigationController!.pushViewController(bookFlightVC, animated: true)
             
         }else if indexPath.row == 2{
@@ -213,7 +213,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                 if json["list_booking"].count != 0{
                                     
                                     for data in json["list_booking"].arrayObject!{
-                                        let formater = NSDateFormatter()
+                                        let formater = DateFormatter()
                                         formater.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
                                         
                                         let twentyFour = NSLocale(localeIdentifier: "en_GB")
@@ -221,15 +221,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                         let newDate = formater.dateFromString(data["departure_datetime"] as! String)
                                         let today = NSDate()
                                         if today.compare(newDate!) == NSComparisonResult.OrderedAscending{
-                                            activeFlight.append(data)
+                                            activeFlight.append(data as AnyObject)
                                         }else{
-                                            notActiveFlight.append(data)
+                                            notActiveFlight.append(data as AnyObject)
                                         }
                                     }
                                     
                                     var newFormatedBookingList = [String : AnyObject]()
-                                    newFormatedBookingList.updateValue(activeFlight, forKey: "Active")
-                                    newFormatedBookingList.updateValue(notActiveFlight, forKey: "notActive")
+                                    newFormatedBookingList.updateValue(activeFlight as AnyObject, forKey: "Active")
+                                    newFormatedBookingList.updateValue(notActiveFlight as AnyObject, forKey: "notActive")
                                     /*
                                     if activeFlight.count != 0 && notActiveFlight.count != 0{
                                         newFormatedBookingList.updateValue(activeFlight, forKey: "Active")
@@ -242,21 +242,21 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     //print(newFormatedBookingList)
                                     
                                     let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                    let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("LoginManageFlightVC") as! LoginManageFlightViewController
+                                    let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "LoginManageFlightVC") as! LoginManageFlightViewController
                                     manageFlightVC.userId = "\(json["user_id"])"
                                     manageFlightVC.signature = json["signature"].string!
-                                    manageFlightVC.listBooking = json["list_booking"].arrayObject!
+                                    manageFlightVC.listBooking = json["list_booking"].arrayObject! as NSArray
                                     manageFlightVC.groupBookingList = newFormatedBookingList
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                 }else{
                                     
                                     // Create custom Appearance Configuration
                                     let appearance = SCLAlertView.SCLAppearance(
+                                        kCircleIconHeight: 40,
                                         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
                                         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
                                         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-                                        showCircularIcon: true,
-                                        kCircleIconHeight: 40
+                                        showCircularIcon: true
                                     )
                                     let alertViewIcon = UIImage(named: "alertIcon")
                                     let alert = SCLAlertView(appearance:appearance)
@@ -282,7 +282,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             }else{
                 
                 let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightVC") as! ManageFlightViewController
+                let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightVC") as! ManageFlightViewController
                 self.navigationController!.pushViewController(manageFlightVC, animated: true)
             }
         }else if indexPath.row == 3{
@@ -303,7 +303,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                         
                     }else{
                         let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
-                        let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginMobileCheckinVC") as! LoginMobileCheckinViewController
+                        let mobileCheckinVC = storyboard.instantiateViewController(withIdentifier: "LoginMobileCheckinVC") as! LoginMobileCheckinViewController
                         mobileCheckinVC.module = "checkIn"
                         mobileCheckinVC.userId = mainUser[0].id
                         mobileCheckinVC.signature = mainUser[0].signature
@@ -320,7 +320,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             }else{
                 
                 let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
-                let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("MobileCheckInVC") as! MobileCheckinViewController
+                let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "MobileCheckInVC") as! MobileCheckinViewController
                 self.navigationController!.pushViewController(manageFlightVC, animated: true)
                 
             }
@@ -331,8 +331,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             if try! LoginManager.sharedInstance.isLogin(){
                 
                 let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
-                var userData : Results<UserList>! = nil
-                userData = realm.objects(UserList)
+                //var userData : Results<UserList>! = nil
+                let userData = realm.objects(UserList.self)
                 let mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
                 
                 if mainUser.count != 0{
@@ -342,11 +342,11 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                         retrieveBoardingList(false)
                     }else{
                         let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                        let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginBoardingPassVC") as! LoginBoardingPassViewController
+                        let mobileCheckinVC = storyboard.instantiateViewController(withIdentifier: "LoginBoardingPassVC") as! LoginBoardingPassViewController
                         mobileCheckinVC.module = "boardingPass"
                         mobileCheckinVC.userId = mainUser[0].id
                         mobileCheckinVC.signature = mainUser[0].signature
-                        mobileCheckinVC.pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: false)
+                        mobileCheckinVC.pnrList = mainUser[0].pnr.sorted(byProperty: "departureDateTime", ascending: false)
                         self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                         retrieveBoardingList(true)
                     }
@@ -358,13 +358,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             }else{
                 
                 let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                let boardingPassVC = storyboard.instantiateViewControllerWithIdentifier("BoardingPassVC") as! BoardingPassViewController
+                let boardingPassVC = storyboard.instantiateViewController(withIdentifier: "BoardingPassVC") as! BoardingPassViewController
                 self.navigationController!.pushViewController(boardingPassVC, animated: true)
             }
         }
     }
     
-    func retrieveBoardingList(isExist : Bool){
+    func retrieveBoardingList(_ isExist : Bool){
         let userinfo = defaults.object(forKey: "userInfo") as! NSDictionary
         //showLoading()
         FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "boarding_pass", defaults.object(forKey: "customer_number") as! String), completion: { (result) -> () in
@@ -377,29 +377,29 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                     if json["status"] == "success"{
                         
                         if json["list_booking"].count != 0{
-                            self.saveBoardingPassList(json["list_booking"].arrayObject!, userId: "\(json["user_id"])", signature: json["signature"].string!)
+                            self.saveBoardingPassList(json["list_booking"].arrayObject! as [AnyObject], userId: "\(json["user_id"])", signature: json["signature"].string!)
                             
                             if !isExist{
                                 let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                                let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginBoardingPassVC") as! LoginBoardingPassViewController
+                                let mobileCheckinVC = storyboard.instantiateViewController(withIdentifier: "LoginBoardingPassVC") as! LoginBoardingPassViewController
                                 mobileCheckinVC.indicator = true
                                 mobileCheckinVC.module = "boardingPass"
                                 self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                             }else{
-                                NotificationCenter.default.post(name: "reloadBoardingPassList", object: nil)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadBoardingPassList"), object: nil)
                             }
                         }else{
                             // Create custom Appearance Configuration
                             let appearance = SCLAlertView.SCLAppearance(
+                                kCircleIconHeight: 40,
                                 kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
                                 kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
                                 kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-                                showCircularIcon: true,
-                                kCircleIconHeight: 40
+                                showCircularIcon: true
                             )
                             let alertViewIcon = UIImage(named: "alertIcon")
                             let alert = SCLAlertView(appearance:appearance)
-                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage: alertViewIcon)
+                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", closeButtonTitle : "Continue", colorStyle:0xEC581A, circleIconImage: alertViewIcon)
                         }
                     }else if json["status"] == "error"{
                         
@@ -417,15 +417,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 
                 if !isExist{
                     let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
-                    var userData : Results<UserList>! = nil
-                    userData = realm.objects(UserList)
+                    //var userData : Results<UserList>! = nil
+                    let userData = realm.objects(UserList.self)
                     let mainUser = userData.filter("userId == %@", userInfo["username"]! as! String)
                     
                     if mainUser.count != 0{
                         
                         if mainUser[0].pnr.count != 0{
                             let storyboard = UIStoryboard(name: "BoardingPass", bundle: nil)
-                            let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginBoardingPassVC") as! LoginBoardingPassViewController
+                            let mobileCheckinVC = storyboard.instantiateViewController(withIdentifier: "LoginBoardingPassVC") as! LoginBoardingPassViewController
                             mobileCheckinVC.indicator = true
                             mobileCheckinVC.module = "boardingPass"
                             //mobileCheckinVC.pnrList = mainUser[0].pnr.sorted("departureDateTime", ascending: false)
@@ -433,31 +433,31 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                         }else{
                             // Create custom Appearance Configuration
                             let appearance = SCLAlertView.SCLAppearance(
+                                kCircleIconHeight: 40,
                                 kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
                                 kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
                                 kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-                                showCircularIcon: true,
-                                kCircleIconHeight: 40
+                                showCircularIcon: true
                             )
                             let alertViewIcon = UIImage(named: "alertIcon")
                             let alert = SCLAlertView(appearance:appearance)
-                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage: alertViewIcon)
+                            alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", closeButtonTitle : "Continue", colorStyle:0xEC581A, circleIconImage: alertViewIcon)
                         }
                     }else{
                         // Create custom Appearance Configuration
                         let appearance = SCLAlertView.SCLAppearance(
+                            kCircleIconHeight: 40,
                             kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
                             kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
                             kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-                            showCircularIcon: true,
-                            kCircleIconHeight: 40
+                            showCircularIcon: true
                         )
                         let alertViewIcon = UIImage(named: "alertIcon")
                         let alert = SCLAlertView(appearance:appearance)
-                        alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage:alertViewIcon)
+                        alert.showInfo("Boarding Pass", subTitle: "You have no boarding pass record. Please check-in your flight ticket to proceed", closeButtonTitle : "Continue", colorStyle:0xEC581A, circleIconImage:alertViewIcon)
                     }
                 }else{
-                    NotificationCenter.default.post(name: "reloadBoardingPassList", object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadBoardingPassList"), object: nil)
                 }
                 
             }
@@ -465,11 +465,11 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
     }
     
-    func saveBoardingPassList(list : [AnyObject], userId : String, signature : String){
+    func saveBoardingPassList(_ list : [AnyObject], userId : String, signature : String){
         
-        let userInfo = defaults.object(forKey: "userInfo")
-        var userList = Results<UserList>!()
-        userList = realm.objects(UserList)
+        let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+        //var userList = Results<UserList>!()
+        let userList = realm.objects(UserList.self)
         
         for listInfo in list{
             
@@ -477,7 +477,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             let pnr = PNRList()
             pnr.pnr = listInfo["pnr"] as! String
             
-            let formater = NSDateFormatter()
+            let formater = DateFormatter()
             formater.dateFormat = "yyyy-MM-dd"
             let twentyFour = NSLocale(localeIdentifier: "en_GB")
             formater.locale = twentyFour
@@ -553,7 +553,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         self.homeMenuTableView.reloadData()
     }
     
-    func retrieveCheckInList(isExist : Bool){
+    func retrieveCheckInList(_ isExist : Bool){
         
         let userinfo = defaults.object(forKey: "userInfo") as! NSDictionary
         FireFlyProvider.request(.RetrieveBookingList(userinfo["username"]! as! String, userinfo["password"]! as! String, "check_in", defaults.object(forKey: "customer_number") as! String), completion: { (result) -> () in
@@ -570,7 +570,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             
                             if !isExist{
                                 let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
-                                let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginMobileCheckinVC") as! LoginMobileCheckinViewController
+                                let mobileCheckinVC = storyboard.instantiateViewController(withIdentifier: "LoginMobileCheckinVC") as! LoginMobileCheckinViewController
                                 mobileCheckinVC.indicator = true
                                 mobileCheckinVC.module = "checkIn"
                                 self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
@@ -637,7 +637,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
     }
     
-    func saveCheckInList(list : NSArray, userId : String, signature : String){
+    func saveCheckInList(_ list : NSArray, userId : String, signature : String){
         
         let userInfo = defaults.object(forKey: "userInfo")
         var userList = Results<UserList>!()

@@ -19,7 +19,7 @@ class NewUpdateViewController: BaseViewController {
         
         descriptionLbl.text = "There is a newer version available for download! Please update the app by visiting the Apple Store."
         updateBtn.layer.cornerRadius = 10
-        updateBtn.layer.borderColor = UIColor.orangeColor().CGColor
+        updateBtn.layer.borderColor = UIColor.orange.cgColor
         updateBtn.layer.borderWidth = 1
         borderViews.layer.borderWidth = 1
         // Do any additional setup after loading the view.
@@ -31,7 +31,7 @@ class NewUpdateViewController: BaseViewController {
     }
     
     @IBAction func updateBtnPressed(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(NSURL(string : "https://itunes.apple.com/us/app/firefly-mobile/id506588979?mt=8")!)
+        UIApplication.shared.openURL(URL(string : "https://itunes.apple.com/us/app/firefly-mobile/id506588979?mt=8")!)
     }
 
     /*

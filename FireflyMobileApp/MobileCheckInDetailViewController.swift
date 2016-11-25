@@ -114,7 +114,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             // Document Number
             row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationDocumentNo, i), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Document No:*")
             row.isRequired = true
-            //row.value = (passengerData["document_number"] as! String).xmlSimpleUnescape()
+            //row.value = (passengerData["document_number"] as! String).xmlSimpleUnescape
             section.addFormRow(row)
             
             // Enrich Loyalty No
@@ -212,7 +212,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
         detailTableView.beginUpdates()
         detailTableView.endUpdates()
         detailTableView.reloadData()
-        //checkBox.checkState = M13CheckboxState.Checked
+        //checkBox.checkState = M13CheckboxState.checked
     }
     
     @IBAction func continueBtnPressed(_ sender: AnyObject) {
@@ -246,7 +246,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         passengerInfo.updateValue(passengerArray[count]["passenger_number"]!, forKey: "passenger_number")
                         passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc as [Dictionary<String, AnyObject>]) as AnyObject, forKey: "travel_document")
                         passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray) as AnyObject, forKey: "issuing_country")
-                        passengerInfo.updateValue((formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]! as! String).xmlSimpleEscape() as AnyObject, forKey: "document_number")
+                        passengerInfo.updateValue((formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]! as! String).xmlSimpleEscape as AnyObject, forKey: "document_number")
                         
                         let expiredDate = nilIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationExpiredDate, count)] as AnyObject)
                         var arrangeExpDate = [String]()
@@ -300,7 +300,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }

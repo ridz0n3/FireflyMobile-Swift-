@@ -41,8 +41,8 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         AnalyticsManager.sharedInstance.logScreen(GAConstants.editMhFlightDetailScreen)
-        checkGoingIndexPath = NSIndexPath(forRow: 0, inSection: 0)
-        checkReturnIndexPath = NSIndexPath(forRow: 0, inSection: 1)
+        checkGoingIndexPath = IndexPath(row: 0, section: 0)
+        checkReturnIndexPath = IndexPath(row: 0, section: 1)
         // Do any additional setup after loading the view.
     }
 
@@ -51,7 +51,8 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         let flightDict = flightDetail[indexPath.section].dictionary
         
         if flightDict!["flights"]?.count == 0 {
@@ -77,7 +78,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
         
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if flightDetail.count == 0{
             return 1
@@ -107,26 +108,26 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
         
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if flightDetail.count == 0{
-            let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NoFlightCell", for: indexPath)
             return cell
         }else{
             
             let flightDict = flightDetail[indexPath.section].dictionary
             
             if indexPath.section == 0 && goingData["status"] as! String == "N"{
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoSelectCell", forIndexPath: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NoSelectCell", for: indexPath)
                 return cell
             }else if indexPath.section == 1 && returnData["status"] as! String == "N"{
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoSelectCell", forIndexPath: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NoSelectCell", for: indexPath)
                 return cell
             }else if flightDict!["flights"]?.count == 0{
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoFlightCell", forIndexPath: indexPath)
+                let cell = tableView.dequeueReusableCell(withIdentifier: "NoFlightCell", for: indexPath)
                 return cell
             }else {
-                let cell = self.flightDetailTableView.dequeueReusableCellWithIdentifier("flightCell", forIndexPath: indexPath) as! CustomMHFlightDetailTableViewCell
+                let cell = self.flightDetailTableView.dequeueReusableCell(withIdentifier: "flightCell", for: indexPath) as! CustomMHFlightDetailTableViewCell
                 
                 let flights = flightDict!["flights"]?.array
                 let flightData = flights![indexPath.row].dictionary
@@ -158,7 +159,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                     cell.economyPromoBtn.isHidden = false
                     
                     cell.economyPromoBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:1"
-                    cell.economyPromoBtn.addTarget(self, action: #selector(self.checkCategory(_:)), forControlEvents: .TouchUpInside)
+                    cell.economyPromoBtn.addTarget(self, action: #selector(self.checkCategory(_:)), for: .touchUpInside)
                     
                 }
                 
@@ -178,7 +179,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                     cell.economyBtn.isHidden = false
                     
                     cell.economyBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:2"
-                    cell.economyBtn.addTarget(self, action: #selector(self.checkCategory(_:)), forControlEvents: .TouchUpInside)
+                    cell.economyBtn.addTarget(self, action: #selector(self.checkCategory(_:)), for: .touchUpInside)
                 }
                 
                 if business!["status"]?.string == "sold out"{
@@ -196,69 +197,69 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                     cell.businessBtn.isHidden = false
                     
                     cell.businessBtn.accessibilityHint = "section:\(indexPath.section) row:\(indexPath.row) index:3"
-                    cell.businessBtn.addTarget(self, action: #selector(CommonMHFlightDetailViewController.checkCategory(_:)), forControlEvents: .TouchUpInside)
+                    cell.businessBtn.addTarget(self, action: #selector(CommonMHFlightDetailViewController.checkCategory(_:)), for: .touchUpInside)
                 }
 
-                cell.economyPromoCheckBox.strokeColor = UIColor.orangeColor()
-                cell.economyPromoCheckBox.checkColor = UIColor.orangeColor()
-                cell.economyCheckBox.strokeColor = UIColor.orangeColor()
-                cell.businessCheckBox.strokeColor = UIColor.orangeColor()
-                cell.economyCheckBox.checkColor = UIColor.orangeColor()
-                cell.businessCheckBox.checkColor = UIColor.orangeColor()
+                cell.economyPromoCheckBox.strokeColor = UIColor.orange
+                cell.economyPromoCheckBox.checkColor = UIColor.orange
+                cell.economyCheckBox.strokeColor = UIColor.orange
+                cell.businessCheckBox.strokeColor = UIColor.orange
+                cell.economyCheckBox.checkColor = UIColor.orange
+                cell.businessCheckBox.checkColor = UIColor.orange
                 
                 if indexPath.section == 1{
                     cell.flightIcon.image = UIImage(named: "arrival_icon")
                     if checkReturnIndexPath.section == 1{
                         if checkReturnIndexPath.row == indexPath.row{
                             if checkReturnIndex == "1"{
-                                cell.economyPromoCheckBox.checkState = .Checked
-                                cell.economyCheckBox.checkState = .Unchecked
-                                cell.businessCheckBox.checkState = .Unchecked
+                                cell.economyPromoCheckBox.checkState = .checked
+                                cell.economyCheckBox.checkState = .unchecked
+                                cell.businessCheckBox.checkState = .unchecked
                             }else if checkReturnIndex == "2"{
-                                cell.economyPromoCheckBox.checkState = .Unchecked
-                                cell.economyCheckBox.checkState = .Checked
-                                cell.businessCheckBox.checkState = .Unchecked
+                                cell.economyPromoCheckBox.checkState = .unchecked
+                                cell.economyCheckBox.checkState = .checked
+                                cell.businessCheckBox.checkState = .unchecked
                             }else if checkReturnIndex == "3"{
-                                cell.economyPromoCheckBox.checkState = .Unchecked
-                                cell.economyCheckBox.checkState = .Unchecked
-                                cell.businessCheckBox.checkState = .Checked
+                                cell.economyPromoCheckBox.checkState = .unchecked
+                                cell.economyCheckBox.checkState = .unchecked
+                                cell.businessCheckBox.checkState = .checked
                             }
                         }else{
-                            cell.economyPromoCheckBox.checkState = .Unchecked
-                            cell.economyCheckBox.checkState = .Unchecked
-                            cell.businessCheckBox.checkState = .Unchecked
+                            cell.economyPromoCheckBox.checkState = .unchecked
+                            cell.economyCheckBox.checkState = .unchecked
+                            cell.businessCheckBox.checkState = .unchecked
                         }
                     }else{
-                        cell.economyPromoCheckBox.checkState = .Unchecked
-                        cell.economyCheckBox.checkState = .Unchecked
-                        cell.businessCheckBox.checkState = .Unchecked
+                        cell.economyPromoCheckBox.checkState = .unchecked
+                        cell.economyCheckBox.checkState = .unchecked
+                        cell.businessCheckBox.checkState = .unchecked
                     }
                 }else{
                     cell.flightIcon.image = UIImage(named: "departure_icon")
                     if checkGoingIndexPath.section == 0{
                         if checkGoingIndexPath.row == indexPath.row{
                             if checkGoingIndex == "1"{
-                                cell.economyPromoCheckBox.checkState = .Checked
-                                cell.economyCheckBox.checkState = .Unchecked
-                                cell.businessCheckBox.checkState = .Unchecked
+                                cell.economyPromoCheckBox.checkState = .checked
+                                cell.economyCheckBox.checkState = .unchecked
+                                cell.businessCheckBox.checkState = .unchecked
                             }else if checkGoingIndex == "2"{
-                                cell.economyPromoCheckBox.checkState = .Unchecked
-                                cell.economyCheckBox.checkState = .Checked
-                                cell.businessCheckBox.checkState = .Unchecked
+                                cell.economyPromoCheckBox.checkState = .unchecked
+                                cell.economyCheckBox.checkState = .checked
+                                cell.businessCheckBox.checkState = .unchecked
                             }else if checkGoingIndex == "3"{
-                                cell.economyPromoCheckBox.checkState = .Unchecked
-                                cell.economyCheckBox.checkState = .Unchecked
-                                cell.businessCheckBox.checkState = .Checked
+                                cell.economyPromoCheckBox.checkState = .unchecked
+                                cell.economyCheckBox.checkState = .unchecked
+                                cell.businessCheckBox.checkState = .checked
                             }
                         }else{
-                            cell.economyPromoCheckBox.checkState = .Unchecked
-                            cell.economyCheckBox.checkState = .Unchecked
-                            cell.businessCheckBox.checkState = .Unchecked
+                            cell.economyPromoCheckBox.checkState = .unchecked
+                            cell.economyCheckBox.checkState = .unchecked
+                            cell.businessCheckBox.checkState = .unchecked
                         }
                     }else{
-                        cell.economyPromoCheckBox.checkState = .Unchecked
-                        cell.economyCheckBox.checkState = .Unchecked
-                        cell.businessCheckBox.checkState = .Unchecked
+                        cell.economyPromoCheckBox.checkState = .unchecked
+                        cell.economyCheckBox.checkState = .unchecked
+                        cell.businessCheckBox.checkState = .unchecked
                     }
                 }
                 return cell
@@ -266,7 +267,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
         }
     }
 
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         var planGo = String()
         var planBack = String()
@@ -361,7 +362,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                     
                     if json["status"] == "success"{
                         let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                        let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                        let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
                         manageFlightVC.isConfirm = true
                         manageFlightVC.itineraryData = json.object as! NSDictionary
                         self.navigationController!.pushViewController(manageFlightVC, animated: true)
@@ -375,7 +376,7 @@ class EditMHFlightDetailViewController: CommonMHFlightDetailViewController {
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }

@@ -105,7 +105,7 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
             }
         }else{
             showLoading() 
-            self.webView?.load(navigationAction.request)
+            _ = self.webView?.load(navigationAction.request)
         }
         return nil;
     }
@@ -147,7 +147,7 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
                             
                             for views in (self.navigationController?.viewControllers)!{
                                 if views.classForCoder == HomeViewController.classForCoder(){
-                                    self.navigationController?.popToViewController(views, animated: true)
+                                    _ = self.navigationController?.popToViewController(views, animated: true)
                                     AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                 }
                             }

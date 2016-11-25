@@ -39,8 +39,8 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
                     if json["status"] == "success"{
                         print(json["url"])
                         
-                        if let url = NSURL(string: json["url"].stringValue){
-                            let request = NSURLRequest(URL: url)
+                        if let url = URL(string: json["url"].stringValue){
+                            let request = URLRequest(url: url)
                             self.webView.loadRequest(request)
                         }
                     }else if json["status"] == "error"{
@@ -65,17 +65,17 @@ class FAQViewController: BaseViewController, UIScrollViewDelegate, UIWebViewDele
         // Dispose of any resources that can be recreated.
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
+    func webViewDidFinishLoad(_ webView: UIWebView) {
         hideLoading()
     }
-    func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
+    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
         hideLoading()
     }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if (scrollView.contentOffset.x > 0)
         {
-            scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y)
+            scrollView.contentOffset = CGPoint(x: 0, y: scrollView.contentOffset.y)//(0, scrollView.contentOffset.y)
         }
     }
     

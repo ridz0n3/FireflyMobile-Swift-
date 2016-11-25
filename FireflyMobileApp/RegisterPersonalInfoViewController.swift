@@ -305,17 +305,17 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 
                 let enc = try! EncryptManager.sharedInstance.aesEncrypt(formValues()[Tags.ValidationPassword]! as! String, key: key, iv: iv)
                 
-                let username = (formValues()[Tags.ValidationUsername]! as! String).xmlSimpleEscape()
+                let username = (formValues()[Tags.ValidationUsername]! as! String).xmlSimpleEscape
                 let password = enc
                 let title = getTitleCode(formValues()[Tags.ValidationTitle] as! String, titleArr: titleArray)
                 let firstName = formValues()[Tags.ValidationFirstName]! as! String
                 let lastName = formValues()[Tags.ValidationLastName]! as! String
                 let dob = formatDate(selectDate)
-                let address1 = (formValues()[Tags.ValidationAddressLine1]! as! String).xmlSimpleEscape()
-                let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject).xmlSimpleEscape()
-                let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject).xmlSimpleEscape()
+                let address1 = (formValues()[Tags.ValidationAddressLine1]! as! String).xmlSimpleEscape
+                let address2 = nullIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject).xmlSimpleEscape
+                let address3 = nullIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject).xmlSimpleEscape
                 let country = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
-                let city = (formValues()[Tags.ValidationTownCity]! as! String).xmlSimpleEscape()
+                let city = (formValues()[Tags.ValidationTownCity]! as! String).xmlSimpleEscape
                 let state = getStateCode(formValues()[Tags.ValidationState]! as! String, stateArr: stateArray)
                 let postcode = formValues()[Tags.ValidationPostcode]! as! String
                 let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome] as AnyObject)
@@ -333,7 +333,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 }
                 
                 showLoading()
-                FireFlyProvider.request(.RegisterUser(username!, password, title, firstName, lastName, dob, address1!, address2!, address3!, country, city!, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
+                FireFlyProvider.request(.RegisterUser(username, password, title, firstName, lastName, dob, address1!, address2!, address3!, country, city!, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):

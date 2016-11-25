@@ -77,7 +77,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                                     
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                    let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                                    let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "PaymentWebVC") as! PaymentWebViewController
                                     manageFlightVC.urlString = urlString
                                     manageFlightVC.signature = self.signature
                                     manageFlightVC.manage = "manage"
@@ -90,7 +90,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     
                                     for views in (self.navigationController?.viewControllers)!{
                                         if views.classForCoder == HomeViewController.classForCoder(){
-                                            self.navigationController?.popToViewController(views, animated: true)
+                                            _ = self.navigationController?.popToViewController(views, animated: true)
                                             AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                         }
                                     }
@@ -98,7 +98,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                                     
                                     hideLoading()
                                     
-                                    if json["message"].type == Type.Dictionary{
+                                    if json["message"].type == Type.dictionary{
                                         showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
                                     }else{
                                         showErrorMessage(json["message"].string!)
@@ -139,7 +139,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                             let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                            let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "PaymentWebVC") as! PaymentWebViewController
                             manageFlightVC.paymentType = "MU"
                             manageFlightVC.urlString = urlString
                             manageFlightVC.signature = defaults.object(forKey: "signature") as! String
@@ -149,7 +149,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                             
                             hideLoading()
                             
-                            if json["message"].type == Type.Dictionary{
+                            if json["message"].type == Type.dictionary{
                                 showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
                             }else{
                                 showErrorMessage(json["message"].string!)
@@ -161,7 +161,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                             
                             for views in (self.navigationController?.viewControllers)!{
                                 if views.classForCoder == HomeViewController.classForCoder(){
-                                    self.navigationController?.popToViewController(views, animated: true)
+                                    _ = self.navigationController?.popToViewController(views, animated: true)
                                     AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                 }
                             }
@@ -195,7 +195,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                             let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                            let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "PaymentWebVC") as! PaymentWebViewController
                             manageFlightVC.paymentType = "CI"
                             manageFlightVC.urlString = urlString
                             manageFlightVC.signature = defaults.object(forKey: "signature") as! String
@@ -205,7 +205,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                             
                             hideLoading()
                             
-                            if json["message"].type == Type.Dictionary{
+                            if json["message"].type == Type.dictionary{
                                 showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
                             }else{
                                 showErrorMessage(json["message"].string!)
@@ -218,7 +218,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                             
                             for views in (self.navigationController?.viewControllers)!{
                                 if views.classForCoder == HomeViewController.classForCoder(){
-                                    self.navigationController?.popToViewController(views, animated: true)
+                                    _ = self.navigationController?.popToViewController(views, animated: true)
                                     AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                 }
                             }
@@ -252,7 +252,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                             let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                             
                             let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("PaymentWebVC") as! PaymentWebViewController
+                            let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "PaymentWebVC") as! PaymentWebViewController
                             manageFlightVC.paymentType = "PX"
                             manageFlightVC.urlString = urlString
                             manageFlightVC.signature = defaults.object(forKey: "signature") as! String
@@ -262,7 +262,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                             
                             hideLoading()
                             
-                            if json["message"].type == Type.Dictionary{
+                            if json["message"].type == Type.dictionary{
                                 showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
                             }else{
                                 showErrorMessage(json["message"].string!)
@@ -274,7 +274,7 @@ class EditPaymentViewController: CommonPaymentViewController {
                             
                             for views in (self.navigationController?.viewControllers)!{
                                 if views.classForCoder == HomeViewController.classForCoder(){
-                                    self.navigationController?.popToViewController(views, animated: true)
+                                    _ = self.navigationController?.popToViewController(views, animated: true)
                                     AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                 }
                             }

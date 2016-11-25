@@ -20,15 +20,15 @@ class InsuranceViewController: UIViewController {
         super.viewDidLoad()
 
         bgView.layer.cornerRadius = 10
-        bgView.layer.borderColor = UIColor.blackColor().CGColor
+        bgView.layer.borderColor = UIColor.black.cgColor
         bgView.layer.borderWidth = 1
         
         noThankBtn.layer.cornerRadius = 10
-        noThankBtn.layer.borderColor = UIColor.orangeColor().CGColor
+        noThankBtn.layer.borderColor = UIColor.orange.cgColor
         noThankBtn.layer.borderWidth = 1
         
         yesBtn.layer.cornerRadius = 10
-        yesBtn.layer.borderColor = UIColor.orangeColor().CGColor
+        yesBtn.layer.borderColor = UIColor.orange.cgColor
         yesBtn.layer.borderWidth = 1
         
         let str = "<b>We noticed that you have opt-out from the Firefly Travel Protection plan. For your peace of mind, we strongly recommend you obtain appropriate protection for your travelling needs</b><br><br>Firefly Travel Protection protects you against unexpected events during your trip. From unfortunate accidents to lost travel documents, Firefly Travel Protection will take care of you (details)."
@@ -44,14 +44,14 @@ class InsuranceViewController: UIViewController {
     
     @IBAction func noThankBtnPressed(sender: AnyObject) {
         
-        NotificationCenter.default.post(name: "refreshInsurance", object: nil)
-        vc.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshInsurance"), object: nil)
+        vc.presentedViewController?.dismiss(animated: true, completion: nil)
         
     }
 
     @IBAction func yesBtnPressed(sender: AnyObject) {
         
-        vc.presentedViewController?.dismissViewControllerAnimated(true, completion: nil)
+        vc.presentedViewController?.dismiss(animated: true, completion: nil)
         
     }
     /*

@@ -44,7 +44,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         row = XLFormRowDescriptor(tag: Tags.ValidationEmail, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Email Address:*")
         row.isRequired = true
         row.value = email
-        row.addValidator(XLFormValidator.emailValidator())
+        row.addValidator(XLFormValidator.email())
         section.addFormRow(row)
         
         //current password
@@ -100,21 +100,21 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                             
                                             if  json["status"] == "success"{
                                                 showToastMessage("Password successfully change")
-                                                defaults.setObject(json["user_info"]["signature"].string, forKey: "signatureLoad")
-                                                defaults.setObject(json["user_info"].object , forKey: "userInfo")
-                                                defaults.setObject(json["user_info"]["customer_number"].string, forKey: "customer_number")
+                                                defaults.set(json["user_info"]["signature"].string, forKey: "signatureLoad")
+                                                defaults.set(json["user_info"].object , forKey: "userInfo")
+                                                defaults.set(json["user_info"]["customer_number"].string, forKey: "customer_number")
                                                 defaults.synchronize()
                                                 Crashlytics.sharedInstance().setUserEmail(json["user_info"]["username"].string)
                                                 
-                                                NotificationCenter.default.post(name: "reloadSideMenu", object: nil)
+                                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadSideMenu"), object: nil)
                                                 let storyBoard = UIStoryboard(name: "Home", bundle: nil)
-                                                let homeVC = storyBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+                                                let homeVC = storyBoard.instantiateViewController(withIdentifier: "HomeVC") as! HomeViewController
                                                 self.navigationController!.pushViewController(homeVC, animated: true)
                                             }else if json["status"] == "change_password" {
                                                 
                                 showErrorMessage(json["message"].string!)
                                                 let storyBoard = UIStoryboard(name: "Login", bundle: nil)
-                                                let homeVC = storyBoard.instantiateViewControllerWithIdentifier("PasswordExpiredVC") as! PasswordExpiredViewController
+                                                let homeVC = storyBoard.instantiateViewController(withIdentifier: "PasswordExpiredVC") as! PasswordExpiredViewController
                                                 self.navigationController!.pushViewController(homeVC, animated: true)
                                             }else if json["status"] == "error"{
                                                 

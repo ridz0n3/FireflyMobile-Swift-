@@ -186,7 +186,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
     
     override func backButtonPressed(_ sender: UIBarButtonItem){
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadBoardingPassList"), object: nil)
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
         
     }
     

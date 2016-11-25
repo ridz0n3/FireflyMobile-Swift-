@@ -126,7 +126,7 @@ class BaseViewController: UIViewController, MBProgressHUDDelegate {
     }
     
     func backButtonPressed(_ sender: UIBarButtonItem){
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
         
     }
     

@@ -20,13 +20,13 @@ class InitialLoadManager {
         if defaults.object(forKey: "first") == nil{
             
             if try! LoginManager.sharedInstance.isLogin(){
-                defaults.setObject("", forKey: "userInfo")
-                defaults.setObject("Y", forKey: "first")
-                defaults.setObject("0", forKey: "dataVersion")
+                defaults.set("", forKey: "userInfo")
+                defaults.set("Y", forKey: "first")
+                defaults.set("0", forKey: "dataVersion")
                 defaults.synchronize()
 
             }else{
-                defaults.setObject("0", forKey: "dataVersion")
+                defaults.set("0", forKey: "dataVersion")
             }
             
         }
@@ -50,7 +50,7 @@ class InitialLoadManager {
         let gcmKey = defaults.object(forKey: "token") as! String
         
         initializeGA()
-        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,deviceId!,"Apple",UIDevice.currentDevice().modelName,existDataVersion, gcmKey)) { (result) -> () in
+        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey)) { (result) -> () in
             switch result {
             case .success(let successResult):
                 do {
@@ -80,11 +80,11 @@ class InitialLoadManager {
                                 country = json["data_country"].object as! NSArray
                                 state = json["data_state"].object as! NSArray
                                 
-                                defaults.setObject(dataVersion, forKey: "dataVersion")
-                                defaults.setObject(title , forKey: "title")
-                                defaults.setObject(flight, forKey: "flight")
-                                defaults.setObject(country, forKey: "country")
-                                defaults.setObject(state, forKey: "state")
+                                defaults.set(dataVersion, forKey: "dataVersion")
+                                defaults.set(title , forKey: "title")
+                                defaults.set(flight, forKey: "flight")
+                                defaults.set(country, forKey: "country")
+                                defaults.set(state, forKey: "state")
                                 
                             }
                             
@@ -97,22 +97,22 @@ class InitialLoadManager {
                             signature = json["signature"].string!
                             let socialLink = json["social_media_link"].dictionary
                             
-                            defaults.setObject(socialLink!["instagram"]?.string, forKey: "instagram")
-                            defaults.setObject(socialLink!["twitter"]?.string, forKey: "twitter")
-                            defaults.setObject(socialLink!["facebookScreen"]?.string, forKey: "facebook")
+                            defaults.set(socialLink!["instagram"]?.string, forKey: "instagram")
+                            defaults.set(socialLink!["twitter"]?.string, forKey: "twitter")
+                            defaults.set(socialLink!["facebookScreen"]?.string, forKey: "facebook")
                             
-                            defaults.setObject("true", forKey: "firstInstall")
-                            defaults.setObject(json["banner_module"].string, forKey: "module")
-                            defaults.setObject(nilIfEmpty(json["banner_url"].string), forKey: "url")
-                            defaults.setObject(signature, forKey: "signatureLoad")
-                            defaults.setObject(banner, forKey: "banner")
-                            defaults.setObject(json["data_version_mobile"].dictionaryObject, forKey: "mobileVersion")
+                            defaults.set("true", forKey: "firstInstall")
+                            defaults.set(json["banner_module"].string, forKey: "module")
+                            defaults.set(nilIfEmpty(json["banner_url"].string as AnyObject?), forKey: "url")
+                            defaults.set(signature, forKey: "signatureLoad")
+                            defaults.set(banner, forKey: "banner")
+                            defaults.set(json["data_version_mobile"].dictionaryObject, forKey: "mobileVersion")
                             defaults.synchronize()
                             self.checkForAppUpdate()
-                            NotificationCenter.default.post(name: "reloadHome", object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadHome"), object: nil)
                         }
                         else if json["status"].string == "force_logout"{
-                            defaults.setObject("", forKey: "userInfo")
+                            defaults.set("", forKey: "userInfo")
                             defaults.synchronize()
                             self.load()
                             print(String(format: "%@ \n%@", json["status"].string!, json["message"].string!))
@@ -132,17 +132,17 @@ class InitialLoadManager {
                 }//
             case .failure(let failureResult):
                 
-                if let first = defaults.object(forKey: "firstInstall"){
+                if defaults.object(forKey: "firstInstall") != nil{
                     UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-                    UINavigationBar.appearance().translucent = false
+                    UINavigationBar.appearance().isTranslucent = false
                     
-                    let viewController = UIApplication.sharedApplication().delegate as! AppDelegate
+                    let viewController = UIApplication.shared.delegate as! AppDelegate
                     
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     
-                    let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("LeftMenuVC") as! LeftSideMenuViewController
+                    let sideMenuVC = storyboard.instantiateViewController(withIdentifier: "LeftMenuVC") as! LeftSideMenuViewController
                     let homeStoryBoard = UIStoryboard(name: "Home", bundle: nil)
-                    let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+                    let navigationController = homeStoryBoard.instantiateViewController(withIdentifier: "HomeVC") as! HomeViewController
                     
                     let nvc: UINavigationController = UINavigationController(rootViewController: navigationController)
                     
@@ -153,7 +153,7 @@ class InitialLoadManager {
                     viewController.window?.rootViewController = slideMenuController
                     viewController.window?.makeKeyAndVisible()
                 }else{
-                    showRetryMessage(failureResult.nsError.localizedDescription)
+                    showRetryMessage(failureResult.localizedDescription)
                 }
                 
                 //if failureResult.nsError.code == -1001 || failureResult.nsError.code == -1009{
@@ -168,7 +168,7 @@ class InitialLoadManager {
     }
     
     func initializeGA(){
-        // Configure tracker from GoogleService-Info.plist.
+       /* // Configure tracker from GoogleService-Info.plist.
         var configureError:NSError?
         GGLContext.sharedInstance().configureWithError(&configureError)
         assert(configureError == nil, "Error configuring Google services: \(configureError)")
@@ -176,44 +176,44 @@ class InitialLoadManager {
         // Optional: configure GAI options.
         let gai = GAI.sharedInstance()
         gai.trackUncaughtExceptions = true  // report uncaught exceptions
-        gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release
+        gai.logger.logLevel = GAILogLevel.Verbose  // remove before app release*/
     }
     
     func checkForAppUpdate(){
         
-        let appVersion = Bundle.main.objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
-        let buildVersion = Bundle.main.objectForInfoDictionaryKey("CFBundleVersion") as! String
+        let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+        let buildVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
         
         let version = defaults.object(forKey: "mobileVersion") as! Dictionary<String,AnyObject>
         
         if appVersion != version["version"] as! String && version["force_update"] as! String == "Y"{
             
             UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-            UINavigationBar.appearance().translucent = false
+            UINavigationBar.appearance().isTranslucent = false
             // Override point for customization after application launch.
             
-            let viewController = UIApplication.sharedApplication().delegate as! AppDelegate
+            let viewController = UIApplication.shared.delegate as! AppDelegate
             
             UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-            UINavigationBar.appearance().translucent = false
+            UINavigationBar.appearance().isTranslucent = false
             
             let storyboard = UIStoryboard(name: "NewUpdate", bundle: nil)
-            let aboutVC = storyboard.instantiateViewControllerWithIdentifier("NewUpdateVC") as! UINavigationController
+            let aboutVC = storyboard.instantiateViewController(withIdentifier: "NewUpdateVC") as! UINavigationController
             
             viewController.window?.rootViewController = aboutVC
             
         }else{
             
             UINavigationBar.appearance().barTintColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
-            UINavigationBar.appearance().translucent = false
+            UINavigationBar.appearance().isTranslucent = false
             
-            let viewController = UIApplication.sharedApplication().delegate as! AppDelegate
+            let viewController = UIApplication.shared.delegate as! AppDelegate
             
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             
-            let sideMenuVC = storyboard.instantiateViewControllerWithIdentifier("LeftMenuVC") as! LeftSideMenuViewController
+            let sideMenuVC = storyboard.instantiateViewController(withIdentifier: "LeftMenuVC") as! LeftSideMenuViewController
             let homeStoryBoard = UIStoryboard(name: "Home", bundle: nil)
-            let navigationController = homeStoryBoard.instantiateViewControllerWithIdentifier("HomeVC") as! HomeViewController
+            let navigationController = homeStoryBoard.instantiateViewController(withIdentifier: "HomeVC") as! HomeViewController
             
             let nvc: UINavigationController = UINavigationController(rootViewController: navigationController)
             

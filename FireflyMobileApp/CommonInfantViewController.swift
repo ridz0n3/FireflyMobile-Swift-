@@ -26,7 +26,7 @@ class CommonInfantViewController: BaseXLFormViewController {
                                   "last_name" : "",
                                   "dob" : "",
                                   "nationality" : "",
-                                  "type" : "Infant"]
+                                  "type" : "Infant"] as [String : Any]
             infantInfo = infantTempData as NSDictionary
         }else{
             let infantTempData = ["id" : familyAndFriendInfo.id,
@@ -37,7 +37,7 @@ class CommonInfantViewController: BaseXLFormViewController {
                                  "dob" : familyAndFriendInfo.dob,
                                  "nationality" : familyAndFriendInfo.country,
                                  "bonuslink_card" : familyAndFriendInfo.bonuslink,
-                                 "type" : familyAndFriendInfo.type]
+                                 "type" : familyAndFriendInfo.type] as [String : Any]
             infantInfo = infantTempData as NSDictionary
         }
         initialize()
@@ -65,9 +65,9 @@ class CommonInfantViewController: BaseXLFormViewController {
         
         var tempArray = [AnyObject]()
         for gender in genderArray{
-            tempArray.append(XLFormOptionsObject(value: gender["gender_code"] as! String, displayText: gender["gender_name"] as! String))
-            if gender["gender_code"] as! String == infantInfo["gender"] as! String{
-                row.value = gender["gender_name"] as! String
+            tempArray.append(XLFormOptionsObject(value: gender["gender_code"]!, displayText: gender["gender_name"]!))
+            if gender["gender_code"]! == infantInfo["gender"] as! String{
+                row.value = gender["gender_name"]!
             }
             
         }
@@ -120,12 +120,12 @@ class CommonInfantViewController: BaseXLFormViewController {
         
     }
     
-    func saveFamilyAndFriend(familyAndFriendInfo : [AnyObject]){
+    func saveFamilyAndFriend(_ familyAndFriendInfo : [AnyObject]){
         
-        let userInfo = defaults.object(forKey: "userInfo")
-        var userList = Results<FamilyAndFriendList>!()
-        userList = realm.objects(FamilyAndFriendList)
-        let mainUser = userList.filter("email == %@",userInfo!["username"] as! String)
+        let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+        //var userList = Results<FamilyAndFriendList>!()
+        let userList = realm.objects(FamilyAndFriendList.self)
+        let mainUser = userList.filter("email == \(userInfo["username"] as! String)")
         
         if mainUser.count != 0{
             if mainUser[0].familyList.count != 0{
@@ -139,19 +139,19 @@ class CommonInfantViewController: BaseXLFormViewController {
             
             let data = FamilyAndFriendData()
             data.id = list["id"] as! Int
-            data.title = nullIfEmpty(list["title"]) as! String
-            data.gender = nullIfEmpty(list["gender"]) as! String
+            data.title = nullIfEmpty(list["title"] as AnyObject)
+            data.gender = nullIfEmpty(list["gender"] as AnyObject)
             data.firstName = list["first_name"] as! String
             data.lastName = list["last_name"] as! String
             //let dateArr = (list["dob"] as! String).components(separatedBy: "-")
             data.dob = list["dob"] as! String//"\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
-            data.bonuslink = nullIfEmpty(list["bonuslink_card"]) as! String
+            data.bonuslink = nullIfEmpty(list["bonuslink_card"] as AnyObject)
             data.type = list["type"] as! String
             
             if mainUser.count == 0{
                 let user = FamilyAndFriendList()
-                user.email = userInfo!["username"] as! String
+                user.email = userInfo["username"] as! String
                 user.familyList.append(data)
                 
                 try! realm.write({ () -> Void in
@@ -162,7 +162,7 @@ class CommonInfantViewController: BaseXLFormViewController {
                 
                 try! realm.write({ () -> Void in
                     mainUser[0].familyList.append(data)
-                    mainUser[0].email = userInfo!["username"] as! String
+                    mainUser[0].email = userInfo["username"] as! String
                 })
                 
             }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RemoteNotificationManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDelegate {
+class RemoteNotificationManager: NSObject{//, GGLInstanceIDDelegate, GCMReceiverDelegate {
 
     static let sharedInstance = RemoteNotificationManager()
     
@@ -22,60 +22,60 @@ class RemoteNotificationManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDel
         let completeAction = UIMutableUserNotificationAction()
         completeAction.identifier = "Close"
         completeAction.title = "Close"
-        completeAction.activationMode = .Background
-        completeAction.authenticationRequired = false
-        completeAction.destructive = true
+        completeAction.activationMode = .background
+        completeAction.isAuthenticationRequired = false
+        completeAction.isDestructive = true
         
         let remindAction = UIMutableUserNotificationAction()
         remindAction.identifier = "Turn_On"
         remindAction.title = "Open"
-        remindAction.activationMode = .Foreground
-        remindAction.destructive = false
+        remindAction.activationMode = .foreground
+        remindAction.isDestructive = false
         
         let todoCategory = UIMutableUserNotificationCategory()
         todoCategory.identifier = "Check_Bluetooth"
-        todoCategory.setActions([remindAction], forContext: .Minimal)
+        todoCategory.setActions([remindAction], for: .minimal)
         
         
         //geofence
         let noNotifyAction = UIMutableUserNotificationAction()
         noNotifyAction.identifier = "geofence"
         noNotifyAction.title = "Open"
-        noNotifyAction.activationMode = .Background
-        noNotifyAction.destructive = true
+        noNotifyAction.activationMode = .background
+        noNotifyAction.isDestructive = true
         
         let geoCategory = UIMutableUserNotificationCategory()
         geoCategory.identifier = "Geofence"
-        geoCategory.setActions([noNotifyAction], forContext: .Minimal)
+        geoCategory.setActions([noNotifyAction], for: .minimal)
         
         let notifyAction = UIMutableUserNotificationAction()
         notifyAction.identifier = "DepartureScan"
         notifyAction.title = "Ok"
-        notifyAction.activationMode = .Background
-        notifyAction.destructive = true
+        notifyAction.activationMode = .background
+        notifyAction.isDestructive = true
         
         let beaconCategory = UIMutableUserNotificationCategory()
         beaconCategory.identifier = "DepartureGate"
-        beaconCategory.setActions([notifyAction], forContext: .Minimal)
+        beaconCategory.setActions([notifyAction], for: .minimal)
         
         let reminderAction = UIMutableUserNotificationAction()
         reminderAction.identifier = "Reminder"
         reminderAction.title = "Ok"
-        reminderAction.activationMode = .Foreground
-        reminderAction.destructive = true
+        reminderAction.activationMode = .foreground
+        reminderAction.isDestructive = true
         
         let reminderCategory = UIMutableUserNotificationCategory()
         reminderCategory.identifier = "Reminder"
-        reminderCategory.setActions([reminderAction], forContext: .Minimal)
+        reminderCategory.setActions([reminderAction], for: .minimal)
         
-        let notifSetting:UIUserNotificationType = [.Badge, .Alert, .Sound]
-        UIApplication.sharedApplication()
+       /* let notifSetting:UIUserNotificationType = [.badge, .alert, .sound]
+        UIApplication.shared
             .registerForRemoteNotifications()
-        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: notifSetting, categories: NSSet(array: [todoCategory, beaconCategory, geoCategory, reminderCategory]) as? Set<UIUserNotificationCategory>))
+        UIApplication.sharedApplication.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: notifSetting, categories: NSSet(array: [todoCategory, beaconCategory, geoCategory, reminderCategory]) as? Set<UIUserNotificationCategory>))*/
     }
     
     func registerGCM(){
-        
+        /*
         // [START_EXCLUDE]
         // Configure the Google context: parses the GoogleService-Info.plist, and initializes
         // the services that have entries in the file
@@ -89,13 +89,13 @@ class RemoteNotificationManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDel
         let gcmConfig = GCMConfig.defaultConfig()
         gcmConfig.receiverDelegate = self
         GCMService.sharedInstance().startWithConfig(gcmConfig)
-        // [END start_gcm_service]
+        // [END start_gcm_service]*/
         
     }
     
     func getGCMToken(deviceToken:NSData){
         
-        // [START get_gcm_reg_token]
+       /* // [START get_gcm_reg_token]
         // Create a config and set a delegate that implements the GGLInstaceIDDelegate protocol.
         let instanceIDConfig = GGLInstanceIDConfig.defaultConfig()
         instanceIDConfig.delegate = self
@@ -116,11 +116,11 @@ class RemoteNotificationManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDel
                 self.connectedToGCM = true
                 print("Connected to GCM")
             }
-        })
+        })*/
     }
 
     func registrationHandler(registrationToken: String!, error: NSError!) {
-        if (registrationToken != nil) {
+       /* if (registrationToken != nil) {
             self.registrationToken = registrationToken
             print("Registration Token: \(registrationToken)")
             defaults.setValue(registrationToken, forKey: "token")
@@ -134,16 +134,16 @@ class RemoteNotificationManager: NSObject, GGLInstanceIDDelegate, GCMReceiverDel
             //let userInfo = ["error": error.localizedDescription]
             //NotificationCenter.default.post(name: 
             //self.registrationKey, object: nil, userInfo: userInfo)
-        }
+        }*/
     }
     
     // [START on_token_refresh]
 
     func onTokenRefresh() {
         // A rotation of the registration tokens is happening, so the app needs to request a new token.
-        print("The GCM registration token needs to be changed.")
+       /* print("The GCM registration token needs to be changed.")
         GGLInstanceID.sharedInstance().tokenWithAuthorizedEntity(gcmSenderID,
-            scope: kGGLInstanceIDScopeGCM, options: registrationOptions, handler: registrationHandler)
+            scope: kGGLInstanceIDScopeGCM, options: registrationOptions, handler: registrationHandler)*/
     }
     // [END on_token_refresh]
     

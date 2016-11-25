@@ -35,22 +35,22 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     seatIndex = 0
                     seatArray.append(newSeat[0])
                     seat.add(seatArray)
-                    newSeat.removeAtIndex(0)
+                    newSeat.remove(at: 0)
                     seatArray = [Dictionary<String, AnyObject>]()
                     
                 }else{
                     
                     seatArray.append(newSeat[0])
-                    newSeat.removeAtIndex(0)
+                    newSeat.remove(at: 0)
                     seatIndex += 1
                     
                 }
             }
             
-            data["departure_station"] = departureStation
-            data["departure_station_name"] = departureStationName
-            data["arrival_station"] = arrivalStation
-            data["arrival_station_name"] = arrivalStationName
+            data["departure_station"] = departureStation as AnyObject?
+            data["departure_station_name"] = departureStationName as AnyObject?
+            data["arrival_station"] = arrivalStation as AnyObject?
+            data["arrival_station_name"] = arrivalStationName as AnyObject?
             data["seat_info"] = seat
             
             details.append(data)
@@ -66,7 +66,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
     
     @IBAction func continueBtnPressed(sender: AnyObject) {
         
-        let bookId = String(format: "%i", defaults.object(forKey: "booking_id")!.integerValue)
+        let bookId = String(format: "%i", (defaults.object(forKey: "booking_id")! as AnyObject).integerValue)
         let signature = defaults.object(forKey: "signature") as! String
         
         if journeys.count == 2{
@@ -97,7 +97,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                 }
                 showLoading() 
                 
-                FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
+                FireFlyProvider.request(.SelectSeat(goingSeatSelection[0] as AnyObject, returnSeatSelection[0] as AnyObject, bookId, signature), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):
@@ -107,10 +107,10 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                             
                             if json["status"] == "success"{
                                 
-                                defaults.setObject(json.dictionaryObject, forKey: "itenerary")
+                                defaults.set(json.dictionaryObject, forKey: "itenerary")
                                 defaults.synchronize()
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
+                                let paymentVC = storyboard.instantiateViewController(withIdentifier: "PaymentSummaryVC") as! PaymentSummaryViewController
                                 self.navigationController!.pushViewController(paymentVC, animated: true)
                                 
                             }else if json["status"] == "error"{
@@ -122,7 +122,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }
@@ -173,7 +173,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                 returnSeatSelection.add(tempDict)
                 showLoading() 
                 
-                FireFlyProvider.request(.SelectSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature), completion: { (result) -> () in
+                FireFlyProvider.request(.SelectSeat(goingSeatSelection[0] as AnyObject, returnSeatSelection[0] as AnyObject, bookId, signature), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):
@@ -183,11 +183,11 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                             
                             if json["status"] == "success"{
                                 
-                                defaults.setObject(json.dictionaryObject, forKey: "itenerary")
+                                defaults.set(json.dictionaryObject, forKey: "itenerary")
                                 defaults.synchronize()
                                 
                                 let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
+                                let paymentVC = storyboard.instantiateViewController(withIdentifier: "PaymentSummaryVC") as! PaymentSummaryViewController
                                 self.navigationController!.pushViewController(paymentVC, animated: true)
                                 
                             }else if json["status"] == "error"{
@@ -199,7 +199,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }
@@ -224,7 +224,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
         }
     }
     
-    func continueWithoutSelectSeat(signature : String){
+    func continueWithoutSelectSeat(_ signature : String){
         
         showLoading() 
         
@@ -238,10 +238,10 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     if json["status"] == "success"{
                         
-                        defaults.setObject(json.dictionaryObject, forKey: "itenerary")
+                        defaults.set(json.dictionaryObject, forKey: "itenerary")
                         defaults.synchronize()
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                        let paymentVC = storyboard.instantiateViewControllerWithIdentifier("PaymentSummaryVC") as! PaymentSummaryViewController
+                        let paymentVC = storyboard.instantiateViewController(withIdentifier: "PaymentSummaryVC") as! PaymentSummaryViewController
                         self.navigationController!.pushViewController(paymentVC, animated: true)
                         
                     }else if json["status"] == "error"{
@@ -254,7 +254,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
                         
                         for views in (self.navigationController?.viewControllers)!{
                             if views.classForCoder == HomeViewController.classForCoder(){
-                                self.navigationController?.popToViewController(views, animated: true)
+                                _ = self.navigationController?.popToViewController(views, animated: true)
                                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                             }
                         }

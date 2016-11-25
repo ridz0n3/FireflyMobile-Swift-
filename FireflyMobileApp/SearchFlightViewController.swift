@@ -18,8 +18,8 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     var arrivalDateLbl:String = "RETURN DATE"
     var departureDateLbl:String = "DEPARTURE DATE"
     
-    var departDate = NSDate()
-    var arrivalDate = NSDate()
+    var departDate = Date()
+    var arrivalDate = Date()
     var arrivalSelected = Int()
     var departureSelected = Int()
     
@@ -41,12 +41,12 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         setupLeftButton()
         getDepartureAirport("search")
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.departureDate(_:)), name: "departure", object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.returnDate(_:)), name: "return", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.departureDate(_:)), name: NSNotification.Name(rawValue: "departure"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.returnDate(_:)), name: NSNotification.Name(rawValue: "return"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.departurePicker(_:)), name: "departureSelected", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.departurePicker(_:)), name: NSNotification.Name(rawValue: "departureSelected"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.arrivalPicker(_:)), name: "arrivalSelected", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SearchFlightViewController.arrivalPicker(_:)), name: NSNotification.Name(rawValue: "arrivalSelected"), object: nil)
         AnalyticsManager.sharedInstance.logScreen(GAConstants.searchFlightScreen)
         // Do any additional setup after loading the view.
     }
@@ -56,16 +56,15 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int{
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 6
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0{
             return 30
         }else if indexPath.row == 5 {
@@ -82,22 +81,21 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0{
             
-            let cell = self.searchFlightTableView.dequeueReusableCellWithIdentifier("ButtonCell", forIndexPath: indexPath) as! CustomSearchFlightTableViewCell
+            let cell = self.searchFlightTableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! CustomSearchFlightTableViewCell
             
-            cell.returnBtn.addTarget(self, action: #selector(SearchFlightViewController.btnClick(_:)), forControlEvents: .TouchUpInside)
-            cell.oneWayBtn.addTarget(self, action: #selector(SearchFlightViewController.btnClick(_:)), forControlEvents: .TouchUpInside)
+            cell.returnBtn.addTarget(self, action: #selector(SearchFlightViewController.btnClick(_:)), for: .touchUpInside)
+            cell.oneWayBtn.addTarget(self, action: #selector(SearchFlightViewController.btnClick(_:)), for: .touchUpInside)
             
             return cell
         }else if indexPath.row == 5 {
-            let cell = self.searchFlightTableView.dequeueReusableCellWithIdentifier("passengerCell", forIndexPath: indexPath) as! CustomSearchFlightTableViewCell
+            let cell = self.searchFlightTableView.dequeueReusableCell(withIdentifier: "passengerCell", for: indexPath) as! CustomSearchFlightTableViewCell
             return cell
             
         }else{
-            let cell = self.searchFlightTableView.dequeueReusableCellWithIdentifier("airportCell", forIndexPath: indexPath) as! CustomSearchFlightTableViewCell
+            let cell = self.searchFlightTableView.dequeueReusableCell(withIdentifier: "airportCell", for: indexPath) as! CustomSearchFlightTableViewCell
             
             if indexPath.row == 1 {
                 
@@ -131,9 +129,9 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexPath) as! CustomSearchFlightTableViewCell
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let cell = self.searchFlightTableView.cellForRow(at: indexPath) as! CustomSearchFlightTableViewCell
         
         if indexPath.row == 1{
             //let sender = cell.airportLbl as UILabel
@@ -143,22 +141,22 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             picker.showActionSheetPicker()*/
             
             let storyboard = UIStoryboard(name: "CustomFlightPicker", bundle: nil)
-            let loadingVC = storyboard.instantiateViewControllerWithIdentifier("CustomFlightPickerVC") as! CustomFlightPickerViewController
+            let loadingVC = storyboard.instantiateViewController(withIdentifier: "CustomFlightPickerVC") as! CustomFlightPickerViewController
             loadingVC.picker = pickerRow
             loadingVC.selectPicker = departureSelected
             loadingVC.destinationType = "departure"
-            self.navigationController?.presentViewController(loadingVC, animated: true, completion: nil)
+            self.navigationController?.present(loadingVC, animated: true, completion: nil)
  
         }else if indexPath.row == 2{
             
             if pickerTravel.count != 0{
                 
                 let storyboard = UIStoryboard(name: "CustomFlightPicker", bundle: nil)
-                let loadingVC = storyboard.instantiateViewControllerWithIdentifier("CustomFlightPickerVC") as! CustomFlightPickerViewController
+                let loadingVC = storyboard.instantiateViewController(withIdentifier: "CustomFlightPickerVC") as! CustomFlightPickerViewController
                 loadingVC.picker = pickerTravel
                 loadingVC.selectPicker = arrivalSelected
                 loadingVC.destinationType = "arrival"
-                self.navigationController?.presentViewController(loadingVC, animated: true, completion: nil)
+                self.navigationController?.present(loadingVC, animated: true, completion: nil)
                 
                 /*
                 let sender = cell.airportLbl as UILabel
@@ -171,39 +169,39 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         }else if indexPath.row == 3{
             
             let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
-            let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
-            gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            let gregorianVC = storyBoard.instantiateViewController(withIdentifier: "DatePickerVC") as! RSDFDatePickerViewController
+            gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)//(calendarIdentifier: NSCalendarIdentifierGregorian)!
             gregorianVC.isDepart = true
             gregorianVC.dateSelected = departDate
             //gregorianVC.calendar.locale = NSLocale.currentLocale()
-            gregorianVC.view.backgroundColor = UIColor.orangeColor()
+            gregorianVC.view.backgroundColor = UIColor.orange
             gregorianVC.typeDate = "departure"
-            self.presentViewController(gregorianVC, animated: true, completion: nil)
+            self.present(gregorianVC, animated: true, completion: nil)
             
             
             
         }else if indexPath.row == 4{
             
             let storyBoard = UIStoryboard(name: "RSDFDatePicker", bundle: nil)
-            let gregorianVC = storyBoard.instantiateViewControllerWithIdentifier("DatePickerVC") as! RSDFDatePickerViewController
+            let gregorianVC = storyBoard.instantiateViewController(withIdentifier: "DatePickerVC") as! RSDFDatePickerViewController
             gregorianVC.currentDate = departDate
             gregorianVC.dateSelected = arrivalDate
-            gregorianVC.calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+            gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)//Calendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
             //gregorianVC.calendar.locale = NSLocale.currentLocale()
-            gregorianVC.view.backgroundColor = UIColor.orangeColor()
+            gregorianVC.view.backgroundColor = UIColor.orange
             gregorianVC.typeDate = "return"
-            self.presentViewController(gregorianVC, animated: true, completion: nil)
+            self.present(gregorianVC, animated: true, completion: nil)
             
         }
         
     }
     
-    func objectSelected(index :NSNumber, element:AnyObject){
+    func objectSelected(_ index :NSNumber, element:AnyObject){
         
         let txtLbl = element as! UILabel
         
         if txtLbl.tag == 1{
-            departureSelected = index.integerValue
+            departureSelected = index.intValue
             departure = "\(location[departureSelected]["location"] as! String) (\(location[departureSelected]["location_code"] as! String))"
             txtLbl.text = departure
             arrivalSelected = 0
@@ -213,7 +211,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             self.searchFlightTableView.reloadData()
             getArrivalAirport((location[departureSelected]["location_code"] as? String)!, module : "search")
         }else{
-            arrivalSelected = index.integerValue
+            arrivalSelected = index.intValue
             arrival = "\(travel[arrivalSelected]["travel_location"] as! String) (\(travel[arrivalSelected]["travel_location_code"] as! String))"
             txtLbl.text = arrival
             
@@ -221,32 +219,32 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
     }
     
-    func btnClick(sender : UIButton){
+    func btnClick(_ sender : UIButton){
         
         let btnPress: UIButton = sender as UIButton
         
-        let indexCell = NSIndexPath.init(forItem: 0, inSection: 0)
-        let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+        let indexCell = IndexPath(item: 0, section: 0)
+        let cell = self.searchFlightTableView.cellForRow(at: indexCell) as! CustomSearchFlightTableViewCell
         
         if btnPress.tag == 1 {
             
             type = 1
-            cell.returnBtn.userInteractionEnabled = false
-            cell.oneWayBtn.userInteractionEnabled = true
+            cell.returnBtn.isUserInteractionEnabled = false
+            cell.oneWayBtn.isUserInteractionEnabled = true
             
-            cell.returnBtn.backgroundColor = UIColor.whiteColor()
-            cell.oneWayBtn.backgroundColor = UIColor.lightGrayColor()
+            cell.returnBtn.backgroundColor = UIColor.white
+            cell.oneWayBtn.backgroundColor = UIColor.lightGray
             arrivalDateLbl = "RETURN DATE"
             self.searchFlightTableView.reloadData()
             hideRow = false;
         }else{
             
             type = 0
-            cell.returnBtn.userInteractionEnabled = true
-            cell.oneWayBtn.userInteractionEnabled = false
+            cell.returnBtn.isUserInteractionEnabled = true
+            cell.oneWayBtn.isUserInteractionEnabled = false
             
-            cell.returnBtn.backgroundColor = UIColor.lightGrayColor()
-            cell.oneWayBtn.backgroundColor = UIColor.whiteColor()
+            cell.returnBtn.backgroundColor = UIColor.lightGray
+            cell.oneWayBtn.backgroundColor = UIColor.white
             arrivalDateLbl = "RETURN DATE"
             self.searchFlightTableView.reloadData()
             hideRow = true;
@@ -257,10 +255,10 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
     }
     
-    @IBAction func continueButtonPressed(sender: AnyObject) {
+    @IBAction func continueButtonPressed(_ sender: AnyObject) {
         
-        let indexCell = NSIndexPath.init(forItem: 5, inSection: 0)
-        let cell2 = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+        let indexCell = IndexPath(item: 5, section: 0)
+        let cell2 = self.searchFlightTableView.cellForRow(at: indexCell) as! CustomSearchFlightTableViewCell
         searchFlightValidation()
         if validate == true{
             
@@ -269,9 +267,9 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                 showErrorMessage("Number of infant must lower or equal with adult.")
             }else{
                 
-                defaults.setObject(cell2.adultCount.text!, forKey: "adult")
-                defaults.setObject(cell2.infantCount.text!, forKey: "infants")
-                defaults.setObject(type, forKey: "type")
+                defaults.set(cell2.adultCount.text!, forKey: "adult")
+                defaults.set(cell2.infantCount.text!, forKey: "infants")
+                defaults.set(type, forKey: "type")
                 defaults.synchronize()
                 
                 var username = ""
@@ -293,21 +291,21 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                             let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if json["status"] == "success"{
-                                defaults.setObject(json["signature"].string, forKey: "signature")
+                                defaults.set(json["signature"].string, forKey: "signature")
                                 defaults.synchronize()
                                 
                                 if json["flight_type"].string == "MH"{
                                     defaults.setValue(json["flight_type"].string, forKey: "flightType")
                                     defaults.synchronize()
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                    let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("MHFlightDetailVC") as! AddMHFlightDetailViewController
+                                    let flightDetailVC = storyboard.instantiateViewController(withIdentifier: "MHFlightDetailVC") as! AddMHFlightDetailViewController
                                     flightDetailVC.flightDetail = json["journeys"].arrayValue
                                     self.navigationController!.pushViewController(flightDetailVC, animated: true)
                                 }else{
                                     defaults.setValue(json["flight_type"].string, forKey: "flightType")
                                     defaults.synchronize()
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
-                                    let flightDetailVC = storyboard.instantiateViewControllerWithIdentifier("FlightDetailVC") as! AddFlightDetailViewController
+                                    let flightDetailVC = storyboard.instantiateViewController(withIdentifier: "FlightDetailVC") as! AddFlightDetailViewController
                                     flightDetailVC.flightDetail = json["journeys"].arrayValue
                                     self.navigationController!.pushViewController(flightDetailVC, animated: true)
                                 }
@@ -323,7 +321,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }
@@ -349,34 +347,34 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     }
     
     func searchFlightValidation(){
-        _ = NSIndexPath.init(forItem: 5, inSection: 0)
+        _ = IndexPath(item: 5, section: 0) //.init(item: 5, section: 0)
         
         var count = Int()
         
         if departure == "DEPARTURE AIRPORT"{
-            let indexCell = NSIndexPath.init(forItem: 1, inSection: 0)
-            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+            let indexCell = IndexPath(item: 1, section: 0)
+            let cell = self.searchFlightTableView.cellForRow(at: indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
             count += 1
             
             showErrorMessage("Please choose your departure airport.")
         }else if arrival == "ARRIVAL AIRPORT"{
-            let indexCell = NSIndexPath.init(forItem: 2, inSection: 0)
-            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+            let indexCell = IndexPath(item: 2, section: 0)
+            let cell = self.searchFlightTableView.cellForRow(at: indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
             count += 1
             
             showErrorMessage("Please choose your arrival airport.")
         }else if departureDateLbl == "DEPARTURE DATE"{
-            let indexCell = NSIndexPath.init(forItem: 3, inSection: 0)
-            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+            let indexCell = IndexPath(item: 3, section: 0)
+            let cell = self.searchFlightTableView.cellForRow(at: indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
             count += 1
             
             showErrorMessage("Please choose your departure date.")
         }else if arrivalDateLbl == "RETURN DATE" && type == 1{
-            let indexCell = NSIndexPath.init(forItem: 4, inSection: 0)
-            let cell = self.searchFlightTableView.cellForRowAtIndexPath(indexCell) as! CustomSearchFlightTableViewCell
+            let indexCell = IndexPath(item: 4, section: 0)
+            let cell = self.searchFlightTableView.cellForRow(at: indexCell) as! CustomSearchFlightTableViewCell
             animateCell(cell)
             count += 1
             
@@ -392,19 +390,19 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         }
     }
     
-    func departureDate(notif:NSNotification){
+    func departureDate(_ notif:NSNotification){
         
-        let formater = NSDateFormatter()
+        let formater = DateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
         
         if arrivalDateLbl != "RETURN DATE"{
             arrivalDateLbl = "RETURN DATE"
         }
         
-        departDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
+        departDate = formater.date(from: notif.userInfo!["date"] as! String)!
         departureText = (notif.userInfo!["date"] as? String)!
         arrivalText = (notif.userInfo!["date"] as? String)!
-        arrivalDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
+        arrivalDate = formater.date(from: notif.userInfo!["date"] as! String)!
         
         let date = (notif.userInfo!["date"] as? String)!.components(separatedBy: "-")
         departureDateLbl = "\(date[2])/\(date[1])/\(date[0])"
@@ -413,19 +411,19 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
     }
     
-    func returnDate(notif:NSNotification){
+    func returnDate(_ notif:NSNotification){
         
-        let formater = NSDateFormatter()
+        let formater = DateFormatter()
         formater.dateFormat = "yyyy-MM-dd"
         arrivalText = (notif.userInfo!["date"] as? String)!
-        arrivalDate = formater.dateFromString(notif.userInfo!["date"] as! String)!
+        arrivalDate = formater.date(from: notif.userInfo!["date"] as! String)!
         let date = (notif.userInfo!["date"] as? String)!.components(separatedBy: "-")
         arrivalDateLbl = "\(date[2])/\(date[1])/\(date[0])"
         searchFlightTableView.reloadData()
         
     }
     
-    func departurePicker(notif:NSNotification){
+    func departurePicker(_ notif:NSNotification){
         let index = notif.userInfo!["index"] as! Int
         
         departureSelected = index
@@ -441,7 +439,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
         
     }
     
-    func arrivalPicker(notif:NSNotification){
+    func arrivalPicker(_ notif:NSNotification){
         let index = notif.userInfo!["index"] as! Int
         
         arrivalSelected = index
@@ -452,22 +450,20 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     
     
     // returns the number of 'columns' to display.
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
     // returns the # of rows in each component..
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return pickerRow.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerRow[row]
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-    {
-        
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         //textfieldBizCat.text = "\(bizCat[row])"
         
     }

@@ -127,7 +127,7 @@ class CommonAdultViewController: BaseXLFormViewController {
         
     }
     
-    func saveFamilyAndFriend(familyAndFriendInfo : [AnyObject]){
+    func saveFamilyAndFriend(_ familyAndFriendInfo : [AnyObject]){
         
         let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
         //var userList = Results<FamilyAndFriendList>!()

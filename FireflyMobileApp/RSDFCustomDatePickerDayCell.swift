@@ -19,7 +19,7 @@ class RSDFCustomDatePickerDayCell: RSDFDatePickerDayCell {
     }
     */
     override func dayLabelFont() -> UIFont {
-        return UIFont(name: "AvenirNext-Regular", size: 16.0)
+        return UIFont(name: "AvenirNext-Regular", size: 16.0)!
     }
     
     override func dayLabelTextColor() -> UIColor {
@@ -43,7 +43,7 @@ class RSDFCustomDatePickerDayCell: RSDFDatePickerDayCell {
     }
     
     override func todayLabelFont() -> UIFont {
-        return UIFont(name: "AvenirNext-Regular", size: 17.0)
+        return UIFont(name: "AvenirNext-Regular", size: 17.0)!
     }
     
     override func todayLabelTextColor() -> UIColor {
@@ -67,15 +67,15 @@ class RSDFCustomDatePickerDayCell: RSDFDatePickerDayCell {
     }
     
     override func dividerImageColor() -> UIColor {
-        return UIColor.clearColor()
+        return UIColor.clear
     }
     
     override func pastDayLabelTextColor() -> UIColor {
-        return UIColor.lightGrayColor()
+        return UIColor.lightGray
     }
     
     override func pastDayOffLabelTextColor() -> UIColor {
-        return UIColor.lightGrayColor()
+        return UIColor.lightGray
     }
 
 }

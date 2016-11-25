@@ -115,7 +115,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
-            let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
+            let cell = self.seatTableView.dequeueReusableCell(withIdentifier: "PassengerCell", for: indexPath) as! CustomSeatSelectionTableViewCell
             
             var passengerDetail = Dictionary<String, AnyObject>()
             
@@ -133,18 +133,18 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 if passengerDetail["checked_in"] as! String != "Y"{
                     
                     if !isSelect{
-                        sectionSelect = IndexPath(forRow: indexPath.row, inSection: indexPath.section)
+                        sectionSelect = IndexPath(row: indexPath.row, section: indexPath.section)
                         isSelect = true
                     }
                     
                     if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
-                        cell.rowView.backgroundColor = UIColor.yellowColor()
+                        cell.rowView.backgroundColor = UIColor.yellow
                     }else{
-                        cell.rowView.backgroundColor = UIColor.clearColor()
+                        cell.rowView.backgroundColor = UIColor.clear
                     }
                     
                     cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
-                    cell.removeSeat.addTarget(self, action: #selector(CommonSeatSelectionViewController.removeSeat(_:)), forControlEvents: .TouchUpInside)
+                    cell.removeSeat.addTarget(self, action: #selector(CommonSeatSelectionViewController.removeSeat(_:)), for: .touchUpInside)
                 }else{
                     cell.removeSeat.isHidden = true
                 }
@@ -154,9 +154,9 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 cell.removeSeat.isHidden = true
                 
                 if details.count == 2 && !selectChange{
-                    sectionSelect = IndexPath(forRow: 0, inSection: indexPath.section + 1)
+                    sectionSelect = IndexPath(row: 0, section: indexPath.section + 1)
                 }else if details.count == 1 && !selectChange{
-                    sectionSelect = IndexPath(forRow: 0, inSection: 90)
+                    sectionSelect = IndexPath(row: 0, section: 90)
                 }
             }
             
@@ -184,12 +184,12 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             
             cell.seatNumber.layer.cornerRadius = 10
             cell.seatNumber.layer.borderWidth = 1
-            cell.seatNumber.layer.borderColor = UIColor.blackColor().CGColor
+            cell.seatNumber.layer.borderColor = UIColor.black.cgColor
             cell.passengerName.text = passengerName
             
             return cell
         }else if (indexPath.section == 1 && details.count == 2){
-            let cell = self.seatTableView.dequeueReusableCellWithIdentifier("PassengerCell", forIndexPath: indexPath) as! CustomSeatSelectionTableViewCell
+            let cell = self.seatTableView.dequeueReusableCell(withIdentifier: "PassengerCell", for: indexPath) as! CustomSeatSelectionTableViewCell
             
             var passengerDetail = Dictionary<String, AnyObject>()
             
@@ -207,18 +207,18 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 if passengerDetail["checked_in"] as! String != "Y"{
                     
                     if !isSelect{
-                        sectionSelect = NSIndexPath(forRow: indexPath.row, inSection: indexPath.section)
+                        sectionSelect = IndexPath(row: indexPath.row, section: indexPath.section)
                         isSelect = true
                     }
                     
                     if (indexPath.section == sectionSelect.section) && (indexPath.row == sectionSelect.row){
-                        cell.rowView.backgroundColor = UIColor.yellowColor()
+                        cell.rowView.backgroundColor = UIColor.yellow
                     }else{
-                        cell.rowView.backgroundColor = UIColor.clearColor()
+                        cell.rowView.backgroundColor = UIColor.clear
                     }
                     
                     cell.removeSeat.accessibilityHint = "section:\(indexPath.section),row:\(indexPath.row)"
-                    cell.removeSeat.addTarget(self, action: #selector(CommonSeatSelectionViewController.removeSeat(_:)), forControlEvents: .TouchUpInside)
+                    cell.removeSeat.addTarget(self, action: #selector(CommonSeatSelectionViewController.removeSeat(_:)), for: .touchUpInside)
                 }else{
                     cell.removeSeat.isHidden = true
                 }
@@ -227,7 +227,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 cell.removeSeat.isHidden = true
                 
                 if details.count == 2 && !selectChange{
-                    sectionSelect = IndexPath(forRow: 0, inSection: 90)
+                    sectionSelect = IndexPath(row: 0, section: 90)
                 }
             }
             
@@ -261,7 +261,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             
             cell.seatNumber.layer.cornerRadius = 10
             cell.seatNumber.layer.borderWidth = 1
-            cell.seatNumber.layer.borderColor = UIColor.blackColor().CGColor
+            cell.seatNumber.layer.borderColor = UIColor.black.cgColor
             cell.passengerName.text = passengerName
             cell.removeSeat.tag = indexPath.row
             
@@ -282,7 +282,6 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if details.count == 2{
             if indexPath.section != 2{
                 
@@ -293,8 +292,8 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                     
                     if passengerData["checked_in"] as! String != "Y"{
                         selectChange = true
-                        let cell = self.seatTableView.cellForRowAtIndexPath(indexPath) as! CustomSeatSelectionTableViewCell
-                        cell.rowView.backgroundColor = UIColor.yellowColor()
+                        let cell = self.seatTableView.cellForRow(at: indexPath) as! CustomSeatSelectionTableViewCell
+                        cell.rowView.backgroundColor = UIColor.yellow
                         sectionSelect = indexPath
                         self.seatTableView.reloadData()
                     }else{
@@ -309,8 +308,8 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
             if indexPath.section != 1{
                 
                 if journeys[indexPath.section]["flight_status"] as! String != "departed"{
-                    let cell = self.seatTableView.cellForRowAtIndexPath(indexPath) as! CustomSeatSelectionTableViewCell
-                    cell.rowView.backgroundColor = UIColor.yellowColor()
+                    let cell = self.seatTableView.cellForRow(at: indexPath) as! CustomSeatSelectionTableViewCell
+                    cell.rowView.backgroundColor = UIColor.yellow
                     sectionSelect = indexPath
                     self.seatTableView.reloadData()
                 }else{
@@ -341,7 +340,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 if keys == "0"{
                     goingSeatSelection.add(newSeat)
                     
-                    if (data.count >= seatTypeDict[keys]?.count){
+                    if (data.count >= (seatTypeDict[keys]?.count)!){
                         isGoingSame = true
                     }else{
                         isGoingSame = false
@@ -350,7 +349,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 }else{
                     returnSeatSelection.add(newSeat)
                     
-                    if (data.count >= seatTypeDict[keys]?.count){
+                    if (data.count >= (seatTypeDict[keys]?.count)!){
                         isReturnSame = true
                     }else{
                         isReturnSame = false
@@ -371,7 +370,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 if isGoingSame || isReturnSame{
                     showLoading()
                     
-                    FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
+                    FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0] as AnyObject, returnSeatSelection[0] as AnyObject, bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
                         case .success(let successResult):
@@ -382,7 +381,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                 if json["status"] == "success"{
                                     //
                                     let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                    let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                                    let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
                                     manageFlightVC.isConfirm = true
                                     manageFlightVC.itineraryData = json.object as! NSDictionary
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
@@ -397,7 +396,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                     
                                     for views in (self.navigationController?.viewControllers)!{
                                         if views.classForCoder == HomeViewController.classForCoder(){
-                                            self.navigationController?.popToViewController(views, animated: true)
+                                            _ = self.navigationController?.popToViewController(views, animated: true)
                                             AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                         }
                                     }
@@ -454,7 +453,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 if isSelect{
                     showLoading()
                     
-                    FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0], returnSeatSelection[0], bookId, signature, pnr), completion: { (result) -> () in
+                    FireFlyProvider.request(.ChangeSeat(goingSeatSelection[0] as AnyObject, returnSeatSelection[0] as AnyObject, bookId, signature, pnr), completion: { (result) -> () in
                         
                         switch result {
                         case .success(let successResult):
@@ -464,7 +463,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                 
                                 if json["status"] == "success"{
                                     let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                                    let manageFlightVC = storyboard.instantiateViewControllerWithIdentifier("ManageFlightMenuVC") as! ManageFlightHomeViewController
+                                    let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
                                     manageFlightVC.isConfirm = true
                                     manageFlightVC.itineraryData = json.object as! NSDictionary
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
@@ -479,7 +478,7 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                                     
                                     for views in (self.navigationController?.viewControllers)!{
                                         if views.classForCoder == HomeViewController.classForCoder(){
-                                            self.navigationController?.popToViewController(views, animated: true)
+                                            _ = self.navigationController?.popToViewController(views, animated: true)
                                             AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                         }
                                     }

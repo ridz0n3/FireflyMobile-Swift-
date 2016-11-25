@@ -19,17 +19,17 @@ class CustomFlightPickerViewController: UIViewController, UITableViewDelegate, U
         
         super.viewDidLoad()
         pickerTableView.layer.cornerRadius = 10
-        pickerTableView.layer.borderColor = UIColor.orangeColor().CGColor
+        pickerTableView.layer.borderColor = UIColor.orange.cgColor
         pickerTableView.layer.borderWidth = 1
         
         // Do any additional setup after loading the view.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
-        let indexPath = NSIndexPath(forRow: selectPicker, inSection: 0)
-        pickerTableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.Middle)
+        let indexPath = IndexPath(row: selectPicker, section: 0)
+        pickerTableView.selectRow(at: indexPath, animated: true, scrollPosition: UITableViewScrollPosition.middle)
         
     }
 
@@ -40,46 +40,42 @@ class CustomFlightPickerViewController: UIViewController, UITableViewDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return picker.count
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = self.pickerTableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.pickerTableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.orangeColor()
+        bgColorView.backgroundColor = UIColor.orange
         cell.selectedBackgroundView = bgColorView
         
         cell.textLabel?.text = picker[indexPath.row]
-        cell.textLabel?.textAlignment = NSTextAlignment.Center
+        cell.textLabel?.textAlignment = NSTextAlignment.center
         return cell
         
     }
 
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.dismiss(animated: true, completion: nil)
         if destinationType == "departure"{
-            NotificationCenter.default.post(name: "departureSelected", object: nil, userInfo: ["index" : indexPath.row])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "departureSelected"), object: nil, userInfo: ["index" : indexPath.row])
         }else{
-            NotificationCenter.default.post(name: "arrivalSelected", object: nil, userInfo: ["index" : indexPath.row])
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "arrivalSelected"), object: nil, userInfo: ["index" : indexPath.row])
         }
         
     }
     
-    @IBAction func closedButtonPressed(sender: AnyObject) {
+    @IBAction func closedButtonPressed(_ sender: AnyObject) {
         
-         self.dismissViewControllerAnimated(true, completion: nil)
+         self.dismiss(animated: true, completion: nil)
         
     }
     /*

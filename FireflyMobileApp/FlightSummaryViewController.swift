@@ -423,7 +423,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         
         for views in (self.navigationController?.viewControllers)!{
             if views.classForCoder == HomeViewController.classForCoder(){
-                self.navigationController?.popToViewController(views, animated: true)
+                _ = self.navigationController?.popToViewController(views, animated: true)
                 AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
             }
         }

@@ -57,10 +57,10 @@ class AddAdultViewController: CommonAdultViewController {
                             
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
-                                self.saveFamilyAndFriend(familyAndFriendInfo: json["family_and_friend"].arrayObject! as [AnyObject])
+                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject! as [AnyObject])
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
                                 
-                                self.navigationController?.popViewController(animated: true)
+                                _ = self.navigationController?.popViewController(animated: true)
                             }else if json["status"] == "error"{
                                 showErrorMessage(json["message"].string!)
                             }else if json["status"].string == "401"{
@@ -70,7 +70,7 @@ class AddAdultViewController: CommonAdultViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }
@@ -100,10 +100,10 @@ class AddAdultViewController: CommonAdultViewController {
                             
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
-                                self.saveFamilyAndFriend(familyAndFriendInfo: json["family_and_friend"].arrayObject! as [AnyObject])
+                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject! as [AnyObject])
                                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
                                 
-                                self.navigationController?.popViewController(animated: true)
+                                _ = self.navigationController?.popViewController(animated: true)
                             }else if json["status"] == "error"{
                                 showErrorMessage(json["message"].string!)
                             }else if json["status"].string == "401"{
@@ -113,7 +113,7 @@ class AddAdultViewController: CommonAdultViewController {
                                 
                                 for views in (self.navigationController?.viewControllers)!{
                                     if views.classForCoder == HomeViewController.classForCoder(){
-                                        self.navigationController?.popToViewController(views, animated: true)
+                                        _ = self.navigationController?.popToViewController(views, animated: true)
                                         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                     }
                                 }
