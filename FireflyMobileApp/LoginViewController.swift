@@ -128,7 +128,7 @@
             
         }
         
-        @IBAction func forgotPasswordButtonPressed(sender: AnyObject) {
+        @IBAction func forgotPasswordButtonPressed(_ sender: AnyObject) {
             
             reloadAlertView("USER ID (Email):*")
         }

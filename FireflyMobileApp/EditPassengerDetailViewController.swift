@@ -100,9 +100,9 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             
             tempArray = [AnyObject]()
             for travel in travelDoc{
-                tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
+                tempArray.append(XLFormOptionsObject(value: travel["doc_code"]!, displayText: travel["doc_name"]!))
                 
-                if adultDetails[i]["travel_document"] as? String == travel["doc_code"] as? String{
+                if adultDetails[i]["travel_document"] as? String == travel["doc_code"]!{
                     row.value = travel["doc_name"]
                 }
             }
@@ -177,9 +177,9 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 tempArray = [AnyObject]()
                 for gender in genderArray{
-                    tempArray.append(XLFormOptionsObject(value: gender["gender_code"] as! String, displayText: gender["gender_name"] as! String))
+                    tempArray.append(XLFormOptionsObject(value: gender["gender_code"]!, displayText: gender["gender_name"]!))
                     
-                    if infantDict["gender"] as? String == gender["gender_code"] as? String{
+                    if infantDict["gender"] as? String == gender["gender_code"]!{
                         row.value = gender["gender_name"]
                     }
                 }
@@ -218,9 +218,9 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 tempArray = [AnyObject]()
                 for travel in travelDoc{
-                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"] as! String, displayText: travel["doc_name"] as! String))
+                    tempArray.append(XLFormOptionsObject(value: travel["doc_code"]!, displayText: travel["doc_name"]!))
                     
-                    if infantDict["travel_document"] as? String == travel["doc_code"] as? String{
+                    if infantDict["travel_document"] as? String == travel["doc_code"]!{
                         row.value = travel["doc_name"]
                     }
                 }
@@ -286,7 +286,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
         */
     }
 
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         validateForm()
         
         if isValidate{
@@ -295,7 +295,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 showLoading() 
                 
-                FireFlyProvider.request(.EditPassengerDetail(params.0 as AnyObject,params.1,bookingId, signature, pnr), completion: { (result) -> () in
+                FireFlyProvider.request(.EditPassengerDetail(params.0 as AnyObject,params.1 as AnyObject,bookingId, signature, pnr), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):

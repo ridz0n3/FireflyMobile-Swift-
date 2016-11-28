@@ -118,12 +118,12 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
         
     }
     
-    @IBAction func closedButtonPressed(sender: AnyObject) {
+    @IBAction func closedButtonPressed(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
         
     }
     
-    @IBAction func doneSelectedDate(sender: AnyObject) {
+    @IBAction func doneSelectedDate(_ sender: AnyObject) {
         
         let dateFormaters = DateFormatter()
         dateFormaters.dateFormat = "yyyy-MM-dd"

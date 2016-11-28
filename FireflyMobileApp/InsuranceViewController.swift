@@ -42,14 +42,14 @@ class InsuranceViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func noThankBtnPressed(sender: AnyObject) {
+    @IBAction func noThankBtnPressed(_ sender: AnyObject) {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "refreshInsurance"), object: nil)
         vc.presentedViewController?.dismiss(animated: true, completion: nil)
         
     }
 
-    @IBAction func yesBtnPressed(sender: AnyObject) {
+    @IBAction func yesBtnPressed(_ sender: AnyObject) {
         
         vc.presentedViewController?.dismiss(animated: true, completion: nil)
         

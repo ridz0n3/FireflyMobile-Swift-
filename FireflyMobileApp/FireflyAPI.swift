@@ -12,7 +12,7 @@ import Moya
 let FireFlyProvider = MoyaProvider<FireFlyAPI>(endpointClosure: {
     (target: FireFlyAPI) -> Endpoint<FireFlyAPI> in
     
-    return Endpoint(URL: url(route: target), sampleResponseClosure: {.networkResponse(200, target.sampleData as Data)}, method: target.method, parameters: target.parameters)//, parameterEncoding: target.parameterEncoding)
+    return Endpoint(URL: url(route: target), sampleResponseClosure: {.networkResponse(200, target.sampleData as Data)}, method: target.method, parameters: target.parameters, parameterEncoding: target.parameterEncoding)
     
 })
 
@@ -73,12 +73,12 @@ extension FireFlyAPI : TargetType {
         return .request
     }
     
-    /*public var parameterEncoding: Moya.ParameterEncoding {
+    public var parameterEncoding: Moya.ParameterEncoding {
         switch self {
         default:
-            return .JSON
+            return JSONEncoding.default
         }
-    }*/
+    }
     
     var base: String {
         //return kDevURL
@@ -339,5 +339,5 @@ public func url(route: TargetType) -> String {
 
 
 var endpointClosure = { (target: FireFlyAPI, method: Moya.Method, parameters: [String: AnyObject]) -> Endpoint<FireFlyAPI> in
-    return Endpoint(URL: url(route: target), sampleResponseClosure: {.networkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters)//, parameterEncoding: target.parameterEncoding)
+    return Endpoint(URL: url(route: target), sampleResponseClosure: {.networkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters, parameterEncoding: target.parameterEncoding)
 }

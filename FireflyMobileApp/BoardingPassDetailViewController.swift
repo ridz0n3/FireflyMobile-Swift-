@@ -159,7 +159,7 @@ class BoardingPassDetailViewController: BaseViewController, UIScrollViewDelegate
         let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
         //var userData : Results<UserList>! = nil
         let userData = realm.objects(UserList.self)
-        mainUser = userData.filter("userId == \(userInfo["username"]! as! String)")
+        mainUser = userData.filter("userId == %@", "\(userInfo["username"]! as! String)")
         
         if mainUser.count != 0{
             

@@ -35,7 +35,7 @@ class EditContactDetailViewController: CommonContactDetailViewController {
         initializeForm()
     }
 
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         validateForm()
         
         if isValidate{

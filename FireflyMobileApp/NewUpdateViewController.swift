@@ -30,7 +30,7 @@ class NewUpdateViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func updateBtnPressed(sender: AnyObject) {
+    @IBAction func updateBtnPressed(_ sender: AnyObject) {
         UIApplication.shared.openURL(URL(string : "https://itunes.apple.com/us/app/firefly-mobile/id506588979?mt=8")!)
     }
 

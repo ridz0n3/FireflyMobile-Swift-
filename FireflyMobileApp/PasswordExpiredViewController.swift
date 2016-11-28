@@ -66,7 +66,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
         
     }
     
-    @IBAction func ContinueBtnPressed(sender: AnyObject) {
+    @IBAction func ContinueBtnPressed(_ sender: AnyObject) {
         
         validateForm()
         

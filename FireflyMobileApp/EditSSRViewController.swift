@@ -99,7 +99,7 @@ class EditSSRViewController: BaseXLFormViewController {
         
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         let goingSSRDict = NSMutableArray()
         let returnSSRDict = NSMutableArray()

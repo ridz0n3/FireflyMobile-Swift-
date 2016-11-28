@@ -65,7 +65,7 @@ class ManageFlightViewController: BaseXLFormViewController {
         
     }
     
-    @IBAction func continueButtonPressed(sender: AnyObject) {
+    @IBAction func continueButtonPressed(_ sender: AnyObject) {
         
         validateForm()
         

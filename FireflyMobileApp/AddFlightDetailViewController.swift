@@ -45,7 +45,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func continueButtonPressed(sender: AnyObject) {
+    @IBAction func continueButtonPressed(_ sender: AnyObject) {
         var userInfo = NSMutableDictionary()
         
         if try! LoginManager.sharedInstance.isLogin(){
@@ -313,7 +313,7 @@ class AddFlightDetailViewController: CommonFlightDetailViewController {
         let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
         //var userList = Results<FamilyAndFriendList>!()
         let userList = realm.objects(FamilyAndFriendList.self)
-        let mainUser = userList.filter("email == \(userInfo["username"] as! String)")
+        let mainUser = userList.filter("email == %@", "\(userInfo["username"] as! String)")
         
         if mainUser.count != 0{
             if mainUser[0].familyList.count != 0{

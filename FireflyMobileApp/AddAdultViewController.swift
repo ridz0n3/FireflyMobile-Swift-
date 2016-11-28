@@ -23,7 +23,7 @@ class AddAdultViewController: CommonAdultViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         validateForm()
         

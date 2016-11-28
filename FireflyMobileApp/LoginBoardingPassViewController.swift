@@ -241,7 +241,7 @@ class LoginBoardingPassViewController: CommonListViewController {
         //var userList = Results<UserList>!()
         let userList = realm.objects(UserList.self)
         
-        let mainUser = userList.filter("userId == \(userInfo["username"] as! String)")
+        let mainUser = userList.filter("userId == %@", "\(userInfo["username"] as! String)")
         
         let pnr = PNRList()
         pnr.pnr = pnrStr

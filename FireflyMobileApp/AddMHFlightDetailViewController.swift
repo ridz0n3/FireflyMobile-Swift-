@@ -66,7 +66,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         var userInfo = NSMutableDictionary()
         var planGo = String()
@@ -315,7 +315,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
         //var userList = Results<FamilyAndFriendList>!()
         let userList = realm.objects(FamilyAndFriendList.self)
-        let mainUser = userList.filter("email == \(userInfo["username"] as! String)")
+        let mainUser = userList.filter("email == %@", "\(userInfo["username"] as! String)")
         
         if mainUser.count != 0{
             if mainUser[0].familyList.count != 0{

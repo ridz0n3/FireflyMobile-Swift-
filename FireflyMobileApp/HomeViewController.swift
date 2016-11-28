@@ -27,15 +27,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
         if defaults.object(forKey: "notif") != nil{
             if (defaults.object(forKey: "notif") as AnyObject).classForCoder != NSString.classForCoder(){
-                let userInfo = defaults.object(forKey: "notif")
-                let alert = userInfo!["aps"]!
-                let message = alert!["alert"]!!
+                let userInfo = defaults.object(forKey: "notif") as! NSDictionary
+                let alert = userInfo["aps"]! as! NSDictionary
+                let message = alert["alert"]! as! NSDictionary
                 
                 showNotif(message["title"] as! String, message : message["body"] as! String)
             }
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.refreshTable(_:)), name: "reloadHome", object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewController.refreshTable(_:)), name: NSNotification.Name(rawValue: "reloadHome"), object: nil)
         AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
         
         // Do any additional setup after loading the view.
@@ -52,13 +52,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.facebookScreen)
         let facebookHooks = "fb://profile/\(defaults.object(forKey: "facebook") as! String)"
         let facebookURL = URL(string: facebookHooks)
-        if UIApplication.sharedApplication.canOpenURL(facebookURL!)
+        if UIApplication.shared.canOpenURL(facebookURL!)
         {
-            UIApplication.sharedApplication.openURL(facebookURL!)
+            UIApplication.shared.openURL(facebookURL!)
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication.openURL(NSURL(string: "https://www.facebook.com/\(defaults.object(forKey: "facebook") as! String)")!)
+            UIApplication.shared.openURL(URL(string: "https://www.facebook.com/\(defaults.object(forKey: "facebook") as! String)")!)
         }
     }
     
@@ -66,13 +66,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.instagramScreen)
         let instagramHooks = "instagram://user?username=\(defaults.object(forKey: "instagram") as! String)"
         let instagramUrl = URL(string: instagramHooks)
-        if UIApplication.sharedApplication.canOpenURL(instagramUrl!)
+        if UIApplication.shared.canOpenURL(instagramUrl!)
         {
-            UIApplication.sharedApplication().openURL(instagramUrl!)
+            UIApplication.shared.openURL(instagramUrl!)
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://www.instagram.com/\(defaults.object(forKey: "instagram") as! String)")!)
+            UIApplication.shared.openURL(URL(string: "https://www.instagram.com/\(defaults.object(forKey: "instagram") as! String)")!)
         }
     }
     
@@ -80,13 +80,13 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.twitterScreen)
         let twitterHooks = "twitter:///user?screen_name=\(defaults.object(forKey: "twitter") as! String)"
         let twitterUrl = URL(string: twitterHooks)
-        if UIApplication.sharedApplication().canOpenURL(twitterUrl!)
+        if UIApplication.shared.canOpenURL(twitterUrl!)
         {
-            UIApplication.sharedApplication().openURL(twitterUrl!)
+            UIApplication.shared.openURL(twitterUrl!)
             
         } else {
             //redirect to safari because the user doesn't have Instagram
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/\(defaults.object(forKey: "twitter") as! String)")!)
+            UIApplication.shared.openURL(URL(string: "https://twitter.com/\(defaults.object(forKey: "twitter") as! String)")!)
         }
     }
     
@@ -114,17 +114,19 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0{
-            let cell = tableView.dequeueReusableCellWithIdentifier("HeaderCell", forIndexPath: indexPath) as! CustomHomeMenuTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell", for: indexPath) as! CustomHomeMenuTableViewCell
             if (defaults.object(forKey: "banner") != nil){
                 let imageURL = defaults.object(forKey: "banner") as! String
-                Alamofire.request(.GET, imageURL).response(completionHandler: { (request, response, data, error) -> Void in
-                    cell.banner.image = UIImage(data: data!)
+                
+                Alamofire.request(imageURL).response(completionHandler: { response in
+                    cell.banner.image = UIImage(data: response.data!)
+                    //self.rule1Img.image = UIImage(data: response.data!)
                 })
             }
             return cell
         }
         else if indexPath.row == 5{
-            let cell = tableView.dequeueReusableCellWithIdentifier("SocialCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SocialCell", for: indexPath)
             let facebookView = cell.viewWithTag(1)
             let facebookSelected = UITapGestureRecognizer(target: self, action: #selector(HomeViewController.facebookSelected(_:)))
             facebookView?.addGestureRecognizer(facebookSelected)
@@ -137,9 +139,9 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             return cell
         }
         else{
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomHomeMenuTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomHomeMenuTableViewCell
             
-            let replaced = menuTitle[indexPath.row].stringByReplacingOccurrencesOfString(" ", withString: "")
+            let replaced = menuTitle[indexPath.row].replacingOccurrences(of: " ", with: "bg.png")//.stringByReplacingOccurrencesOfString(" ", withString: "")
             
             cell.bgView.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
             cell.menuLbl?.text = menuTitle[indexPath.row]
@@ -158,8 +160,8 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 
                 if defaults.object(forKey: "url") as! String != ""{
                     
-                    let url = NSURL(string: defaults.object(forKey: "url") as! String)!
-                    UIApplication.sharedApplication.openURL(url)
+                    let url = URL(string: defaults.object(forKey: "url") as! String)!
+                    UIApplication.shared.openURL(url)
                     
                 }else if (defaults.object(forKey: "module") != nil){
                     if defaults.object(forKey: "module") as! String == "faq"{
@@ -212,15 +214,16 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             if json["status"] == "success"{
                                 if json["list_booking"].count != 0{
                                     
-                                    for data in json["list_booking"].arrayObject!{
+                                    for tempData in json["list_booking"].arrayObject!{
+                                        let data = tempData as! NSDictionary
                                         let formater = DateFormatter()
                                         formater.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss'Z'"
                                         
-                                        let twentyFour = NSLocale(localeIdentifier: "en_GB")
+                                        let twentyFour = Locale(identifier: "en_GB")
                                         formater.locale = twentyFour
-                                        let newDate = formater.dateFromString(data["departure_datetime"] as! String)
-                                        let today = NSDate()
-                                        if today.compare(newDate!) == NSComparisonResult.OrderedAscending{
+                                        let newDate = formater.date(from: data["departure_datetime"] as! String)
+                                        let today = Date()
+                                        if today.compare(newDate!) == ComparisonResult.orderedAscending{
                                             activeFlight.append(data as AnyObject)
                                         }else{
                                             notActiveFlight.append(data as AnyObject)
@@ -260,7 +263,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                     )
                                     let alertViewIcon = UIImage(named: "alertIcon")
                                     let alert = SCLAlertView(appearance:appearance)
-                                    alert.showInfo("Manage Flight", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage: alertViewIcon)
+                                    alert.showInfo("Manage Flight", subTitle: "You have no flight record. Please booking your flight to proceed", closeButtonTitle : "Continue", colorStyle:0xEC581A, circleIconImage: alertViewIcon)
                                 }
                             }else if json["status"] == "error"{
                                 
@@ -411,7 +414,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                     
                 }
                 
-            case .Failure:
+            case .failure(let _):
                 
                 hideLoading()
                 
@@ -473,17 +476,17 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         
         for listInfo in list{
             
-            let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
+            let mainUser = userList.filter("userId == %@", "\(userInfo["username"] as! String)")
             let pnr = PNRList()
             pnr.pnr = listInfo["pnr"] as! String
             
             let formater = DateFormatter()
             formater.dateFormat = "yyyy-MM-dd"
-            let twentyFour = NSLocale(localeIdentifier: "en_GB")
+            let twentyFour = Locale(identifier: "en_GB")
             formater.locale = twentyFour
             let date = (listInfo["date"] as! String).components(separatedBy: " ")
             let new = "\(date[2])-\(date[1])-\(date[0])"
-            let newdate = formater.dateFromString(new)
+            let newdate = formater.date(from: new)
             
             pnr.departureStationCode = listInfo["departure_station_code"] as! String
             pnr.arrivalStationCode = listInfo["arrival_station_code"] as! String
@@ -492,7 +495,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if mainUser.count == 0{
                 let user = UserList()
-                user.userId = userInfo!["username"] as! String
+                user.userId = userInfo["username"] as! String
                 user.pnr.append(pnr)
                 
                 try! realm.write({ () -> Void in
@@ -549,7 +552,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         }
     }
     
-    func refreshTable(sender: NSNotification){
+    func refreshTable(_ sender: NSNotification){
         self.homeMenuTableView.reloadData()
     }
     
@@ -566,7 +569,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                     if json["status"] == "success"{
                         if json["list_booking"].count != 0{
                             
-                            self.saveCheckInList(json["list_booking"].arrayObject!, userId: "\(json["user_id"])", signature: json["signature"].string!)
+                            self.saveCheckInList(json["list_booking"].arrayObject! as NSArray, userId: "\(json["user_id"])", signature: json["signature"].string!)
                             
                             if !isExist{
                                 let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
@@ -576,15 +579,15 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                                 self.navigationController!.pushViewController(mobileCheckinVC, animated: true)
                                 hideLoading()
                             }else{
-                                NotificationCenter.default.post(name: "reloadCheckInList", object: nil)
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadCheckInList"), object: nil)
                             }
                         }else{
                             hideLoading()
                             
-                            let userInfo = defaults.object(forKey: "userInfo")
-                            var userList = Results<UserList>!()
-                            userList = realm.objects(UserList)
-                            let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
+                            let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+                            //var userList = Results<UserList>!()
+                            let userList = realm.objects(UserList.self)
+                            let mainUser = userList.filter("userId == %@", "\(userInfo["username"] as! String)")
                             
                             if mainUser.count != 0{
                                 if mainUser[0].checkinList.count != 0{
@@ -596,22 +599,22 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             
                             // Create custom Appearance Configuration
                             let appearance = SCLAlertView.SCLAppearance(
+                                kCircleIconHeight: 40,
                                 kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
                                 kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
                                 kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
-                                showCircularIcon: true,
                                 showCloseButton: false,
-                                kCircleIconHeight: 40
+                                showCircularIcon: true
                             )
                             let alertViewIcon = UIImage(named: "alertIcon")
                             let errorView = SCLAlertView(appearance: appearance)
                             errorView.addButton("Continue") { () -> Void in
-                                self.navigationController?.popViewControllerAnimated(true)
+                                self.navigationController?.popViewController(animated: true)
                             }
                             
                             errorView.showInfo("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, circleIconImage: alertViewIcon)
                             
-                            NotificationCenter.default.post(name: "reloadCheckInList", object: nil)
+                            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadCheckInList"), object: nil)
                         }
                     }else if json["status"] == "error"{
                         hideLoading()
@@ -629,7 +632,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                     hideLoading()
                     showErrorMessage(failureResult.localizedDescription)
                 }else{
-                    NotificationCenter.default.post(name: "reloadCheckInList", object: nil)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadCheckInList"), object: nil)
                 }
                 //
             }
@@ -639,10 +642,10 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     func saveCheckInList(_ list : NSArray, userId : String, signature : String){
         
-        let userInfo = defaults.object(forKey: "userInfo")
-        var userList = Results<UserList>!()
-        userList = realm.objects(UserList)
-        let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
+        let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+        //var userList = Results<UserList>!()
+        let userList = realm.objects(UserList.self)
+        let mainUser = userList.filter("userId == %@", "\(userInfo["username"] as! String)")
         
         if mainUser.count != 0{
             if mainUser[0].checkinList.count != 0{
@@ -652,18 +655,19 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             }
         }
         
-        for listInfo in list{
+        for tempListInfo in list{
             
+            let listInfo = tempListInfo as! NSDictionary
             let checkIn = CheckInList()
             checkIn.pnr = listInfo["pnr"] as! String
             
-            let formater = NSDateFormatter()
+            let formater = DateFormatter()
             formater.dateFormat = "yyyy-MM-dd"
-            let twentyFour = NSLocale(localeIdentifier: "en_GB")
+            let twentyFour = Locale(identifier: "en_GB")
             formater.locale = twentyFour
             let date = (listInfo["date"] as! String).components(separatedBy: " ")
             let new = "\(date[2])-\(date[1])-\(date[0])"
-            let newdate = formater.dateFromString(new)
+            let newdate = formater.date(from: new)
             //print(newdate)
             
             checkIn.departureStationCode = listInfo["departure_station_code"] as! String
@@ -673,7 +677,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if mainUser.count == 0{
                 let user = UserList()
-                user.userId = userInfo!["username"] as! String
+                user.userId = userInfo["username"] as! String
                 user.checkinList.append(checkIn)
                 
                 try! realm.write({ () -> Void in

@@ -42,7 +42,7 @@ class SuccessCheckInViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func closeBtnPressed(sender: AnyObject) {
+    @IBAction func closeBtnPressed(_ sender: AnyObject) {
         
         for views in (self.navigationController?.viewControllers)!{
             if views.classForCoder == HomeViewController.classForCoder(){
@@ -54,7 +54,7 @@ class SuccessCheckInViewController: BaseViewController {
     }
     
     
-    @IBAction func boardingPassBtnPressed(sender: AnyObject) {
+    @IBAction func boardingPassBtnPressed(_ sender: AnyObject) {
         
         if try! LoginManager.sharedInstance.isLogin(){
             
@@ -62,7 +62,7 @@ class SuccessCheckInViewController: BaseViewController {
             //var userList : Results<UserList>! = nil
             let userList = realm.objects(UserList.self)
             
-            let mainUser = userList.filter("userId == \(userInfo["username"] as! String)")
+            let mainUser = userList.filter("userId == %@", "\(userInfo["username"] as! String)")
             
             if mainUser.count != 0{
                 let mainPNR = mainUser[0].pnr.filter("pnr == %@", boardingList[0]["RecordLocator"] as! String)

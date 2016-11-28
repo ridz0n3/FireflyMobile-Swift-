@@ -52,7 +52,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
             let dateArr = (userInfo["DOB"] as! String).components(separatedBy: "-")
             //var userList = Results<FamilyAndFriendList>!()
             let userList = realm.objects(FamilyAndFriendList.self)
-            let mainUser = userList.filter("email == \(userInfo["username"] as! String)")
+            let mainUser = userList.filter("email == %@", "\(userInfo["username"] as! String)")
             
             if mainUser.count != 0{
                 if mainUser[0].familyList.count != 0{

@@ -50,6 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics.self])
         
+        //temporary
+        InitialLoadManager.sharedInstance.load()
+
         RLMRealmConfiguration.setDefault(config)
         RemoteNotificationManager.sharedInstance.registerNotificationCategory()
         RemoteNotificationManager.sharedInstance.registerGCM()

@@ -64,7 +64,7 @@ class AddSeatSelectionViewController: CommonSeatSelectionViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         let bookId = String(format: "%i", (defaults.object(forKey: "booking_id")! as AnyObject).integerValue)
         let signature = defaults.object(forKey: "signature") as! String

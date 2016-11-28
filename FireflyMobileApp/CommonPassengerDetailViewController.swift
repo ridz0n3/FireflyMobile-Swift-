@@ -207,7 +207,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             saveAdultInfo.updateValue(getCountryCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray) as AnyObject, forKey: "issuing_country")
             //adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
             saveAdultInfo.updateValue("" as AnyObject, forKey: "document_number")
-            
+            /*
             let expiredDate = nilIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationExpiredDate, count)] as AnyObject)
             var arrangeExpDate = [String]()
             var newExpDate = String()
@@ -216,9 +216,9 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 arrangeExpDate = expiredDate.components(separatedBy: "-")//.components(separatedBy: "-")
                 newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
             }
-            
-            saveAdultInfo.updateValue(newExpDate as AnyObject, forKey: "expiration_date")
-            
+            */
+            saveAdultInfo.updateValue("" as AnyObject, forKey: "expiration_date")
+ 
             if flightType == "FY"{
                 saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
             }
@@ -446,7 +446,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
         //var userList = Results<FamilyAndFriendList>!()
         let userList = realm.objects(FamilyAndFriendList.self)
-        let mainUser = userList.filter("email == \(userInfo["username"] as! String)")
+        let mainUser = userList.filter("email == %@", "\(userInfo["username"] as! String)")
         
         if mainUser.count != 0{
             if mainUser[0].familyList.count != 0{

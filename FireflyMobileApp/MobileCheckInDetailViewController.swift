@@ -240,10 +240,10 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                     if data == "true"{
                         var passengerInfo = [String:AnyObject]()
                         var passengerArray = [AnyObject]()
-                        
+                        let passengerNum = passengerArray[count] as! NSDictionary
                         passengerInfo.updateValue("Y" as AnyObject, forKey: "status")
                         passengerArray = checkInDetail["passengers"] as! [AnyObject]
-                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!, forKey: "passenger_number")
+                        passengerInfo.updateValue(passengerNum["passenger_number"]! as AnyObject, forKey: "passenger_number")
                         passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc as [Dictionary<String, AnyObject>]) as AnyObject, forKey: "travel_document")
                         passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray) as AnyObject, forKey: "issuing_country")
                         passengerInfo.updateValue((formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]! as! String).xmlSimpleEscape as AnyObject, forKey: "document_number")
@@ -265,9 +265,10 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                     }else{
                         var passengerInfo = [String:AnyObject]()
                         var passengerArray = [AnyObject]()
+                        let passengerNum = passengerArray[count] as! NSDictionary
                         passengerInfo.updateValue("N" as AnyObject, forKey: "status")
                         passengerArray = checkInDetail["passengers"] as! [AnyObject]
-                        passengerInfo.updateValue(passengerArray[count]["passenger_number"]!!, forKey: "passenger_number")
+                        passengerInfo.updateValue(passengerNum["passenger_number"]! as AnyObject, forKey: "passenger_number")
                         passenger.updateValue(passengerInfo as AnyObject, forKey: "\(count)")
                     }
                     count += 1

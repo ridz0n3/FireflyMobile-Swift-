@@ -28,7 +28,7 @@ class EditPaymentViewController: CommonPaymentViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         if paymentMethod == "Card"{
             

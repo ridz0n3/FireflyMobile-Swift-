@@ -17,7 +17,7 @@ class BoardingPassViewController: CommonSearchDetailViewController {
         AnalyticsManager.sharedInstance.logScreen(GAConstants.boardingPassScreen)
     }
     
-    @IBAction func ContinueBtnPressed(sender: AnyObject) {
+    @IBAction func ContinueBtnPressed(_ sender: AnyObject) {
         
         
         validateForm()

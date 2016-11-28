@@ -20,7 +20,7 @@ class AddPaymentViewController: CommonPaymentViewController {
         
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         let signature = defaults.object(forKey: "signature") as! String
         let bookingID = "\(defaults.object(forKey: "booking_id")!)"
         

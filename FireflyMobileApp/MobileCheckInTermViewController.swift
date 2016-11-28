@@ -173,7 +173,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         termTableView.reloadData()
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         var statusCount = 0
         for status in checkStatus{
@@ -251,7 +251,7 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         var userList : Results<UserList>! = nil
         userList = realm.objects(UserList.self)
         
-        let mainUser = userList.filter("userId == \(userInfo["username"] as! String)")
+        let mainUser = userList.filter("userId == %@", "\(userInfo["username"] as! String)")
         
         let pnr = PNRList()
         pnr.pnr = pnrStr
@@ -327,12 +327,12 @@ class MobileCheckInTermViewController: BaseViewController, UITableViewDataSource
         
     }
     
-    @IBAction func rule1BtnPressed(sender: AnyObject) {
+    @IBAction func rule1BtnPressed(_ sender: AnyObject) {
         rule1View.removeFromSuperview()
         
     }
     
-    @IBAction func rule2BtnPressed(sender: AnyObject) {
+    @IBAction func rule2BtnPressed(_ sender: AnyObject) {
         rule2View.removeFromSuperview()
         
     }

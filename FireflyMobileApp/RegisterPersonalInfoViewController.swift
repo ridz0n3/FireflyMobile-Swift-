@@ -333,7 +333,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
                 }
                 
                 showLoading()
-                FireFlyProvider.request(.RegisterUser(username, password, title, firstName, lastName, dob, address1!, address2!, address3!, country, city!, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
+                FireFlyProvider.request(.RegisterUser(username, password, title, firstName, lastName, dob, address1, address2, address3, country, city, state, postcode, mobilePhone, alternatePhone, fax, bonuslink, signature, newsletter), completion: { (result) -> () in
                     
                     switch result {
                     case .success(let successResult):

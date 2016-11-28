@@ -23,14 +23,14 @@ class AddInfantViewController: CommonInfantViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func continueBtnPressed(sender: AnyObject) {
+    @IBAction func continueBtnPressed(_ sender: AnyObject) {
         
         validateForm()
         
         if isValidate{
             
-            let userInfo = defaults.object(forKey: "userInfo")
-            let email = userInfo!["username"] as! String
+            let userInfo = defaults.object(forKey: "userInfo") as! NSDictionary
+            let email = userInfo["username"] as! String
             let title = ""
             let firstName = formValues()[Tags.ValidationFirstName] as! String
             let lastName = formValues()[Tags.ValidationLastName] as! String
@@ -57,10 +57,10 @@ class AddInfantViewController: CommonInfantViewController {
                             
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
-                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
-                                NotificationCenter.default.post(name: "reloadList", object: nil)
+                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject! as [AnyObject])
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
                                 
-                                self.navigationController?.popViewControllerAnimated(true)
+                                self.navigationController?.popViewController(animated: true)
                             }else if json["status"] == "error"{
                                 showErrorMessage(json["message"].string!)
                             }else if json["status"].string == "401"{
@@ -100,10 +100,10 @@ class AddInfantViewController: CommonInfantViewController {
                             
                             if json["status"] == "success"{
                                 showToastMessage(json["message"].string!)
-                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject!)
-                                NotificationCenter.default.post(name: "reloadList", object: nil)
+                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject! as [AnyObject])
+                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
                                 
-                                self.navigationController?.popViewControllerAnimated(true)
+                                self.navigationController?.popViewController(animated: true)
                             }else if json["status"] == "error"{
                                 showErrorMessage(json["message"].string!)
                             }else if json["status"].string == "401"{

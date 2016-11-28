@@ -206,7 +206,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
     }
     
     
-    @IBAction func continuePaymentBtnPressed(sender: AnyObject) {
+    @IBAction func continuePaymentBtnPressed(_ sender: AnyObject) {
         validateForm()
         
         if isValidate{
@@ -471,7 +471,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         }
     }
     
-    @IBAction func changeContactBtnPressed(sender: AnyObject) {
+    @IBAction func changeContactBtnPressed(_ sender: AnyObject) {
         
         if checkPassenger.checkState == M13CheckboxState.checked{
             checkPassenger.checkState = M13CheckboxState.unchecked

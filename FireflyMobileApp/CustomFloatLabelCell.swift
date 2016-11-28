@@ -204,15 +204,17 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         }else if tag![0] == Tags.ValidationDate || tag![0] == Tags.ValidationExpiredDate{
             textFieldBefore.endEditing(true)
             
-            if self.rowDescriptor?.value as! String != ""{
+            if (self.rowDescriptor?.value) != nil{
                 
-                let date = self.rowDescriptor?.value
-                let dateArr = (date as! String).replacingOccurrences(of: "-", with: "/")
-                let formater = DateFormatter()
-                formater.dateStyle = DateFormatter.Style.short
-                let twentyFour = Locale(identifier: "en_GB")
-                formater.locale = twentyFour as Locale!
-                selectDate = formater.date(from: dateArr)!
+                if self.rowDescriptor?.value as! String != ""{
+                    let date = self.rowDescriptor?.value
+                    let dateArr = (date as! String).replacingOccurrences(of: "-", with: "/")
+                    let formater = DateFormatter()
+                    formater.dateStyle = DateFormatter.Style.short
+                    let twentyFour = Locale(identifier: "en_GB")
+                    formater.locale = twentyFour as Locale!
+                    selectDate = formater.date(from: dateArr)!
+                }
             }
             
             let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.date , selectedDate: selectDate, target: self, action: #selector(CustomFloatLabelCell.datePicked(_:element:)), origin: textField)

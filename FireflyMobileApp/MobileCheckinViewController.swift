@@ -17,7 +17,7 @@ class MobileCheckinViewController: CommonSearchDetailViewController {
         AnalyticsManager.sharedInstance.logScreen(GAConstants.mobileCheckInScreen)
     }
     
-    @IBAction func continueButtonPressed(sender: AnyObject) {
+    @IBAction func continueButtonPressed(_ sender: AnyObject) {
         
         validateForm()
         
