@@ -29,7 +29,7 @@ class AddContactDetailViewController: CommonContactDetailViewController {
         
         flightType = defaults.objectForKey("flightType") as! String
         
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.contactDetailsScreen)
+        AnalyticsManager.sharedInstance.logScreen("\(GAConstants.contactDetailsScreen) (\(flightType))")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddContactDetailViewController.refreshInsurance(_:)), name: "refreshInsurance", object: nil)
         
         yesBtn.layer.cornerRadius = 10

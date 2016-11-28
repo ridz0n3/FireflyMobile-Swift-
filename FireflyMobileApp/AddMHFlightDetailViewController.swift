@@ -11,6 +11,7 @@ import SCLAlertView
 import SwiftyJSON
 import M13Checkbox
 import RealmSwift
+import Crashlytics
 
 class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
 
@@ -72,7 +73,11 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         var planBack = String()
         
         if try! LoginManager.sharedInstance.isLogin(){
-            userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+            
+            if (defaults.objectForKey("userInfo") != nil){
+                userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
+            }
+            
         }
         
         let date = flightDetail[0]["departure_date"].string!
@@ -193,6 +198,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
                             let userInfo = defaults.objectForKey("userInfo") as! NSMutableDictionary
                             self.username = userInfo["username"]! as! String
                             self.type = defaults.objectForKey("type")! as! Int
+                            Crashlytics.sharedInstance().setUserEmail(self.username)
                             NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
                             
                             self.sentData()
@@ -330,8 +336,8 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             data.gender = nullIfEmpty(list["gender"]) as! String
             data.firstName = list["first_name"] as! String
             data.lastName = list["last_name"] as! String
-            let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
-            data.dob = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
+            //let dateArr = (list["dob"] as! String).componentsSeparatedByString("-")
+            data.dob = list["dob"] as! String//"\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = list["bonuslink_card"] as! String
             data.type = list["type"] as! String

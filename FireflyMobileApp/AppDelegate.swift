@@ -41,8 +41,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         config.migrationBlock = { (migration, oldSchemaVersion) in
             // nothing to do
         }
+
+        if try! LoginManager.sharedInstance.isLogin(){
+            let userinfo = defaults.objectForKey("userInfo") as! [String: AnyObject]
+            let username = userinfo["username"] as! String
+            Crashlytics.sharedInstance().setUserEmail("\(username)")
+        }
         
         Fabric.with([Crashlytics.self])
+        
         RLMRealmConfiguration.setDefaultConfiguration(config)
         RemoteNotificationManager.sharedInstance.registerNotificationCategory()
         RemoteNotificationManager.sharedInstance.registerGCM()

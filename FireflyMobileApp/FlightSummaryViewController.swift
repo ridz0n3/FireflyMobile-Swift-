@@ -39,7 +39,8 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         flightSummarryTableView.estimatedRowHeight = 1000
         flightSummarryTableView.rowHeight = UITableViewAutomaticDimension
         
-        //AnalyticsManager.sharedInstance.logScreen(GAConstants.flightSummaryScreen)
+        let flightType = defaults.objectForKey("flightType") as! String
+        AnalyticsManager.sharedInstance.logScreen("\(GAConstants.flightSummaryScreen) (\(flightType))")
         continueBtn.layer.cornerRadius = 10
         setupMenuButton()
         

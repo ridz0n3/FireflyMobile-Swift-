@@ -259,7 +259,7 @@ class LoginBoardingPassViewController: CommonListViewController {
                 formater.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
                 let twentyFour = NSLocale(localeIdentifier: "en_GB")
                 formater.locale = twentyFour
-                pnr.departureStationCode = boardingInfo["DepartureStationCode"] as! String
+                pnr.departureStationCode = nilIfEmpty(boardingInfo["DepartureStationCode"]) as! String
                 pnr.arrivalStationCode = boardingInfo["ArrivalStationCode"] as! String
                 pnr.departureDateTime = formater.dateFromString(boardingInfo["DepartureDateTime"] as! String)!
                 pnr.departureDayDate = boardingInfo["DepartureDate"] as! String

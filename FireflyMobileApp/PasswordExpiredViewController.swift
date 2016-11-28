@@ -9,6 +9,7 @@
 import UIKit
 import XLForm
 import SwiftyJSON
+import Crashlytics
 
 class PasswordExpiredViewController: BaseXLFormViewController {
     
@@ -103,6 +104,7 @@ class PasswordExpiredViewController: BaseXLFormViewController {
                                                 defaults.setObject(json["user_info"].object , forKey: "userInfo")
                                                 defaults.setObject(json["user_info"]["customer_number"].string, forKey: "customer_number")
                                                 defaults.synchronize()
+                                                Crashlytics.sharedInstance().setUserEmail(json["user_info"]["username"].string)
                                                 
                                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
                                                 let storyBoard = UIStoryboard(name: "Home", bundle: nil)

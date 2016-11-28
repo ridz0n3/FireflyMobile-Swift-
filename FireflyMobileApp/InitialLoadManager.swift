@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 import SlideMenuControllerSwift
+import Crashlytics
 
 class InitialLoadManager {
     
@@ -43,6 +44,7 @@ class InitialLoadManager {
             let userinfo = defaults.objectForKey("userInfo") as! [String: AnyObject]
             username = userinfo["username"] as! String
             password = userinfo["password"] as! String
+            Crashlytics.sharedInstance().setUserEmail(username)
         }
         
         let gcmKey = defaults.objectForKey("token") as! String

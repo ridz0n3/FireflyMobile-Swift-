@@ -10,13 +10,14 @@ import UIKit
 import XLForm
 import JVFloatLabeledTextField
 import ActionSheetPicker_3_0
+import Crashlytics
 
 let XLFormRowDescriptorTypeFloatLabeled = "XLFormRowDescriptorTypeFloatLabeled"
 var textFieldBefore = UITextField()
 
 
 class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
-
+    
     //picker
     var data = [String]()
     var dataValue = [String]()
@@ -177,7 +178,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         result += NSLayoutConstraint.constraintsWithVisualFormat("V:|-(vMargin)-[floatLabeledTextField]-(vMargin)-|", options:NSLayoutFormatOptions.AlignAllCenterX, metrics:metrics, views:views)
         return result
     }
-
+    
     func textFieldDidChange(textField : UITextField) {
         if self.floatLabeledTextField == textField {
             if self.floatLabeledTextField.text!.isEmpty == false {
@@ -203,26 +204,38 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
         }else if tag![0] == Tags.ValidationDate || tag![0] == Tags.ValidationExpiredDate{
             textFieldBefore.endEditing(true)
             
-            if let date = self.rowDescriptor?.value{
-                let dateArr = (date as! String).componentsSeparatedByString("-")
-                let arrangeDate = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
-                
-                let formater = NSDateFormatter()
-                formater.dateFormat = "yyyy-MM-dd"
-                let twentyFour = NSLocale(localeIdentifier: "en_GB")
-                formater.locale = twentyFour
-                selectDate = formater.dateFromString(arrangeDate)!
+            if self.rowDescriptor?.value != nil{
+                if self.rowDescriptor?.value as! String != ""{
+                    
+                    let date = self.rowDescriptor?.value
+                    let dateArr = (date as! String).stringByReplacingOccurrencesOfString("-", withString: "/")
+                    // .componentsSeparatedByString("-")
+                    //let arrangeDate = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
+                    
+                    let formater = NSDateFormatter()
+                    formater.dateStyle = NSDateFormatterStyle.ShortStyle
+                    let twentyFour = NSLocale(localeIdentifier: "en_GB")
+                    formater.locale = twentyFour
+                    selectDate = formater.dateFromString(dateArr)!
+                }
             }
             
             let datePicker = ActionSheetDatePicker(title: "", datePickerMode: UIDatePickerMode.Date , selectedDate: selectDate, target: self, action: #selector(CustomFloatLabelCell.datePicked(_:element:)), origin: textField)
             
-            let str = self.rowDescriptor?.tag?.componentsSeparatedByString("(")
-            
-            if str![0] == "Expiration Date"{
-                datePicker.minimumDate = NSDate()
-            }else{
-                datePicker.maximumDate = NSDate()
+            if let str = self.rowDescriptor.tag{
+                
+                let strArr = str.componentsSeparatedByString("(")
+                
+                if strArr[0] == Tags.ValidationExpiredDate{
+                    datePicker.minimumDate = NSDate()
+                    CLSLogv("Log %@", getVaList([strArr[0]]))
+                }else{
+                    datePicker.maximumDate = NSDate()
+                }
+                
             }
+            
+            
             
             datePicker.showActionSheetPicker()
             return false
@@ -241,12 +254,12 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
             //textFieldBefore.endEditing(true)
             retrieveData()
             /*
-            let labelParagraphStyle = NSMutableParagraphStyle()
-            labelParagraphStyle.alignment = .Center
-            let picker = ActionSheetStringPicker(title: "", rows: data, initialSelection: selectindex, target: self, successAction: #selector(CustomFloatLabelCell.objectSelected(_:element:)), cancelAction: "actionPickerCancelled:", origin: textField)
-            picker.pickerTextAttributes = [NSFontAttributeName : UIFont.systemFontOfSize(25), NSParagraphStyleAttributeName : labelParagraphStyle]
-            picker.showActionSheetPicker()
-            */
+             let labelParagraphStyle = NSMutableParagraphStyle()
+             labelParagraphStyle.alignment = .Center
+             let picker = ActionSheetStringPicker(title: "", rows: data, initialSelection: selectindex, target: self, successAction: #selector(CustomFloatLabelCell.objectSelected(_:element:)), cancelAction: "actionPickerCancelled:", origin: textField)
+             picker.pickerTextAttributes = [NSFontAttributeName : UIFont.systemFontOfSize(25), NSParagraphStyleAttributeName : labelParagraphStyle]
+             picker.showActionSheetPicker()
+             */
             
             pickerView.delegate = self
             self.pickerView.selectRow(selectindex, inComponent: 0, animated: true)
@@ -278,19 +291,19 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
             let maxLength = 6
             let currentString: NSString = textField.text!
             let newString: NSString =
-            currentString.stringByReplacingCharactersInRange(range, withString: string)
+                currentString.stringByReplacingCharactersInRange(range, withString: string)
             return newString.length <= maxLength
         }else if self.rowDescriptor?.tag == Tags.ValidationCcvNumber{
             let maxLength = 4
             let currentString: NSString = textField.text!
             let newString: NSString =
-            currentString.stringByReplacingCharactersInRange(range, withString: string)
+                currentString.stringByReplacingCharactersInRange(range, withString: string)
             return newString.length <= maxLength
         }else if doc![0] == Tags.ValidationDocumentNo{
             let maxLength = 20
             let currentString: NSString = textField.text!
             let newString: NSString =
-            currentString.stringByReplacingCharactersInRange(range, withString: string)
+                currentString.stringByReplacingCharactersInRange(range, withString: string)
             return newString.length <= maxLength
         }else{
             return self.formViewController().textField(textField, shouldChangeCharactersInRange: range, replacementString: string)
@@ -476,11 +489,11 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     }
     
     /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
-    }
-    */
-
+     // Only override drawRect: if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func drawRect(rect: CGRect) {
+     // Drawing code
+     }
+     */
+    
 }

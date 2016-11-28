@@ -48,6 +48,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
     
     //TODO: Get the URL from Backend
     func facebookSelected(sender: UIGestureRecognizer) {
+        //Crashlytics.sharedInstance().crash()
         //AnalyticsManager.sharedInstance.logScreen(GAConstants.facebookScreen)
         let facebookHooks = "fb://profile/\(defaults.objectForKey("facebook") as! String)"
         let facebookURL = NSURL(string: facebookHooks)
@@ -288,6 +289,9 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
             
             if try! LoginManager.sharedInstance.isLogin(){
                 
+                showLoading()
+                retrieveCheckInList(false)
+                /*
                 let userInfo = defaults.objectForKey("userInfo") as! NSDictionary
                 var userData : Results<UserList>! = nil
                 userData = realm.objects(UserList)
@@ -296,8 +300,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 if mainUser.count != 0{
                     
                     if mainUser[0].checkinList.count == 0{
-                        showLoading()
-                        retrieveCheckInList(false)
+                        
                     }else{
                         let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
                         let mobileCheckinVC = storyboard.instantiateViewControllerWithIdentifier("LoginMobileCheckinVC") as! LoginMobileCheckinViewController
@@ -312,7 +315,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                 }else{
                     showLoading()
                     retrieveCheckInList(false)
-                }
+                }*/
                 
             }else{
                 
@@ -577,17 +580,38 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
                             }
                         }else{
                             hideLoading()
+                            
+                            let userInfo = defaults.objectForKey("userInfo")
+                            var userList = Results<UserList>!()
+                            userList = realm.objects(UserList)
+                            let mainUser = userList.filter("userId == %@",userInfo!["username"] as! String)
+                            
+                            if mainUser.count != 0{
+                                if mainUser[0].checkinList.count != 0{
+                                    realm.beginWrite()
+                                    realm.delete(mainUser[0].checkinList)
+                                    try! realm.commitWrite()
+                                }
+                            }
+                            
                             // Create custom Appearance Configuration
                             let appearance = SCLAlertView.SCLAppearance(
                                 kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
                                 kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
                                 kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
                                 showCircularIcon: true,
+                                showCloseButton: false,
                                 kCircleIconHeight: 40
                             )
                             let alertViewIcon = UIImage(named: "alertIcon")
-                            let alert = SCLAlertView(appearance:appearance)
-                            alert.showInfo("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, closeButtonTitle : "Continue", circleIconImage: alertViewIcon)
+                            let errorView = SCLAlertView(appearance: appearance)
+                            errorView.addButton("Continue") { () -> Void in
+                                self.navigationController?.popViewControllerAnimated(true)
+                            }
+                            
+                            errorView.showInfo("Mobile Check-In", subTitle: "You have no flight record. Please booking your flight to proceed", colorStyle:0xEC581A, circleIconImage: alertViewIcon)
+                            
+                            NSNotificationCenter.defaultCenter().postNotificationName("reloadCheckInList", object: nil)
                         }
                     }else if json["status"] == "error"{
                         hideLoading()

@@ -12,6 +12,7 @@
     import SwiftValidator
     import SwiftyJSON
     import SCLAlertView
+    import Crashlytics
 
     class LoginViewController: BaseXLFormViewController {
         
@@ -95,6 +96,7 @@
                                 defaults.setObject(json["user_info"]["customer_number"].string, forKey: "customer_number")
                                 defaults.setObject(json["user_info"]["personID"].string, forKey: "personID")
                                 defaults.synchronize()
+                                Crashlytics.sharedInstance().setUserEmail(json["user_info"]["username"].string)
                                 
                                 NSNotificationCenter.defaultCenter().postNotificationName("reloadSideMenu", object: nil)
                                 let storyBoard = UIStoryboard(name: "Home", bundle: nil)

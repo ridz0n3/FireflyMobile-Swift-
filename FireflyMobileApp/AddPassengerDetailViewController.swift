@@ -26,7 +26,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         module = "addPassenger"
         loadFamilyAndFriendData()
         initializeForm()
-        AnalyticsManager.sharedInstance.logScreen(GAConstants.passengerDetailsScreen)
+        AnalyticsManager.sharedInstance.logScreen("\(GAConstants.passengerDetailsScreen) (\(flightType))")
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AddPassengerDetailViewController.reload(_:)), name: "reloadPicker", object: nil)
     }
     
@@ -58,55 +58,53 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 if mainUser[0].familyList.count != 0{
                     familyAndFriendList = mainUser[0].familyList
                     rearrangeFamily()
-                    self.tableView.reloadData()
                 }
                 
                 if !isContinue{
-                if familyAndFriendList.count == 0{
-                    data = ["title" : userInfo["title"]!,
-                            "first_name" : userInfo["first_name"]!,
-                            "last_name" : userInfo["last_name"]!,
-                            "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
-                            "issuing_country" : userInfo["contact_country"]!,
-                            "bonuslink" : userInfo["bonuslink"]!,
-                            "Save" : false]
-                    adultInfo.updateValue(data, forKey: "0")
-                }else{
-                    var countExist = 0
-                    for tempInfo in familyAndFriendList{
-                        
-                        if (tempInfo.title == userInfo["title"]! as! String) && (tempInfo.firstName == userInfo["first_name"]! as! String) && (tempInfo.lastName == userInfo["last_name"]! as! String) {
-                            data = ["id" : tempInfo.id,
-                                    "title" : tempInfo.title,
-                                    "gender" : tempInfo.gender,
-                                    "first_name" : tempInfo.firstName,
-                                    "last_name" : tempInfo.lastName,
-                                    "dob2" : tempInfo.dob,
-                                    "issuing_country" : tempInfo.country,
-                                    "bonuslink" : tempInfo.bonuslink,
-                                    "type" : tempInfo.type,
-                                    "Save" : false]
-                            adultInfo.updateValue(data, forKey: "0")
-                            countExist += 1
-                        }
-                    }
-                    
-                    if countExist == 0{
+                    if familyAndFriendList.count == 0{
                         data = ["title" : userInfo["title"]!,
+                                "first_name" : userInfo["first_name"]!,
+                                "last_name" : userInfo["last_name"]!,
+                                "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
+                                "issuing_country" : userInfo["contact_country"]!,
+                                "bonuslink" : userInfo["bonuslink"]!,
+                                "Save" : false]
+                        adultInfo.updateValue(data, forKey: "0")
+                    }else{
+                        var countExist = 0
+                        for tempInfo in familyAndFriendList{
+                            
+                            if (tempInfo.title == userInfo["title"]! as! String) && (tempInfo.firstName == userInfo["first_name"]! as! String) && (tempInfo.lastName == userInfo["last_name"]! as! String) {
+                                data = ["id" : tempInfo.id,
+                                        "title" : tempInfo.title,
+                                        "gender" : tempInfo.gender,
+                                        "first_name" : tempInfo.firstName,
+                                        "last_name" : tempInfo.lastName,
+                                        "dob2" : tempInfo.dob,
+                                        "issuing_country" : tempInfo.country,
+                                        "bonuslink" : tempInfo.bonuslink,
+                                        "type" : tempInfo.type,
+                                        "Save" : false]
+                                adultInfo.updateValue(data, forKey: "0")
+                                countExist += 1
+                            }
+                        }
+                        
+                        if countExist == 0{
+                            data = ["title" : userInfo["title"]!,
                                     "first_name" : userInfo["first_name"]!,
                                     "last_name" : userInfo["last_name"]!,
                                     "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])",
                                     "issuing_country" : userInfo["contact_country"]!,
                                     "bonuslink" : userInfo["bonuslink"]!,
                                     "Save" : false]
-                        adultInfo.updateValue(data, forKey: "0")
+                            adultInfo.updateValue(data, forKey: "0")
+                        }
                     }
-                }
                 }
             }else{
                 familyAndFriendList = nil
                 rearrangeFamily()
-                self.tableView.reloadData()
                 data = ["title" : userInfo["title"]!,
                         "first_name" : userInfo["first_name"]!,
                         "last_name" : userInfo["last_name"]!,
@@ -128,17 +126,17 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         adultName = [String]()
         
         if familyAndFriendList != nil{
-        for familyInfo in familyAndFriendList{
-            
-            if familyInfo.type == "Infant"{
-                infantList.append(familyInfo)
-                infantName.append("\(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString)
-            }else{
-                adultList.append(familyInfo)
-                adultName.append("\(familyInfo.title) \(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString)
+            for familyInfo in familyAndFriendList{
+                
+                if familyInfo.type == "Infant"{
+                    infantList.append(familyInfo)
+                    infantName.append("\(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString)
+                }else{
+                    adultList.append(familyInfo)
+                    adultName.append("\(familyInfo.title) \(familyInfo.firstName) \(familyInfo.lastName)".capitalizedString)
+                }
+                
             }
-            
-        }
         }
         
     }
