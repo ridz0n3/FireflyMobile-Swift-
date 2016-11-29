@@ -18,11 +18,13 @@ pod 'JVFloatLabeledTextField'
 pod 'Moya', '8.0.0-beta.2'
 pod 'SCLAlertView', :git => 'https://github.com/vikmeup/SCLAlertView-Swift'
 pod 'RealmSwift'
-pod 'Google/Analytics'
+#pod 'Google/Analytics'
 pod 'SlideMenuControllerSwift'
-pod 'Google/CloudMessaging'
+#pod 'Google/CloudMessaging'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'Firebase/Core'
+pod 'Firebase/Messaging'
 end
 
 target 'FireflyMobileAppTests' do

@@ -14,6 +14,45 @@ import Realm
 import SwiftyJSON
 import Fabric
 import Crashlytics
+import UserNotifications
+import Firebase
+import FirebaseInstanceID
+import FirebaseMessaging
+
+// [START ios_10_message_handling]
+@available(iOS 10, *)
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    // Receive displayed notifications for iOS 10 devices.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        // Print message ID.
+        print("Message ID: \(userInfo["gcm.message_id"]!)")
+        // Print full message.
+        //print(userInfo)
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        // Print message ID.
+        print("Message ID: \(userInfo["gcm.message_id"]!)")
+        // Print full message.
+        //print(userInfo)
+    }
+}
+// [END ios_10_message_handling]
+// [START ios_10_data_message_handling]
+extension AppDelegate : FIRMessagingDelegate {
+    // Receive data message on iOS 10 devices while app is in the foreground.
+    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+        
+        showInfo("t")
+        print(remoteMessage.appData)
+    }
+}
+// [END ios_10_data_message_handling]
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -50,35 +89,92 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics.self])
         
+        
         //temporary
         InitialLoadManager.sharedInstance.load()
-
+        //FIRApp.configure()
+        
+        if #available(iOS 10.0, *) {
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            // For iOS 10 data message (sent via FCM)
+            FIRMessaging.messaging().remoteMessageDelegate = self
+            
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            application.registerUserNotificationSettings(settings)
+        }
+        
+        application.registerForRemoteNotifications()
+        //var firebasePlistFileName = String()
+        let firebasePlistFileName = "GoogleService-Info"
+        let firbaseOptions = FIROptions(contentsOfFile: Bundle.main.path(forResource: firebasePlistFileName, ofType: "plist"))
+        
+        FIRApp.configure(with: firbaseOptions!)
+        
+        // Add observer for InstanceID token refresh callback.
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.tokenRefreshNotification),
+                                               name: .firInstanceIDTokenRefresh,
+                                               object: nil)
+        
         RLMRealmConfiguration.setDefault(config)
-        RemoteNotificationManager.sharedInstance.registerNotificationCategory()
-        RemoteNotificationManager.sharedInstance.registerGCM()
+        //RemoteNotificationManager.sharedInstance.registerNotificationCategory()
+        //RemoteNotificationManager.sharedInstance.registerGCM()
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
         //RemoteNotificationManager.sharedInstance.getGCMToken(deviceToken: deviceToken)
         
     }
     
-    private func application(application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [NSObject : AnyObject], completionHandler: @escaping () -> Void) {
-        print("identifier received: \(identifier)")
-       // UIApplication.sharedApplication().openURL(NSURL(string:"prefs:root=Bluetooth")!)
-       // showErrorMessage(identifier!)
-        completionHandler()
+    func tokenRefreshNotification(_ notification: Notification) {
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            print("InstanceID token in tokenRefreshNotification: \(refreshedToken)")
+        }
+        // Connect to FCM since connection may have failed when attempted before having a token.
+        connectToFcm()
     }
     
-    private func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    func connectToFcm() {
+        FIRMessaging.messaging().connect { (error) in
+            if error != nil {
+                print("Unable to connect with FCM in connect To FCM. \(error)")
+            } else {
+                print("Connected to FCM. in connect To FCM")
+            }
+        }
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+        // If you are receiving a notification message while your app is in the background,
+        // this callback will not be fired till the user taps on the notification launching the application.
+        // TODO: Handle data of notification
         
-       /* let alert = userInfo["aps"]!
-        let message = alert["alert"]!!
+        let aps = userInfo["aps"]! as! NSDictionary
+        let alert = aps["alert"] as AnyObject
         
-        showNotif(message["title"] as! String, message : message["body"] as! String)
-        //print(message["body"] as! String)*/
+        if alert.classForCoder != NSString.classForCoder(){
+            
+            let message = alert as! NSDictionary
+            
+            showNotif(message["title"] as! String, message: message["body"] as! String)
+            
+        }else{
+            
+            showNotif("Message", message: alert as! String)
+            
+        }
+        
         
     }
     

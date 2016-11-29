@@ -12,8 +12,6 @@
 #import "MBProgressHUD/MBProgressHUD.h"
 #import "RSDayFlow/RSDFDatePickerView.h"
 #import "JVFloatLabeledTextField/JVFloatLabeledTextField.h"
-#import "Google/Analytics.h"
-#import "Google/CloudMessaging.h"
 #import "NSString+ExtraMethod.h"
 #import "NSMutableString+ExtraMethod.h"
 #endif /* ObjC_Header_h */

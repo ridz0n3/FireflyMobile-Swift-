@@ -303,7 +303,7 @@ func showNotif(_ title : String, message:String){
     
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
-        kCircleHeight: 40,
+        //kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
