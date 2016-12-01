@@ -23,12 +23,15 @@ case "${TARGETED_DEVICE_FAMILY}" in
     ;;
 esac
 
+<<<<<<< HEAD
+=======
 realpath() {
   DIRECTORY="$(cd "${1%/*}" && pwd)"
   FILENAME="${1##*/}"
   echo "$DIRECTORY/$FILENAME"
 }
 
+>>>>>>> fcc8829e34432faf4716508ebdaa30ca11ca15ac
 install_resource()
 {
   if [[ "$1" = /* ]] ; then
@@ -70,7 +73,11 @@ EOM
       xcrun mapc "$RESOURCE_PATH" "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/`basename "$RESOURCE_PATH" .xcmappingmodel`.cdm"
       ;;
     *.xcassets)
+<<<<<<< HEAD
+      ABSOLUTE_XCASSET_FILE="$RESOURCE_PATH"
+=======
       ABSOLUTE_XCASSET_FILE=$(realpath "$RESOURCE_PATH")
+>>>>>>> fcc8829e34432faf4716508ebdaa30ca11ca15ac
       XCASSET_FILES+=("$ABSOLUTE_XCASSET_FILE")
       ;;
     *)
@@ -93,7 +100,11 @@ then
   # Find all other xcassets (this unfortunately includes those of path pods and other targets).
   OTHER_XCASSETS=$(find "$PWD" -iname "*.xcassets" -type d)
   while read line; do
+<<<<<<< HEAD
+    if [[ $line != "${PODS_ROOT}*" ]]; then
+=======
     if [[ $line != "`realpath $PODS_ROOT`*" ]]; then
+>>>>>>> fcc8829e34432faf4716508ebdaa30ca11ca15ac
       XCASSET_FILES+=("$line")
     fi
   done <<<"$OTHER_XCASSETS"

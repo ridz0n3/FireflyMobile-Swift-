@@ -17,7 +17,7 @@
 # This is the minimum version number required.
 # Update this, if you use features of a newer version
 fastlane_version "1.55.0"
-
+ 
 default_platform :ios
 
 platform :ios do
@@ -36,6 +36,8 @@ platform :ios do
   desc "This will also make sure the profile is up to date"
   lane :beta do
     # match(type: "appstore") # more information: https://codesigning.guide
+    xcversion(version: "7.3.1") # Selects Xcode 7.3.1
+    xcode_select "/Applications/Xcode2.app"
     gym(scheme: "FireflyMobileApp") # Build your app - more options available
     pilot
 
