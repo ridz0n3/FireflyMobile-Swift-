@@ -23,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        Fabric.with([Crashlytics.self])
+        
         if (launchOptions != nil){
             defaults.setValue(launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey] as! [NSObject:AnyObject], forKey: "notif")
         }else{
@@ -47,8 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let username = userinfo["username"] as! String
             Crashlytics.sharedInstance().setUserEmail("\(username)")
         }
-        
-        Fabric.with([Crashlytics.self])
         
         RLMRealmConfiguration.setDefaultConfiguration(config)
         RemoteNotificationManager.sharedInstance.registerNotificationCategory()
