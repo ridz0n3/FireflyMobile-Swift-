@@ -62,11 +62,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
-        /*if (launchOptions != nil){
-            defaults.setValue(launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey] as! [NSObject:AnyObject], forKey: "notif")
+        if launchOptions != nil{
+            
+            defaults.set(launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification], forKey: "notif")
+            defaults.synchronize()
+            
         }else{
+            
             defaults.setValue("", forKey: "notif")
-        }*/
+            defaults.synchronize()
+            
+        }
         
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeled] = CustomFloatLabelCell.self
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorCheckbox] = "CustomCheckBoxCell"
@@ -89,70 +95,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics.self])
         
-        
-        //temporary
-        InitialLoadManager.sharedInstance.load()
-        //FIRApp.configure()
-        
-        if #available(iOS 10.0, *) {
-            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-            UNUserNotificationCenter.current().requestAuthorization(
-                options: authOptions,
-                completionHandler: {_, _ in })
-            
-            // For iOS 10 display notification (sent via APNS)
-            UNUserNotificationCenter.current().delegate = self
-            // For iOS 10 data message (sent via FCM)
-            FIRMessaging.messaging().remoteMessageDelegate = self
-            
-        } else {
-            let settings: UIUserNotificationSettings =
-                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
-            application.registerUserNotificationSettings(settings)
-        }
-        
-        application.registerForRemoteNotifications()
-        //var firebasePlistFileName = String()
-        let firebasePlistFileName = "GoogleService-Info"
-        let firbaseOptions = FIROptions(contentsOfFile: Bundle.main.path(forResource: firebasePlistFileName, ofType: "plist"))
-        
-        FIRApp.configure(with: firbaseOptions!)
-        
-        // Add observer for InstanceID token refresh callback.
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(self.tokenRefreshNotification),
-                                               name: .firInstanceIDTokenRefresh,
-                                               object: nil)
-        
         RLMRealmConfiguration.setDefault(config)
-        //RemoteNotificationManager.sharedInstance.registerNotificationCategory()
-        //RemoteNotificationManager.sharedInstance.registerGCM()
+        RemoteNotificationManager.sharedInstance.registerNotificationCategory()
+        RemoteNotificationManager.sharedInstance.registerGCM()
         return true
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
-        //RemoteNotificationManager.sharedInstance.getGCMToken(deviceToken: deviceToken)
+        RemoteNotificationManager.sharedInstance.getGCMToken(deviceToken: deviceToken)
+        InitialLoadManager.sharedInstance.load()
         
-    }
-    
-    func tokenRefreshNotification(_ notification: Notification) {
-        if let refreshedToken = FIRInstanceID.instanceID().token() {
-            print("InstanceID token in tokenRefreshNotification: \(refreshedToken)")
-        }
-        // Connect to FCM since connection may have failed when attempted before having a token.
-        connectToFcm()
-    }
-    
-    func connectToFcm() {
-        FIRMessaging.messaging().connect { (error) in
-            if error != nil {
-                print("Unable to connect with FCM in connect To FCM. \(error)")
-            } else {
-                print("Connected to FCM. in connect To FCM")
-            }
-        }
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {

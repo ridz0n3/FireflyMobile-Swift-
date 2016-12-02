@@ -7,164 +7,112 @@
 //
 
 import UIKit
+import UserNotifications
+import Firebase
+import FirebaseInstanceID
+import FirebaseMessaging
 
-class RemoteNotificationManager: NSObject{//, GGLInstanceIDDelegate, GCMReceiverDelegate {
+// [START ios_10_message_handling]
+@available(iOS 10, *)
 
-    static let sharedInstance = RemoteNotificationManager()
+extension RemoteNotificationManager : UNUserNotificationCenterDelegate {
+    // Receive displayed notifications for iOS 10 devices.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        // Print message ID.
+        print("Message ID: \(userInfo["gcm.message_id"]!)")
+        // Print full message.
+        //print(userInfo)
+    }
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
+        let userInfo = response.notification.request.content.userInfo
+        // Print message ID.
+        print("Message ID: \(userInfo["gcm.message_id"]!)")
+        // Print full message.
+        //print(userInfo)
+    }
+}
+// [END ios_10_message_handling]
+// [START ios_10_data_message_handling]
+extension RemoteNotificationManager : FIRMessagingDelegate {
+    // Receive data message on iOS 10 devices while app is in the foreground.
+    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
+        
+        showInfo("t")
+        print(remoteMessage.appData)
+    }
+}
+
+class RemoteNotificationManager: NSObject{
     
-    var connectedToGCM = false
-    var gcmSenderID: String?
-    var registrationToken: String?
-    var registrationOptions = [String: AnyObject]()
+    static let sharedInstance = RemoteNotificationManager()
     
     func registerNotificationCategory(){
         
-        let completeAction = UIMutableUserNotificationAction()
-        completeAction.identifier = "Close"
-        completeAction.title = "Close"
-        completeAction.activationMode = .background
-        completeAction.isAuthenticationRequired = false
-        completeAction.isDestructive = true
+        if #available(iOS 10.0, *) {
+            let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
+            UNUserNotificationCenter.current().requestAuthorization(
+                options: authOptions,
+                completionHandler: {_, _ in })
+            
+            // For iOS 10 display notification (sent via APNS)
+            UNUserNotificationCenter.current().delegate = self
+            // For iOS 10 data message (sent via FCM)
+            FIRMessaging.messaging().remoteMessageDelegate = self
+            
+        } else {
+            let settings: UIUserNotificationSettings =
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            UIApplication.shared.registerUserNotificationSettings(settings)
+        }
         
-        let remindAction = UIMutableUserNotificationAction()
-        remindAction.identifier = "Turn_On"
-        remindAction.title = "Open"
-        remindAction.activationMode = .foreground
-        remindAction.isDestructive = false
+        UIApplication.shared.registerForRemoteNotifications()
         
-        let todoCategory = UIMutableUserNotificationCategory()
-        todoCategory.identifier = "Check_Bluetooth"
-        todoCategory.setActions([remindAction], for: .minimal)
-        
-        
-        //geofence
-        let noNotifyAction = UIMutableUserNotificationAction()
-        noNotifyAction.identifier = "geofence"
-        noNotifyAction.title = "Open"
-        noNotifyAction.activationMode = .background
-        noNotifyAction.isDestructive = true
-        
-        let geoCategory = UIMutableUserNotificationCategory()
-        geoCategory.identifier = "Geofence"
-        geoCategory.setActions([noNotifyAction], for: .minimal)
-        
-        let notifyAction = UIMutableUserNotificationAction()
-        notifyAction.identifier = "DepartureScan"
-        notifyAction.title = "Ok"
-        notifyAction.activationMode = .background
-        notifyAction.isDestructive = true
-        
-        let beaconCategory = UIMutableUserNotificationCategory()
-        beaconCategory.identifier = "DepartureGate"
-        beaconCategory.setActions([notifyAction], for: .minimal)
-        
-        let reminderAction = UIMutableUserNotificationAction()
-        reminderAction.identifier = "Reminder"
-        reminderAction.title = "Ok"
-        reminderAction.activationMode = .foreground
-        reminderAction.isDestructive = true
-        
-        let reminderCategory = UIMutableUserNotificationCategory()
-        reminderCategory.identifier = "Reminder"
-        reminderCategory.setActions([reminderAction], for: .minimal)
-        
-       /* let notifSetting:UIUserNotificationType = [.badge, .alert, .sound]
-        UIApplication.shared
-            .registerForRemoteNotifications()
-        UIApplication.sharedApplication.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: notifSetting, categories: NSSet(array: [todoCategory, beaconCategory, geoCategory, reminderCategory]) as? Set<UIUserNotificationCategory>))*/
     }
     
     func registerGCM(){
-        /*
-        // [START_EXCLUDE]
-        // Configure the Google context: parses the GoogleService-Info.plist, and initializes
-        // the services that have entries in the file
-        var configureError:NSError?
-        GGLContext.sharedInstance().configureWithError(&configureError)
-        assert(configureError == nil, "Error configuring Google services: \(configureError)")
-        gcmSenderID = GGLContext.sharedInstance().configuration.gcmSenderID
-        // [END_EXCLUDE]
         
-        // [START start_gcm_service]
-        let gcmConfig = GCMConfig.defaultConfig()
-        gcmConfig.receiverDelegate = self
-        GCMService.sharedInstance().startWithConfig(gcmConfig)
-        // [END start_gcm_service]*/
+        let firebasePlistFileName = "GoogleService-Info"
+        let firbaseOptions = FIROptions(contentsOfFile: Bundle.main.path(forResource: firebasePlistFileName, ofType: "plist"))
+        
+        FIRApp.configure(with: firbaseOptions!)
+        
+        // Add observer for InstanceID token refresh callback.
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.tokenRefreshNotification),
+                                               name: .firInstanceIDTokenRefresh,
+                                               object: nil)
         
     }
     
-    func getGCMToken(deviceToken:NSData){
+    func getGCMToken(deviceToken:Data){
         
-       /* // [START get_gcm_reg_token]
-        // Create a config and set a delegate that implements the GGLInstaceIDDelegate protocol.
-        let instanceIDConfig = GGLInstanceIDConfig.defaultConfig()
-        instanceIDConfig.delegate = self
-        // Start the GGLInstanceID shared instance with that config and request a registration
-        // token to enable reception of notifications
-        GGLInstanceID.sharedInstance().startWithConfig(instanceIDConfig)
-        registrationOptions = [kGGLInstanceIDRegisterAPNSOption:deviceToken,
-            kGGLInstanceIDAPNSServerTypeSandboxOption:false]
-        GGLInstanceID.sharedInstance().tokenWithAuthorizedEntity(gcmSenderID,
-            scope: kGGLInstanceIDScopeGCM, options: registrationOptions, handler: registrationHandler)
-        // [END get_gcm_reg_token]
-
-        GCMService.sharedInstance().connectWithHandler({
-            (error) -> Void in
-            if error != nil {
-                print("Could not connect to GCM: \(error.localizedDescription)")
-            } else {
-                self.connectedToGCM = true
-                print("Connected to GCM")
-            }
-        })*/
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.prod)
+        
     }
 
-    func registrationHandler(registrationToken: String!, error: NSError!) {
-       /* if (registrationToken != nil) {
-            self.registrationToken = registrationToken
-            print("Registration Token: \(registrationToken)")
-            defaults.setValue(registrationToken, forKey: "token")
-            InitialLoadManager.sharedInstance.load()
-            //self.subscribeToTopic()
-            //let userInfo = ["registrationToken": registrationToken]
-            //NotificationCenter.default.post(name: 
-            //self.registrationKey, object: nil, userInfo: userInfo)
-        } else {
-            print("Registration to GCM failed with error: \(error.localizedDescription)")
-            //let userInfo = ["error": error.localizedDescription]
-            //NotificationCenter.default.post(name: 
-            //self.registrationKey, object: nil, userInfo: userInfo)
-        }*/
-    }
-    
-    // [START on_token_refresh]
-
-    func onTokenRefresh() {
-        // A rotation of the registration tokens is happening, so the app needs to request a new token.
-       /* print("The GCM registration token needs to be changed.")
-        GGLInstanceID.sharedInstance().tokenWithAuthorizedEntity(gcmSenderID,
-            scope: kGGLInstanceIDScopeGCM, options: registrationOptions, handler: registrationHandler)*/
-    }
-    // [END on_token_refresh]
-    
-    // [START upstream_callbacks]
-    func willSendDataMessageWithID(messageID: String!, error: NSError!) {
-        if (error != nil) {
-            // Failed to send the message.
-        } else {
-            // Will send message, you can save the messageID to track the message
+    func tokenRefreshNotification(_ notification: Notification) {
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            print("InstanceID token in tokenRefreshNotification: \(refreshedToken)")
+            connectToFcm()
         }
+        // Connect to FCM since connection may have failed when attempted before having a token.
+        
     }
     
-    func didSendDataMessageWithID(messageID: String!) {
-        // Did successfully send message identified by messageID
-    }
-    // [END upstream_callbacks]
-
-    func didDeleteMessagesOnServer() {
-        // Some messages sent to this device were deleted on the GCM server before reception, likely
-        // because the TTL expired. The client should notify the app server of this, so that the app
-        // server can resend those messages.
+    func connectToFcm() {
+        FIRMessaging.messaging().connect { (error) in
+            if error != nil {
+                print("Unable to connect with FCM in connect To FCM. \(error)")
+            } else {
+                print("Connected to FCM. in connect To FCM")
+            }
+        }
     }
 
 }

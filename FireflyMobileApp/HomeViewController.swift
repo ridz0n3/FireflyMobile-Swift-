@@ -13,7 +13,7 @@ import SCLAlertView
 import RealmSwift
 import SlideMenuControllerSwift
 import Crashlytics
-
+import Firebase
 
 class HomeViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate, SlideMenuControllerDelegate {
     
@@ -25,6 +25,7 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         setupHomeButton()
         
+        FIRMessaging.messaging().subscribe(toTopic: "/topics/notif")
         if defaults.object(forKey: "notif") != nil{
             if (defaults.object(forKey: "notif") as AnyObject).classForCoder != NSString.classForCoder(){
                 let userInfo = defaults.object(forKey: "notif") as! NSDictionary

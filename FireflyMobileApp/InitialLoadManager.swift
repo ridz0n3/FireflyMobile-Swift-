@@ -10,7 +10,7 @@ import UIKit
 import SwiftyJSON
 import SlideMenuControllerSwift
 import Crashlytics
-
+import Firebase
 class InitialLoadManager {
     
     static let sharedInstance = InitialLoadManager()
@@ -47,9 +47,8 @@ class InitialLoadManager {
             Crashlytics.sharedInstance().setUserEmail(username)
         }
         
-        let gcmKey = ""//defaults.object(forKey: "token") as! String
-        
-        initializeGA()
+        let gcmKey = ""//FIRInstanceID.instanceID().token()//""//defaults.object(forKey: "token") as! String
+        print(gcmKey)
         FireFlyProvider.request(.Loading("",username,password,"",UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey)) { (result) -> () in
             switch result {
             case .success(let successResult):
@@ -62,6 +61,7 @@ class InitialLoadManager {
                     var signature = String()
                     let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
+                    print("su")
                     if json["status"] != nil{
                         if json["status"].string  == "success"{
                             

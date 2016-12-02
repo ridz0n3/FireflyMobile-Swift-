@@ -7,11 +7,15 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAnalytics
 
 class AnalyticsManager: NSObject {
     static let sharedInstance = AnalyticsManager()
     
     func logScreen(_ screenName:String){
+        
+        //FIRAnalytics.setScreenName(screenName, screenClass: )
        /* let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIScreenName, value: screenName)
         
