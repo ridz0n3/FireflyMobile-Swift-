@@ -46,8 +46,13 @@ class InitialLoadManager {
             password = userinfo["password"] as! String
             Crashlytics.sharedInstance().setUserEmail(username)
         }
+        var gcmKey = String()
         
-        let gcmKey = defaults.objectForKey("token") as! String
+        if let key = defaults.objectForKey("token"){
+            gcmKey = key as! String
+        }else{
+            gcmKey = ""
+        }
         
         initializeGA()
         FireFlyProvider.request(.Loading("",username,password,"",UIDevice.currentDevice().systemVersion,deviceId!,"Apple",UIDevice.currentDevice().modelName,existDataVersion, gcmKey)) { (result) -> () in
