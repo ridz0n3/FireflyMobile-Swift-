@@ -61,7 +61,6 @@ class InitialLoadManager {
                     var signature = String()
                     let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                     
-                    print("su")
                     if json["status"] != nil{
                         if json["status"].string  == "success"{
                             
