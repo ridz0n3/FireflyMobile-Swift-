@@ -25,10 +25,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Fabric.with([Crashlytics.self])
         
-        if (launchOptions != nil){
-            defaults.setValue(launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey] as! [NSObject:AnyObject], forKey: "notif")
+        if launchOptions != nil{
+            if let test = launchOptions![UIApplicationLaunchOptionsRemoteNotificationKey]{
+                defaults.setValue(test, forKey: "notif")
+                defaults.synchronize()
+            }
         }else{
             defaults.setValue("", forKey: "notif")
+            defaults.synchronize()
         }
         
         XLFormViewController.cellClassesForRowDescriptorTypes()[XLFormRowDescriptorTypeFloatLabeled] = CustomFloatLabelCell.self
