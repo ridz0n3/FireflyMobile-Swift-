@@ -47,7 +47,7 @@ class AddInfantViewController: CommonInfantViewController {
             showLoading()
             
             if action == "add"{
-                FireFlyProvider.request(.AddFamilyAndFriend(email, title, gender, firstName, lastName, dob, country, type, bonuslink), completion: { (result) in
+                FireFlyProvider.request(.AddFamilyAndFriend(email, title, gender, firstName, lastName, dob, country, type, bonuslink, ""), completion: { (result) in
                     
                     switch result {
                     case .success(let successResult):
@@ -90,7 +90,7 @@ class AddInfantViewController: CommonInfantViewController {
                     
                 })
             }else{
-                FireFlyProvider.request(.EditFamilyAndFriend(email, title, gender, firstName, lastName, dob, country, type, bonuslink , familyId), completion: { (result) in
+                FireFlyProvider.request(.EditFamilyAndFriend(email, title, gender, firstName, lastName, dob, country, type, bonuslink , familyId, ""), completion: { (result) in
                     
                     switch result {
                     case .success(let successResult):

@@ -22,7 +22,6 @@
 		7E1AFD5E1C7D3CF400046200 /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1AFD5D1C7D3CF300046200 /* UserList.swift */; };
 		7E1AFD641C7D49CC00046200 /* BoardingPassList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1AFD631C7D49CC00046200 /* BoardingPassList.swift */; };
 		7E1F77DD1BF96E6C00F55C46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */; };
-		7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */; };
 		7E1F77E21BF96E6C00F55C46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1F77E01BF96E6C00F55C46 /* Main.storyboard */; };
 		7E1F77E41BF96E6C00F55C46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */; };
 		7E1F77E71BF96E6C00F55C46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E1F77E51BF96E6C00F55C46 /* LaunchScreen.storyboard */; };
@@ -196,7 +195,6 @@
 		7E1AFD631C7D49CC00046200 /* BoardingPassList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardingPassList.swift; sourceTree = "<group>"; };
 		7E1F77D91BF96E6C00F55C46 /* Firefly Mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Firefly Mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7E1F77E11BF96E6C00F55C46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7E1F77E31BF96E6C00F55C46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E1F77E61BF96E6C00F55C46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -446,7 +444,6 @@
 				7E1F78241BF9C1B000F55C46 /* Registration */,
 				7E69311E1BFB31EA004F1719 /* SideMenu */,
 				7E1F78231BF9BE8C00F55C46 /* Support File */,
-				7E1F77DE1BF96E6C00F55C46 /* ViewController.swift */,
 				7E1F77DC1BF96E6C00F55C46 /* AppDelegate.swift */,
 				7E1F77E01BF96E6C00F55C46 /* Main.storyboard */,
 			);
@@ -1184,7 +1181,6 @@
 				7ED96FF11D06B23C00479D7A /* AddAdultViewController.swift in Sources */,
 				7E1F78111BF97DA400F55C46 /* CustomHomeMenuTableViewCell.swift in Sources */,
 				7EA3CA661CCDF79D00F4037C /* LeftSideMenuViewController.swift in Sources */,
-				7E1F77DF1BF96E6C00F55C46 /* ViewController.swift in Sources */,
 				7E0707941C72EE77001D7328 /* LoginBoardingPassViewController.swift in Sources */,
 				7E9011461C61BD450051F7BE /* MobileCheckInDetailViewController.swift in Sources */,
 				7E9B2BBD1C8E6AF60046EB82 /* NSMutableString+ExtraMethod.m in Sources */,

@@ -11,6 +11,7 @@ import SwiftyJSON
 
 class AddPaymentViewController: CommonPaymentViewController {
     var book = String()
+    var signature = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +22,8 @@ class AddPaymentViewController: CommonPaymentViewController {
     }
     
     @IBAction func continueBtnPressed(_ sender: AnyObject) {
-        let signature = defaults.object(forKey: "signature") as! String
-        let bookingID = "\(defaults.object(forKey: "booking_id")!)"
         
+        let bookingId = "\(defaults.object(forKey: "booking_id")!)"
         if paymentMethod == "Card"{
             
             validateForm()
@@ -32,10 +32,10 @@ class AddPaymentViewController: CommonPaymentViewController {
                 let cardNumber = self.formValues()[Tags.ValidationCardNumber] as! String
                 
                 /*if !luhnCheck(cardNumber){
-                    showErrorMessage("Invalid credit card")
-                }else */if !checkDate(self.formValues()[Tags.ValidationCardExpiredDate] as! String){
+                 showErrorMessage("Invalid credit card")
+                 }else */if !checkDate(self.formValues()[Tags.ValidationCardExpiredDate] as! String){
                     showErrorMessage("Invalid Date")
-                }else{
+                 }else{
                     
                     let channelType = "1"
                     let channelCode = getCardTypeCode(self.formValues()[Tags.ValidationCardType] as! String, cardArr: cardType)
@@ -47,6 +47,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                     let expirationDateYear = expiredDate[1]
                     var personID = String()
                     var accNumber = String()
+                    
                     if try! LoginManager.sharedInstance.isLogin(){
                         let info = self.formValues()[Tags.SaveFamilyAndFriend] as! NSDictionary
                         
@@ -56,31 +57,26 @@ class AddPaymentViewController: CommonPaymentViewController {
                         }
                     }
                     
-                    showLoading() 
-                    FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingID, personID, accNumber), completion: { (result) -> () in
+                    showLoading()
+                    FireFlyProvider.request(.PaymentProcess(signature, channelType, channelCode, cardNumber, expirationDateMonth, expirationDateYear, cardHolderName, issuingBank, cvv, bookingId, personID, accNumber), completion: { (result) -> () in
                         
                         switch result {
                         case .success(let successResult):
                             do {
+                                
                                 let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                                 
                                 if json["status"] == "Redirect"{
-                                    hideLoading()
+                                    
                                     let urlString = String(format: "%@ios/%@", json["link"].string!,json["pass"].string!)
                                     
                                     let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                                     let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "PaymentWebVC") as! PaymentWebViewController
-                                    manageFlightVC.paymentType = "Card"
                                     manageFlightVC.urlString = urlString
-                                    manageFlightVC.signature = defaults.object(forKey: "signature") as! String
-                                    manageFlightVC.book = "book"
+                                    manageFlightVC.signature = self.signature
+                                    manageFlightVC.manage = "manage"
                                     self.navigationController!.pushViewController(manageFlightVC, animated: true)
                                     
-                                }else if json["status"] == "error"{
-                                    
-                                    hideLoading()
-                                    
-                                    showErrorMessage(json["message"].string!)
                                 }else if json["status"].string == "401"{
                                     hideLoading()
                                     showErrorMessage(json["message"].string!)
@@ -92,7 +88,19 @@ class AddPaymentViewController: CommonPaymentViewController {
                                             AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
                                         }
                                     }
+                                }else{
+                                    
+                                    hideLoading()
+                                    
+                                    if json["message"].type == Type.dictionary{
+                                        showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
+                                    }else{
+                                        showErrorMessage(json["message"].string!)
+                                    }
+                                    
                                 }
+                                
+                                
                             }
                             catch {
                                 
@@ -112,8 +120,8 @@ class AddPaymentViewController: CommonPaymentViewController {
             }
         }else if paymentMethod == "MU"{
             
-            showLoading() 
-            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingID, "", ""), completion: { (result) -> () in
+            showLoading()
+            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId, "", ""), completion: { (result) -> () in
                 
                 switch result {
                 case .success(let successResult):
@@ -135,7 +143,11 @@ class AddPaymentViewController: CommonPaymentViewController {
                             
                             hideLoading()
                             
-                            showErrorMessage(json["message"].string!)
+                            if json["message"].type == Type.dictionary{
+                                showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
+                            }else{
+                                showErrorMessage(json["message"].string!)
+                            }
                         }else if json["status"].string == "401"{
                             hideLoading()
                             showErrorMessage(json["message"].string!)
@@ -164,8 +176,8 @@ class AddPaymentViewController: CommonPaymentViewController {
             
         }else if paymentMethod == "CI"{
             
-            showLoading() 
-            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingID, "", ""), completion: { (result) -> () in
+            showLoading()
+            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId, "", ""), completion: { (result) -> () in
                 
                 switch result {
                 case .success(let successResult):
@@ -187,7 +199,12 @@ class AddPaymentViewController: CommonPaymentViewController {
                             
                             hideLoading()
                             
-                            showErrorMessage(json["message"].string!)
+                            if json["message"].type == Type.dictionary{
+                                showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
+                            }else{
+                                showErrorMessage(json["message"].string!)
+                            }
+                            
                         }else if json["status"].string == "401"{
                             hideLoading()
                             showErrorMessage(json["message"].string!)
@@ -213,11 +230,11 @@ class AddPaymentViewController: CommonPaymentViewController {
                 
                 
             })
-
+            
         }else if paymentMethod == "PX"{
             
-            showLoading() 
-            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingID, "", ""), completion: { (result) -> () in
+            showLoading()
+            FireFlyProvider.request(.PaymentProcess(signature, "2", paymentMethod, "", "", "", "", "", "", bookingId, "", ""), completion: { (result) -> () in
                 
                 switch result {
                 case .success(let successResult):
@@ -239,7 +256,11 @@ class AddPaymentViewController: CommonPaymentViewController {
                             
                             hideLoading()
                             
-                            showErrorMessage(json["message"].string!)
+                            if json["message"].type == Type.dictionary{
+                                showErrorMessage(json["message"].dictionaryValue["0"]!.string!)
+                            }else{
+                                showErrorMessage(json["message"].string!)
+                            }
                         }else if json["status"].string == "401"{
                             hideLoading()
                             showErrorMessage(json["message"].string!)
@@ -265,7 +286,7 @@ class AddPaymentViewController: CommonPaymentViewController {
                 
                 
             })
-
+            
         }
     }
 

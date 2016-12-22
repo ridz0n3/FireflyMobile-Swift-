@@ -131,7 +131,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-        let cell = self.searchFlightTableView.cellForRow(at: indexPath) as! CustomSearchFlightTableViewCell
+        //let cell = self.searchFlightTableView.cellForRow(at: indexPath) as! CustomSearchFlightTableViewCell
         
         if indexPath.row == 1{
             //let sender = cell.airportLbl as UILabel
@@ -173,7 +173,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)//(calendarIdentifier: NSCalendarIdentifierGregorian)!
             gregorianVC.isDepart = true
             gregorianVC.dateSelected = departDate
-            //gregorianVC.calendar.locale = NSLocale.currentLocale()
+            gregorianVC.calendar.locale = NSLocale.current
             gregorianVC.view.backgroundColor = UIColor.orange
             gregorianVC.typeDate = "departure"
             self.present(gregorianVC, animated: true, completion: nil)
@@ -187,7 +187,7 @@ class SearchFlightViewController: BaseViewController, UITableViewDataSource, UIT
             gregorianVC.currentDate = departDate
             gregorianVC.dateSelected = arrivalDate
             gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)//Calendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
-            //gregorianVC.calendar.locale = NSLocale.currentLocale()
+            gregorianVC.calendar.locale = NSLocale.current
             gregorianVC.view.backgroundColor = UIColor.orange
             gregorianVC.typeDate = "return"
             self.present(gregorianVC, animated: true, completion: nil)

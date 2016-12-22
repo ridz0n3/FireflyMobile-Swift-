@@ -70,7 +70,8 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSectionsInTableView(In tableView: UITableView) -> Int {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 12
     }
     
@@ -95,17 +96,13 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }else{
             return 1
         }
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    
         if indexPath.section == 0{
             return UITableViewAutomaticDimension
         }else if indexPath.section == 1{
-            
-                return UITableViewAutomaticDimension
-            
+            return UITableViewAutomaticDimension
         }else if indexPath.section == 2{
             let detail = priceDetail[indexPath.row] as NSDictionary
             
@@ -145,7 +142,6 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
         if indexPath.section == 0{
             let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "ItineraryCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
@@ -164,6 +160,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             }
             
             cell.bookDateLbl.attributedText = attrStr
+            
             return cell
         }else if indexPath.section == 1{
             let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "FlightDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
@@ -175,7 +172,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
                     cell.unconfirmedStatus.alpha = 1.0
                     UIView.animate(withDuration: 0.32, delay: 0.0, options: [.curveEaseInOut, .autoreverse, .repeat], animations: {
                         cell.unconfirmedStatus.alpha = 0.0
-                        }, completion: nil)
+                    }, completion: nil)
                     
                 }else{
                     cell.unconfirmedStatus.isHidden = true
@@ -228,11 +225,11 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             cell.guestLbl.text = detail["guest"] as? String
             cell.taxesPrice.text = detail["total_taxes_or_fees"] as? String
             
-            cell.detailBtn.addTarget(self, action: #selector(FlightSummaryViewController.detailBtnPressed(_:)), for: .touchUpInside)
+            cell.detailBtn.addTarget(self, action: #selector(ManageFlightHomeViewController.detailBtnPressed(_:)), for: .touchUpInside)
             cell.detailBtn.accessibilityHint = taxData
             
             return cell
-
+            
         }else if indexPath.section == 3{
             let cell = self.flightSummarryTableView.dequeueReusableCell(withIdentifier: "ServiceFeeCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             
@@ -336,7 +333,9 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         }else if indexPath.section == 10{
             let cell = flightSummarryTableView.dequeueReusableCell(withIdentifier: "PassengerDetailCell", for: indexPath) as! CustomPaymentSummaryTableViewCell
             let passengerDetail = passengerInformation[indexPath.row] as NSDictionary
-            cell.passengerNameLbl.text = "\(passengerDetail["name"]!)"
+            
+            cell.passengerNameLbl.text = passengerDetail["name"] as? String
+            
             return cell
         }else {
             
@@ -354,14 +353,10 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
                 cell.cardTypeLbl.text = "\(cardData["payment_method"]!)"
                 return cell
             }
-            
-            
-            
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-     
         if section == 0 || section == 1 || section == 2 || (section == 6 && insuranceDetails["status"] as! String != "N") || section == 7 || section == 9 || section == 10 || section == 11{
             return 35
         }else{
@@ -371,7 +366,6 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)?[0] as! PassengerHeaderView
         
         sectionView.views.backgroundColor = UIColor(red: 240.0/255.0, green: 109.0/255.0, blue: 34.0/255.0, alpha: 1.0)
@@ -394,7 +388,6 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
             sectionView.sectionLbl.text = "PAYMENT DETAILS"
         }
         
-        
         sectionView.sectionLbl.textColor = UIColor.white
         sectionView.sectionLbl.textAlignment = NSTextAlignment.center
         
@@ -406,7 +399,7 @@ class FlightSummaryViewController: BaseViewController, UITableViewDelegate, UITa
         
         // Create custom Appearance Configuration
         let appearance = SCLAlertView.SCLAppearance(
-            kCircleHeight: 40,
+            //kCircleHeight: 40,
             kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
             kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
             kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,

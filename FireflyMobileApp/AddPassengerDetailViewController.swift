@@ -35,13 +35,14 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
         
         if isContinue{
             loadFamilyAndFriendData()
-            //initializeForm()
+            initializeForm()
         }
         
     }
     
     func reload(_ sender : NSNotification){
         loadFamilyAndFriendData()
+        initializeForm()
     }
     
     func loadFamilyAndFriendData(){
@@ -68,6 +69,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                 "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])" as AnyObject,
                                 "issuing_country" : userInfo["contact_country"]! as AnyObject,
                                 "bonuslink" : userInfo["bonuslink"]! as AnyObject,
+                                "enrich" : "" as AnyObject,
                                 "Save" : false as AnyObject]
                         adultInfo.updateValue(data as AnyObject, forKey: "0")
                     }else{
@@ -83,6 +85,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                         "dob2" : tempInfo.dob as AnyObject,
                                         "issuing_country" : tempInfo.country as AnyObject,
                                         "bonuslink" : tempInfo.bonuslink as AnyObject,
+                                        "enrich" : tempInfo.enrich as AnyObject,
                                         "type" : tempInfo.type as AnyObject,
                                         "Save" : false as AnyObject]
                                 adultInfo.updateValue(data as AnyObject, forKey: "0")
@@ -97,12 +100,14 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                     "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])" as AnyObject,
                                     "issuing_country" : userInfo["contact_country"]! as AnyObject,
                                     "bonuslink" : userInfo["bonuslink"]! as AnyObject,
+                                    "enrich" : "" as AnyObject,
                                     "Save" : false as AnyObject]
                             adultInfo.updateValue(data as AnyObject, forKey: "0")
                         }
                     }
                 }
             }else{
+                
                 familyAndFriendList = nil
                 rearrangeFamily()
                 data = ["title" : userInfo["title"]! as AnyObject,
@@ -111,6 +116,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                         "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])" as AnyObject,
                         "issuing_country" : userInfo["contact_country"]! as AnyObject,
                         "bonuslink" : userInfo["bonuslink"]! as AnyObject,
+                        "enrich" : "" as AnyObject,
                         "Save" : false as AnyObject]
                 adultInfo.updateValue(data as AnyObject, forKey: "0")
             }
@@ -149,6 +155,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                     "dob2" : "",
                     "issuing_country" : "",
                     "bonuslink" : "",
+                    "enrich" : "",
                     "type" : "",
                     "Save" : false,
                     "traveling_with" : ""] as [String : Any]
@@ -241,10 +248,16 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 
                 if flightType == "FY"{
                     
-                    // Enrich Loyalty No
-                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+                    // Bonuslink Loyalty No
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
                     //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                     row.value = "\(info["bonuslink"]! as! String)"
+                    section.addFormRow(row)
+                    
+                    // Enrich Loyalty Number
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Enrich Loyalty Number:")
+                    //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+                    row.value = "\(info["enrich"]! as! String)"
                     section.addFormRow(row)
                 }
                 
@@ -320,10 +333,16 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 section.addFormRow(row)
                 
                 if flightType == "FY"{
-                    // Enrich Loyalty No
-                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+                    // Bonuslink Number
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
                     //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
                     row.value = "\(info["bonuslink"]! as! String)"
+                    section.addFormRow(row)
+                    
+                    // Enrich Loyalty Number
+                    row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Enrich Loyalty Number:")
+                    //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+                    row.value = "\(info["enrich"]! as! String)"
                     section.addFormRow(row)
                 }
                 
@@ -450,6 +469,8 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 showErrorMessage("Passenger name is duplicated.")
             }else if !params.5 && params.1.count != 0{
                 showErrorMessage("You can only assign one infant to one guest.")
+            }else if params.6{
+                showErrorMessage("Enrich loyalty number \(params.7)is invalid.")
             }else{
                 var email = String()
                 
@@ -536,6 +557,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 "dob2" : tempInfo.dob as AnyObject,
                 "issuing_country" : tempInfo.country as AnyObject,
                 "bonuslink" : tempInfo.bonuslink as AnyObject,
+                "enrich" : tempInfo.enrich as AnyObject,
                 "type" : tempInfo.type as AnyObject,
                 "Save" : false as AnyObject]
         adultInfo.updateValue(data as AnyObject, forKey: "\(btn.tag - 1)")
@@ -555,6 +577,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 "dob2" : tempInfo.dob as AnyObject,
                 "issuing_country" : tempInfo.country as AnyObject,
                 "bonuslink" : tempInfo.bonuslink as AnyObject,
+                "enrich" : tempInfo.enrich as AnyObject,
                 "type" : tempInfo.type as AnyObject,
                 "traveling_with" : "" as AnyObject,
                 "Save" : false as AnyObject]

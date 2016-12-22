@@ -216,7 +216,6 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 12
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

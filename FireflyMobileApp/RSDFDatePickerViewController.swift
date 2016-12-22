@@ -38,7 +38,7 @@ class RSDFDatePickerViewController: BaseViewController, RSDFDatePickerViewDelega
             customDatePickerView = RSDFCustomDatePickerView(frame: self.view.bounds, calendar: calendar, start: currentDate, end: nil)
         }
         
-        calendar.locale = Locale.current
+        calendar.locale = NSLocale(localeIdentifier: "en_US") as Locale
         customDatePickerView.select(dateSelected)
         customDatePickerView.delegate = self
         customDatePickerView.dataSource = self

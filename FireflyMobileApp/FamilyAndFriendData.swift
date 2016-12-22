@@ -19,6 +19,7 @@ class FamilyAndFriendData: Object {
     dynamic var dob = ""
     dynamic var country = ""
     dynamic var bonuslink = ""
+    dynamic var enrich = ""
     dynamic var type = ""
     
 }

@@ -51,7 +51,8 @@ internal struct Tags {
     static var ValidationTravelDoc = "Travel Document"
     static var ValidationDocumentNo = "Document No"
     static var ValidationExpiredDate = "Expiration Date"
-    static var ValidationEnrichLoyaltyNo = "Bonuslink"
+    static var ValidationBonuslinkNo = "Bonuslink"
+    static var ValidationEnrichLoyaltyNo = "Enrich"
     static var ValidationTravelWith = "Traveling with"
     static var ValidationGender = "Gender"
     static var ValidationPurpose = "Purpose"
@@ -252,7 +253,7 @@ func showErrorMessage(_ message : String){
     
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
-        kCircleHeight: 40,
+        //kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
@@ -267,7 +268,7 @@ func showErrorMessage(_ message : String){
 func showRetryMessage(_ message : String){
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
-        kCircleHeight: 40,
+        //kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
@@ -287,7 +288,7 @@ func showToastMessage(_ message:String){
     
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
-        kCircleHeight: 40,
+        //kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
@@ -320,7 +321,7 @@ func showInfo(_ message:String){
     
     // Create custom Appearance Configuration
     let appearance = SCLAlertView.SCLAppearance(
-        kCircleHeight: 40,
+        //kCircleHeight: 40,
         kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,

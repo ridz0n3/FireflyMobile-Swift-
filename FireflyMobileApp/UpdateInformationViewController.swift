@@ -200,7 +200,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         form.addFormSection(section)
         
         // Bonuslink Number
-        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+        row = XLFormRowDescriptor(tag: Tags.ValidationBonuslinkNo, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
         row.value = userInfo["bonuslink"]
         section.addFormRow(row)
         
@@ -485,7 +485,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         let mobilePhone = nullIfEmpty(formValues()[Tags.ValidationMobileHome]! as AnyObject)
         let alternatePhone = nullIfEmpty(formValues()[Tags.ValidationAlternate] as AnyObject)
         let fax = nullIfEmpty(formValues()[Tags.ValidationFax] as AnyObject)
-        let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo] as AnyObject)
+        let bonuslink = nullIfEmpty(formValues()[Tags.ValidationBonuslinkNo] as AnyObject)
         let signature = defaults.object(forKey: "signatureLoad")! as! String
         let newsletter = userInfo["newsletter"] as! String
         

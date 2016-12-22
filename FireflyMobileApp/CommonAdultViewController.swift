@@ -27,6 +27,7 @@ class CommonAdultViewController: BaseXLFormViewController {
                                  "dob" : "",
                                  "nationality" : "",
                                  "bonuslink_card" : "",
+                                 "enrich" : "",
                                  "type" : "Adult"] as [String : Any] 
             adultInfo = adultTempData as NSDictionary
         }else{
@@ -38,6 +39,7 @@ class CommonAdultViewController: BaseXLFormViewController {
                     "dob" : familyAndFriendInfo.dob,
                     "nationality" : familyAndFriendInfo.country,
                     "bonuslink_card" : familyAndFriendInfo.bonuslink,
+                    "enrich" : familyAndFriendInfo.enrich,
                     "type" : familyAndFriendInfo.type] as [String : Any]
             adultInfo = adultTempData as NSDictionary
         }
@@ -117,10 +119,16 @@ class CommonAdultViewController: BaseXLFormViewController {
         row.isRequired = true
         section.addFormRow(row)
         
-        // Enrich Loyalty No
-        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+        // Bonuslink Number
+        row = XLFormRowDescriptor(tag: Tags.ValidationBonuslinkNo, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
         //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
         row.value = adultInfo["bonuslink_card"]! as! String
+        section.addFormRow(row)
+        
+        // Enrich Loyalty Number
+        row = XLFormRowDescriptor(tag: Tags.ValidationEnrichLoyaltyNo, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Enrich Loyalty Number:")
+        //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+        row.value = adultInfo["enrich"]! as! String
         section.addFormRow(row)
         
         self.form = form
@@ -154,6 +162,7 @@ class CommonAdultViewController: BaseXLFormViewController {
             data.dob = list["dob"] as! String//"\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = list["bonuslink_card"] as! String
+            data.enrich = list["enrich"] as! String
             data.type = list["type"] as! String
             
             if mainUser.count == 0{

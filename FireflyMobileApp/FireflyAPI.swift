@@ -60,8 +60,8 @@ public enum FireFlyAPI {
     case RetrieveSSRList(String)
     case ChangeSSR(String, String, String, String, AnyObject)
     case ChangeSSR2Way(String, String, String, AnyObject, AnyObject)
-    case EditFamilyAndFriend(String, String, String, String, String, String, String, String, String, Int)
-    case AddFamilyAndFriend(String, String, String, String, String, String, String, String, String)
+    case EditFamilyAndFriend(String, String, String, String, String, String, String, String, String, Int, String)
+    case AddFamilyAndFriend(String, String, String, String, String, String, String, String, String, String)
     case DeleteFamilyAndFriend(Int, String)
     case RemoveCreditCard(String, String)
 }
@@ -81,8 +81,8 @@ extension FireFlyAPI : TargetType {
     }
     
     var base: String {
-        //return kDevURL
-        return khttpsProductionURL
+        return kDevURL
+        //return khttpsProductionURL
     }
     
     public var baseURL: URL { return URL(string: base)! }
@@ -299,7 +299,7 @@ extension FireFlyAPI : TargetType {
             return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature, type : detailSSR]
         case .ChangeSSR2Way(let pnr, let booking_id, let signature, let goingSSR, let returnSSR) :
             return ["pnr" : pnr, "booking_id" : booking_id, "signature" : signature, "going_flight" : goingSSR, "return_flight" : returnSSR]
-        case .EditFamilyAndFriend(let email, let title, let gender, let firstName, let lastName, let dob, let country, let type, let bonuslink, let familyId) :
+        case .EditFamilyAndFriend(let email, let title, let gender, let firstName, let lastName, let dob, let country, let type, let bonuslink, let familyId, let enrich) :
             return ["bonuslink": bonuslink,
                     "dob":dob,
                     "first_name":firstName,
@@ -309,10 +309,11 @@ extension FireFlyAPI : TargetType {
                     "passenger_type":type,
                     "title":title,
                     "gender":gender,
-                    "user_email":email]
+                    "user_email":email,
+                    "enrich" : enrich]
         case .DeleteFamilyAndFriend(let id, let email):
             return ["deleteID" : id, "user_email" : email]
-        case .AddFamilyAndFriend(let email, let title, let gender, let firstName, let lastName, let dob, let country, let type, let bonuslink) :
+        case .AddFamilyAndFriend(let email, let title, let gender, let firstName, let lastName, let dob, let country, let type, let bonuslink, let enrich) :
             return ["bonuslink": bonuslink,
                     "dob":dob,
                     "first_name":firstName,
@@ -321,7 +322,8 @@ extension FireFlyAPI : TargetType {
                     "passenger_type":type,
                     "title":title,
                     "gender":gender,
-                    "user_email":email]
+                    "user_email":email,
+                    "enrich" : enrich]
         case .RemoveCreditCard(let personID, let signature):
             return ["personID" : personID, "signature" : signature]
         default:

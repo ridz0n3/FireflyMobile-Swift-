@@ -14,14 +14,12 @@ class LoginManager {
     
     func isLogin() throws -> Bool {
         
-        if (defaults.object(forKey: "userInfo") != nil){
-            
-            if (defaults.object(forKey: "userInfo") as AnyObject).count != nil{
+        if let userInfo = defaults.object(forKey: "userInfo"){
+            if (userInfo as AnyObject).count != nil {
                 return true
             }else{
                 return false
             }
-            
         }
         
         return false

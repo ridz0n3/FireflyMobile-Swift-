@@ -130,7 +130,7 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
             addToolBar(self.floatLabeledTextField)
         }
         
-        if tag![0] != Tags.ValidationEnrichLoyaltyNo{
+        if tag![0] != Tags.ValidationBonuslinkNo{
             let title = self.rowDescriptor!.title?.components(separatedBy: ":")
             let star = [NSForegroundColorAttributeName : UIColor.red]
             var attrString = NSMutableAttributedString()
@@ -284,11 +284,23 @@ class CustomFloatLabelCell: XLFormBaseCell, UITextFieldDelegate, UIPickerViewDel
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool{
     
         let doc = self.rowDescriptor?.tag?.components(separatedBy: "(")
-        if self.rowDescriptor?.tag == Tags.ValidationConfirmationNumber{
+        if doc![0] == Tags.ValidationEnrichLoyaltyNo{
+            let maxLength = 11
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString =
+                currentString.replacingCharacters(in: range, with: string.uppercased()) as NSString
+            return newString.length <= maxLength
+        }else if self.rowDescriptor?.tag == Tags.ValidationEnrichLoyaltyNo{
+            let maxLength = 11
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString =
+                currentString.replacingCharacters(in: range, with: string.uppercased()) as NSString
+            return newString.length <= maxLength
+        }else if self.rowDescriptor?.tag == Tags.ValidationConfirmationNumber{
             let maxLength = 6
             let currentString: NSString = textField.text! as NSString
             let newString: NSString =
-                currentString.replacingCharacters(in: range, with: string) as NSString
+                currentString.replacingCharacters(in: range, with: string.uppercased()) as NSString
             return newString.length <= maxLength
         }else if self.rowDescriptor?.tag == Tags.ValidationCcvNumber{
             let maxLength = 4

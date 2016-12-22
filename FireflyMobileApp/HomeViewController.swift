@@ -25,14 +25,24 @@ class HomeViewController: BaseViewController, UITableViewDataSource, UITableView
         super.viewDidLoad()
         setupHomeButton()
         
-        FIRMessaging.messaging().subscribe(toTopic: "/topics/notif")
         if defaults.object(forKey: "notif") != nil{
+            
             if (defaults.object(forKey: "notif") as AnyObject).classForCoder != NSString.classForCoder(){
                 let userInfo = defaults.object(forKey: "notif") as! NSDictionary
-                let alert = userInfo["aps"]! as! NSDictionary
-                let message = alert["alert"]! as! NSDictionary
+                let aps = userInfo["aps"]! as! NSDictionary
+                let alert = aps["alert"] as AnyObject
                 
-                showNotif(message["title"] as! String, message : message["body"] as! String)
+                if alert.classForCoder != NSString.classForCoder(){
+                    
+                    let message = alert as! NSDictionary
+                    
+                    showNotif(message["title"] as! String, message: message["body"] as! String)
+                    
+                }else{
+                    
+                    showNotif("Message", message: alert as! String)
+                    
+                }
             }
         }
         

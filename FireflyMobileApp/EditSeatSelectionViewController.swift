@@ -340,19 +340,27 @@ class EditSeatSelectionViewController: CommonSeatSelectionViewController {
                 if keys == "0"{
                     goingSeatSelection.add(newSeat)
                     
-                    if (data.count >= (seatTypeDict[keys]?.count)!){
-                        isGoingSame = true
+                    if seatTypeDict[keys] != nil{
+                        if (data.count >= (seatTypeDict[keys]?.count)!){
+                            isGoingSame = true
+                        }else{
+                            isGoingSame = false
+                        }
                     }else{
-                        isGoingSame = false
+                        isGoingSame = true
                     }
                     
                 }else{
                     returnSeatSelection.add(newSeat)
                     
-                    if (data.count >= (seatTypeDict[keys]?.count)!){
-                        isReturnSame = true
+                    if seatTypeDict[keys] != nil{
+                        if (data.count >= (seatTypeDict[keys]?.count)!){
+                            isReturnSame = true
+                        }else{
+                            isReturnSame = false
+                        }
                     }else{
-                        isReturnSame = false
+                        isReturnSame = true
                     }
                     
                 }

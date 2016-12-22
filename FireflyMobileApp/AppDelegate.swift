@@ -19,41 +19,6 @@ import Firebase
 import FirebaseInstanceID
 import FirebaseMessaging
 
-// [START ios_10_message_handling]
-@available(iOS 10, *)
-extension AppDelegate : UNUserNotificationCenterDelegate {
-    // Receive displayed notifications for iOS 10 devices.
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        let userInfo = notification.request.content.userInfo
-        // Print message ID.
-        print("Message ID: \(userInfo["gcm.message_id"]!)")
-        // Print full message.
-        //print(userInfo)
-    }
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                didReceive response: UNNotificationResponse,
-                                withCompletionHandler completionHandler: @escaping () -> Void) {
-        let userInfo = response.notification.request.content.userInfo
-        // Print message ID.
-        print("Message ID: \(userInfo["gcm.message_id"]!)")
-        // Print full message.
-        //print(userInfo)
-    }
-}
-// [END ios_10_message_handling]
-// [START ios_10_data_message_handling]
-extension AppDelegate : FIRMessagingDelegate {
-    // Receive data message on iOS 10 devices while app is in the foreground.
-    func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
-        
-        showInfo("t")
-        print(remoteMessage.appData)
-    }
-}
-// [END ios_10_data_message_handling]
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -61,6 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let baseView = BaseViewController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        Fabric.with([Crashlytics.self])
         
         if launchOptions != nil{
             
@@ -81,11 +48,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = homeStoryBoard.instantiateViewController(withIdentifier: "LaunchScreenVC")
         self.window?.rootViewController = navigationController
         
-        let config = RLMRealmConfiguration.default()
-        config.schemaVersion = 11
-        config.migrationBlock = { (migration, oldSchemaVersion) in
-            // nothing to do
-        }
+        let config = Realm.Configuration(
+            // Set the new schema version. This must be greater than the previously used
+            // version (if you've never set a schema version before, the version is 0).
+            schemaVersion: 12,
+            
+            // Set the block which will be called automatically when opening a Realm with
+            // a schema version lower than the one set above
+            migrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
+        
+        // Tell Realm to use this new configuration object for the default Realm
+        Realm.Configuration.defaultConfiguration = config
 
         if try! LoginManager.sharedInstance.isLogin(){
             let userinfo = defaults.object(forKey: "userInfo") as! [String: AnyObject]
@@ -93,9 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             Crashlytics.sharedInstance().setUserEmail("\(username)")
         }
         
-        Fabric.with([Crashlytics.self])
-        
-        RLMRealmConfiguration.setDefault(config)
+        //RLMRealmConfiguration.setDefault(config)
         RemoteNotificationManager.sharedInstance.registerNotificationCategory()
         RemoteNotificationManager.sharedInstance.registerGCM()
         return true
@@ -104,8 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         RemoteNotificationManager.sharedInstance.getGCMToken(deviceToken: deviceToken)
-        InitialLoadManager.sharedInstance.load()
-        
+    
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {

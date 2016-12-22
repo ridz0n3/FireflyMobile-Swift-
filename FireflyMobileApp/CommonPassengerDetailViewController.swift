@@ -179,10 +179,12 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
     }
     
-    func getFormData()->([AnyObject], [AnyObject], String, String, Bool, Bool){
+    func getFormData()->([AnyObject], [AnyObject], String, String, Bool, Bool, Bool, String){
         var passenger = [String:AnyObject]()
         var passengerName = [String]()
-        
+        var wrongEnrichNo = [Bool]()
+        var enrichArr = [String]()
+        var enrichNo = String()
         var tempPassenger = [AnyObject]()
         
         for i in 0..<adultCount{
@@ -202,25 +204,51 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
             saveAdultInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])" as AnyObject, forKey: "dob")
             saveAdultInfo.updateValue(date as AnyObject, forKey: "dob2")
-            //adultInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
             saveAdultInfo.updateValue("NRIC" as AnyObject, forKey: "travel_document")
             saveAdultInfo.updateValue(getCountryCode(formValues()[String(format: "%@(adult%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray) as AnyObject, forKey: "issuing_country")
-            //adultInfo.updateValue(formValues()[String(format: "%@(adult%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
             saveAdultInfo.updateValue("" as AnyObject, forKey: "document_number")
-            /*
-            let expiredDate = nilIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationExpiredDate, count)] as AnyObject)
-            var arrangeExpDate = [String]()
-            var newExpDate = String()
-            
-            if expiredDate != ""{
-                arrangeExpDate = expiredDate.components(separatedBy: "-")//.components(separatedBy: "-")
-                newExpDate = "\(arrangeExpDate[2])-\(arrangeExpDate[1])-\(arrangeExpDate[0])"
-            }
-            */
             saveAdultInfo.updateValue("" as AnyObject, forKey: "expiration_date")
  
             if flightType == "FY"{
-                saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                
+                if nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) != ""{
+                    
+                    let loyaltyNo = nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject).uppercased()
+                    
+                    let patern = "MH[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+                    
+                    if let range = loyaltyNo.range(of:patern, options: .regularExpression) {
+                        let result = loyaltyNo.substring(with:range)
+                        
+                        let subStr = result.components(separatedBy: "MH")
+                        let cStr = subStr[1]
+                        
+                        let startIndex = cStr.index(cStr.startIndex, offsetBy: 0)
+                        let endIndex = cStr.index(cStr.startIndex, offsetBy: 7)
+                        
+                        let cRange = cStr[startIndex...endIndex]
+                        
+                        let c = Int(cRange)! % 7
+                        
+                        let kIndex = cStr.index(cStr.startIndex, offsetBy: 8)
+                        let k = cStr[kIndex...kIndex]
+                        
+                        if Int(k)! != c{
+                            wrongEnrichNo.append(false)
+                            enrichArr.append(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject))
+                        }else{
+                            saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject).uppercased() as AnyObject, forKey: "enrich")
+                        }
+                        
+                    }else{
+                        wrongEnrichNo.append(false)
+                        enrichArr.append(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject))
+                    }
+                    
+                }else{
+                    saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) as AnyObject, forKey: "enrich")
+                }
             }
             
             if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
@@ -266,10 +294,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
             saveInfantInfo.updateValue("\(arrangeDate[2])-\(arrangeDate[1])-\(arrangeDate[0])" as AnyObject, forKey: "dob")
             saveInfantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationDate, count)]! as! String as AnyObject, forKey: "dob2")
-            //infantInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc), forKey: "travel_document")
             saveInfantInfo.updateValue("NRIC" as AnyObject, forKey: "travel_document")
             saveInfantInfo.updateValue(getCountryCode(formValues()[String(format: "%@(infant%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray) as AnyObject, forKey: "issuing_country")
-            //infantInfo.updateValue(formValues()[String(format: "%@(infant%i)", Tags.ValidationDocumentNo, count)]!.xmlSimpleEscapeString(), forKey: "document_number")
             saveInfantInfo.updateValue("" as AnyObject, forKey: "document_number")
             
             if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
@@ -289,7 +315,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
                 }
             }
             
-            let expiredDate = nilIfEmpty(formValues()[String(format: "%@(infant%i)", Tags.ValidationExpiredDate, count)] as AnyObject)
+            let expiredDate = nullIfEmpty(formValues()[String(format: "%@(infant%i)", Tags.ValidationExpiredDate, count)] as AnyObject)
             var arrangeExpDate = [String]()
             var newExpDate = String()
             
@@ -330,7 +356,25 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             }
             
         }
-        return (tempPassenger, tempInfant, bookId, signature, nameDuplicate, checkTravelWith)
+        
+        var enrichNoCheck = Bool()
+        if wrongEnrichNo.count != 0{
+            enrichNoCheck = true
+        }
+        
+        var i = 1
+        for data in enrichArr{
+            
+            if enrichArr.count == 1 || enrichArr.count == i{
+                enrichNo.append("\(data) ")
+            }else{
+                enrichNo.append("\(data), ")
+            }
+            
+            i += 1
+        }
+        
+        return (tempPassenger, tempInfant, bookId, signature, nameDuplicate, checkTravelWith, enrichNoCheck, enrichNo)
     }
     
     func addExpiredDate(_ sender:NSNotification){
@@ -388,7 +432,8 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             saveAdultInfo.updateValue(getCountryCode(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationCountry, count)] as AnyObject), countryArr: countryArray) as AnyObject, forKey: "issuing_country")
             saveAdultInfo.updateValue("" as AnyObject, forKey: "gender")
             if flightType == "FY"{
-                saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) as AnyObject, forKey: "enrich")
             }
             saveAdultInfo.updateValue("Adult" as AnyObject, forKey: "type")
             if try! LoginManager.sharedInstance.isLogin() && module == "addPassenger"{
@@ -468,6 +513,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             data.dob = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = list["bonuslink_card"] as! String
+            data.enrich = list["enrich"] as! String
             data.type = list["type"] as! String
             
             if mainUser.count == 0{

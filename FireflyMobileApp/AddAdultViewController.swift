@@ -41,97 +41,143 @@ class AddAdultViewController: CommonAdultViewController {
             
             let country = getCountryCode(formValues()[Tags.ValidationCountry] as! String, countryArr: countryArray)
             let type = adultInfo["type"] as! String
-            let bonuslink = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo] as AnyObject)
+            let bonuslink = nullIfEmpty(formValues()[Tags.ValidationBonuslinkNo] as AnyObject)
             let familyId = adultInfo["id"] as! Int
             
-            showLoading()
+            var wrongEnrichNo = Bool()
+            var enrichNo = String()
+            var loyaltyNo = String()
             
-            if action == "add"{
-                FireFlyProvider.request(.AddFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink ), completion: { (result) in
+            if nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo] as AnyObject) != ""{
+                
+                loyaltyNo = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo] as AnyObject).uppercased()
+                
+                let patern = "MH[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+                
+                if let range = loyaltyNo.range(of:patern, options: .regularExpression) {
+                    let result = loyaltyNo.substring(with:range)
                     
-                    switch result {
-                    case .success(let successResult):
-                        do {
-                            
-                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
-                            
-                            if json["status"] == "success"{
-                                showToastMessage(json["message"].string!)
-                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject! as [AnyObject])
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
-                                
-                                _ = self.navigationController?.popViewController(animated: true)
-                            }else if json["status"] == "error"{
-                                showErrorMessage(json["message"].string!)
-                            }else if json["status"].string == "401"{
-                                hideLoading()
-                                showErrorMessage(json["message"].string!)
-                                InitialLoadManager.sharedInstance.load()
-                                
-                                for views in (self.navigationController?.viewControllers)!{
-                                    if views.classForCoder == HomeViewController.classForCoder(){
-                                        _ = self.navigationController?.popToViewController(views, animated: true)
-                                        AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
-                                    }
-                                }
-                            }
-                            hideLoading()
-                        }
-                        catch {
-                            
-                        }
-                        
-                    case .failure(let failureResult):
-                        
-                        hideLoading()
-                        
-                        showErrorMessage(failureResult.localizedDescription)
+                    let subStr = result.components(separatedBy: "MH")
+                    let cStr = subStr[1]
+                    
+                    let startIndex = cStr.index(cStr.startIndex, offsetBy: 0)
+                    let endIndex = cStr.index(cStr.startIndex, offsetBy: 7)
+                    
+                    let cRange = cStr[startIndex...endIndex]
+                    
+                    let c = Int(cRange)! % 7
+                    
+                    let kIndex = cStr.index(cStr.startIndex, offsetBy: 8)
+                    let k = cStr[kIndex...kIndex]
+                    
+                    if Int(k)! != c{
+                        wrongEnrichNo = true
+                        enrichNo = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo] as AnyObject)
                     }
                     
-                })
+                }else{
+                    wrongEnrichNo = true
+                    enrichNo = nullIfEmpty(formValues()[Tags.ValidationEnrichLoyaltyNo] as AnyObject)
+                }
+                
+            }
+            
+            if wrongEnrichNo{
+                
+                showErrorMessage("Enrich loyalty number \(enrichNo) is invalid.")
+                
             }else{
-                FireFlyProvider.request(.EditFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink , familyId), completion: { (result) in
-                    
-                    switch result {
-                    case .success(let successResult):
-                        do {
-                            
-                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
-                            
-                            if json["status"] == "success"{
-                                showToastMessage(json["message"].string!)
-                                self.saveFamilyAndFriend(json["family_and_friend"].arrayObject! as [AnyObject])
-                                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
+                
+                showLoading()
+                
+                if action == "add"{
+                    FireFlyProvider.request(.AddFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink, loyaltyNo ), completion: { (result) in
+                        
+                        switch result {
+                        case .success(let successResult):
+                            do {
                                 
-                                _ = self.navigationController?.popViewController(animated: true)
-                            }else if json["status"] == "error"{
-                                showErrorMessage(json["message"].string!)
-                            }else if json["status"].string == "401"{
-                                hideLoading()
-                                showErrorMessage(json["message"].string!)
-                                InitialLoadManager.sharedInstance.load()
+                                let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                                 
-                                for views in (self.navigationController?.viewControllers)!{
-                                    if views.classForCoder == HomeViewController.classForCoder(){
-                                        _ = self.navigationController?.popToViewController(views, animated: true)
-                                        AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                if json["status"] == "success"{
+                                    showToastMessage(json["message"].string!)
+                                    self.saveFamilyAndFriend(json["family_and_friend"].arrayObject! as [AnyObject])
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
+                                    
+                                    _ = self.navigationController?.popViewController(animated: true)
+                                }else if json["status"] == "error"{
+                                    showErrorMessage(json["message"].string!)
+                                }else if json["status"].string == "401"{
+                                    hideLoading()
+                                    showErrorMessage(json["message"].string!)
+                                    InitialLoadManager.sharedInstance.load()
+                                    
+                                    for views in (self.navigationController?.viewControllers)!{
+                                        if views.classForCoder == HomeViewController.classForCoder(){
+                                            _ = self.navigationController?.popToViewController(views, animated: true)
+                                            AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                        }
                                     }
                                 }
+                                hideLoading()
                             }
-                            hideLoading()
-                        }
-                        catch {
+                            catch {
+                                
+                            }
                             
+                        case .failure(let failureResult):
+                            
+                            hideLoading()
+                            
+                            showErrorMessage(failureResult.localizedDescription)
                         }
                         
-                    case .failure(let failureResult):
+                    })
+                }else{
+                    FireFlyProvider.request(.EditFamilyAndFriend(email, title, "", firstName, lastName, dob, country, type, bonuslink , familyId, loyaltyNo), completion: { (result) in
                         
-                        hideLoading()
+                        switch result {
+                        case .success(let successResult):
+                            do {
+                                
+                                let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
+                                
+                                if json["status"] == "success"{
+                                    showToastMessage(json["message"].string!)
+                                    self.saveFamilyAndFriend(json["family_and_friend"].arrayObject! as [AnyObject])
+                                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadList"), object: nil)
+                                    
+                                    _ = self.navigationController?.popViewController(animated: true)
+                                }else if json["status"] == "error"{
+                                    showErrorMessage(json["message"].string!)
+                                }else if json["status"].string == "401"{
+                                    hideLoading()
+                                    showErrorMessage(json["message"].string!)
+                                    InitialLoadManager.sharedInstance.load()
+                                    
+                                    for views in (self.navigationController?.viewControllers)!{
+                                        if views.classForCoder == HomeViewController.classForCoder(){
+                                            _ = self.navigationController?.popToViewController(views, animated: true)
+                                            AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                        }
+                                    }
+                                }
+                                hideLoading()
+                            }
+                            catch {
+                                
+                            }
+                            
+                        case .failure(let failureResult):
+                            
+                            hideLoading()
+                            
+                            showErrorMessage(failureResult.localizedDescription)
+                        }
                         
-                        showErrorMessage(failureResult.localizedDescription)
-                    }
-                    
-                })
+                    })
+                }
+                
             }
             
         }

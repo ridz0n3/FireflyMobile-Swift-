@@ -218,6 +218,7 @@ class PaymentSummaryViewController: BaseViewController, UITableViewDelegate, UIT
                         
                         let storyboard = UIStoryboard(name: "BookFlight", bundle: nil)
                         let paymentVC = storyboard.instantiateViewController(withIdentifier: "PaymentVC") as! AddPaymentViewController
+                        paymentVC.signature = signature
                         paymentVC.paymentType = paymentChannel! as [AnyObject]
                         paymentVC.totalDue = amountDue
                         

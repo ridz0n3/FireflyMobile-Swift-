@@ -33,6 +33,7 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         
         return groupBookingList.count
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -104,6 +105,9 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
         
     }
     
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let sectionView = Bundle.main.loadNibNamed("PassengerHeader", owner: self, options: nil)?[0] as! PassengerHeaderView

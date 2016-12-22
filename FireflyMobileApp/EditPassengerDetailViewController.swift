@@ -11,7 +11,7 @@ import XLForm
 import SwiftyJSON
 
 class EditPassengerDetailViewController: CommonPassengerDetailViewController {
-
+    
     var passengerInformation = [Dictionary<String, AnyObject>]()
     var itineraryData = NSDictionary()
     var pnr = String()
@@ -54,7 +54,7 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             
             let adultData:[String:String] = ["passenger_code":"\(i)", "passenger_name":"Adult \(adult)"]
             adultArray.append(adultData as [String : AnyObject])
-
+            
             section = XLFormSectionDescriptor()
             section = XLFormSectionDescriptor.formSection(withTitle: "ADULT \(adult)")
             form.addFormSection(section)
@@ -134,11 +134,17 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             //section.addFormRow(row)
             
             if flightType == "FY"{
-            // Enrich Loyalty No
-            row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
-            //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
-            row.value = adultDetails[i]["bonuslink"] as! String
-            section.addFormRow(row)
+                // Bonuslink Loyalty No
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+                //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+                row.value = adultDetails[i]["bonuslink"] as! String
+                section.addFormRow(row)
+                
+                // Enrich Loyalty Number
+                row = XLFormRowDescriptor(tag: String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, adult), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Enrich Loyalty Number:")
+                //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
+                row.value = nullIfEmpty(adultDetails[i]["enrich"] as AnyObject)
+                section.addFormRow(row)
             }
             
         }
@@ -258,42 +264,48 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
         self.form = form
         
         /*
-        for adult in 1...adultCount{
-            var i = adult
-            i -= 1
-            
-            let expiredDate = (adultDetails[i]["expiration_date"] as! String).components(separatedBy: "T")
-            if adultDetails[i]["travel_document"] as! String == "P"{
-                addExpiredDateRow("adult\(adult))", date: expiredDate[0])
-            }
-            
-        }
-        
-        if infantCount != 0{
-            for infant in 1...infantCount{
-                var i = infant
-                i -= 1
-                
-                let expiredDate = (infantDetails[i]["expiration_date"] as! String).components(separatedBy: "T")
-                
-                if infantDetails[i]["travel_document"] as! String == "P"{
-                    addExpiredDateRow("infant\(infant))", date: expiredDate[0])
-                }
-                
-            }
-        }
-        
-        */
+         for adult in 1...adultCount{
+         var i = adult
+         i -= 1
+         
+         let expiredDate = (adultDetails[i]["expiration_date"] as! String).components(separatedBy: "T")
+         if adultDetails[i]["travel_document"] as! String == "P"{
+         addExpiredDateRow("adult\(adult))", date: expiredDate[0])
+         }
+         
+         }
+         
+         if infantCount != 0{
+         for infant in 1...infantCount{
+         var i = infant
+         i -= 1
+         
+         let expiredDate = (infantDetails[i]["expiration_date"] as! String).components(separatedBy: "T")
+         
+         if infantDetails[i]["travel_document"] as! String == "P"{
+         addExpiredDateRow("infant\(infant))", date: expiredDate[0])
+         }
+         
+         }
+         }
+         
+         */
     }
-
+    
     @IBAction func continueBtnPressed(_ sender: AnyObject) {
         validateForm()
         
         if isValidate{
-            //if checkValidation(){
-                let params = getFormData()
+            
+            let params = getFormData()
+            
+            if params.6{
                 
-                showLoading() 
+                showErrorMessage("Enrich loyalty number \(params.7)is invalid.")
+                
+            }else{
+                
+                showLoading()
                 
                 FireFlyProvider.request(.EditPassengerDetail(params.0 as AnyObject,params.1 as AnyObject,bookingId, signature, pnr), completion: { (result) -> () in
                     
@@ -338,19 +350,21 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
                         showErrorMessage(failureResult.localizedDescription)
                     }
                 })
-            //}
+                
+            }
+            
         }
         
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

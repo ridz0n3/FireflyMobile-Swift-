@@ -240,7 +240,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
         
         // Create custom Appearance Configuration
         let appearance = SCLAlertView.SCLAppearance(
-            kCircleHeight: 40,
+            //kCircleHeight: 40,
             kTitleFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
             kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
             kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
@@ -341,6 +341,7 @@ class AddMHFlightDetailViewController: CommonMHFlightDetailViewController {
             data.dob = list["dob"] as! String//"\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = list["bonuslink_card"] as! String
+            data.enrich = list["enrich"] as! String
             data.type = list["type"] as! String
             
             if mainUser.count == 0{

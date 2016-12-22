@@ -47,9 +47,9 @@ class InitialLoadManager {
             Crashlytics.sharedInstance().setUserEmail(username)
         }
         
-        let gcmKey = ""//FIRInstanceID.instanceID().token()//""//defaults.object(forKey: "token") as! String
-        print(gcmKey)
-        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey)) { (result) -> () in
+        let gcmKey = FIRInstanceID.instanceID().token()
+        
+        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey!)) { (result) -> () in
             switch result {
             case .success(let successResult):
                 do {
@@ -181,7 +181,6 @@ class InitialLoadManager {
     func checkForAppUpdate(){
         
         let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-        let buildVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
         
         let version = defaults.object(forKey: "mobileVersion") as! Dictionary<String,AnyObject>
         

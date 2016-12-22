@@ -35,6 +35,8 @@ class CommonMHFlightDetailViewController: BaseViewController, UITableViewDelegat
         if flightDetail.count == 0{
             self.continueView.isHidden = true
         }
+        checkGoingIndexPath = IndexPath(row: 0, section: 0)
+        checkReturnIndexPath = IndexPath(row: 0, section: 0)
         // Do any additional setup after loading the view.
     }
     

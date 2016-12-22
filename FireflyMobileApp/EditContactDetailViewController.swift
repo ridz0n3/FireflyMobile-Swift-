@@ -48,13 +48,13 @@ class EditContactDetailViewController: CommonContactDetailViewController {
             let countryData = getCountryCode(formValues()[Tags.ValidationCountry]! as! String, countryArr: countryArray)
             let mobileData = formValues()[Tags.ValidationMobileHome]!  as! String
             let alternateData = nullIfEmpty(formValues()[Tags.ValidationAlternate] as AnyObject)  
-            let companyNameData = (nilIfEmpty(formValues()[Tags.ValidationCompanyName] as AnyObject)).xmlSimpleEscape
-            let address1Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine1] as AnyObject)).xmlSimpleEscape
-            let address2Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject)).xmlSimpleEscape
-            let address3Data = (nilIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject)).xmlSimpleEscape
-            let cityData = (nilIfEmpty(formValues()[Tags.ValidationTownCity] as AnyObject)).xmlSimpleEscape
-            let stateData = getStateCode(nilIfEmpty(formValues()[Tags.ValidationState] as AnyObject) , stateArr: stateArray)
-            let postcodeData = nilIfEmpty(formValues()[Tags.ValidationPostcode] as AnyObject)  
+            let companyNameData = (nullIfEmpty(formValues()[Tags.ValidationCompanyName] as AnyObject)).xmlSimpleEscape
+            let address1Data = (nullIfEmpty(formValues()[Tags.ValidationAddressLine1] as AnyObject)).xmlSimpleEscape
+            let address2Data = (nullIfEmpty(formValues()[Tags.ValidationAddressLine2] as AnyObject)).xmlSimpleEscape
+            let address3Data = (nullIfEmpty(formValues()[Tags.ValidationAddressLine3] as AnyObject)).xmlSimpleEscape
+            let cityData = (nullIfEmpty(formValues()[Tags.ValidationTownCity] as AnyObject)).xmlSimpleEscape
+            let stateData = getStateCode(nullIfEmpty(formValues()[Tags.ValidationState] as AnyObject) , stateArr: stateArray)
+            let postcodeData = nullIfEmpty(formValues()[Tags.ValidationPostcode] as AnyObject)
             
             var pnr = ""
             if let interaryInfo = itineraryData["itinerary_information"] as? Dictionary<String,String>{

@@ -41,8 +41,6 @@ extension RemoteNotificationManager : UNUserNotificationCenterDelegate {
 extension RemoteNotificationManager : FIRMessagingDelegate {
     // Receive data message on iOS 10 devices while app is in the foreground.
     func applicationReceivedRemoteMessage(_ remoteMessage: FIRMessagingRemoteMessage) {
-        
-        showInfo("t")
         print(remoteMessage.appData)
     }
 }
@@ -91,18 +89,25 @@ class RemoteNotificationManager: NSObject{
     
     func getGCMToken(deviceToken:Data){
         
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.sandbox)
-        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.prod)
+        FIRInstanceID.instanceID().setAPNSToken(deviceToken, type: FIRInstanceIDAPNSTokenType.unknown)
+        
+        if let refreshedToken = FIRInstanceID.instanceID().token() {
+            print("InstanceID token in tokenRefreshNotification: \(refreshedToken)")
+            connectToFcm()
+            InitialLoadManager.sharedInstance.load()
+        }
+
+        
         
     }
 
     func tokenRefreshNotification(_ notification: Notification) {
+        // Connect to FCM since connection may have failed when attempted before having a token.
         if let refreshedToken = FIRInstanceID.instanceID().token() {
             print("InstanceID token in tokenRefreshNotification: \(refreshedToken)")
             connectToFcm()
+            InitialLoadManager.sharedInstance.load()
         }
-        // Connect to FCM since connection may have failed when attempted before having a token.
-        
     }
     
     func connectToFcm() {

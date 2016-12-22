@@ -117,9 +117,14 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             //row.value = (passengerData["document_number"] as! String).xmlSimpleUnescape
             section.addFormRow(row)
             
-            // Enrich Loyalty No
-            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, i), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
-            //row.value = passengerData["document_number"] as! String
+            // Bonuslink Number
+            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationBonuslinkNo, i), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+            row.value = nullIfEmpty(passengerData["bonuslink"] as AnyObject)
+            section.addFormRow(row)
+            
+            // Enrich Loyalty Number
+            row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, i), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Enrich Loyalty Number:")
+            row.value = nullIfEmpty(passengerData["enrich"] as AnyObject)
             section.addFormRow(row)
             
             i += 1
@@ -234,21 +239,26 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             if !isValidate{
                 showErrorMessage("Please filled all field")
             }else{
+                var wrongEnrichNo = [Bool]()
+                var enrichArr = [String]()
+                var enrichNo = String()
+                
                 var passenger = [String:AnyObject]()
                 var count = 0
                 for data in arr{
                     if data == "true"{
                         var passengerInfo = [String:AnyObject]()
                         var passengerArray = [AnyObject]()
-                        let passengerNum = passengerArray[count] as! NSDictionary
+                        
                         passengerInfo.updateValue("Y" as AnyObject, forKey: "status")
                         passengerArray = checkInDetail["passengers"] as! [AnyObject]
+                        let passengerNum = passengerArray[count] as! NSDictionary
                         passengerInfo.updateValue(passengerNum["passenger_number"]! as AnyObject, forKey: "passenger_number")
                         passengerInfo.updateValue(getTravelDocCode(formValues()[String(format: "%@(%i)", Tags.ValidationTravelDoc, count)] as! String, docArr: travelDoc as [Dictionary<String, AnyObject>]) as AnyObject, forKey: "travel_document")
                         passengerInfo.updateValue(getCountryCode(formValues()[String(format: "%@(%i)", Tags.ValidationCountry, count)] as! String, countryArr: countryArray) as AnyObject, forKey: "issuing_country")
                         passengerInfo.updateValue((formValues()[String(format: "%@(%i)", Tags.ValidationDocumentNo, count)]! as! String).xmlSimpleEscape as AnyObject, forKey: "document_number")
                         
-                        let expiredDate = nilIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationExpiredDate, count)] as AnyObject)
+                        let expiredDate = nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationExpiredDate, count)] as AnyObject)
                         var arrangeExpDate = [String]()
                         var newExpDate = String()
                         
@@ -259,9 +269,49 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         
                         passengerInfo.updateValue(newExpDate as AnyObject, forKey: "expiration_date")
                         
-                        passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                        passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                        
+                        
+                        if nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) != ""{
+                            
+                            let loyaltyNo = nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject).uppercased()
+                            
+                            let patern = "MH[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+                            
+                            if let range = loyaltyNo.range(of:patern, options: .regularExpression) {
+                                let result = loyaltyNo.substring(with:range)
+                                
+                                let subStr = result.components(separatedBy: "MH")
+                                let cStr = subStr[1]
+                                
+                                let startIndex = cStr.index(cStr.startIndex, offsetBy: 0)
+                                let endIndex = cStr.index(cStr.startIndex, offsetBy: 7)
+                                
+                                let cRange = cStr[startIndex...endIndex]
+                                
+                                let c = Int(cRange)! % 7
+                                
+                                let kIndex = cStr.index(cStr.startIndex, offsetBy: 8)
+                                let k = cStr[kIndex...kIndex]
+                                
+                                if Int(k)! != c{
+                                    wrongEnrichNo.append(false)
+                                    enrichArr.append(loyaltyNo)
+                                }else{
+                                    passengerInfo.updateValue(loyaltyNo as AnyObject, forKey: "enrich")
+                                }
+                                
+                            }else{
+                                wrongEnrichNo.append(false)
+                                enrichArr.append(loyaltyNo)
+                            }
+                            
+                        }else{
+                            passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) as AnyObject, forKey: "enrich")
+                        }
                         
                         passenger.updateValue(passengerInfo as AnyObject, forKey: "\(count)")
+                        
                     }else{
                         var passengerInfo = [String:AnyObject]()
                         var passengerArray = [AnyObject]()
@@ -278,48 +328,71 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 let departure_station_code = checkInDetail["departure_station_code"] as! String
                 let arrival_station_code = checkInDetail["arrival_station_code"] as! String
 
-                showLoading() 
-                FireFlyProvider.request(.CheckInPassengerList(pnr, departure_station_code, arrival_station_code, signature, passenger as AnyObject), completion: { (result) -> () in
+                var enrichNoCheck = Bool()
+                if wrongEnrichNo.count != 0{
+                    enrichNoCheck = true
+                }
+                
+                var i = 1
+                for data in enrichArr{
                     
-                    switch result {
-                    case .success(let successResult):
-                        do {
-                            let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
-                            
-                            if  json["status"].string == "success"{
-                                
-                                let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
-                                let checkInDetailVC = storyboard.instantiateViewController(withIdentifier: "MobileCheckInTermVC") as! MobileCheckInTermViewController
-                                checkInDetailVC.pnr = self.pnr
-                                checkInDetailVC.termDetail = json.object as! Dictionary<String, AnyObject> 
-                                self.navigationController!.pushViewController(checkInDetailVC, animated: true)
-                                
-                            }else if json["status"].string == "401"{
-                                hideLoading()
-                                showErrorMessage(json["message"].string!)
-                                InitialLoadManager.sharedInstance.load()
-                                
-                                for views in (self.navigationController?.viewControllers)!{
-                                    if views.classForCoder == HomeViewController.classForCoder(){
-                                        _ = self.navigationController?.popToViewController(views, animated: true)
-                                        AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
-                                    }
-                                }
-                            }else{
-                                
-                                showErrorMessage(json["message"].string!)
-                            }
-                            hideLoading()
-                        }
-                        catch {
-                            
-                        }
-                        
-                    case .failure(let failureResult):
-                        hideLoading()
-                        showErrorMessage(failureResult.localizedDescription)
+                    if enrichArr.count == 1 || enrichArr.count == i{
+                        enrichNo.append("\(data) ")
+                    }else{
+                        enrichNo.append("\(data), ")
                     }
-                })
+                    
+                    i += 1
+                }
+                
+                if enrichNoCheck{
+                    showErrorMessage("Enrich loyalty number \(enrichNo)is invalid.")
+                }else{
+                    
+                    showLoading()
+                    FireFlyProvider.request(.CheckInPassengerList(pnr, departure_station_code, arrival_station_code, signature, passenger as AnyObject), completion: { (result) -> () in
+                        
+                        switch result {
+                        case .success(let successResult):
+                            do {
+                                let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
+                                
+                                if  json["status"].string == "success"{
+                                    
+                                    let storyboard = UIStoryboard(name: "MobileCheckIn", bundle: nil)
+                                    let checkInDetailVC = storyboard.instantiateViewController(withIdentifier: "MobileCheckInTermVC") as! MobileCheckInTermViewController
+                                    checkInDetailVC.pnr = self.pnr
+                                    checkInDetailVC.termDetail = json.object as! Dictionary<String, AnyObject>
+                                    self.navigationController!.pushViewController(checkInDetailVC, animated: true)
+                                    
+                                }else if json["status"].string == "401"{
+                                    hideLoading()
+                                    showErrorMessage(json["message"].string!)
+                                    InitialLoadManager.sharedInstance.load()
+                                    
+                                    for views in (self.navigationController?.viewControllers)!{
+                                        if views.classForCoder == HomeViewController.classForCoder(){
+                                            _ = self.navigationController?.popToViewController(views, animated: true)
+                                            AnalyticsManager.sharedInstance.logScreen(GAConstants.homeScreen)
+                                        }
+                                    }
+                                }else{
+                                    
+                                    showErrorMessage(json["message"].string!)
+                                }
+                                hideLoading()
+                            }
+                            catch {
+                                
+                            }
+                            
+                        case .failure(let failureResult):
+                            hideLoading()
+                            showErrorMessage(failureResult.localizedDescription)
+                        }
+                    })
+                    
+                }
                 
             }
             

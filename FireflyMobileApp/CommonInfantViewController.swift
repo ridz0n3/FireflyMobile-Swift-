@@ -147,6 +147,7 @@ class CommonInfantViewController: BaseXLFormViewController {
             data.dob = list["dob"] as! String//"\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = nullIfEmpty(list["bonuslink_card"] as AnyObject)
+            data.enrich = nullIfEmpty(list["enrich"] as AnyObject)
             data.type = list["type"] as! String
             
             if mainUser.count == 0{
