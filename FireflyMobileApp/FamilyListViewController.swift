@@ -271,7 +271,7 @@ class FamilyListViewController: BaseViewController, UITableViewDelegate, UITable
                 data.dob = list["dob"] as! String
                 data.country = list["nationality"] as! String
                 data.bonuslink = list["bonuslink_card"] as! String
-                data.enrich = list["enrich"] as! String
+                data.enrich = nullIfEmpty(list["enrich"] as AnyObject)
                 data.type = list["type"] as! String
                 
                 if mainUser.count == 0{

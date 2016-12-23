@@ -67,6 +67,7 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
     }
     
     var count = 0
+    
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         showLoading()
     }
@@ -84,6 +85,32 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        
+        let check = String(describing: navigationAction.request.url).components(separatedBy: "paymentDDProcess") //.componentsSeparatedBy(by: "paymentDDProcess")
+        
+        if check.count == 1{
+            
+            if ((navigationAction.targetFrame?.isMainFrame) == nil){
+                
+                let url = navigationAction.request.url
+                let app = UIApplication.shared as UIApplication
+                
+                if app.canOpenURL(url!){
+                    app.openURL(url!)
+                }
+                
+                //self.webView?.loadRequest(navigationAction.request)
+            }
+        }else{
+            showLoading()
+            _ = self.webView?.load(navigationAction.request)
+        }
+        
+        decisionHandler(.allow)
+        
     }
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

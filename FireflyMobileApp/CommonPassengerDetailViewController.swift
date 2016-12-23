@@ -513,7 +513,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             data.dob = "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])"
             data.country = list["nationality"] as! String
             data.bonuslink = list["bonuslink_card"] as! String
-            data.enrich = list["enrich"] as! String
+            data.enrich = nullIfEmpty(list["enrich"] as AnyObject)
             data.type = list["type"] as! String
             
             if mainUser.count == 0{
