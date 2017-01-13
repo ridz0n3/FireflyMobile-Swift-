@@ -201,6 +201,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
         
         // Bonuslink Number
         row = XLFormRowDescriptor(tag: Tags.ValidationBonuslinkNo, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+        //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
         row.value = userInfo["bonuslink"]
         section.addFormRow(row)
         
@@ -250,7 +251,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
     func selectCountry(_ sender:NSNotification){
         
         country(countryCode: sender.userInfo!["countryVal"]! as! String)
-        dialCode = sender.userInfo!["dialingCode"]! as! String
+        /*dialCode = sender.userInfo!["dialingCode"]! as! String
         
         var row : XLFormRowDescriptor
         self.form.removeFormRow(withTag: Tags.ValidationMobileHome)
@@ -317,7 +318,7 @@ class UpdateInformationViewController: BaseXLFormViewController {
             
             self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)
             
-        }
+        }*/
         
     }
     

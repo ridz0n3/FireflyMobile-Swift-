@@ -115,7 +115,7 @@ class BaseXLFormViewController: XLFormViewController, MBProgressHUDDelegate {
                 
                 if empty.count == 1{
                     
-                    message += "\(validationStatus.msg),\n"
+                    message += "\(validationStatus.msg!),\n"
                     i += 1
                     
                 }else{

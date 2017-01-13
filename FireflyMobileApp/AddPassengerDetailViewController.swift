@@ -469,6 +469,8 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 showErrorMessage("Passenger name is duplicated.")
             }else if !params.5 && params.1.count != 0{
                 showErrorMessage("You can only assign one infant to one guest.")
+            }else if params.8{
+                showErrorMessage("Bonuslink number \(params.9)is invalid.")
             }else if params.6{
                 showErrorMessage("Enrich loyalty number \(params.7)is invalid.")
             }else{

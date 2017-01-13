@@ -157,8 +157,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                 let gregorianVC = storyBoard.instantiateViewController(withIdentifier: "DatePickerVC") as! RSDFDatePickerViewController
                 gregorianVC.dateSelected = departDate
                 gregorianVC.isDepart = true
-                gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)//(calendarIdentifier: NSCalendarIdentifierGregorian)!
-                //gregorianVC.calendar.locale = NSLocale.currentLocale()
+                gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)//Calendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                gregorianVC.calendar.locale = NSLocale.current
                 gregorianVC.view.backgroundColor = UIColor.orange
                 gregorianVC.typeDate = "departure"
                 self.present(gregorianVC, animated: true, completion: nil)
@@ -167,8 +167,8 @@ class EditSearchFlightViewController: BaseViewController , UITableViewDataSource
                 let gregorianVC = storyBoard.instantiateViewController(withIdentifier: "DatePickerVC") as! RSDFDatePickerViewController
                 gregorianVC.dateSelected = arrivalDate
                 gregorianVC.currentDate = departDate
-                gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)
-                //gregorianVC.calendar.locale = NSLocale.currentLocale()
+                gregorianVC.calendar = Calendar(identifier: Calendar.Identifier.gregorian)//Calendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+                gregorianVC.calendar.locale = NSLocale.current
                 gregorianVC.view.backgroundColor = UIColor.orange
                 gregorianVC.typeDate = "return"
                 self.present(gregorianVC, animated: true, completion: nil)

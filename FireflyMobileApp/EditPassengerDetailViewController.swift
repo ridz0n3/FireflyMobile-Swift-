@@ -263,33 +263,6 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
         
         self.form = form
         
-        /*
-         for adult in 1...adultCount{
-         var i = adult
-         i -= 1
-         
-         let expiredDate = (adultDetails[i]["expiration_date"] as! String).components(separatedBy: "T")
-         if adultDetails[i]["travel_document"] as! String == "P"{
-         addExpiredDateRow("adult\(adult))", date: expiredDate[0])
-         }
-         
-         }
-         
-         if infantCount != 0{
-         for infant in 1...infantCount{
-         var i = infant
-         i -= 1
-         
-         let expiredDate = (infantDetails[i]["expiration_date"] as! String).components(separatedBy: "T")
-         
-         if infantDetails[i]["travel_document"] as! String == "P"{
-         addExpiredDateRow("infant\(infant))", date: expiredDate[0])
-         }
-         
-         }
-         }
-         
-         */
     }
     
     @IBAction func continueBtnPressed(_ sender: AnyObject) {
@@ -299,7 +272,11 @@ class EditPassengerDetailViewController: CommonPassengerDetailViewController {
             
             let params = getFormData()
             
-            if params.6{
+            if params.8{
+                
+                showErrorMessage("Bonuslink number \(params.9)is invalid.")
+                
+            }else if params.6{
                 
                 showErrorMessage("Enrich loyalty number \(params.7)is invalid.")
                 

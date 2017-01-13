@@ -179,12 +179,15 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
         
     }
     
-    func getFormData()->([AnyObject], [AnyObject], String, String, Bool, Bool, Bool, String){
+    func getFormData()->([AnyObject], [AnyObject], String, String, Bool, Bool, Bool, String, Bool, String){
         var passenger = [String:AnyObject]()
         var passengerName = [String]()
         var wrongEnrichNo = [Bool]()
+        var wrongBonuslinkNo = [Bool]()
+        var bonuslinkArr = [String]()
         var enrichArr = [String]()
         var enrichNo = String()
+        var bonuslinkNo = String()
         var tempPassenger = [AnyObject]()
         
         for i in 0..<adultCount{
@@ -210,7 +213,28 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             saveAdultInfo.updateValue("" as AnyObject, forKey: "expiration_date")
  
             if flightType == "FY"{
-                saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                
+                    //saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                
+                if nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) != ""{
+                    
+                    let bonusLink = nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject)
+                    
+                    let patern = "^6018[0-9]{12}$"
+                    
+                    if bonusLink.range(of:patern, options: .regularExpression) != nil {
+                        
+                        saveAdultInfo.updateValue(bonusLink as AnyObject, forKey: "bonuslink")
+                        
+                    }else{
+                        wrongBonuslinkNo.append(false)
+                        bonuslinkArr.append(bonusLink)
+                    }
+                    
+                    
+                }else{
+                    saveAdultInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                }
                 
                 if nullIfEmpty(formValues()[String(format: "%@(adult%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) != ""{
                     
@@ -357,6 +381,23 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             
         }
         
+        var bonuslinkNoCheck = Bool()
+        if wrongBonuslinkNo.count != 0{
+            bonuslinkNoCheck = true
+        }
+        
+        var j = 1
+        for data in bonuslinkArr{
+            
+            if bonuslinkArr.count == 1 || bonuslinkArr.count == j{
+                bonuslinkNo.append("\(data) ")
+            }else{
+                bonuslinkNo.append("\(data), ")
+            }
+            
+            j += 1
+        }
+        
         var enrichNoCheck = Bool()
         if wrongEnrichNo.count != 0{
             enrichNoCheck = true
@@ -374,7 +415,7 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
             i += 1
         }
         
-        return (tempPassenger, tempInfant, bookId, signature, nameDuplicate, checkTravelWith, enrichNoCheck, enrichNo)
+        return (tempPassenger, tempInfant, bookId, signature, nameDuplicate, checkTravelWith, enrichNoCheck, enrichNo, bonuslinkNoCheck, bonuslinkNo)
     }
     
     func addExpiredDate(_ sender:NSNotification){

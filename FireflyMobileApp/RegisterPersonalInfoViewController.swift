@@ -183,6 +183,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         // BonusLink
         row = XLFormRowDescriptor(tag: Tags.ValidationBonuslinkNo, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No :")
+        //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
         section.addFormRow(row)
         
         self.form = form
@@ -212,7 +213,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         
         country(sender.userInfo!["countryVal"]! as! String)
         
-        dialCode = sender.userInfo!["dialingCode"]! as! String
+        /*dialCode = sender.userInfo!["dialingCode"]! as! String
         
         var row : XLFormRowDescriptor
         
@@ -235,7 +236,7 @@ class RegisterPersonalInfoViewController: BaseXLFormViewController {
         // Fax
         row = XLFormRowDescriptor(tag: Tags.ValidationFax, rowType: XLFormRowDescriptorTypeFloatLabeled, title:"Fax:")
         row.value = dialCode
-        self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)
+        self.form.addFormRow(row, afterRowTag: Tags.ValidationAlternate)*/
         
     }
 

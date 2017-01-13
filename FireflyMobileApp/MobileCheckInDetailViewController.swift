@@ -119,6 +119,7 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
             
             // Bonuslink Number
             row = XLFormRowDescriptor(tag: String(format: "%@(%i)", Tags.ValidationBonuslinkNo, i), rowType: XLFormRowDescriptorTypeFloatLabeled, title:"BonusLink Card No:")
+            //row.addValidator(XLFormRegexValidator(msg: "Bonuslink number is invalid", andRegexString: "^6018[0-9]{12}$"))
             row.value = nullIfEmpty(passengerData["bonuslink"] as AnyObject)
             section.addFormRow(row)
             
@@ -240,8 +241,11 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 showErrorMessage("Please filled all field")
             }else{
                 var wrongEnrichNo = [Bool]()
+                var wrongBonuslinkNo = [Bool]()
+                var bonuslinkArr = [String]()
                 var enrichArr = [String]()
                 var enrichNo = String()
+                var bonuslinkNo = String()
                 
                 var passenger = [String:AnyObject]()
                 var count = 0
@@ -269,8 +273,25 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                         
                         passengerInfo.updateValue(newExpDate as AnyObject, forKey: "expiration_date")
                         
-                        passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
-                        
+                        if nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) != ""{
+                            
+                            let bonusLink = nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject)
+                            
+                            let patern = "^6018[0-9]{12}$"
+                            
+                            if bonusLink.range(of:patern, options: .regularExpression) != nil {
+                                
+                                passengerInfo.updateValue(bonusLink as AnyObject, forKey: "bonuslink")
+                                
+                            }else{
+                                wrongBonuslinkNo.append(false)
+                                bonuslinkArr.append(bonusLink)
+                            }
+
+                            
+                        }else{
+                            passengerInfo.updateValue(nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationBonuslinkNo, count)] as AnyObject) as AnyObject, forKey: "bonuslink")
+                        }
                         
                         if nullIfEmpty(formValues()[String(format: "%@(%i)", Tags.ValidationEnrichLoyaltyNo, count)] as AnyObject) != ""{
                             
@@ -315,9 +336,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                     }else{
                         var passengerInfo = [String:AnyObject]()
                         var passengerArray = [AnyObject]()
-                        let passengerNum = passengerArray[count] as! NSDictionary
                         passengerInfo.updateValue("N" as AnyObject, forKey: "status")
                         passengerArray = checkInDetail["passengers"] as! [AnyObject]
+                        let passengerNum = passengerArray[count] as! NSDictionary
                         passengerInfo.updateValue(passengerNum["passenger_number"]! as AnyObject, forKey: "passenger_number")
                         passenger.updateValue(passengerInfo as AnyObject, forKey: "\(count)")
                     }
@@ -328,6 +349,23 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                 let departure_station_code = checkInDetail["departure_station_code"] as! String
                 let arrival_station_code = checkInDetail["arrival_station_code"] as! String
 
+                var bonuslinkNoCheck = Bool()
+                if wrongBonuslinkNo.count != 0{
+                    bonuslinkNoCheck = true
+                }
+                
+                var j = 1
+                for data in bonuslinkArr{
+                    
+                    if bonuslinkArr.count == 1 || bonuslinkArr.count == j{
+                        bonuslinkNo.append("\(data) ")
+                    }else{
+                        bonuslinkNo.append("\(data), ")
+                    }
+                    
+                    j += 1
+                }
+                
                 var enrichNoCheck = Bool()
                 if wrongEnrichNo.count != 0{
                     enrichNoCheck = true
@@ -345,7 +383,9 @@ class MobileCheckInDetailViewController: BaseXLFormViewController {
                     i += 1
                 }
                 
-                if enrichNoCheck{
+                if bonuslinkNoCheck{
+                    showErrorMessage("Bonuslink number \(bonuslinkNo)is invalid.")
+                }else if enrichNoCheck{
                     showErrorMessage("Enrich loyalty number \(enrichNo)is invalid.")
                 }else{
                     
