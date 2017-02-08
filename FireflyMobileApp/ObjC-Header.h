@@ -14,4 +14,5 @@
 #import "JVFloatLabeledTextField/JVFloatLabeledTextField.h"
 #import "NSString+ExtraMethod.h"
 #import "NSMutableString+ExtraMethod.h"
+#import <Google/Analytics.h>
 #endif /* ObjC_Header_h */

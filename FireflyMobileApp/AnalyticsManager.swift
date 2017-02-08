@@ -15,23 +15,23 @@ class AnalyticsManager: NSObject {
     
     func logScreen(_ screenName:String){
         
-        //FIRAnalytics.setScreenName(screenName, screenClass: )
-       /* let tracker = GAI.sharedInstance().defaultTracker
-        tracker?.set(kGAIScreenName, value: screenName)
+        guard let tracker = GAI.sharedInstance().defaultTracker else { return }
+        tracker.allowIDFACollection = true
+        tracker.set(kGAIScreenName, value: "home")
         
-        let builder = _DictionaryBuilder.createScreenView()
-        //tracker!.send((builder?.build())! as NSMutableDictionary)*/
-    
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker.send(builder.build() as [NSObject : AnyObject])
+        
     }
     
     func logEvent(_ tagCategory:String, tagEvent:String, tagLabel:String, tagValue:String){
-       /* let tracker = GAI.sharedInstance().defaultTracker
+        let tracker = GAI.sharedInstance().defaultTracker
         tracker?.set(kGAIEventCategory, value:tagCategory)
         tracker?.set(kGAIEventAction, value:tagEvent)
         tracker?.set(kGAIEventLabel, value:tagLabel)
         tracker?.set(kGAIEventValue, value:tagValue)
-        let builder = GAIDictionaryBuilder.createScreenView()
-        //tracker?.send(builder?.build() as [NSObject : AnyObject])
-        */
+        guard let builder = GAIDictionaryBuilder.createScreenView() else { return }
+        tracker?.send(builder.build() as [NSObject : AnyObject])
+        
     }
 }
