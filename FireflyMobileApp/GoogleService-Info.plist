@@ -9,21 +9,21 @@
 	<key>TRACKING_ID</key>
 	<string>UA-74653909-1</string>
 	<key>CLIENT_ID</key>
-	<string>1008446043585-es4eo86aiavb336bjulobpud0f0625lp.apps.googleusercontent.com</string>
+	<string>840252131678-qekdll3pbalnsga6uabsa2jmun1ktv9t.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1008446043585-es4eo86aiavb336bjulobpud0f0625lp</string>
+	<string>com.googleusercontent.apps.840252131678-qekdll3pbalnsga6uabsa2jmun1ktv9t</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC6Grf2RE23MwS5k8PChPCPqtsl6Ynfqug</string>
+	<string>AIzaSyCehp-EaOELTDe17CWIt0ggkwF2lH7tJb4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1008446043585</string>
+	<string>840252131678</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>Firefly.Mobile</string>
 	<key>PROJECT_ID</key>
-	<string>fy-mobile</string>
+	<string>firefly-mobile-v2</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fy-mobile.appspot.com</string>
+	<string>firefly-mobile-v2.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -35,8 +35,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1008446043585:ios:f6bbf5d7e78287e1</string>
+	<string>1:840252131678:ios:f6bbf5d7e78287e1</string>
 	<key>DATABASE_URL</key>
-	<string>https://fy-mobile.firebaseio.com</string>
+	<string>https://firefly-mobile-v2.firebaseio.com</string>
 </dict>
 </plist>

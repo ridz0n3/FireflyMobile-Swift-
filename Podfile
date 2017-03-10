@@ -25,6 +25,7 @@ pod 'Fabric'
 pod 'Crashlytics'
 pod 'Firebase/Core'
 pod 'Firebase/Messaging'
+pod 'Google/SignIn'
 end
 
 target 'FireflyMobileAppTests' do
