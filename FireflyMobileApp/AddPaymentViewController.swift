@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftyJSON
+import Crashlytics
 
 class AddPaymentViewController: CommonPaymentViewController {
     var book = String()
@@ -52,7 +53,14 @@ class AddPaymentViewController: CommonPaymentViewController {
                         let info = self.formValues()[Tags.SaveFamilyAndFriend] as! NSDictionary
                         
                         if info["status"] as! Bool{
-                            personID = defaults.object(forKey: "personID") as! String
+                            //CLSLogv("Parameter: %@", getVaList([defaults.object(forKey: "personID")]))
+                            
+                            if let id = defaults.object(forKey: "personID"){
+                                personID = id as! String
+                            }else{
+                                personID = ""
+                            }
+                            
                             accNumber = cardInfo["account_number_id"] as! String
                         }
                     }

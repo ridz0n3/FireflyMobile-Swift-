@@ -138,9 +138,9 @@ class PaymentWebViewController: BaseViewController, UIScrollViewDelegate, WKScri
     }
     
     func userContentController(_ userContentController: WKUserContentController,didReceive message: WKScriptMessage) {
-        //
+        showLoading()
         if(message.name == "callbackHandler") {
-            showLoading() 
+            
             FireFlyProvider.request(.FlightSummary(signature), completion: { (result) -> () in
                 
                 switch result {

@@ -49,6 +49,8 @@ class InitialLoadManager {
         
         let gcmKey = FIRInstanceID.instanceID().token()
         
+        CLSLogv("Parameter: %@ %@ %@ %@ %@ %@ %@ %@", getVaList([username,password,UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey!]))
+        
         FireFlyProvider.request(.Loading("",username,password,"",UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey!)) { (result) -> () in
             switch result {
             case .success(let successResult):

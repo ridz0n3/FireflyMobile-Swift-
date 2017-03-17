@@ -17,6 +17,9 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     @IBOutlet weak var footerView: UIView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var continueBtn: UIButton!
+    @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var line1Lbl: UILabel!
+    @IBOutlet weak var line2Lbl: UILabel!
     
     var userInfo = NSDictionary()
     var adultList = [AnyObject]()
@@ -40,6 +43,31 @@ class CommonPassengerDetailViewController: BaseXLFormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         continueBtn.layer.cornerRadius = 10
+        infoView.layer.borderWidth = 1
+        infoView.layer.borderColor = UIColor(colorLiteralRed: 236/255, green: 88/255, blue: 26/255, alpha: 1.0).cgColor
+        
+        // create attributed string
+        let line1 = " Names should be entered in full as per official travel documents used. Name amendment after booking confirmation may result inName Admendment Fee."
+        let attrString = NSAttributedString(string: line1)
+        let myString = "1. Passenger Names:"
+        let myAttribute = [NSFontAttributeName : UIFont.boldSystemFont(ofSize: 10)]
+        let myAttrString = NSMutableAttributedString(string: myString, attributes: myAttribute)
+        myAttrString.append(attrString)
+        
+        // set attributed text on a UILabel
+        line1Lbl.attributedText = myAttrString
+        
+        // create attributed string
+        let line2 = " Passenger with single-word names (e.g. just \"Suria\") please update as \"Suria\" in the First/Given Name and \"Suria\" in the Last/Family Name field."
+        let attrString2 = NSAttributedString(string: line2)
+        let myString2 = "2. Single-Word Passenger Name(s):"
+        let myAttribute2 = [NSFontAttributeName : UIFont.boldSystemFont(ofSize: 10)]
+        let myAttrString2 = NSMutableAttributedString(string: myString2, attributes: myAttribute2)
+        myAttrString2.append(attrString2)
+        
+        // set attributed text on a UILabel
+        line2Lbl.attributedText = myAttrString2
+        
         self.tableView.tableHeaderView = headerView
         self.tableView.tableFooterView = footerView
         setupLeftButton()

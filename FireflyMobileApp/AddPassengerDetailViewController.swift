@@ -10,6 +10,7 @@ import UIKit
 import SwiftyJSON
 import XLForm
 import RealmSwift
+import Crashlytics
 
 class AddPassengerDetailViewController: CommonPassengerDetailViewController {
     
@@ -62,6 +63,7 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 }
                 
                 if !isContinue{
+                    CLSLogv("Parameter: %i", getVaList([familyAndFriendList.count]))
                     if familyAndFriendList.count == 0{
                         data = ["title" : userInfo["title"]! as AnyObject,
                                 "first_name" : userInfo["first_name"]! as AnyObject,
