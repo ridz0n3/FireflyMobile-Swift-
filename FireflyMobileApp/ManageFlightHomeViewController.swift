@@ -188,20 +188,22 @@ class ManageFlightHomeViewController: BaseViewController , UITableViewDelegate, 
             
             if data["flight_status"] as! String == "available"{
                 
+                let locale = "\(Locale.current)"
+                CLSLogv("Parameter: %@ %@ %@", getVaList([locale, data["departure_time"] as! String, data["arrival_time"] as! String]))
+                
                 isAvailable = true
                 
+                let depart = "\((data["date"] as! String).components(separatedBy: ", ")[1]) \(data["departure_time"] as! String)"
+                let arrival = "\((data["date"] as! String).components(separatedBy: ", ")[1]) \(data["arrival_time"] as! String)"
                 let formater = DateFormatter()
-                formater.dateFormat = "hh:mma"
+                formater.dateFormat = "dd MM yyyy hh:mma"
                 let twentyFour = Locale(identifier: "en_GB")
                 formater.locale = twentyFour
-                let time1 = formater.date(from: data["departure_time"] as! String)
-                let time2 = formater.date(from: data["arrival_time"] as! String)
+                let time1 = formater.date(from: depart)
+                let time2 = formater.date(from: arrival)
                 
-                CLSLogv("Parameter: %@ %@ %@", getVaList([Locale.current as CVarArg, time1 as! CVarArg, time2 as! CVarArg]))
                 let unitFlags = Set<Calendar.Component>([.hour])
                 let timeDifference = Calendar.current.dateComponents(unitFlags, from: time1!, to: time2!).hour
-                //let timeDifference = NSCalendar.currentCalendar().components(.Hour, fromDate: time1!, toDate: time2!, options: []).hour
-                //print(timeDifference)
                 
                 if timeDifference! > 0{
                     ssrAvailable = true

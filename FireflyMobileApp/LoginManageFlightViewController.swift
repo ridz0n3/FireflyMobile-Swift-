@@ -133,63 +133,70 @@ class LoginManageFlightViewController: BaseViewController, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if groupBookingList["Active"]?.count != 0 || groupBookingList["notActive"]?.count != 0{
-            
-            var bookingList = NSDictionary()
-            
-            if indexPath.section == 0{
+        var bookingList = NSDictionary()
+        
+        if indexPath.section == 0{
+            if groupBookingList["Active"]?.count != 0{
                 let bookingData = groupBookingList["Active"] as! [AnyObject]
                 bookingList = bookingData[indexPath.row] as! NSDictionary
-            }else{
+                
+                getData(bookingList)
+            }
+        }else if indexPath.section == 1{
+            if groupBookingList["notActive"]?.count != 0{
                 let bookingData = groupBookingList["notActive"] as! [AnyObject]
                 bookingList = bookingData[indexPath.row] as! NSDictionary
-            }
-            
-            //let bookingList = listBooking[indexPath.row] as! NSDictionary
-            let userInfo = defaults.object(forKey: "userInfo") as! [String:AnyObject]
-            let username = userInfo["username"] as! String
-            let customerNumber = defaults.object(forKey: "customer_number") as! String
-            
-            defaults.setValue(username, forKey: "userName")
-            defaults.setValue(userId, forKey: "userID")
-            defaults.synchronize()
-            
-            showLoading()
-            FireFlyProvider.request(.RetrieveBooking(signature, bookingList["pnr"] as! String,username, userId, customerNumber)) { (result) -> () in
                 
-                switch result {
-                case .success(let successResult):
-                    do {
-                        let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
-                        
-                        if json["status"] == "success"{
-                            
-                            defaults.set(json.object, forKey: "manageFlight")
-                            defaults.synchronize()
-                            
-                            let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
-                            let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
-                            manageFlightVC.isLogin = true
-                            self.navigationController!.pushViewController(manageFlightVC, animated: true)
-                            
-                        }else if json["status"].string == "error"{
-                            
-                            showErrorMessage(json["message"].string!)
-                        }
-                        hideLoading()
-                    }
-                    catch {
-                        
-                    }
-                    
-                case .failure(let failureResult):
-                    hideLoading()
-                    showErrorMessage(failureResult.localizedDescription)
-                }
-                
+                getData(bookingList)
             }
         }
         
+    }
+    
+    func getData(_ bookingList: NSDictionary){
+        //let bookingList = listBooking[indexPath.row] as! NSDictionary
+        let userInfo = defaults.object(forKey: "userInfo") as! [String:AnyObject]
+        let username = userInfo["username"] as! String
+        let customerNumber = defaults.object(forKey: "customer_number") as! String
+        
+        defaults.setValue(username, forKey: "userName")
+        defaults.setValue(userId, forKey: "userID")
+        defaults.synchronize()
+        
+        showLoading()
+        FireFlyProvider.request(.RetrieveBooking(signature, bookingList["pnr"] as! String,username, userId, customerNumber)) { (result) -> () in
+            
+            switch result {
+            case .success(let successResult):
+                do {
+                    let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
+                    
+                    if json["status"] == "success"{
+                        
+                        defaults.set(json.object, forKey: "manageFlight")
+                        defaults.synchronize()
+                        
+                        let storyboard = UIStoryboard(name: "ManageFlight", bundle: nil)
+                        let manageFlightVC = storyboard.instantiateViewController(withIdentifier: "ManageFlightMenuVC") as! ManageFlightHomeViewController
+                        manageFlightVC.isLogin = true
+                        self.navigationController!.pushViewController(manageFlightVC, animated: true)
+                        
+                    }else if json["status"].string == "error"{
+                        
+                        showErrorMessage(json["message"].string!)
+                    }
+                    hideLoading()
+                }
+                catch {
+                    
+                }
+                
+            case .failure(let failureResult):
+                hideLoading()
+                showErrorMessage(failureResult.localizedDescription)
+            }
+            
+        }
     }
     /*
      // MARK: - Navigation

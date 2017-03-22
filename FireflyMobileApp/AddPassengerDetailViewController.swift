@@ -34,10 +34,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if isContinue{
+        /*if isContinue{
             loadFamilyAndFriendData()
             initializeForm()
-        }
+        }*/
         
     }
     
@@ -60,42 +60,10 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                 if mainUser[0].familyList.count != 0{
                     familyAndFriendList = mainUser[0].familyList
                     rearrangeFamily()
-                }
-                
-                if !isContinue{
-                    CLSLogv("Parameter: %i", getVaList([familyAndFriendList.count]))
-                    if familyAndFriendList.count == 0{
-                        data = ["title" : userInfo["title"]! as AnyObject,
-                                "first_name" : userInfo["first_name"]! as AnyObject,
-                                "last_name" : userInfo["last_name"]! as AnyObject,
-                                "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])" as AnyObject,
-                                "issuing_country" : userInfo["contact_country"]! as AnyObject,
-                                "bonuslink" : userInfo["bonuslink"]! as AnyObject,
-                                "enrich" : "" as AnyObject,
-                                "Save" : false as AnyObject]
-                        adultInfo.updateValue(data as AnyObject, forKey: "0")
-                    }else{
-                        var countExist = 0
-                        for tempInfo in familyAndFriendList{
-                            
-                            if (tempInfo.title == userInfo["title"]! as! String) && (tempInfo.firstName == userInfo["first_name"]! as! String) && (tempInfo.lastName == userInfo["last_name"]! as! String) {
-                                data = ["id" : tempInfo.id as AnyObject,
-                                        "title" : tempInfo.title as AnyObject,
-                                        "gender" : tempInfo.gender as AnyObject,
-                                        "first_name" : tempInfo.firstName as AnyObject,
-                                        "last_name" : tempInfo.lastName as AnyObject,
-                                        "dob2" : tempInfo.dob as AnyObject,
-                                        "issuing_country" : tempInfo.country as AnyObject,
-                                        "bonuslink" : tempInfo.bonuslink as AnyObject,
-                                        "enrich" : tempInfo.enrich as AnyObject,
-                                        "type" : tempInfo.type as AnyObject,
-                                        "Save" : false as AnyObject]
-                                adultInfo.updateValue(data as AnyObject, forKey: "0")
-                                countExist += 1
-                            }
-                        }
-                        
-                        if countExist == 0{
+                    
+                    if !isContinue{
+                        CLSLogv("Parameter: %i", getVaList([familyAndFriendList.count]))
+                        if familyAndFriendList.count == 0{
                             data = ["title" : userInfo["title"]! as AnyObject,
                                     "first_name" : userInfo["first_name"]! as AnyObject,
                                     "last_name" : userInfo["last_name"]! as AnyObject,
@@ -105,9 +73,55 @@ class AddPassengerDetailViewController: CommonPassengerDetailViewController {
                                     "enrich" : "" as AnyObject,
                                     "Save" : false as AnyObject]
                             adultInfo.updateValue(data as AnyObject, forKey: "0")
+                        }else{
+                            var countExist = 0
+                            for tempInfo in familyAndFriendList{
+                                
+                                if (tempInfo.title == userInfo["title"]! as! String) && (tempInfo.firstName == userInfo["first_name"]! as! String) && (tempInfo.lastName == userInfo["last_name"]! as! String) {
+                                    data = ["id" : tempInfo.id as AnyObject,
+                                            "title" : tempInfo.title as AnyObject,
+                                            "gender" : tempInfo.gender as AnyObject,
+                                            "first_name" : tempInfo.firstName as AnyObject,
+                                            "last_name" : tempInfo.lastName as AnyObject,
+                                            "dob2" : tempInfo.dob as AnyObject,
+                                            "issuing_country" : tempInfo.country as AnyObject,
+                                            "bonuslink" : tempInfo.bonuslink as AnyObject,
+                                            "enrich" : tempInfo.enrich as AnyObject,
+                                            "type" : tempInfo.type as AnyObject,
+                                            "Save" : false as AnyObject]
+                                    adultInfo.updateValue(data as AnyObject, forKey: "0")
+                                    countExist += 1
+                                }
+                            }
+                            
+                            if countExist == 0{
+                                data = ["title" : userInfo["title"]! as AnyObject,
+                                        "first_name" : userInfo["first_name"]! as AnyObject,
+                                        "last_name" : userInfo["last_name"]! as AnyObject,
+                                        "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])" as AnyObject,
+                                        "issuing_country" : userInfo["contact_country"]! as AnyObject,
+                                        "bonuslink" : userInfo["bonuslink"]! as AnyObject,
+                                        "enrich" : "" as AnyObject,
+                                        "Save" : false as AnyObject]
+                                adultInfo.updateValue(data as AnyObject, forKey: "0")
+                            }
                         }
                     }
+                }else{
+                    familyAndFriendList = nil
+                    rearrangeFamily()
+                    data = ["title" : userInfo["title"]! as AnyObject,
+                            "first_name" : userInfo["first_name"]! as AnyObject,
+                            "last_name" : userInfo["last_name"]! as AnyObject,
+                            "dob2" : "\(dateArr[2])-\(dateArr[1])-\(dateArr[0])" as AnyObject,
+                            "issuing_country" : userInfo["contact_country"]! as AnyObject,
+                            "bonuslink" : userInfo["bonuslink"]! as AnyObject,
+                            "enrich" : "" as AnyObject,
+                            "Save" : false as AnyObject]
+                    adultInfo.updateValue(data as AnyObject, forKey: "0")
                 }
+                
+                
             }else{
                 
                 familyAndFriendList = nil

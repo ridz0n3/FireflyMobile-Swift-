@@ -77,7 +77,6 @@
                 
                 showLoading() 
                 
-                
                 FireFlyProvider.request(.Login(username, encPassword), completion: { (result) -> () in
                     
                     switch result {
