@@ -71,7 +71,7 @@ internal struct Tags {
     
 }
 
-struct GAConstants {
+internal struct GAConstants {
     
     static let homeScreen = "Home";
     static let aboutUsScreen = "About Us";

@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "511863022.332038"
+            timestampString = "511864407.62505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "428"
-            endingLineNumber = "428"
+            startingLineNumber = "427"
+            endingLineNumber = "427"
             landmarkName = "retrieveBoardingList(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -682,7 +682,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/EditPassengerDetailViewController.swift"
-            timestampString = "505629488.606005"
+            timestampString = "511867657.583207"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "275"
@@ -970,7 +970,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/EditPassengerDetailViewController.swift"
-            timestampString = "504065767.450522"
+            timestampString = "511867657.583207"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "52"
@@ -1386,7 +1386,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/EditPassengerDetailViewController.swift"
-            timestampString = "505629957.467097"
+            timestampString = "511867657.583207"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "274"
@@ -1642,11 +1642,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/HomeViewController.swift"
-            timestampString = "511863022.332038"
+            timestampString = "511864407.62505"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "585"
-            endingLineNumber = "585"
+            startingLineNumber = "584"
+            endingLineNumber = "584"
             landmarkName = "retrieveCheckInList(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1846,7 +1846,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
@@ -1862,7 +1862,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
@@ -1887,6 +1887,70 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "48"
             endingLineNumber = "48"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
+            timestampString = "511864489.47308"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "575"
+            endingLineNumber = "575"
+            landmarkName = "EditPassengerBtnPressed(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/EditPassengerDetailViewController.swift"
+            timestampString = "511867657.583207"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/ManageFlightHomeViewController.swift"
+            timestampString = "511866826.952368"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "getInfo()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireflyMobileApp/CommonPassengerDetailViewController.swift"
+            timestampString = "511867569.933857"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
