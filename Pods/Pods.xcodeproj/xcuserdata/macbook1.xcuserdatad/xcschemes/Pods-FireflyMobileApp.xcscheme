@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E601A68AE6DA32624BEC8E2F227372D0"
+               BlueprintIdentifier = "3B1AF07F6D6D0F42AE09D19F112594CD"
                BuildableName = "Pods_FireflyMobileApp.framework"
                BlueprintName = "Pods-FireflyMobileApp"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E601A68AE6DA32624BEC8E2F227372D0"
+            BlueprintIdentifier = "3B1AF07F6D6D0F42AE09D19F112594CD"
             BuildableName = "Pods_FireflyMobileApp.framework"
             BlueprintName = "Pods-FireflyMobileApp"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -928,7 +928,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhI-b7-PY0">
-                                            <rect key="frame" x="16" y="285" width="343" height="40"/>
+                                            <rect key="frame" x="16" y="237" width="343" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="XUo-Fk-l0j"/>
                                             </constraints>
@@ -1056,19 +1056,6 @@
                                                 <constraint firstItem="38x-bP-BQG" firstAttribute="leading" secondItem="dqM-RY-TYI" secondAttribute="leading" constant="8" id="zxh-d5-mYi"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWl-xN-fec">
-                                            <rect key="frame" x="16" y="237" width="343" height="40"/>
-                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="0lx-Wh-QDE"/>
-                                            </constraints>
-                                            <state key="normal" title="Continue without seat selection ">
-                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="continuePaymentBtnPressed:" destination="TwG-Sw-9p9" eventType="touchUpInside" id="Upe-zN-u3s"/>
-                                            </connections>
-                                        </button>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oHj-cX-GN4">
                                             <rect key="frame" x="16" y="38" width="343" height="163.5"/>
                                             <subviews>
@@ -1140,6 +1127,19 @@
                                                 </mask>
                                             </variation>
                                         </view>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YWl-xN-fec">
+                                            <rect key="frame" x="16" y="285" width="343" height="40"/>
+                                            <color key="backgroundColor" red="0.92549019610000005" green="0.34509803919999998" blue="0.1019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="0lx-Wh-QDE"/>
+                                            </constraints>
+                                            <state key="normal" title="Continue without seat selection ">
+                                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="continuePaymentBtnPressed:" destination="TwG-Sw-9p9" eventType="touchUpInside" id="Upe-zN-u3s"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
@@ -1147,14 +1147,14 @@
                                         <constraint firstAttribute="trailing" secondItem="YWl-xN-fec" secondAttribute="trailing" constant="16" id="1gI-zn-slD"/>
                                         <constraint firstItem="WcS-kt-hFh" firstAttribute="top" secondItem="dqM-RY-TYI" secondAttribute="bottom" id="7v7-b6-U9e"/>
                                         <constraint firstAttribute="trailing" secondItem="oHj-cX-GN4" secondAttribute="trailing" constant="16" id="8d3-4I-cOh"/>
-                                        <constraint firstAttribute="bottom" secondItem="EhI-b7-PY0" secondAttribute="bottom" constant="8" id="D5u-Xa-HQI"/>
                                         <constraint firstItem="dqM-RY-TYI" firstAttribute="leading" secondItem="jvh-PF-TRW" secondAttribute="leading" constant="16" id="GHs-Ic-oJC"/>
                                         <constraint firstAttribute="trailing" secondItem="dqM-RY-TYI" secondAttribute="trailing" constant="16" id="PiI-QN-SES"/>
                                         <constraint firstItem="oHj-cX-GN4" firstAttribute="top" secondItem="dqM-RY-TYI" secondAttribute="bottom" id="SX4-YE-gaQ"/>
-                                        <constraint firstItem="EhI-b7-PY0" firstAttribute="top" secondItem="YWl-xN-fec" secondAttribute="bottom" constant="8" id="VQq-Fq-Zsy"/>
                                         <constraint firstAttribute="trailing" secondItem="EhI-b7-PY0" secondAttribute="trailing" constant="16" id="WAQ-rJ-l9V"/>
                                         <constraint firstItem="WcS-kt-hFh" firstAttribute="leading" secondItem="jvh-PF-TRW" secondAttribute="leading" constant="16" id="XZu-9G-v1n"/>
+                                        <constraint firstAttribute="bottom" secondItem="YWl-xN-fec" secondAttribute="bottom" constant="8" id="XbO-LN-ftC"/>
                                         <constraint firstItem="EhI-b7-PY0" firstAttribute="leading" secondItem="jvh-PF-TRW" secondAttribute="leading" constant="16" id="bWP-Gq-9Gw"/>
+                                        <constraint firstItem="YWl-xN-fec" firstAttribute="top" secondItem="EhI-b7-PY0" secondAttribute="bottom" constant="8" id="gM7-Vf-AgA"/>
                                         <constraint firstItem="YWl-xN-fec" firstAttribute="leading" secondItem="jvh-PF-TRW" secondAttribute="leading" constant="16" id="ic2-TQ-6F5"/>
                                         <constraint firstItem="dqM-RY-TYI" firstAttribute="top" secondItem="jvh-PF-TRW" secondAttribute="top" id="nxB-Tf-CI5"/>
                                         <constraint firstItem="oHj-cX-GN4" firstAttribute="leading" secondItem="jvh-PF-TRW" secondAttribute="leading" constant="16" id="x37-z0-RJ4"/>
