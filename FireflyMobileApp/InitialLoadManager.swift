@@ -11,6 +11,7 @@ import SwiftyJSON
 import SlideMenuControllerSwift
 import Crashlytics
 import Firebase
+
 class InitialLoadManager {
     
     static let sharedInstance = InitialLoadManager()

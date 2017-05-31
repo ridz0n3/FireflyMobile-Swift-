@@ -297,7 +297,6 @@ func showToastMessage(_ message:String){
     let alertViewIcon = UIImage(named: "alertIcon")
     let messageView = SCLAlertView(appearance: appearance)
     messageView.showSuccess("Success", subTitle:message, closeButtonTitle : "Close", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
-    
 }
 
 func showNotif(_ title : String, message:String){
@@ -309,11 +308,49 @@ func showNotif(_ title : String, message:String){
         kTextFont: UIFont(name: "HelveticaNeue", size: 14)!,
         kButtonFont: UIFont(name: "HelveticaNeue-Bold", size: 14)!,
         showCircularIcon: true
-        
     )
-    let alertViewIcon = UIImage(named: "alertIcon")
+    
+    // Initialize SCLAlertView using custom Appearance
     let infoView = SCLAlertView(appearance:appearance)
-    infoView.showInfo(title, subTitle: message, closeButtonTitle: "Close", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
+    let alertViewIcon = UIImage(named: "alertIcon")
+    
+    let tempMessage = message.components(separatedBy: "http")
+    
+    if tempMessage.count > 1 {
+        
+        let link = "http\(message.components(separatedBy: "http")[1].components(separatedBy: " ")[0])"
+        let newMessage = message.replacingOccurrences(of: link, with: "<a href='\(link)' style='color:red;text-decoration:none;' target='_blank'>\(link)</a>")
+        
+        // Creat the subview
+        var subview = UIView(frame: CGRect(x: 0, y: 0, width: 216, height: 70))
+        
+        //Add UITextView and Init Html
+        var textView = UITextView(frame: CGRect(x: 0, y: 0, width: 216, height: 70))
+        textView.attributedText = newMessage.html2String
+        textView.font = UIFont(name: "HelveticaNeue", size: 14)!
+        textView.textAlignment = NSTextAlignment.center
+        textView.textColor = UIColor.gray
+        textView.backgroundColor = UIColor.clear
+        textView.isEditable = false
+        
+        //Change Container Size
+        let contentHeight = textView.contentSize.height
+        subview = UIView(frame: CGRect(x: 0, y: 0, width: 216, height: contentHeight))
+        textView = UITextView(frame: CGRect(x: 0, y: 0, width: 216, height: contentHeight))
+        textView.attributedText = newMessage.html2String
+        textView.font = UIFont(name: "HelveticaNeue", size: 14)!
+        textView.textAlignment = NSTextAlignment.center
+        textView.textColor = UIColor.gray
+        textView.backgroundColor = UIColor.clear
+        textView.isEditable = false
+        
+        // Add the subview to the alert's UI property
+        subview.addSubview(textView)
+        infoView.customSubview = subview
+        infoView.showInfo(title, subTitle: message, closeButtonTitle: "Close", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
+    } else {
+        infoView.showInfo(title, subTitle: message, closeButtonTitle: "Close", colorStyle: 0xEC581A, circleIconImage: alertViewIcon)
+    }
     
 }
 
