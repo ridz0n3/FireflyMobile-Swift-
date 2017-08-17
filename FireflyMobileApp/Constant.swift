@@ -28,6 +28,16 @@ var genderArray : [Dictionary<String, String>] = [["gender_code":"Female","gende
 var titleArray = defaults.object(forKey: "title") as! [Dictionary<String,AnyObject>]
 var countryArray = defaults.object(forKey: "country") as! [Dictionary<String,AnyObject>]
 
+struct Platform {
+    static let isSimulator: Bool = {
+        var isSim = false
+        #if arch(i386) || arch(x86_64)
+            isSim = true
+        #endif
+        return isSim
+    }()
+}
+
 internal struct Tags {
     static let ValidationUsername = "Email"
     static let ValidationPassword = "Password"

@@ -65,6 +65,8 @@
         }
         
         @IBAction func loginButtonPressed(_ sender: AnyObject) {
+
+            view.endEditing(true)
             
             validateForm()
             
@@ -85,10 +87,6 @@
                             let json = try JSON(JSONSerialization.jsonObject(with: successResult.data, options: .mutableContainers))
                             
                             if  json["status"].string == "success"{
-                                
-                                if json["user_info"]["username"].string == "ridz0n391@gmail.com"{
-                                    showInfo("Hi, Developer")
-                                }
                                 
                                 defaults.set(json["user_info"]["signature"].string, forKey: "signatureLoad")
                                 defaults.set(json["user_info"].object , forKey: "userInfo")

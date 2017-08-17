@@ -47,12 +47,22 @@ class InitialLoadManager {
             password = userinfo["password"] as! String
             Crashlytics.sharedInstance().setUserEmail(username)
         }
+
+        var gcmKey = String()
+
+        if Platform.isSimulator {
+            gcmKey = "Simulator IOS"
+        } else {
+            if let refreshedToken = FIRInstanceID.instanceID().token(){
+                gcmKey = refreshedToken
+            } else {
+                gcmKey = "Error (IOS)"
+            }
+        }
         
-        let gcmKey = FIRInstanceID.instanceID().token()
+        CLSLogv("Parameter: %@ %@ %@ %@ %@ %@ %@ %@", getVaList([username,password,UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey]))
         
-        CLSLogv("Parameter: %@ %@ %@ %@ %@ %@ %@ %@", getVaList([username,password,UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey!]))
-        
-        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey!)) { (result) -> () in
+        FireFlyProvider.request(.Loading("",username,password,"",UIDevice.current.systemVersion,deviceId!,"Apple",UIDevice.current.modelName,existDataVersion, gcmKey)) { (result) -> () in
             switch result {
             case .success(let successResult):
                 do {
